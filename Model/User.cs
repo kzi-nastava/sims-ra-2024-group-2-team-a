@@ -3,11 +3,13 @@ using System;
 
 namespace BookingApp.Model
 {
+    public enum UserCategory { Owner, Guest, Guide, Tourist }
     public class User : ISerializable
     {
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public UserCategory Category { get; set; }
 
         public User() { }
 
@@ -19,7 +21,7 @@ namespace BookingApp.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password };
+            string[] csvValues = { Id.ToString(), Username, Password, Category.ToString() };
             return csvValues;
         }
 
@@ -28,6 +30,8 @@ namespace BookingApp.Model
             Id = Convert.ToInt32(values[0]);
             Username = values[1];
             Password = values[2];
+            Enum.TryParse(values[3], out UserCategory tmp);
+            Category = tmp;
         }
     }
 }
