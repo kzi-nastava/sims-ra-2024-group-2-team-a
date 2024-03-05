@@ -1,7 +1,9 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace BookingApp.View
 {
@@ -19,6 +21,10 @@ namespace BookingApp.View
 
         private readonly CommentRepository _repository;
 
+        /*private readonly AccomodationRepository _accomodationRep;
+
+        private readonly LocationRepository _locationRep;*/
+
         public CommentsOverview(User user)
         {
             InitializeComponent();
@@ -26,6 +32,25 @@ namespace BookingApp.View
             LoggedInUser = user;
             _repository = new CommentRepository();
             Comments = new ObservableCollection<Comment>(_repository.GetByUser(user));
+
+            //Testiranje Repositorija
+
+            /*_accomodationRep = new AccomodationRepository();
+            _locationRep = new LocationRepository();
+            string[] profPics = {};
+
+            Location loc = new Location("Ns","Srb");
+            loc = _locationRep.Save(loc);
+            _locationRep.Delete(loc);
+
+            Accomodation acc = new Accomodation("Ime", loc, AccomodationType.apartment,
+            5, 1, 5, profPics);
+            acc.Id = 0;
+
+            _accomodationRep.Save(acc);
+            acc.Name = "Novo ime";
+            _accomodationRep.Update(acc);
+            _accomodationRep.Delete(acc);*/
         }
 
         private void ShowCreateCommentForm(object sender, RoutedEventArgs e)
