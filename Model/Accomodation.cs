@@ -21,11 +21,17 @@ namespace BookingApp.Model
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
         public int LastCancellationDay { get; set; }
-        public string[] ProfilePictures { get; set; }
+
+        public int OwnerId { get; set; }
+
+        public List<int> GuestId { get; set; }
+        public List<string> ProfilePictures { get; set; }
         public Accomodation() {
+            GuestId = new List<int>();
+            ProfilePictures = new List<string>();
         }
         public Accomodation(string name, Location loc, AccomodationType accomodationType,
-            int maxguestNumber, int minReservationDays, int cancellationDate, string[] profilePictures)
+            int maxguestNumber, int minReservationDays, int cancellationDate, int ownerId ,List<string> profilePictures)
         {
             Name = name;
             Location = loc;
@@ -34,6 +40,7 @@ namespace BookingApp.Model
             MaxGuestNumber = maxguestNumber;
             MinReservationDays = minReservationDays;
             LastCancellationDay = cancellationDate;
+            OwnerId = ownerId;
             ProfilePictures = profilePictures;
         }
 
@@ -47,13 +54,16 @@ namespace BookingApp.Model
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 LastCancellationDay.ToString(),
+                OwnerId.ToString()
                 };
 
             if (ProfilePictures != null)
             {
                 foreach (string profilePicture in ProfilePictures)
                 {
-                    csvValues.Append(profilePicture);
+                    //csvValues.Append(profilePicture);
+                    Array.Resize(ref csvValues,csvValues.Length+1);
+                    csvValues[csvValues.Length-1] = profilePicture;
                 }
             }
 
@@ -69,10 +79,11 @@ namespace BookingApp.Model
             MaxGuestNumber = Convert.ToInt32(values[4]);
             MinReservationDays = Convert.ToInt32(values[5]);
             LastCancellationDay = Convert.ToInt32(values[6]);
+            OwnerId = Convert.ToInt32(values[7]);
 
             for (int i=8;i<values.Length;i++)
             {
-                ProfilePictures.Append(values[i]);
+                ProfilePictures.Add(values[i]);
             }
         }
 }

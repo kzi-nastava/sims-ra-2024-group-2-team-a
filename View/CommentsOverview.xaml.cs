@@ -1,8 +1,10 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Documents;
 using System.Xml.Linq;
 
 namespace BookingApp.View
@@ -23,8 +25,8 @@ namespace BookingApp.View
 
         /*private readonly AccomodationRepository _accomodationRep;
 
-        private readonly LocationRepository _locationRep;*/
-
+        private readonly LocationRepository _locationRep;
+        */
         public CommentsOverview(User user)
         {
             InitializeComponent();
@@ -35,19 +37,22 @@ namespace BookingApp.View
 
             //Testiranje Repositorija
 
-            /*_accomodationRep = new AccomodationRepository();
-            _locationRep = new LocationRepository();
-            string[] profPics = {};
+            /*_locationRep = new LocationRepository();
+            _accomodationRep = new AccomodationRepository(_locationRep);
+
+            Accomodation acc = _accomodationRep.GetById(1);
+
+            List<string> profPics = new List<string>();
+            profPics.Add("cao brate!");
 
             Location loc = new Location("Ns","Srb");
             loc = _locationRep.Save(loc);
-            _locationRep.Delete(loc);
-
+            
             Accomodation acc = new Accomodation("Ime", loc, AccomodationType.apartment,
-            5, 1, 5, profPics);
-            acc.Id = 0;
+            5, 1, 5,69,profPics);
 
             _accomodationRep.Save(acc);
+            _locationRep.Delete(loc);
             acc.Name = "Novo ime";
             _accomodationRep.Update(acc);
             _accomodationRep.Delete(acc);*/

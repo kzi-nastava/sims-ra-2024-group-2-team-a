@@ -25,13 +25,14 @@ namespace BookingApp.Repository
 
         public List<Location> GetAll()
         {
-            return _serializer.FromCSV(FilePath);
+            //return _serializer.FromCSV(FilePath);
+            return _locations;
         }
 
         public Location Save(Location location)
         {
             location.Id = NextId();
-            _locations = _serializer.FromCSV(FilePath);
+            //_locations = _serializer.FromCSV(FilePath);
             _locations.Add(location);
             _serializer.ToCSV(FilePath, _locations);
             return location;
@@ -39,7 +40,7 @@ namespace BookingApp.Repository
 
         public int NextId()
         {
-            _locations = _serializer.FromCSV(FilePath);
+            //_locations = _serializer.FromCSV(FilePath);
             if (_locations.Count < 1)
             {
                 return 1;
@@ -49,7 +50,7 @@ namespace BookingApp.Repository
 
         public bool Delete(Location location)
         {
-            _locations = _serializer.FromCSV(FilePath);
+            //_locations = _serializer.FromCSV(FilePath);
             Location? found = _locations.Find(c => c.Id == location.Id);
             if (found == null)
             {
@@ -61,9 +62,23 @@ namespace BookingApp.Repository
         }
         public Location GetById(int id)
         {
-            _locations = _serializer.FromCSV(FilePath);
+            //_locations = _serializer.FromCSV(FilePath);
             Location location = _locations.Find(c => c.Id == id);
             return location;
+        }
+
+        public bool Update(Location location)
+        {
+            Location current = _locations.Find(c => c.Id == location.Id);
+            int index = _locations.IndexOf(current);
+            if (current == null)
+            {
+                return false;
+            }
+            _locations.Remove(current);
+            _locations.Insert(index, location);       // keep ascending order of ids in file 
+            _serializer.ToCSV(FilePath, _locations);
+            return true;
         }
     }
 }
