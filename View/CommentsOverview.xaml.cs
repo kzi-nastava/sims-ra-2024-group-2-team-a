@@ -23,10 +23,10 @@ namespace BookingApp.View
 
         private readonly CommentRepository _repository;
 
-        /*private readonly AccomodationRepository _accomodationRep;
+        private readonly AccomodationRepository _accomodationRep;
 
         private readonly LocationRepository _locationRep;
-        */
+        
         public CommentsOverview(User user)
         {
             InitializeComponent();
@@ -37,25 +37,25 @@ namespace BookingApp.View
 
             //Testiranje Repositorija
 
-            /*_locationRep = new LocationRepository();
-            _accomodationRep = new AccomodationRepository(_locationRep);
+            _locationRep = new LocationRepository();
+            _accomodationRep = new AccomodationRepository();
 
-            Accomodation acc = _accomodationRep.GetById(1);
 
             List<string> profPics = new List<string>();
             profPics.Add("cao brate!");
+           
 
-            Location loc = new Location("Ns","Srb");
+            Accomodation a = _accomodationRep.GetById(1);
+            Location l = _locationRep.GetById(1);
+
+            Location loc = new Location("Bg", "Srb");
             loc = _locationRep.Save(loc);
-            
-            Accomodation acc = new Accomodation("Ime", loc, AccomodationType.apartment,
-            5, 1, 5,69,profPics);
+
+            Accomodation acc = new Accomodation("Ime", 2, AccomodationType.apartment,
+            5, 1, 5, 69, profPics);
 
             _accomodationRep.Save(acc);
-            _locationRep.Delete(loc);
-            acc.Name = "Novo ime";
-            _accomodationRep.Update(acc);
-            _accomodationRep.Delete(acc);*/
+            
         }
 
         private void ShowCreateCommentForm(object sender, RoutedEventArgs e)

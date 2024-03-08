@@ -14,7 +14,6 @@ namespace BookingApp.Model
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public Location Location { get; set; }
         public int LocationId { get; set; }
 
         public AccomodationType type;
@@ -30,12 +29,11 @@ namespace BookingApp.Model
             GuestId = new List<int>();
             ProfilePictures = new List<string>();
         }
-        public Accomodation(string name, Location loc, AccomodationType accomodationType,
+        public Accomodation(string name,int locationId, AccomodationType accomodationType,
             int maxguestNumber, int minReservationDays, int cancellationDate, int ownerId ,List<string> profilePictures)
         {
             Name = name;
-            Location = loc;
-            LocationId = loc.Id;
+            LocationId = locationId;
             type = accomodationType;
             MaxGuestNumber = maxguestNumber;
             MinReservationDays = minReservationDays;
@@ -61,7 +59,6 @@ namespace BookingApp.Model
             {
                 foreach (string profilePicture in ProfilePictures)
                 {
-                    //csvValues.Append(profilePicture);
                     Array.Resize(ref csvValues,csvValues.Length+1);
                     csvValues[csvValues.Length-1] = profilePicture;
                 }
@@ -80,11 +77,7 @@ namespace BookingApp.Model
             MinReservationDays = Convert.ToInt32(values[5]);
             LastCancellationDay = Convert.ToInt32(values[6]);
             OwnerId = Convert.ToInt32(values[7]);
-
-            for (int i=8;i<values.Length;i++)
-            {
-                ProfilePictures.Add(values[i]);
-            }
+            ProfilePictures.AddRange(values[8..]);
         }
 }
 }

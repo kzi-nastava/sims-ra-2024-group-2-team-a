@@ -18,20 +18,10 @@ namespace BookingApp.Repository
 
         private List<Accomodation> _accomodations;
 
-        private readonly LocationRepository _locationRepository;
-
-        public AccomodationRepository(LocationRepository locationRepo)
+        public AccomodationRepository()
         {
             _serializer = new Serializer<Accomodation>();
             _accomodations = _serializer.FromCSV(FilePath);
-            _locationRepository = locationRepo;
-            //TODO: Location unutar instanci Accomodation ce biti null
-            // diskutovati sa colegama u vezi pozivanja FromCsv
-            //odluceno je da ce se raditi u ramu sa listom a ne stalno ucitavati
-            foreach (Accomodation acc in _accomodations)
-            {
-                acc.Location = _locationRepository.GetById(acc.LocationId);
-            }
         }
 
         public Accomodation GetById(int id)
@@ -40,14 +30,13 @@ namespace BookingApp.Repository
         }
         public List<Accomodation> GetAll()
         {
-            //return _serializer.FromCSV(FilePath);
-            return _accomodations;
+            return _serializer.FromCSV(FilePath);
         }
 
         public Accomodation Save(Accomodation accomodation)
         {
             accomodation.Id = NextId();
-            //_accomodations = _serializer.FromCSV(FilePath);
+            _accomodations = _serializer.FromCSV(FilePath);
             _accomodations.Add(accomodation);
             _serializer.ToCSV(FilePath, _accomodations);
             return accomodation;
@@ -55,7 +44,7 @@ namespace BookingApp.Repository
 
         public int NextId()
         {
-            //_accomodations = _serializer.FromCSV(FilePath);
+            _accomodations = _serializer.FromCSV(FilePath);
             if (_accomodations.Count < 1)
             {
                 return 1;
@@ -65,7 +54,7 @@ namespace BookingApp.Repository
 
         public bool Delete(Accomodation accomodation)
         {
-            //_accomodations = _serializer.FromCSV(FilePath);
+            _accomodations = _serializer.FromCSV(FilePath);
             Accomodation? found = _accomodations.Find(c => c.Id == accomodation.Id);
             if (found == null)
             {
@@ -78,7 +67,7 @@ namespace BookingApp.Repository
 
         public bool Update(Accomodation accomodation)
         {
-            //_accomodations = _serializer.FromCSV(FilePath);
+            _accomodations = _serializer.FromCSV(FilePath);
             Accomodation current = _accomodations.Find(c => c.Id == accomodation.Id);
             int index = _accomodations.IndexOf(current);
             if(current == null)
