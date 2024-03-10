@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BookingApp.Repository
 {
-    public class UserRepository
+    public class UserRepository : IRepository<User>
     {
         private const string FilePath = "../../../Resources/Data/users.csv";
 
@@ -17,6 +17,26 @@ namespace BookingApp.Repository
         {
             _serializer = new Serializer<User>();
             _users = _serializer.FromCSV(FilePath);
+        }
+
+        public List<User> GetAll() {
+            throw new System.NotImplementedException();
+        }
+
+        public void Save(User item) {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Update(User item) {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Delete(User item) {
+            throw new System.NotImplementedException();
+        }
+
+        public User GetById(int id) {
+            throw new System.NotImplementedException();
         }
 
         public User GetByUsername(string username)
