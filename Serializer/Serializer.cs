@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -7,6 +8,16 @@ namespace BookingApp.Serializer
     class Serializer<T> where T: ISerializable, new()
     {
         private const char Delimiter = '|';
+        private readonly string _directoryName = AppDomain.CurrentDomain.BaseDirectory + "../../../../Resources/Data";
+        private readonly string _fileName = AppDomain.CurrentDomain.BaseDirectory + @"../../../../Resources/Data/{0}";
+
+        public Serializer() {
+            if (!Directory.Exists(_directoryName)) {
+                Directory.CreateDirectory(_directoryName);
+            }
+
+            _fileName = string.Format(_fileName, typeof(T).Name.ToLower() + ".csv");
+        }
 
         public void ToCSV(string fileName, List<T> objects)
         {

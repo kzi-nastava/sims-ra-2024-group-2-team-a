@@ -49,7 +49,7 @@ namespace BookingApp.View
             Location l = _locationRep.GetById(1);
 
             Location loc = new Location("Bg", "Srb");
-            loc = _locationRep.Save(loc);
+            _locationRep.Save(loc);
 
             Accomodation acc = new Accomodation("Ime", 2, AccomodationType.apartment,
             5, 1, 5, 69, profPics);
