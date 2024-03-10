@@ -11,6 +11,7 @@ namespace BookingApp.Model {
         public double Duration { get; set; }
         public string Language { get; set; }
         public int MaxTouristNumber { get; set; }
+        public int CurrentTouristNumber { get; set; }
         public Tour() { }
 
         public void FromCSV(string[] values) {
