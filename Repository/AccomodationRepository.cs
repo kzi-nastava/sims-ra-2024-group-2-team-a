@@ -25,11 +25,12 @@ namespace BookingApp.Repository {
             return _serializer.FromCSV(FilePath);
         }
 
-        public void Save(Accomodation accomodation) {
+        public Accomodation Save(Accomodation accomodation) {
             accomodation.Id = NextId();
             _accomodations = _serializer.FromCSV(FilePath);
             _accomodations.Add(accomodation);
             _serializer.ToCSV(FilePath, _accomodations);
+            return accomodation;
         }
 
         public bool Delete(Accomodation accomodation) {

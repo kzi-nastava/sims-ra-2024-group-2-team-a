@@ -28,12 +28,13 @@ namespace BookingApp.Repository
             return _serializer.FromCSV(FilePath);
         }
 
-        public void Save(Location location)
+        public Location Save(Location location)
         {
             location.Id = NextId();
             _locations = _serializer.FromCSV(FilePath);
             _locations.Add(location);
             _serializer.ToCSV(FilePath, _locations);
+            return location;
         }
 
         public bool Delete(Location location)

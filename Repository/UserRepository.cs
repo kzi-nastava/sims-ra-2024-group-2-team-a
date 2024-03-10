@@ -23,7 +23,7 @@ namespace BookingApp.Repository
             throw new System.NotImplementedException();
         }
 
-        public void Save(User item) {
+        public User Save(User item) {
             throw new System.NotImplementedException();
         }
 

@@ -8,7 +8,7 @@ namespace BookingApp.Repository {
     public interface IRepository<T> {
 
         List<T> GetAll();
-        void Save(T item);
+        T Save(T item);
         bool Update(T item);
         bool Delete(T item);
         T GetById(int id);
