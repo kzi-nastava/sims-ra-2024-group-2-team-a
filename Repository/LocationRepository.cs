@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
-    public class LocationRepository
+    public class LocationRepository : IRepository<Location>
     {
         private const string FilePath = "../../../Resources/Data/location.csv";
 
@@ -28,23 +28,12 @@ namespace BookingApp.Repository
             return _serializer.FromCSV(FilePath);
         }
 
-        public Location Save(Location location)
+        public void Save(Location location)
         {
             location.Id = NextId();
             _locations = _serializer.FromCSV(FilePath);
             _locations.Add(location);
             _serializer.ToCSV(FilePath, _locations);
-            return location;
-        }
-
-        public int NextId()
-        {
-            _locations = _serializer.FromCSV(FilePath);
-            if (_locations.Count < 1)
-            {
-                return 1;
-            }
-            return _locations.Max(c => c.Id) + 1;
         }
 
         public bool Delete(Location location)
@@ -79,6 +68,14 @@ namespace BookingApp.Repository
             _locations.Insert(index, location);       // keep ascending order of ids in file 
             _serializer.ToCSV(FilePath, _locations);
             return true;
+        }
+
+        public int NextId() {
+            _locations = _serializer.FromCSV(FilePath);
+            if (_locations.Count < 1) {
+                return 1;
+            }
+            return _locations.Max(c => c.Id) + 1;
         }
     }
 }

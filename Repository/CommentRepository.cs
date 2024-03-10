@@ -2,6 +2,7 @@
 using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
@@ -34,16 +35,6 @@ namespace BookingApp.Repository
             return comment;
         }
 
-        public int NextId()
-        {
-            _comments = _serializer.FromCSV(FilePath);
-            if (_comments.Count < 1)
-            {
-                return 1;
-            }
-            return _comments.Max(c => c.Id) + 1;
-        }
-
         public void Delete(Comment comment)
         {
             _comments = _serializer.FromCSV(FilePath);
@@ -61,6 +52,13 @@ namespace BookingApp.Repository
             _comments.Insert(index, comment);       // keep ascending order of ids in file 
             _serializer.ToCSV(FilePath, _comments);
             return comment;
+        }
+        public int NextId() {
+            _comments = _serializer.FromCSV(FilePath);
+            if (_comments.Count < 1) {
+                return 1;
+            }
+            return _comments.Max(c => c.Id) + 1;
         }
 
         public List<Comment> GetByUser(User user)
