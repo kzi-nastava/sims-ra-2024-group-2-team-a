@@ -67,5 +67,18 @@ namespace BookingApp.Repository {
             }
             return _accomodations.Max(c => c.Id) + 1;
         }
+
+        public List<Accomodation> GetByOwnerId(int ownerId)
+        {
+            List<Accomodation> list = new List<Accomodation>();
+            _accomodations = _serializer.FromCSV(FilePath);
+            foreach (var acc in _accomodations)
+            {
+                if (acc.OwnerId == ownerId)
+                    list.Add(acc);
+            }
+
+            return list;
+        }
     }
 }
