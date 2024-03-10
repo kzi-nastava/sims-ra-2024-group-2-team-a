@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.AndroidViews;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -49,9 +50,18 @@ namespace BookingApp.View
             {
                 if(user.Password == txtPassword.Password)
                 {
-                    CommentsOverview commentsOverview = new CommentsOverview(user);
-                    commentsOverview.Show();
-                    Close();
+                    if (user.Category == UserCategory.Owner)
+                    {
+                        MainWindow mainWindow = new MainWindow(user);
+                        mainWindow.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        CommentsOverview commentsOverview = new CommentsOverview(user);
+                        commentsOverview.Show();
+                        Close();
+                    }
                 } 
                 else
                 {
