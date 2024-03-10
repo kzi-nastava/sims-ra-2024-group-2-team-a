@@ -15,12 +15,25 @@ namespace BookingApp.Model {
 
         public Passenger() { }
 
+        public Passenger(int id, int tourId, string username, string password, int age) {
+            Id = id;
+            TourId = tourId;
+            Username = username;
+            Password = password;
+            Age = age;
+        }
+
         public string[] ToCSV() {
-            return new string[0];
+            string[] csvValues = { Id.ToString(), TourId.ToString(), Username, Password, Age.ToString() };
+            return csvValues;
         }
 
         public void FromCSV(string[] values) {
-            
+            Id = Convert.ToInt32(values[0]);
+            TourId = Convert.ToInt32(values[1]);
+            Username = values[2];
+            Password = values[3];
+            Age = Convert.ToInt32(values[4]);
         }
     }
 }
