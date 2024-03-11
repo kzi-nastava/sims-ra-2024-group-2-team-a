@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -62,6 +63,15 @@ namespace BookingApp.Repository {
                 return 1;
             }
             return _tours.Max(c => c.Id) + 1;
+        }
+
+        public List<Tour> GetFiltered() {
+            return _serializer.FromCSV();
+        }
+
+        private bool IsFiltered(Tour tour, TourFilterDTO filter) {
+
+            return true;
         }
     }
 }

@@ -11,5 +11,6 @@
         <DataGrid ItemsSource="{Binding ToursOnDisplay}"
                   AutoGenerateColumns="True"
                   IsReadOnly="True"></DataGrid>
+        
     </Grid>
 </Window>
