@@ -1,4 +1,5 @@
 ﻿using BookingApp.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -9,7 +10,9 @@ namespace BookingApp.DTO {
 
         }
 
-        public TourDTO(string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, List<string> profilePictures) {
+
+        public TourDTO(string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, List<string> profilePictures) {
+
             Name = name;
             LocationId = locationId;
             Description = description;
@@ -17,6 +20,7 @@ namespace BookingApp.DTO {
             MaxTouristNumber = maxTouristNumber;
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
+            Beggining = beggining;
             ProfilePictures = profilePictures;
         }
 
@@ -28,7 +32,22 @@ namespace BookingApp.DTO {
             MaxTouristNumber = t.MaxTouristNumber;
             Duration = t.Duration;
             CurrentTouristNumber = t.CurrentTouristNumber;
+            Beggining = t.Beggining;
             ProfilePictures = t.ProfilePictures;
+        }
+
+
+        private DateTime _beggining;
+        public DateTime Beggining {
+            get {
+                return _beggining;
+            }
+            set {
+                if(_beggining != value) { 
+                    _beggining = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         private string _name;
