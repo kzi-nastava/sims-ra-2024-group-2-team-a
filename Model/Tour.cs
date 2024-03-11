@@ -13,13 +13,13 @@ namespace BookingApp.Model {
         public string Language { get; set; }
         public int MaxTouristNumber { get; set; }
         public List<PointOfInterest> PointOfInterests { get; set; }
-        public List<DateTime> Beginnings { get; set; }
+        public DateTime Beggining { get; set; }
         public double Duration { get; set; }
         public int CurrentTouristNumber { get; set; }
         public List<string> ProfilePictures { get; set; }
 
         public Tour() { }
-        public Tour(int id, string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, List<string> profilePictures) {
+        public Tour(int id, string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, List<string> profilePictures, DateTime beggining) {
             Id = id;
             Name = name;
             LocationId = locationId;
@@ -29,6 +29,7 @@ namespace BookingApp.Model {
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
             ProfilePictures = profilePictures;
+            Beggining = beggining;
         }
 
         public string[] ToCSV() {
@@ -40,7 +41,8 @@ namespace BookingApp.Model {
                 Language,
                 MaxTouristNumber.ToString(),
                 Duration.ToString(),
-                CurrentTouristNumber.ToString()
+                CurrentTouristNumber.ToString(),
+                Beggining.ToString(),
                 };
 
              if (ProfilePictures != null) {
@@ -62,7 +64,8 @@ namespace BookingApp.Model {
             MaxTouristNumber = Convert.ToInt32(values[5]);
             Duration = Convert.ToDouble(values[6]);
             CurrentTouristNumber = Convert.ToInt32(values[7]);
-            ProfilePictures.AddRange(values[8..]);
+            Beggining = Convert.ToDateTime(values[8]);
+            ProfilePictures.AddRange(values[9..]);
         }
     }
 }
