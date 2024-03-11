@@ -10,7 +10,9 @@ namespace BookingApp.DTO {
 
         }
 
+
         public TourDTO(string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, List<string> profilePictures) {
+
             Name = name;
             LocationId = locationId;
             Description = description;
@@ -34,6 +36,7 @@ namespace BookingApp.DTO {
             ProfilePictures = t.ProfilePictures;
         }
 
+
         private DateTime _beggining;
         public DateTime Beggining {
             get {
@@ -46,6 +49,7 @@ namespace BookingApp.DTO {
                 }
             }
         }
+
         private string _name;
         public string Name {
             get {
