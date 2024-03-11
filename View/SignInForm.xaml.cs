@@ -1,6 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.View.AndroidViews;
+using BookingApp.View.DesktopViews;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -54,6 +55,10 @@ namespace BookingApp.View
                     {
                         MainWindow mainWindow = new MainWindow(user);
                         mainWindow.Show();
+                        this.Close();
+                    }else if(user.Category == UserCategory.Tourist){
+                        TouristMainWindow touristMainWindow = new TouristMainWindow();
+                        touristMainWindow.Show();
                         this.Close();
                     }
                     else

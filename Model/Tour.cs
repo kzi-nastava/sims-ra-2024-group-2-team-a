@@ -18,8 +18,12 @@ namespace BookingApp.Model {
         public int CurrentTouristNumber { get; set; }
         public List<string> ProfilePictures { get; set; }
 
-        public Tour() { }
+
+        public Tour() { 
+            ProfilePictures = new List<string>();
+        }
         public Tour(int id, string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, List<string> profilePictures) {
+
             Id = id;
             Name = name;
             LocationId = locationId;
