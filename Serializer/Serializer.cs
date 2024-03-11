@@ -8,8 +8,8 @@ namespace BookingApp.Serializer
     class Serializer<T> where T: ISerializable, new()
     {
         private const char Delimiter = '|';
-        private readonly string _directoryName = AppDomain.CurrentDomain.BaseDirectory + "../../../../Resources/Data";
-        private readonly string _fileName = AppDomain.CurrentDomain.BaseDirectory + @"../../../../Resources/Data/{0}";
+        private readonly string _directoryName = AppDomain.CurrentDomain.BaseDirectory + "../../../Resources/Data";
+        private readonly string _fileName = AppDomain.CurrentDomain.BaseDirectory + @"../../../Resources/Data/{0}";
 
         public Serializer() {
             if (!Directory.Exists(_directoryName)) {
@@ -19,7 +19,7 @@ namespace BookingApp.Serializer
             _fileName = string.Format(_fileName, typeof(T).Name.ToLower() + ".csv");
         }
 
-        public void ToCSV(string fileName, List<T> objects)
+        public void ToCSV(List<T> objects)
         {
             StringBuilder csv = new StringBuilder();
 
@@ -29,14 +29,14 @@ namespace BookingApp.Serializer
                 csv.AppendLine(line);
             }
 
-            File.WriteAllText(fileName, csv.ToString());
+            File.WriteAllText(_fileName, csv.ToString());
         }
 
-        public List<T> FromCSV(string fileName)
+        public List<T> FromCSV()
         {
             List<T> objects = new List<T>();
 
-            foreach(string line in File.ReadLines(fileName))
+            foreach(string line in File.ReadLines(_fileName))
             {
                 string[] csvValues = line.Split(Delimiter);
                 T obj = new T();

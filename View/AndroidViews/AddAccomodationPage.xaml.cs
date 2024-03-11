@@ -77,9 +77,9 @@ namespace BookingApp.View.AndroidViews
             Accomodation acc = accomodationDTO.ToAccomodation();
             Location loc = locationDTO.ToLocation();
 
-            loc = _locationRepository.Save(loc);
+            /*_locationRepository.Save(loc);
             acc.LocationId = loc.Id;
-            _accomodationRepository.Save(acc);
+            _accomodationRepository.Save(acc);*/
 
             //mainFrame.GoBack();
             mainFrame.Content = new AccomodationPage(mainFrame,_user); 
