@@ -13,6 +13,7 @@ namespace BookingApp.Model
         public int Id { get; set; }
         public string City {  get; set; }
         public string Country { get; set; }
+
         public Location() { }
 
         public Location(string city, string country) {
@@ -29,7 +30,7 @@ namespace BookingApp.Model
 
         public string[] ToCSV()
         {
-            string[] values = {Id.ToString(),City,Country };
+            string[] values = {Id.ToString(), City, Country};
             return values;
         }
     }

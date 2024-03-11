@@ -23,7 +23,7 @@ namespace BookingApp.View
 
         private readonly CommentRepository _repository;
 
-        private readonly AccomodationRepository _accomodationRep;
+        private readonly AccommodationRepository _accomodationRep;
 
         private readonly LocationRepository _locationRep;
         
@@ -38,20 +38,20 @@ namespace BookingApp.View
             //Testiranje Repositorija
 
             _locationRep = new LocationRepository();
-            _accomodationRep = new AccomodationRepository();
+            _accomodationRep = new AccommodationRepository();
 
 
             List<string> profPics = new List<string>();
             profPics.Add("cao brate!");
            
 
-            Accomodation a = _accomodationRep.GetById(1);
+            Accommodation a = _accomodationRep.GetById(1);
             Location l = _locationRep.GetById(1);
 
             Location loc = new Location("Bg", "Srb");
             _locationRep.Save(loc);
 
-            Accomodation acc = new Accomodation("Ime", 2, AccomodationType.apartment,
+            Accommodation acc = new Accommodation("Ime", 2, AccommodationType.apartment,
             5, 1, 5, 69, profPics);
 
             _accomodationRep.Save(acc);
