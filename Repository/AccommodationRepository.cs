@@ -1,3 +1,4 @@
+using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Serializer;
 using System;
@@ -78,6 +79,26 @@ namespace BookingApp.Repository {
             }
 
             return list;
+        }
+
+        public List<Accommodation> GetFilteredAccommodations(AccommodationFilterDTO filter) {
+            _accommodations = _serializer.FromCSV();
+
+            if(filter.isEmpty())
+                return _accommodations;
+
+            return _accommodations.Where(a => ApplyFilter(a, filter)).ToList();
+        }
+
+        private bool ApplyFilter(Accommodation accommodation, AccommodationFilterDTO filter) {
+
+            bool matchesName = accommodation.Name.ToLower().Contains(filter.Name.ToLower()) || filter.Name == "";
+            bool matchesLocation = accommodation.LocationId == filter.Location.Id || filter.Location.Id == -1;
+            bool matchesType = accommodation.type == filter.Type || filter.Type == AccommodationType.none;
+            bool matchesGuestNumber = accommodation.MaxGuestNumber >= filter.guestNumber || filter.guestNumber == 0;
+            bool matchesReservationDays = accommodation.MinReservationDays <= filter.reservationDays || filter.reservationDays == 0;
+
+            return matchesGuestNumber && matchesLocation && matchesName && matchesReservationDays && matchesType;
         }
     }
 }

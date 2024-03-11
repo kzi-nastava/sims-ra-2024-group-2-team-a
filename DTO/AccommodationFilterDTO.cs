@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 namespace BookingApp.DTO {
     public class AccommodationFilterDTO {
 
-        public string? Name { get; set; }
-        public LocationDTO? Location { get; set; }
-        public AccomodationType? Type { get; set; }
-        public int? guestNumber { get; set; }
-        public int? reservationDays { get; set; }
+        public string Name { get; set; } = "";
+        public LocationDTO Location { get; set; } = new LocationDTO();
+        public AccommodationType Type { get; set; } = AccommodationType.none;
+        public int guestNumber { get; set; } = 0;
+        public int reservationDays { get; set; } = 0;
 
         public AccommodationFilterDTO() { }
 
-        public AccommodationFilterDTO(string? name, LocationDTO? location, AccomodationType? type, int? guestNumber, int? reservationDays) {
+        public AccommodationFilterDTO(string name, LocationDTO location, AccommodationType type, int guestNumber, int reservationDays) {
             Name = name;
             Location = location;
             Type = type;
@@ -25,7 +25,7 @@ namespace BookingApp.DTO {
         }
 
         public bool isEmpty() {
-            return Name == null && Location == null && Type == null && guestNumber == null && reservationDays == null;
+            return Name == "" && Location.Id == -1 && Type == AccommodationType.none && guestNumber == 0 && reservationDays == 0;
         }
     }
 }
