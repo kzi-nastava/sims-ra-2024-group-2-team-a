@@ -5,21 +5,21 @@ using System.Linq;
 
 namespace BookingApp.Repository {
     public class PassengerRepository : IRepository<User> {
-        private const string FilePath = "../../../Resources/Data/users.csv";
+        
         private readonly Serializer<User> _serializer;
 
         private List<User> _users;
 
         public PassengerRepository() {
             _serializer = new Serializer<User>();
-            _users = _serializer.FromCSV(FilePath);
+            _users = _serializer.FromCSV();
         }
 
         public List<User> GetAll() {
             throw new System.NotImplementedException();
         }
 
-        public void Save(User item) {
+        public User Save(User item) {
             throw new System.NotImplementedException();
         }
 
