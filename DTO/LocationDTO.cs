@@ -5,18 +5,27 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Model;
 
 namespace BookingApp.DTO
 {
     public class LocationDTO : INotifyPropertyChanged
     {
+        private int _id = -1;
+        public int Id {
+            get {
+                return _id;
+            }
+            set { }
+        }
+
         public LocationDTO() { }
         public LocationDTO(string city, string country) {
             _city = city;
             _country = country;
         }
 
-        private string _city;
+        private string _city = "";
         public string City
         {
             get
@@ -33,7 +42,7 @@ namespace BookingApp.DTO
             }
         }
 
-        private string _country;
+        private string _country = "";
         public string Country
         {
             get
@@ -49,10 +58,10 @@ namespace BookingApp.DTO
                 }
             }
         }
-
-        public Model.Location ToLocation()
+        
+        public Location ToLocation()
         {
-            return new Model.Location(_city,_country);
+            return new Location(_city, _country);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
