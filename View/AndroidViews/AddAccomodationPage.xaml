@@ -1,4 +1,4 @@
-﻿<Page x:Class="BookingApp.View.AndroidViews.AddAccomodationPage"
+﻿<Page x:Class="BookingApp.View.AndroidViews.AddAccommodationPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:BookingApp.View.AndroidViews"
       mc:Ignorable="d" 
       d:DesignHeight="624" d:DesignWidth="430"
-      Title="AddAccomodationPage">
+      Title="AddAccommodationPage">
     <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Background="#BABDE2">
         <Grid Height="600" Width="430">
             <Grid.RowDefinitions>
@@ -31,7 +31,7 @@
 
             <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Name:" FontSize="16"/>
             <TextBox Grid.Row="1" Grid.Column="1" Width="250" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding accomodationDTO.Name}"/>
+                     Text="{Binding accommodationDTO.Name}"/>
 
             <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Location(country):" FontSize="16"/>
             <TextBox Grid.Row="2" Grid.Column="1" Width="220" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40" 
@@ -50,15 +50,15 @@
 
             <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontSize="16"/>
             <TextBox Grid.Row="5" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding accomodationDTO.MaxGuestNumber}"/>
+                     Text="{Binding accommodationDTO.MaxGuestNumber}"/>
 
             <Label Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Min Reservation Days:" FontSize="16"/>
             <TextBox Grid.Row="6" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding accomodationDTO.MinReservationDays}"/>
+                     Text="{Binding accommodationDTO.MinReservationDays}"/>
 
             <Label Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Last Cancellation Day:" FontSize="16"/>
             <TextBox Grid.Row="7" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding accomodationDTO.LastCancellationDay}"/>
+                     Text="{Binding accommodationDTO.LastCancellationDay}"/>
 
             <Label Grid.Row="8" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Image links: " FontSize="16"/>
            <!-- <TextBox Grid.Row="8" Grid.Column="1" Width="220" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="100"

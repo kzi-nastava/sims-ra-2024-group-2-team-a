@@ -9,14 +9,14 @@ using System.Xaml.Schema;
 
 namespace BookingApp.Model
 {
-    public enum AccomodationType { apartment, house, hut}
-    public class Accomodation: ISerializable
+    public enum AccommodationType { apartment, house, hut}
+    public class Accommodation: ISerializable
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int LocationId { get; set; }
 
-        public AccomodationType type;
+        public AccommodationType type;
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
         public int LastCancellationDay { get; set; }
@@ -25,11 +25,11 @@ namespace BookingApp.Model
 
         public List<int> GuestId { get; set; }
         public List<string> ProfilePictures { get; set; }
-        public Accomodation() {
+        public Accommodation() {
             GuestId = new List<int>();
             ProfilePictures = new List<string>();
         }
-        public Accomodation(string name,int locationId, AccomodationType accomodationType,
+        public Accommodation(string name,int locationId, AccommodationType accomodationType,
             int maxguestNumber, int minReservationDays, int cancellationDate, int ownerId ,List<string> profilePictures)
         {
             Name = name;

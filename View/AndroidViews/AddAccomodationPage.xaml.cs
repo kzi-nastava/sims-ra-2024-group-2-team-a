@@ -24,29 +24,29 @@ namespace BookingApp.View.AndroidViews
     /// <summary>
     /// Interaction logic for AddAccomodationPage.xaml
     /// </summary>
-    public partial class AddAccomodationPage : Page
+    public partial class AddAccommodationPage : Page
     {
         public Frame mainFrame;
 
         private readonly User _user;
 
-        private readonly AccomodationRepository _accomodationRepository;
+        private readonly AccommodationRepository _accommodationRepository;
         private readonly LocationRepository _locationRepository;
-        public AccomodationDTO accomodationDTO { get; set; }
+        public AccommodationDTO accommodationDTO { get; set; }
         public LocationDTO locationDTO { get; set; }
 
-        public AddAccomodationPage(Frame mainFrame,User user)
+        public AddAccommodationPage(Frame mainFrame,User user)
         {
             InitializeComponent();
             this.mainFrame = mainFrame;
             DataContext = this;
 
-            _accomodationRepository = new AccomodationRepository();
+            _accommodationRepository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
 
             _user = user;
-            accomodationDTO = new AccomodationDTO();
-            accomodationDTO.OwnerId = _user.Id;
+            accommodationDTO = new AccommodationDTO();
+            accommodationDTO.OwnerId = _user.Id;
             locationDTO = new LocationDTO();
         }
 
@@ -63,26 +63,26 @@ namespace BookingApp.View.AndroidViews
         {
             if (radioButtonApartment.IsChecked == true)
             {
-                accomodationDTO.Type = AccomodationType.apartment;
+                accommodationDTO.Type = AccommodationType.apartment;
             }
             else if (radioButtonHouse.IsChecked == true)
             {
-                accomodationDTO.Type = AccomodationType.house;
+                accommodationDTO.Type = AccommodationType.house;
             }
             else if (radioButtonHut.IsChecked == true)
             {
-                accomodationDTO.Type = AccomodationType.hut;
+                accommodationDTO.Type = AccommodationType.hut;
             }
 
-            Accomodation acc = accomodationDTO.ToAccomodation();
+            Accommodation acc = accommodationDTO.ToAccommodation();
             Location loc = locationDTO.ToLocation();
 
-            /*_locationRepository.Save(loc);
+            loc = _locationRepository.Save(loc);
             acc.LocationId = loc.Id;
-            _accomodationRepository.Save(acc);*/
+            _accommodationRepository.Save(acc);
 
             //mainFrame.GoBack();
-            mainFrame.Content = new AccomodationPage(mainFrame,_user); 
+            mainFrame.Content = new AccommodationPage(mainFrame,_user); 
             // da li je ovo kaskadiranje velik problem?
             //doduse dobar pristup jel ce mi se refreshovati collection
         }
@@ -108,7 +108,7 @@ namespace BookingApp.View.AndroidViews
                 foreach (string absolutePath in absolutePaths)
                 {
                     string relativePath = GetRelativePath(basePath, absolutePath);
-                    accomodationDTO.ProfilePictures.Add(relativePath);
+                    accommodationDTO.ProfilePictures.Add(relativePath);
                 }
             }
         }

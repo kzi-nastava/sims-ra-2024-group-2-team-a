@@ -22,45 +22,45 @@ namespace BookingApp.View.AndroidViews
     /// <summary>
     /// Interaction logic for AccomodationPage.xaml
     /// </summary>
-    public partial class AccomodationPage : Page
+    public partial class AccommodationPage : Page
     {
         public Frame mainFrame;
 
         private readonly User _user;
 
-        private readonly AccomodationRepository _accomodationRepository;
+        private readonly AccommodationRepository _accommodationRepository;
 
         private readonly LocationRepository _locationRepository;
 
-        public ObservableCollection<AccomodationDTO> accomodationDTOs { get; set; }
+        public ObservableCollection<AccommodationDTO> accommodationDTOs { get; set; }
         
-        public AccomodationPage(Frame mFrame, User user)
+        public AccommodationPage(Frame mFrame, User user)
         {
             InitializeComponent();
             mainFrame = mFrame;
             this._user = user;
             DataContext = this;
-            _accomodationRepository = new AccomodationRepository();
+            _accommodationRepository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
-            accomodationDTOs = new ObservableCollection<AccomodationDTO>();
+            accommodationDTOs = new ObservableCollection<AccommodationDTO>();
 
             Update();
         }
 
         public void Update()
         {
-            foreach (var acc in _accomodationRepository.GetByOwnerId(_user.Id))
+            foreach (var acc in _accommodationRepository.GetByOwnerId(_user.Id))
             {
-                AccomodationDTO accDTO = new AccomodationDTO(acc);
+                AccommodationDTO accDTO = new AccommodationDTO(acc);
                 Location location = _locationRepository.GetById(acc.LocationId);
                 accDTO.SetDisplayLocation(location.City,location.Country);
-                accomodationDTOs.Add(accDTO);
+                accommodationDTOs.Add(accDTO);
             }
         }
 
         private void AddAccomodation_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Content = new AddAccomodationPage(mainFrame,_user);
+            mainFrame.Content = new AddAccommodationPage(mainFrame,_user);
         }
     }
 }

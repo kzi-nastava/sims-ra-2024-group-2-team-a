@@ -28,7 +28,7 @@ namespace BookingApp.View.AndroidViews
             InitializeComponent();
             MainFrame = mainFrame;
             _user = user;
-            MainFrame.Content = new AccomodationPage(MainFrame,_user);
+            MainFrame.Content = new AccommodationPage(MainFrame,_user);
         }
     }
 }

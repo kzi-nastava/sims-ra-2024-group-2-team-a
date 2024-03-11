@@ -10,12 +10,12 @@ using System.Xml.Linq;
 
 namespace BookingApp.DTO
 {
-    public class AccomodationDTO : INotifyPropertyChanged
+    public class AccommodationDTO : INotifyPropertyChanged
     {
-        public AccomodationDTO() {
+        public AccommodationDTO() {
             ProfilePictures = new List<string>();
         }
-        public AccomodationDTO(string name, int locationId, AccomodationType accomodationType,
+        public AccommodationDTO(string name, int locationId, AccommodationType accomodationType,
             int maxguestNumber, int minReservationDays, int cancellationDate, int ownerId, List<string> profilePictures)
         {
             Name = name;
@@ -28,7 +28,7 @@ namespace BookingApp.DTO
             ProfilePictures = profilePictures;
         }
 
-        public AccomodationDTO(Accomodation acc)
+        public AccommodationDTO(Accommodation acc)
         {
             Name = acc.Name;
             LocationId = acc.LocationId;
@@ -72,8 +72,8 @@ namespace BookingApp.DTO
             }
         }
 
-        public AccomodationType _type;
-        public AccomodationType Type
+        public AccommodationType _type;
+        public AccommodationType Type
         {
             get
             {
@@ -173,9 +173,9 @@ namespace BookingApp.DTO
             DisplayLocation = $"{country}, {city}";
         }
 
-        public Accomodation ToAccomodation()
+        public Accommodation ToAccommodation()
         {
-            Accomodation accomodation = new Accomodation(Name, LocationId,Type,MaxGuestNumber,MinReservationDays, LastCancellationDay, OwnerId, ProfilePictures);
+            Accommodation accomodation = new Accommodation(Name, LocationId,Type,MaxGuestNumber,MinReservationDays, LastCancellationDay, OwnerId, ProfilePictures);
             //ParseProfilePictures();
             return accomodation;
         }
