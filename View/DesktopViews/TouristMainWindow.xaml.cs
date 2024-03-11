@@ -1,20 +1,9 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BookingApp.View.DesktopViews {
     /// <summary>
@@ -22,26 +11,47 @@ namespace BookingApp.View.DesktopViews {
     /// </summary>
     public partial class TouristMainWindow : Window {
         private readonly User _user;
-
         private readonly TourRepository _tourRepository;
-
         private readonly LocationRepository _locationRepository;
 
+        public TourFilterDTO Filter { get; set; }
         public ObservableCollection<TourDTO> ToursOnDisplay { get; set; }
+        public ObservableCollection<LocationDTO> LocationOptions { get; set; }
         public TouristMainWindow() {
             InitializeComponent();
             DataContext = this;
             _tourRepository = new TourRepository();
             _locationRepository = new LocationRepository();
             ToursOnDisplay = new ObservableCollection<TourDTO>();
+            LocationOptions = new ObservableCollection<LocationDTO>();
+
+            Filter = new TourFilterDTO();
+            LocationOptions.Clear();
+            LocationOptions.Add(new LocationDTO("", ""));
+            foreach (var location in _locationRepository.GetAll()) {
+                LocationOptions.Add(new LocationDTO(location));
+            }
+
             Update();
         }
 
         public void Update() {
             ToursOnDisplay.Clear();
-            foreach (var tour in _tourRepository.GetAll()) {
+            foreach (var tour in _tourRepository.GetFiltered(Filter)) {
                 ToursOnDisplay.Add(new TourDTO(tour));
             }
+        }
+
+        private void FilterButton_Click(object sender, RoutedEventArgs e) {
+            Update();
+        }
+
+        private void LocationComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
+            if(LocationComboBox.SelectedItem != null) {
+                Filter.Location = (LocationDTO)LocationComboBox.SelectedItem;
+                return;
+            }
+            Filter.Location = new LocationDTO();
         }
     }
 }

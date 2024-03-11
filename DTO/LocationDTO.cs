@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using BookingApp.Model;
 
 namespace BookingApp.DTO
@@ -16,13 +17,24 @@ namespace BookingApp.DTO
             get {
                 return _id;
             }
-            set { }
+            set {
+                if (value != _id) {
+                    _id = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public LocationDTO() { }
         public LocationDTO(string city, string country) {
             _city = city;
             _country = country;
+        }
+
+        public LocationDTO(Location location) {
+            Id = location.Id;
+            City = location.City;
+            Country = location.Country;
         }
 
         private string _city = "";
@@ -58,7 +70,9 @@ namespace BookingApp.DTO
                 }
             }
         }
-        
+
+        public string LocationOptionTemplate => $"{City} - {Country}";
+ 
         public Location ToLocation()
         {
             return new Location(_city, _country);
