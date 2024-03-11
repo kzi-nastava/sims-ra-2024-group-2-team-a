@@ -3,27 +3,23 @@ using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BookingApp.Repository
-{
-    public class UserRepository : IRepository<User>
-    {
-        private const string FilePath = "../../../Resources/Data/users.csv";
+namespace BookingApp.Repository {
+    public class UserRepository : IRepository<User> {
 
         private readonly Serializer<User> _serializer;
 
         private List<User> _users;
 
-        public UserRepository()
-        {
+        public UserRepository() {
             _serializer = new Serializer<User>();
-            _users = _serializer.FromCSV(FilePath);
+            _users = _serializer.FromCSV();
         }
 
         public List<User> GetAll() {
             throw new System.NotImplementedException();
         }
 
-        public void Save(User item) {
+        public User Save(User item) {
             throw new System.NotImplementedException();
         }
 
@@ -39,9 +35,8 @@ namespace BookingApp.Repository
             throw new System.NotImplementedException();
         }
 
-        public User GetByUsername(string username)
-        {
-            _users = _serializer.FromCSV(FilePath);
+        public User GetByUsername(string username) {
+            _users = _serializer.FromCSV();
             return _users.FirstOrDefault(u => u.Username == username);
         }
     }
