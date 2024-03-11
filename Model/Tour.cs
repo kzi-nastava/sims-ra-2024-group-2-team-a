@@ -19,7 +19,7 @@ namespace BookingApp.Model {
         public List<string> ProfilePictures { get; set; }
 
         public Tour() { }
-        public Tour(int id, string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, List<string> profilePictures, DateTime beggining) {
+        public Tour(int id, string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, List<string> profilePictures) {
             Id = id;
             Name = name;
             LocationId = locationId;
@@ -28,8 +28,8 @@ namespace BookingApp.Model {
             MaxTouristNumber = maxTouristNumber;
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
-            ProfilePictures = profilePictures;
             Beggining = beggining;
+            ProfilePictures = profilePictures;
         }
 
         public string[] ToCSV() {
