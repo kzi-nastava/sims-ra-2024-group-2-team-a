@@ -139,33 +139,6 @@ namespace BookingApp.DTO
         }
         public int OwnerId { get; set; }
         public List<string> ProfilePictures { get; set; }
-
-        /*private string _profilePicturesNotParsed;
-        public string ProfilePicturesNotParsed
-        {
-            get
-            {
-                return _profilePicturesNotParsed;
-            }
-            set
-            {
-                if (value != _profilePicturesNotParsed)
-                {
-                    _profilePicturesNotParsed = value;
-                    OnPropertyChanged();
-                }
-            }
-        }/*
-
-        /*public void ParseProfilePictures()
-        {
-            string[] parsedStrings = _profilePicturesNotParsed.Split(',');
-            foreach(string s in parsedStrings)
-            {
-                ProfilePictures.Add(s);
-            }
-        }*/
-
         public string DisplayLocation { get; set; }
 
         public void SetDisplayLocation(string city,string country)
