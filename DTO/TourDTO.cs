@@ -10,7 +10,7 @@ namespace BookingApp.DTO {
 
         }
 
-        public TourDTO(string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, List<string> profilePictures, DateTime beggining) {
+        public TourDTO(string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, List<string> profilePictures) {
             Name = name;
             LocationId = locationId;
             Description = description;
@@ -18,8 +18,8 @@ namespace BookingApp.DTO {
             MaxTouristNumber = maxTouristNumber;
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
-            ProfilePictures = profilePictures;
             Beggining = beggining;
+            ProfilePictures = profilePictures;
         }
 
         public TourDTO(Tour t) {
@@ -30,8 +30,8 @@ namespace BookingApp.DTO {
             MaxTouristNumber = t.MaxTouristNumber;
             Duration = t.Duration;
             CurrentTouristNumber = t.CurrentTouristNumber;
-            ProfilePictures = t.ProfilePictures;
             Beggining = t.Beggining;
+            ProfilePictures = t.ProfilePictures;
         }
 
         private DateTime _beggining;
