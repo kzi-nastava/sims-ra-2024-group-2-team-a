@@ -1,0 +1,59 @@
+﻿<Page x:Class="BookingApp.View.AndroidViews.ReservationReviewsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.AndroidViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="624" d:DesignWidth="430"
+      Title="ReservationReviewsPage">
+
+    <Grid Background="LightBlue">
+        <TabControl Height="600" Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TabItem Header="Reviews" Width="120" Height="40">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Content="Assign a Grade" Grid.Column="1" Width="120" Height="40">
+                        
+                    </Button>
+
+                    <Button Grid.Row="0" Grid.Column="2" Width="120" Height="40" Content="View Guest Grade">
+                        </Button>
+
+                    <ListView ItemsSource="{Binding studCollection, UpdateSourceTrigger=PropertyChanged}"
+          SelectedItem="{Binding selectedStudent, UpdateSourceTrigger=PropertyChanged}"
+          SelectionMode="Single" Grid.Row="1" Grid.ColumnSpan="4" Grid.Column="0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Accommodation" Width="100" DisplayMemberBinding="{Binding Index}"/>
+                                <GridViewColumn Header="Start Date" Width="100" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="End Date" Width="100" DisplayMemberBinding="{Binding Surname}"/>
+                                <GridViewColumn Header="Graded" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Graded}" IsEnabled="False"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Requests"  Width="120" Height="40">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Page>
