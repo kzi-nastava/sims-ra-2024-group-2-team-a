@@ -8,33 +8,14 @@
         Title="TouristMainWindow" Height="768" Width="1366"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <WrapPanel Grid.Row="0">
-
-            <ComboBox x:Name="LocationComboBox"
-                      ItemsSource="{Binding LocationOptions}"
-                      DisplayMemberPath="LocationOptionTemplate"
-                      SelectionChanged="LocationComboBox_SelectionChanged"
-                      SelectedIndex="0"/>
-            <TextBox Width="100" 
-                     Text="{Binding Filter.Language, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Width="100"
-                     Text="{Binding Filter.Duration, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Width="100"
-                     Text="{Binding Filter.TouristNumber, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button x:Name="FilterButton" Click="FilterButton_Click">
-                Filter
-            </Button>   
-
-        </WrapPanel>
-
-        <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding ToursOnDisplay, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="True"
-                  IsReadOnly="True"></DataGrid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Button Height="50"> Home</Button>
+        </StackPanel>
+            <Frame Grid.Column="1" 
+               x:Name="PageFrame"></Frame>
     </Grid>
 </Window>
