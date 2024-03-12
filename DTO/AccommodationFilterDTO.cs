@@ -11,8 +11,8 @@ namespace BookingApp.DTO {
         public string Name { get; set; } = "";
         public LocationDTO Location { get; set; } = new LocationDTO();
         public AccommodationType Type { get; set; } = AccommodationType.none;
-        public int guestNumber { get; set; } = 0;
-        public int reservationDays { get; set; } = 0;
+        public int GuestNumber { get; set; } = 0;
+        public int ReservationDays { get; set; } = 0;
 
         public AccommodationFilterDTO() { }
 
@@ -20,12 +20,12 @@ namespace BookingApp.DTO {
             Name = name;
             Location = location;
             Type = type;
-            this.guestNumber = guestNumber;
-            this.reservationDays = reservationDays;
+            this.GuestNumber = guestNumber;
+            this.ReservationDays = reservationDays;
         }
 
         public bool isEmpty() {
-            return Name == "" && Location.Id == -1 && Type == AccommodationType.none && guestNumber == 0 && reservationDays == 0;
+            return Name == "" && Location.Id == -1 && Type == AccommodationType.none && GuestNumber == 0 && ReservationDays == 0;
         }
     }
 }
