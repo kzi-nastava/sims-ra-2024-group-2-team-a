@@ -16,17 +16,21 @@ using System.Windows.Shapes;
 
 namespace BookingApp.View.WebViews {
     /// <summary>
-    /// Interaction logic for AccommodationCard.xaml
+    /// Interaction logic for CreateReservationPage.xaml
     /// </summary>
-    public partial class AccommodationCard : UserControl {
-        public AccommodationCard() {
+    public partial class CreateReservationPage : Page {
+
+        private AccommodationDTO _accommodationDTO;
+
+        public CreateReservationPage(AccommodationDTO accommodationDTO) {
             InitializeComponent();
+            _accommodationDTO = accommodationDTO;
+            DataContext = _accommodationDTO;
         }
 
-        private void AccommodationCardClick(object sender, MouseButtonEventArgs e) {
-            Frame mainFrame = (Frame) Window.GetWindow(this).FindName("mainFrame");
-            AccommodationDTO accommodationDTO = (AccommodationDTO) DataContext;
-            mainFrame.Content = new CreateReservationPage(accommodationDTO);
+        private void ButtonBackClick(object sender, RoutedEventArgs e) {
+            Frame frame = (Frame)Window.GetWindow(this).FindName("mainFrame");
+            frame.Content = new BookingPage(frame);
         }
     }
 }

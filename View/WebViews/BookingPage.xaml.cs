@@ -22,15 +22,14 @@ namespace BookingApp.View.WebViews {
     /// <summary>
     /// Interaction logic for BookingPage.xaml
     /// </summary>
-    public partial class BookingPage : UserControl {
-
+    public partial class BookingPage : Page {
         private List<AccommodationDTO> _accommodationDTOs = new List<AccommodationDTO>();
         private List<LocationDTO> _locationDTOs = new List<LocationDTO>();
 
         private AccommodationRepository _accommodationRepository = new AccommodationRepository();
         private LocationRepository _locationRepository = new LocationRepository();
 
-        public BookingPage() {
+        public BookingPage(Frame mainFrame) {
             InitializeComponent();
             Update();
             SetItemSoruces();
