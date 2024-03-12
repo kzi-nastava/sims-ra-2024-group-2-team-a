@@ -8,33 +8,35 @@
         Title="TouristMainWindow" Height="768" Width="1366"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <WrapPanel Grid.Row="0">
+            <WrapPanel Grid.Row="0">
 
-            <ComboBox x:Name="LocationComboBox"
-                      ItemsSource="{Binding LocationOptions}"
-                      DisplayMemberPath="LocationOptionTemplate"
-                      SelectionChanged="LocationComboBox_SelectionChanged"
-                      SelectedIndex="0"/>
-            <TextBox Width="100" 
-                     Text="{Binding Filter.Language, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Width="100"
-                     Text="{Binding Filter.Duration, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Width="100"
-                     Text="{Binding Filter.TouristNumber, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button x:Name="FilterButton" Click="FilterButton_Click">
-                Filter
-            </Button>   
+                <ComboBox x:Name="LocationComboBox"
+                          ItemsSource="{Binding LocationOptions}"
+                          DisplayMemberPath="LocationOptionTemplate"
+                          SelectionChanged="LocationComboBox_SelectionChanged"
+                          SelectedIndex="0"/>
+                <TextBox Width="100" 
+                         Text="{Binding Filter.Language, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Width="100"
+                         Text="{Binding Filter.Duration, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Width="100"
+                         Text="{Binding Filter.TouristNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button x:Name="FilterButton" Click="FilterButton_Click">
+                    Filter
+                </Button>
 
-        </WrapPanel>
+            </WrapPanel>
 
-        <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding ToursOnDisplay, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="True"
-                  IsReadOnly="True"></DataGrid>
+            <DataGrid Grid.Row="1"
+                      ItemsSource="{Binding ToursOnDisplay, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="True"
+                      IsReadOnly="True">
+               
+            </DataGrid>
     </Grid>
 </Window>
