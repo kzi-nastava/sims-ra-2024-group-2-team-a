@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using BookingApp.View.AndroidViews;
 using BookingApp.View.DesktopViews;
+using BookingApp.View.WebViews;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -63,8 +64,8 @@ namespace BookingApp.View
                     }
                     else
                     {
-                        CommentsOverview commentsOverview = new CommentsOverview(user);
-                        commentsOverview.Show();
+                        GuestMainWindow  guestMainWindwo = new GuestMainWindow();
+                        guestMainWindwo.Show();
                         Close();
                     }
                 } 

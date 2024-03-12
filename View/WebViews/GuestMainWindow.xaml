@@ -1,0 +1,22 @@
+﻿<Window x:Class="BookingApp.View.WebViews.GuestMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.WebViews"
+        mc:Ignorable="d"
+        Title="GuestMainWindow" Height="600" Width="800"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid Background="LightBlue" Height="80" VerticalAlignment="Top">
+            <Button Name="buttonBook" Content="Book" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="120" Click="buttonBook_Click"/>
+            <Button Name="buttonReservations" Content="Reservations" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Bottom" Height="40" Width="120" Click="buttonReservations_Click"/>
+            <Button Name="buttonReviews" Content="Reviews" HorizontalAlignment="Left" Margin="240,0,0,0" VerticalAlignment="Bottom" Height="40" Width="120"/>
+            <Button Name="buttonForum" Content="Forums" HorizontalAlignment="Left" Margin="360,0,0,0" VerticalAlignment="Bottom" Height="40" Width="120"/>
+        </Grid>
+        <Grid x:Name="gridPages" Margin="0,80,0,0" Height="504" VerticalAlignment="Top">
+            <local:BookingPage x:Name="bookPage" Visibility="Collapsed"></local:BookingPage>
+            <local:ReservationsPage x:Name="reservationsPage" Visibility="Collapsed"></local:ReservationsPage>
+        </Grid>
+    </Grid>
+</Window>

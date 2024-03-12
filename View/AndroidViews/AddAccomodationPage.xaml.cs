@@ -4,6 +4,7 @@ using BookingApp.Repository;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -33,7 +34,9 @@ namespace BookingApp.View.AndroidViews
         private readonly AccommodationRepository _accommodationRepository;
         private readonly LocationRepository _locationRepository;
         public AccommodationDTO accommodationDTO { get; set; }
-        public LocationDTO locationDTO { get; set; }
+        public LocationDTO selectedLocationDTO { get; set; }
+
+        public ObservableCollection<LocationDTO> locationDTOs { get; set; }
 
         public AddAccommodationPage(Frame mainFrame,User user)
         {
@@ -47,7 +50,11 @@ namespace BookingApp.View.AndroidViews
             _user = user;
             accommodationDTO = new AccommodationDTO();
             accommodationDTO.OwnerId = _user.Id;
-            locationDTO = new LocationDTO();
+            locationDTOs = new ObservableCollection<LocationDTO>();
+
+            foreach (var loc in _locationRepository.GetAll()) {
+                locationDTOs.Add(new LocationDTO(loc));
+            }
         }
 
         private void Decline_Click(object sender, RoutedEventArgs e)
@@ -75,10 +82,8 @@ namespace BookingApp.View.AndroidViews
             }
 
             Accommodation acc = accommodationDTO.ToAccommodation();
-            Location loc = locationDTO.ToLocation();
 
-            loc = _locationRepository.Save(loc);
-            acc.LocationId = loc.Id;
+            acc.LocationId = selectedLocationDTO.Id;
             _accommodationRepository.Save(acc);
 
             //mainFrame.GoBack();

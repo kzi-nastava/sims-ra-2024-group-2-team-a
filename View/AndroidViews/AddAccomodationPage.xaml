@@ -13,7 +13,6 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
                 <RowDefinition Height="90"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
@@ -33,37 +32,42 @@
             <TextBox Grid.Row="1" Grid.Column="1" Width="250" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
                      Text="{Binding accommodationDTO.Name}"/>
 
+            <!--
             <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Location(country):" FontSize="16"/>
             <TextBox Grid.Row="2" Grid.Column="1" Width="220" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40" 
                      Text="{Binding locationDTO.City}"/>
 
             <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Location(city):" FontSize="16"/>
             <TextBox Grid.Row="3" Grid.Column="1" Width="220" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding locationDTO.Country}"/>
+                     Text="{Binding locationDTO.Country}"/> -->
 
-            <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Type:" FontSize="16"/>
-            <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" >
+            <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Location:" FontSize="16"/>
+            <ComboBox Grid.Row="2" Grid.Column="2" Height="40" Text="Choose location" SelectedItem="{Binding selectedLocationDTO}" ItemsSource="{Binding locationDTOs}" DisplayMemberPath="LocationOptionTemplate"/>
+
+
+            <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Type:" FontSize="16"/>
+            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <RadioButton x:Name="radioButtonApartment" FontSize="16" Content="Apartment" GroupName="AccomodationType" IsChecked="True"/>
                 <RadioButton x:Name="radioButtonHouse" FontSize="16" Content="House" GroupName="AccomodationType"/>
                 <RadioButton x:Name="radioButtonHut" FontSize="16" Content="Hut" GroupName="AccomodationType"/>
             </StackPanel>
 
-            <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontSize="16"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+            <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontSize="16"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
                      Text="{Binding accommodationDTO.MaxGuestNumber}"/>
 
-            <Label Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Min Reservation Days:" FontSize="16"/>
-            <TextBox Grid.Row="6" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+            <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Min Reservation Days:" FontSize="16"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
                      Text="{Binding accommodationDTO.MinReservationDays}"/>
 
-            <Label Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Last Cancellation Day:" FontSize="16"/>
-            <TextBox Grid.Row="7" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+            <Label Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Last Cancellation Day:" FontSize="16"/>
+            <TextBox Grid.Row="6" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
                      Text="{Binding accommodationDTO.LastCancellationDay}"/>
 
-            <Label Grid.Row="8" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Image links: " FontSize="16"/>
+            
            <!-- <TextBox Grid.Row="8" Grid.Column="1" Width="220" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="100"
                      Text="{Binding accomodationDTO.ProfilePicturesNotParsed}"/> -->
-            <Button Content="Add Images" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="8" Height="50" Width="120" Click="SelectImages_Click"/>
+            <Button Content="Import Images" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="130" Click="SelectImages_Click"/>
 
             <Button Grid.Row="9" Grid.Column="1" Content="Decline" Height="50" Width="120" Click="Decline_Click"/>
 
