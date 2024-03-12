@@ -22,13 +22,23 @@ namespace BookingApp.View.AndroidViews
     {
         public Frame MainFrame { get; set; }
 
+        public Frame SideFrame { get; set; }
+
         private readonly User _user;
         public MainWindow(User user)
         {
             InitializeComponent();
             MainFrame = mainFrame;
+            SideFrame = sideFrame;
             _user = user;
             MainFrame.Content = new AccommodationPage(MainFrame,_user);
+            SideFrame.Content = null;
         }
+
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
+                sideFrame.Content = new SideMenuPage(MainFrame,SideFrame,_user,HeaderLabel);
+                mainFrame.IsHitTestVisible = false;
+                mainFrame.Opacity = 0.4;
+        }   
     }
 }
