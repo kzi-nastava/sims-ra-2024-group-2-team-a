@@ -15,19 +15,23 @@
             </Grid.ColumnDefinitions>
 
             <Label x:Name="labelLocation" Content="Location" FontSize="15" Width="80" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
-            <ComboBox x:Name="comboBoxLocation" Width="232" Height="20" Margin="95,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="comboBoxLocation" Width="232" Height="25" Margin="95,12,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
+                      ItemsSource="{Binding Path=_locationDTOs}" DisplayMemberPath="LocationOptionTemplate"/>
+
             <Label x:Name="labelType" Content="Type" FontSize="15" Width="80" Height="30" Margin="10,45,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
-            <ComboBox x:Name="comboBoxType" Margin="95,50,0,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140"/>
+            <ComboBox x:Name="comboBoxType" Margin="95,48,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140"/>
 
             <Label x:Name="labelName" Content="Name" FontSize="15" Width="60" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Grid.Column="1"/>
             <TextBox x:Name="textBoxName" Grid.Column="1" Margin="75,15,0,0" HorizontalAlignment="Left" Width="232" Height="20" VerticalAlignment="Top"/>
+
             <Label x:Name="labelDays" Content="Days" FontSize="15" Width="60" Height="30" Margin="10,45,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Grid.Column="1"/>
             <TextBox x:Name="textBoxDays" Grid.Column="1" Margin="75,50,0,0" HorizontalAlignment="Left" Width="60" Height="20" VerticalAlignment="Top"/>
+
             <Label x:Name="labelGuests" Content="Guests" FontSize="15" Width="60" Height="30" Margin="140,45,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Grid.Column="1"/>
             <TextBox x:Name="textBoxGuests" Grid.Column="1" Margin="205,50,0,0" HorizontalAlignment="Left" Width="60" Height="20" VerticalAlignment="Top"/>
 
-            <Button x:Name="buttonFilter" Content="Filter" Margin="48,40,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88" Grid.Column="2"/>
-            <Button x:Name="buttonClear" Content="Clear" Margin="90,10,0,0" Height="20" VerticalAlignment="Top" Grid.Column="2" HorizontalAlignment="Left" Width="46"/>
+            <Button x:Name="buttonFilter" Content="Filter" Margin="48,40,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88" Grid.Column="2" Click="ButtonFilterClick"/>
+            <Button x:Name="buttonClear" Content="Clear" Margin="90,10,0,0" Height="20" VerticalAlignment="Top" Grid.Column="2" HorizontalAlignment="Left" Width="46" Click="ButtonClearClick"/>
         </Grid>
         <ScrollViewer Margin="0,80,0,0" VerticalScrollBarVisibility="Auto">
             <ItemsControl x:Name="itemsControlAccommodations" ItemsSource="{Binding _accommodationDTOs}" Margin="10 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center" >
