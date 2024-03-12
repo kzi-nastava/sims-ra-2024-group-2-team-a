@@ -20,9 +20,9 @@ using System.Windows.Shapes;
 
 namespace BookingApp.View.WebViews {
     /// <summary>
-    /// Interaction logic for BookPage.xaml
+    /// Interaction logic for BookingPage.xaml
     /// </summary>
-    public partial class BookPage : UserControl {
+    public partial class BookingPage : UserControl {
 
         private List<AccommodationDTO> _accommodationDTOs = new List<AccommodationDTO>();
         private List<LocationDTO> _locationDTOs = new List<LocationDTO>();
@@ -30,7 +30,7 @@ namespace BookingApp.View.WebViews {
         private AccommodationRepository _accommodationRepository = new AccommodationRepository();
         private LocationRepository _locationRepository = new LocationRepository();
 
-        public BookPage() {
+        public BookingPage() {
             InitializeComponent();
             Update();
             SetItemSoruces();

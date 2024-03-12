@@ -15,7 +15,7 @@
             <Button Name="buttonForum" Content="Forums" HorizontalAlignment="Left" Margin="360,0,0,0" VerticalAlignment="Bottom" Height="40" Width="120"/>
         </Grid>
         <Grid x:Name="gridPages" Margin="0,80,0,0" Height="504" VerticalAlignment="Top">
-            <local:BookPage x:Name="bookPage" Visibility="Collapsed"></local:BookPage>
+            <local:BookingPage x:Name="bookPage" Visibility="Collapsed"></local:BookingPage>
             <local:ReservationsPage x:Name="reservationsPage" Visibility="Collapsed"></local:ReservationsPage>
         </Grid>
     </Grid>
