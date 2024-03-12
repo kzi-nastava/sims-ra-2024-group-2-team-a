@@ -95,8 +95,8 @@ namespace BookingApp.Repository {
             bool matchesName = accommodation.Name.ToLower().Contains(filter.Name.ToLower()) || filter.Name == "";
             bool matchesLocation = accommodation.LocationId == filter.Location.Id || filter.Location.Id == -1;
             bool matchesType = accommodation.type == filter.Type || filter.Type == AccommodationType.none;
-            bool matchesGuestNumber = accommodation.MaxGuestNumber >= filter.guestNumber || filter.guestNumber == 0;
-            bool matchesReservationDays = accommodation.MinReservationDays <= filter.reservationDays || filter.reservationDays == 0;
+            bool matchesGuestNumber = accommodation.MaxGuestNumber >= filter.GuestNumber || filter.GuestNumber == 0;
+            bool matchesReservationDays = accommodation.MinReservationDays <= filter.ReservationDays || filter.ReservationDays == 0;
 
             return matchesGuestNumber && matchesLocation && matchesName && matchesReservationDays && matchesType;
         }
