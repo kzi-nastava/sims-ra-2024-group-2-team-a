@@ -22,7 +22,7 @@
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Content="Assign a Grade" Grid.Column="1" Width="120" Height="40">
+                    <Button x:Name="AssignGradeButton" Grid.Row="0" Content="Assign a Grade" Grid.Column="1" Width="120" Height="40" Click="AssignGradeButton_Click">
                         
                     </Button>
 
@@ -31,7 +31,7 @@
 
                     <ListView ItemsSource="{Binding ReservationCollection, UpdateSourceTrigger=PropertyChanged}"
           SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
-          SelectionMode="Single" Grid.Row="1" Grid.ColumnSpan="4" Grid.Column="0">
+          SelectionMode="Single" Grid.Row="1" Grid.ColumnSpan="4" Grid.Column="0" SelectionChanged="ListView_SelectionChanged">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Accommodation" Width="160" DisplayMemberBinding="{Binding AccommodationName}"/>
@@ -46,6 +46,11 @@
                                 </GridViewColumn>
                             </GridView>
                         </ListView.View>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Height" Value="50"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
                     </ListView>
                 </Grid>
             </TabItem>

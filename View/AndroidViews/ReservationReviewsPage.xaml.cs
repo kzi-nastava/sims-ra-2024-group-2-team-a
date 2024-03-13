@@ -70,6 +70,34 @@ namespace BookingApp.View.AndroidViews {
             }
         }
 
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
 
+            DateOnly offsetDate = SelectedReservation.EndDate;
+            offsetDate = offsetDate.AddDays(5);
+
+            if (SelectedReservation.Graded) {
+                AssignGradeButton.IsEnabled = false;
+                return;
+            }
+
+            if (currentDate > SelectedReservation.EndDate && currentDate < offsetDate) {
+                AssignGradeButton.IsEnabled = true;
+            }
+            else {
+                AssignGradeButton.IsEnabled = false;
+            }
+        }
+
+        private void AssignGradeButton_Click(object sender, RoutedEventArgs e) {
+            if (SelectedReservation == null) {
+                AssignGradeButton.IsEnabled = false;
+            }
+            else {
+                AssignGradeButton.IsEnabled = true;
+                AssignGradeWindow assignGradeWindow = new AssignGradeWindow();
+                assignGradeWindow.ShowDialog();
+            }
+        }
     }
 }
