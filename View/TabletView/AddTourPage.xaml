@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.TabletView"
       mc:Ignorable="d" 
-      d:DesignHeight="728" d:DesignWidth="1024"
+      d:DesignHeight="724" d:DesignWidth="1024"
       Title="AddTour">
 
     <Grid Background="#696969">
@@ -20,41 +20,54 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">
-        Name:
-        </TextBlock>
-        <TextBox Grid.Row="0" Grid.Column="1" Margin="100,20,100,20" FontSize="20"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Text="Location:"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="100,20,100,20" FontSize="20"/>
-        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">
-        Language:
-        </TextBlock>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="100,20,100,20" FontSize="20"/>
-        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">
-        Max Tourist Number:
-        </TextBlock>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="100,20,100,20" FontSize="20"/>
-        <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">
-        Duration:
-        </TextBlock>
-        <TextBox Grid.Row="4" Grid.Column="1" Margin="100,20,100,20" FontSize="20"/>
-        <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">
-        Current Tourist Number:
-        </TextBlock>
-        <TextBox Grid.Row="5" Grid.Column="1" Margin="100,20,100,20" FontSize="20"/>
-        <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">
-        Profile Picture:
-        </TextBlock>
-        <TextBox Grid.Row="6" Grid.Column="1" Margin="100,20,100,20" FontSize="20" IsEnabled="False"/>
-        <Button Grid.Row="7" Grid.Column="0" FontSize="24" FontWeight="Bold" Margin="200,20,200,20">
-            Odustani
+        <Label Grid.Row="0" Grid.Column="0" Margin="40,0,20,0" Content="Name:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="20,0,20,0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Margin="40,0,20,0" Content="Description:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
+        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="1" Grid.Column="1" Margin="20,0,20,0" Height="50" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Margin="40,0,20,0" Content="Max Tourists:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"/>
+
+        <Label Grid.Row="3" Grid.Column="0" Margin="40,0,20,0" Content="Date:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
+        <DatePicker Grid.Row="3" Grid.Column="1" Margin="20,0,20,0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="22"/>
+        
+        <Label Grid.Row="4" Grid.Column="0" Margin="40,0,20,0" Content="Time:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"/>
+
+        <Label Grid.Row="5" Grid.Column="0" Margin="40,0,20,0" Content="Duration:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"/>
+
+        <Label Grid.Row="6" Grid.Column="0" Margin="40,0,20,0" Content="Photos:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
+        <Button x:Name="pickPhotosButton" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="pickPhotosButton_Click">
+            <StackPanel Orientation="Horizontal" Margin="0,0,30,0">
+                <Label VerticalAlignment="Center" FontSize="20" FontStyle="Italic" FontWeight="Thin" Margin="20,0,20,0">Pick photos from galery</Label>
+                <Image Source="/Resources/Images/add2.png" Width="40" Height="40" />
+            </StackPanel>
         </Button>
 
-        <Button Grid.Row="7" Grid.Column="1" FontSize="24" FontWeight="Bold" Margin="200,20,200,20">
-            Dodaj
-        </Button>
+        <Label Grid.RowSpan="2" Grid.Column="2" Margin="40,0,20,0" Content="Location:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
+        <ComboBox Grid.RowSpan="2" Grid.Column="3" Margin="50">
+            
+        </ComboBox>
+
+        <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Margin="40,0,20,0" Content="Language:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
+        <ComboBox Grid.Row="2" Grid.RowSpan="2" Grid.Column="3"  Margin="50">
+
+        </ComboBox>
+
+        <Label Grid.Row="4"  Grid.Column="2" Margin="40,0,20,0" Content="Keypoints:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
+        <DataGrid  Grid.Row="5" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2"  Margin="50">
+            <TextBox TextWrapping="Wrap" AcceptsReturn="True" FontSize="20"/>
+
+        </DataGrid>
+
+        <Button x:Name="resetButton" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Reset" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30,10,30,10" Click="resetButton_Click"/>
+        <Button x:Name="confirmButton" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Content="Confirm" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20,10,20,10" Click="confirmButton_Click"/>
     </Grid>
 </Page>

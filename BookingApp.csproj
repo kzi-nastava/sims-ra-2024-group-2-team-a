@@ -52,6 +52,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\Accomodations\" />
+    <Folder Include="Resources\Images\Tours\" />
   </ItemGroup>
 
 </Project>
