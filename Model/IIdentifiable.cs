@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingApp.Model {
-    interface IIdentifiable {
+    public interface IIdentifiable {
         int Id { get; set; }
     }
 }
