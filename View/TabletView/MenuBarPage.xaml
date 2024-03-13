@@ -1,0 +1,70 @@
+﻿<Page x:Class="BookingApp.View.TabletView.MenuBarPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.TabletView"
+      mc:Ignorable="d" 
+      d:DesignHeight="696" d:DesignWidth="300"
+      Title="MenuBar">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="menuBarGrid" Background="Aqua">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" HorizontalAlignment="Right" Content="Tour Menu" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Margin="0,5,10,1"/>
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0"/>
+
+            <Button x:Name="addButton" Grid.Row="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,50,0,5" Click="addButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                    <Image Source="/Resources/Images/add2.png" Width="40" Height="40" />
+                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Add Tour</Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="removeButton" Grid.Row="2" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="removeButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                    <Image Source="/Resources/Images/trash.png" Width="40" Height="40" />
+                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Remove Tour</Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="followLiveButton" Grid.Row="3" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="followLiveButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                    <Image Source="/Resources/Images/live.png" Width="40" Height="40" />
+                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Follow Live</Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="statsButton" Grid.Row="4" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="statsButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                    <Image Source="/Resources/Images/stats.png" Width="40" Height="40" />
+                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Tour Stats</Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="reviewsButton" Grid.Row="5" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="reviewsButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                    <Image Source="/Resources/Images/reviews.png" Width="40" Height="40" />
+                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Tourist Reviews</Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="requestsButton" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="requestsButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                    <Image Source="/Resources/Images/request.png" Width="40" Height="40" />
+                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Tourist Requests</Label>
+                </StackPanel>
+            </Button>
+        </Grid>
+        <Button x:Name="menuButton" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40" Click="menuButton_Click" Background="Cyan" BorderBrush="Black" Foreground="{x:Null}">
+            <Image Source="/Resources/Images/hamburger.png" />
+        </Button>
+    </Grid>
+</Page>

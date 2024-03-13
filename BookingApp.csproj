@@ -14,7 +14,12 @@
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\hamburger.png" />
     <None Remove="Resources\Images\help.png" />
+    <None Remove="Resources\Images\live.png" />
+    <None Remove="Resources\Images\request.png" />
+    <None Remove="Resources\Images\reviews.png" />
     <None Remove="Resources\Images\sheraton.jpg" />
+    <None Remove="Resources\Images\stats.png" />
+    <None Remove="Resources\Images\trash.png" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
 
@@ -37,7 +42,12 @@
     <Resource Include="Resources\Images\add2.png" />
     <Resource Include="Resources\Images\hamburger.png" />
     <Resource Include="Resources\Images\help.png" />
+    <Resource Include="Resources\Images\live.png" />
+    <Resource Include="Resources\Images\request.png" />
+    <Resource Include="Resources\Images\reviews.png" />
     <Resource Include="Resources\Images\sheraton.jpg" />
+    <Resource Include="Resources\Images\stats.png" />
+    <Resource Include="Resources\Images\trash.png" />
   </ItemGroup>
 
   <ItemGroup>
