@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Serializer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model {
 
-    public class AccommodationReservation {
+    public class AccommodationReservation : ISerializable {
         
         public int Id { get; set; }
         public int IdGuest { get; set; }
