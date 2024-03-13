@@ -8,9 +8,41 @@
         Title="ReservationWindow" Height="450" Width="800">
     <Grid>
         <StackPanel DockPanel.Dock="Right">
-            
-            <TextBox x:Name="PassengerNumberTextBox" Text="{Binding PassengerNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Width="100" Margin="10"/>
-            <Button Width="100" Height="50" x:Name="PassengerNumberConfirmationButton" Click="PassengerNumberConfirmationButton_Click"></Button>
+
+            <WrapPanel>
+                <TextBox x:Name="PassengerName" 
+                         Width="100"></TextBox>
+                <TextBox x:Name="PassengerSurname" 
+                         Width="100"></TextBox>
+                <TextBox x:Name="PassengerAge" 
+                         Width="100"></TextBox>
+                <Button x:Name="AddPassengerButton"
+                        Click="AddPassengerButton_Click"
+                        Width="30">+</Button>
+            </WrapPanel>
+
+            <DataGrid ItemsSource="{Binding Passengers, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" 
+                                        Binding="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Surname"
+                                        Binding="{Binding Surname, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Age"
+                                        Binding="{Binding Age, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="RemovePassengerButton"
+                                        Content="Remove"
+                                        Click="RemovePassengerButton_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                
+            </DataGrid>
 
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
                 <StackPanel x:Name="wrapPanelStackPanel"/>

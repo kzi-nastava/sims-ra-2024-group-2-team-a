@@ -1,0 +1,30 @@
+﻿<Window x:Class="BookingApp.View.DesktopViews.SameLocationToursWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.DesktopViews"
+        mc:Ignorable="d"
+        Title="SameLocationToursWindow" Height="450" Width="800">
+    <Grid>
+        <ItemsControl ItemsSource="{Binding SameLocationTours}"
+                      Grid.Row="1">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <!-- Define your custom layout for each item -->
+                    <Grid>
+                        <Border BorderBrush="Black" 
+                                BorderThickness="1" 
+                                Margin="5">
+                            <StackPanel>
+                                <!-- Your content -->
+                                <TextBlock Text="{Binding Language, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>

@@ -1,18 +1,15 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Serializer;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Repository {
     public class TourRepository : IRepository<Tour> {
         private readonly Serializer<Tour> _serializer;
 
         private List<Tour> _tours;
-        
+
         public TourRepository() {
             _serializer = new Serializer<Tour>();
             _tours = _serializer.FromCSV();
@@ -33,7 +30,7 @@ namespace BookingApp.Repository {
         public bool Delete(Tour tour) {
             _tours = _serializer.FromCSV();
             Tour? found = _tours.Find(c => c.Id == tour.Id);
-            if(found == null) return false;
+            if (found == null) return false;
 
             _tours.Remove(found);
             _serializer.ToCSV(_tours);
@@ -44,7 +41,7 @@ namespace BookingApp.Repository {
             _tours = _serializer.FromCSV();
             Tour? current = _tours.Find(c => c.Id == tour.Id);
             int index = _tours.IndexOf(current);
-            if(current == null) return false;
+            if (current == null) return false;
 
             _tours.Remove(current);
             _tours.Insert(index, tour);
@@ -81,6 +78,14 @@ namespace BookingApp.Repository {
             bool matchesTouristNumber = tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
 
             return matchesLocation && matchesDuration && matchesLanguage && matchesTouristNumber;
+        }
+
+        public List<Tour> GetToursByLocation(int locationId) {
+            return GetAll().Where(t => (locationId == t.LocationId)).ToList();
+        }
+
+        public List<Tour> GetSameLocationTours(TourDTO tour) {
+            return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
         }
     }
 }
