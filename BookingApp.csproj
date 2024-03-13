@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -8,15 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\Accomodations\360_F_129692052_B3NtnybQl1E6vP6HcsHJbvNAnEFffXBh.jpg" />
-    <None Remove="Resources\Images\Accomodations\benefits-penthouse-living-main-image.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\add2.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\hamburger.png" />
     <None Remove="Resources\Images\help.png" />
+    <None Remove="Resources\Images\live.png" />
+    <None Remove="Resources\Images\request.png" />
+    <None Remove="Resources\Images\reviews.png" />
     <None Remove="Resources\Images\sheraton.jpg" />
+    <None Remove="Resources\Images\stats.png" />
+    <None Remove="Resources\Images\trash.png" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
 
@@ -36,12 +39,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Images\Accomodations\360_F_129692052_B3NtnybQl1E6vP6HcsHJbvNAnEFffXBh.jpg" />
-    <Resource Include="Resources\Images\Accomodations\benefits-penthouse-living-main-image.png" />
     <Resource Include="Resources\Images\add2.png" />
     <Resource Include="Resources\Images\hamburger.png" />
     <Resource Include="Resources\Images\help.png" />
+    <Resource Include="Resources\Images\live.png" />
+    <Resource Include="Resources\Images\request.png" />
+    <Resource Include="Resources\Images\reviews.png" />
     <Resource Include="Resources\Images\sheraton.jpg" />
+    <Resource Include="Resources\Images\stats.png" />
+    <Resource Include="Resources\Images\trash.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Images\Accomodations\" />
+    <Folder Include="Resources\Images\Tours\" />
   </ItemGroup>
 
 </Project>

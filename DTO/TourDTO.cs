@@ -25,6 +25,7 @@ namespace BookingApp.DTO {
         }
 
         public TourDTO(Tour t) {
+            Id = t.Id;
             Name = t.Name;
             LocationId = t.LocationId;
             Description = t.Description;
