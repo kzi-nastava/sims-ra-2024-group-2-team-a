@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model {
 
-    public class Guest : User, ISerializable {
+    public class Guest : User {
 
         public bool isSuperGuest { get; set; }
 

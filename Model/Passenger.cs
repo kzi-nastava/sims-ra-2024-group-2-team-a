@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using BookingApp.Serializer;
 
 namespace BookingApp.Model {
-    public class Passenger : ISerializable {
+
+    public class Passenger : ISerializable, IIdentifiable {
+
         public int Id { get; set; }
         public int TourReservationId { get; set; }
         public string Name { get; set; }
