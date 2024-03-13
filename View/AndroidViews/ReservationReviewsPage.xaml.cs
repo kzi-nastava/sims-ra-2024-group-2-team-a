@@ -54,6 +54,8 @@ namespace BookingApp.View.AndroidViews {
         }
 
         public void Update() {
+            ReservationCollection.Clear();
+
             foreach (var acc in _accommodationRepository.GetByOwnerId(_user.Id)) {
                 foreach (var accRes in _accommodationReservationRepository.GetByAccommodationId(acc.Id)) {
                     AccommodationReservationDTO accResDTO = new AccommodationReservationDTO(accRes);
@@ -69,8 +71,11 @@ namespace BookingApp.View.AndroidViews {
                 }
             }
         }
-
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if(SelectedReservation == null) {
+                return;
+            }
+
             DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
 
             DateOnly offsetDate = SelectedReservation.EndDate;
@@ -95,7 +100,7 @@ namespace BookingApp.View.AndroidViews {
             }
             else {
                 AssignGradeButton.IsEnabled = true;
-                AssignGradeWindow assignGradeWindow = new AssignGradeWindow();
+                AssignGradeWindow assignGradeWindow = new AssignGradeWindow(SelectedReservation,_user.Id,this);
                 assignGradeWindow.ShowDialog();
             }
         }
