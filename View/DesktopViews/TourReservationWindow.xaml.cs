@@ -22,7 +22,7 @@ namespace BookingApp.View.DesktopViews
     /// <summary>
     /// Interaction logic for ReservationWindow.xaml
     /// </summary>
-    public partial class ReservationWindow : Window, INotifyPropertyChanged {
+    public partial class TourReservationWindow : Window, INotifyPropertyChanged {
         private int _passengerNumber = 0;
         private TourReservationRepository _tourReservationRepository;
 
@@ -39,7 +39,7 @@ namespace BookingApp.View.DesktopViews
         }
         public TourDTO SelectedTour { get; set; }
         public int UserId { get; set; }
-        public ReservationWindow(TourDTO selectedTour, int userId)
+        public TourReservationWindow(TourDTO selectedTour, int userId)
         {
             InitializeComponent();
             DataContext = this;

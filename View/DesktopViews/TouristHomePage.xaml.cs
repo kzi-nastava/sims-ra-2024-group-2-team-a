@@ -11,7 +11,7 @@ namespace BookingApp.View.DesktopViews {
     /// <summary>
     /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class HomePage : Page {
+    public partial class TouristHomePage : Page {
         private readonly TourRepository _tourRepository;
         private readonly LocationRepository _locationRepository;
 
@@ -19,7 +19,7 @@ namespace BookingApp.View.DesktopViews {
         public TourFilterDTO Filter { get; set; }
         public ObservableCollection<TourDTO> ToursOnDisplay { get; set; }
         public ObservableCollection<LocationDTO> LocationOptions { get; set; }
-        public HomePage(int userId) {
+        public TouristHomePage(int userId) {
             InitializeComponent();
 
             DataContext = this;
@@ -72,7 +72,7 @@ namespace BookingApp.View.DesktopViews {
             var button = (Button)sender;
             var selectedTour = (TourDTO)button.DataContext;
 
-            ReservationWindow reservationWindow = new ReservationWindow(selectedTour, UserId);
+            TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, UserId);
             reservationWindow.ShowDialog();
         }
     }

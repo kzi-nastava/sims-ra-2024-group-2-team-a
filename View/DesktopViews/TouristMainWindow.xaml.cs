@@ -18,7 +18,7 @@ namespace BookingApp.View.DesktopViews {
             InitializeComponent();
             DataContext = this;
             UserId = userId;
-            PageFrame.Navigate(new HomePage(UserId));
+            PageFrame.Navigate(new TouristHomePage(UserId));
         }
     }
 }
