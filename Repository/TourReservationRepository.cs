@@ -1,12 +1,8 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Serializer;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace BookingApp.Repository {
     public class TourReservationRepository : IRepository<TourReservation> {
@@ -67,15 +63,32 @@ namespace BookingApp.Repository {
             }
             return _tourReservations.Max(c => c.Id) + 1;
         }
-        
-        public void MakeReservation(int userId, TourDTO tourDTO, List<PassengerDTO> passengerDTOs) {
+
+        public int MakeReservation(int userId, TourDTO tourDTO, List<PassengerDTO> passengerDTOs) {
             PassengerRepository passengerRepository = new PassengerRepository();
             UserRepository userRepository = new UserRepository();
             TourRepository tourRepository = new TourRepository();
 
+            int availableSpace = tourDTO.MaxTouristNumber - tourDTO.CurrentTouristNumber;
+            int addedPassengers = 0;
+
+            if (availableSpace == 0)
+                return -1;
+
+            if (passengerDTOs.Count > availableSpace)
+                return 0;
+
             Save(new TourReservation(userId, tourDTO.Id));
-            foreach(var passenger in passengerDTOs)
+            foreach (var passenger in passengerDTOs) {
                 passengerRepository.Save(new Passenger(tourDTO.Id, passenger.Name, passenger.Surname, passenger.Age, userId));
+                addedPassengers++;
+            }
+
+            Tour updatedTour = tourRepository.GetById(tourDTO.Id);
+            updatedTour.CurrentTouristNumber += addedPassengers;
+            tourRepository.Update(updatedTour);
+
+            return 1;
         }
-    }  
+    }
 }

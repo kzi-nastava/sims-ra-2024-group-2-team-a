@@ -1,11 +1,11 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.DTO;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,17 +15,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.Model;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace BookingApp.View.DesktopViews
 {
     /// <summary>
     /// Interaction logic for ReservationWindow.xaml
     /// </summary>
-    public partial class ReservationWindow : Window, INotifyPropertyChanged {
+    public partial class TourReservationWindow : Window, INotifyPropertyChanged {
         private int _passengerNumber = 0;
         private TourReservationRepository _tourReservationRepository;
 
+        public ObservableCollection<PassengerDTO> Passengers { get; set; }
         public int PassengerNumber {
             get {
                 return _passengerNumber;
@@ -39,16 +45,18 @@ namespace BookingApp.View.DesktopViews
         }
         public TourDTO SelectedTour { get; set; }
         public int UserId { get; set; }
-        public ReservationWindow(TourDTO selectedTour, int userId)
+        public TourReservationWindow(TourDTO selectedTour, int userId)
         {
             InitializeComponent();
             DataContext = this;
             SelectedTour = selectedTour;
             UserId = userId;
+ 
+            Passengers = new ObservableCollection<PassengerDTO>();
             _tourReservationRepository = new TourReservationRepository();
         }
 
-        private void PassengerNumberConfirmationButton_Click(object sender, RoutedEventArgs e) {
+        /*private void PassengerNumberConfirmationButton_Click(object sender, RoutedEventArgs e) {
             wrapPanelStackPanel.Children.Clear();
 
             for (int i = 0; i < _passengerNumber; i++) {
@@ -68,16 +76,19 @@ namespace BookingApp.View.DesktopViews
 
                 wrapPanelStackPanel.Children.Add(wrapPanel);
             }
-        }
+        }*/
 
         private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {
-            List<PassengerDTO> passengerList = new List<PassengerDTO>();
-            for(int i = 0; i < _passengerNumber; i++) {
-                WrapPanel wrapPanel = (WrapPanel)wrapPanelStackPanel.Children[i];
-                PassengerDTO passengerDTO = new PassengerDTO(((TextBox)wrapPanel.Children[0]).Text, ((TextBox)wrapPanel.Children[1]).Text, Convert.ToInt32(((TextBox)wrapPanel.Children[2]).Text));
-                passengerList.Add(passengerDTO);
+            SameLocationToursWindow sameLocationToursWindow = new SameLocationToursWindow(SelectedTour);
+            int reservationSuccessIndicator = _tourReservationRepository.MakeReservation(UserId, SelectedTour, Passengers.ToList());
+            if (reservationSuccessIndicator == 0)
+                MessageBox.Show("There is not enought space for all!", "Title of the MessageBox", MessageBoxButton.OK);
+            else if (reservationSuccessIndicator == -1) {
+                sameLocationToursWindow.Owner = this;
+                sameLocationToursWindow.ShowDialog();
             }
-            _tourReservationRepository.MakeReservation(UserId, SelectedTour, passengerList);
+            else
+                this.Close();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -85,5 +96,22 @@ namespace BookingApp.View.DesktopViews
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void AddPassengerButton_Click(object sender, RoutedEventArgs e) {
+            PassengerDTO newPassenger = new PassengerDTO(PassengerName.Text, PassengerSurname.Text, Convert.ToInt32(PassengerAge.Text));
+
+            PassengerName.Text = null;
+            PassengerSurname.Text = null;
+            PassengerAge.Text = null;
+
+            Passengers.Add(newPassenger);
+        }
+
+        private void RemovePassengerButton_Click(object sender, RoutedEventArgs e) {
+            var button = (Button)sender;
+            var passenger = (PassengerDTO)button.DataContext;
+
+            // Remove the passenger from the collection
+            Passengers.Remove(passenger);
+        }
     }
 }
