@@ -24,7 +24,7 @@ namespace BookingApp.View.TabletView {
             MainFrame = mainFrame;
             MenuBarFrame = menuBarFrame;
 
-            MainFrame.Content = null;
+            MainFrame.Content = new AddTourPage(mainFrame);
             MenuBarFrame.Content = new MenuBarButtonPage(MenuBarFrame, MainFrame);
         }
 
