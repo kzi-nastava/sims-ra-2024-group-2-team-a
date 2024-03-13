@@ -17,10 +17,11 @@ namespace BookingApp.View.WebViews {
     /// Interaction logic for GuestMainWindow.xaml
     /// </summary>
     public partial class GuestMainWindow : Window {
+
         public GuestMainWindow() {
             InitializeComponent();
             SetWindowProperties();
-            SetActiveUserControl(bookPage);
+            mainFrame.Content = new BookingPage(mainFrame);
         }
 
         private void SetWindowProperties() {
@@ -28,19 +29,21 @@ namespace BookingApp.View.WebViews {
             this.ResizeMode = ResizeMode.NoResize;
         }
 
-        private void SetActiveUserControl(UserControl userControl) {
-            bookPage.Visibility = Visibility.Collapsed;
-            reservationsPage.Visibility = Visibility.Collapsed;
+        //private void SetActiveUserControl(UserControl userControl) {
+        //    bookPage.Visibility = Visibility.Collapsed;
+        //    reservationsPage.Visibility = Visibility.Collapsed;
 
-            userControl.Visibility = Visibility.Visible;
+        //    userControl.Visibility = Visibility.Visible;
+        //}
+
+        private void ButtonBookClick(object sender, RoutedEventArgs e) {
+            mainFrame.Content = new BookingPage(mainFrame);
         }
 
-        private void buttonBook_Click(object sender, RoutedEventArgs e) {
-            SetActiveUserControl(bookPage);
-        }
+        private void ButtonReservationsClick(object sender, RoutedEventArgs e) {
+            mainFrame.Content = new ReservationsPage();
 
-        private void buttonReservations_Click(object sender, RoutedEventArgs e) {
-            SetActiveUserControl(reservationsPage);
+
         }
     }
 }

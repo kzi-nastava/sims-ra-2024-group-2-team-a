@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BookingApp.View.WebViews.BookingPage"
+﻿<Page x:Class="BookingApp.View.WebViews.BookingPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -33,7 +33,7 @@
             <Button x:Name="buttonFilter" Content="Filter" Margin="48,40,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88" Grid.Column="2" Click="ButtonFilterClick"/>
             <Button x:Name="buttonClear" Content="Clear" Margin="90,10,0,0" Height="20" VerticalAlignment="Top" Grid.Column="2" HorizontalAlignment="Left" Width="46" Click="ButtonClearClick"/>
         </Grid>
-        <ScrollViewer Margin="0,80,0,0" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Margin="0,80,0,25" VerticalScrollBarVisibility="Auto">
             <ItemsControl x:Name="itemsControlAccommodations" ItemsSource="{Binding _accommodationDTOs}" Margin="10 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -48,4 +48,4 @@
             </ItemsControl>
         </ScrollViewer>
     </Grid>
-</UserControl>
+</Page>
