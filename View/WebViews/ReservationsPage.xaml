@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BookingApp.View.WebViews.ReservationsPage"
+﻿<Page x:Class="BookingApp.View.WebViews.ReservationsPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,4 +9,4 @@
     <Grid>
         <TextBlock Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">This is reservations page</TextBlock>
     </Grid>
-</UserControl>
+</Page>

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Model {
     public class Tour : BookingApp.Serializer.ISerializable {
@@ -19,7 +16,7 @@ namespace BookingApp.Model {
         public List<string> ProfilePictures { get; set; }
 
 
-        public Tour() { 
+        public Tour() {
             ProfilePictures = new List<string>();
         }
         public Tour(int id, string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, List<string> profilePictures) {
@@ -49,7 +46,7 @@ namespace BookingApp.Model {
                 Beggining.ToString(),
                 };
 
-             if (ProfilePictures != null) {
+            if (ProfilePictures != null) {
                 foreach (string profilePicture in ProfilePictures) {
                     Array.Resize(ref csvValues, csvValues.Length + 1);
                     csvValues[csvValues.Length - 1] = profilePicture;

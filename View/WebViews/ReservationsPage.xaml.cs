@@ -17,7 +17,8 @@ namespace BookingApp.View.WebViews {
     /// <summary>
     /// Interaction logic for ReservationsPage.xaml
     /// </summary>
-    public partial class ReservationsPage : UserControl {
+    public partial class ReservationsPage : Page {
+
         public ReservationsPage() {
             InitializeComponent();
         }
