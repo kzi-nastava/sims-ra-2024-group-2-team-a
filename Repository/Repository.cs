@@ -10,9 +10,9 @@ namespace BookingApp.Repository {
 
     public class Repository<T> : IRepository<T> where T : ISerializable, IIdentifiable, new() {
 
-        private readonly Serializer<T> _serializer = new Serializer<T>();
+        protected Serializer<T> _serializer = new Serializer<T>();
 
-        private List<T> _items;
+        protected List<T> _items;
 
         public Repository() { }
 
