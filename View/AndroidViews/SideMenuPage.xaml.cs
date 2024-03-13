@@ -54,7 +54,7 @@ namespace BookingApp.View.AndroidViews
         }
 
         private void ReservationsButton_Click(object sender, RoutedEventArgs e) {
-            //MainFrame.Content = new AccommodationPage(MainFrame, _user);
+            MainFrame.Content = new ReservationReviewsPage(_user);
             MainFrame.Opacity = 1;
             MainFrame.IsHitTestVisible = true;
             SideFrame.Content = null;

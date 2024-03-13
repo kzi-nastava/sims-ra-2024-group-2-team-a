@@ -16,20 +16,31 @@ namespace BookingApp.Model {
             GuestId = 0;
             OwnerId = 0;
             GuestCleannessGrade = 0;
-            GuestRuleFollowingGrade = 0;
+            RuleFollowingGrade = 0;
             OwnerComment = "";
             AccommodationCleannessGrade = 0;
             OwnerCorrectnessGrade = 0;
             GuestComment = "";
         }
-        public Review(int id, int resId, int guestId,int ownerId) {
-            Id = id;
+        public Review(int resId, int guestId,int ownerId) {
             ReservationId = resId;
             GuestId = guestId;
             OwnerId = ownerId;
             GuestCleannessGrade = 0;
-            GuestRuleFollowingGrade = 0;
+            RuleFollowingGrade = 0;
             OwnerComment = "";
+            AccommodationCleannessGrade = 0;
+            OwnerCorrectnessGrade = 0;
+            GuestComment = "";
+        }
+
+        public Review(int resId, int guestId, int ownerId, int guestCleannessGrade, int ruleFollowingGrade, string ownerComment) {
+            ReservationId = resId;
+            GuestId = guestId;
+            OwnerId = ownerId;
+            GuestCleannessGrade = guestCleannessGrade;
+            RuleFollowingGrade = ruleFollowingGrade;
+            OwnerComment = ownerComment;
             AccommodationCleannessGrade = 0;
             OwnerCorrectnessGrade = 0;
             GuestComment = "";
@@ -40,7 +51,7 @@ namespace BookingApp.Model {
         public int GuestId { get; set; }
         public int OwnerId { get; set; }
         public int GuestCleannessGrade { get; set; }
-        public int GuestRuleFollowingGrade { get; set; }
+        public int RuleFollowingGrade { get; set; }
         public string OwnerComment { get; set; }
         public int AccommodationCleannessGrade { get; set; }
         public int OwnerCorrectnessGrade { get; set; }
@@ -53,7 +64,7 @@ namespace BookingApp.Model {
                 GuestId.ToString(),
                 OwnerId.ToString(),
                 GuestCleannessGrade.ToString(),
-                GuestRuleFollowingGrade.ToString(),
+                RuleFollowingGrade.ToString(),
                 OwnerComment,
                 AccommodationCleannessGrade.ToString(),
                 OwnerCorrectnessGrade.ToString(),
@@ -69,7 +80,7 @@ namespace BookingApp.Model {
             GuestId = int.Parse(values[2]);
             OwnerId = int.Parse(values[3]);
             GuestCleannessGrade = int.Parse(values[4]);
-            GuestRuleFollowingGrade = int.Parse(values[5]);
+            RuleFollowingGrade = int.Parse(values[5]);
             OwnerComment = values[6];
             AccommodationCleannessGrade = int.Parse(values[7]);
             OwnerCorrectnessGrade = int.Parse(values[8]);

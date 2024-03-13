@@ -21,7 +21,7 @@
         <Button Click="AccommodationsButton_Click" Grid.Row="0">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2">
+                    <Border BorderBrush="Black" BorderThickness="2,2,2,0">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Accommodations and" FontSize="16" HorizontalAlignment="Center"/>
                             <TextBlock Text="Statistics" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -34,7 +34,7 @@
         <Button Click="InboxButton_Click" Grid.Row="1">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2">
+                    <Border BorderBrush="Black" BorderThickness="2,2,2,0">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Inbox" FontSize="16" HorizontalAlignment="Center"/>
                         </StackPanel>
@@ -46,7 +46,7 @@
         <Button Click="ReservationsButton_Click" Grid.Row="2">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2">
+                    <Border BorderBrush="Black" BorderThickness="2,2,2,0">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Reservations" FontSize="16" HorizontalAlignment="Center"/>
                         </StackPanel>
@@ -58,7 +58,7 @@
         <Button Click="RenovationsButton_Click" Grid.Row="3">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2">
+                    <Border BorderBrush="Black" BorderThickness="2,2,2,2">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Renovations" FontSize="16" HorizontalAlignment="Center"/>
                         </StackPanel>
