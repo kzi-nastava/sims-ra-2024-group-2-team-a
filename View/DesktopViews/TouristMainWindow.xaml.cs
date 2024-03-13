@@ -13,10 +13,12 @@ namespace BookingApp.View.DesktopViews {
     /// Interaction logic for TouristMainWindow.xaml
     /// </summary>
     public partial class TouristMainWindow : Window {
-        public TouristMainWindow() {
+        public int UserId { get; set; }
+        public TouristMainWindow(int userId) {
             InitializeComponent();
             DataContext = this;
-            PageFrame.Navigate(new HomePage());
+            UserId = userId;
+            PageFrame.Navigate(new HomePage(UserId));
         }
     }
 }

@@ -15,10 +15,11 @@ namespace BookingApp.View.DesktopViews {
         private readonly TourRepository _tourRepository;
         private readonly LocationRepository _locationRepository;
 
+        public int UserId { get; set; } 
         public TourFilterDTO Filter { get; set; }
         public ObservableCollection<TourDTO> ToursOnDisplay { get; set; }
         public ObservableCollection<LocationDTO> LocationOptions { get; set; }
-        public HomePage() {
+        public HomePage(int userId) {
             InitializeComponent();
 
             DataContext = this;
@@ -35,6 +36,7 @@ namespace BookingApp.View.DesktopViews {
             }
 
             Update();
+            UserId = userId;
         }
         public void Update() {
             ToursOnDisplay.Clear();
@@ -69,6 +71,9 @@ namespace BookingApp.View.DesktopViews {
         private void ReservationButton_Click(object sender, RoutedEventArgs e) {
             var button = (Button)sender;
             var selectedTour = (TourDTO)button.DataContext;
+
+            ReservationWindow reservationWindow = new ReservationWindow(selectedTour, UserId);
+            reservationWindow.ShowDialog();
         }
     }
 }

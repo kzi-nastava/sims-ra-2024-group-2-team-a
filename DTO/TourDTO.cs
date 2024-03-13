@@ -36,6 +36,15 @@ namespace BookingApp.DTO {
             ProfilePictures = t.ProfilePictures;
         }
 
+        private int _id;
+        public int Id {
+            get { return _id; }
+            set {
+                if (_id != value) {
+                    _id = value; OnPropertyChanged();
+                }
+            }
+        }
 
         private DateTime _beggining;
         public DateTime Beggining {
