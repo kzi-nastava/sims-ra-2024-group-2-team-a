@@ -39,6 +39,10 @@ namespace BookingApp.View.AndroidViews
                 sideFrame.Content = new SideMenuPage(MainFrame,SideFrame,_user,HeaderLabel);
                 mainFrame.IsHitTestVisible = false;
                 mainFrame.Opacity = 0.4;
-        }   
+        }
+
+        private void sideFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e) {
+
+        }
     }
 }
