@@ -66,5 +66,9 @@ namespace BookingApp.Repository {
             return _reviews.Max(c => c.Id) + 1;
         }
 
+        public Review GetByReservationId(int id) {
+            return _serializer.FromCSV().Find(x=> x.ReservationId == id);
+        }
+
     }
 }

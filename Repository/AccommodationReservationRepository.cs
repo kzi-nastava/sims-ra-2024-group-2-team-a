@@ -62,5 +62,16 @@ namespace BookingApp.Repository
 
             return _accommodationReservations.Max(c => c.Id) + 1;
         }
+
+        public List<AccommodationReservation> GetByAccommodationId(int id) {
+            List<AccommodationReservation> accommodationReservations = new List<AccommodationReservation> ();
+
+            foreach (var accRes in _serializer.FromCSV()) {
+                if(accRes.IdAccommodation == id) {
+                    accommodationReservations.Add(accRes);
+                }
+            }
+            return accommodationReservations;
+        }
     }
 }

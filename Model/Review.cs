@@ -22,8 +22,7 @@ namespace BookingApp.Model {
             OwnerCorrectnessGrade = 0;
             GuestComment = "";
         }
-        public Review(int id, int resId, int guestId,int ownerId) {
-            Id = id;
+        public Review(int resId, int guestId,int ownerId) {
             ReservationId = resId;
             GuestId = guestId;
             OwnerId = ownerId;
