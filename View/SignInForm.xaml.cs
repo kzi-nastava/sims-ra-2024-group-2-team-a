@@ -58,7 +58,7 @@ namespace BookingApp.View
                         mainWindow.Show();
                         this.Close();
                     }else if(user.Category == UserCategory.Tourist){
-                        TouristMainWindow touristMainWindow = new TouristMainWindow();
+                        TouristMainWindow touristMainWindow = new TouristMainWindow(user.Id);
                         touristMainWindow.Show();
                         this.Close();
                     }
