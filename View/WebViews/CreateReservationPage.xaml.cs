@@ -1,4 +1,6 @@
 ﻿using BookingApp.DTO;
+using BookingApp.Repository;
+using BookingApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +28,40 @@ namespace BookingApp.View.WebViews {
             InitializeComponent();
             _accommodationDTO = accommodationDTO;
             DataContext = _accommodationDTO;
+            sliderGuests.Maximum = _accommodationDTO.MaxGuestNumber;
         }
 
         private void ButtonBackClick(object sender, RoutedEventArgs e) {
             Frame frame = (Frame)Window.GetWindow(this).FindName("mainFrame");
             frame.Content = new BookingPage(frame);
+        }
+
+        private void UpdateSuggestedDates(object sender, EventArgs e) {
+
+            if(!IsReservationInputValid()) {
+                return;
+            }
+
+            int reservationDays = int.Parse(textBoxReservationDays.Text);
+            DateOnly startDate = DateOnly.FromDateTime(datePickerStartDate.SelectedDate.Value);
+            DateOnly endDate = DateOnly.FromDateTime(datePickerEndDate.SelectedDate.Value);
+
+            AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
+            List<AccommodationReservation> reservations = accommodationReservationRepository.GetPossibleReservations(_accommodationDTO.Id, startDate, endDate, reservationDays);
+            dataGridSuggestedDates.ItemsSource = reservations;
+        }
+
+        private bool IsReservationInputValid() {
+            if(datePickerStartDate.SelectedDate == null || datePickerEndDate.SelectedDate == null)
+                return false;
+
+            if (!int.TryParse(textBoxReservationDays.Text, out int result))
+                return false;
+
+            if(result <= 0)
+                return false;
+
+            return true;
         }
     }
 }
