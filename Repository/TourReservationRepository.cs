@@ -64,29 +64,34 @@ namespace BookingApp.Repository {
             return _tourReservations.Max(c => c.Id) + 1;
         }
 
-        public int MakeReservation(int userId, TourDTO tourDTO, List<PassengerDTO> passengerDTOs) {
+        private void FillTourCapacity(int tourId, int addedPassengers) {
+            TourRepository tourRepository = new TourRepository();
+            Tour updatedTour = tourRepository.GetById(tourId);
+            updatedTour.CurrentTouristNumber += addedPassengers;
+            tourRepository.Update(updatedTour);
+        }
+
+        public int MakeReservation(int userId, TourDTO selectedTour, List<PassengerDTO> passengers) {
             PassengerRepository passengerRepository = new PassengerRepository();
             UserRepository userRepository = new UserRepository();
-            TourRepository tourRepository = new TourRepository();
+            
 
-            int availableSpace = tourDTO.MaxTouristNumber - tourDTO.CurrentTouristNumber;
+            int availableSpace = selectedTour.MaxTouristNumber - selectedTour.CurrentTouristNumber;
             int addedPassengers = 0;
 
             if (availableSpace == 0)
                 return -1;
 
-            if (passengerDTOs.Count > availableSpace)
+            if (passengers.Count > availableSpace)
                 return 0;
 
-            Save(new TourReservation(userId, tourDTO.Id));
-            foreach (var passenger in passengerDTOs) {
-                passengerRepository.Save(new Passenger(tourDTO.Id, passenger.Name, passenger.Surname, passenger.Age, userId));
+            Save(new TourReservation(userId, selectedTour.Id));
+            foreach (var passenger in passengers) {
+                passengerRepository.Save(new Passenger(selectedTour.Id, passenger.Name, passenger.Surname, passenger.Age, userId));
                 addedPassengers++;
             }
 
-            Tour updatedTour = tourRepository.GetById(tourDTO.Id);
-            updatedTour.CurrentTouristNumber += addedPassengers;
-            tourRepository.Update(updatedTour);
+            FillTourCapacity(selectedTour.Id, addedPassengers);
 
             return 1;
         }

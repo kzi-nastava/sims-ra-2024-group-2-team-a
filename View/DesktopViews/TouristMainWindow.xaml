@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.DesktopViews"
         mc:Ignorable="d"
-        Title="TouristMainWindow" Height="768" Width="1366"
+        Title="TouristMainWindow" Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -13,7 +13,17 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
-            <Button Height="50"> Home</Button>
+            <ToggleButton x:Name="HomeButton" Click="HomeButton_Click">
+                <TextBlock Text="Home" VerticalAlignment="Center"/>
+            </ToggleButton>
+            <Popup x:Name="HomePopup" PlacementTarget="{Binding ElementName=HomeButton}" Placement="Right" StaysOpen="False" IsOpen="False">
+                <Border Background="#34495E" BorderThickness="1" BorderBrush="#2C3E50">
+                    <StackPanel>
+                        <Button Content="Option 1" Width="30"/>
+                        <Button Content="Option 2" Width="30"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
         </StackPanel>
             <Frame Grid.Column="1" 
                x:Name="PageFrame"></Frame>

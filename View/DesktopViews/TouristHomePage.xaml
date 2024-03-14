@@ -21,10 +21,14 @@
                       DisplayMemberPath="LocationOptionTemplate"
                       SelectionChanged="LocationComboBox_SelectionChanged"
                       SelectedIndex="0"/>
-            <TextBox x:Name="LanguageTextBox" 
-                     Width="100" 
-                     Text="{Binding Filter.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox x:Name="DurationTextBox" 
+            <ComboBox x:Name="LanguageComboBox"
+                      SelectionChanged="LanguageComboBox_SelectionChanged"
+                      SelectedIndex="0">
+                <ComboBoxItem>
+                    -
+                </ComboBoxItem>
+                </ComboBox>
+                <TextBox x:Name="DurationTextBox" 
                      Width="100"
                      Text="{Binding Filter.Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox x:Name="TouristNumberTextBox"
