@@ -28,7 +28,10 @@ namespace BookingApp.View.WebViews {
             InitializeComponent();
             _accommodationDTO = accommodationDTO;
             DataContext = _accommodationDTO;
+            
             sliderGuests.Maximum = _accommodationDTO.MaxGuestNumber;
+            datePickerStartDate.DisplayDateStart = DateTime.Today.AddDays(1);
+            datePickerEndDate.IsEnabled = false;
         }
 
         private void ButtonBackClick(object sender, RoutedEventArgs e) {
@@ -37,8 +40,10 @@ namespace BookingApp.View.WebViews {
         }
 
         private void UpdateSuggestedDates(object sender, EventArgs e) {
+            setDatePickerEndDate();
 
             if(!IsReservationInputValid()) {
+                dataGridSuggestedDates.ItemsSource = null;
                 return;
             }
 
@@ -62,6 +67,20 @@ namespace BookingApp.View.WebViews {
                 return false;
 
             return true;
+        }
+
+        private void setDatePickerEndDate() {
+            if (datePickerStartDate.SelectedDate >= datePickerEndDate.SelectedDate) {
+                datePickerEndDate.SelectedDate = null;
+                datePickerEndDate.DisplayDateStart = datePickerStartDate.SelectedDate.Value.AddDays(1);
+                return;
+            }
+
+            if (datePickerStartDate.SelectedDate != null) {
+                datePickerEndDate.IsEnabled = true;
+                datePickerEndDate.DisplayDateStart = datePickerStartDate.SelectedDate.Value.AddDays(1);
+                return;
+            }
         }
     }
 }
