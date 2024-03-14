@@ -55,13 +55,8 @@
         <ComboBox Grid.RowSpan="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0" Width="200" ItemsSource="{Binding locationDTOs}" SelectedItem="{Binding selectedLocationDTO}"  DisplayMemberPath="LocationOptionTemplate"/>
 
         <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Margin="40,0,20,0" Content="Language:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <ComboBox Grid.Row="2" Grid.RowSpan="2" Grid.Column="3" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0" Width="100" SelectedValuePath="Tag" SelectedValue="{Binding tourDTO.Language}">
-            <ComboBoxItem Content="Serbian" Tag="Serbian"/>
-            <ComboBoxItem Content="English" Tag="English"/>
-            <ComboBoxItem Content="Russian" Tag="Russian"/>
-            <ComboBoxItem Content="Spanish" Tag="Spanish"/>
-            <ComboBoxItem Content="German" Tag="German"/>
-        </ComboBox>
+        <ComboBox Grid.Row="2" Grid.RowSpan="2" Grid.Column="3" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0" Width="100" SelectedValuePath="Tag" ItemsSource="{Binding languageDTOs}" SelectedItem="{Binding selectedLanguageDTO}" DisplayMemberPath="LanguageOptionTemplate"/>
+
 
         <Label Grid.Row="4"  Grid.Column="2" Margin="40,0,20,0" Content="Keypoints:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
         <DataGrid  Grid.Row="5" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2"  Margin="50">

@@ -8,7 +8,7 @@ namespace BookingApp.Model {
         public string Name { get; set; }
         public int LocationId { get; set; }
         public string Description { get; set; }
-        public LanguageState Language;
+        public int LanguageId { get; set; }
         public int MaxTouristNumber { get; set; }
         public double Duration { get; set; }
         public int CurrentTouristNumber { get; set; }
@@ -22,13 +22,13 @@ namespace BookingApp.Model {
             ProfilePictures = new List<string>();
             PointOfInterests = new List<PointOfInterest>(); 
         }
-        public Tour(int id, string name, int locationId, string description, LanguageState language, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
+        public Tour(int id, string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
 
             Id = id;
             Name = name;
             LocationId = locationId;
             Description = description;
-            Language = language;
+            LanguageId = languageId;
             MaxTouristNumber = maxTouristNumber;
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
@@ -43,7 +43,7 @@ namespace BookingApp.Model {
                 Name,
                 LocationId.ToString(),
                 Description,
-                Language.ToString(),
+                LanguageId.ToString(),
                 MaxTouristNumber.ToString(),
                 Duration.ToString(),
                 CurrentTouristNumber.ToString(),
@@ -66,7 +66,7 @@ namespace BookingApp.Model {
             Name = values[1];
             LocationId = int.Parse(values[2]);
             Description = values[3];
-            Enum.TryParse(values[4], out Language);
+            LanguageId = int.Parse(values[4]);
             MaxTouristNumber = Convert.ToInt32(values[5]);
             Duration = Convert.ToDouble(values[6]);
             CurrentTouristNumber = Convert.ToInt32(values[7]);
