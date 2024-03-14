@@ -11,12 +11,12 @@ namespace BookingApp.DTO {
         }
 
 
-        public TourDTO(string name, int locationId, string description, LanguageState language, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
+        public TourDTO(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
 
             Name = name;
             LocationId = locationId;
             Description = description;
-            Language = language;
+            LanguageId = languageId;
             MaxTouristNumber = maxTouristNumber;
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
@@ -30,7 +30,7 @@ namespace BookingApp.DTO {
             Name = t.Name;
             LocationId = t.LocationId;
             Description = t.Description;
-            Language = t.Language;
+            LanguageId = t.LanguageId;
             MaxTouristNumber = t.MaxTouristNumber;
             Duration = t.Duration;
             CurrentTouristNumber = t.CurrentTouristNumber;
@@ -82,12 +82,12 @@ namespace BookingApp.DTO {
             }
         }
 
-        private LanguageState _language;
-        public LanguageState Language {
-            get { return _language; }
+        private int _languageId;
+        public int LanguageId {
+            get { return _languageId; }
             set {
-                if (_language != value) {
-                    _language = value; OnPropertyChanged();
+                if (_languageId != value) {
+                    _languageId = value; OnPropertyChanged();
                 }
             }
         }

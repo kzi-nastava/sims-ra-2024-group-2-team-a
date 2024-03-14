@@ -30,9 +30,12 @@ namespace BookingApp.View.TabletView
         private readonly User _user;
         private readonly TourRepository _tourRepository;
         private readonly LocationRepository _locationRepository;
+        private readonly LanguageRepository _languageRepository;
         public TourDTO tourDTO { get; set; }
         public LocationDTO selectedLocationDTO { get; set; }
+        public LanguageDTO selectedLanguageDTO { get; set; }
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
+        public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public AddTourPage(Frame mainF)
         {
             InitializeComponent();
@@ -41,11 +44,17 @@ namespace BookingApp.View.TabletView
 
             _tourRepository = new TourRepository();
             _locationRepository = new LocationRepository();
+            _languageRepository = new LanguageRepository();
 
             tourDTO = new TourDTO();
             tourDTO.GuideId = 5; // za sada test podatak
             locationDTOs = new ObservableCollection<LocationDTO>();
+            languageDTOs = new ObservableCollection<LanguageDTO>();
 
+
+            foreach (var lan in _languageRepository.GetAll()) {
+                languageDTOs.Add(new LanguageDTO(lan));
+            }
             foreach (var loc in _locationRepository.GetAll()) {
                 locationDTOs.Add(new LocationDTO(loc));
             }
