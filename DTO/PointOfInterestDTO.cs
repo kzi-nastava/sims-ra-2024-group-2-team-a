@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿
+using BookingApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,19 +19,31 @@ namespace BookingApp.DTO {
             TourId = tourId;
         }
         public PointOfInterestDTO(PointOfInterest p) {
+            Id = p.Id;
             Name = p.Name;
             Description = p.Description;
             IsChecked = p.IsChecked;
             TourId = p.TourId;
         }
+        private int _id;
+        public int Id {
+            get { return _id; }
+            set {
+                if (_id != value) {
+                    _id = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private string _name;
-        public string Name { 
+        public string Name {
             get { return _name; }
-            set { if(_name != value) {
+            set {
+                if (_name != value) {
                     _name = value;
-                    OnPropertyChanged(); 
-                } 
+                    OnPropertyChanged();
+                }
             }
         }
         private string _description;
