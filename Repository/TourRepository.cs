@@ -51,10 +51,10 @@ namespace BookingApp.Repository {
         }
 
         public Tour GetById(int id) {
-            return _tours.Find(x => x.Id == id);
+            return _tours.Find(c => c.Id == id);
         }
 
-        public int NextId() {
+        private int NextId() {
             _tours = _serializer.FromCSV();
             if (_tours.Count < 1) {
                 return 1;
@@ -74,7 +74,7 @@ namespace BookingApp.Repository {
         private bool IsFiltered(Tour tour, TourFilterDTO filter) {
             bool matchesLocation = tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
             bool matchesDuration = tour.Duration <= filter.Duration || filter.Duration == 0;
-            bool matchesLanguage = tour.Language.ToLower().Contains(filter.Language.ToLower()) || filter.Language == "";
+            bool matchesLanguage = true;//tour.Language.ToLower().Contains(filter.Language.ToLower()) || filter.Language == "";
             bool matchesTouristNumber = tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
 
             return matchesLocation && matchesDuration && matchesLanguage && matchesTouristNumber;

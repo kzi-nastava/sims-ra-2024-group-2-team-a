@@ -1,7 +1,10 @@
 ﻿using BookingApp.DTO;
+using BookingApp.Model;
+using BookingApp.Repository;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,10 +27,36 @@ namespace BookingApp.View.TabletView
     public partial class AddTourPage : Page
     {
         private Frame mainFrame;
+        private readonly User _user;
+        private readonly TourRepository _tourRepository;
+        private readonly LocationRepository _locationRepository;
+        public TourDTO tourDTO { get; set; }
+        public LocationDTO selectedLocationDTO { get; set; }
+        public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public AddTourPage(Frame mainF)
         {
             InitializeComponent();
             mainFrame = mainF;
+            DataContext = this;
+
+            _tourRepository = new TourRepository();
+            _locationRepository = new LocationRepository();
+
+            tourDTO = new TourDTO();
+            tourDTO.GuideId = 5; // za sada test podatak
+            locationDTOs = new ObservableCollection<LocationDTO>();
+
+            foreach (var loc in _locationRepository.GetAll()) {
+                locationDTOs.Add(new LocationDTO(loc));
+            }
+        }
+
+        private void resetButton_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void confirmButton_Click(object sender, RoutedEventArgs e) {
+
         }
 
         private void pickPhotosButton_Click(object sender, RoutedEventArgs e) {
@@ -57,12 +86,5 @@ namespace BookingApp.View.TabletView
             return baseUri.MakeRelativeUri(fullUri).ToString();
         }
 
-        private void resetButton_Click(object sender, RoutedEventArgs e) {
-
-        }
-
-        private void confirmButton_Click(object sender, RoutedEventArgs e) {
-
-        }
     }
 }
