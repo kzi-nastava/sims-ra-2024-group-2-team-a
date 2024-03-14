@@ -73,5 +73,56 @@ namespace BookingApp.Repository
             }
             return accommodationReservations;
         }
+
+        public List<AccommodationReservation> GetPossibleReservations(int idAccommodation, DateOnly startDate, DateOnly endDate, int reservationsDays) {
+
+            List<AccommodationReservation> possibleReservations = new List<AccommodationReservation>();
+
+            int reservationsCount = (endDate.Day - startDate.Day) / reservationsDays;
+
+            // Making possible reservations which are not reserved
+            for(int i = 0; i < reservationsCount; i++) {
+                possibleReservations.Add(new AccommodationReservation(0, idAccommodation, 0, 
+                    startDate.AddDays(i * reservationsDays), 
+                    startDate.AddDays((i + 1) * reservationsDays)));
+            }
+
+            // Filtering reservations which are already reserved
+            possibleReservations = possibleReservations.Where(r => IsReservationPossible(r)).ToList();
+
+            if(possibleReservations.Count == 0)
+                possibleReservations = SuggestOtherReservations(idAccommodation, startDate, endDate, reservationsDays);
+
+            return possibleReservations;   
+        }
+
+        public bool IsReservationPossible(AccommodationReservation r) {
+            List<AccommodationReservation> exisitngReservations = GetByAccommodationId(r.IdAccommodation);
+
+            foreach (var existing in exisitngReservations) {
+                if (r.StartDate >= existing.StartDate && r.StartDate <= existing.EndDate)
+                    return false;
+                
+                if (r.EndDate >= existing.StartDate && r.EndDate <= existing.EndDate)
+                    return false;
+            }
+
+            return true;
+        }
+
+        public List<AccommodationReservation> SuggestOtherReservations(int idAccommodation, DateOnly startDate, DateOnly endDate, int reservationsDays) {
+            int daysSpan = 10;
+            List<AccommodationReservation> reservations = new List<AccommodationReservation>();
+
+            var reservationsBefore = GetPossibleReservations(idAccommodation, endDate, endDate.AddDays(daysSpan), reservationsDays);
+            var reservationsAfter = GetPossibleReservations(idAccommodation, startDate.AddDays(-daysSpan), startDate, reservationsDays);
+
+            reservations.AddRange(reservationsBefore);
+            reservations.AddRange(reservationsAfter);
+
+            reservations = reservations.Where(r => IsReservationPossible(r)).ToList();
+
+            return reservations;
+        }
     }
 }
