@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BookingApp.View.DesktopViews {
     /// <summary>
@@ -18,7 +19,12 @@ namespace BookingApp.View.DesktopViews {
             InitializeComponent();
             DataContext = this;
             UserId = userId;
+            this.WindowState = WindowState.Maximized;
             PageFrame.Navigate(new TouristHomePage(UserId));
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e) {
+            HomePopup.IsOpen = !HomePopup.IsOpen;
         }
     }
 }

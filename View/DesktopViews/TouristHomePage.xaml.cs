@@ -1,4 +1,5 @@
 ﻿using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.ObjectModel;
@@ -21,28 +22,28 @@ namespace BookingApp.View.DesktopViews {
         public ObservableCollection<LocationDTO> LocationOptions { get; set; }
         public TouristHomePage(int userId) {
             InitializeComponent();
-
             DataContext = this;
+
             _tourRepository = new TourRepository();
             _locationRepository = new LocationRepository();
             ToursOnDisplay = new ObservableCollection<TourDTO>();
             LocationOptions = new ObservableCollection<LocationDTO>();
-
             Filter = new TourFilterDTO();
+
             LocationOptions.Clear();
             LocationOptions.Add(new LocationDTO("", ""));
-            foreach (var location in _locationRepository.GetAll()) {
+            foreach (var location in _locationRepository.GetAll()) 
                 LocationOptions.Add(new LocationDTO(location));
-            }
+            
+            UserId = userId;
 
             Update();
-            UserId = userId;
+            SetLanguageValues();
         }
         public void Update() {
             ToursOnDisplay.Clear();
-            foreach (var tour in _tourRepository.GetFiltered(Filter)) {
-                ToursOnDisplay.Add(new TourDTO(tour));
-            }
+            foreach (var tour in _tourRepository.GetFiltered(Filter)) 
+                ToursOnDisplay.Add(new TourDTO(tour));         
         }
         private void LocationComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
             if (LocationComboBox.SelectedItem != null) {
@@ -51,12 +52,18 @@ namespace BookingApp.View.DesktopViews {
             }
             Filter.Location = new LocationDTO();
         }
+
+        private void SetLanguageValues() {
+            LanguageComboBox.Items.Clear();
+            LanguageComboBox.ItemsSource = Enum.GetValues(typeof(LanguageState));
+        }
+
         private void FilterButton_Click(object sender, RoutedEventArgs e) {
             Update();
         }
         private void ClearButton_Click(object sender, RoutedEventArgs e) {
             LocationComboBox.SelectedIndex = -1;
-            LanguageTextBox.Text = "";
+            SetLanguageValues();
             DurationTextBox.Text = Convert.ToString(0);
             TouristNumberTextBox.Text = Convert.ToString(0);
             Update();
@@ -74,6 +81,13 @@ namespace BookingApp.View.DesktopViews {
 
             TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, UserId);
             reservationWindow.ShowDialog();
+        }
+
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (LanguageComboBox.SelectedItem != null) {
+                Filter.Language = (LanguageState)LanguageComboBox.SelectedItem;
+                return;
+            }
         }
     }
 }
