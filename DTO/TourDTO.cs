@@ -11,7 +11,7 @@ namespace BookingApp.DTO {
         }
 
 
-        public TourDTO(string name, int locationId, string description, string language, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, List<string> profilePictures) {
+        public TourDTO(string name, int locationId, string description, LanguageState language, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
 
             Name = name;
             LocationId = locationId;
@@ -21,6 +21,7 @@ namespace BookingApp.DTO {
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
             Beggining = beggining;
+            GuideId = guideId;
             ProfilePictures = profilePictures;
         }
 
@@ -34,6 +35,7 @@ namespace BookingApp.DTO {
             Duration = t.Duration;
             CurrentTouristNumber = t.CurrentTouristNumber;
             Beggining = t.Beggining;
+            GuideId = t.GuideId;
             ProfilePictures = t.ProfilePictures;
         }
 
@@ -43,19 +45,6 @@ namespace BookingApp.DTO {
             set {
                 if (_id != value) {
                     _id = value; OnPropertyChanged();
-                }
-            }
-        }
-
-        private DateTime _beggining;
-        public DateTime Beggining {
-            get {
-                return _beggining;
-            }
-            set {
-                if(_beggining != value) { 
-                    _beggining = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -93,8 +82,8 @@ namespace BookingApp.DTO {
             }
         }
 
-        private string _language;
-        public string Language {
+        private LanguageState _language;
+        public LanguageState Language {
             get { return _language; }
             set {
                 if (_language != value) {
@@ -129,6 +118,51 @@ namespace BookingApp.DTO {
             set {
                 if (_currentTouristNumber != value) {
                     _currentTouristNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private DateOnly _dateOnly;
+        public DateOnly DateOnly {
+            get { return _dateOnly; }
+            set {
+                if (_dateOnly != value) {
+                    _dateOnly = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _timeOnly;
+        public int TimeOnly {
+            get { return _timeOnly; }
+            set {
+                if(_timeOnly != value) {
+                    _timeOnly = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private DateTime _beggining;
+        public DateTime Beggining {
+            get {
+                return _beggining;
+            }
+            set {
+                if (_beggining != new DateTime(_dateOnly.Year, _dateOnly.Month, _dateOnly.Day, _timeOnly, 0, 0)) {
+                    _beggining = new DateTime(_dateOnly.Year, _dateOnly.Month, _dateOnly.Day, _timeOnly, 0, 0);
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _guideId;
+        public int GuideId {
+            get { return _guideId; } 
+            set {
+                if (_guideId != value) {
+                    _guideId = value;
                     OnPropertyChanged();
                 }
             }

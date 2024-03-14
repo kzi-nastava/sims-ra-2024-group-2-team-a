@@ -26,22 +26,22 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Margin="40,0,20,0" Content="Name:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Margin="20,0,20,0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="20,0,20,0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Name}"/>
 
         <Label Grid.Row="1" Grid.Column="0" Margin="40,0,20,0" Content="Description:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="1" Grid.Column="1" Margin="20,0,20,0" Height="50" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"/>
+        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="1" Grid.Column="1" Margin="20,0,20,0" Height="50" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Description}"/>
 
         <Label Grid.Row="2" Grid.Column="0" Margin="40,0,20,0" Content="Max Tourists:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.MaxTouristNumber}"/>
 
         <Label Grid.Row="3" Grid.Column="0" Margin="40,0,20,0" Content="Date:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <DatePicker Grid.Row="3" Grid.Column="1" Margin="20,0,20,0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="22"/>
+        <DatePicker Grid.Row="3" Grid.Column="1" Margin="20,0,20,0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="22" DataContext="{Binding tourDTO.DateOnly}"/>
         
         <Label Grid.Row="4" Grid.Column="0" Margin="40,0,20,0" Content="Time:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.TimeOnly}"/>
 
         <Label Grid.Row="5" Grid.Column="0" Margin="40,0,20,0" Content="Duration:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Duration}"/>
 
         <Label Grid.Row="6" Grid.Column="0" Margin="40,0,20,0" Content="Photos:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
         <Button x:Name="pickPhotosButton" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="pickPhotosButton_Click">
@@ -52,13 +52,15 @@
         </Button>
 
         <Label Grid.RowSpan="2" Grid.Column="2" Margin="40,0,20,0" Content="Location:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <ComboBox Grid.RowSpan="2" Grid.Column="3" Margin="50">
-            
-        </ComboBox>
+        <ComboBox Grid.RowSpan="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0" Width="200" ItemsSource="{Binding locationDTOs}" SelectedItem="{Binding selectedLocationDTO}"  DisplayMemberPath="LocationOptionTemplate"/>
 
         <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Margin="40,0,20,0" Content="Language:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <ComboBox Grid.Row="2" Grid.RowSpan="2" Grid.Column="3"  Margin="50">
-
+        <ComboBox Grid.Row="2" Grid.RowSpan="2" Grid.Column="3" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0" Width="100" SelectedValuePath="Tag" SelectedValue="{Binding tourDTO.Language}">
+            <ComboBoxItem Content="Serbian" Tag="Serbian"/>
+            <ComboBoxItem Content="English" Tag="English"/>
+            <ComboBoxItem Content="Russian" Tag="Russian"/>
+            <ComboBoxItem Content="Spanish" Tag="Spanish"/>
+            <ComboBoxItem Content="German" Tag="German"/>
         </ComboBox>
 
         <Label Grid.Row="4"  Grid.Column="2" Margin="40,0,20,0" Content="Keypoints:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
