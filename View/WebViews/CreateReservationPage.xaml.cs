@@ -82,5 +82,24 @@ namespace BookingApp.View.WebViews {
                 return;
             }
         }
+
+        private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
+            AccommodationReservation selectedReservation = (AccommodationReservation) dataGridSuggestedDates.SelectedItem;
+            if(selectedReservation == null) {
+                errorLabel.Content = "Please select a reservation";
+                errorLabel.Foreground = Brushes.Red;
+                return;
+            }
+
+            GuestMainWindow window = Window.GetWindow(this) as GuestMainWindow;
+            User currentUser = window.User;
+
+            selectedReservation.IdGuest = currentUser.Id;
+            AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
+            accommodationReservationRepository.Save(selectedReservation);
+
+            Frame frame = (Frame)Window.GetWindow(this).FindName("mainFrame");
+            frame.Content = new BookingPage(frame);
+        }
     }
 }

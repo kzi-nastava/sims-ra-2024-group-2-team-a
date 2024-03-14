@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Model;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,9 +19,12 @@ namespace BookingApp.View.WebViews {
     /// </summary>
     public partial class GuestMainWindow : Window {
 
-        public GuestMainWindow() {
+        public User User { get; set; }
+
+        public GuestMainWindow(User user) {
             InitializeComponent();
             SetWindowProperties();
+            User = user;
             mainFrame.Content = new BookingPage(mainFrame);
         }
 

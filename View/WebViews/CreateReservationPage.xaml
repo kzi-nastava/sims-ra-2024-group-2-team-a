@@ -79,7 +79,7 @@
                 </DockPanel>
 
                 <Label x:Name="errorLabel" Content="" Margin="10,125,10,75" Grid.Row="4" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <Button x:Name="buttonConfirm" Content="Confirm booking" Grid.Row="4" Margin="90,180,90,25" FontWeight="Bold" FontSize="13" Grid.ColumnSpan="2"/>
+                <Button x:Name="buttonConfirm" Content="Confirm booking" Grid.Row="4" Margin="90,180,90,25" FontWeight="Bold" FontSize="13" Grid.ColumnSpan="2" Click="ButtonConfirmClick"/>
 
             </Grid>
 
