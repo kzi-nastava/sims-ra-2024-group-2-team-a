@@ -91,7 +91,6 @@ namespace BookingApp.View.AndroidViews
 
         private void SelectImages_Click(object sender, RoutedEventArgs e)
         {
-            List<string> absolutePaths = new List<string>();
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = @"C:\Users\Strahinja\Desktop\ProjekatSims\sims-ra-2024-group-2-team-a\Resources\Images\Accomodations\";
             openFileDialog.Multiselect = true;
@@ -100,12 +99,8 @@ namespace BookingApp.View.AndroidViews
             if (openFileDialog.ShowDialog() == false)
                 return;
 
-            foreach (string filename in openFileDialog.FileNames) {
-                absolutePaths.Add(filename);
-            }
-
             string basePath = Directory.GetCurrentDirectory();
-            foreach (string absolutePath in absolutePaths) {
+            foreach (string absolutePath in openFileDialog.FileNames) {
                 string relativePath = GetRelativePath(basePath, absolutePath);
                 AccommodationDTO.ProfilePictures.Add(relativePath);
             }
