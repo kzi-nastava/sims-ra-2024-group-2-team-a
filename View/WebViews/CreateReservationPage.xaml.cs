@@ -59,6 +59,7 @@ namespace BookingApp.View.WebViews {
             if(reservations.Count > maxSuggestedReservationsCount)
                 reservations = reservations.GetRange(0, maxSuggestedReservationsCount);
 
+            reservations = reservations.OrderBy(r => r.StartDate).ToList();
             dataGridSuggestedDates.ItemsSource = reservations;
         }
 
@@ -101,15 +102,21 @@ namespace BookingApp.View.WebViews {
                 return;
             }
 
+            SaveReservation(selectedReservation);
+
+            Frame frame = (Frame)Window.GetWindow(this).FindName("mainFrame");
+            frame.Content = new BookingPage(frame);
+        }
+
+        private void SaveReservation(AccommodationReservation selectedReservation) {
+            AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
             GuestMainWindow window = Window.GetWindow(this) as GuestMainWindow;
             User currentUser = window.User;
 
             selectedReservation.IdGuest = currentUser.Id;
-            AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
+            selectedReservation.IdAccommodation = _accommodationDTO.Id;
+            selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
             accommodationReservationRepository.Save(selectedReservation);
-
-            Frame frame = (Frame)Window.GetWindow(this).FindName("mainFrame");
-            frame.Content = new BookingPage(frame);
         }
     }
 }
