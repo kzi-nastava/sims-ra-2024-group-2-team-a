@@ -55,9 +55,6 @@ namespace BookingApp.View.TabletView {
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
 
 
-            foreach (var point in _pointOfInterestRepository.GetAll()) {
-                pointOfInterestDTOs.Add(new PointOfInterestDTO(point));
-            }
             foreach (var lan in _languageRepository.GetAll()) {
                 languageDTOs.Add(new LanguageDTO(lan));
             }
@@ -74,8 +71,9 @@ namespace BookingApp.View.TabletView {
             tourDTO.LocationId = selectedLocationDTO.Id;
             tourDTO.LanguageId = selectedLanguageDTO.Id;
             tourDTO.CurrentTouristNumber = 0;
-            _tourRepository.Save(tourDTO.ToModel());
+            Tour tour = _tourRepository.Save(tourDTO.ToModel());
             foreach(var pDTO in pointOfInterestDTOs) {
+                pDTO.TourId = tour.Id;
                 _pointOfInterestRepository.Save(pDTO.ToModel());
             }
             MessageBox.Show("Tour Added Succesfully", "Confirmed", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -85,9 +83,8 @@ namespace BookingApp.View.TabletView {
 
         private void addPointOfInterestButton_Click(object sender, RoutedEventArgs e) {
             AddPointsOfInterestWindow pointOfInterestWindow = new AddPointsOfInterestWindow(pointOfInterestDTOs);
-            pointOfInterestWindow.Show();
-            var button = (Button)sender;
-            button.IsEnabled = false;
+            pointOfInterestWindow.ShowDialog();
+            CheckValidation();
         }
 
         private void deletePointOfInterestButton_Click(object sender, RoutedEventArgs e) {
@@ -95,6 +92,7 @@ namespace BookingApp.View.TabletView {
             var pointOfInterestDTO = (PointOfInterestDTO)button.DataContext;
 
             pointOfInterestDTOs.Remove(pointOfInterestDTO);
+            CheckValidation();
         }
 
         private void pickPhotosButton_Click(object sender, RoutedEventArgs e) {
@@ -122,6 +120,13 @@ namespace BookingApp.View.TabletView {
             Uri baseUri = new Uri(basePath + System.IO.Path.DirectorySeparatorChar);
             Uri fullUri = new Uri(fullPath);
             return baseUri.MakeRelativeUri(fullUri).ToString();
+        }
+
+        private void CheckValidation() {
+            if (pointOfInterestDTOs.Count >= 2)
+                confirmButton.IsEnabled = true;
+            else
+                confirmButton.IsEnabled = false;
         }
     }
 }
