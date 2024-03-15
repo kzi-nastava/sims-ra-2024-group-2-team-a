@@ -36,6 +36,19 @@ namespace BookingApp.Model {
             GuideId = guideId;
             ProfilePictures = profilePictures;
         }
+        public Tour(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
+
+            Name = name;
+            LocationId = locationId;
+            Description = description;
+            LanguageId = languageId;
+            MaxTouristNumber = maxTouristNumber;
+            Duration = duration;
+            CurrentTouristNumber = currentTouristNumber;
+            Beggining = beggining;
+            GuideId = guideId;
+            ProfilePictures = profilePictures;
+        }
 
         public string[] ToCSV() {
             string[] csvValues = {

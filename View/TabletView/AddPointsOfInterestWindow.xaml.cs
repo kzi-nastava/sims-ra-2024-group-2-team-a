@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BookingApp.DTO;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +19,19 @@ namespace BookingApp.View.TabletView {
     /// <summary>
     /// Interaction logic for AddPointsOfInterestWindow.xaml
     /// </summary>
-    public partial class AddPointsOfInterestWindow : Window {
-        public AddPointsOfInterestWindow() {
+    public partial class AddPointsOfInterestWindow : Window{
+        public PointOfInterestDTO pointOfInterestDTO { get; set; }
+        public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs {get; set; }
+        public AddPointsOfInterestWindow(ObservableCollection<PointOfInterestDTO> pDTOs) {
             InitializeComponent();
+            pointOfInterestDTOs = pDTOs;
+            pointOfInterestDTO = new PointOfInterestDTO();
+        }
+
+        private void addButton_Click(object sender, RoutedEventArgs e) {
+            pointOfInterestDTO.IsChecked = false;
+            pointOfInterestDTO.TourId = 0;
+            pointOfInterestDTOs.Add(pointOfInterestDTO);
         }
     }
 }
