@@ -80,7 +80,7 @@ namespace BookingApp.View.DesktopViews
 
         private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {
             SameLocationToursWindow sameLocationToursWindow = new SameLocationToursWindow(SelectedTour, this);
-            int reservationSuccessIndicator = _tourReservationRepository.MakeReservation(UserId, SelectedTour, Passengers.ToList());
+            int reservationSuccessIndicator = _tourReservationRepository.MakeReservation(this.UserId, SelectedTour, Passengers.ToList());
             if (reservationSuccessIndicator > 0) {
                 string messageBoxOutput = "There is not enought space for all!\nAvailable space: " + reservationSuccessIndicator.ToString();
                 MessageBox.Show(messageBoxOutput, "Title of the MessageBox", MessageBoxButton.OK);
@@ -97,14 +97,19 @@ namespace BookingApp.View.DesktopViews
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void AddPassengerButton_Click(object sender, RoutedEventArgs e) {
-            PassengerDTO newPassenger = new PassengerDTO(PassengerName.Text, PassengerSurname.Text, Convert.ToInt32(PassengerAge.Text));
+        private void AddNewPassenger(int userId) {
+            Passengers.Add(new PassengerDTO(PassengerName.Text, PassengerSurname.Text, Convert.ToInt32(PassengerAge.Text), userId));
+            ClearForm();
+        }
 
+        private void AddPassengerButton_Click(object sender, RoutedEventArgs e) {
+            AddNewPassenger(-1);
+        }
+
+        private void ClearForm() {
             PassengerName.Text = null;
             PassengerSurname.Text = null;
             PassengerAge.Text = null;
-
-            Passengers.Add(newPassenger);
         }
 
         private void RemovePassengerButton_Click(object sender, RoutedEventArgs e) {
@@ -113,6 +118,10 @@ namespace BookingApp.View.DesktopViews
 
             // Remove the passenger from the collection
             Passengers.Remove(passenger);
+        }
+
+        private void AddTouristButton_Click(object sender, RoutedEventArgs e) {
+            AddNewPassenger(UserId);
         }
     }
 }
