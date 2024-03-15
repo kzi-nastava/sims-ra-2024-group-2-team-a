@@ -49,7 +49,7 @@ namespace BookingApp.View.WebViews {
             comboBoxLocation.ItemsSource = _locationDTOs;
 
             comboBoxType.ItemsSource = Enum.GetValues(typeof(AccommodationType));
-            comboBoxType.SelectedItem = AccommodationType.none;
+            comboBoxType.SelectedItem = AccommodationType.any;
         }
 
         private void ButtonFilterClick(object sender, RoutedEventArgs e) {
@@ -73,7 +73,7 @@ namespace BookingApp.View.WebViews {
 
         private void ButtonClearClick(object sender, RoutedEventArgs e) {
             comboBoxLocation.SelectedIndex = -1;
-            comboBoxType.SelectedItem = AccommodationType.none;
+            comboBoxType.SelectedItem = AccommodationType.any;
             textBoxDays.Text = "";
             textBoxGuests.Text = "";
             textBoxName.Text = "";
