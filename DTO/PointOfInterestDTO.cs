@@ -79,6 +79,10 @@ namespace BookingApp.DTO {
             }
         }
 
+        public PointOfInterest ToModel() {
+            return new PointOfInterest(Name, Description, IsChecked, TourId);
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

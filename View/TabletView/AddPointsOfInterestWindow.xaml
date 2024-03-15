@@ -14,7 +14,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Margin="20,5,20,5" Content="Name:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18"/>
-        <TextBox Grid.Row="0" Margin="100,5,20,5" FontSize="16" VerticalAlignment="Center" />
+        <TextBox Grid.Row="0" Margin="100,5,20,5" FontSize="16" VerticalAlignment="Center" Text="{Binding pointOfInterestDTO.Id}"/>
 
+        <Label Grid.Row="1" Margin="20,5,20,5" Content="Description:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18"/>
+        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="2" Margin="20,10,20,10" FontSize="16" Text="{Binding pointOfInterestDTO.Description}"/>
+
+        <Button x:Name="addButton" Content="Add" Click="addButton_Click" Margin="5" FontSize="18" Grid.Row="3"/>
     </Grid>
 </Window>

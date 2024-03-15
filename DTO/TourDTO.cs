@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace BookingApp.DTO {
     public class TourDTO : INotifyPropertyChanged {
         public TourDTO() {
-
+            ProfilePictures = new List<string>();
         }
 
 
@@ -168,6 +168,10 @@ namespace BookingApp.DTO {
             }
         }
         public List<string> ProfilePictures { get; set; }
+
+        public Tour ToModel() {
+            return new Tour(Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, GuideId, ProfilePictures);
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {

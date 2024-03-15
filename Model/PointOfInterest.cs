@@ -22,6 +22,12 @@ namespace BookingApp.Model {
             IsChecked = isChecked;
             TourId = tourId;
         }
+        public PointOfInterest(string name, string description, bool isChecked, int tourId) {
+            Name = name;
+            Description = description;
+            IsChecked = isChecked;
+            TourId = tourId;
+        }
 
         public string[] ToCSV() {
             string[] csvValues = {
