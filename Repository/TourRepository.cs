@@ -74,7 +74,7 @@ namespace BookingApp.Repository {
         private bool IsFiltered(Tour tour, TourFilterDTO filter) {
             bool matchesLocation = tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
             bool matchesDuration = tour.Duration <= filter.Duration || filter.Duration == 0;
-            bool matchesLanguage = true;//tour.Language.ToLower().Contains(filter.Language.ToLower()) || filter.Language == "";
+            bool matchesLanguage = tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
             bool matchesTouristNumber = tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
 
             return matchesLocation && matchesDuration && matchesLanguage && matchesTouristNumber;

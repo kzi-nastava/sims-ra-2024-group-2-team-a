@@ -64,20 +64,19 @@ namespace BookingApp.Repository {
             return _tourReservations.Max(c => c.Id) + 1;
         }
 
-        private void FillTourCapacity(int tourId, int addedPassengers) {
+        private void FillTourCapacity(int tourId, int addedPassengersNumber) {
             TourRepository tourRepository = new TourRepository();
-            Tour updatedTour = tourRepository.GetById(tourId);
-            updatedTour.CurrentTouristNumber += addedPassengers;
-            tourRepository.Update(updatedTour);
+            Tour selectedTour = tourRepository.GetById(tourId);
+            selectedTour.CurrentTouristNumber += addedPassengersNumber;
+            tourRepository.Update(selectedTour);
         }
 
         public int MakeReservation(int userId, TourDTO selectedTour, List<PassengerDTO> passengers) {
             PassengerRepository passengerRepository = new PassengerRepository();
             UserRepository userRepository = new UserRepository();
-            
 
             int availableSpace = selectedTour.MaxTouristNumber - selectedTour.CurrentTouristNumber;
-            int addedPassengers = 0;
+            int addedPassengersNumber = 0;
 
             if (availableSpace == 0)
                 return -1;
@@ -88,10 +87,10 @@ namespace BookingApp.Repository {
             Save(new TourReservation(userId, selectedTour.Id));
             foreach (var passenger in passengers) {
                 passengerRepository.Save(new Passenger(selectedTour.Id, passenger.Name, passenger.Surname, passenger.Age, userId));
-                addedPassengers++;
+                addedPassengersNumber++;
             }
 
-            FillTourCapacity(selectedTour.Id, addedPassengers);
+            FillTourCapacity(selectedTour.Id, addedPassengersNumber);
 
             return 1;
         }

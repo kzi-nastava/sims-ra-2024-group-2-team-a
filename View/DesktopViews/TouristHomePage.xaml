@@ -10,7 +10,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -22,22 +22,22 @@
                       SelectionChanged="LocationComboBox_SelectionChanged"
                       SelectedIndex="0"/>
             <ComboBox x:Name="LanguageComboBox"
-                      SelectionChanged="LanguageComboBox_SelectionChanged"
-                      SelectedIndex="0">
-                <ComboBoxItem>
-                    -
-                </ComboBoxItem>
-                </ComboBox>
-                <TextBox x:Name="DurationTextBox" 
+                      ItemsSource="{Binding LanguageOptions}"
+                      DisplayMemberPath="LanguageOptionTemplate"
+                      SelectionChanged="LanguageComboBox_SelectionChanged_1"
+                      SelectedIndex="0"/>
+            <TextBox x:Name="DurationTextBox" 
                      Width="100"
                      Text="{Binding Filter.Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox x:Name="TouristNumberTextBox"
                      Width="100"
                      Text="{Binding Filter.TouristNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button x:Name="FilterButton" Click="FilterButton_Click">
+            <Button x:Name="FilterButton" 
+                    Click="FilterButton_Click">
                 Filter
             </Button>
-            <Button x:Name="ClearButton" Click="ClearButton_Click">
+            <Button x:Name="ClearButton" 
+                    Click="ClearButton_Click">
                 Clear
             </Button>
 
@@ -47,15 +47,14 @@
                       Grid.Row="1">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <!-- Define your custom layout for each item -->
                     <Grid>
                         <Border BorderBrush="Black" 
                                 BorderThickness="1" 
                                 Margin="5">
                             <StackPanel>
-                                <!-- Your content -->
-                                <TextBlock Text="{Binding Language, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="{Binding LocationId, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="{Binding LanguageId, UpdateSourceTrigger=PropertyChanged}"/>
                                 <Button x:Name="ReservationButton"
                                         Click="ReservationButton_Click"
                                         Height="20"/>
