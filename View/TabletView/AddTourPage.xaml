@@ -82,6 +82,6 @@
         </Grid>
 
         <Button x:Name="resetButton" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Reset" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30,10,30,10" Click="resetButton_Click"/>
-        <Button x:Name="confirmButton" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Content="Confirm" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20,10,20,10" Click="confirmButton_Click"/>
+        <Button x:Name="confirmButton" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Content="Confirm" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20,10,20,10" IsEnabled="False" Click="confirmButton_Click"/>
     </Grid>
 </Page>

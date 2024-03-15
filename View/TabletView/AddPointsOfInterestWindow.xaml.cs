@@ -24,14 +24,16 @@ namespace BookingApp.View.TabletView {
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs {get; set; }
         public AddPointsOfInterestWindow(ObservableCollection<PointOfInterestDTO> pDTOs) {
             InitializeComponent();
+            DataContext = this;
+
             pointOfInterestDTOs = pDTOs;
             pointOfInterestDTO = new PointOfInterestDTO();
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e) {
             pointOfInterestDTO.IsChecked = false;
-            pointOfInterestDTO.TourId = 0;
             pointOfInterestDTOs.Add(pointOfInterestDTO);
+            this.Close();
         }
     }
 }
