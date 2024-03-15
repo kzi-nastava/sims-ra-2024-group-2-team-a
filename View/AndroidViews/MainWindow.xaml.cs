@@ -52,9 +52,8 @@ namespace BookingApp.View.AndroidViews
                 if(!CheckReservationOwner(reservation.IdAccommodation))
                     continue;
 
-                if (reviewRepository.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation)) {
+                if (reviewRepository.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation))
                     counter++;
-                } 
             }
 
             return counter;
@@ -64,24 +63,17 @@ namespace BookingApp.View.AndroidViews
             DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
             DateOnly offsetDate = reservation.EndDate;
             offsetDate = offsetDate.AddDays(5);
-            if (currentDate > reservation.EndDate && currentDate < offsetDate)
-                return true;
-            return false;
+           
+            return (currentDate > reservation.EndDate && currentDate < offsetDate);
         }
         private bool CheckReservationOwner(int accommodationId) {
             AccommodationRepository accommodationRepository = new AccommodationRepository();
-            if (accommodationRepository.GetById(accommodationId).OwnerId == _user.Id)
-                return true;
-            return false;
+            return (accommodationRepository.GetById(accommodationId).OwnerId == _user.Id);
         }
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
                 sideFrame.Content = new SideMenuPage(MainFrame,SideFrame,_user,HeaderLabel);
                 mainFrame.IsHitTestVisible = false;
                 mainFrame.Opacity = 0.4;
-        }
-
-        private void sideFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e) {
-
         }
     }
 }

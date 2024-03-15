@@ -33,10 +33,10 @@ namespace BookingApp.View.AndroidViews
 
         private readonly AccommodationRepository _accommodationRepository;
         private readonly LocationRepository _locationRepository;
-        public AccommodationDTO accommodationDTO { get; set; }
-        public LocationDTO selectedLocationDTO { get; set; }
+        public AccommodationDTO AccommodationDTO { get; set; }
+        public LocationDTO SelectedLocationDTO { get; set; }
 
-        public ObservableCollection<LocationDTO> locationDTOs { get; set; }
+        public ObservableCollection<LocationDTO> LocationDTOs { get; set; }
 
         public AddAccommodationPage(Frame mainFrame,User user)
         {
@@ -48,12 +48,12 @@ namespace BookingApp.View.AndroidViews
             _locationRepository = new LocationRepository();
 
             _user = user;
-            accommodationDTO = new AccommodationDTO();
-            accommodationDTO.OwnerId = _user.Id;
-            locationDTOs = new ObservableCollection<LocationDTO>();
+            AccommodationDTO = new AccommodationDTO();
+            AccommodationDTO.OwnerId = _user.Id;
+            LocationDTOs = new ObservableCollection<LocationDTO>();
 
             foreach (var loc in _locationRepository.GetAll()) {
-                locationDTOs.Add(new LocationDTO(loc));
+                LocationDTOs.Add(new LocationDTO(loc));
             }
         }
 
@@ -70,26 +70,23 @@ namespace BookingApp.View.AndroidViews
         {
             if (radioButtonApartment.IsChecked == true)
             {
-                accommodationDTO.Type = AccommodationType.apartment;
+                AccommodationDTO.Type = AccommodationType.apartment;
             }
             else if (radioButtonHouse.IsChecked == true)
             {
-                accommodationDTO.Type = AccommodationType.house;
+                AccommodationDTO.Type = AccommodationType.house;
             }
             else if (radioButtonHut.IsChecked == true)
             {
-                accommodationDTO.Type = AccommodationType.hut;
+                AccommodationDTO.Type = AccommodationType.hut;
             }
 
-            Accommodation acc = accommodationDTO.ToAccommodation();
+            Accommodation acc = AccommodationDTO.ToAccommodation();
 
-            acc.LocationId = selectedLocationDTO.Id;
+            acc.LocationId = SelectedLocationDTO.Id;
             _accommodationRepository.Save(acc);
 
-            //mainFrame.GoBack();
             mainFrame.Content = new AccommodationPage(mainFrame,_user); 
-            // da li je ovo kaskadiranje velik problem?
-            //doduse dobar pristup jel ce mi se refreshovati collection
         }
 
         private void SelectImages_Click(object sender, RoutedEventArgs e)
@@ -100,21 +97,17 @@ namespace BookingApp.View.AndroidViews
             openFileDialog.Multiselect = true;
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
 
-            if (openFileDialog.ShowDialog() == true)
-            {
-                // Get absolute paths of selected images
-                foreach (string filename in openFileDialog.FileNames)
-                {
-                    absolutePaths.Add(filename);
-                }
+            if (openFileDialog.ShowDialog() == false)
+                return;
 
-                // Convert absolute paths to relative paths
-                string basePath = Directory.GetCurrentDirectory(); // Use application directory as base
-                foreach (string absolutePath in absolutePaths)
-                {
-                    string relativePath = GetRelativePath(basePath, absolutePath);
-                    accommodationDTO.ProfilePictures.Add(relativePath);
-                }
+            foreach (string filename in openFileDialog.FileNames) {
+                absolutePaths.Add(filename);
+            }
+
+            string basePath = Directory.GetCurrentDirectory();
+            foreach (string absolutePath in absolutePaths) {
+                string relativePath = GetRelativePath(basePath, absolutePath);
+                AccommodationDTO.ProfilePictures.Add(relativePath);
             }
         }
         private string GetRelativePath(string basePath, string fullPath)

@@ -162,9 +162,7 @@ namespace BookingApp.DTO
 
         public Accommodation ToAccommodation()
         {
-            Accommodation accomodation = new Accommodation(Name, LocationId,Type,MaxGuestNumber,MinReservationDays, LastCancellationDay, OwnerId, ProfilePictures);
-            //ParseProfilePictures();
-            return accomodation;
+            return new Accommodation(Name, LocationId, Type, MaxGuestNumber, MinReservationDays, LastCancellationDay, OwnerId, ProfilePictures); ;
         }
 
 

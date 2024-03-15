@@ -32,7 +32,7 @@ namespace BookingApp.View.AndroidViews
 
         private readonly LocationRepository _locationRepository;
 
-        public ObservableCollection<AccommodationDTO> accommodationDTOs { get; set; }
+        public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
         
         public AccommodationPage(Frame mFrame, User user)
         {
@@ -42,7 +42,7 @@ namespace BookingApp.View.AndroidViews
             DataContext = this;
             _accommodationRepository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
-            accommodationDTOs = new ObservableCollection<AccommodationDTO>();
+            AccommodationDTOs = new ObservableCollection<AccommodationDTO>();
 
             Update();
         }
@@ -54,7 +54,7 @@ namespace BookingApp.View.AndroidViews
                 AccommodationDTO accDTO = new AccommodationDTO(acc);
                 Location location = _locationRepository.GetById(acc.LocationId);
                 accDTO.SetDisplayLocation(location.City,location.Country);
-                accommodationDTOs.Add(accDTO);
+                AccommodationDTOs.Add(accDTO);
             }
         }
 

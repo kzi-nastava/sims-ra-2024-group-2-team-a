@@ -40,7 +40,7 @@ namespace BookingApp.View.AndroidViews {
         }
 
         private void DoneButton_Click(object sender, RoutedEventArgs e) {
-            ReviewDTO.GuestId = AccReservationDTO.IdGuest;
+            ReviewDTO.GuestId = AccReservationDTO.GuestId;
             ReviewDTO.OwnerId = _ownerId;
             ReviewDTO.ReservationId = AccReservationDTO.Id;
             Review review = ReviewDTO.ToReview();
