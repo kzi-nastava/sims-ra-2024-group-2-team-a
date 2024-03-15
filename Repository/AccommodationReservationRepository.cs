@@ -64,7 +64,7 @@ namespace BookingApp.Repository
         }
 
         public List<AccommodationReservation> GetByAccommodationId(int id) {
-            List<AccommodationReservation> accommodationReservations = new List<AccommodationReservation> ();
+            List<AccommodationReservation> accommodationReservations = new List<AccommodationReservation>();
 
             foreach (var accRes in _serializer.FromCSV()) {
                 if(accRes.IdAccommodation == id) {
@@ -76,53 +76,42 @@ namespace BookingApp.Repository
 
         public List<AccommodationReservation> GetPossibleReservations(int idAccommodation, DateOnly startDate, DateOnly endDate, int reservationsDays) {
 
-            List<AccommodationReservation> possibleReservations = new List<AccommodationReservation>();
+            List<AccommodationReservation> exisitingReservations = GetByAccommodationId(idAccommodation);
+            var reservationPool = exisitingReservations.Where(r => r.StartDate >= startDate && r.EndDate <= endDate).ToList();
 
-            int reservationsCount = (endDate.Day - startDate.Day) / reservationsDays;
+            while(GeneratePossibleReservationFirstFit(reservationPool, startDate, endDate, reservationsDays)) { }
 
-            // Making possible reservations which are not reserved
-            for(int i = 0; i < reservationsCount; i++) {
-                possibleReservations.Add(new AccommodationReservation(0, idAccommodation, 0, 
-                    startDate.AddDays(i * reservationsDays), 
-                    startDate.AddDays((i + 1) * reservationsDays)));
-            }
+            var possibleReservations = reservationPool.Where(r => r.Id == -1).ToList();
 
-            // Filtering reservations which are already reserved
-            possibleReservations = possibleReservations.Where(r => IsReservationPossible(r)).ToList();
+            // TODO: Add suggested reservations path
 
-            if(possibleReservations.Count == 0)
-                possibleReservations = SuggestOtherReservations(idAccommodation, startDate, endDate, reservationsDays);
-
-            return possibleReservations;   
+            return possibleReservations;
         }
-
-        public bool IsReservationPossible(AccommodationReservation r) {
-            List<AccommodationReservation> exisitngReservations = GetByAccommodationId(r.IdAccommodation);
-
-            foreach (var existing in exisitngReservations) {
-                if (r.StartDate >= existing.StartDate && r.StartDate <= existing.EndDate)
-                    return false;
-                
-                if (r.EndDate >= existing.StartDate && r.EndDate <= existing.EndDate)
-                    return false;
-            }
+        
+        public bool DoReservationsOverlap(AccommodationReservation r1, AccommodationReservation r2) {
+            if (r1.StartDate >= r2.EndDate || r2.StartDate >= r1.EndDate)
+                return false;
 
             return true;
         }
 
-        public List<AccommodationReservation> SuggestOtherReservations(int idAccommodation, DateOnly startDate, DateOnly endDate, int reservationsDays) {
-            int daysSpan = 10;
-            List<AccommodationReservation> reservations = new List<AccommodationReservation>();
+        // Returns true if it found slot for reservation and adds it to reservations list
+        public bool GeneratePossibleReservationFirstFit(List<AccommodationReservation> reservations, DateOnly startDate, DateOnly endDate, int reservationDays) {
 
-            var reservationsBefore = GetPossibleReservations(idAccommodation, endDate, endDate.AddDays(daysSpan), reservationsDays);
-            var reservationsAfter = GetPossibleReservations(idAccommodation, startDate.AddDays(-daysSpan), startDate, reservationsDays);
+            List<DateOnly> endDates = reservations.Select(r => r.EndDate).ToList();
+            endDates = endDates.OrderBy(d => d).ToList();
+            endDates.Add(startDate);
 
-            reservations.AddRange(reservationsBefore);
-            reservations.AddRange(reservationsAfter);
+            foreach (var date in endDates) {
+                var possibleReservation = new AccommodationReservation(0, 0, 0, date, date.AddDays(reservationDays));
 
-            reservations = reservations.Where(r => IsReservationPossible(r)).ToList();
+                if (!reservations.Any(r => DoReservationsOverlap(r, possibleReservation)) && possibleReservation.EndDate <= endDate) {
+                    reservations.Add(possibleReservation);
+                    return true;
+                }
+            }
 
-            return reservations;
+            return false;
         }
     }
 }

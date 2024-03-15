@@ -71,7 +71,7 @@ namespace BookingApp.DTO
             }
         }
 
-        public string LocationOptionTemplate => $"{City} - {Country}";
+        public string LocationOptionTemplate => Id != -1 ? $"{Country} - {City}" : "" ;
  
         public Location ToLocation()
         {

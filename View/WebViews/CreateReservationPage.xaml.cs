@@ -24,6 +24,8 @@ namespace BookingApp.View.WebViews {
 
         private AccommodationDTO _accommodationDTO;
 
+        private readonly int maxSuggestedReservationsCount = 20;
+
         public CreateReservationPage(AccommodationDTO accommodationDTO) {
             InitializeComponent();
             _accommodationDTO = accommodationDTO;
@@ -39,8 +41,8 @@ namespace BookingApp.View.WebViews {
             frame.Content = new BookingPage(frame);
         }
 
-        private void UpdateSuggestedDates(object sender, EventArgs e) {
-            setDatePickerEndDate();
+        private void UpdateSuggestedReservations(object sender, EventArgs e) {
+            SetDatePickerEndDate();
 
             if(!IsReservationInputValid()) {
                 dataGridSuggestedDates.ItemsSource = null;
@@ -51,25 +53,34 @@ namespace BookingApp.View.WebViews {
             DateOnly startDate = DateOnly.FromDateTime(datePickerStartDate.SelectedDate.Value);
             DateOnly endDate = DateOnly.FromDateTime(datePickerEndDate.SelectedDate.Value);
 
-            AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
-            List<AccommodationReservation> reservations = accommodationReservationRepository.GetPossibleReservations(_accommodationDTO.Id, startDate, endDate, reservationDays);
+            var accommodationReservationRepository = new AccommodationReservationRepository();
+            var reservations = accommodationReservationRepository.GetPossibleReservations(_accommodationDTO.Id, startDate, endDate, reservationDays);
+
+            if(reservations.Count > maxSuggestedReservationsCount)
+                reservations = reservations.GetRange(0, maxSuggestedReservationsCount);
+
+            reservations = reservations.OrderBy(r => r.StartDate).ToList();
             dataGridSuggestedDates.ItemsSource = reservations;
         }
 
         private bool IsReservationInputValid() {
-            if(datePickerStartDate.SelectedDate == null || datePickerEndDate.SelectedDate == null)
+            if (!int.TryParse(textBoxReservationDays.Text, out int reservationDays))
                 return false;
 
-            if (!int.TryParse(textBoxReservationDays.Text, out int result))
+            if (reservationDays <= 0)
                 return false;
 
-            if(result <= 0)
+            if (datePickerStartDate.SelectedDate == null || datePickerEndDate.SelectedDate == null)
+                return false;
+
+            TimeSpan span = datePickerEndDate.SelectedDate.Value - datePickerStartDate.SelectedDate.Value;
+            if(span.Days < reservationDays)
                 return false;
 
             return true;
         }
 
-        private void setDatePickerEndDate() {
+        private void SetDatePickerEndDate() {
             if (datePickerStartDate.SelectedDate >= datePickerEndDate.SelectedDate) {
                 datePickerEndDate.SelectedDate = null;
                 datePickerEndDate.DisplayDateStart = datePickerStartDate.SelectedDate.Value.AddDays(1);
@@ -91,15 +102,21 @@ namespace BookingApp.View.WebViews {
                 return;
             }
 
+            SaveReservation(selectedReservation);
+
+            Frame frame = (Frame)Window.GetWindow(this).FindName("mainFrame");
+            frame.Content = new BookingPage(frame);
+        }
+
+        private void SaveReservation(AccommodationReservation selectedReservation) {
+            AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
             GuestMainWindow window = Window.GetWindow(this) as GuestMainWindow;
             User currentUser = window.User;
 
             selectedReservation.IdGuest = currentUser.Id;
-            AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
+            selectedReservation.IdAccommodation = _accommodationDTO.Id;
+            selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
             accommodationReservationRepository.Save(selectedReservation);
-
-            Frame frame = (Frame)Window.GetWindow(this).FindName("mainFrame");
-            frame.Content = new BookingPage(frame);
         }
     }
 }

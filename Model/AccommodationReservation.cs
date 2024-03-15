@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace BookingApp.Model {
 
     public class AccommodationReservation : ISerializable {
-        
-        public int Id { get; set; }
+
+        public int Id { get; set; } = -1;
         public int IdGuest { get; set; }
         public int IdAccommodation { get; set; }
         public int GuestsNumber { get; set; }

@@ -9,7 +9,7 @@ using System.Xaml.Schema;
 
 namespace BookingApp.Model {
 
-    public enum AccommodationType { none, apartment, house, hut }
+    public enum AccommodationType { any, apartment, house, hut }
 
     public class Accommodation : ISerializable {
 

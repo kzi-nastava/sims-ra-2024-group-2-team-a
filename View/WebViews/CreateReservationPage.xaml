@@ -64,17 +64,17 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Content="Start date" Grid.Column="0" Grid.Row="0" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <DatePicker x:Name="datePickerStartDate" Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center" Margin="5,16,10,16" SelectedDateChanged="UpdateSuggestedDates"/>
+                <DatePicker x:Name="datePickerStartDate" Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center" Margin="5,16,10,16" SelectedDateChanged="UpdateSuggestedReservations"/>
 
                 <Label Content="End date" Grid.Column="0" Grid.Row="1" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <DatePicker x:Name="datePickerEndDate" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" Margin="5,16,10,16" SelectedDateChanged="UpdateSuggestedDates"/>
+                <DatePicker x:Name="datePickerEndDate" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" Margin="5,16,10,16" SelectedDateChanged="UpdateSuggestedReservations"/>
 
                 <Label Content="Days" Grid.Column="0" Grid.Row="2" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <TextBox x:Name="textBoxReservationDays" Grid.Column="1" Grid.Row="2" Margin="5,18,78,18" VerticalContentAlignment="Center" FontSize="15" TextChanged="UpdateSuggestedDates"/>
+                <TextBox x:Name="textBoxReservationDays" Grid.Column="1" Grid.Row="2" Margin="5,18,78,18" VerticalContentAlignment="Center" FontSize="15" TextChanged="UpdateSuggestedReservations"/>
 
                 <Label Content="Guests" Grid.Column="0" Grid.Row="3" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 <DockPanel Grid.Column="1" Grid.Row="2" Margin="5,57,0,0" Grid.RowSpan="2">
-                    <TextBox x:Name="textBoxGuests" Text="{Binding ElementName=sliderGuests, Path=Value}" Width="29" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" TextChanged="UpdateSuggestedDates"/>
+                    <TextBox x:Name="textBoxGuests" Text="{Binding ElementName=sliderGuests, Path=Value}" Width="29" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" TextChanged="UpdateSuggestedReservations"/>
                     <Slider x:Name="sliderGuests" Grid.Row="4" Grid.Column="1" Margin="5,16,10,16" Minimum="1" Maximum="20" Value="{Binding ElementName=textBoxGuests, Path=Text}" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
                 </DockPanel>
 
@@ -89,11 +89,11 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="Suggested dates" Grid.Row="0" FontSize="20" FontWeight="SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label Content="Suggested reservations" Grid.Row="0" FontSize="20" FontWeight="SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <DataGrid x:Name="dataGridSuggestedDates" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" Margin="10,0,10,25">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Start date" Binding="{Binding StartDate, StringFormat={}{0:dd-MM-yyyy}}" Width="*"/>
-                        <DataGridTextColumn Header="End date" Binding="{Binding EndDate, StringFormat={}{0:dd-MM-yyyy}}" Width="*"/>
+                        <DataGridTextColumn Header="Start date" Binding="{Binding StartDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
+                        <DataGridTextColumn Header="End date" Binding="{Binding EndDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
