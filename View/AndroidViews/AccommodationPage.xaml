@@ -34,7 +34,7 @@
         </Grid>
         <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,2,0,0">
             <ScrollViewer Height="500" Width="400" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalScrollBarVisibility="Hidden">
-                <ItemsControl Height="600" ItemsSource="{Binding accommodationDTOs}">
+                <ItemsControl Height="900" ItemsSource="{Binding AccommodationDTOs}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Background="#FFFCF5" BorderBrush="Black" BorderThickness="1" Height="110" CornerRadius="20">
