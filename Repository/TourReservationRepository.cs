@@ -82,7 +82,7 @@ namespace BookingApp.Repository {
                 return -1;
 
             if (passengers.Count > availableSpace)
-                return 0;
+                return availableSpace;
 
             Save(new TourReservation(userId, selectedTour.Id));
             foreach (var passenger in passengers) {
@@ -92,7 +92,7 @@ namespace BookingApp.Repository {
 
             FillTourCapacity(selectedTour.Id, addedPassengersNumber);
 
-            return 1;
+            return 0;
         }
     }
 }

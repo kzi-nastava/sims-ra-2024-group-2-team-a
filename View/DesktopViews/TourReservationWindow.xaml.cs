@@ -81,8 +81,10 @@ namespace BookingApp.View.DesktopViews
         private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {
             SameLocationToursWindow sameLocationToursWindow = new SameLocationToursWindow(SelectedTour);
             int reservationSuccessIndicator = _tourReservationRepository.MakeReservation(UserId, SelectedTour, Passengers.ToList());
-            if (reservationSuccessIndicator == 0)
-                MessageBox.Show("There is not enought space for all!", "Title of the MessageBox", MessageBoxButton.OK);
+            if (reservationSuccessIndicator > 0) {
+                string messageBoxOutput = "There is not enought space for all!\nAvailable space: " + reservationSuccessIndicator.ToString();
+                MessageBox.Show(messageBoxOutput, "Title of the MessageBox", MessageBoxButton.OK);
+            }
             else if (reservationSuccessIndicator == -1) {
                 sameLocationToursWindow.Owner = this;
                 sameLocationToursWindow.ShowDialog();
