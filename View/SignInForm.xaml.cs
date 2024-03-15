@@ -69,7 +69,7 @@ namespace BookingApp.View
                     }
                     else
                     {
-                        GuestMainWindow  guestMainWindwo = new GuestMainWindow();
+                        GuestMainWindow  guestMainWindwo = new GuestMainWindow(user);
                         guestMainWindwo.Show();
                         Close();
                     }
