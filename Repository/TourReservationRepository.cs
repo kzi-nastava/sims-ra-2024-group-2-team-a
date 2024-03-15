@@ -84,9 +84,10 @@ namespace BookingApp.Repository {
             if (passengers.Count > availableSpace)
                 return availableSpace;
 
-            Save(new TourReservation(userId, selectedTour.Id));
+            TourReservation reservation = new TourReservation(userId, selectedTour.Id);
+            Save(reservation);
             foreach (var passenger in passengers) {
-                passengerRepository.Save(new Passenger(selectedTour.Id, passenger.Name, passenger.Surname, passenger.Age, userId));
+                passengerRepository.Save(new Passenger(reservation.Id, passenger.Name, passenger.Surname, passenger.Age, userId));
                 addedPassengersNumber++;
             }
 
