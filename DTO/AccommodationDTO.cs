@@ -30,6 +30,7 @@ namespace BookingApp.DTO
 
         public AccommodationDTO(Accommodation acc)
         {
+            Id = acc.Id;
             Name = acc.Name;
             LocationId = acc.LocationId;
             Type = acc.type;
@@ -38,6 +39,19 @@ namespace BookingApp.DTO
             LastCancellationDay = acc.LastCancellationDay;
             OwnerId = acc.OwnerId;
             ProfilePictures = acc.ProfilePictures;
+        }
+
+        private int _id;
+        public int Id {
+            get {
+                return _id;
+            }
+            set {
+                if (value != _id) {
+                    _id = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         private string _name;
@@ -148,9 +162,7 @@ namespace BookingApp.DTO
 
         public Accommodation ToAccommodation()
         {
-            Accommodation accomodation = new Accommodation(Name, LocationId,Type,MaxGuestNumber,MinReservationDays, LastCancellationDay, OwnerId, ProfilePictures);
-            //ParseProfilePictures();
-            return accomodation;
+            return new Accommodation(Name, LocationId, Type, MaxGuestNumber, MinReservationDays, LastCancellationDay, OwnerId, ProfilePictures); ;
         }
 
 

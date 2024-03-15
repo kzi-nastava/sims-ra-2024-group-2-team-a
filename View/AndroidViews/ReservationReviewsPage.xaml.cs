@@ -2,20 +2,9 @@
 using BookingApp.Model;
 using BookingApp.Repository;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BookingApp.View.AndroidViews {
     /// <summary>
@@ -39,16 +28,12 @@ namespace BookingApp.View.AndroidViews {
             this.DataContext = this;
 
             _user = user;
+
             _accommodationReservationRepository = new AccommodationReservationRepository();
             _reviewRepository = new ReviewRepository();
             _accommodationRepository = new AccommodationRepository();
 
             ReservationCollection = new ObservableCollection<AccommodationReservationDTO>();
-
-           // AccommodationReservation accommodationReservation = new AccommodationReservation(1,3,2,new DateOnly(2013,2,2),new DateOnly(2013,2,5));
-            //_accommodationReservationRepository.Save(accommodationReservation);
-            //Review review = new Review(3,1,_user.Id);
-            //_reviewRepository.Save(review);
 
             Update();
         }
@@ -72,26 +57,19 @@ namespace BookingApp.View.AndroidViews {
             }
         }
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if(SelectedReservation == null) {
+            if (SelectedReservation == null)
                 return;
-            }
 
             DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
-
             DateOnly offsetDate = SelectedReservation.EndDate;
             offsetDate = offsetDate.AddDays(5);
 
-            if (SelectedReservation.Graded) {
+            if (SelectedReservation.Graded)
                 AssignGradeButton.IsEnabled = false;
-                return;
-            }
-
-            if (currentDate > SelectedReservation.EndDate && currentDate < offsetDate) {
+            else if (currentDate > SelectedReservation.EndDate && currentDate < offsetDate)
                 AssignGradeButton.IsEnabled = true;
-            }
-            else {
+            else
                 AssignGradeButton.IsEnabled = false;
-            }
         }
 
         private void AssignGradeButton_Click(object sender, RoutedEventArgs e) {
@@ -100,7 +78,7 @@ namespace BookingApp.View.AndroidViews {
             }
             else {
                 AssignGradeButton.IsEnabled = true;
-                AssignGradeWindow assignGradeWindow = new AssignGradeWindow(SelectedReservation,_user.Id,this);
+                AssignGradeWindow assignGradeWindow = new AssignGradeWindow(SelectedReservation, _user.Id, this);
                 assignGradeWindow.ShowDialog();
             }
         }

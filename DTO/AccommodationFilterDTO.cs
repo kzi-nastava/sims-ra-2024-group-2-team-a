@@ -10,7 +10,7 @@ namespace BookingApp.DTO {
 
         public string Name { get; set; } = "";
         public LocationDTO Location { get; set; } = new LocationDTO();
-        public AccommodationType Type { get; set; } = AccommodationType.none;
+        public AccommodationType Type { get; set; } = AccommodationType.any;
         public int GuestNumber { get; set; } = 0;
         public int ReservationDays { get; set; } = 0;
 
@@ -20,12 +20,12 @@ namespace BookingApp.DTO {
             Name = name;
             Location = location;
             Type = type;
-            this.GuestNumber = guestNumber;
-            this.ReservationDays = reservationDays;
+            GuestNumber = guestNumber;
+            ReservationDays = reservationDays;
         }
 
         public bool isEmpty() {
-            return Name == "" && Location.Id == -1 && Type == AccommodationType.none && GuestNumber == 0 && ReservationDays == 0;
+            return Name == "" && Location.Id == -1 && Type == AccommodationType.any && GuestNumber == 0 && ReservationDays == 0;
         }
     }
 }

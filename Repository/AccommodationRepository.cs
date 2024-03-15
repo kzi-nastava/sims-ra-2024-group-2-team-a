@@ -87,14 +87,14 @@ namespace BookingApp.Repository {
             if(filter.isEmpty())
                 return _accommodations;
 
-            return _accommodations.Where(a => ApplyFilter(a, filter)).ToList();
+            return _accommodations.Where(a => SatisfiesFilter(a, filter)).ToList();
         }
 
-        private bool ApplyFilter(Accommodation accommodation, AccommodationFilterDTO filter) {
+        private bool SatisfiesFilter(Accommodation accommodation, AccommodationFilterDTO filter) {
 
             bool matchesName = accommodation.Name.ToLower().Contains(filter.Name.ToLower()) || filter.Name == "";
             bool matchesLocation = accommodation.LocationId == filter.Location.Id || filter.Location.Id == -1;
-            bool matchesType = accommodation.type == filter.Type || filter.Type == AccommodationType.none;
+            bool matchesType = accommodation.type == filter.Type || filter.Type == AccommodationType.any;
             bool matchesGuestNumber = accommodation.MaxGuestNumber >= filter.GuestNumber || filter.GuestNumber == 0;
             bool matchesReservationDays = accommodation.MinReservationDays <= filter.ReservationDays || filter.ReservationDays == 0;
 

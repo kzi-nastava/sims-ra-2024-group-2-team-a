@@ -79,12 +79,13 @@ namespace BookingApp.View.DesktopViews
         }*/
 
         private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {
-            SameLocationToursWindow sameLocationToursWindow = new SameLocationToursWindow(SelectedTour);
-            int reservationSuccessIndicator = _tourReservationRepository.MakeReservation(UserId, SelectedTour, Passengers.ToList());
-            if (reservationSuccessIndicator == 0)
-                MessageBox.Show("There is not enought space for all!", "Title of the MessageBox", MessageBoxButton.OK);
+            SameLocationToursWindow sameLocationToursWindow = new SameLocationToursWindow(SelectedTour, this);
+            int reservationSuccessIndicator = _tourReservationRepository.MakeReservation(this.UserId, SelectedTour, Passengers.ToList());
+            if (reservationSuccessIndicator > 0) {
+                string messageBoxOutput = "There is not enought space for all!\nAvailable space: " + reservationSuccessIndicator.ToString();
+                MessageBox.Show(messageBoxOutput, "Title of the MessageBox", MessageBoxButton.OK);
+            }
             else if (reservationSuccessIndicator == -1) {
-                sameLocationToursWindow.Owner = this;
                 sameLocationToursWindow.ShowDialog();
             }
             else
@@ -97,21 +98,36 @@ namespace BookingApp.View.DesktopViews
         }
 
         private void AddPassengerButton_Click(object sender, RoutedEventArgs e) {
-            PassengerDTO newPassenger = new PassengerDTO(PassengerName.Text, PassengerSurname.Text, Convert.ToInt32(PassengerAge.Text));
+            AddNewPassenger(PassengerName.Text, PassengerSurname.Text, Convert.ToInt32(PassengerAge.Text), -1);
+        }
 
+        private void AddTouristButton_Click(object sender, RoutedEventArgs e) {
+            AddNewPassenger(TouristName.Text, TouristSurname.Text, Convert.ToInt32(TouristAge.Text), UserId);
+            AddTouristButton.IsEnabled = false;
+        }
+
+        private void AddNewPassenger(string name, string surname, int age, int userId) {
+            Passengers.Add(new PassengerDTO(name, surname, age, userId));
+            ClearForm();
+        }
+
+        private void ClearForm() {
             PassengerName.Text = null;
             PassengerSurname.Text = null;
             PassengerAge.Text = null;
-
-            Passengers.Add(newPassenger);
+            TouristName.Text = null;
+            TouristSurname.Text = null;
+            TouristAge.Text = null;
         }
 
         private void RemovePassengerButton_Click(object sender, RoutedEventArgs e) {
             var button = (Button)sender;
             var passenger = (PassengerDTO)button.DataContext;
 
-            // Remove the passenger from the collection
             Passengers.Remove(passenger);
+
+            if (passenger.UserId != -1)
+                AddTouristButton.IsEnabled = true;
         }
     }
 }

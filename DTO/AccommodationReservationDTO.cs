@@ -15,8 +15,8 @@ public class AccommodationReservationDTO:INotifyPropertyChanged {
 
         public AccommodationReservationDTO(AccommodationReservation acc) {
             Id = acc.Id;
-            IdGuest = acc.IdGuest;
-            IdAccommodation = acc.IdAccommodation;
+            GuestId = acc.IdGuest;
+            AccommodationId = acc.IdAccommodation;
             GuestsNumber = acc.GuestsNumber;
             StartDate = acc.StartDate;
             EndDate = acc.EndDate;
@@ -25,8 +25,8 @@ public class AccommodationReservationDTO:INotifyPropertyChanged {
         }
 
         public int Id { get; set; }
-        public int IdGuest { get; set; }
-        public int IdAccommodation { get; set; }
+        public int GuestId { get; set; }
+        public int AccommodationId { get; set; }
 
         public int _guestsNumber;
         public int GuestsNumber {

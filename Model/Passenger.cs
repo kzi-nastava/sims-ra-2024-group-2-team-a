@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookingApp.DTO;
 using BookingApp.Serializer;
+using System;
 
 namespace BookingApp.Model {
     public class Passenger : ISerializable {
@@ -12,7 +9,7 @@ namespace BookingApp.Model {
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
-        public int UserId { get; set; } 
+        public int UserId { get; set; }
 
         public Passenger() { }
 
@@ -25,12 +22,12 @@ namespace BookingApp.Model {
             UserId = userId;
         }
 
-        public Passenger(int tourId, string name, string surname, int age, int userId) {
+        public Passenger(int tourId, PassengerDTO passengerDTO) {
             TourReservationId = tourId;
-            Name = name;
-            Surname = surname;
-            Age = age;
-            UserId = userId;
+            Name = passengerDTO.Name;
+            Surname = passengerDTO.Surname;
+            Age = passengerDTO.Age;
+            UserId = passengerDTO.UserId;
         }
 
         public string[] ToCSV() {

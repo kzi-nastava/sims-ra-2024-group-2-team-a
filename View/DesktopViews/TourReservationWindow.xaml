@@ -8,7 +8,17 @@
         Title="ReservationWindow" Height="450" Width="800">
     <Grid>
         <StackPanel DockPanel.Dock="Right">
-
+            <WrapPanel>
+                <TextBox x:Name="TouristName" 
+                         Width="100"></TextBox>
+                <TextBox x:Name="TouristSurname" 
+                         Width="100"></TextBox>
+                <TextBox x:Name="TouristAge" 
+                         Width="100"></TextBox>
+                <Button x:Name="AddTouristButton"
+                        Click="AddTouristButton_Click"
+                        Width="30">+</Button>
+            </WrapPanel>
             <WrapPanel>
                 <TextBox x:Name="PassengerName" 
                          Width="100"></TextBox>

@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using BookingApp.Model;
 
 namespace BookingApp.DTO {
     public class PassengerDTO : INotifyPropertyChanged {
         public PassengerDTO() { }
-
-        public PassengerDTO(string name, string surname, int age) { 
+        public PassengerDTO(string name, string surname, int age, int userId) {
             Name = name;
             Surname = surname;
             Age = age;
+            UserId = userId;
         }
 
         private string _name;
@@ -46,10 +39,26 @@ namespace BookingApp.DTO {
 
         private int _age;
         public int Age {
-            get { return _age; }
+            get {
+                return _age;
+            }
             set {
                 if (_age != value) {
-                    _age = value; OnPropertyChanged();
+                    _age = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _userId;
+        public int UserId {
+            get {
+                return _userId;
+            }
+            set {
+                if (_userId != value) {
+                    _userId = value;
+                    OnPropertyChanged();
                 }
             }
         }
