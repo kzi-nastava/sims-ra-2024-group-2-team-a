@@ -36,8 +36,8 @@ namespace BookingApp.Model {
             IdGuest = Convert.ToInt32(values[1]);
             IdAccommodation = Convert.ToInt32(values[2]);
             GuestsNumber = Convert.ToInt32(values[3]);
-            StartDate = DateOnly.Parse(values[4]);
-            EndDate = DateOnly.Parse(values[5]);
+            StartDate = DateOnly.ParseExact(values[4], "dd-MM-yyyy");
+            EndDate = DateOnly.ParseExact(values[5], "dd-MM-yyyy");
         }
     }
 }
