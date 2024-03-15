@@ -20,8 +20,8 @@ namespace BookingApp.DTO {
             Name = name;
             Location = location;
             Type = type;
-            this.GuestNumber = guestNumber;
-            this.ReservationDays = reservationDays;
+            GuestNumber = guestNumber;
+            ReservationDays = reservationDays;
         }
 
         public bool isEmpty() {
