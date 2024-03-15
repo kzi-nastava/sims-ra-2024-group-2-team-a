@@ -73,7 +73,6 @@ namespace BookingApp.Repository {
 
         public int MakeReservation(int userId, TourDTO selectedTour, List<PassengerDTO> passengers) {
             PassengerRepository passengerRepository = new PassengerRepository();
-            UserRepository userRepository = new UserRepository();
 
             int availableSpace = selectedTour.MaxTouristNumber - selectedTour.CurrentTouristNumber;
             int addedPassengersNumber = 0;
@@ -87,7 +86,7 @@ namespace BookingApp.Repository {
             TourReservation reservation = new TourReservation(userId, selectedTour.Id);
             Save(reservation);
             foreach (var passenger in passengers) {
-                passengerRepository.Save(new Passenger(reservation.Id, passenger.Name, passenger.Surname, passenger.Age, userId));
+                passengerRepository.Save(new Passenger(reservation.Id, passenger));
                 addedPassengersNumber++;
             }
 

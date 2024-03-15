@@ -97,31 +97,37 @@ namespace BookingApp.View.DesktopViews
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void AddNewPassenger(int userId) {
-            Passengers.Add(new PassengerDTO(PassengerName.Text, PassengerSurname.Text, Convert.ToInt32(PassengerAge.Text), userId));
-            ClearForm();
+        private void AddPassengerButton_Click(object sender, RoutedEventArgs e) {
+            AddNewPassenger(PassengerName.Text, PassengerSurname.Text, Convert.ToInt32(PassengerAge.Text), -1);
         }
 
-        private void AddPassengerButton_Click(object sender, RoutedEventArgs e) {
-            AddNewPassenger(-1);
+        private void AddTouristButton_Click(object sender, RoutedEventArgs e) {
+            AddNewPassenger(TouristName.Text, TouristSurname.Text, Convert.ToInt32(TouristAge.Text), UserId);
+            AddTouristButton.IsEnabled = false;
+        }
+
+        private void AddNewPassenger(string name, string surname, int age, int userId) {
+            Passengers.Add(new PassengerDTO(name, surname, age, userId));
+            ClearForm();
         }
 
         private void ClearForm() {
             PassengerName.Text = null;
             PassengerSurname.Text = null;
             PassengerAge.Text = null;
+            TouristName.Text = null;
+            TouristSurname.Text = null;
+            TouristAge.Text = null;
         }
 
         private void RemovePassengerButton_Click(object sender, RoutedEventArgs e) {
             var button = (Button)sender;
             var passenger = (PassengerDTO)button.DataContext;
 
-            // Remove the passenger from the collection
             Passengers.Remove(passenger);
-        }
 
-        private void AddTouristButton_Click(object sender, RoutedEventArgs e) {
-            AddNewPassenger(UserId);
+            if (passenger.UserId != -1)
+                AddTouristButton.IsEnabled = true;
         }
     }
 }

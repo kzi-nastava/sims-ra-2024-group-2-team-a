@@ -1,4 +1,5 @@
-﻿using BookingApp.Serializer;
+﻿using BookingApp.DTO;
+using BookingApp.Serializer;
 using System;
 
 namespace BookingApp.Model {
@@ -21,12 +22,12 @@ namespace BookingApp.Model {
             UserId = userId;
         }
 
-        public Passenger(int tourId, string name, string surname, int age, int userId) {
+        public Passenger(int tourId, PassengerDTO passengerDTO) {
             TourReservationId = tourId;
-            Name = name;
-            Surname = surname;
-            Age = age;
-            UserId = userId;
+            Name = passengerDTO.Name;
+            Surname = passengerDTO.Surname;
+            Age = passengerDTO.Age;
+            UserId = passengerDTO.UserId;
         }
 
         public string[] ToCSV() {
