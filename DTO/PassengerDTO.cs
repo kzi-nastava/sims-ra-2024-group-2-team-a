@@ -4,10 +4,11 @@ using System.Runtime.CompilerServices;
 namespace BookingApp.DTO {
     public class PassengerDTO : INotifyPropertyChanged {
         public PassengerDTO() { }
-        public PassengerDTO(string name, string surname, int age) {
+        public PassengerDTO(string name, string surname, int age, int userId) {
             Name = name;
             Surname = surname;
             Age = age;
+            UserId = userId;
         }
 
         private string _name;
@@ -44,6 +45,19 @@ namespace BookingApp.DTO {
             set {
                 if (_age != value) {
                     _age = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _userId;
+        public int UserId {
+            get {
+                return _userId;
+            }
+            set {
+                if (_userId != value) {
+                    _userId = value;
                     OnPropertyChanged();
                 }
             }
