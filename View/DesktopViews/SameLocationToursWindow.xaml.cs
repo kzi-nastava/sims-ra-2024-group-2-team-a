@@ -1,4 +1,5 @@
 ﻿using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -21,12 +22,14 @@ namespace BookingApp.View.DesktopViews {
     /// </summary>
     public partial class SameLocationToursWindow : Window {
         private TourRepository _tourRepository;
+        private TourReservationWindow _parentWindow;
         public TourDTO CurrentTour { get; set; }
         public ObservableCollection<TourDTO> SameLocationTours { get; set; }
-        public SameLocationToursWindow(TourDTO currentTour) {
+        public SameLocationToursWindow(TourDTO currentTour, TourReservationWindow parentWindow) {
             InitializeComponent();
             DataContext = this;
             CurrentTour = currentTour;
+            _parentWindow = parentWindow;
             _tourRepository = new TourRepository();
             SameLocationTours = new ObservableCollection<TourDTO>();
 
@@ -37,6 +40,15 @@ namespace BookingApp.View.DesktopViews {
             SameLocationTours.Clear();
             foreach (var tour in _tourRepository.GetSameLocationTours(CurrentTour))
                 SameLocationTours.Add(new TourDTO(tour));
+        }
+
+        private void ReservationButton_Click(object sender, RoutedEventArgs e) {
+            _parentWindow.Close();
+            var button = (Button)sender;
+            var selectedTour = (TourDTO)button.DataContext;
+
+            TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, _parentWindow.UserId);
+            reservationWindow.ShowDialog();
         }
     }
 }

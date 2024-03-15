@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookingApp.Serializer;
+﻿using BookingApp.Serializer;
+using System;
 
 namespace BookingApp.Model {
     public class Passenger : ISerializable {
@@ -12,7 +8,7 @@ namespace BookingApp.Model {
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
-        public int UserId { get; set; } 
+        public int UserId { get; set; }
 
         public Passenger() { }
 

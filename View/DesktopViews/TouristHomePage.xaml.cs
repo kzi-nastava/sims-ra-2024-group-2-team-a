@@ -15,31 +15,43 @@ namespace BookingApp.View.DesktopViews {
     public partial class TouristHomePage : Page {
         private readonly TourRepository _tourRepository;
         private readonly LocationRepository _locationRepository;
+        private readonly LanguageRepository _languageRepository;
 
         public int UserId { get; set; } 
         public TourFilterDTO Filter { get; set; }
         public ObservableCollection<TourDTO> ToursOnDisplay { get; set; }
         public ObservableCollection<LocationDTO> LocationOptions { get; set; }
+        public ObservableCollection<LanguageDTO> LanguageOptions { get; set; }
         public TouristHomePage(int userId) {
             InitializeComponent();
             DataContext = this;
 
             _tourRepository = new TourRepository();
             _locationRepository = new LocationRepository();
+            _languageRepository = new LanguageRepository();
             ToursOnDisplay = new ObservableCollection<TourDTO>();
             LocationOptions = new ObservableCollection<LocationDTO>();
+            LanguageOptions = new ObservableCollection<LanguageDTO>();
             Filter = new TourFilterDTO();
 
+            FillComboBoxItemSources();
+            Update();
+
+            UserId = userId;
+        }
+
+        private void FillComboBoxItemSources() {
             LocationOptions.Clear();
             LocationOptions.Add(new LocationDTO("", ""));
-            foreach (var location in _locationRepository.GetAll()) 
+            foreach (var location in _locationRepository.GetAll())
                 LocationOptions.Add(new LocationDTO(location));
-            
-            UserId = userId;
 
-            Update();
-            SetLanguageValues();
+            LanguageOptions.Clear();
+            LanguageOptions.Add(new LanguageDTO(""));
+            foreach (var language in _languageRepository.GetAll())
+                LanguageOptions.Add(new LanguageDTO(language));
         }
+
         public void Update() {
             ToursOnDisplay.Clear();
             foreach (var tour in _tourRepository.GetFiltered(Filter)) 
@@ -53,19 +65,19 @@ namespace BookingApp.View.DesktopViews {
             Filter.Location = new LocationDTO();
         }
 
-        private void SetLanguageValues() {
-            LanguageComboBox.Items.Clear();
-            LanguageComboBox.ItemsSource = Enum.GetValues(typeof(LanguageState));
-        }
-
         private void FilterButton_Click(object sender, RoutedEventArgs e) {
             Update();
         }
-        private void ClearButton_Click(object sender, RoutedEventArgs e) {
+
+        private void ClearFilterFields() {
             LocationComboBox.SelectedIndex = -1;
-            SetLanguageValues();
+            LanguageComboBox.SelectedIndex = -1;
             DurationTextBox.Text = Convert.ToString(0);
             TouristNumberTextBox.Text = Convert.ToString(0);
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e) {
+            ClearFilterFields();
             Update();
         }
 
@@ -83,11 +95,12 @@ namespace BookingApp.View.DesktopViews {
             reservationWindow.ShowDialog();
         }
 
-        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+        private void LanguageComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e) {
             if (LanguageComboBox.SelectedItem != null) {
-                Filter.Language = (LanguageState)LanguageComboBox.SelectedItem;
+                Filter.Language = (LanguageDTO)LanguageComboBox.SelectedItem;
                 return;
             }
+            Filter.Language = new LanguageDTO();
         }
     }
 }
