@@ -28,6 +28,13 @@ namespace BookingApp.View.AndroidViews {
         }
 
         private void DoneButton_Click(object sender, RoutedEventArgs e) {
+            if(ReviewDTO.GuestCleannessGrade == 0){
+                ReviewDTO.GuestCleannessGrade = 1;
+            }
+            if (ReviewDTO.RuleFollowingGrade == 0) {
+                ReviewDTO.RuleFollowingGrade = 1;
+            }
+
             ReviewDTO.GuestId = AccReservationDTO.GuestId;
             ReviewDTO.OwnerId = _ownerId;
             ReviewDTO.ReservationId = AccReservationDTO.Id;
