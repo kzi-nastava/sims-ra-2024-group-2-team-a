@@ -17,9 +17,12 @@
                                 BorderThickness="1" 
                                 Margin="5">
                             <StackPanel>
-                                <!-- Your content -->
-                                <TextBlock Text="{Binding Language, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="{Binding LocationId, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="{Binding LanguageId, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Button x:Name="ReservationButton"
+                                        Click="ReservationButton_Click"
+                                        Height="20"/>
                             </StackPanel>
                         </Border>
                     </Grid>
