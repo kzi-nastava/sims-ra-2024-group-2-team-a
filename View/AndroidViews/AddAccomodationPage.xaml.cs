@@ -3,30 +3,16 @@ using BookingApp.Model;
 using BookingApp.Repository;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace BookingApp.View.AndroidViews
-{
+namespace BookingApp.View.AndroidViews {
     /// <summary>
     /// Interaction logic for AddAccomodationPage.xaml
     /// </summary>
-    public partial class AddAccommodationPage : Page
-    {
+    public partial class AddAccommodationPage : Page {
         public Frame mainFrame;
 
         private readonly User _user;
@@ -38,8 +24,7 @@ namespace BookingApp.View.AndroidViews
 
         public ObservableCollection<LocationDTO> LocationDTOs { get; set; }
 
-        public AddAccommodationPage(Frame mainFrame,User user)
-        {
+        public AddAccommodationPage(Frame mainFrame, User user) {
             InitializeComponent();
             this.mainFrame = mainFrame;
             DataContext = this;
@@ -57,27 +42,21 @@ namespace BookingApp.View.AndroidViews
             }
         }
 
-        private void Decline_Click(object sender, RoutedEventArgs e)
-        {
+        private void Decline_Click(object sender, RoutedEventArgs e) {
             MessageBoxResult result = MessageBox.Show("Your progress will be lost, are you sure?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if(result == MessageBoxResult.Yes)
-            {
+            if (result == MessageBoxResult.Yes) {
                 mainFrame.GoBack();
             }
         }
 
-        private void Confirm_Click(object sender, RoutedEventArgs e)
-        {
-            if (radioButtonApartment.IsChecked == true)
-            {
+        private void Confirm_Click(object sender, RoutedEventArgs e) {
+            if (radioButtonApartment.IsChecked == true) {
                 AccommodationDTO.Type = AccommodationType.apartment;
             }
-            else if (radioButtonHouse.IsChecked == true)
-            {
+            else if (radioButtonHouse.IsChecked == true) {
                 AccommodationDTO.Type = AccommodationType.house;
             }
-            else if (radioButtonHut.IsChecked == true)
-            {
+            else if (radioButtonHut.IsChecked == true) {
                 AccommodationDTO.Type = AccommodationType.hut;
             }
 
@@ -86,11 +65,10 @@ namespace BookingApp.View.AndroidViews
             acc.LocationId = SelectedLocationDTO.Id;
             _accommodationRepository.Save(acc);
 
-            mainFrame.Content = new AccommodationPage(mainFrame,_user); 
+            mainFrame.Content = new AccommodationPage(mainFrame, _user);
         }
 
-        private void SelectImages_Click(object sender, RoutedEventArgs e)
-        {
+        private void SelectImages_Click(object sender, RoutedEventArgs e) {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = @"C:\Users\Strahinja\Desktop\ProjekatSims\sims-ra-2024-group-2-team-a\Resources\Images\Accomodations\";
             openFileDialog.Multiselect = true;
@@ -105,8 +83,7 @@ namespace BookingApp.View.AndroidViews
                 AccommodationDTO.ProfilePictures.Add(relativePath);
             }
         }
-        private string GetRelativePath(string basePath, string fullPath)
-        {
+        private string GetRelativePath(string basePath, string fullPath) {
             Uri baseUri = new Uri(basePath + System.IO.Path.DirectorySeparatorChar);
             Uri fullUri = new Uri(fullPath);
             return baseUri.MakeRelativeUri(fullUri).ToString();

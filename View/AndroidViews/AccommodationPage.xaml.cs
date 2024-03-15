@@ -1,29 +1,15 @@
 ﻿using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using BookingApp.Model;
-using System.Collections.ObjectModel;
 
-namespace BookingApp.View.AndroidViews
-{
+namespace BookingApp.View.AndroidViews {
     /// <summary>
     /// Interaction logic for AccomodationPage.xaml
     /// </summary>
-    public partial class AccommodationPage : Page
-    {
+    public partial class AccommodationPage : Page {
         public Frame mainFrame;
 
         private readonly User _user;
@@ -33,9 +19,8 @@ namespace BookingApp.View.AndroidViews
         private readonly LocationRepository _locationRepository;
 
         public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
-        
-        public AccommodationPage(Frame mFrame, User user)
-        {
+
+        public AccommodationPage(Frame mFrame, User user) {
             InitializeComponent();
             mainFrame = mFrame;
             this._user = user;
@@ -47,20 +32,17 @@ namespace BookingApp.View.AndroidViews
             Update();
         }
 
-        public void Update()
-        {
-            foreach (var acc in _accommodationRepository.GetByOwnerId(_user.Id))
-            {
+        public void Update() {
+            foreach (var acc in _accommodationRepository.GetByOwnerId(_user.Id)) {
                 AccommodationDTO accDTO = new AccommodationDTO(acc);
                 Location location = _locationRepository.GetById(acc.LocationId);
-                accDTO.SetDisplayLocation(location.City,location.Country);
+                accDTO.SetDisplayLocation(location.City, location.Country);
                 AccommodationDTOs.Add(accDTO);
             }
         }
 
-        private void AddAccomodation_Click(object sender, RoutedEventArgs e)
-        {
-            mainFrame.Content = new AddAccommodationPage(mainFrame,_user);
+        private void AddAccomodation_Click(object sender, RoutedEventArgs e) {
+            mainFrame.Content = new AddAccommodationPage(mainFrame, _user);
         }
     }
 }

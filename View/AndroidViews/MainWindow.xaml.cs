@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookingApp.Model;
+using BookingApp.Repository;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using BookingApp.Model;
-using BookingApp.Repository;
 
-namespace BookingApp.View.AndroidViews
-{
+namespace BookingApp.View.AndroidViews {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -49,7 +38,7 @@ namespace BookingApp.View.AndroidViews
             int counter = 0;
 
             foreach (var reservation in accResRepository.GetAll()) {
-                if(!CheckReservationOwner(reservation.IdAccommodation))
+                if (!CheckReservationOwner(reservation.IdAccommodation))
                     continue;
 
                 if (reviewRepository.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation))
@@ -63,7 +52,7 @@ namespace BookingApp.View.AndroidViews
             DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
             DateOnly offsetDate = reservation.EndDate;
             offsetDate = offsetDate.AddDays(5);
-           
+
             return (currentDate > reservation.EndDate && currentDate < offsetDate);
         }
         private bool CheckReservationOwner(int accommodationId) {
@@ -71,9 +60,9 @@ namespace BookingApp.View.AndroidViews
             return (accommodationRepository.GetById(accommodationId).OwnerId == _user.Id);
         }
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
-                sideFrame.Content = new SideMenuPage(MainFrame,SideFrame,_user,HeaderLabel);
-                mainFrame.IsHitTestVisible = false;
-                mainFrame.Opacity = 0.4;
+            sideFrame.Content = new SideMenuPage(MainFrame, SideFrame, _user, HeaderLabel);
+            mainFrame.IsHitTestVisible = false;
+            mainFrame.Opacity = 0.4;
         }
     }
 }
