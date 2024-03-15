@@ -11,7 +11,7 @@ namespace BookingApp.Model {
 
     public enum AccommodationType { any, apartment, house, hut }
 
-    public class Accommodation : ISerializable {
+    public class Accommodation : ISerializable, IIdentifiable {
 
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

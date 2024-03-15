@@ -3,7 +3,7 @@ using System;
 
 namespace BookingApp.Model
 {
-    public class Comment : ISerializable
+    public class Comment : ISerializable, IIdentifiable
     {
         public int Id { get; set; }
         public DateTime CreationTime { get; set; }

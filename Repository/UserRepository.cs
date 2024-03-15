@@ -4,40 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Repository {
-    public class UserRepository : IRepository<User> {
-
-        private readonly Serializer<User> _serializer;
-
-        private List<User> _users;
-
-        public UserRepository() {
-            _serializer = new Serializer<User>();
-            _users = _serializer.FromCSV();
-        }
-
-        public List<User> GetAll() {
-            throw new System.NotImplementedException();
-        }
-
-        public User Save(User item) {
-            throw new System.NotImplementedException();
-        }
-
-        public bool Update(User item) {
-            throw new System.NotImplementedException();
-        }
-
-        public bool Delete(User item) {
-            throw new System.NotImplementedException();
-        }
-
-        public User GetById(int id) {
-            throw new System.NotImplementedException();
-        }
+    public class UserRepository : Repository<User> {
 
         public User GetByUsername(string username) {
-            _users = _serializer.FromCSV();
-            return _users.FirstOrDefault(u => u.Username == username);
+            _items = GetAll();
+            return _items.FirstOrDefault(x => x.Username == username);
         }
     }
 }

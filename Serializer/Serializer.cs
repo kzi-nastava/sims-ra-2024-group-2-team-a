@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BookingApp.Serializer
 {
-    class Serializer<T> where T: ISerializable, new()
+    public class Serializer<T> where T: ISerializable, new()
     {
         private const char Delimiter = '|';
         private readonly string _directoryName = AppDomain.CurrentDomain.BaseDirectory + "../../../Resources/Data";

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Model {
 
-    public class TourReservation : ISerializable {
+    public class TourReservation : ISerializable, IIdentifiable {
 
         public int Id { get; set; }
         public int TouristId { get; set; }

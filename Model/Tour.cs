@@ -1,9 +1,11 @@
-﻿using System;
+﻿using BookingApp.Serializer;
+using System;
 using System.Collections.Generic;
 
 namespace BookingApp.Model {
-    public enum LanguageState { Serbian = 0, English, Russian, Spanish, German}
-    public class Tour : BookingApp.Serializer.ISerializable {
+
+    public class Tour : ISerializable, IIdentifiable {
+
         public int Id { get; set; }
         public string Name { get; set; }
         public int LocationId { get; set; }
@@ -22,8 +24,8 @@ namespace BookingApp.Model {
             ProfilePictures = new List<string>();
             PointOfInterests = new List<PointOfInterest>(); 
         }
-        public Tour(int id, string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
 
+        public Tour(int id, string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
             Id = id;
             Name = name;
             LocationId = locationId;
