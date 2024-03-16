@@ -23,9 +23,5 @@ namespace BookingApp.DTO {
             GuestNumber = guestNumber;
             ReservationDays = reservationDays;
         }
-
-        public bool isEmpty() {
-            return Name == "" && Location.Id == -1 && Type == AccommodationType.any && GuestNumber == 0 && ReservationDays == 0;
-        }
     }
 }
