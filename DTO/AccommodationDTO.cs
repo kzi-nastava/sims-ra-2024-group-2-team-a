@@ -155,7 +155,7 @@ namespace BookingApp.DTO
         public List<string> ProfilePictures { get; set; }
         public string DisplayLocation { get; set; }
 
-        public void SetDisplayLocation(string city,string country)
+        public void SetDisplayLocation(string city, string country)
         {
             DisplayLocation = $"{country}, {city}";
         }
