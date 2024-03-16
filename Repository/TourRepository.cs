@@ -1,12 +1,22 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Serializer;
+using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Repository {
 
     public class TourRepository : Repository<Tour> {
+
+        public List<Tour> GetToursToday() {
+            DateTime today = DateTime.Today;
+            _tours = _serializer.FromCSV();
+            //DateTime dis = _tours[0].Beggining;
+            //if (dis == today) return null;
+            return _tours.FindAll(x => x.Beggining.Date == today.Date);
+        }
 
         public List<Tour> GetFiltered(TourFilterDTO filter) {
             _items = GetAll();

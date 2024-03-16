@@ -26,7 +26,7 @@
             <Label Grid.Row="0" HorizontalAlignment="Right" Content="Tour Menu" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Margin="0,5,10,1"/>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0"/>
 
-            <Button x:Name="addButton" Grid.Row="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,50,0,5" Click="addButton_Click">
+            <Button x:Name="addButton" Grid.Row="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,20,0,5" Click="addButton_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="/Resources/Images/add2.png" Width="40" Height="40" />
                     <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Add Tour</Label>

@@ -43,7 +43,8 @@ namespace BookingApp.View.TabletView
         }
 
         private void followLiveButton_Click(object sender, RoutedEventArgs e) {
-
+            mainFrame.Content = new FollowLiveTourPage(mainFrame);
+            menuBarFrame.Content = new MenuBarButtonPage(menuBarFrame, mainFrame);
         }
 
         private void statsButton_Click(object sender, RoutedEventArgs e) {

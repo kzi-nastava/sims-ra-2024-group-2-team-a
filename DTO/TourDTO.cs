@@ -123,22 +123,22 @@ namespace BookingApp.DTO {
             }
         }
 
-        private DateOnly _dateOnly;
-        public DateOnly DateOnly {
-            get { return _dateOnly; }
+        private DateOnly _justDate;
+        public DateOnly JustDate {
+            get { return _justDate; }
             set {
-                if (_dateOnly != value) {
-                    _dateOnly = value;
+                if (_justDate != value) {
+                    _justDate = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private int _timeOnly;
-        public int TimeOnly {
-            get { return _timeOnly; }
+        private int _justTime;
+        public int JustTime {
+            get { return _justTime; }
             set {
-                if(_timeOnly != value) {
-                    _timeOnly = value;
+                if(_justTime != value) {
+                    _justTime = value;
                     OnPropertyChanged();
                 }
             }
@@ -150,8 +150,8 @@ namespace BookingApp.DTO {
                 return _beggining;
             }
             set {
-                if (_beggining != new DateTime(_dateOnly.Year, _dateOnly.Month, _dateOnly.Day, _timeOnly, 0, 0)) {
-                    _beggining = new DateTime(_dateOnly.Year, _dateOnly.Month, _dateOnly.Day, _timeOnly, 0, 0);
+                if (_beggining != value) {
+                    _beggining = value;
                     OnPropertyChanged();
                 }
             }
@@ -168,6 +168,18 @@ namespace BookingApp.DTO {
             }
         }
         public List<string> ProfilePictures { get; set; }
+        public string LanguageTemplate { get; set; }
+        public string LocationTemplate { get; set; }
+
+        public void setBeggining() {
+            _beggining = new DateTime(JustDate.Year, JustDate.Month, JustDate.Day, JustTime, 0, 0);
+        }
+        public void setLanguageTemplate(string language) { 
+            LanguageTemplate = language;
+        }
+        public void setLocationTemplate(string city, string country) {
+            LocationTemplate = $"{country}, {city}";
+        }
 
         public Tour ToModel() {
             return new Tour(Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, GuideId, ProfilePictures);

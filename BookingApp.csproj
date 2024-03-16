@@ -19,6 +19,8 @@
     <None Remove="Resources\Images\reviews.png" />
     <None Remove="Resources\Images\sheraton.jpg" />
     <None Remove="Resources\Images\stats.png" />
+    <None Remove="Resources\Images\Tours\Budapest.jpg" />
+    <None Remove="Resources\Images\Tours\Vienna.jpg" />
     <None Remove="Resources\Images\trash.png" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
@@ -47,12 +49,13 @@
     <Resource Include="Resources\Images\reviews.png" />
     <Resource Include="Resources\Images\sheraton.jpg" />
     <Resource Include="Resources\Images\stats.png" />
+    <Resource Include="Resources\Images\Tours\Budapest.jpg" />
+    <Resource Include="Resources\Images\Tours\Vienna.jpg" />
     <Resource Include="Resources\Images\trash.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Resources\Images\Accomodations\" />
-    <Folder Include="Resources\Images\Tours\" />
   </ItemGroup>
 
 </Project>

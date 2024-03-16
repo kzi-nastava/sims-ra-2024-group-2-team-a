@@ -31,10 +31,10 @@ namespace BookingApp.View.TabletView {
         private readonly LocationRepository _locationRepository;
         private readonly LanguageRepository _languageRepository;
         private readonly PointOfInterestRepository _pointOfInterestRepository;
+
         public TourDTO tourDTO { get; set; }
         public LocationDTO selectedLocationDTO { get; set; }
         public LanguageDTO selectedLanguageDTO { get; set; }
-        public PointOfInterestDTO selectedPointOfInterestDTO { get; set; }
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
@@ -64,13 +64,14 @@ namespace BookingApp.View.TabletView {
         }
 
         private void resetButton_Click(object sender, RoutedEventArgs e) {
-
+            mainFrame.Content = new AddTourPage(mainFrame);
         }
 
         private void confirmButton_Click(object sender, RoutedEventArgs e) {
             tourDTO.LocationId = selectedLocationDTO.Id;
             tourDTO.LanguageId = selectedLanguageDTO.Id;
             tourDTO.CurrentTouristNumber = 0;
+            tourDTO.setBeggining();
             Tour tour = _tourRepository.Save(tourDTO.ToModel());
             foreach(var pDTO in pointOfInterestDTOs) {
                 pDTO.TourId = tour.Id;
@@ -116,6 +117,11 @@ namespace BookingApp.View.TabletView {
                 }
             }
         }
+        private void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e) {
+            DateOnly justDate = DateOnly.FromDateTime(datePicker.SelectedDate.Value);
+            tourDTO.JustDate = justDate;
+        }
+
         private string GetRelativePath(string basePath, string fullPath) {
             Uri baseUri = new Uri(basePath + System.IO.Path.DirectorySeparatorChar);
             Uri fullUri = new Uri(fullPath);
@@ -128,5 +134,6 @@ namespace BookingApp.View.TabletView {
             else
                 confirmButton.IsEnabled = false;
         }
+
     }
 }
