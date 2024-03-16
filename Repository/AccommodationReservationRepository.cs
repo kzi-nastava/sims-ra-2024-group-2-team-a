@@ -12,14 +12,9 @@ namespace BookingApp.Repository {
     class AccommodationReservationRepository : Repository<AccommodationReservation> {
 
         public List<AccommodationReservation> GetByAccommodationId(int id) {
-            List<AccommodationReservation> accommodationReservations = new List<AccommodationReservation>();
+            var reservations = _serializer.FromCSV();
 
-            foreach (var accRes in _serializer.FromCSV()) {
-                if (accRes.IdAccommodation == id) {
-                    accommodationReservations.Add(accRes);
-                }
-            }
-            return accommodationReservations;
+            return reservations.Where(r => r.AccommodationId == id).ToList();
         }
 
         public List<AccommodationReservation> SuggestReservations(AccommodationReservationDTO rDTO) {

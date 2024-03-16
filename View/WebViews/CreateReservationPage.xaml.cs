@@ -115,8 +115,8 @@ namespace BookingApp.View.WebViews {
 
             AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
 
-            selectedReservation.IdGuest = currentUser.Id;
-            selectedReservation.IdAccommodation = _accommodationDTO.Id;
+            selectedReservation.GuestId = currentUser.Id;
+            selectedReservation.AccommodationId = _accommodationDTO.Id;
             selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
             accommodationReservationRepository.Save(selectedReservation);
         }
