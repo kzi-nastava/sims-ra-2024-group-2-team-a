@@ -7,62 +7,123 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TouristHomePage">
-
+    <Page.Resources>
+        <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="TextBoxStyle">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="#88C0D0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Page.Resources>
+    <Border BorderBrush="Black" BorderThickness="1">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Border Grid.Row="0" 
+                BorderBrush="Black" 
+                BorderThickness="1" 
+                Background="#2E3440"
+                Grid.ColumnSpan="3"
+                Margin="10">
+            <Grid Margin="5, 25, 5, 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <WrapPanel Grid.Column="0" Margin="5" HorizontalAlignment="Left">
+                    <ComboBox x:Name="LocationComboBox"
+                              ItemsSource="{Binding LocationOptions}"
+                              DisplayMemberPath="LocationOptionTemplate"
+                              SelectionChanged="LocationComboBox_SelectionChanged"
+                              SelectedIndex="0"
+                              Style="{StaticResource ComboBoxStyle}"/>
+                    <ComboBox x:Name="LanguageComboBox"
+                              ItemsSource="{Binding LanguageOptions}"
+                              DisplayMemberPath="LanguageOptionTemplate"
+                              SelectionChanged="LanguageComboBox_SelectionChanged_1"
+                              SelectedIndex="0"
+                              Style="{StaticResource ComboBoxStyle}"/>
+                    <TextBox x:Name="DurationTextBox" 
+                             Text="{Binding Filter.Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource TextBoxStyle}"/>
+                    <TextBox x:Name="TouristNumberTextBox"
+                             Text="{Binding Filter.TouristNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource TextBoxStyle}"/>
+                </WrapPanel>
+                <WrapPanel Grid.Column="1" HorizontalAlignment="Right" Margin="5">
+                    <Button x:Name="FilterButton" 
+                            Click="FilterButton_Click"
+                            Style="{StaticResource ButtonStyle}">
+                        Filter
+                    </Button>
+                    <Button x:Name="ClearButton" 
+                            Click="ClearButton_Click"
+                            Style="{StaticResource ButtonStyle}">
+                        Clear
+                    </Button>
+                </WrapPanel>
+            </Grid>
+        </Border>
 
-        <WrapPanel Grid.Row="0">
-
-            <ComboBox x:Name="LocationComboBox"
-                      ItemsSource="{Binding LocationOptions}"
-                      DisplayMemberPath="LocationOptionTemplate"
-                      SelectionChanged="LocationComboBox_SelectionChanged"
-                      SelectedIndex="0"/>
-            <ComboBox x:Name="LanguageComboBox"
-                      ItemsSource="{Binding LanguageOptions}"
-                      DisplayMemberPath="LanguageOptionTemplate"
-                      SelectionChanged="LanguageComboBox_SelectionChanged_1"
-                      SelectedIndex="0"/>
-            <TextBox x:Name="DurationTextBox" 
-                     Width="100"
-                     Text="{Binding Filter.Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox x:Name="TouristNumberTextBox"
-                     Width="100"
-                     Text="{Binding Filter.TouristNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button x:Name="FilterButton" 
-                    Click="FilterButton_Click">
-                Filter
-            </Button>
-            <Button x:Name="ClearButton" 
-                    Click="ClearButton_Click">
-                Clear
-            </Button>
-
-        </WrapPanel>
-
+        <ScrollViewer Grid.Row="1" 
+                      Margin="10, 5, 10, 10">
         <ItemsControl ItemsSource="{Binding ToursOnDisplay}"
-                      Grid.Row="1">
+                      Margin="0, 5, 5, 5">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Border BorderBrush="Black" 
-                                BorderThickness="1" 
-                                Margin="5">
-                            <StackPanel>
-                                <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock Text="{Binding LocationId, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock Text="{Binding LanguageId, UpdateSourceTrigger=PropertyChanged}"/>
-                                <Button x:Name="ReservationButton"
-                                        Click="ReservationButton_Click"
-                                        Height="20"/>
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-                </DataTemplate>
+                    <Border BorderBrush="Black" 
+                            BorderThickness="1"
+                            Margin="0, 5">
+                    <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="{Binding ProfilePictures[0]}" 
+                                           Grid.Column="0" 
+                                           SnapsToDevicePixels="True"
+                                           Margin="5"
+                                           Width="400"/>           
+                        
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontSize="32" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding LocationId, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock Text="{Binding LanguageId, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="2" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}">
+                                        
+                                    </TextBlock>
+                                    <Button x:Name="ReservationButton"
+                                            Grid.Column="3"
+                                            Click="ReservationButton_Click"
+                                            Style="{StaticResource ButtonStyle}"
+                                            Content="Book now"/>
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        </ScrollViewer>
     </Grid>
+    </Border>
 </Page>
