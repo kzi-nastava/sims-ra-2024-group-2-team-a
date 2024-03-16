@@ -10,6 +10,7 @@ namespace BookingApp.Repository {
 
     public class TourRepository : Repository<Tour> {
 
+        private List<Tour> _tours;
         public List<Tour> GetToursToday() {
             DateTime today = DateTime.Today;
             _tours = _serializer.FromCSV();
