@@ -56,28 +56,6 @@ namespace BookingApp.View.DesktopViews
             _tourReservationRepository = new TourReservationRepository();
         }
 
-        /*private void PassengerNumberConfirmationButton_Click(object sender, RoutedEventArgs e) {
-            wrapPanelStackPanel.Children.Clear();
-
-            for (int i = 0; i < _passengerNumber; i++) {
-                WrapPanel wrapPanel = new WrapPanel();
-                wrapPanel.Orientation = Orientation.Horizontal;
-                wrapPanel.Margin = new Thickness(5);
-                wrapPanel.Name = "wrapPanel" + i;
-
-                // Add 3 text boxes to each WrapPanel
-                for (int j = 0; j < 3; j++) {
-                    TextBox textBox = new TextBox();
-                    textBox.Margin = new Thickness(5);
-                    textBox.Width = 100;
-                    textBox.Name = "textBox" + i;
-                    wrapPanel.Children.Add(textBox);
-                }
-
-                wrapPanelStackPanel.Children.Add(wrapPanel);
-            }
-        }*/
-
         private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {
             SameLocationToursWindow sameLocationToursWindow = new SameLocationToursWindow(SelectedTour, this);
             int reservationSuccessIndicator = _tourReservationRepository.MakeReservation(this.UserId, SelectedTour, Passengers.ToList());

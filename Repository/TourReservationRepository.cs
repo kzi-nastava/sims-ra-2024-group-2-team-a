@@ -16,11 +16,12 @@ namespace BookingApp.Repository {
 
         public int MakeReservation(int userId, TourDTO selectedTour, List<PassengerDTO> passengers) {
             PassengerRepository passengerRepository = new PassengerRepository();
+            TourRepository tourRepository = new TourRepository();
 
-            int availableSpace = selectedTour.MaxTouristNumber - selectedTour.CurrentTouristNumber;
             int addedPassengersNumber = 0;
+            int availableSpace = tourRepository.GetAvailableSpace(selectedTour);
 
-            if (availableSpace == 0)
+            if (tourRepository.GetAvailableSpace(selectedTour) == 0)
                 return -1;
 
             if (passengers.Count > availableSpace)
