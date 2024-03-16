@@ -63,5 +63,10 @@ namespace BookingApp.Repository {
             }
             return _pointsOfInterest.Max(c => c.Id) + 1;
         }
+
+        public List<PointOfInterest> GetAllByTourId(int tourId) {
+            List<PointOfInterest> points = _pointsOfInterest = _serializer.FromCSV();
+            return points.FindAll(c => c.TourId == tourId);
+        }
     }
 }

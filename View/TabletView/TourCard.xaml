@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BookingApp.View.TabletView"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="1000">
-    <Border BorderBrush="Black" BorderThickness="1">
+    <Border BorderBrush="Black" BorderThickness="1" Margin="5">
         <Grid Background="AliceBlue" MouseLeftButtonDown="TourCardClick" Height="300" Width="1000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

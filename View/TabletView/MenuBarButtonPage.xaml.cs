@@ -21,18 +21,19 @@ namespace BookingApp.View.TabletView
     public partial class MenuBarButtonPage : Page
     {
         private Frame menuBarFrame, mainFrame;
-        public MenuBarButtonPage(Frame menuBarF, Frame mainF)
+        private int _userId;
+        public MenuBarButtonPage(Frame menuBarF, Frame mainF, int userId)
         {
             InitializeComponent();
             menuBarFrame = menuBarF;
             mainFrame = mainF;
-
+            _userId = userId;
             mainFrame.IsHitTestVisible = true;
             mainFrame.Opacity = 1;
         }
 
         private void menuButton_Click(object sender, RoutedEventArgs e) {
-            menuBarFrame.Content = new MenuBarPage(menuBarFrame, mainFrame);
+            menuBarFrame.Content = new MenuBarPage(menuBarFrame, mainFrame, _userId);
 
         }
     }

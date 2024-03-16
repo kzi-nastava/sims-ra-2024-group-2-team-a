@@ -60,10 +60,6 @@
 
         <Label Grid.Row="4"  Grid.Column="2" Margin="40,10,20,0" Content="Keypoints:" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="22"/>
         <Grid Background="White" Grid.Row="4" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="2"  Margin="10,50,10,10">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
             <DataGrid x:Name="dataGrid" ItemsSource="{Binding pointOfInterestDTOs}" IsReadOnly="True" 
               SelectionMode="Single" AutoGenerateColumns="False">
                 <DataGrid.Columns>

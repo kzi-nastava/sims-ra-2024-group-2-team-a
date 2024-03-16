@@ -11,7 +11,7 @@ namespace BookingApp.DTO {
         }
 
 
-        public TourDTO(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
+        public TourDTO(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, bool isFinished, int guideId, List<string> profilePictures) {
 
             Name = name;
             LocationId = locationId;
@@ -21,6 +21,7 @@ namespace BookingApp.DTO {
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
             Beggining = beggining;
+            IsFinished = _isFinished;
             GuideId = guideId;
             ProfilePictures = profilePictures;
         }
@@ -35,6 +36,7 @@ namespace BookingApp.DTO {
             Duration = t.Duration;
             CurrentTouristNumber = t.CurrentTouristNumber;
             Beggining = t.Beggining;
+            IsFinished = t.IsFinished;
             GuideId = t.GuideId;
             ProfilePictures = t.ProfilePictures;
         }
@@ -156,6 +158,18 @@ namespace BookingApp.DTO {
                 }
             }
         }
+        private bool _isFinished;
+        public bool IsFinished{
+            get {
+                return _isFinished;
+            }
+            set {
+                if (_isFinished != value) {
+                    _isFinished = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private int _guideId;
         public int GuideId {
@@ -181,8 +195,11 @@ namespace BookingApp.DTO {
             LocationTemplate = $"{country}, {city}";
         }
 
+        public Tour ToModelNoId() {
+            return new Tour(Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, IsFinished, GuideId, ProfilePictures);
+        }
         public Tour ToModel() {
-            return new Tour(Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, GuideId, ProfilePictures);
+            return new Tour(Id, Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, IsFinished, GuideId, ProfilePictures);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -25,7 +25,8 @@ namespace BookingApp.View.TabletView {
     /// Interaction logic for AddTour.xaml
     /// </summary>
     public partial class AddTourPage : Page{
-        private Frame mainFrame;
+        private Frame _mainFrame;
+        private int _userId;
         private readonly User _user;
         private readonly TourRepository _tourRepository;
         private readonly LocationRepository _locationRepository;
@@ -38,9 +39,10 @@ namespace BookingApp.View.TabletView {
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
-        public AddTourPage(Frame mainF) {
+        public AddTourPage(Frame mainF, int userId) {
             InitializeComponent();
-            mainFrame = mainF;
+            _mainFrame = mainF;
+            _userId = userId;
             DataContext = this;
 
             _tourRepository = new TourRepository();
@@ -49,7 +51,6 @@ namespace BookingApp.View.TabletView {
             _pointOfInterestRepository = new PointOfInterestRepository();
 
             tourDTO = new TourDTO();
-            tourDTO.GuideId = 5; // za sada test podatak
             locationDTOs = new ObservableCollection<LocationDTO>();
             languageDTOs = new ObservableCollection<LanguageDTO>();
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
@@ -64,7 +65,7 @@ namespace BookingApp.View.TabletView {
         }
 
         private void resetButton_Click(object sender, RoutedEventArgs e) {
-            mainFrame.Content = new AddTourPage(mainFrame);
+            _mainFrame.Content = new AddTourPage(_mainFrame, _userId);
         }
 
         private void confirmButton_Click(object sender, RoutedEventArgs e) {
@@ -72,13 +73,14 @@ namespace BookingApp.View.TabletView {
             tourDTO.LanguageId = selectedLanguageDTO.Id;
             tourDTO.CurrentTouristNumber = 0;
             tourDTO.setBeggining();
-            Tour tour = _tourRepository.Save(tourDTO.ToModel());
+            tourDTO.GuideId = _userId;
+            Tour tour = _tourRepository.Save(tourDTO.ToModelNoId());
             foreach(var pDTO in pointOfInterestDTOs) {
                 pDTO.TourId = tour.Id;
-                _pointOfInterestRepository.Save(pDTO.ToModel());
+                _pointOfInterestRepository.Save(pDTO.ToModelNoId());
             }
             MessageBox.Show("Tour Added Succesfully", "Confirmed", MessageBoxButton.OK, MessageBoxImage.Information);
-            mainFrame.Content = new AddTourPage(mainFrame);
+            _mainFrame.Content = new AddTourPage(_mainFrame, _userId);
         }
 
 
