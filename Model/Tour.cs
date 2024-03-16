@@ -60,7 +60,7 @@ namespace BookingApp.Model {
                 MaxTouristNumber.ToString(),
                 Duration.ToString(),
                 CurrentTouristNumber.ToString(),
-                Beggining.ToString(),
+                Beggining.ToString("dd-MM-yyyy HH:mm"),
                 GuideId.ToString(),
                 };
 

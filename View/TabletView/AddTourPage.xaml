@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.TabletView"
       mc:Ignorable="d" 
-      d:DesignHeight="724" d:DesignWidth="1024"
+      d:DesignHeight="726" d:DesignWidth="1024"
       Title="AddTour">
 
     <Grid Background="#696969">
@@ -35,10 +35,10 @@
         <TextBox Grid.Row="2" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.MaxTouristNumber}"/>
 
         <Label Grid.Row="3" Grid.Column="0" Margin="40,0,20,0" Content="Date:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <DatePicker Grid.Row="3" Grid.Column="1" Margin="20,0,20,0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="22" DataContext="{Binding tourDTO.DateOnly}"/>
+        <DatePicker x:Name="datePicker" Grid.Row="3" Grid.Column="1" Margin="20,0,20,0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="22" SelectedDateChanged="datePicker_SelectedDateChanged"/>
 
         <Label Grid.Row="4" Grid.Column="0" Margin="40,0,20,0" Content="Time:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.TimeOnly}"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.JustTime}"/>
 
         <Label Grid.Row="5" Grid.Column="0" Margin="40,0,20,0" Content="Duration:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
         <TextBox Grid.Row="5" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Duration}"/>

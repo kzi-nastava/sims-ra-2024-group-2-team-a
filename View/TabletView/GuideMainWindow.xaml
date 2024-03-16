@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TabletView"
         mc:Ignorable="d"
-        Title="Guide" Height="768" Width="1024">
+        Title="Guide" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <DockPanel>
         <Grid DockPanel.Dock="Top" Background="Aqua">
             <Label Content="Booking App"/>

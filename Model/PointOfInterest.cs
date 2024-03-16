@@ -12,7 +12,6 @@ namespace BookingApp.Model {
         public string Description { get; set; }
         public bool IsChecked { get; set; }
         public int TourId {  get; set; }
-        //testic
         public PointOfInterest() { }
 
         public PointOfInterest(int id, string name, string description, bool isChecked, int tourId) {
