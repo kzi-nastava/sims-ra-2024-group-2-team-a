@@ -42,5 +42,9 @@ namespace BookingApp.Repository {
         public List<Tour> GetSameLocationTours(TourDTO tour) {
             return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
         }
+
+        public int GetAvailableSpace(TourDTO tour) {
+            return tour.MaxTouristNumber - tour.CurrentTouristNumber;
+        }
     }
 }

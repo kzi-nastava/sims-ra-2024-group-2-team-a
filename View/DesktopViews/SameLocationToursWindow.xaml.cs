@@ -47,8 +47,10 @@ namespace BookingApp.View.DesktopViews {
             var button = (Button)sender;
             var selectedTour = (TourDTO)button.DataContext;
 
-            TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, _parentWindow.UserId);
-            reservationWindow.ShowDialog();
+            if (_tourRepository.GetAvailableSpace(selectedTour) != 0) {
+                TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, _parentWindow.UserId);
+                reservationWindow.ShowDialog();
+            }
         }
     }
 }

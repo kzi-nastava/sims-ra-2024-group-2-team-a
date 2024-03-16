@@ -24,7 +24,15 @@ namespace BookingApp.View.DesktopViews {
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e) {
-            HomePopup.IsOpen = !HomePopup.IsOpen;
+
+        }
+
+        private void MyAccountButton_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void ReservationsButton_Click(object sender, RoutedEventArgs e) {
+
         }
     }
 }

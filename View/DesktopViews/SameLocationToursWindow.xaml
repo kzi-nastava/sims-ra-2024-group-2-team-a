@@ -6,28 +6,61 @@
         xmlns:local="clr-namespace:BookingApp.View.DesktopViews"
         mc:Ignorable="d"
         Title="SameLocationToursWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="#88C0D0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <ItemsControl ItemsSource="{Binding SameLocationTours}"
-                      Grid.Row="1">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <!-- Define your custom layout for each item -->
-                    <Grid>
+        <ScrollViewer Grid.Row="1" 
+              Margin="10, 5, 10, 10">
+            <ItemsControl ItemsSource="{Binding SameLocationTours}"
+              Margin="0, 5, 5, 5">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
                         <Border BorderBrush="Black" 
-                                BorderThickness="1" 
-                                Margin="5">
-                            <StackPanel>
-                                <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock Text="{Binding LocationId, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock Text="{Binding LanguageId, UpdateSourceTrigger=PropertyChanged}"/>
+                    BorderThickness="1"
+                    Margin="0, 5">
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="{Binding ProfilePictures[0]}" 
+                                   Grid.Column="0" 
+                                   SnapsToDevicePixels="True"
+                                   Margin="5"
+                                   Width="400"/>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontSize="32" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding LocationId, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock Text="{Binding LanguageId, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}">
+
+                                </TextBlock>
                                 <Button x:Name="ReservationButton"
-                                        Click="ReservationButton_Click"
-                                        Height="20"/>
-                            </StackPanel>
+                                    Grid.Column="3"
+                                    Click="ReservationButton_Click"
+                                    Style="{StaticResource ButtonStyle}"
+                                    Content="Book now"/>
+
+                            </Grid>
                         </Border>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Window>
