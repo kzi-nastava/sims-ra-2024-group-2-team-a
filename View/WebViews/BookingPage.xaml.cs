@@ -25,13 +25,22 @@ namespace BookingApp.View.WebViews {
         }
 
         public void Update() {
-            var accommodations = _accommodationRepository.GetAll();
             var locations = _locationRepository.GetAll();
-
-            _accommodationDTOs = accommodations.Select(a => new AccommodationDTO(a)).ToList();
-
             _locationDTOs = locations.Select(l => new LocationDTO(l)).ToList();
             _locationDTOs.Insert(0, new LocationDTO());
+
+            UpdateAccommodationDTOs(_accommodationRepository.GetAll());
+        }
+
+        public void UpdateAccommodationDTOs(List<Accommodation> accommodations) {
+            _accommodationDTOs = accommodations.Select(a => new AccommodationDTO(a)).ToList();
+
+            foreach (var acc in _accommodationDTOs) {
+                var loc = _locationDTOs.FirstOrDefault(l => l.Id == acc.LocationId);
+                acc.SetDisplayLocation(loc.City, loc.Country);
+            }
+
+            itemsControlAccommodations.ItemsSource = _accommodationDTOs;
         }
 
         private void SetItemSources() {
@@ -60,9 +69,7 @@ namespace BookingApp.View.WebViews {
             AccommodationFilterDTO filter = new AccommodationFilterDTO(name, location, type, guestNumber, reservationDays);
 
             var accommodations = _accommodationRepository.GetFilteredAccommodations(filter);
-            _accommodationDTOs = accommodations.Select(a => new AccommodationDTO(a)).ToList();
-
-            itemsControlAccommodations.ItemsSource = _accommodationDTOs;
+            UpdateAccommodationDTOs(accommodations);
         }
 
         private void ButtonClearClick(object sender, RoutedEventArgs e) {
