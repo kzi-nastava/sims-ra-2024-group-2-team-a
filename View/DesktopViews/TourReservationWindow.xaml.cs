@@ -56,18 +56,27 @@ namespace BookingApp.View.DesktopViews
             _tourReservationRepository = new TourReservationRepository();
         }
 
-        private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {
+        private void OpenSameLocationsWindow() {
             SameLocationToursWindow sameLocationToursWindow = new SameLocationToursWindow(SelectedTour, this);
-            int reservationSuccessIndicator = _tourReservationRepository.MakeReservation(this.UserId, SelectedTour, Passengers.ToList());
-            if (reservationSuccessIndicator > 0) {
-                string messageBoxOutput = "There is not enought space for all!\nAvailable space: " + reservationSuccessIndicator.ToString();
-                MessageBox.Show(messageBoxOutput, "Title of the MessageBox", MessageBoxButton.OK);
-            }
-            else if (reservationSuccessIndicator == -1) {
-                sameLocationToursWindow.ShowDialog();
-            }
+            sameLocationToursWindow.ShowDialog();
+        }
+
+        private void ShowNotEnoughSpaceMessage(int availableSpace) {
+            string messageBoxOutput = "There is not enought space for all!\nAvailable space: " + availableSpace.ToString();
+            MessageBox.Show(messageBoxOutput, "Title of the MessageBox", MessageBoxButton.OK);
+        }
+
+        private void HandleReservationRequest(int successIndicator) {
+            if (successIndicator > 0)
+                ShowNotEnoughSpaceMessage(successIndicator);
+            else if (successIndicator == -1)
+                OpenSameLocationsWindow();
             else
                 this.Close();
+        }
+
+        private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {
+            HandleReservationRequest(_tourReservationRepository.MakeReservation(this.UserId, SelectedTour, Passengers.ToList()));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -90,12 +99,8 @@ namespace BookingApp.View.DesktopViews
         }
 
         private void ClearForm() {
-            PassengerName.Text = null;
-            PassengerSurname.Text = null;
-            PassengerAge.Text = null;
-            TouristName.Text = null;
-            TouristSurname.Text = null;
-            TouristAge.Text = null;
+            foreach (var textBox in new[] { PassengerName, PassengerSurname, PassengerAge, TouristName, TouristSurname, TouristAge }) 
+                textBox.Text = null;
         }
 
         private void RemovePassengerButton_Click(object sender, RoutedEventArgs e) {
