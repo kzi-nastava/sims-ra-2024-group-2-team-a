@@ -32,8 +32,7 @@ namespace BookingApp.View.TabletView {
         private void followLiveButton_Click(object sender, RoutedEventArgs e) {
             _mainFrame.Content = new FollowLiveTourPage(_userId);
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
-            _menuBarFrame.IsHitTestVisible = false;
-            _menuBarFrame.Opacity = 0.3;
+            
         }
 
         private void statsButton_Click(object sender, RoutedEventArgs e) {
