@@ -29,12 +29,26 @@ namespace BookingApp.Repository {
         }
 
         private bool IsFiltered(Tour tour, TourFilterDTO filter) {
-            bool matchesLocation = tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
-            bool matchesDuration = tour.Duration <= filter.Duration || filter.Duration == 0;
-            bool matchesLanguage = tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
-            bool matchesTouristNumber = tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
+            return MatchesLocation(tour, filter) && 
+                   MatchesDuration(tour, filter) && 
+                   MatchesLanguage(tour, filter) && 
+                   MatchesTouristNumber(tour, filter);
+        }
 
-            return matchesLocation && matchesDuration && matchesLanguage && matchesTouristNumber;
+        private bool MatchesLocation(Tour tour, TourFilterDTO filter) {
+            return tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
+        }
+
+        private bool MatchesDuration(Tour tour, TourFilterDTO filter) {
+            return tour.Duration <= filter.Duration || filter.Duration == 0;
+        }
+
+        private bool MatchesLanguage(Tour tour, TourFilterDTO filter) {
+            return tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
+        }
+
+        private bool MatchesTouristNumber(Tour tour, TourFilterDTO filter) {
+            return tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
         }
 
         public List<Tour> GetToursByLocation(int locationId) {
