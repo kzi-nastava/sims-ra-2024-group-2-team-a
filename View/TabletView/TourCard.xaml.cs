@@ -17,8 +17,9 @@ namespace BookingApp.View.TabletView {
             if (messageBoxResult == MessageBoxResult.No)
                 return;
             Frame mainFrame = (Frame)Window.GetWindow(this).FindName("mainFrame");
+            Frame menuBarFrame = (Frame)Window.GetWindow(this).FindName("menuBarFrame");
             TourDTO tourDTO = (TourDTO)DataContext;
-            mainFrame.Content = new LiveTourPage(tourDTO, mainFrame, tourDTO.GuideId);
+            mainFrame.Content = new LiveTourPage(tourDTO, mainFrame, menuBarFrame, tourDTO.GuideId);
         }
     }
 }

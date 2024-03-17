@@ -9,7 +9,7 @@ namespace BookingApp.View.TabletView {
     /// Interaction logic for LiveTourPage.xaml
     /// </summary>
     public partial class LiveTourPage : Page {
-        private Frame _mainFrame;
+        private Frame _mainFrame, _menuBarFrame;
         private int _userId;
 
         private readonly TourRepository _tourRepository;
@@ -19,23 +19,29 @@ namespace BookingApp.View.TabletView {
         public TourDTO tourDTO { get; set; }
         public PointOfInterestDTO pointOfInterestDTO { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
-        public LiveTourPage(TourDTO tDTO, Frame mainF, int userId) {
+        public LiveTourPage(TourDTO tDTO, Frame mainF, Frame menuBarF, int userId) {
             InitializeComponent();
             DataContext = this;
 
             tourDTO = tDTO;
             _mainFrame = mainF;
+            _menuBarFrame = menuBarF;
             _userId = userId;
             _tourRepository = new TourRepository();
             _pointOfInterestRepository = new PointOfInterestRepository();
-            _pointOfInterestIndex = 0; 
+            _pointOfInterestIndex = 0;
+
+            _menuBarFrame.IsHitTestVisible = false;
+            _menuBarFrame.Opacity = 0.3;
 
             Load();
         }
         private void checkButton_Click(object sender, RoutedEventArgs e) {
 
-            JoinPassengers();
-
+            bool isConfirmed = JoinPassengers();
+            if(!isConfirmed) 
+                return;
+            
             pointOfInterestDTOs[_pointOfInterestIndex].IsChecked = true;
             _pointOfInterestIndex++;
             _pointOfInterestRepository.Update(pointOfInterestDTO.ToModel());
@@ -72,15 +78,15 @@ namespace BookingApp.View.TabletView {
             tourDTO.IsFinished = true;
             _tourRepository.Update(tourDTO.ToModel());
             _mainFrame.Content = new FollowLiveTourPage(_userId);
+            _menuBarFrame.IsHitTestVisible = true;
+            _menuBarFrame.Opacity = 1;
         }
 
-        private void JoinPassengers() {
+        private bool JoinPassengers() {
             pointOfInterestDTO = pointOfInterestDTOs[_pointOfInterestIndex];
             PassengerWindow passengerWindow = new PassengerWindow(tourDTO.Id, pointOfInterestDTO.Id);
             bool isConfirmed = (bool)passengerWindow.ShowDialog();
-            if (!isConfirmed) {
-                return;
-            }
+            return isConfirmed;
         }
 
     }
