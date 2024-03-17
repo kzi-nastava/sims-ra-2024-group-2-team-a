@@ -17,6 +17,10 @@ namespace BookingApp.Serializer
             }
 
             _fileName = string.Format(_fileName, typeof(T).Name.ToLower() + ".csv");
+
+            if (!File.Exists(_fileName)) {
+                File.Create(_fileName).Close();
+            }
         }
 
         public void ToCSV(List<T> objects)

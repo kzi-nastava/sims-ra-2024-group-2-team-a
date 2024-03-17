@@ -25,13 +25,11 @@ namespace BookingApp.Repository {
 
         private bool SatisfiesFilter(Accommodation accommodation, AccommodationFilterDTO filter) {
 
-            bool matchesName = accommodation.Name.ToLower().Contains(filter.Name.ToLower()) || filter.Name == "";
-            bool matchesLocation = accommodation.LocationId == filter.Location.Id || filter.Location.Id == -1;
-            bool matchesType = accommodation.type == filter.Type || filter.Type == AccommodationType.any;
-            bool matchesGuestNumber = accommodation.MaxGuestNumber >= filter.GuestNumber || filter.GuestNumber <= 0;
-            bool matchesReservationDays = accommodation.MinReservationDays <= filter.ReservationDays || filter.ReservationDays <= 0;
-
-            return matchesGuestNumber && matchesLocation && matchesName && matchesReservationDays && matchesType;
+            return filter.MatchesName(accommodation.Name) 
+                && filter.MatchesLocation(accommodation.LocationId)
+                && filter.MatchesType(accommodation.Type) 
+                && filter.MatchesGuestNumber(accommodation.MaxGuestNumber) 
+                && filter.MatchesReservationDays(accommodation.MinReservationDays);
         }
     }
 }
