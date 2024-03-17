@@ -5,62 +5,98 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.DesktopViews"
         mc:Ignorable="d"
-        Title="ReservationWindow" Height="450" Width="800">
+        Title="ReservationWindow" Height="768" Width="1366">
     <Grid>
-        <StackPanel DockPanel.Dock="Right">
-            <WrapPanel>
-                <TextBox x:Name="TouristName" 
-                         Width="100"></TextBox>
-                <TextBox x:Name="TouristSurname" 
-                         Width="100"></TextBox>
-                <TextBox x:Name="TouristAge" 
-                         Width="100"></TextBox>
-                <Button x:Name="AddTouristButton"
-                        Click="AddTouristButton_Click"
-                        Width="30">+</Button>
-            </WrapPanel>
-            <WrapPanel>
-                <TextBox x:Name="PassengerName" 
-                         Width="100"></TextBox>
-                <TextBox x:Name="PassengerSurname" 
-                         Width="100"></TextBox>
-                <TextBox x:Name="PassengerAge" 
-                         Width="100"></TextBox>
-                <Button x:Name="AddPassengerButton"
-                        Click="AddPassengerButton_Click"
-                        Width="30">+</Button>
-            </WrapPanel>
+        <WrapPanel Margin="5">
+            <StackPanel>
+                <WrapPanel>
+                    <TextBox x:Name="TouristName" 
+                 Width="100"></TextBox>
+                    <TextBox x:Name="TouristSurname" 
+                 Width="100"></TextBox>
+                    <TextBox x:Name="TouristAge" 
+                 Width="100"></TextBox>
+                    <Button x:Name="AddTouristButton"
+                Click="AddTouristButton_Click"
+                Width="30">+</Button>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBox x:Name="PassengerName" 
+                 Width="100"></TextBox>
+                    <TextBox x:Name="PassengerSurname" 
+                 Width="100"></TextBox>
+                    <TextBox x:Name="PassengerAge" 
+                 Width="100"></TextBox>
+                    <Button x:Name="AddPassengerButton"
+                Click="AddPassengerButton_Click"
+                Width="30">+</Button>
+                </WrapPanel>
 
-            <DataGrid ItemsSource="{Binding Passengers, UpdateSourceTrigger=PropertyChanged}"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" 
-                                        Binding="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Surname"
-                                        Binding="{Binding Surname, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Age"
-                                        Binding="{Binding Age, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button x:Name="RemovePassengerButton"
-                                        Content="Remove"
-                                        Click="RemovePassengerButton_Click"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-                
-            </DataGrid>
+                <DataGrid ItemsSource="{Binding Passengers, UpdateSourceTrigger=PropertyChanged}"
+              AutoGenerateColumns="False"
+              CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" 
+                                Binding="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Surname"
+                                Binding="{Binding Surname, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Age"
+                                Binding="{Binding Age, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="RemovePassengerButton"
+                                            Content="Remove"
+                                            Click="RemovePassengerButton_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
 
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
-                <StackPanel x:Name="wrapPanelStackPanel"/>
-            </ScrollViewer>
-            <Button x:Name="ConfirmReservationButton"
-                    Width="20" 
-                    Height="20"
-                    Click="ConfirmReservationButton_Click"></Button>
-        </StackPanel>
+                </DataGrid>
+                <Button x:Name="ConfirmReservationButton"
+            Width="20" 
+            Height="20"
+            Click="ConfirmReservationButton_Click"></Button>
+            </StackPanel>
+            <Grid Width="568"
+                  Height="685">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0"
+                       Margin="0, 0, 0, 5"
+                       Source="{Binding SelectedTour.ProfilePictures[0]}">
+
+                </Image>
+                <WrapPanel Grid.Row="1"
+                           Margin="0, 0, 0, 5">
+                    <Image Margin="2.5, 0, 0, 5"
+                           Source="{Binding SelectedTour.ProfilePictures[1]}">
+
+                    </Image>
+                    <Image Margin="2.5, 0, 0, 0"
+                           Source="{Binding SelectedTour.ProfilePictures[2]}">
+
+                    </Image>
+                </WrapPanel>
+                <WrapPanel Grid.Row="2">
+                    <StackPanel Width="214">
+                        <TextBlock Text="{Binding SelectedTour.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="40" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding SelectedTour.LocationId, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding SelectedTour.LanguageId, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding SelectedTour.Duration, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
+                    </StackPanel>
+                    <Border BorderBrush="Black" 
+                            BorderThickness="1">
+                        <TextBlock  Width="354"
+                                    Height="269"
+                                    Text="{Binding SelectedTour.Description, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Border>
+                </WrapPanel>
+            </Grid>
+        </WrapPanel>
     </Grid>
 </Window>
