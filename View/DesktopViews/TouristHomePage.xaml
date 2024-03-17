@@ -8,10 +8,10 @@
       d:DesignHeight="450" d:DesignWidth="1594"
       Title="TouristHomePage">
     <Page.Resources>
+        <BitmapImage x:Key="AccountIcon" UriSource="../../Resources/Images/account.png"/>
         <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
             <Setter Property="Width" Value="250"/>
             <Setter Property="Height" Value="71"/>
-            <Setter Property="Margin" Value="5"/>
         </Style>
         <Style TargetType="TextBox" x:Key="TextBoxStyle">
             <Setter Property="Width" Value="250"/>
@@ -47,25 +47,45 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <WrapPanel Grid.Column="0" Margin="5" HorizontalAlignment="Left">
-                    <ComboBox x:Name="LocationComboBox"
-                              ItemsSource="{Binding LocationOptions}"
-                              DisplayMemberPath="LocationOptionTemplate"
-                              SelectionChanged="LocationComboBox_SelectionChanged"
-                              SelectedIndex="0"
-                              Style="{StaticResource ComboBoxStyle}"/>
-                    <ComboBox x:Name="LanguageComboBox"
-                              ItemsSource="{Binding LanguageOptions}"
-                              DisplayMemberPath="LanguageOptionTemplate"
-                              SelectionChanged="LanguageComboBox_SelectionChanged_1"
-                              SelectedIndex="0"
-                              Style="{StaticResource ComboBoxStyle}"/>
-                    <TextBox x:Name="DurationTextBox" 
-                             Text="{Binding Filter.Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource TextBoxStyle}"/>
-                    <TextBox x:Name="TouristNumberTextBox"
-                             Text="{Binding Filter.TouristNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource TextBoxStyle}"/>
-                </WrapPanel>
+                        <StackPanel Margin="5">
+                            <Label Foreground="White" FontSize="28">
+                                Location
+                            </Label>
+                            <ComboBox x:Name="LocationComboBox"
+                                      ItemsSource="{Binding LocationOptions}"
+                                      DisplayMemberPath="LocationOptionTemplate"
+                                      SelectionChanged="LocationComboBox_SelectionChanged"
+                                      SelectedIndex="0"
+                                      Style="{StaticResource ComboBoxStyle}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <Label Foreground="White" FontSize="28">
+                                Language
+                            </Label>
+                            <ComboBox x:Name="LanguageComboBox"
+      ItemsSource="{Binding LanguageOptions}"
+      DisplayMemberPath="LanguageOptionTemplate"
+      SelectionChanged="LanguageComboBox_SelectionChanged_1"
+      SelectedIndex="0"
+      Style="{StaticResource ComboBoxStyle}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <Label Foreground="White" FontSize="28">
+                                Number of people
+                            </Label>
+                            <TextBox x:Name="TouristNumberTextBox"
+         Text="{Binding Filter.TouristNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+         Style="{StaticResource TextBoxStyle}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5">
+                            <Label Foreground="White" FontSize="28">
+                                Duration
+                            </Label>
+                            <TextBox x:Name="DurationTextBox" 
+     Text="{Binding Filter.Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+     Style="{StaticResource TextBoxStyle}"/>
+                        </StackPanel>
+                    </WrapPanel>
                 <WrapPanel Grid.Column="1" HorizontalAlignment="Right" Margin="5">
                     <Button x:Name="FilterButton" 
                             Click="FilterButton_Click"
@@ -108,8 +128,8 @@
                         
                                     <StackPanel Grid.Column="1">
                                         <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontSize="40" FontWeight="Bold"/>
-                                        <TextBlock Text="{Binding LocationId, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
-                                        <TextBlock Text="{Binding LanguageId, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding LocationTemplate, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding LanguageTemplate, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
                                         <TextBlock Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
                                     </StackPanel>
                                     <Border Grid.Column="2"
@@ -117,11 +137,31 @@
                                             BorderThickness="1">
                                         <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
                                     </Border>
-                                    <Button x:Name="ReservationButton"
-                                            Grid.Column="3"
-                                            Click="ReservationButton_Click"
-                                            Style="{StaticResource ButtonStyle}"
-                                            Content="Book now"/>
+                                    <StackPanel Grid.Column="3" Margin="10">
+                                        <Border Background="#2E3440"
+                                                Height="135"
+                                                Width="100">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <Image Source="{StaticResource AccountIcon}" Width="30"/>
+                                                <WrapPanel  
+                                                            HorizontalAlignment="Center">
+                                                    <TextBlock Text="{Binding CurrentTouristNumber, UpdateSourceTrigger=PropertyChanged}" FontSize="32" FontWeight="Bold" Foreground="White"/>
+                                                    <TextBlock FontSize="32" 
+                                                               FontWeight="Bold"
+                                                               Foreground="White">
+                                                        /
+                                                    </TextBlock>
+                                                    <TextBlock Text="{Binding MaxTouristNumber, UpdateSourceTrigger=PropertyChanged}" FontSize="32" FontWeight="Bold" Foreground="White"/>
+                                                </WrapPanel>
+                                            </StackPanel>
+                                        </Border>
+                                        <Button x:Name="ReservationButton"
+                                                
+                                                Click="ReservationButton_Click"
+                                                Style="{StaticResource ButtonStyle}"
+                                                Content="Book now"/>
+                                    </StackPanel>
+                                    
 
                                 </Grid>
                             </Border>

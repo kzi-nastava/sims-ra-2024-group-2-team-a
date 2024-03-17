@@ -1,8 +1,6 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
-using BookingApp.DTO;
-using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BookingApp.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -30,6 +27,8 @@ namespace BookingApp.View.DesktopViews
     public partial class TourReservationWindow : Window, INotifyPropertyChanged {
         private int _passengerNumber = 0;
         private TourReservationRepository _tourReservationRepository;
+        private readonly LocationRepository _locationRepository;
+        private readonly LanguageRepository _languageRepository;
 
         public ObservableCollection<PassengerDTO> Passengers { get; set; }
         public int PassengerNumber {
@@ -51,9 +50,21 @@ namespace BookingApp.View.DesktopViews
             DataContext = this;
             SelectedTour = selectedTour;
             UserId = userId;
+            ConfirmReservationButton.IsEnabled = false;
  
             Passengers = new ObservableCollection<PassengerDTO>();
             _tourReservationRepository = new TourReservationRepository();
+            _locationRepository = new LocationRepository();
+            _languageRepository = new LanguageRepository();
+
+            GetPresentableTour();
+        }
+
+        private void GetPresentableTour() {
+            Location location = _locationRepository.GetById(SelectedTour.LocationId);
+            Language language = _languageRepository.GetById(SelectedTour.LanguageId);
+            SelectedTour.setLocationTemplate(location.City, location.Country);
+            SelectedTour.SetLanguageTemplate(language.Name);
         }
 
         private void OpenSameLocationsWindow() {
@@ -91,6 +102,7 @@ namespace BookingApp.View.DesktopViews
         private void AddTouristButton_Click(object sender, RoutedEventArgs e) {
             AddNewPassenger(TouristName.Text, TouristSurname.Text, Convert.ToInt32(TouristAge.Text), UserId);
             AddTouristButton.IsEnabled = false;
+            ConfirmReservationButton.IsEnabled = true;
         }
 
         private void AddNewPassenger(string name, string surname, int age, int userId) {
@@ -109,8 +121,10 @@ namespace BookingApp.View.DesktopViews
 
             Passengers.Remove(passenger);
 
-            if (passenger.UserId != -1)
+            if (passenger.UserId != -1) {
                 AddTouristButton.IsEnabled = true;
+                ConfirmReservationButton.IsEnabled = false;
+            }
         }
     }
 }
