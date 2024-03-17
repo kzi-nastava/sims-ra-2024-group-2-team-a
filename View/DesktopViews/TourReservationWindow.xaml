@@ -196,17 +196,20 @@ Style="{StaticResource TextBoxStyle}"></TextBox>
                 </Grid.RowDefinitions>
                 <Image Grid.Row="0"
                        Margin="0, 0, 0, 5"
-                       Source="{Binding SelectedTour.ProfilePictures[0]}">
+                       Source="{Binding SelectedTour.ProfilePictures[0]}"
+                       Width="500">
 
                 </Image>
                 <WrapPanel Grid.Row="1"
                            Margin="0, 0, 0, 5">
                     <Image Margin="2.5, 0, 0, 5"
-                           Source="{Binding SelectedTour.ProfilePictures[1]}">
+                           Source="{Binding SelectedTour.ProfilePictures[1]}"
+                           Width="250">
 
                     </Image>
                     <Image Margin="2.5, 0, 0, 0"
-                           Source="{Binding SelectedTour.ProfilePictures[2]}">
+                           Source="{Binding SelectedTour.ProfilePictures[2]}"
+                           Width="250">
 
                     </Image>
                 </WrapPanel>

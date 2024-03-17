@@ -22,8 +22,26 @@
     <None Remove="Resources\Images\reviews.png" />
     <None Remove="Resources\Images\sheraton.jpg" />
     <None Remove="Resources\Images\stats.png" />
+    <None Remove="Resources\Images\Tours\Buda1.jpg" />
+    <None Remove="Resources\Images\Tours\Buda2.jpg" />
+    <None Remove="Resources\Images\Tours\Buda3.jpg" />
+    <None Remove="Resources\Images\Tours\Buda4.jpg" />
+    <None Remove="Resources\Images\Tours\Buda5.jpg" />
+    <None Remove="Resources\Images\Tours\Buda6.jpg" />
+    <None Remove="Resources\Images\Tours\BudaBuda1.jpg" />
+    <None Remove="Resources\Images\Tours\BudaBuda2.jpg" />
+    <None Remove="Resources\Images\Tours\BudaBuda3.jpg" />
     <None Remove="Resources\Images\Tours\Budapest.jpg" />
+    <None Remove="Resources\Images\Tours\London1.jpg" />
+    <None Remove="Resources\Images\Tours\London2.jpg" />
+    <None Remove="Resources\Images\Tours\London3.jpg" />
     <None Remove="Resources\Images\Tours\Vienna.jpg" />
+    <None Remove="Resources\Images\Tours\Vienna1.jpg" />
+    <None Remove="Resources\Images\Tours\Vienna2.jpg" />
+    <None Remove="Resources\Images\Tours\Vienna3.jpg" />
+    <None Remove="Resources\Images\Tours\Vienna4.jpg" />
+    <None Remove="Resources\Images\Tours\Vienna5.jpg" />
+    <None Remove="Resources\Images\Tours\Vienna6.jpg" />
     <None Remove="Resources\Images\trash.png" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
@@ -55,8 +73,26 @@
     <Resource Include="Resources\Images\reviews.png" />
     <Resource Include="Resources\Images\sheraton.jpg" />
     <Resource Include="Resources\Images\stats.png" />
+    <Resource Include="Resources\Images\Tours\Buda1.jpg" />
+    <Resource Include="Resources\Images\Tours\Buda2.jpg" />
+    <Resource Include="Resources\Images\Tours\Buda3.jpg" />
+    <Resource Include="Resources\Images\Tours\Buda4.jpg" />
+    <Resource Include="Resources\Images\Tours\Buda5.jpg" />
+    <Resource Include="Resources\Images\Tours\Buda6.jpg" />
+    <Resource Include="Resources\Images\Tours\BudaBuda1.jpg" />
+    <Resource Include="Resources\Images\Tours\BudaBuda2.jpg" />
+    <Resource Include="Resources\Images\Tours\BudaBuda3.jpg" />
     <Resource Include="Resources\Images\Tours\Budapest.jpg" />
+    <Resource Include="Resources\Images\Tours\London1.jpg" />
+    <Resource Include="Resources\Images\Tours\London2.jpg" />
+    <Resource Include="Resources\Images\Tours\London3.jpg" />
     <Resource Include="Resources\Images\Tours\Vienna.jpg" />
+    <Resource Include="Resources\Images\Tours\Vienna1.jpg" />
+    <Resource Include="Resources\Images\Tours\Vienna2.jpg" />
+    <Resource Include="Resources\Images\Tours\Vienna3.jpg" />
+    <Resource Include="Resources\Images\Tours\Vienna4.jpg" />
+    <Resource Include="Resources\Images\Tours\Vienna5.jpg" />
+    <Resource Include="Resources\Images\Tours\Vienna6.jpg" />
     <Resource Include="Resources\Images\trash.png" />
   </ItemGroup>
 
