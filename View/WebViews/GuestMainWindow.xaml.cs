@@ -21,11 +21,14 @@ namespace BookingApp.View.WebViews {
 
         public User User { get; set; }
 
+        public Frame MainFrame { get; set; }
+
         public GuestMainWindow(User user) {
             InitializeComponent();
             SetWindowProperties();
             User = user;
-            mainFrame.Content = new BookingPage(mainFrame);
+            MainFrame = mainFrame;
+            MainFrame.Content = new BookingPage();
         }
 
         private void SetWindowProperties() {
@@ -33,21 +36,12 @@ namespace BookingApp.View.WebViews {
             this.ResizeMode = ResizeMode.NoResize;
         }
 
-        //private void SetActiveUserControl(UserControl userControl) {
-        //    bookPage.Visibility = Visibility.Collapsed;
-        //    reservationsPage.Visibility = Visibility.Collapsed;
-
-        //    userControl.Visibility = Visibility.Visible;
-        //}
-
         private void ButtonBookClick(object sender, RoutedEventArgs e) {
-            mainFrame.Content = new BookingPage(mainFrame);
+            mainFrame.Content = new BookingPage();
         }
 
         private void ButtonReservationsClick(object sender, RoutedEventArgs e) {
             mainFrame.Content = new ReservationsPage();
-
-
         }
     }
 }
