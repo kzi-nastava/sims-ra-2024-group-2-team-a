@@ -1,6 +1,7 @@
 ﻿using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace BookingApp.Model {
 
@@ -89,7 +90,8 @@ namespace BookingApp.Model {
             MaxTouristNumber = Convert.ToInt32(values[5]);
             Duration = Convert.ToDouble(values[6]);
             CurrentTouristNumber = Convert.ToInt32(values[7]);
-            Beggining = Convert.ToDateTime(values[8]);
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            Beggining = DateTime.ParseExact(values[8], "dd-MM-yyyy HH:mm", provider);
             IsFinished = bool.Parse(values[9]);
             GuideId = Convert.ToInt32(values[10]);
             ProfilePictures.AddRange(values[11..]);
