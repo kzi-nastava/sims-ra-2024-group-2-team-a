@@ -13,7 +13,7 @@
             Language = language;
             TouristNumber = touristNumber;
         }
-        public TourFilterDTO(string name, double duration, int touristNumber , LocationDTO location, LanguageDTO language) {
+        public TourFilterDTO(string name, double duration, int touristNumber, LocationDTO location, LanguageDTO language) {
             Name = name;
             Location = location;
             Duration = duration;
