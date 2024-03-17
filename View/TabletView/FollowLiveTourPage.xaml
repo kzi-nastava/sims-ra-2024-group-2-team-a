@@ -45,7 +45,7 @@
           ItemsSource="{Binding languageDTOs}" SelectedItem="{Binding selectedLanguageDTO}" DisplayMemberPath="LanguageOptionTemplate"/>
 
                 <Button Grid.Column="2" Grid.Row="2" x:Name="clearButton" Content="Clear" Click="clearButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Padding="5" FontSize="20"/>
-                <Button Grid.Column="3" Grid.Row="2"  x:Name="filterButton" Content="Filter" Click="filterButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Padding="5" FontSize="20" IsEnabled="False"/>
+                <Button Grid.Column="3" Grid.Row="2"  x:Name="filterButton" Content="Filter" Click="filterButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Padding="5" FontSize="20" IsEnabled="True"/>
             </Grid>
         </Border>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">

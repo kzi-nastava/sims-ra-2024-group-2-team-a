@@ -22,8 +22,7 @@ namespace BookingApp.View.TabletView
     /// <summary>
     /// Interaction logic for FollowLiveTourPage.xaml
     /// </summary>
-    public partial class FollowLiveTourPage : Page
-    {
+    public partial class FollowLiveTourPage : Page {
         private int _userId;
 
         private readonly TourRepository _tourRepository;
@@ -35,8 +34,7 @@ namespace BookingApp.View.TabletView
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public ObservableCollection<TourDTO> tourDTOs { get; set; }
-        public FollowLiveTourPage(int userId)
-        {
+        public FollowLiveTourPage(int userId) {
             InitializeComponent();
             DataContext = this;
             _userId = userId;
@@ -47,8 +45,9 @@ namespace BookingApp.View.TabletView
 
             locationDTOs = new ObservableCollection<LocationDTO>();
             languageDTOs = new ObservableCollection<LanguageDTO>();
-            tourDTOs = new ObservableCollection<TourDTO>();
 
+            languageDTOs.Add(new LanguageDTO());
+            locationDTOs.Add(new LocationDTO());
             foreach (var lan in _languageRepository.GetAll()) {
                 languageDTOs.Add(new LanguageDTO(lan));
             }
@@ -56,16 +55,13 @@ namespace BookingApp.View.TabletView
                 locationDTOs.Add(new LocationDTO(loc));
             }
             LoadLiveTours();
-            
+
         }
         private void LoadLiveTours() {
+            tourDTOs = new ObservableCollection<TourDTO>();
             foreach (var tour in _tourRepository.GetLive(_userId)) {
                 TourDTO tempTourDTO = new TourDTO(tour);
-                Location location = _locationRepository.GetById(tour.LocationId);
-                string city = location.City;
-                string country = location.Country;
-                tempTourDTO.setLocationTemplate(city, country);
-                tempTourDTO.LanguageTemplate = _languageRepository.GetById(tour.LanguageId).Name;
+                setLocationLanguage(tempTourDTO, tour);
                 tourDTOs.Add(tempTourDTO);
             }
         }
@@ -73,18 +69,28 @@ namespace BookingApp.View.TabletView
         private void filterButton_Click(object sender, RoutedEventArgs e) {
             string name = textBoxName.Text;
             LocationDTO location = (LocationDTO)comboBoxLocation.SelectedItem;
+            if (location == null) {
+                location = new LocationDTO();
+            }
             LanguageDTO language = (LanguageDTO)comboBoxLanguage.SelectedItem;
-            if(!int.TryParse(textBoxTouristNumber.Text, out int touristsNumber)) {
+            if (language == null) {
+                language = new LanguageDTO();
+            }
+            if (!int.TryParse(textBoxTouristNumber.Text, out int touristsNumber)) {
                 textBoxTouristNumber.Text = string.Empty;
             }
             if (!int.TryParse(textBoxDuration.Text, out int duration)) {
                 textBoxDuration.Text = string.Empty;
             }
+
+
             TourFilterDTO filter = new TourFilterDTO(name, duration, touristsNumber, location, language);
 
-            tourDTOs = new ObservableCollection<TourDTO>();
-            foreach(var tour in _tourRepository.GetFiltered(filter)) {
-                tourDTOs.Add(new TourDTO(tour));
+            tourDTOs.Clear();
+            foreach (var tour in _tourRepository.GetFilteredLive(filter, _userId)) {
+                TourDTO temp = new TourDTO(tour);
+                setLocationLanguage(temp, tour);
+                tourDTOs.Add(temp);
             }
 
             itemsControlLiveTours.ItemsSource = tourDTOs;
@@ -96,6 +102,13 @@ namespace BookingApp.View.TabletView
             textBoxDuration.Text = string.Empty;
             comboBoxLanguage.SelectedIndex = 0;
             comboBoxLocation.SelectedIndex = 0;
+        }
+        private void setLocationLanguage(TourDTO tempTourDTO, Tour tour) {
+            Location location = _locationRepository.GetById(tour.LocationId);
+            string city = location.City;
+            string country = location.Country;
+            tempTourDTO.setLocationTemplate(city, country);
+            tempTourDTO.LanguageTemplate = _languageRepository.GetById(tour.LanguageId).Name;
         }
     }
 }

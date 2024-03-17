@@ -16,6 +16,15 @@ namespace BookingApp.Repository {
             return _items.FindAll(x => x.GuideId == userId && x.Beggining.Date == today.Date && !x.IsFinished);
         }
 
+        public List<Tour> GetFilteredLive(TourFilterDTO filter, int userId) {
+            _items = GetLive(userId);
+
+            if(filter.isEmpty())
+                return _items;
+
+            return _items.Where(x => IsFilteredLive(x, filter)).ToList();
+        }
+
         public List<Tour> GetFiltered(TourFilterDTO filter) {
             _items = GetAll();
 
@@ -24,12 +33,21 @@ namespace BookingApp.Repository {
 
             return _items.Where(t => IsFiltered(t, filter)).ToList();
         }
-
+        private bool IsFilteredLive(Tour tour, TourFilterDTO filter) {
+            return MatchesName(tour, filter) &&
+                   MatchesLocation(tour, filter) &&
+                   MatchesDuration(tour, filter) &&
+                   MatchesLanguage(tour, filter) &&
+                   MatchesCurrentTouristNumber(tour, filter);
+        }
         private bool IsFiltered(Tour tour, TourFilterDTO filter) {
             return MatchesLocation(tour, filter) && 
                    MatchesDuration(tour, filter) && 
                    MatchesLanguage(tour, filter) && 
-                   MatchesTouristNumber(tour, filter);
+                   MatchesMaxTouristNumber(tour, filter);
+        }
+        private bool MatchesName(Tour tour, TourFilterDTO filter) {
+            return tour.Name.Contains(filter.Name) || filter.Name == "";
         }
 
         private bool MatchesLocation(Tour tour, TourFilterDTO filter) {
@@ -44,8 +62,11 @@ namespace BookingApp.Repository {
             return tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
         }
 
-        private bool MatchesTouristNumber(Tour tour, TourFilterDTO filter) {
+        private bool MatchesMaxTouristNumber(Tour tour, TourFilterDTO filter) {
             return tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
+        }
+        private bool MatchesCurrentTouristNumber(Tour tour, TourFilterDTO filter) {
+            return tour.CurrentTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
         }
 
         public List<Tour> GetToursByLocation(int locationId) {
