@@ -63,7 +63,7 @@ namespace BookingApp.View
                         touristMainWindow.Show();
                         this.Close();
                     }else if(user.Category == UserCategory.Guide) {
-                        GuideMainWindow guideMainWindow = new GuideMainWindow();
+                        GuideMainWindow guideMainWindow = new GuideMainWindow(user.Id);
                         guideMainWindow.Show();
                         this.Close();
                     }

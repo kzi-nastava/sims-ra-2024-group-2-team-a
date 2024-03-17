@@ -10,13 +10,10 @@ namespace BookingApp.Repository {
 
     public class TourRepository : Repository<Tour> {
 
-        private List<Tour> _tours;
-        public List<Tour> GetToursToday() {
+        public List<Tour> GetLive(int userId) {
             DateTime today = DateTime.Today;
-            _tours = _serializer.FromCSV();
-            //DateTime dis = _tours[0].Beggining;
-            //if (dis == today) return null;
-            return _tours.FindAll(x => x.Beggining.Date == today.Date);
+            _items = _serializer.FromCSV();
+            return _items.FindAll(x => x.GuideId == userId && x.Beggining.Date == today.Date && !x.IsFinished);
         }
 
         public List<Tour> GetFiltered(TourFilterDTO filter) {
