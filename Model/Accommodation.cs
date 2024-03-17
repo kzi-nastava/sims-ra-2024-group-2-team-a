@@ -16,7 +16,7 @@ namespace BookingApp.Model {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int LocationId { get; set; }
-        public AccommodationType type;
+        public AccommodationType Type { get; set; }
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
         public int LastCancellationDay { get; set; }
@@ -31,7 +31,7 @@ namespace BookingApp.Model {
             int maxGuestNumber, int minReservationDays, int cancellationDate, int ownerId, List<string> profilePictures) {
             Name = name;
             LocationId = locationId;
-            type = accomodationType;
+            Type = accomodationType;
             MaxGuestNumber = maxGuestNumber;
             MinReservationDays = minReservationDays;
             LastCancellationDay = cancellationDate;
@@ -44,7 +44,7 @@ namespace BookingApp.Model {
                 Id.ToString(),
                 Name,
                 LocationId.ToString(),
-                type.ToString(),
+                Type.ToString(),
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 LastCancellationDay.ToString(),
@@ -65,7 +65,7 @@ namespace BookingApp.Model {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
             LocationId = int.Parse(values[2]);
-            Enum.TryParse(values[3], out type);
+            Type = (AccommodationType) Enum.Parse(typeof(AccommodationType), values[3]);
             MaxGuestNumber = Convert.ToInt32(values[4]);
             MinReservationDays = Convert.ToInt32(values[5]);
             LastCancellationDay = Convert.ToInt32(values[6]);

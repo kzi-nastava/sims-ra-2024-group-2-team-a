@@ -17,15 +17,17 @@ namespace BookingApp.View.TabletView {
     /// Interaction logic for GuideMainWindow.xaml
     /// </summary>
     public partial class GuideMainWindow : Window {
+        private int _userId;
         public Frame MenuBarFrame { get; set; }
         public Frame MainFrame { get; set; }
-        public GuideMainWindow() {
+        public GuideMainWindow(int userId) {
             InitializeComponent();
             MainFrame = mainFrame;
             MenuBarFrame = menuBarFrame;
+            _userId = userId;
 
-            MainFrame.Content = new AddTourPage(mainFrame);
-            MenuBarFrame.Content = new MenuBarButtonPage(MenuBarFrame, MainFrame);
+            MainFrame.Content = new AddTourPage(mainFrame, _userId);
+            MenuBarFrame.Content = new MenuBarButtonPage(MenuBarFrame, MainFrame, _userId);
         }
 
         private void Logout(object sender, RoutedEventArgs e) {

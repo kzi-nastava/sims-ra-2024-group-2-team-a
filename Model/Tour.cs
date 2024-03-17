@@ -1,6 +1,7 @@
 ﻿using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace BookingApp.Model {
 
@@ -15,6 +16,7 @@ namespace BookingApp.Model {
         public double Duration { get; set; }
         public int CurrentTouristNumber { get; set; }
         public DateTime Beggining { get; set; }
+        public bool IsFinished {  get; set; }
         public int GuideId { get; set; }
         public List<string> ProfilePictures { get; set; }
         public List<PointOfInterest> PointOfInterests { get; set; }
@@ -25,7 +27,7 @@ namespace BookingApp.Model {
             PointOfInterests = new List<PointOfInterest>(); 
         }
 
-        public Tour(int id, string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
+        public Tour(int id, string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, bool isFinished, int guideId, List<string> profilePictures) {
             Id = id;
             Name = name;
             LocationId = locationId;
@@ -35,10 +37,11 @@ namespace BookingApp.Model {
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
             Beggining = beggining;
+            IsFinished = isFinished;
             GuideId = guideId;
             ProfilePictures = profilePictures;
         }
-        public Tour(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
+        public Tour(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, bool isFinished, int guideId, List<string> profilePictures) {
 
             Name = name;
             LocationId = locationId;
@@ -48,6 +51,7 @@ namespace BookingApp.Model {
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
             Beggining = beggining;
+            IsFinished = isFinished;
             GuideId = guideId;
             ProfilePictures = profilePictures;
         }
@@ -62,7 +66,8 @@ namespace BookingApp.Model {
                 MaxTouristNumber.ToString(),
                 Duration.ToString(),
                 CurrentTouristNumber.ToString(),
-                Beggining.ToString(),
+                Beggining.ToString("dd-MM-yyyy HH:mm"),
+                IsFinished.ToString(),
                 GuideId.ToString(),
                 };
 
@@ -85,9 +90,11 @@ namespace BookingApp.Model {
             MaxTouristNumber = Convert.ToInt32(values[5]);
             Duration = Convert.ToDouble(values[6]);
             CurrentTouristNumber = Convert.ToInt32(values[7]);
-            Beggining = Convert.ToDateTime(values[8]);
-            GuideId = Convert.ToInt32(values[9]);
-            ProfilePictures.AddRange(values[10..]);
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            Beggining = DateTime.ParseExact(values[8], "dd-MM-yyyy HH:mm", provider);
+            IsFinished = bool.Parse(values[9]);
+            GuideId = Convert.ToInt32(values[10]);
+            ProfilePictures.AddRange(values[11..]);
         }
     }
 }

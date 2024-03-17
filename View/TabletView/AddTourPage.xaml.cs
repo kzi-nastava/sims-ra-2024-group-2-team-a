@@ -25,22 +25,24 @@ namespace BookingApp.View.TabletView {
     /// Interaction logic for AddTour.xaml
     /// </summary>
     public partial class AddTourPage : Page{
-        private Frame mainFrame;
+        private Frame _mainFrame;
+        private int _userId;
         private readonly User _user;
         private readonly TourRepository _tourRepository;
         private readonly LocationRepository _locationRepository;
         private readonly LanguageRepository _languageRepository;
         private readonly PointOfInterestRepository _pointOfInterestRepository;
+
         public TourDTO tourDTO { get; set; }
         public LocationDTO selectedLocationDTO { get; set; }
         public LanguageDTO selectedLanguageDTO { get; set; }
-        public PointOfInterestDTO selectedPointOfInterestDTO { get; set; }
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
-        public AddTourPage(Frame mainF) {
+        public AddTourPage(Frame mainF, int userId) {
             InitializeComponent();
-            mainFrame = mainF;
+            _mainFrame = mainF;
+            _userId = userId;
             DataContext = this;
 
             _tourRepository = new TourRepository();
@@ -49,7 +51,6 @@ namespace BookingApp.View.TabletView {
             _pointOfInterestRepository = new PointOfInterestRepository();
 
             tourDTO = new TourDTO();
-            tourDTO.GuideId = 5; // za sada test podatak
             locationDTOs = new ObservableCollection<LocationDTO>();
             languageDTOs = new ObservableCollection<LanguageDTO>();
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
@@ -64,20 +65,22 @@ namespace BookingApp.View.TabletView {
         }
 
         private void resetButton_Click(object sender, RoutedEventArgs e) {
-
+            _mainFrame.Content = new AddTourPage(_mainFrame, _userId);
         }
 
         private void confirmButton_Click(object sender, RoutedEventArgs e) {
             tourDTO.LocationId = selectedLocationDTO.Id;
             tourDTO.LanguageId = selectedLanguageDTO.Id;
             tourDTO.CurrentTouristNumber = 0;
-            Tour tour = _tourRepository.Save(tourDTO.ToModel());
+            tourDTO.setBeggining();
+            tourDTO.GuideId = _userId;
+            Tour tour = _tourRepository.Save(tourDTO.ToModelNoId());
             foreach(var pDTO in pointOfInterestDTOs) {
                 pDTO.TourId = tour.Id;
-                _pointOfInterestRepository.Save(pDTO.ToModel());
+                _pointOfInterestRepository.Save(pDTO.ToModelNoId());
             }
             MessageBox.Show("Tour Added Succesfully", "Confirmed", MessageBoxButton.OK, MessageBoxImage.Information);
-            mainFrame.Content = new AddTourPage(mainFrame);
+            _mainFrame.Content = new AddTourPage(_mainFrame, _userId);
         }
 
 
@@ -116,6 +119,11 @@ namespace BookingApp.View.TabletView {
                 }
             }
         }
+        private void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e) {
+            DateOnly justDate = DateOnly.FromDateTime(datePicker.SelectedDate.Value);
+            tourDTO.JustDate = justDate;
+        }
+
         private string GetRelativePath(string basePath, string fullPath) {
             Uri baseUri = new Uri(basePath + System.IO.Path.DirectorySeparatorChar);
             Uri fullUri = new Uri(fullPath);
@@ -128,5 +136,6 @@ namespace BookingApp.View.TabletView {
             else
                 confirmButton.IsEnabled = false;
         }
+
     }
 }

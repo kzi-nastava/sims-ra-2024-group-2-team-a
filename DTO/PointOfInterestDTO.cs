@@ -79,8 +79,12 @@ namespace BookingApp.DTO {
             }
         }
 
-        public PointOfInterest ToModel() {
+        public PointOfInterest ToModelNoId() {
             return new PointOfInterest(Name, Description, IsChecked, TourId);
+        }
+
+        public PointOfInterest ToModel() {
+            return new PointOfInterest(Id, Name, Description, IsChecked, TourId);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -10,34 +10,34 @@ namespace BookingApp.Model {
     public class AccommodationReservation : ISerializable, IIdentifiable {
 
         public int Id { get; set; } = -1;
-        public int IdGuest { get; set; }
-        public int IdAccommodation { get; set; }
+        public int GuestId { get; set; }
+        public int AccommodationId { get; set; }
         public int GuestsNumber { get; set; }
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
 
         public AccommodationReservation() { }
 
-        public AccommodationReservation(int idGuest, int idAccommodation, int guestsNumber, DateOnly startDate, DateOnly endDate) {
-            IdGuest = idGuest;
-            IdAccommodation = idAccommodation;
+        public AccommodationReservation(int GuestId, int accommodationId, int guestsNumber, DateOnly startDate, DateOnly endDate) {
+            this.GuestId = GuestId;
+            AccommodationId = accommodationId;
             GuestsNumber = guestsNumber;
             StartDate = startDate;
             EndDate = endDate;
         }
 
         public string[] ToCSV() {
-            string[] csvValues = { Id.ToString(), IdGuest.ToString(), IdAccommodation.ToString(), GuestsNumber.ToString(), StartDate.ToString("dd-MM-yyyy"), EndDate.ToString("dd-MM-yyyy") };
+            string[] csvValues = { Id.ToString(), GuestId.ToString(), AccommodationId.ToString(), GuestsNumber.ToString(), StartDate.ToString("dd-MM-yyyy"), EndDate.ToString("dd-MM-yyyy") };
             return csvValues;
         }
 
         public void FromCSV(string[] values) {
             Id = Convert.ToInt32(values[0]);
-            IdGuest = Convert.ToInt32(values[1]);
-            IdAccommodation = Convert.ToInt32(values[2]);
+            GuestId = Convert.ToInt32(values[1]);
+            AccommodationId = Convert.ToInt32(values[2]);
             GuestsNumber = Convert.ToInt32(values[3]);
-            StartDate = DateOnly.Parse(values[4]);
-            EndDate = DateOnly.Parse(values[5]);
+            StartDate = DateOnly.ParseExact(values[4], "dd-MM-yyyy");
+            EndDate = DateOnly.ParseExact(values[5], "dd-MM-yyyy");
         }
     }
 }

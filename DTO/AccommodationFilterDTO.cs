@@ -24,8 +24,24 @@ namespace BookingApp.DTO {
             ReservationDays = reservationDays;
         }
 
-        public bool isEmpty() {
-            return Name == "" && Location.Id == -1 && Type == AccommodationType.any && GuestNumber == 0 && ReservationDays == 0;
+        public bool MatchesName(string name) {
+            return name.ToLower().Contains(Name.ToLower()) || Name == "";
+        }
+
+        public bool MatchesLocation(int locationId) {
+            return locationId == Location.Id || Location.Id == -1;
+        }
+
+        public bool MatchesType(AccommodationType type) {
+            return type == Type || Type == AccommodationType.any;
+        }
+
+        public bool MatchesGuestNumber(int maxGuestNumber) {
+            return maxGuestNumber >= GuestNumber || GuestNumber <= 0;
+        }
+
+        public bool MatchesReservationDays(int minReservationDays) {
+            return minReservationDays <= ReservationDays || ReservationDays <= 0;
         }
     }
 }

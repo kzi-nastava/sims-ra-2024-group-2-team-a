@@ -24,9 +24,11 @@ namespace BookingApp.View.WebViews {
         }
 
         private void AccommodationCardClick(object sender, MouseButtonEventArgs e) {
-            Frame mainFrame = (Frame) Window.GetWindow(this).FindName("mainFrame");
+            GuestMainWindow window = (GuestMainWindow) Window.GetWindow(this);
+            Frame mainFrame = window.MainFrame;
+
             AccommodationDTO accommodationDTO = (AccommodationDTO) DataContext;
-            mainFrame.Content = new CreateReservationPage(accommodationDTO);
+            mainFrame.Navigate(new CreateReservationPage(accommodationDTO));
         }
     }
 }

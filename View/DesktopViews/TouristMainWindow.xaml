@@ -7,25 +7,60 @@
         mc:Ignorable="d"
         Title="TouristMainWindow" Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <ToggleButton x:Name="HomeButton" Click="HomeButton_Click">
-                <TextBlock Text="Home" VerticalAlignment="Center"/>
-            </ToggleButton>
-            <Popup x:Name="HomePopup" PlacementTarget="{Binding ElementName=HomeButton}" Placement="Right" StaysOpen="False" IsOpen="False">
-                <Border Background="#34495E" BorderThickness="1" BorderBrush="#2C3E50">
-                    <StackPanel>
-                        <Button Content="Option 1" Width="30"/>
-                        <Button Content="Option 2" Width="30"/>
-                    </StackPanel>
-                </Border>
-            </Popup>
-        </StackPanel>
+    <Window.Resources>
+        <BitmapImage x:Key="HomeIcon" UriSource="../../Resources/Images/home.png"/>
+        <BitmapImage x:Key="AccountIcon" UriSource="../../Resources/Images/account.png"/>
+        <BitmapImage x:Key="ReservationsIcon" UriSource="../../Resources/Images/reservations.png"/>
+        <Style TargetType="Image" x:Key="IconStyle">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Margin" Value="30, 0"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="#88C0D0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="Width" Value="384"/>
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+    </Window.Resources>
+    <Border BorderBrush="Black" BorderThickness="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Background="#88C0D0"
+                    Grid.Column="0">
+                <Button x:Name="HomeButton"
+                    Click="HomeButton_Click"
+                    Style="{StaticResource ButtonStyle}">
+                    <WrapPanel>
+                        <Image Source="{StaticResource HomeIcon}" Style="{StaticResource IconStyle}"/>
+                        <TextBlock Text="Home"/>
+                    </WrapPanel>
+                </Button>
+                <Button x:Name="MyAccountButton"
+                    Click="MyAccountButton_Click"
+                    Style="{StaticResource ButtonStyle}">
+                    <WrapPanel>
+                        <Image Source="{StaticResource AccountIcon}" Style="{StaticResource IconStyle}"/>
+                        <TextBlock Text="My Account"/>
+                    </WrapPanel>
+                </Button>
+                <Button x:Name="ReservationsButton"
+                    Click="ReservationsButton_Click"
+                    Style="{StaticResource ButtonStyle}">
+                    <WrapPanel>
+                        <Image Source="{StaticResource ReservationsIcon}" Style="{StaticResource IconStyle}"/>
+                        <TextBlock Text="Reservations"/>
+                    </WrapPanel>
+                </Button>
+            </StackPanel>
             <Frame Grid.Column="1" 
                x:Name="PageFrame"></Frame>
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

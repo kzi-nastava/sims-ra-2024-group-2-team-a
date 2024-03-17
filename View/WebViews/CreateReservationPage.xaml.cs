@@ -37,8 +37,9 @@ namespace BookingApp.View.WebViews {
         }
 
         private void ButtonBackClick(object sender, RoutedEventArgs e) {
-            Frame frame = (Frame)Window.GetWindow(this).FindName("mainFrame");
-            frame.Content = new BookingPage(frame);
+            GuestMainWindow window = (GuestMainWindow) Window.GetWindow(this);
+            Frame mainFrame = window.MainFrame;
+            mainFrame.GoBack();
         }
 
         private void UpdateSuggestedReservations(object sender, EventArgs e) {
@@ -49,12 +50,14 @@ namespace BookingApp.View.WebViews {
                 return;
             }
 
-            int reservationDays = int.Parse(textBoxReservationDays.Text);
-            DateOnly startDate = DateOnly.FromDateTime(datePickerStartDate.SelectedDate.Value);
-            DateOnly endDate = DateOnly.FromDateTime(datePickerEndDate.SelectedDate.Value);
+            AccommodationReservationDTO rDTO = new AccommodationReservationDTO();
+            rDTO.AccommodationId = _accommodationDTO.Id;
+            rDTO.ReservationDays = int.Parse(textBoxReservationDays.Text);
+            rDTO.StartDate = DateOnly.FromDateTime(datePickerStartDate.SelectedDate.Value);
+            rDTO.EndDate = DateOnly.FromDateTime(datePickerEndDate.SelectedDate.Value);
 
             var accommodationReservationRepository = new AccommodationReservationRepository();
-            var reservations = accommodationReservationRepository.GetPossibleReservations(_accommodationDTO.Id, startDate, endDate, reservationDays);
+            var reservations = accommodationReservationRepository.SuggestReservations(rDTO);
 
             if(reservations.Count > maxSuggestedReservationsCount)
                 reservations = reservations.GetRange(0, maxSuggestedReservationsCount);
@@ -104,17 +107,17 @@ namespace BookingApp.View.WebViews {
 
             SaveReservation(selectedReservation);
 
-            Frame frame = (Frame)Window.GetWindow(this).FindName("mainFrame");
-            frame.Content = new BookingPage(frame);
+            ButtonBackClick(sender, e);
         }
 
         private void SaveReservation(AccommodationReservation selectedReservation) {
-            AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
             GuestMainWindow window = Window.GetWindow(this) as GuestMainWindow;
             User currentUser = window.User;
 
-            selectedReservation.IdGuest = currentUser.Id;
-            selectedReservation.IdAccommodation = _accommodationDTO.Id;
+            AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
+
+            selectedReservation.GuestId = currentUser.Id;
+            selectedReservation.AccommodationId = _accommodationDTO.Id;
             selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
             accommodationReservationRepository.Save(selectedReservation);
         }

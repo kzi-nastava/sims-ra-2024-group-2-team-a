@@ -33,7 +33,7 @@ namespace BookingApp.DTO
             Id = acc.Id;
             Name = acc.Name;
             LocationId = acc.LocationId;
-            Type = acc.type;
+            Type = acc.Type;
             MaxGuestNumber = acc.MaxGuestNumber;
             MinReservationDays = acc.MinReservationDays;
             LastCancellationDay = acc.LastCancellationDay;
@@ -155,7 +155,7 @@ namespace BookingApp.DTO
         public List<string> ProfilePictures { get; set; }
         public string DisplayLocation { get; set; }
 
-        public void SetDisplayLocation(string city,string country)
+        public void SetDisplayLocation(string city, string country)
         {
             DisplayLocation = $"{country}, {city}";
         }

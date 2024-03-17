@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using BookingApp.Model;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace BookingApp.DTO {
@@ -8,7 +9,43 @@ namespace BookingApp.DTO {
             Name = name;
             Surname = surname;
             Age = age;
+            //JoinedPointOfInterestId
             UserId = userId;
+        }
+        public PassengerDTO(Passenger p) {
+            Id = p.Id;
+            TourId = p.TourReservationId;
+            Name = p.Name;
+            Surname = p.Surname;
+            Age = p.Age;
+            JoinedPointOfInterestId = p.JoinedPointOfInterestId;
+            UserId = p.UserId;
+
+        }
+
+        private int _id;
+        public int Id {
+            get {
+                return _id;
+            }
+            set {
+                if (_id != value) {
+                    _id = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _tourId;
+        public int TourId {
+            get {
+                return _tourId;
+            }
+            set {
+                if (_tourId != value) {
+                    _tourId = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         private string _name;
@@ -49,7 +86,30 @@ namespace BookingApp.DTO {
                 }
             }
         }
-
+        private bool _isJoined;
+        public bool IsJoined {
+            get {
+                return _isJoined;
+            }
+            set {
+                if (_isJoined != value) {
+                    _isJoined = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _joinedPointOfInterestId;
+        public int JoinedPointOfInterestId {
+            get {
+                return _joinedPointOfInterestId;
+            }
+            set {
+                if (_joinedPointOfInterestId != value) {
+                    _joinedPointOfInterestId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private int _userId;
         public int UserId {
             get {
@@ -61,6 +121,10 @@ namespace BookingApp.DTO {
                     OnPropertyChanged();
                 }
             }
+        }
+
+        public Passenger ToModel() {
+            return new Passenger(Id, TourId, Name, Surname, Age, JoinedPointOfInterestId, UserId);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

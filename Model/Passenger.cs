@@ -11,16 +11,18 @@ namespace BookingApp.Model {
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
+        public int JoinedPointOfInterestId { get; set; }
         public int UserId { get; set; }
 
         public Passenger() { }
 
-        public Passenger(int id, int tourId, string name, string surname, int age, int userId) {
+        public Passenger(int id, int tourId, string name, string surname, int age, int joinedId, int userId) {
             Id = id;
             TourReservationId = tourId;
             Name = name;
             Surname = surname;
             Age = age;
+            JoinedPointOfInterestId = joinedId;
             UserId = userId;
         }
 
@@ -29,11 +31,12 @@ namespace BookingApp.Model {
             Name = passengerDTO.Name;
             Surname = passengerDTO.Surname;
             Age = passengerDTO.Age;
+            JoinedPointOfInterestId = -1; //means not joined yet
             UserId = passengerDTO.UserId;
         }
 
         public string[] ToCSV() {
-            string[] csvValues = { Id.ToString(), TourReservationId.ToString(), Name, Surname, Age.ToString(), UserId.ToString() };
+            string[] csvValues = { Id.ToString(), TourReservationId.ToString(), Name, Surname, Age.ToString(), JoinedPointOfInterestId.ToString(), UserId.ToString() };
             return csvValues;
         }
 
@@ -43,7 +46,8 @@ namespace BookingApp.Model {
             Name = values[2];
             Surname = values[3];
             Age = Convert.ToInt32(values[4]);
-            UserId = Convert.ToInt32(values[5]);
+            JoinedPointOfInterestId= Convert.ToInt32(values[5]);
+            UserId = Convert.ToInt32(values[6]);
         }
     }
 }

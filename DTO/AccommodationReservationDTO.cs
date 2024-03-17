@@ -9,19 +9,32 @@ using System.Threading.Tasks;
 
 namespace BookingApp.DTO
 {
-public class AccommodationReservationDTO:INotifyPropertyChanged {
+public class AccommodationReservationDTO : INotifyPropertyChanged {
+
         public AccommodationReservationDTO() {
         }
 
         public AccommodationReservationDTO(AccommodationReservation acc) {
             Id = acc.Id;
-            GuestId = acc.IdGuest;
-            AccommodationId = acc.IdAccommodation;
+            GuestId = acc.GuestId;
+            AccommodationId = acc.AccommodationId;
             GuestsNumber = acc.GuestsNumber;
             StartDate = acc.StartDate;
             EndDate = acc.EndDate;
             AccommodationName = "";
             Graded = false;
+        }
+
+        public AccommodationReservationDTO(AccommodationReservationDTO accDTO) {
+            Id = accDTO.Id;
+            GuestId = accDTO.GuestId;
+            AccommodationId = accDTO.AccommodationId;
+            GuestsNumber = accDTO.GuestsNumber;
+            StartDate = accDTO.StartDate;
+            EndDate = accDTO.EndDate;
+            ReservationDays = accDTO.ReservationDays;
+            AccommodationName = accDTO.AccommodationName;
+            Graded = accDTO.Graded;
         }
 
         public int Id { get; set; }
@@ -66,8 +79,10 @@ public class AccommodationReservationDTO:INotifyPropertyChanged {
                 }
             }
         }
+
         public string AccommodationName { get; set; }
         public bool Graded { get; set; }
+        public int ReservationDays { get; set; }
 
         public AccommodationReservation ToAccommodationReservation() {
             return new AccommodationReservation();

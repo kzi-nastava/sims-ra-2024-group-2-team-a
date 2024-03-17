@@ -1,12 +1,29 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Serializer;
+using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Repository {
 
     public class TourRepository : Repository<Tour> {
+
+        public List<Tour> GetLive(int userId) {
+            DateTime today = DateTime.Today;
+            _items = _serializer.FromCSV();
+            return _items.FindAll(x => x.GuideId == userId && x.Beggining.Date == today.Date && !x.IsFinished);
+        }
+
+        public List<Tour> GetFilteredLive(TourFilterDTO filter, int userId) {
+            _items = GetLive(userId);
+
+            if(filter.isEmpty())
+                return _items;
+
+            return _items.Where(x => IsFilteredLive(x, filter)).ToList();
+        }
 
         public List<Tour> GetFiltered(TourFilterDTO filter) {
             _items = GetAll();
@@ -16,14 +33,40 @@ namespace BookingApp.Repository {
 
             return _items.Where(t => IsFiltered(t, filter)).ToList();
         }
-
+        private bool IsFilteredLive(Tour tour, TourFilterDTO filter) {
+            return MatchesName(tour, filter) &&
+                   MatchesLocation(tour, filter) &&
+                   MatchesDuration(tour, filter) &&
+                   MatchesLanguage(tour, filter) &&
+                   MatchesCurrentTouristNumber(tour, filter);
+        }
         private bool IsFiltered(Tour tour, TourFilterDTO filter) {
-            bool matchesLocation = tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
-            bool matchesDuration = tour.Duration <= filter.Duration || filter.Duration == 0;
-            bool matchesLanguage = tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
-            bool matchesTouristNumber = tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
+            return MatchesLocation(tour, filter) && 
+                   MatchesDuration(tour, filter) && 
+                   MatchesLanguage(tour, filter) && 
+                   MatchesMaxTouristNumber(tour, filter);
+        }
+        private bool MatchesName(Tour tour, TourFilterDTO filter) {
+            return tour.Name.Contains(filter.Name) || filter.Name == "";
+        }
 
-            return matchesLocation && matchesDuration && matchesLanguage && matchesTouristNumber;
+        private bool MatchesLocation(Tour tour, TourFilterDTO filter) {
+            return tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
+        }
+
+        private bool MatchesDuration(Tour tour, TourFilterDTO filter) {
+            return tour.Duration <= filter.Duration || filter.Duration == 0;
+        }
+
+        private bool MatchesLanguage(Tour tour, TourFilterDTO filter) {
+            return tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
+        }
+
+        private bool MatchesMaxTouristNumber(Tour tour, TourFilterDTO filter) {
+            return tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
+        }
+        private bool MatchesCurrentTouristNumber(Tour tour, TourFilterDTO filter) {
+            return tour.CurrentTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
         }
 
         public List<Tour> GetToursByLocation(int locationId) {
@@ -32,6 +75,10 @@ namespace BookingApp.Repository {
 
         public List<Tour> GetSameLocationTours(TourDTO tour) {
             return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
+        }
+
+        public int GetAvailableSpace(TourDTO tour) {
+            return tour.MaxTouristNumber - tour.CurrentTouristNumber;
         }
     }
 }

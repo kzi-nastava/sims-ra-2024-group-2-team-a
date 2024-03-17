@@ -11,7 +11,7 @@ namespace BookingApp.DTO {
         }
 
 
-        public TourDTO(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, int guideId, List<string> profilePictures) {
+        public TourDTO(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, bool isFinished, int guideId, List<string> profilePictures) {
 
             Name = name;
             LocationId = locationId;
@@ -21,6 +21,7 @@ namespace BookingApp.DTO {
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
             Beggining = beggining;
+            IsFinished = _isFinished;
             GuideId = guideId;
             ProfilePictures = profilePictures;
         }
@@ -35,6 +36,7 @@ namespace BookingApp.DTO {
             Duration = t.Duration;
             CurrentTouristNumber = t.CurrentTouristNumber;
             Beggining = t.Beggining;
+            IsFinished = t.IsFinished;
             GuideId = t.GuideId;
             ProfilePictures = t.ProfilePictures;
         }
@@ -123,22 +125,22 @@ namespace BookingApp.DTO {
             }
         }
 
-        private DateOnly _dateOnly;
-        public DateOnly DateOnly {
-            get { return _dateOnly; }
+        private DateOnly _justDate;
+        public DateOnly JustDate {
+            get { return _justDate; }
             set {
-                if (_dateOnly != value) {
-                    _dateOnly = value;
+                if (_justDate != value) {
+                    _justDate = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private int _timeOnly;
-        public int TimeOnly {
-            get { return _timeOnly; }
+        private int _justTime;
+        public int JustTime {
+            get { return _justTime; }
             set {
-                if(_timeOnly != value) {
-                    _timeOnly = value;
+                if(_justTime != value) {
+                    _justTime = value;
                     OnPropertyChanged();
                 }
             }
@@ -150,8 +152,20 @@ namespace BookingApp.DTO {
                 return _beggining;
             }
             set {
-                if (_beggining != new DateTime(_dateOnly.Year, _dateOnly.Month, _dateOnly.Day, _timeOnly, 0, 0)) {
-                    _beggining = new DateTime(_dateOnly.Year, _dateOnly.Month, _dateOnly.Day, _timeOnly, 0, 0);
+                if (_beggining != value) {
+                    _beggining = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _isFinished;
+        public bool IsFinished{
+            get {
+                return _isFinished;
+            }
+            set {
+                if (_isFinished != value) {
+                    _isFinished = value;
                     OnPropertyChanged();
                 }
             }
@@ -168,9 +182,21 @@ namespace BookingApp.DTO {
             }
         }
         public List<string> ProfilePictures { get; set; }
+        public string LanguageTemplate { get; set; }
+        public string LocationTemplate { get; set; }
 
+        public void setBeggining() {
+            _beggining = new DateTime(JustDate.Year, JustDate.Month, JustDate.Day, JustTime, 0, 0);
+        }
+        public void setLocationTemplate(string city, string country) {
+            LocationTemplate = $"{country}, {city}";
+        }
+
+        public Tour ToModelNoId() {
+            return new Tour(Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, IsFinished, GuideId, ProfilePictures);
+        }
         public Tour ToModel() {
-            return new Tour(Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, GuideId, ProfilePictures);
+            return new Tour(Id, Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, IsFinished, GuideId, ProfilePictures);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

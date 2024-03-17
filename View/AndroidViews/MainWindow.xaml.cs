@@ -38,7 +38,7 @@ namespace BookingApp.View.AndroidViews {
             int counter = 0;
 
             foreach (var reservation in accResRepository.GetAll()) {
-                if (!CheckReservationOwner(reservation.IdAccommodation))
+                if (!CheckReservationOwner(reservation.AccommodationId))
                     continue;
 
                 if (reviewRepository.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation))
