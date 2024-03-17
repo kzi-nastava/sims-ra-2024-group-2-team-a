@@ -28,7 +28,7 @@ namespace BookingApp.View.TabletView {
             _userId = userId;
             _tourRepository = new TourRepository();
             _pointOfInterestRepository = new PointOfInterestRepository();
-            _pointOfInterestIndex = -1;
+            _pointOfInterestIndex = 0; 
 
             Load();
         }
@@ -57,6 +57,9 @@ namespace BookingApp.View.TabletView {
                     _pointOfInterestIndex = pointOfInterestDTOs.Count;            Ovo isto */
                 pointOfInterestDTOs.Add(new PointOfInterestDTO(point));
             }
+            pointOfInterestDTOs[0].IsChecked = true;
+            pointOfInterestDTO = pointOfInterestDTOs[_pointOfInterestIndex++];
+            _pointOfInterestRepository.Update(pointOfInterestDTO.ToModel());
             /*if (_pointOfInterestIndex == 0) {
                 pointOfInterestDTOs[0].IsChecked = true;
                 pointOfInterestDTO = pointOfInterestDTOs[_pointOfInterestIndex++];
