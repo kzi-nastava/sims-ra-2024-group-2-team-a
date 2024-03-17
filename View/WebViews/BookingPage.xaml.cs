@@ -18,7 +18,7 @@ namespace BookingApp.View.WebViews {
         private AccommodationRepository _accommodationRepository = new AccommodationRepository();
         private LocationRepository _locationRepository = new LocationRepository();
 
-        public BookingPage(Frame mainFrame) {
+        public BookingPage() {
             InitializeComponent();
             Update();
             SetItemSources();

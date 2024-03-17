@@ -33,7 +33,7 @@ namespace BookingApp.DTO
             Id = acc.Id;
             Name = acc.Name;
             LocationId = acc.LocationId;
-            Type = acc.type;
+            Type = acc.Type;
             MaxGuestNumber = acc.MaxGuestNumber;
             MinReservationDays = acc.MinReservationDays;
             LastCancellationDay = acc.LastCancellationDay;

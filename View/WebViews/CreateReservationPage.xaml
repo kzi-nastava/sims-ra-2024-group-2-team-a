@@ -40,7 +40,7 @@
 
                         <TextBlock x:Name="textBoxLocation" FontSize="15" Text="{Binding DisplayLocation, StringFormat=Location: {0}}" Margin="23,10,23,10" Width="150" TextAlignment="Center" Grid.Row="0"/>
                         <TextBlock x:Name="textBoxType" FontSize="15" Text="{Binding Type, StringFormat=Category: {0}}" Margin="23,10,23,10" Width="150" TextAlignment="Center" Grid.Row="1"/>
-                        <TextBlock x:Name="textBoxDays" FontSize="15" Text="{Binding MinReservationDays, StringFormat=MinimumDays: {0}}" Margin="23,10,23,10" Width="150" TextAlignment="Center" Grid.Row="2"/>
+                        <TextBlock x:Name="textBoxDays" FontSize="15" Text="{Binding MinReservationDays, StringFormat=Minimum days: {0}}" Margin="23,10,23,10" Width="150" TextAlignment="Center" Grid.Row="2"/>
                         <TextBlock x:Name="textBoxCapacity" FontSize="15" Text="{Binding MaxGuestNumber, StringFormat=Capacity: {0}}" Margin="23,10,23,10" Width="150" TextAlignment="Center" Grid.Row="3"/>
                     </Grid>
 

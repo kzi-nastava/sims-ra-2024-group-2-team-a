@@ -37,8 +37,9 @@ namespace BookingApp.View.WebViews {
         }
 
         private void ButtonBackClick(object sender, RoutedEventArgs e) {
-            Frame frame = (Frame)Window.GetWindow(this).FindName("mainFrame");
-            frame.Content = new BookingPage(frame);
+            GuestMainWindow window = (GuestMainWindow) Window.GetWindow(this);
+            Frame mainFrame = window.MainFrame;
+            mainFrame.GoBack();
         }
 
         private void UpdateSuggestedReservations(object sender, EventArgs e) {
