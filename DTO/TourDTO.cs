@@ -192,6 +192,10 @@ namespace BookingApp.DTO {
             LocationTemplate = $"{country}, {city}";
         }
 
+        public void SetLanguageTemplate(string name) {
+            LanguageTemplate = $"{name}";
+        }
+
         public Tour ToModelNoId() {
             return new Tour(Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, IsFinished, GuideId, ProfilePictures);
         }
