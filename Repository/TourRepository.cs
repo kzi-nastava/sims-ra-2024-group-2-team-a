@@ -1,7 +1,5 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
-using BookingApp.Serializer;
-using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +17,7 @@ namespace BookingApp.Repository {
         public List<Tour> GetFilteredLive(TourFilterDTO filter, int userId) {
             _items = GetLive(userId);
 
-            if(filter.isEmpty())
+            if (filter.isEmpty())
                 return _items;
 
             return _items.Where(x => IsFilteredLive(x, filter)).ToList();
@@ -41,9 +39,9 @@ namespace BookingApp.Repository {
                    MatchesCurrentTouristNumber(tour, filter);
         }
         private bool IsFiltered(Tour tour, TourFilterDTO filter) {
-            return MatchesLocation(tour, filter) && 
-                   MatchesDuration(tour, filter) && 
-                   MatchesLanguage(tour, filter) && 
+            return MatchesLocation(tour, filter) &&
+                   MatchesDuration(tour, filter) &&
+                   MatchesLanguage(tour, filter) &&
                    MatchesMaxTouristNumber(tour, filter);
         }
         private bool MatchesName(Tour tour, TourFilterDTO filter) {

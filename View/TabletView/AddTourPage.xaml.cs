@@ -5,26 +5,15 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BookingApp.View.TabletView {
     /// <summary>
     /// Interaction logic for AddTour.xaml
     /// </summary>
-    public partial class AddTourPage : Page{
+    public partial class AddTourPage : Page {
         private Frame _mainFrame;
         private int _userId;
         private readonly User _user;
@@ -43,6 +32,7 @@ namespace BookingApp.View.TabletView {
             InitializeComponent();
             _mainFrame = mainF;
             _userId = userId;
+
             DataContext = this;
 
             _tourRepository = new TourRepository();
@@ -50,18 +40,7 @@ namespace BookingApp.View.TabletView {
             _languageRepository = new LanguageRepository();
             _pointOfInterestRepository = new PointOfInterestRepository();
 
-            tourDTO = new TourDTO();
-            locationDTOs = new ObservableCollection<LocationDTO>();
-            languageDTOs = new ObservableCollection<LanguageDTO>();
-            pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
-
-
-            foreach (var lan in _languageRepository.GetAll()) {
-                languageDTOs.Add(new LanguageDTO(lan));
-            }
-            foreach (var loc in _locationRepository.GetAll()) {
-                locationDTOs.Add(new LocationDTO(loc));
-            }
+            Load();
         }
 
         private void resetButton_Click(object sender, RoutedEventArgs e) {
@@ -69,16 +48,8 @@ namespace BookingApp.View.TabletView {
         }
 
         private void confirmButton_Click(object sender, RoutedEventArgs e) {
-            tourDTO.LocationId = selectedLocationDTO.Id;
-            tourDTO.LanguageId = selectedLanguageDTO.Id;
-            tourDTO.CurrentTouristNumber = 0;
-            tourDTO.setBeggining();
-            tourDTO.GuideId = _userId;
-            Tour tour = _tourRepository.Save(tourDTO.ToModelNoId());
-            foreach(var pDTO in pointOfInterestDTOs) {
-                pDTO.TourId = tour.Id;
-                _pointOfInterestRepository.Save(pDTO.ToModelNoId());
-            }
+            SetTour();
+            SaveTour();
             MessageBox.Show("Tour Added Succesfully", "Confirmed", MessageBoxButton.OK, MessageBoxImage.Information);
             _mainFrame.Content = new AddTourPage(_mainFrame, _userId);
         }
@@ -100,11 +71,7 @@ namespace BookingApp.View.TabletView {
 
         private void pickPhotosButton_Click(object sender, RoutedEventArgs e) {
             List<string> absolutePaths = new List<string>();
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = @"C:\Users\Milos\Desktop\SIMS\sims-ra-2024-group-2-team-a\Resources\Images\Tours\";
-            openFileDialog.Multiselect = true;
-            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
-
+            OpenFileDialog openFileDialog = SetOpenFile();
             if (openFileDialog.ShowDialog() == true) {
                 // Get absolute paths of selected images
                 foreach (string filename in openFileDialog.FileNames) {
@@ -137,5 +104,43 @@ namespace BookingApp.View.TabletView {
                 confirmButton.IsEnabled = false;
         }
 
+        private void Load() {
+            tourDTO = new TourDTO();
+            locationDTOs = new ObservableCollection<LocationDTO>();
+            languageDTOs = new ObservableCollection<LanguageDTO>();
+            pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
+
+
+            foreach (var lan in _languageRepository.GetAll()) {
+                languageDTOs.Add(new LanguageDTO(lan));
+            }
+            foreach (var loc in _locationRepository.GetAll()) {
+                locationDTOs.Add(new LocationDTO(loc));
+            }
+        }
+
+        private void SetTour() {
+            tourDTO.LocationId = selectedLocationDTO.Id;
+            tourDTO.LanguageId = selectedLanguageDTO.Id;
+            tourDTO.CurrentTouristNumber = 0;
+            tourDTO.setBeggining();
+            tourDTO.GuideId = _userId;
+        }
+
+        private void SaveTour() {
+            Tour tour = _tourRepository.Save(tourDTO.ToModelNoId());
+            foreach (var pDTO in pointOfInterestDTOs) {
+                pDTO.TourId = tour.Id;
+                _pointOfInterestRepository.Save(pDTO.ToModelNoId());
+            }
+        }
+
+        private OpenFileDialog SetOpenFile() {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = @"C:\Users\Milos\Desktop\SIMS\sims-ra-2024-group-2-team-a\Resources\Images\Tours\";
+            openFileDialog.Multiselect = true;
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
+            return openFileDialog;
+        }
     }
 }

@@ -139,7 +139,7 @@ namespace BookingApp.DTO {
         public int JustTime {
             get { return _justTime; }
             set {
-                if(_justTime != value) {
+                if (_justTime != value) {
                     _justTime = value;
                     OnPropertyChanged();
                 }
@@ -159,7 +159,7 @@ namespace BookingApp.DTO {
             }
         }
         private bool _isFinished;
-        public bool IsFinished{
+        public bool IsFinished {
             get {
                 return _isFinished;
             }
@@ -173,7 +173,7 @@ namespace BookingApp.DTO {
 
         private int _guideId;
         public int GuideId {
-            get { return _guideId; } 
+            get { return _guideId; }
             set {
                 if (_guideId != value) {
                     _guideId = value;
