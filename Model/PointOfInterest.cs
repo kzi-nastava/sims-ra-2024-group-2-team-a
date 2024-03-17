@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookingApp.Serializer;
+using System;
 
 namespace BookingApp.Model {
-    public class PointOfInterest : BookingApp.Serializer.ISerializable {
+    public class PointOfInterest : ISerializable, IIdentifiable {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsChecked { get; set; }
-        public int TourId {  get; set; }
+        public int TourId { get; set; }
         public PointOfInterest() { }
 
         public PointOfInterest(int id, string name, string description, bool isChecked, int tourId) {
@@ -45,7 +41,7 @@ namespace BookingApp.Model {
             Name = values[1];
             Description = values[2];
             IsChecked = bool.Parse(values[3]);
-            TourId= Convert.ToInt32(values[4]);
+            TourId = Convert.ToInt32(values[4]);
         }
     }
 }
