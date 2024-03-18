@@ -5,9 +5,13 @@ using System.Linq;
 
 namespace BookingApp.Repository {
     public class PassengerRepository : Repository<Passenger> {
-        public List<Passenger> GetUnJoined(int tourId) {
+        public List<Passenger> GetUnJoined(List<TourReservation> reservations) {
             _items = _serializer.FromCSV();
-            return _items.FindAll(x => x.TourReservationId == tourId && x.JoinedPointOfInterestId == -1);
+            List<int> ids = new List<int>();
+            foreach (var reservatuon in reservations) {
+                ids.Add(reservatuon.Id);
+            }
+            return _items.FindAll(x => ids.Contains(x.TourReservationId) && x.JoinedPointOfInterestId == -1);
         }
     }
 }

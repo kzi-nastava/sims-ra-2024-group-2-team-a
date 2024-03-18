@@ -16,9 +16,9 @@ namespace BookingApp.Model {
 
         public Passenger() { }
 
-        public Passenger(int id, int tourId, string name, string surname, int age, int joinedId, int userId) {
+        public Passenger(int id, int tourReservationId, string name, string surname, int age, int joinedId, int userId) {
             Id = id;
-            TourReservationId = tourId;
+            TourReservationId = tourReservationId;
             Name = name;
             Surname = surname;
             Age = age;

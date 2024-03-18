@@ -1,4 +1,5 @@
 ﻿using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Repository;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ namespace BookingApp.View.TabletView {
         private int _tourId;
         private int _pointOfInterestId;
         private readonly PassengerRepository _passengerRepository;
+        private readonly TourReservationRepository _tourReservationRepository;
 
         public PassengerDTO passengerDTO { get; set; }
         public ObservableCollection<PassengerDTO> passengerDTOs { get; set; }
@@ -23,6 +25,7 @@ namespace BookingApp.View.TabletView {
             _tourId = tourID;
             _pointOfInterestId = pointOfInterestId;
             _passengerRepository = new PassengerRepository();
+            _tourReservationRepository = new TourReservationRepository();
             Load();
         }
 
@@ -53,7 +56,8 @@ namespace BookingApp.View.TabletView {
         private void Load() {
             passengerDTOs = new ObservableCollection<PassengerDTO>();
             joinedPassengerDTOs = new List<PassengerDTO>();
-            foreach (var passenger in _passengerRepository.GetUnJoined(_tourId)) {
+            List<TourReservation> reservations = _tourReservationRepository.GetByTourId(_tourId);
+            foreach (var passenger in _passengerRepository.GetUnJoined(reservations)) {
                 passengerDTOs.Add(new PassengerDTO(passenger));
             }
         }

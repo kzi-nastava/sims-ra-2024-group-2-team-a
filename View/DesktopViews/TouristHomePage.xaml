@@ -135,7 +135,8 @@
                                     <Border Grid.Column="2"
                                             BorderBrush="Black" 
                                             BorderThickness="1">
-                                        <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                                                   TextWrapping="Wrap"/>
                                     </Border>
                                     <StackPanel Grid.Column="3" Margin="10">
                                         <Border Background="#2E3440"
