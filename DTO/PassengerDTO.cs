@@ -14,7 +14,7 @@ namespace BookingApp.DTO {
         }
         public PassengerDTO(Passenger p) {
             Id = p.Id;
-            TourId = p.TourReservationId;
+            TourReservationId = p.TourReservationId;
             Name = p.Name;
             Surname = p.Surname;
             Age = p.Age;
@@ -35,14 +35,14 @@ namespace BookingApp.DTO {
                 }
             }
         }
-        private int _tourId;
-        public int TourId {
+        private int _tourReservationId;
+        public int TourReservationId {
             get {
-                return _tourId;
+                return _tourReservationId;
             }
             set {
-                if (_tourId != value) {
-                    _tourId = value;
+                if (_tourReservationId != value) {
+                    _tourReservationId = value;
                     OnPropertyChanged();
                 }
             }
@@ -124,7 +124,7 @@ namespace BookingApp.DTO {
         }
 
         public Passenger ToModel() {
-            return new Passenger(Id, TourId, Name, Surname, Age, JoinedPointOfInterestId, UserId);
+            return new Passenger(Id, TourReservationId, Name, Surname, Age, JoinedPointOfInterestId, UserId);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

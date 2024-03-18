@@ -14,6 +14,11 @@ namespace BookingApp.Repository {
             tourRepository.Update(selectedTour);
         }
 
+        public List<TourReservation> GetByTourId(int tourId) {
+            _items = _serializer.FromCSV();
+            return _items.FindAll(x => x.TourId == tourId);
+        }
+
         public int MakeReservation(int userId, TourDTO selectedTour, List<PassengerDTO> passengers) {
             PassengerRepository passengerRepository = new PassengerRepository();
             TourRepository tourRepository = new TourRepository();
