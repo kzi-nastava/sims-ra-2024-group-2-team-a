@@ -3,6 +3,7 @@ using BookingApp.Model;
 using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Documents;
 
 namespace BookingApp.Repository {
     public class TourReservationRepository : Repository<TourReservation> {
@@ -19,11 +20,19 @@ namespace BookingApp.Repository {
             return _items.FindAll(x => x.TourId == tourId);
         }
 
+        private int UpdatePassengerNumber(TourReservation reservation, List<PassengerDTO> passengers, PassengerRepository passengerRepository) {
+            int addedPassengersNumber = 0;
+            foreach (var passenger in passengers) {
+                passengerRepository.Save(new Passenger(reservation.Id, passenger));
+                addedPassengersNumber++;
+            }
+            return addedPassengersNumber;
+        }
+
         public int MakeReservation(int userId, TourDTO selectedTour, List<PassengerDTO> passengers) {
             PassengerRepository passengerRepository = new PassengerRepository();
             TourRepository tourRepository = new TourRepository();
 
-            int addedPassengersNumber = 0;
             int availableSpace = tourRepository.GetAvailableSpace(selectedTour);
 
             if (tourRepository.GetAvailableSpace(selectedTour) == 0)
@@ -34,12 +43,7 @@ namespace BookingApp.Repository {
 
             TourReservation reservation = new TourReservation(userId, selectedTour.Id);
             Save(reservation);
-            foreach (var passenger in passengers) {
-                passengerRepository.Save(new Passenger(reservation.Id, passenger));
-                addedPassengersNumber++;
-            }
-
-            FillTourCapacity(selectedTour.Id, addedPassengersNumber);
+            FillTourCapacity(selectedTour.Id, UpdatePassengerNumber(reservation, passengers, passengerRepository));
 
             return 0;
         }
