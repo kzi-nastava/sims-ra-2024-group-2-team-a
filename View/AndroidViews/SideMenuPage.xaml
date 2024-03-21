@@ -17,11 +17,12 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Button Click="AccommodationsButton_Click" Grid.Row="0">
+        <Button Click="AccommodationsButton_Click" Grid.Row="0" Background="Transparent">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2,2,2,0">
+                    <Border BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Accommodations and" FontSize="16" HorizontalAlignment="Center"/>
                             <TextBlock Text="Statistics" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -31,10 +32,10 @@
             </Button.Template>
         </Button>
 
-        <Button Click="InboxButton_Click" Grid.Row="1">
+        <Button Click="InboxButton_Click" Grid.Row="1" Background="Transparent">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2,2,2,0">
+                    <Border BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Inbox" FontSize="16" HorizontalAlignment="Center"/>
                         </StackPanel>
@@ -43,10 +44,10 @@
             </Button.Template>
         </Button>
 
-        <Button Click="ReservationsButton_Click" Grid.Row="2">
+        <Button Click="ReservationsButton_Click" Grid.Row="2" Background="Transparent">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2,2,2,0">
+                    <Border BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Reservations" FontSize="16" HorizontalAlignment="Center"/>
                         </StackPanel>
@@ -55,10 +56,10 @@
             </Button.Template>
         </Button>
 
-        <Button Click="RenovationsButton_Click" Grid.Row="3">
+        <Button Click="RenovationsButton_Click" Grid.Row="3" Background="Transparent">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2,2,2,2">
+                    <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="{TemplateBinding Background}">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Renovations" FontSize="16" HorizontalAlignment="Center"/>
                         </StackPanel>
@@ -66,5 +67,19 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+
+        <Button Click="LogOutButton_Click" Grid.Row="7" Background="Transparent">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="{TemplateBinding Background}">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Text="Log out" FontSize="16" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+
     </Grid>
 </Page>

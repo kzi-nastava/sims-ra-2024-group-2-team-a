@@ -6,16 +6,20 @@
         xmlns:local="clr-namespace:BookingApp.View.AndroidViews"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="700" Width="430">
+        Title="MainWindow" Height="750" Width="430">
     <Window.Resources>
-        <BitmapImage x:Key="AddIcon" UriSource="../../Resources/Images/hamburger.png"/>
+        <BitmapImage x:Key="HamburgerIcon" UriSource="../../Resources/Images/hamburger.png"/>
         <BitmapImage x:Key="HelpIcon" UriSource="../../Resources/Images/help.png"/>
+        <BitmapImage x:Key="BackIcon" UriSource="../../Resources/Images/android-back-icon.png"/>
+        <BitmapImage x:Key="HomeIcon" UriSource="../../Resources/Images/android-home-icon.png"/>
+        <BitmapImage x:Key="MenuIcon" UriSource="../../Resources/Images/android-menu-icon.png"/>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
@@ -27,18 +31,34 @@
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="10,0,0,0">
-                <Button Width="40" Height="40" Click="HamburgerButton_Click">
-                    <Image Source="{StaticResource AddIcon}"/>
+                <Button Width="40" Height="40" Click="HamburgerButton_Click" Background="Transparent" BorderBrush="Transparent">
+                    <Image Source="{StaticResource HamburgerIcon}"/>
                 </Button>
-                <Label x:Name="HeaderLabel" Content="My accomodations and statistics" VerticalAlignment="Center" FontWeight="Regular" FontSize="16" FontFamily="Global Sans Serif" Margin="10,0,0,0" />
+                <Label x:Name="HeaderLabel" Content="My accommodations and statistics" VerticalAlignment="Center" FontWeight="Regular" FontSize="16" FontFamily="Global Sans Serif" Margin="10,0,0,0" />
             </StackPanel>
-            <Button Grid.Column="1" Height="40" Width="40">
+            <Button Grid.Column="1" Height="40" Width="40" Background="Transparent" BorderBrush="Transparent">
                 <Image Source="{StaticResource HelpIcon}"/>
             </Button>
         </Grid>
         <Frame x:Name="mainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <Frame x:Name="sideFrame" Grid.Column="0" Grid.RowSpan="2" NavigationUIVisibility="Hidden" Panel.ZIndex="1000"/>
+        <Frame x:Name="sideFrame"  Grid.Row="0"  Grid.Column="0" Grid.RowSpan="2" NavigationUIVisibility="Hidden" Panel.ZIndex="1000"/>
         <Frame x:Name="smallNotificationFrame" Grid.Column="1" Grid.Row="1" Height="40" Width="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,10,0"
                NavigationUIVisibility="Hidden" Panel.ZIndex="1000"/>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="LightSkyBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Width="50" Background="Transparent" BorderBrush="Transparent">
+                <Image Source="{StaticResource BackIcon}" Stretch="UniformToFill" Height="35" Width="35"/>
+            </Button>
+            <Button Grid.Column="1" Width="50" Background="Transparent" BorderBrush="Transparent" Click="HomeButton_Click">
+                <Image Source="{StaticResource HomeIcon}" Stretch="UniformToFill" Height="35" Width="35"/>
+            </Button>
+            <Button Grid.Column="2" Width="50" Background="Transparent" BorderBrush="Transparent" Click="HamburgerButton_Click">
+                <Image Source="{StaticResource MenuIcon}" Height="35" Width="35" Stretch="UniformToFill"/>
+            </Button>
+        </Grid>
     </Grid>
 </Window>

@@ -53,5 +53,11 @@ namespace BookingApp.View.AndroidViews {
             SideFrame.Content = null;
             HeaderLabel.Content = "Renovations";
         }
+
+        private void LogOutButton_Click(object sender, RoutedEventArgs e) {
+            SignInForm signInForm = new SignInForm();
+            Window.GetWindow(this).Close();
+            signInForm.ShowDialog();
+        }
     }
 }

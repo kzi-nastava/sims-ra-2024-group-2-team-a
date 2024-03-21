@@ -11,6 +11,9 @@
     <None Remove="Resources\Images\account.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\add2.png" />
+    <None Remove="Resources\Images\android-back-icon.png" />
+    <None Remove="Resources\Images\android-home-icon.png" />
+    <None Remove="Resources\Images\android-menu-icon.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\hamburger.png" />
@@ -64,6 +67,9 @@
   <ItemGroup>
     <Resource Include="Resources\Images\account.png" />
     <Resource Include="Resources\Images\add2.png" />
+    <Resource Include="Resources\Images\android-back-icon.png" />
+    <Resource Include="Resources\Images\android-home-icon.png" />
+    <Resource Include="Resources\Images\android-menu-icon.png" />
     <Resource Include="Resources\Images\hamburger.png" />
     <Resource Include="Resources\Images\help.png" />
     <Resource Include="Resources\Images\home.png" />

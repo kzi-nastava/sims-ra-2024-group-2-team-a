@@ -29,7 +29,6 @@ namespace BookingApp.View.AndroidViews {
             if (ungradedReservations != 0) {
                 SmallNotificationFrame.Content = new SmallNotificationPage(SmallNotificationFrame, ungradedReservations);
             }
-
         }
 
         public int CheckForNotGradedReservations() {
@@ -63,6 +62,14 @@ namespace BookingApp.View.AndroidViews {
             sideFrame.Content = new SideMenuPage(MainFrame, SideFrame, _user, HeaderLabel);
             mainFrame.IsHitTestVisible = false;
             mainFrame.Opacity = 0.4;
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e) {
+            MainFrame.Content = new AccommodationPage(MainFrame, _user);
+            MainFrame.Opacity = 1;
+            MainFrame.IsHitTestVisible = true;
+            SideFrame.Content = null;
+            HeaderLabel.Content = "My accommodations and statistics";
         }
     }
 }
