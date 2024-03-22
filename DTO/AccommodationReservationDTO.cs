@@ -23,6 +23,8 @@ public class AccommodationReservationDTO : INotifyPropertyChanged {
             EndDate = acc.EndDate;
             AccommodationName = "";
             Graded = false;
+
+            DateString = $"{StartDate} - {EndDate}";
         }
 
         public AccommodationReservationDTO(AccommodationReservationDTO accDTO) {
@@ -35,6 +37,8 @@ public class AccommodationReservationDTO : INotifyPropertyChanged {
             ReservationDays = accDTO.ReservationDays;
             AccommodationName = accDTO.AccommodationName;
             Graded = accDTO.Graded;
+
+            DateString = $"{StartDate} - {EndDate}";
         }
 
         public int Id { get; set; }
@@ -83,6 +87,8 @@ public class AccommodationReservationDTO : INotifyPropertyChanged {
         public string AccommodationName { get; set; }
         public bool Graded { get; set; }
         public int ReservationDays { get; set; }
+
+        public string DateString { get; set; }
 
         public AccommodationReservation ToAccommodationReservation() {
             return new AccommodationReservation();

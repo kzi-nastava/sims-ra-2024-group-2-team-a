@@ -26,5 +26,17 @@ namespace BookingApp.Repository {
             ownerRepository.AdjustSuperOwner(reviewDTO.OwnerId);
         }
 
+        public bool IsGradedByOwner(int reservationId) {
+            Review review = this.GetByReservationId(reservationId);
+            if (review == null) {
+                return false;
+            }
+            if (review.GuestCleannessGrade ==0 || review.RuleFollowingGrade==0) {
+                return false;
+            }
+            return true;
+        }
+
+
     }
 }
