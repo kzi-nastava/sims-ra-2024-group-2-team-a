@@ -68,6 +68,27 @@
             </Button.Template>
         </Button>
 
+        <Border BorderBrush="Black" BorderThickness="2,2,2,0" Grid.Row="6">
+            <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+                <Image Height="45" Width="45" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Source="../../Resources/Images/owner-icon.png"/>
+                <Label x:Name="UsernameLabel" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" FontSize="16" FontWeight="Bold" VerticalAlignment="Top" Padding="0"/>
+                <Label Grid.Column="1" Grid.Row="1" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Content="Average Grade:" Height="25" Padding="0"/>
+
+                <Label x:Name="SuperLabel" Grid.Column="2" Grid.Row="0" FontSize="16" VerticalAlignment="Top" Padding="0" HorizontalAlignment="Left"/>
+                <Label x:Name="AverageGradeLabel"  Grid.Column="2" Grid.Row="2" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Padding="0"/>
+
+            </Grid>
+        </Border>
+
         <Button Click="LogOutButton_Click" Grid.Row="7" Background="Transparent">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
