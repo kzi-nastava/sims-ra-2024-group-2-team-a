@@ -46,7 +46,7 @@ namespace BookingApp.Model {
             GuestComment = "";
         }
 
-        public int Id { get; set; }
+        public int Id { get; set; } = 0;
         public int ReservationId { get; set; }
         public int GuestId { get; set; }
         public int OwnerId { get; set; }
