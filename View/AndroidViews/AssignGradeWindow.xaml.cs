@@ -38,8 +38,8 @@ namespace BookingApp.View.AndroidViews {
             ReviewDTO.GuestId = AccReservationDTO.GuestId;
             ReviewDTO.OwnerId = _ownerId;
             ReviewDTO.ReservationId = AccReservationDTO.Id;
-            Review review = ReviewDTO.ToReview();
-            _reviewRepository.Save(review);
+
+            _reviewRepository.GradeGuest(ReviewDTO);
             _reservationReviewsPage.Update();
             this.Close();
         }

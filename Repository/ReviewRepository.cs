@@ -7,23 +7,36 @@ using System.Linq;
 namespace BookingApp.Repository {
 
     public class ReviewRepository : Repository<Review> {
-
-        override public Review Save(Review item) {
-            Review review = this.GetById(item.Id);
-            if(review == null) {
-                return base.Save(item);
-            }
-
-            base.Update(item);
-            return item;
-        }
-
         public Review GetByReservationId(int id) {
             return _serializer.FromCSV().Find(x => x.ReservationId == id);
         }
 
         public List<Review> GetByOwnerId(int ownerId) {
             return _serializer.FromCSV().Where(review => review.OwnerId == ownerId).ToList();
+        }
+
+        public void GradeGuest(ReviewDTO reviewDTO) {
+            Review review = this.GetByReservationId(reviewDTO.ReservationId);
+            if (review == null) {
+                this.Save(reviewDTO.ToReview());
+                return;
+            }
+
+            review.GuestCleannessGrade = reviewDTO.GuestCleannessGrade;
+            review.RuleFollowingGrade = reviewDTO.RuleFollowingGrade;
+            review.OwnerComment = reviewDTO.OwnerComment;
+            this.Update(review);
+        }
+
+        public bool IsGuestGraded(int reservationId) {
+            Review review = this.GetByReservationId(reservationId);
+            if (review == null) {
+                return false;
+            }
+            if (review.GuestCleannessGrade == 0 || review.RuleFollowingGrade == 0) {
+                return false;
+            }
+            return true;
         }
         
         public void GradeOwner(ReviewDTO reviewDTO) {
