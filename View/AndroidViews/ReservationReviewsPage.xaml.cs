@@ -48,7 +48,7 @@ namespace BookingApp.View.AndroidViews {
                     accResDTO.Graded = false;
                     accResDTO.AccommodationName = acc.Name;
 
-                    if (_reviewRepository.GetByReservationId(accRes.Id) != null) {
+                    if (_reviewRepository.IsGuestGraded(accResDTO.Id)) {
                         accResDTO.Graded = true;
                     }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -9,19 +8,21 @@ using System.Xml.Linq;
 using BookingApp.Serializer;
 
 namespace BookingApp.Model {
-    public class Review : Serializer.ISerializable, IIdentifiable {
-        public Review() {
-            Id = 0;
-            ReservationId = 0;
-            GuestId = 0;
-            OwnerId = 0;
-            GuestCleannessGrade = 0;
-            RuleFollowingGrade = 0;
-            OwnerComment = "";
-            AccommodationCleannessGrade = 0;
-            OwnerCorrectnessGrade = 0;
-            GuestComment = "";
-        }
+    public class Review : ISerializable, IIdentifiable {
+
+        public int Id { get; set; } = 0;
+        public int ReservationId { get; set; } = 0;
+        public int GuestId { get; set; } = 0;
+        public int OwnerId { get; set; } = 0;
+        public int GuestCleannessGrade { get; set; } = 0;
+        public int RuleFollowingGrade { get; set; } = 0;
+        public string OwnerComment { get; set; } = "";
+        public int AccommodationCleannessGrade { get; set; } = 0;
+        public int OwnerCorrectnessGrade { get; set; } = 0;
+        public string GuestComment { get; set; } = "";
+
+        public Review() { }
+
         public Review(int resId, int guestId,int ownerId) {
             ReservationId = resId;
             GuestId = guestId;
@@ -34,28 +35,17 @@ namespace BookingApp.Model {
             GuestComment = "";
         }
 
-        public Review(int resId, int guestId, int ownerId, int guestCleannessGrade, int ruleFollowingGrade, string ownerComment) {
+        public Review(int resId, int guestId, int ownerId, int guestCleannessGrade, int ruleFollowingGrade, string ownerComment, int accommodationCleannessGrade, int ownerCorrectnessGrade, string guestComment) {
             ReservationId = resId;
             GuestId = guestId;
             OwnerId = ownerId;
             GuestCleannessGrade = guestCleannessGrade;
             RuleFollowingGrade = ruleFollowingGrade;
             OwnerComment = ownerComment;
-            AccommodationCleannessGrade = 0;
-            OwnerCorrectnessGrade = 0;
-            GuestComment = "";
+            AccommodationCleannessGrade = accommodationCleannessGrade;
+            OwnerCorrectnessGrade = ownerCorrectnessGrade;
+            GuestComment = guestComment;
         }
-
-        public int Id { get; set; } = 0;
-        public int ReservationId { get; set; }
-        public int GuestId { get; set; }
-        public int OwnerId { get; set; }
-        public int GuestCleannessGrade { get; set; }
-        public int RuleFollowingGrade { get; set; }
-        public string OwnerComment { get; set; }
-        public int AccommodationCleannessGrade { get; set; }
-        public int OwnerCorrectnessGrade { get; set; }
-        public string GuestComment { get; set; }
 
         public string[] ToCSV() {
             string[] csvValues = {

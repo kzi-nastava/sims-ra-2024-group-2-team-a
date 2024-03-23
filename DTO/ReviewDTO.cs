@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 namespace BookingApp.DTO
 {
     public class ReviewDTO: INotifyPropertyChanged {
+        
         public ReviewDTO() { }
+
         public ReviewDTO(Review review) {
             Id = review.Id;
             ReservationId = review.ReservationId;
@@ -23,6 +25,7 @@ namespace BookingApp.DTO
             OwnerCorrectnessGrade = review.OwnerCorrectnessGrade;
             GuestComment = review.GuestComment;
         }
+
         public int Id { get; set; }
         public int ReservationId { get; set; }
         public int GuestId { get; set; }
@@ -106,9 +109,8 @@ namespace BookingApp.DTO
             }
         }
 
-
         public Review ToReview() {
-            return new Review(ReservationId, GuestId, OwnerId, GuestCleannessGrade, RuleFollowingGrade, OwnerComment);
+            return new Review(ReservationId, GuestId, OwnerId, GuestCleannessGrade, RuleFollowingGrade, OwnerComment, AccommodationCleannessGrade, OwnerCorrectnessGrade, GuestComment);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
