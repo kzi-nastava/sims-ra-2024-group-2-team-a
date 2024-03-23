@@ -1,0 +1,72 @@
+﻿<Page x:Class="BookingApp.View.AndroidViews.NotificationsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.AndroidViews"
+      xmlns:converters="clr-namespace:BookingApp.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="624" d:DesignWidth="430"
+      Title="NotificationsPage">
+    <Page.Resources>
+        <converters:DateTimeToStringConverter x:Key="DateTimeConverter"/>
+    </Page.Resources>
+        <Grid Background="LightBlue">
+        
+        <Border Height="584" Width="390" BorderBrush="Black" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0">
+                    <Label Content="All messages" BorderBrush="Black" BorderThickness="0,0,0,1" Padding="0" Margin="10,0,0,5" FontSize="26" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <Label Content="(5)" Padding="0" Margin="5,0,0,5" FontSize="26" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+                <Button Grid.Row="3" Width="160" Height="50" Content="Mark all as read" FontSize="20" Click="MarkReadButton_Click"/>
+
+                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
+                    <ScrollViewer Width="390" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalScrollBarVisibility="Hidden">
+                        <ItemsControl Margin="5" Height="900" ItemsSource="{Binding NotificationDTOs}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#FFFCF5" BorderBrush="Black" BorderThickness="1" Height="80" CornerRadius="20">
+                                        <Grid Margin="5" VerticalAlignment="Center">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="60"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image Source="{Binding NotificationIcon}" Grid.Column="0" Height="50" Width="50" SnapsToDevicePixels="True"
+                                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                                            <StackPanel Grid.Column ="1" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Vertical"  Height="70">
+                                                <TextBlock Text="{Binding Message}"  Height="50" FontSize="13" FontFamily="Global Sans Serif" Foreground="Black"
+                                            TextWrapping="Wrap" Padding="0"/>
+                                                <Label Content="{Binding CreationDate, Converter={StaticResource DateTimeConverter}}" FontSize="12" FontFamily="Global Sans Serif"
+                                                       Height="20" Padding="0"/>
+                                            </StackPanel>
+
+                                            <Border Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <CheckBox Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"
+                                                    IsChecked="{Binding IsRead}" FontSize="24">
+                                                    <CheckBox.LayoutTransform>
+                                                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                                    </CheckBox.LayoutTransform>
+                                                </CheckBox>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+
+
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

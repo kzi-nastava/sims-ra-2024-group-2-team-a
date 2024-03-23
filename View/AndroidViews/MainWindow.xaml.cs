@@ -15,6 +15,8 @@ namespace BookingApp.View.AndroidViews {
 
         public Frame SmallNotificationFrame { get; set; }
 
+        private readonly NotificationRepository _notificationRepository;
+
         private readonly User _user;
         public MainWindow(User user) {
             InitializeComponent();
@@ -24,10 +26,14 @@ namespace BookingApp.View.AndroidViews {
             MainFrame.Content = new AccommodationPage(MainFrame, _user);
             SideFrame.Content = null;
             SmallNotificationFrame = smallNotificationFrame;
+            _notificationRepository = new NotificationRepository();
 
             int ungradedReservations = CheckForNotGradedReservations();
             if (ungradedReservations != 0) {
-                SmallNotificationFrame.Content = new SmallNotificationPage(SmallNotificationFrame, ungradedReservations);
+                //SmallNotificationFrame.Content = new SmallNotificationPage(SmallNotificationFrame, ungradedReservations);
+                string message = $"You have {ungradedReservations} ungraded reservations. Navigate to reservations tab to grade them!";
+                Notification notification = new Notification(message,NotificationCategory.Review,user.Id,DateTime.Now,false);
+                _notificationRepository.Save(notification);
             }
         }
 
