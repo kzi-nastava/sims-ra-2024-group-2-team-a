@@ -26,7 +26,7 @@
                         
                     </Button>
 
-                    <Button Grid.Row="0" Grid.Column="2" Width="120" Height="40" Content="View Guest Grade">
+                    <Button x:Name="ViewGradeButton" Grid.Row="0" Grid.Column="2" Width="120" Height="40" Content="View Guest Grade" Click="ViewGradeButton_Click">
                         </Button>
 
                     <ListView ItemsSource="{Binding ReservationCollection, UpdateSourceTrigger=PropertyChanged}"

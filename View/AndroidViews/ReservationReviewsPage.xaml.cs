@@ -70,6 +70,8 @@ namespace BookingApp.View.AndroidViews {
                 AssignGradeButton.IsEnabled = true;
             else
                 AssignGradeButton.IsEnabled = false;
+
+            ViewGradeButton.IsEnabled = true;
         }
 
         private void AssignGradeButton_Click(object sender, RoutedEventArgs e) {
@@ -80,6 +82,19 @@ namespace BookingApp.View.AndroidViews {
                 AssignGradeButton.IsEnabled = true;
                 AssignGradeWindow assignGradeWindow = new AssignGradeWindow(SelectedReservation, _user.Id, this);
                 assignGradeWindow.ShowDialog();
+            }
+        }
+
+        private void ViewGradeButton_Click(object sender, RoutedEventArgs e) {
+            if (SelectedReservation == null) {
+                ViewGradeButton.IsEnabled = false;
+            }
+            else if(!_reviewRepository.IsGradedByOwner(SelectedReservation.Id)){
+                MessageBox.Show("You must grade this reservation first!","View guest grade",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+            else {
+                ViewGuestGradeWindow viewGuestGradeWindow = new ViewGuestGradeWindow(SelectedReservation);
+                viewGuestGradeWindow.ShowDialog();
             }
         }
     }

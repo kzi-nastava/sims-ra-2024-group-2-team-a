@@ -1,4 +1,6 @@
 ﻿using BookingApp.Model;
+using BookingApp.Repository;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,6 +22,21 @@ namespace BookingApp.View.AndroidViews {
             SideFrame = sideFrame;
             _user = user;
             HeaderLabel = label;
+            UsernameLabel.Content = user.Username;
+            SetAverageAndSuperLabels(user.Id);
+        }
+
+        private void SetAverageAndSuperLabels(int userId) {
+            OwnerRepository ownerRepository = new OwnerRepository();
+            Owner owner = ownerRepository.GetByUserId(userId);
+            AverageGradeLabel.Content = owner.AverageGrade.ToString();
+            if (owner.IsSuper) {
+                SuperLabel.Content = "Super";
+            }
+            else {
+                SuperLabel.Content = "Normal";
+            }
+
         }
 
         private void AccommodationsButton_Click(object sender, RoutedEventArgs e) {

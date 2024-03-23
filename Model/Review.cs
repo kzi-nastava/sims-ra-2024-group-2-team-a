@@ -9,7 +9,7 @@ using System.Xml.Linq;
 using BookingApp.Serializer;
 
 namespace BookingApp.Model {
-    public class Review : Serializer.ISerializable {
+    public class Review : Serializer.ISerializable, IIdentifiable {
         public Review() {
             Id = 0;
             ReservationId = 0;

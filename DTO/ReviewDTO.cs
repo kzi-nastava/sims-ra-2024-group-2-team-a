@@ -66,9 +66,45 @@ namespace BookingApp.DTO
                 }
             }
         }
-        public int AccommodationCleannessGrade { get; set; }
-        public int OwnerCorrectnessGrade { get; set; }
-        public string GuestComment { get; set; }
+
+        private int _accommodationCleanness;
+        public int AccommodationCleannessGrade {
+            get {
+                return _accommodationCleanness;
+            }
+            set {
+                if (value != _accommodationCleanness) {
+                    _accommodationCleanness = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _ownerCorrectness;
+        public int OwnerCorrectnessGrade {
+            get {
+                return _ownerCorrectness;
+            }
+            set {
+                if (value != _ownerCorrectness) {
+                    _ownerCorrectness = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _guestComment;
+        public string GuestComment {
+            get {
+                return _guestComment;
+            }
+            set {
+                if (value != _guestComment) {
+                    _guestComment = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
         public Review ToReview() {

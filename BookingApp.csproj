@@ -20,6 +20,7 @@
     <None Remove="Resources\Images\help.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\live.png" />
+    <None Remove="Resources\Images\owner-icon.png" />
     <None Remove="Resources\Images\request.png" />
     <None Remove="Resources\Images\reservations.png" />
     <None Remove="Resources\Images\reviews.png" />
@@ -74,6 +75,7 @@
     <Resource Include="Resources\Images\help.png" />
     <Resource Include="Resources\Images\home.png" />
     <Resource Include="Resources\Images\live.png" />
+    <Resource Include="Resources\Images\owner-icon.png" />
     <Resource Include="Resources\Images\request.png" />
     <Resource Include="Resources\Images\reservations.png" />
     <Resource Include="Resources\Images\reviews.png" />
