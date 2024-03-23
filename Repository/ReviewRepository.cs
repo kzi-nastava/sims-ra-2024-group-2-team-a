@@ -47,13 +47,14 @@ namespace BookingApp.Repository {
 
             Review review = this.GetByReservationId(reviewDTO.ReservationId);
             if (review == null) {
-                review = new Review(reviewDTO.ReservationId, reviewDTO.GuestId, reviewDTO.OwnerId);
+                this.Save(reviewDTO.ToReview());
+                return;
             }
-            
-            review.AccommodationCleannessGrade = reviewDTO.AccommodationCleannessGrade;
-            review.OwnerCorrectnessGrade = reviewDTO.OwnerCorrectnessGrade;
 
-            this.Save(review);
+            review.OwnerCorrectnessGrade = reviewDTO.OwnerCorrectnessGrade;
+            review.AccommodationCleannessGrade = reviewDTO.AccommodationCleannessGrade;
+            review.GuestComment = reviewDTO.GuestComment;
+            this.Update(review);
 
             OwnerRepository ownerRepository = new OwnerRepository();
             ownerRepository.AdjustSuperOwner(reviewDTO.OwnerId);
