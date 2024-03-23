@@ -44,5 +44,17 @@ namespace BookingApp.View.AndroidViews {
         private void AddAccomodation_Click(object sender, RoutedEventArgs e) {
             mainFrame.Content = new AddAccommodationPage(mainFrame, _user);
         }
+
+        private void RenovationsButton_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void StatisticsButton_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void GuidanceButton_Click(object sender, RoutedEventArgs e) {
+
+        }
     }
 }

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\account.png" />
+    <None Remove="Resources\Images\add-icon3.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\add2.png" />
     <None Remove="Resources\Images\android-back-icon.png" />
@@ -16,15 +17,18 @@
     <None Remove="Resources\Images\android-menu-icon.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\guidance-icon.png" />
     <None Remove="Resources\Images\hamburger.png" />
     <None Remove="Resources\Images\help.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\owner-icon.png" />
+    <None Remove="Resources\Images\renovation-icon.png" />
     <None Remove="Resources\Images\request.png" />
     <None Remove="Resources\Images\reservations.png" />
     <None Remove="Resources\Images\reviews.png" />
     <None Remove="Resources\Images\sheraton.jpg" />
+    <None Remove="Resources\Images\statistics-icon.png" />
     <None Remove="Resources\Images\stats.png" />
     <None Remove="Resources\Images\Tours\Buda1.jpg" />
     <None Remove="Resources\Images\Tours\Buda2.jpg" />
@@ -67,19 +71,23 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\account.png" />
+    <Resource Include="Resources\Images\add-icon3.png" />
     <Resource Include="Resources\Images\add2.png" />
     <Resource Include="Resources\Images\android-back-icon.png" />
     <Resource Include="Resources\Images\android-home-icon.png" />
     <Resource Include="Resources\Images\android-menu-icon.png" />
+    <Resource Include="Resources\Images\guidance-icon.png" />
     <Resource Include="Resources\Images\hamburger.png" />
     <Resource Include="Resources\Images\help.png" />
     <Resource Include="Resources\Images\home.png" />
     <Resource Include="Resources\Images\live.png" />
     <Resource Include="Resources\Images\owner-icon.png" />
+    <Resource Include="Resources\Images\renovation-icon.png" />
     <Resource Include="Resources\Images\request.png" />
     <Resource Include="Resources\Images\reservations.png" />
     <Resource Include="Resources\Images\reviews.png" />
     <Resource Include="Resources\Images\sheraton.jpg" />
+    <Resource Include="Resources\Images\statistics-icon.png" />
     <Resource Include="Resources\Images\stats.png" />
     <Resource Include="Resources\Images\Tours\Buda1.jpg" />
     <Resource Include="Resources\Images\Tours\Buda2.jpg" />
