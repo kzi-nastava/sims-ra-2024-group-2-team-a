@@ -88,6 +88,9 @@ namespace BookingApp.DTO {
             if (Category == NotificationCategory.Review) {
                 NotificationIcon += "notification-review-icon.png";
             }
+            if (Category == NotificationCategory.Request) {
+                NotificationIcon += "notification-request-icon.png";
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
