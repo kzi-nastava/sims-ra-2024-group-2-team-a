@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository {
     public class RescheduleRequestRepository: Repository<RescheduleRequest> {
-        public List<RescheduleRequest> GetRequestsByOwnerId(int ownerId) {
-            return this.GetAll().FindAll(x => x.OwnerId == ownerId);
+        public List<RescheduleRequest> GetSortedRequestsByOwnerId(int ownerId) {
+            List<RescheduleRequest> requests = this.GetAll().FindAll(x => x.OwnerId == ownerId);
+            return requests.OrderBy(x => x.Status).ToList();
         }
 
         public List<RescheduleRequest> GetPendingRequestsByOwnerId(int ownerId)
