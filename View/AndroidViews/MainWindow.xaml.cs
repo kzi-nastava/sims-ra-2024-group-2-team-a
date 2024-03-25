@@ -28,11 +28,24 @@ namespace BookingApp.View.AndroidViews {
             SmallNotificationFrame = smallNotificationFrame;
             _notificationRepository = new NotificationRepository();
 
+            CreateNotifications();
+        }
+
+        public void CreateNotifications() {
+            RescheduleRequestRepository rescheduleRequestRepository = new RescheduleRequestRepository();
+
             int ungradedReservations = CheckForNotGradedReservations();
+            int pendingRescheduleRequests = rescheduleRequestRepository.GetPendingRequestsByOwnerId(_user.Id).Count;
+
             if (ungradedReservations != 0) {
                 //SmallNotificationFrame.Content = new SmallNotificationPage(SmallNotificationFrame, ungradedReservations);
                 string message = $"You have {ungradedReservations} ungraded reservations. Navigate to reservations tab to grade them!";
-                Notification notification = new Notification(message,NotificationCategory.Review,user.Id,DateTime.Now,false);
+                Notification notification = new Notification(message, NotificationCategory.Review, _user.Id, DateTime.Now, false);
+                _notificationRepository.Save(notification);
+            }
+            if (pendingRescheduleRequests > 0) {
+                string message = $"You have {pendingRescheduleRequests} pending reschedule requests. Navigate to reservations/requests tab to accept/decline them!";
+                Notification notification = new Notification(message, NotificationCategory.Request, _user.Id, DateTime.Now, false);
                 _notificationRepository.Save(notification);
             }
         }

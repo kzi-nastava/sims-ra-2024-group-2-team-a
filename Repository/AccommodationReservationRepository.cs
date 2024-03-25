@@ -84,5 +84,15 @@ namespace BookingApp.Repository {
 
             return false;
         }
+
+        public bool CheckAccommodationAvailability(int accommodationId, DateOnly startDate, DateOnly endDate) {
+            foreach (var r in this.GetByAccommodationId(accommodationId)) {
+                if (!(r.StartDate >= endDate || startDate >= r.EndDate))
+                    return false;
+            }
+
+            return true;
+        }
+
     }
 }

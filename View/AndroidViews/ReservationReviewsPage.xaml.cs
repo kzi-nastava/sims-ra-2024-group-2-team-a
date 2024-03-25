@@ -3,6 +3,7 @@ using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.ObjectModel;
+using System.Security.AccessControl;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,11 +19,14 @@ namespace BookingApp.View.AndroidViews {
 
         private AccommodationRepository _accommodationRepository;
 
+        private RescheduleRequestRepository _rescheduleRequestRepository;
+
         private User _user;
 
         public ObservableCollection<AccommodationReservationDTO> ReservationCollection { get; set; }
+        public ObservableCollection<RescheduleRequestDTO> RescheduleRequestDTOs { get; set; }
         public AccommodationReservationDTO SelectedReservation { get; set; }
-
+        public RescheduleRequestDTO SelectedRequest { get; set; }
         public ReservationReviewsPage(User user) {
             InitializeComponent();
             this.DataContext = this;
@@ -32,14 +36,17 @@ namespace BookingApp.View.AndroidViews {
             _accommodationReservationRepository = new AccommodationReservationRepository();
             _reviewRepository = new ReviewRepository();
             _accommodationRepository = new AccommodationRepository();
+            _rescheduleRequestRepository = new RescheduleRequestRepository();
 
             ReservationCollection = new ObservableCollection<AccommodationReservationDTO>();
+            RescheduleRequestDTOs = new ObservableCollection<RescheduleRequestDTO>();
 
             Update();
         }
 
         public void Update() {
             ReservationCollection.Clear();
+            RescheduleRequestDTOs.Clear();
 
             foreach (var acc in _accommodationRepository.GetByOwnerId(_user.Id)) {
                 foreach (var accRes in _accommodationReservationRepository.GetByAccommodationId(acc.Id)) {
@@ -54,6 +61,17 @@ namespace BookingApp.View.AndroidViews {
 
                     ReservationCollection.Add(accResDTO);
                 }
+            }
+
+            foreach (RescheduleRequest request in _rescheduleRequestRepository.GetPendingRequestsByOwnerId(_user.Id)) {
+                RescheduleRequestDTO rescheduleRequestDTO = new RescheduleRequestDTO(request);
+                AccommodationReservation accommodationReservation = _accommodationReservationRepository.GetById(request.ReservationId);
+
+                rescheduleRequestDTO.SetDates(accommodationReservation.EndDate);
+                rescheduleRequestDTO.AccommodationName = _accommodationRepository.GetById(accommodationReservation.AccommodationId).Name;
+                rescheduleRequestDTO.IsAvailable = 
+                    _accommodationReservationRepository.CheckAccommodationAvailability(accommodationReservation.AccommodationId, rescheduleRequestDTO.NewStartDate, rescheduleRequestDTO.NewEndDate);
+                RescheduleRequestDTOs.Add(rescheduleRequestDTO);
             }
         }
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -96,6 +114,34 @@ namespace BookingApp.View.AndroidViews {
                 ViewGuestGradeWindow viewGuestGradeWindow = new ViewGuestGradeWindow(SelectedReservation);
                 viewGuestGradeWindow.ShowDialog();
             }
+        }
+
+        private void Decline_Click(object sender, RoutedEventArgs e) {
+            if (SelectedRequest == null)
+                return;
+
+            RescheduleRequestDeclineWindow rescheduleRequestDeclineWindow = new RescheduleRequestDeclineWindow(SelectedRequest);
+            rescheduleRequestDeclineWindow.ShowDialog();
+            this.Update();
+        }
+
+        private void Accept_Click(object sender, RoutedEventArgs e) {
+            if (SelectedRequest == null)
+                return;
+
+            AccommodationReservation accommodationReservation = _accommodationReservationRepository.GetById(SelectedRequest.ReservationId);
+            accommodationReservation.StartDate = SelectedRequest.NewStartDate;
+            accommodationReservation.EndDate = SelectedRequest.NewEndDate;
+            _accommodationReservationRepository.Update(accommodationReservation);
+
+            RescheduleRequest rescheduleRequest = SelectedRequest.ToRescheduleRequest();
+            rescheduleRequest.Status = RescheduleRequestStatus.Approved;
+            _rescheduleRequestRepository.Update(rescheduleRequest);
+            this.Update();
+        }
+
+        private void RequestsList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
         }
     }
 }
