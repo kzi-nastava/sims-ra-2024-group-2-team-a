@@ -12,7 +12,7 @@ namespace BookingApp.DTO {
 
         public RescheduleRequestDTO() {}
 
-        public RescheduleRequestDTO(RescheduleRequestStatus status, int reservationId, int guestId, int ownerId, DateOnly oldStartDate, DateOnly newStartDate, string ownerComment) {
+        public RescheduleRequestDTO(RescheduleRequestStatus status, int reservationId, int guestId, int ownerId, DateOnly oldStartDate, DateOnly newStartDate, int duration , string ownerComment) {
             Status = status;
             ReservationId = reservationId;
             GuestId = guestId;
@@ -20,6 +20,7 @@ namespace BookingApp.DTO {
             OldStartDate = oldStartDate;
             NewStartDate = newStartDate;
             OwnerComment = ownerComment;
+            Duration = duration;
         }
 
         public RescheduleRequestDTO(RescheduleRequest rescheduleRequest) {
@@ -31,6 +32,7 @@ namespace BookingApp.DTO {
             OldStartDate = rescheduleRequest.OldStartDate;
             NewStartDate = rescheduleRequest.NewStartDate;
             OwnerComment = rescheduleRequest.OwnerComment;
+            Duration = rescheduleRequest.ReservationDuration;
         }
 
         private int _id;
@@ -217,16 +219,18 @@ namespace BookingApp.DTO {
             }
         }
 
-        public void SetDates(DateOnly oldEndDate) {
-            int reservationDuration = oldEndDate.DayNumber - OldStartDate.DayNumber;
-            NewEndDate = NewStartDate.AddDays(reservationDuration);
+        public int Duration;
+
+        public void SetDates() {
+            NewEndDate = NewStartDate.AddDays(Duration);
+            DateOnly oldEndDate = OldStartDate.AddDays(Duration);
 
             OldDates = OldStartDate.ToString("dd-MM-yyyy") + "\n" + oldEndDate.ToString("dd-MM-yyyy");
             NewDates = NewStartDate.ToString("dd-MM-yyyy") + "\n" + NewEndDate.ToString("dd-MM-yyyy");
         }
 
         public RescheduleRequest ToRescheduleRequest() {
-            RescheduleRequest rescheduleRequest = new RescheduleRequest(Status, ReservationId, GuestId, OwnerId, OldStartDate, NewStartDate, OwnerComment);
+            RescheduleRequest rescheduleRequest = new RescheduleRequest(Status, ReservationId, GuestId, OwnerId, OldStartDate, NewStartDate, Duration ,OwnerComment);
             rescheduleRequest.Id = this.Id;
             return rescheduleRequest;
         }

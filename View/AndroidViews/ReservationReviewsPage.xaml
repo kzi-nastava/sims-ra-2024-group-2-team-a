@@ -79,16 +79,17 @@
                         SelectionMode="Single" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" SelectionChanged="RequestsList_SelectionChanged">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Accommodation" Width="130" DisplayMemberBinding="{Binding AccommodationName}"/>
-                                <GridViewColumn Header="Old Dates" Width="90" DisplayMemberBinding="{Binding OldDates}"/>
-                                <GridViewColumn Header="New Dates" Width="90" DisplayMemberBinding="{Binding NewDates}"/>
-                                <GridViewColumn Header="Available" Width="80">
+                                <GridViewColumn Header="Accommodation" Width="100" DisplayMemberBinding="{Binding AccommodationName}"/>
+                                <GridViewColumn Header="Old Dates" Width="80" DisplayMemberBinding="{Binding OldDates}"/>
+                                <GridViewColumn Header="New Dates" Width="80" DisplayMemberBinding="{Binding NewDates}"/>
+                                <GridViewColumn Header="Available" Width="60">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <CheckBox IsChecked="{Binding IsAvailable}" IsEnabled="False" HorizontalAlignment="Center"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <GridViewColumn Header="Status" Width="70" DisplayMemberBinding="{Binding Status}"/>
                             </GridView>
                         </ListView.View>
                         <ListView.ItemContainerStyle>

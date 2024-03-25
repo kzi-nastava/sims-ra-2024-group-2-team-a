@@ -2,7 +2,9 @@
 using BookingApp.Model;
 using BookingApp.Repository;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Security.AccessControl;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,7 +26,7 @@ namespace BookingApp.View.AndroidViews {
         private User _user;
 
         public ObservableCollection<AccommodationReservationDTO> ReservationCollection { get; set; }
-        public ObservableCollection<RescheduleRequestDTO> RescheduleRequestDTOs { get; set; }
+        public List<RescheduleRequestDTO> RescheduleRequestDTOs { get; set; }
         public AccommodationReservationDTO SelectedReservation { get; set; }
         public RescheduleRequestDTO SelectedRequest { get; set; }
         public ReservationReviewsPage(User user) {
@@ -39,7 +41,7 @@ namespace BookingApp.View.AndroidViews {
             _rescheduleRequestRepository = new RescheduleRequestRepository();
 
             ReservationCollection = new ObservableCollection<AccommodationReservationDTO>();
-            RescheduleRequestDTOs = new ObservableCollection<RescheduleRequestDTO>();
+            RescheduleRequestDTOs = new List<RescheduleRequestDTO>();
 
             Update();
         }
@@ -63,16 +65,18 @@ namespace BookingApp.View.AndroidViews {
                 }
             }
 
-            foreach (RescheduleRequest request in _rescheduleRequestRepository.GetPendingRequestsByOwnerId(_user.Id)) {
+            foreach (RescheduleRequest request in _rescheduleRequestRepository.GetRequestsByOwnerId(_user.Id)) {
                 RescheduleRequestDTO rescheduleRequestDTO = new RescheduleRequestDTO(request);
                 AccommodationReservation accommodationReservation = _accommodationReservationRepository.GetById(request.ReservationId);
 
-                rescheduleRequestDTO.SetDates(accommodationReservation.EndDate);
+                rescheduleRequestDTO.SetDates();
                 rescheduleRequestDTO.AccommodationName = _accommodationRepository.GetById(accommodationReservation.AccommodationId).Name;
                 rescheduleRequestDTO.IsAvailable = 
                     _accommodationReservationRepository.CheckAccommodationAvailability(accommodationReservation.AccommodationId, rescheduleRequestDTO.NewStartDate, rescheduleRequestDTO.NewEndDate);
                 RescheduleRequestDTOs.Add(rescheduleRequestDTO);
             }
+
+            RescheduleRequestDTOs = RescheduleRequestDTOs.OrderBy(x => x.Status).ToList();
         }
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (SelectedReservation == null)
