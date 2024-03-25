@@ -14,6 +14,7 @@ namespace BookingApp.DTO
     {
         public AccommodationDTO() {
             ProfilePictures = new List<string>();
+            Type = AccommodationType.apartment;
         }
         public AccommodationDTO(string name, int locationId, AccommodationType accomodationType,
             int maxguestNumber, int minReservationDays, int cancellationDate, int ownerId, List<string> profilePictures)
