@@ -43,5 +43,15 @@ namespace BookingApp.View.WebViews {
         private void ButtonReservationsClick(object sender, RoutedEventArgs e) {
             mainFrame.Content = new ReservationsPage();
         }
+
+        private void ButtonLogoutClick(object sender, RoutedEventArgs e) {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            this.Close();
+        }
+
+        private void ButtonBackClick(object sender, RoutedEventArgs e) {
+            mainFrame.GoBack();
+        }
     }
 }
