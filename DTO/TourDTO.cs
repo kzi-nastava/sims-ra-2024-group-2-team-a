@@ -185,8 +185,8 @@ namespace BookingApp.DTO {
         public string LanguageTemplate { get; set; }
         public string LocationTemplate { get; set; }
 
-        public void setBeggining() {
-            _beggining = new DateTime(JustDate.Year, JustDate.Month, JustDate.Day, JustTime, 0, 0);
+        public void setBeggining(DateTime dateTime) {
+            _beggining = dateTime;
         }
         public void setLocationTemplate(string city, string country) {
             LocationTemplate = $"{country}, {city}";
