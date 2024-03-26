@@ -34,12 +34,6 @@
         <Label Grid.Row="2" Grid.Column="0" Margin="40,0,20,0" Content="Max Tourists:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
         <TextBox Grid.Row="2" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.MaxTouristNumber}"/>
 
-        <Label Grid.Row="3" Grid.Column="0" Margin="40,0,20,0" Content="Date:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <DatePicker x:Name="datePicker" Grid.Row="3" Grid.Column="1" Margin="20,0,20,0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="22" SelectedDateChanged="datePicker_SelectedDateChanged"/>
-
-        <Label Grid.Row="4" Grid.Column="0" Margin="40,0,20,0" Content="Time:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.JustTime}"/>
-
         <Label Grid.Row="5" Grid.Column="0" Margin="40,0,20,0" Content="Duration:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
         <TextBox Grid.Row="5" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Duration}"/>
 
@@ -51,12 +45,29 @@
             </StackPanel>
         </Button>
 
-        <Label Grid.RowSpan="2" Grid.Column="2" Margin="40,20,20,0" Content="Location:" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="22"/>
-        <ComboBox Grid.RowSpan="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,30,0,0" Width="200" ItemsSource="{Binding locationDTOs}" SelectedItem="{Binding selectedLocationDTO}"  DisplayMemberPath="LocationOptionTemplate"/>
+        <Label Grid.Row="0" Grid.Column="2" Margin="40,20,20,0" Content="Location:" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="22"/>
+        <ComboBox Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,30,0,0" Width="200" ItemsSource="{Binding locationDTOs}" SelectedItem="{Binding selectedLocationDTO}"  DisplayMemberPath="LocationOptionTemplate"/>
 
-        <Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Margin="40,20,20,0" Content="Language:" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="22"/>
-        <ComboBox Grid.Row="2" Grid.RowSpan="2" Grid.Column="3" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,30,0,0" Width="100" SelectedValuePath="Tag" ItemsSource="{Binding languageDTOs}" SelectedItem="{Binding selectedLanguageDTO}" DisplayMemberPath="LanguageOptionTemplate"/>
+        <Label Grid.Row="2" Grid.Column="2" Margin="40,20,20,0" Content="Language:" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="22"/>
+        <ComboBox Grid.Row="2" Grid.Column="3" SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,30,0,0" Width="100" SelectedValuePath="Tag" ItemsSource="{Binding languageDTOs}" SelectedItem="{Binding selectedLanguageDTO}" DisplayMemberPath="LanguageOptionTemplate"/>
 
+        <Label Grid.Row="3"  Grid.Column="0" Margin="40,10,20,0" Content="Dates and Time:" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="22"/>
+        <Grid Background="White" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1"  Margin="20">
+            <DataGrid x:Name="dataGridDate" ItemsSource="{Binding begginings}" IsReadOnly="True" 
+      SelectionMode="Single" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Date and Time" Binding="{Binding }" Width="200"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="deleteDateTime" Content="Delete" Click="deleteDateTime_Click" Padding="10,0,10,0" Margin="5"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="addDateTime" Content="Add" Click="addDateTime_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Padding="10,0,10,0"/>
+        </Grid>
 
         <Label Grid.Row="4"  Grid.Column="2" Margin="40,10,20,0" Content="Keypoints:" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="22"/>
         <Grid Background="White" Grid.Row="4" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="2"  Margin="10,50,10,10">

@@ -28,6 +28,10 @@ namespace BookingApp.View.TabletView {
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
+        public ObservableCollection<DateTime> begginings { get; set; }
+
+        private string _dateText;
+        private string _timeText;
         public AddTourPage(Frame mainF, int userId) {
             InitializeComponent();
             _mainFrame = mainF;
@@ -48,8 +52,10 @@ namespace BookingApp.View.TabletView {
         }
 
         private void confirmButton_Click(object sender, RoutedEventArgs e) {
-            SetTour();
-            SaveTour();
+            foreach(var beggining in begginings) {
+                SetTour(beggining);
+                SaveTour();
+            }
             MessageBox.Show("Tour Added Succesfully", "Confirmed", MessageBoxButton.OK, MessageBoxImage.Information);
             _mainFrame.Content = new AddTourPage(_mainFrame, _userId);
         }
@@ -69,6 +75,19 @@ namespace BookingApp.View.TabletView {
             CheckValidation();
         }
 
+
+        private void addDateTime_Click(object sender, RoutedEventArgs e) {
+            AddBegginingDateTimeWindow begginingDateTimeWindow = new AddBegginingDateTimeWindow(begginings);
+            begginingDateTimeWindow.ShowDialog();
+        }
+
+        private void deleteDateTime_Click(object sender, RoutedEventArgs e) {
+            var button = (Button)sender;
+            var beggining = (DateTime)button.DataContext;
+
+            begginings.Remove(beggining);
+        }
+
         private void pickPhotosButton_Click(object sender, RoutedEventArgs e) {
             List<string> absolutePaths = new List<string>();
             OpenFileDialog openFileDialog = SetOpenFile();
@@ -86,11 +105,6 @@ namespace BookingApp.View.TabletView {
                 }
             }
         }
-        private void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e) {
-            DateOnly justDate = DateOnly.FromDateTime(datePicker.SelectedDate.Value);
-            tourDTO.JustDate = justDate;
-        }
-
         private string GetRelativePath(string basePath, string fullPath) {
             Uri baseUri = new Uri(basePath + System.IO.Path.DirectorySeparatorChar);
             Uri fullUri = new Uri(fullPath);
@@ -109,6 +123,7 @@ namespace BookingApp.View.TabletView {
             locationDTOs = new ObservableCollection<LocationDTO>();
             languageDTOs = new ObservableCollection<LanguageDTO>();
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
+            begginings = new ObservableCollection<DateTime>();
 
 
             foreach (var lan in _languageRepository.GetAll()) {
@@ -119,11 +134,11 @@ namespace BookingApp.View.TabletView {
             }
         }
 
-        private void SetTour() {
+        private void SetTour(DateTime beggining) {
             tourDTO.LocationId = selectedLocationDTO.Id;
             tourDTO.LanguageId = selectedLanguageDTO.Id;
             tourDTO.CurrentTouristNumber = 0;
-            tourDTO.setBeggining();
+            tourDTO.setBeggining(beggining);
             tourDTO.GuideId = _userId;
         }
 
