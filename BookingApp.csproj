@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Resources\Images\AccommodationCard\apartment-icon.png" />
     <None Remove="Resources\Images\AccommodationCard\calendar-icon.png" />
+    <None Remove="Resources\Images\AccommodationCard\cancel-event-icon.png" />
     <None Remove="Resources\Images\AccommodationCard\capacity-icon.png" />
     <None Remove="Resources\Images\AccommodationCard\location-icon.png" />
     <None Remove="Resources\Images\account.png" />
@@ -78,6 +79,7 @@
   <ItemGroup>
     <Resource Include="Resources\Images\AccommodationCard\apartment-icon.png" />
     <Resource Include="Resources\Images\AccommodationCard\calendar-icon.png" />
+    <Resource Include="Resources\Images\AccommodationCard\cancel-event-icon.png" />
     <Resource Include="Resources\Images\AccommodationCard\capacity-icon.png" />
     <Resource Include="Resources\Images\AccommodationCard\location-icon.png" />
     <Resource Include="Resources\Images\account.png" />

@@ -12,6 +12,7 @@
         <BitmapImage x:Key="CategoryIcon" UriSource="../../Resources/Images/AccommodationCard/apartment-icon.png"/>
         <BitmapImage x:Key="MinimumDaysIcon" UriSource="../../Resources/Images/AccommodationCard/calendar-icon.png"/>
         <BitmapImage x:Key="CapacityIcon" UriSource="../../Resources/Images/AccommodationCard/capacity-icon.png"/>
+        <BitmapImage x:Key="CancelEventIcon" UriSource="../../Resources/Images/AccommodationCard/cancel-event-icon.png"/>
 
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="10 5 0 5"/>
@@ -74,7 +75,7 @@
 
             <Label Grid.Row="3" Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource MinimumDaysIcon}"/>
+                    <Image Source="{StaticResource CancelEventIcon}"/>
                     <TextBlock Text="{Binding CancellationDate}"/>
                 </StackPanel>
             </Label>
