@@ -36,10 +36,9 @@ namespace BookingApp.View.WebViews {
             datePickerEndDate.IsEnabled = false;
         }
 
-        private void ButtonBackClick(object sender, RoutedEventArgs e) {
-            GuestMainWindow window = (GuestMainWindow) Window.GetWindow(this);
-            Frame mainFrame = window.MainFrame;
-            mainFrame.GoBack();
+        private void GoBack(object sender, RoutedEventArgs e) {
+            GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
+            window.ButtonBackClick(this, e);
         }
 
         private void UpdateSuggestedReservations(object sender, EventArgs e) {
@@ -99,15 +98,10 @@ namespace BookingApp.View.WebViews {
 
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
             AccommodationReservation selectedReservation = (AccommodationReservation) dataGridSuggestedDates.SelectedItem;
-            if(selectedReservation == null) {
-                errorLabel.Content = "Please select a reservation";
-                errorLabel.Foreground = Brushes.Red;
-                return;
-            }
 
             SaveReservation(selectedReservation);
 
-            ButtonBackClick(sender, e);
+            GoBack(sender, e);
         }
 
         private void SaveReservation(AccommodationReservation selectedReservation) {

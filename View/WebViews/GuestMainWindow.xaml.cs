@@ -33,7 +33,6 @@ namespace BookingApp.View.WebViews {
 
         private void SetWindowProperties() {
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.ResizeMode = ResizeMode.NoResize;
         }
 
         private void ButtonBookClick(object sender, RoutedEventArgs e) {
@@ -42,6 +41,16 @@ namespace BookingApp.View.WebViews {
 
         private void ButtonReservationsClick(object sender, RoutedEventArgs e) {
             mainFrame.Content = new ReservationsPage();
+        }
+
+        private void ButtonLogoutClick(object sender, RoutedEventArgs e) {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            this.Close();
+        }
+
+        public void ButtonBackClick(object sender, RoutedEventArgs e) {
+            mainFrame.GoBack();
         }
     }
 }

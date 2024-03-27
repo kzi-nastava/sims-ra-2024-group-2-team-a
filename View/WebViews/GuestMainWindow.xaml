@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.WebViews"
         mc:Ignorable="d"
-        Title="GuestMainWindow" Height="600" Width="800"
+        Title="GuestMainWindow" Height="650" Width="800"
         ResizeMode="NoResize">
     <Grid>
         <Grid Background="LightBlue" Height="80" VerticalAlignment="Top">
@@ -13,9 +13,12 @@
             <Button Name="buttonReservations" Content="Reservations" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Bottom" Height="40" Width="120" Click="ButtonReservationsClick"/>
             <Button Name="buttonReviews" Content="Reviews" HorizontalAlignment="Left" Margin="240,0,0,0" VerticalAlignment="Bottom" Height="40" Width="120"/>
             <Button Name="buttonForum" Content="Forums" HorizontalAlignment="Left" Margin="360,0,0,0" VerticalAlignment="Bottom" Height="40" Width="120"/>
+            <Button Name="buttonBack" Content="Back" VerticalAlignment="Bottom" Height="25" Width="75" Margin="0,0,0,55" HorizontalAlignment="Left" Click="ButtonBackClick"
+                    IsEnabled="{Binding ElementName=mainFrame, Path=CanGoBack}"/>
+            <Button Name="buttonLogout" Content="Logout" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="75" Margin="0,0,0,55" Click="ButtonLogoutClick"/>
         </Grid>
-        <Grid x:Name="gridPages" Margin="0,80,0,0" Height="504" VerticalAlignment="Top">
-            <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Margin="0,0,0,10"/>
+        <Grid x:Name="gridPages" Margin="0,80,0,0" Height="544" VerticalAlignment="Top">
+            <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>
 </Window>
