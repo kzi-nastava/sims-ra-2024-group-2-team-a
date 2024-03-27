@@ -11,12 +11,32 @@
 
     <Page.Resources>
         <converter:CountToBooleanConverter x:Key="CountToBooleanConverter"/>
+
+        <BitmapImage x:Key="LocationIcon" UriSource="../../Resources/Images/AccommodationCard/location-icon.png"/>
+        <BitmapImage x:Key="CategoryIcon" UriSource="../../Resources/Images/AccommodationCard/apartment-icon.png"/>
+        <BitmapImage x:Key="MinimumDaysIcon" UriSource="../../Resources/Images/AccommodationCard/calendar-icon.png"/>
+        <BitmapImage x:Key="CapacityIcon" UriSource="../../Resources/Images/AccommodationCard/capacity-icon.png"/>
+
+        <Style TargetType="Image">
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Margin" Value="10 0 10 0"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+
+        <Style x:Key="AccommodationInfoStyle" TargetType="TextBlock">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
     </Page.Resources>
 
     <Grid Background="White">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -27,40 +47,65 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="textBlockName" TextWrapping="Wrap" FontSize="15" Text="{Binding Name}" Margin="23,26,23,199" Width="150" TextAlignment="Center" Grid.Row="0"/>
-                    <Border Height="110" Width="110" CornerRadius="10" Grid.Row="0" Margin="43,78,43,77" RenderTransformOrigin="0.509,0.177">
+
+                    <Border>
+
+                    </Border>
+
+                    <TextBlock x:Name="textBlockName" TextWrapping="Wrap" FontSize="15" Text="{Binding Name}" Margin="33,10,33,215" Width="150" TextAlignment="Center" Grid.Row="0"/>
+                    <Border Height="128" Width="128" CornerRadius="10" Grid.Row="0" Margin="44,55,44,82">
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding ProfilePictures[0]}" Stretch="Fill"/>
                         </Border.Background>
                     </Border>
 
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Margin="0 10 0 0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock x:Name="textBoxLocation" FontSize="15" Text="{Binding DisplayLocation, StringFormat=Location: {0}}" Margin="23,10,23,10" Width="150" TextAlignment="Center" Grid.Row="0"/>
-                        <TextBlock x:Name="textBoxType" FontSize="15" Text="{Binding Type, StringFormat=Category: {0}}" Margin="23,10,23,10" Width="150" TextAlignment="Center" Grid.Row="1"/>
-                        <TextBlock x:Name="textBoxDays" FontSize="15" Text="{Binding MinReservationDays, StringFormat=Minimum days: {0}}" Margin="23,10,23,10" Width="150" TextAlignment="Center" Grid.Row="2"/>
-                        <TextBlock x:Name="textBoxCapacity" FontSize="15" Text="{Binding MaxGuestNumber, StringFormat=Capacity: {0}}" Margin="23,10,23,10" Width="150" TextAlignment="Center" Grid.Row="3"/>
+                        <Label Grid.Row="0" HorizontalContentAlignment="Center" Margin="0 0 0 10">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource LocationIcon}"/>
+                                <TextBlock x:Name="textBoxLocation" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding DisplayLocation}"/>
+                            </StackPanel>
+                        </Label>
+
+                        <Label Grid.Row="1" HorizontalAlignment="Center" Margin="0 0 0 10">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource CategoryIcon}"/>
+                                <TextBlock x:Name="textBoxType" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Type}"/>
+                            </StackPanel>
+                        </Label>
+
+                        <Label Grid.Row="2" HorizontalContentAlignment="Center" Margin="0 0 0 10">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource MinimumDaysIcon}"/>
+                                <TextBlock x:Name="textBoxDays" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding MinReservationDays, StringFormat=Minimum days: {0}}"/>
+                            </StackPanel>
+                        </Label>
+
+                        <Label Grid.Row="3" HorizontalContentAlignment="Center" Margin="0 0 0 10">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource CapacityIcon}"/>
+                                <TextBlock x:Name="textBoxCapacity" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding MaxGuestNumber, StringFormat=Capacity: {0}}"/>
+                            </StackPanel>
+                        </Label>
+
                     </Grid>
-
-
-
                 </Grid>
             </Border>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Margin="0,30,0,210">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="250"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -83,25 +128,26 @@
                     <Slider x:Name="sliderGuests" Grid.Row="4" Grid.Column="1" Margin="5,16,10,16" Minimum="1" Maximum="20" Value="{Binding ElementName=textBoxGuests, Path=Text}" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
                 </DockPanel>
 
-                <Label x:Name="errorLabel" Content="" Margin="10,125,10,75" Grid.Row="4" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <Button x:Name="buttonConfirm" Content="Confirm booking" Grid.Row="4" Margin="90,180,90,25" FontWeight="Bold" FontSize="13" Grid.ColumnSpan="2" Click="ButtonConfirmClick"
-                        IsEnabled="{Binding ElementName=dataGridSuggestedDates, Path=SelectedItems.Count, Converter={StaticResource CountToBooleanConverter}}"/>
-
             </Grid>
 
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
+                    <RowDefinition Height="350"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Label Content="Suggested dates" Grid.Row="0" FontSize="20" FontWeight="SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <DataGrid x:Name="dataGridSuggestedDates" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" Margin="10,0,10,25">
+                <DataGrid x:Name="dataGridSuggestedDates" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Start date" Binding="{Binding StartDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
                         <DataGridTextColumn Header="End date" Binding="{Binding EndDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
+
+                <Label x:Name="infoLabel" Content="" Grid.Row="2" HorizontalContentAlignment="Center" Margin="44,20,43,70"/>
+                <Button x:Name="buttonConfirm" Content="Confirm booking" Grid.Row="2" FontWeight="Bold" FontSize="13" Click="ButtonConfirmClick"
+                        IsEnabled="{Binding ElementName=dataGridSuggestedDates, Path=SelectedItems.Count, Converter={StaticResource CountToBooleanConverter}}" Margin="54,65,53,20"/>
 
             </Grid>
         </Grid>

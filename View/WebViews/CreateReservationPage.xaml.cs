@@ -98,11 +98,6 @@ namespace BookingApp.View.WebViews {
 
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
             AccommodationReservation selectedReservation = (AccommodationReservation) dataGridSuggestedDates.SelectedItem;
-            if(selectedReservation == null) {
-                errorLabel.Content = "Please select a reservation";
-                errorLabel.Foreground = Brushes.Red;
-                return;
-            }
 
             SaveReservation(selectedReservation);
 
