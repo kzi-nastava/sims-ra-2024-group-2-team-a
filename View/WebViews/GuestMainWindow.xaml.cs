@@ -33,7 +33,6 @@ namespace BookingApp.View.WebViews {
 
         private void SetWindowProperties() {
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.ResizeMode = ResizeMode.NoResize;
         }
 
         private void ButtonBookClick(object sender, RoutedEventArgs e) {
