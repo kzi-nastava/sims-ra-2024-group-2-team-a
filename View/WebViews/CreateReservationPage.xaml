@@ -21,10 +21,8 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
-                    <Button x:Name="buttonBack" Content="Back" Margin="47,10,47,193" Click="ButtonBackClick" Grid.Row="0"/>
-                    <TextBlock x:Name="textBlockName" FontSize="15" Text="{Binding Name}" Margin="23,73,23,125" Width="150" TextAlignment="Center" Grid.Row="0"/>
-                    <Border Height="110" Width="110" CornerRadius="10" Grid.Row="0" Margin="43,118,43,10">
+                    <TextBlock x:Name="textBlockName" TextWrapping="Wrap" FontSize="15" Text="{Binding Name}" Margin="23,26,23,155" Width="150" TextAlignment="Center" Grid.Row="0"/>
+                    <Border Height="110" Width="110" CornerRadius="10" Grid.Row="0" Margin="43,105,43,23">
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding ProfilePictures[0]}" Stretch="Fill"/>
                         </Border.Background>

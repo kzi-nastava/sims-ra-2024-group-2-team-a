@@ -50,7 +50,7 @@ namespace BookingApp.View.WebViews {
             this.Close();
         }
 
-        private void ButtonBackClick(object sender, RoutedEventArgs e) {
+        public void ButtonBackClick(object sender, RoutedEventArgs e) {
             mainFrame.GoBack();
         }
     }
