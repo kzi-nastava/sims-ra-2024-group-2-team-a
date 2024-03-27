@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\AccommodationCard\apartment-icon.png" />
+    <None Remove="Resources\Images\AccommodationCard\calendar-icon.png" />
+    <None Remove="Resources\Images\AccommodationCard\capacity-icon.png" />
+    <None Remove="Resources\Images\AccommodationCard\location-icon.png" />
     <None Remove="Resources\Images\account.png" />
     <None Remove="Resources\Images\add-icon3.png" />
     <None Remove="Resources\Images\add.png" />
@@ -72,6 +76,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\AccommodationCard\apartment-icon.png" />
+    <Resource Include="Resources\Images\AccommodationCard\calendar-icon.png" />
+    <Resource Include="Resources\Images\AccommodationCard\capacity-icon.png" />
+    <Resource Include="Resources\Images\AccommodationCard\location-icon.png" />
     <Resource Include="Resources\Images\account.png" />
     <Resource Include="Resources\Images\add-icon3.png" />
     <Resource Include="Resources\Images\add2.png" />
