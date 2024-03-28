@@ -13,22 +13,30 @@
         <BitmapImage x:Key="MinimumDaysIcon" UriSource="../../Resources/Images/AccommodationCard/calendar-icon.png"/>
         <BitmapImage x:Key="CapacityIcon" UriSource="../../Resources/Images/AccommodationCard/capacity-icon.png"/>
         <BitmapImage x:Key="CancelEventIcon" UriSource="../../Resources/Images/AccommodationCard/cancel-event-icon.png"/>
+        <BitmapImage x:Key="ReviewIcon" UriSource="../../Resources/Images/AccommodationCard/star-icon.png"/>
+        <BitmapImage x:Key="RescheduleIcon" UriSource="../../Resources/Images/AccommodationCard/reschedule-icon.png"/>
 
-        <Style TargetType="TextBlock">
+        <Style x:Key="InfoTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="10 5 0 5"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
 
-        <Style TargetType="Image">
+        <Style x:Key="InfoImage" TargetType="Image">
             <Setter Property="Height" Value="16"/>
             <Setter Property="Width" Value="16"/>
             <Setter Property="Margin" Value="10 5 0 5"/>
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
         </Style>
 
+        <Style x:Key="ButtonImage" TargetType="Image">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+
     </UserControl.Resources>
     
-    <Border Margin="5 5 5 5" BorderBrush="Gray" BorderThickness="1" Width="350" CornerRadius="10">
+    <Border Margin="5 5 5 5" BorderBrush="Gray" BorderThickness="1" Width="320" CornerRadius="10">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -47,43 +55,57 @@
 
             <Label Grid.Row="1" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource LocationIcon}"/>
-                    <TextBlock Text="{Binding AccommodationLocation}"/>
+                    <Image Style="{StaticResource InfoImage}" Source="{StaticResource LocationIcon}"/>
+                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding AccommodationLocation}"/>
                 </StackPanel>
             </Label>
 
             <Label Grid.Row="2" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource CategoryIcon}"/>
-                    <TextBlock Text="{Binding AccommodationType}"/>
+                    <Image Style="{StaticResource InfoImage}" Source="{StaticResource CategoryIcon}"/>
+                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding AccommodationType}"/>
                 </StackPanel>
             </Label>
 
             <Label Grid.Row="3" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource CapacityIcon}"/>
-                    <TextBlock Text="{Binding GuestsNumber, StringFormat=Guests: {0}}"/>
+                    <Image Style="{StaticResource InfoImage}" Source="{StaticResource CapacityIcon}"/>
+                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding GuestsNumber, StringFormat=Guests: {0}}"/>
                 </StackPanel>
             </Label>
 
             <Label Grid.Row="2" Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource MinimumDaysIcon}"/>
-                    <TextBlock FontSize="9" Text="{Binding DateString}"/>
+                    <Image Style="{StaticResource InfoImage}" Source="{StaticResource MinimumDaysIcon}"/>
+                    <TextBlock Style="{StaticResource InfoTextBlock}" FontSize="9" Text="{Binding DateString}"/>
                 </StackPanel>
             </Label>
 
             <Label Grid.Row="3" Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource CancelEventIcon}"/>
-                    <TextBlock Text="{Binding CancellationDate}"/>
+                    <Image Style="{StaticResource InfoImage}" Source="{StaticResource CancelEventIcon}"/>
+                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding CancellationDate}"/>
                 </StackPanel>
             </Label>
 
-            <Button x:Name="buttonRescheduleDate" Content="Reschedule" Grid.Column="2" Grid.Row="2"/>
-            <Button x:Name="buttonCancel" Content="Cancel" Grid.Column="2" Grid.Row="3"/>
-            <Button x:Name="buttonRate" Content="Rate" Grid.Column="2" Grid.Row="0"/>
+            <Button x:Name="buttonRate" Grid.Column="2" Grid.Row="0" Margin="30 10 10 10">
+                <WrapPanel>
+                    <Image Style="{StaticResource ButtonImage}" Source="{StaticResource ReviewIcon}"/>
+                </WrapPanel>
+            </Button>
+
+            <Button x:Name="buttonRescheduleDate" Grid.Column="2" Grid.Row="2"  Margin="30 10 10 10">
+                <WrapPanel>
+                    <Image Style="{StaticResource ButtonImage}" Source="{StaticResource RescheduleIcon}"/>
+                </WrapPanel>
+            </Button>
             
+            <Button x:Name="buttonCancel" Grid.Column="2" Grid.Row="3" Margin="30 10 10 10">
+                <WrapPanel>
+                    <Image Style="{StaticResource ButtonImage}" Source="{StaticResource CancelEventIcon}"/>
+                </WrapPanel>
+            </Button>
+
         </Grid>
     </Border>
 </UserControl>

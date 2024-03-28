@@ -13,6 +13,8 @@
     <None Remove="Resources\Images\AccommodationCard\cancel-event-icon.png" />
     <None Remove="Resources\Images\AccommodationCard\capacity-icon.png" />
     <None Remove="Resources\Images\AccommodationCard\location-icon.png" />
+    <None Remove="Resources\Images\AccommodationCard\reschedule-icon.png" />
+    <None Remove="Resources\Images\AccommodationCard\star-icon.png" />
     <None Remove="Resources\Images\account.png" />
     <None Remove="Resources\Images\add-icon3.png" />
     <None Remove="Resources\Images\add.png" />
@@ -82,6 +84,8 @@
     <Resource Include="Resources\Images\AccommodationCard\cancel-event-icon.png" />
     <Resource Include="Resources\Images\AccommodationCard\capacity-icon.png" />
     <Resource Include="Resources\Images\AccommodationCard\location-icon.png" />
+    <Resource Include="Resources\Images\AccommodationCard\reschedule-icon.png" />
+    <Resource Include="Resources\Images\AccommodationCard\star-icon.png" />
     <Resource Include="Resources\Images\account.png" />
     <Resource Include="Resources\Images\add-icon3.png" />
     <Resource Include="Resources\Images\add2.png" />

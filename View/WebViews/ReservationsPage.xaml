@@ -30,7 +30,7 @@
                 <Button x:Name="buttonExpired" Grid.Column="2" Content="Expired" Height="30" Width="100" VerticalAlignment="Center"/>
             </Grid>
 
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,25">
                 <ItemsControl x:Name="itemsControlReservations" ItemsSource="{Binding _reservationDTOs}" Margin="10 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
