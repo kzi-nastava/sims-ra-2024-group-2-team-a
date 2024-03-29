@@ -30,10 +30,11 @@ namespace BookingApp.View.WebViews {
         private readonly AccommodationRepository _accommodationRepository = new AccommodationRepository();
         private readonly LocationRepository _locationRepository = new LocationRepository();
 
+        private bool ScheduledSelected = true;
+
         public ReservationsPage() {
             InitializeComponent();
             Update();
-            ButtonScheduledClick(null, null);
         }
 
         public void UpdateLocationDTOs() {
@@ -56,6 +57,13 @@ namespace BookingApp.View.WebViews {
             UpdateAccommodationDTOs();
             UpdateReservationDTOs();
 
+            if (ScheduledSelected) {
+                _reservationDTOs = _reservationDTOs.Where(x => !x.HasExpired).OrderByDescending(x => x.Id).ToList();
+            }
+            else {
+                _reservationDTOs = _reservationDTOs.Where(x => x.HasExpired).OrderByDescending(x => x.Id).ToList();
+            }
+
             itemsControlReservations.ItemsSource = _reservationDTOs;
         }
 
@@ -73,15 +81,13 @@ namespace BookingApp.View.WebViews {
         }
 
         private void ButtonScheduledClick(object sender, RoutedEventArgs e) {
-            UpdateReservationDTOs();
-            _reservationDTOs = _reservationDTOs.Where(x => !x.HasExpired).OrderByDescending(x => x.Id).ToList();
-            itemsControlReservations.ItemsSource = _reservationDTOs;
+            ScheduledSelected = true;
+            Update();
         }
 
         private void ButtonExpiredClick(object sender, RoutedEventArgs e) {
-            UpdateReservationDTOs();
-            _reservationDTOs = _reservationDTOs.Where(x => x.HasExpired).OrderByDescending(x => x.Id).ToList();
-            itemsControlReservations.ItemsSource = _reservationDTOs;
+            ScheduledSelected = false;
+            Update();
         }
     }
 }

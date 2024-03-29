@@ -6,6 +6,18 @@
              xmlns:local="clr-namespace:BookingApp.View.WebViews"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800">
+
+    <Page.Resources>
+        <BitmapImage x:Key="TimeIcon" UriSource="../../Resources/Images/Icons/time-icon.png"/>
+        <BitmapImage x:Key="ScheduledIcon" UriSource="../../Resources/Images/Icons/scheduled-icon.png"/>
+
+        <Style x:Key="ButtonImage" TargetType="Image">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -26,8 +38,20 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="0" Content="Reservations" FontSize="20" VerticalContentAlignment="Center" Margin="10 0 0 0"/>
-                <Button x:Name="buttonScheduled" Grid.Column="1" Content="Scheduled" Height="30" Width="100" VerticalAlignment="Center" Click="ButtonScheduledClick"/>
-                <Button x:Name="buttonExpired" Grid.Column="2" Content="Expired" Height="30" Width="100" VerticalAlignment="Center" Click="ButtonExpiredClick"/>
+
+                <Button x:Name="buttonScheduled" Grid.Column="1" Height="30" Width="120" VerticalAlignment="Center" Click="ButtonScheduledClick">
+                    <WrapPanel>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource ScheduledIcon}"/>
+                        <TextBlock Text="Scheduled" Margin="10 0 0 0"/>
+                    </WrapPanel>    
+                </Button>
+
+                <Button x:Name="buttonExpired" Grid.Column="2" Height="30" Width="120" VerticalAlignment="Center" Click="ButtonExpiredClick">
+                    <WrapPanel>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource TimeIcon}"/>
+                        <TextBlock Text="Expired" Margin="10 0 0 0"/>
+                    </WrapPanel>
+                </Button>
             </Grid>
 
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,25">

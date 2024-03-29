@@ -14,6 +14,7 @@
     <None Remove="Resources\Images\Icons\location-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
     <None Remove="Resources\Images\Icons\reschedule-icon.png" />
+    <None Remove="Resources\Images\Icons\scheduled-icon.png" />
     <None Remove="Resources\Images\Icons\star-icon.png" />
     <None Remove="Resources\Images\account.png" />
     <None Remove="Resources\Images\add-icon3.png" />
@@ -28,6 +29,7 @@
     <None Remove="Resources\Images\hamburger.png" />
     <None Remove="Resources\Images\help.png" />
     <None Remove="Resources\Images\home.png" />
+    <None Remove="Resources\Images\Icons\time-icon.png" />
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\notification-request-icon.png" />
     <None Remove="Resources\Images\notification-review-icon.png" />
@@ -85,6 +87,7 @@
     <Resource Include="Resources\Images\Icons\people-icon.png" />
     <Resource Include="Resources\Images\Icons\location-icon.png" />
     <Resource Include="Resources\Images\Icons\reschedule-icon.png" />
+    <Resource Include="Resources\Images\Icons\scheduled-icon.png" />
     <Resource Include="Resources\Images\Icons\star-icon.png" />
     <Resource Include="Resources\Images\account.png" />
     <Resource Include="Resources\Images\add-icon3.png" />
@@ -96,6 +99,7 @@
     <Resource Include="Resources\Images\hamburger.png" />
     <Resource Include="Resources\Images\help.png" />
     <Resource Include="Resources\Images\home.png" />
+    <Resource Include="Resources\Images\Icons\time-icon.png" />
     <Resource Include="Resources\Images\live.png" />
     <Resource Include="Resources\Images\notification-request-icon.png" />
     <Resource Include="Resources\Images\notification-review-icon.png" />
