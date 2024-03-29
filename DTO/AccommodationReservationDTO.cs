@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.DTO
 {
-public class AccommodationReservationDTO : INotifyPropertyChanged {
+    public class AccommodationReservationDTO : INotifyPropertyChanged {
 
         public AccommodationReservationDTO() {
         }
@@ -21,10 +22,7 @@ public class AccommodationReservationDTO : INotifyPropertyChanged {
             GuestsNumber = acc.GuestsNumber;
             StartDate = acc.StartDate;
             EndDate = acc.EndDate;
-            AccommodationName = "";
             Graded = false;
-
-            DateString = $"{StartDate} - {EndDate}";
         }
 
         public AccommodationReservationDTO(AccommodationReservationDTO accDTO) {
@@ -37,8 +35,6 @@ public class AccommodationReservationDTO : INotifyPropertyChanged {
             ReservationDays = accDTO.ReservationDays;
             AccommodationName = accDTO.AccommodationName;
             Graded = accDTO.Graded;
-
-            DateString = $"{StartDate} - {EndDate}";
         }
 
         public int Id { get; set; }
@@ -85,10 +81,41 @@ public class AccommodationReservationDTO : INotifyPropertyChanged {
         }
 
         public string AccommodationName { get; set; }
+        public AccommodationType AccommodationType { get; set; }
+        public string AccommodationLocation { get; set; }
+        public int LastCancellationDay { get; set; }
+        public String CancellationDate => StartDate.AddDays(-LastCancellationDay).ToString();
         public bool Graded { get; set; }
         public int ReservationDays { get; set; }
+        public string DateString => $"{StartDate}\n{EndDate}";
 
-        public string DateString { get; set; }
+        public bool HasExpired {
+            get {
+                var dateNow = DateOnly.FromDateTime(DateTime.Now);
+                return dateNow > EndDate;
+            }
+        }
+
+        public bool CanBeGraded {
+            get {
+                var dateNow = DateOnly.FromDateTime(DateTime.Now);
+                return dateNow <= EndDate.AddDays(5) && dateNow > EndDate;
+            }
+        }
+
+        public bool CanBeRescheduled {
+            get {
+                var dateNow = DateOnly.FromDateTime(DateTime.Now);
+                return dateNow <= StartDate;
+            }
+        }
+
+        public bool CanBeCancelled {
+            get {
+                var dateNow = DateOnly.FromDateTime(DateTime.Now);
+                return dateNow <= StartDate.AddDays(-LastCancellationDay);
+            }
+        }
 
         public AccommodationReservation ToAccommodationReservation() {
             return new AccommodationReservation();
