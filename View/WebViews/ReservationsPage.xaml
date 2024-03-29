@@ -26,8 +26,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="0" Content="Reservations" FontSize="20" VerticalContentAlignment="Center" Margin="10 0 0 0"/>
-                <Button x:Name="buttonScheduled" Grid.Column="1" Content="Scheduled" Height="30" Width="100" VerticalAlignment="Center"/>
-                <Button x:Name="buttonExpired" Grid.Column="2" Content="Expired" Height="30" Width="100" VerticalAlignment="Center"/>
+                <Button x:Name="buttonScheduled" Grid.Column="1" Content="Scheduled" Height="30" Width="100" VerticalAlignment="Center" Click="ButtonScheduledClick"/>
+                <Button x:Name="buttonExpired" Grid.Column="2" Content="Expired" Height="30" Width="100" VerticalAlignment="Center" Click="ButtonExpiredClick"/>
             </Grid>
 
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,25">

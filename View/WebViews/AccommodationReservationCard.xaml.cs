@@ -1,4 +1,6 @@
 ﻿using BookingApp.DTO;
+using BookingApp.Model;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,14 +21,43 @@ namespace BookingApp.View.WebViews {
     /// Interaction logic for AccommodationReservationCard.xaml
     /// </summary>
     public partial class AccommodationReservationCard : UserControl {
+
+        private readonly AccommodationReservationRepository _reservationRepository = new AccommodationReservationRepository();
+        private readonly RescheduleRequestRepository _rescheduleRepository = new RescheduleRequestRepository(); 
+
         public AccommodationReservationCard() {
             InitializeComponent();
+        }
 
-            //GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
-            //Frame mainFrame = window.MainFrame;
+        private void ButtonCancelClick(object sender, RoutedEventArgs e) {
+            AccommodationReservationDTO reservationDTO = DataContext as AccommodationReservationDTO;
 
-            //AccommodationReservationDTO accommodationReservationDTO = (AccommodationReservationDTO) DataContext;
-            // ...
+            var rescheduleRequests = _rescheduleRepository.GetRequestsByReservationId(reservationDTO.Id);
+            rescheduleRequests.Select(x => _rescheduleRepository.Delete(x));
+
+            var reservation = _reservationRepository.GetById(reservationDTO.Id);
+            _reservationRepository.Delete(reservation);
+
+            Update();
+        }
+
+        // NOTE: This should be implemented as observer
+        private void Update() {
+
+            GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
+            ReservationsPage reservationsPage = window.MainFrame.Content as ReservationsPage;
+            reservationsPage.Update();
+        }
+
+        private void UserControlDataContextChanged(object sender, DependencyPropertyChangedEventArgs e) {
+
+            AccommodationReservationDTO reservationDTO = DataContext as AccommodationReservationDTO;
+
+            buttonRate.Visibility = reservationDTO.CanBeGraded ? Visibility.Visible : Visibility.Hidden;
+
+            buttonRescheduleDate.Visibility = reservationDTO.CanBeRescheduled ? Visibility.Visible : Visibility.Hidden;
+
+            buttonCancel.Visibility = reservationDTO.CanBeCancelled ? Visibility.Visible : Visibility.Hidden;
         }
     }
 }

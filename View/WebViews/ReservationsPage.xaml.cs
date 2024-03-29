@@ -33,6 +33,7 @@ namespace BookingApp.View.WebViews {
         public ReservationsPage() {
             InitializeComponent();
             Update();
+            ButtonScheduledClick(null, null);
         }
 
         public void UpdateLocationDTOs() {
@@ -69,6 +70,18 @@ namespace BookingApp.View.WebViews {
                 res.AccommodationLocation = acc.DisplayLocation;
                 res.LastCancellationDay = acc.LastCancellationDay;
             }
+        }
+
+        private void ButtonScheduledClick(object sender, RoutedEventArgs e) {
+            UpdateReservationDTOs();
+            _reservationDTOs = _reservationDTOs.Where(x => !x.HasExpired).OrderByDescending(x => x.Id).ToList();
+            itemsControlReservations.ItemsSource = _reservationDTOs;
+        }
+
+        private void ButtonExpiredClick(object sender, RoutedEventArgs e) {
+            UpdateReservationDTOs();
+            _reservationDTOs = _reservationDTOs.Where(x => x.HasExpired).OrderByDescending(x => x.Id).ToList();
+            itemsControlReservations.ItemsSource = _reservationDTOs;
         }
     }
 }
