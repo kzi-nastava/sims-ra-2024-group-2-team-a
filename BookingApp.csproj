@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\AccommodationCard\apartment-icon.png" />
-    <None Remove="Resources\Images\AccommodationCard\calendar-icon.png" />
-    <None Remove="Resources\Images\AccommodationCard\cancel-event-icon.png" />
-    <None Remove="Resources\Images\AccommodationCard\capacity-icon.png" />
-    <None Remove="Resources\Images\AccommodationCard\location-icon.png" />
-    <None Remove="Resources\Images\AccommodationCard\reschedule-icon.png" />
-    <None Remove="Resources\Images\AccommodationCard\star-icon.png" />
+    <None Remove="Resources\Images\Icons\calendar-icon.png" />
+    <None Remove="Resources\Images\Icons\cancel-event-icon.png" />
+    <None Remove="Resources\Images\Icons\house-icon.png" />
+    <None Remove="Resources\Images\Icons\location-icon.png" />
+    <None Remove="Resources\Images\Icons\people-icon.png" />
+    <None Remove="Resources\Images\Icons\reschedule-icon.png" />
+    <None Remove="Resources\Images\Icons\star-icon.png" />
     <None Remove="Resources\Images\account.png" />
     <None Remove="Resources\Images\add-icon3.png" />
     <None Remove="Resources\Images\add.png" />
@@ -79,13 +79,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Images\AccommodationCard\apartment-icon.png" />
-    <Resource Include="Resources\Images\AccommodationCard\calendar-icon.png" />
-    <Resource Include="Resources\Images\AccommodationCard\cancel-event-icon.png" />
-    <Resource Include="Resources\Images\AccommodationCard\capacity-icon.png" />
-    <Resource Include="Resources\Images\AccommodationCard\location-icon.png" />
-    <Resource Include="Resources\Images\AccommodationCard\reschedule-icon.png" />
-    <Resource Include="Resources\Images\AccommodationCard\star-icon.png" />
+    <Resource Include="Resources\Images\Icons\house-icon.png" />
+    <Resource Include="Resources\Images\Icons\calendar-icon.png" />
+    <Resource Include="Resources\Images\Icons\cancel-event-icon.png" />
+    <Resource Include="Resources\Images\Icons\people-icon.png" />
+    <Resource Include="Resources\Images\Icons\location-icon.png" />
+    <Resource Include="Resources\Images\Icons\reschedule-icon.png" />
+    <Resource Include="Resources\Images\Icons\star-icon.png" />
     <Resource Include="Resources\Images\account.png" />
     <Resource Include="Resources\Images\add-icon3.png" />
     <Resource Include="Resources\Images\add2.png" />

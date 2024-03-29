@@ -8,10 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     
     <UserControl.Resources>
-        <BitmapImage x:Key="LocationIcon" UriSource="../../Resources/Images/AccommodationCard/location-icon.png"/>
-        <BitmapImage x:Key="CategoryIcon" UriSource="../../Resources/Images/AccommodationCard/apartment-icon.png"/>
-        <BitmapImage x:Key="MinimumDaysIcon" UriSource="../../Resources/Images/AccommodationCard/calendar-icon.png"/>
-        <BitmapImage x:Key="CapacityIcon" UriSource="../../Resources/Images/AccommodationCard/capacity-icon.png"/>
+        <BitmapImage x:Key="LocationIcon" UriSource="../../Resources/Images/Icons/location-icon.png"/>
+        <BitmapImage x:Key="HouseIcon" UriSource="../../Resources/Images/Icons/house-icon.png"/>
+        <BitmapImage x:Key="CalendarIcon" UriSource="../../Resources/Images/Icons/calendar-icon.png"/>
+        <BitmapImage x:Key="PeopleIcon" UriSource="../../Resources/Images/Icons/people-icon.png"/>
 
         <Style TargetType="Image">
             <Setter Property="Height" Value="16" />
@@ -66,21 +66,21 @@
 
                 <Label Grid.Row="1">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource CategoryIcon}"/>
+                        <Image Source="{StaticResource HouseIcon}"/>
                         <TextBlock Text="{Binding Type}"/>
                     </StackPanel>
                 </Label>
 
                 <Label Grid.Row="2">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource MinimumDaysIcon}"/>
+                        <Image Source="{StaticResource CalendarIcon}"/>
                         <TextBlock Text="{Binding MinReservationDays, StringFormat=Minimum days: {0}}"/>
                     </StackPanel>
                 </Label>
 
                 <Label Grid.Row="3">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource CapacityIcon}"/>
+                        <Image Source="{StaticResource PeopleIcon}"/>
                         <TextBlock Text="{Binding MaxGuestNumber, StringFormat=Capacity: {0}}"/>
                     </StackPanel>
                 </Label>

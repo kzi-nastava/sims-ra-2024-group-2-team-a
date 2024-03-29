@@ -12,10 +12,10 @@
     <Page.Resources>
         <converter:CountToBooleanConverter x:Key="CountToBooleanConverter"/>
 
-        <BitmapImage x:Key="LocationIcon" UriSource="../../Resources/Images/AccommodationCard/location-icon.png"/>
-        <BitmapImage x:Key="CategoryIcon" UriSource="../../Resources/Images/AccommodationCard/apartment-icon.png"/>
-        <BitmapImage x:Key="MinimumDaysIcon" UriSource="../../Resources/Images/AccommodationCard/calendar-icon.png"/>
-        <BitmapImage x:Key="CapacityIcon" UriSource="../../Resources/Images/AccommodationCard/capacity-icon.png"/>
+        <BitmapImage x:Key="LocationIcon" UriSource="../../Resources/Images/Icons/location-icon.png"/>
+        <BitmapImage x:Key="HouseIcon" UriSource="../../Resources/Images/Icons/house-icon.png"/>
+        <BitmapImage x:Key="CalendarIcon" UriSource="../../Resources/Images/Icons/calendar-icon.png"/>
+        <BitmapImage x:Key="PeopleIcon" UriSource="../../Resources/Images/Icons/people-icon.png"/>
 
         <Style TargetType="Image">
             <Setter Property="Height" Value="16"/>
@@ -77,21 +77,21 @@
 
                         <Label Grid.Row="1" HorizontalAlignment="Center" Margin="0 0 0 10">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{StaticResource CategoryIcon}"/>
+                                <Image Source="{StaticResource HouseIcon}"/>
                                 <TextBlock x:Name="textBoxType" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Type}"/>
                             </StackPanel>
                         </Label>
 
                         <Label Grid.Row="2" HorizontalContentAlignment="Center" Margin="0 0 0 10">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{StaticResource MinimumDaysIcon}"/>
+                                <Image Source="{StaticResource CalendarIcon}"/>
                                 <TextBlock x:Name="textBoxDays" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding MinReservationDays, StringFormat=Minimum days: {0}}"/>
                             </StackPanel>
                         </Label>
 
                         <Label Grid.Row="3" HorizontalContentAlignment="Center" Margin="0 0 0 10">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{StaticResource CapacityIcon}"/>
+                                <Image Source="{StaticResource PeopleIcon}"/>
                                 <TextBlock x:Name="textBoxCapacity" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding MaxGuestNumber, StringFormat=Capacity: {0}}"/>
                             </StackPanel>
                         </Label>
