@@ -25,10 +25,12 @@ namespace BookingApp.View.WebViews {
         private List<AccommodationReservationDTO> _reservationDTOs = new List<AccommodationReservationDTO>();
         private List<AccommodationDTO> _accommodationDTOs = new List<AccommodationDTO>();
         private List<LocationDTO> _locationDTOs = new List<LocationDTO>();
+        private List<RescheduleRequestDTO> _rescheduleRequestDTOs = new List<RescheduleRequestDTO>();
 
         private readonly AccommodationReservationRepository _reservationsRepository = new AccommodationReservationRepository();
         private readonly AccommodationRepository _accommodationRepository = new AccommodationRepository();
         private readonly LocationRepository _locationRepository = new LocationRepository();
+        private readonly RescheduleRequestRepository _rescheduleRequestRepository = new RescheduleRequestRepository();
 
         private bool ScheduledSelected = true;
 
@@ -56,6 +58,7 @@ namespace BookingApp.View.WebViews {
             UpdateLocationDTOs();
             UpdateAccommodationDTOs();
             UpdateReservationDTOs();
+            UpdateRescheduleRequestDTOs();
 
             if (ScheduledSelected) {
                 _reservationDTOs = _reservationDTOs.Where(x => !x.HasExpired).OrderByDescending(x => x.Id).ToList();
@@ -65,6 +68,7 @@ namespace BookingApp.View.WebViews {
             }
 
             itemsControlReservations.ItemsSource = _reservationDTOs;
+            itemsControlRescheduleRequests.ItemsSource = _rescheduleRequestDTOs;
         }
 
         public void UpdateReservationDTOs() {
@@ -78,6 +82,11 @@ namespace BookingApp.View.WebViews {
                 res.AccommodationLocation = acc.DisplayLocation;
                 res.LastCancellationDay = acc.LastCancellationDay;
             }
+        }
+        
+        public void UpdateRescheduleRequestDTOs() {
+            var rescheduleRequests = _rescheduleRequestRepository.GetAll();
+            _rescheduleRequestDTOs = rescheduleRequests.Select(r => new RescheduleRequestDTO(r)).ToList();
         }
 
         private void ButtonScheduledClick(object sender, RoutedEventArgs e) {
