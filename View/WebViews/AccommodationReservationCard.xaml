@@ -95,7 +95,7 @@
                 </WrapPanel>
             </Button>
 
-            <Button x:Name="buttonRescheduleDate" Grid.Column="2" Grid.Row="2"  Margin="30 10 10 10">
+            <Button x:Name="buttonRescheduleDate" Grid.Column="2" Grid.Row="2"  Margin="30 10 10 10" Click="ButtonRescheduleDateClick">
                 <WrapPanel>
                     <Image Style="{StaticResource ButtonImage}" Source="{StaticResource RescheduleIcon}"/>
                 </WrapPanel>

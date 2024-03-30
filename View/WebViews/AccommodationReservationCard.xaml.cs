@@ -59,5 +59,9 @@ namespace BookingApp.View.WebViews {
 
             buttonCancel.Visibility = reservationDTO.CanBeCancelled ? Visibility.Visible : Visibility.Hidden;
         }
+
+        private void ButtonRescheduleDateClick(object sender, RoutedEventArgs e) {
+
+        }
     }
 }
