@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.View.WebViews"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800"
+             x:Name="reservationsPage">
 
     <Page.Resources>
         <BitmapImage x:Key="TimeIcon" UriSource="../../Resources/Images/Icons/time-icon.png"/>
@@ -18,7 +19,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid>
+    <Grid x:Name="mainGrid">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -99,8 +100,6 @@
 
         <Rectangle x:Name="rectBlurBackground" Fill="Gray" Opacity="0.5" Visibility="Hidden"/>
 
-        <local:RescheduleReservationModalDialog x:Name="rescheduleModalDialog"
-            HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
-
+        
     </Grid>
 </Page>

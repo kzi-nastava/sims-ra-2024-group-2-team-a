@@ -61,7 +61,9 @@ namespace BookingApp.View.WebViews {
         }
 
         private void ButtonRescheduleDateClick(object sender, RoutedEventArgs e) {
-
+            GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
+            ReservationsPage page =  window.MainFrame.Content as ReservationsPage;
+            page.OpenRescheduleDialog(DataContext as AccommodationReservationDTO);
         }
     }
 }

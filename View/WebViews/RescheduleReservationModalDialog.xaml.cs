@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +22,23 @@ namespace BookingApp.View.WebViews
     /// </summary>
     public partial class RescheduleReservationModalDialog : UserControl
     {
-        private readonly AccommodationReservationDTO _reservation;
+        private AccommodationReservationDTO _reservation;
+        private ReservationsPage _parentPage;
 
-        public RescheduleReservationModalDialog()
+        public RescheduleReservationModalDialog(ReservationsPage parentPage, AccommodationReservationDTO reservation)
         {
             InitializeComponent();
+            _reservation = reservation;
+            _parentPage = parentPage;
+            DataContext = _reservation;
         }
 
+        private void ButtonCancelClick(object sender, RoutedEventArgs e) {
+            _parentPage.CloseModalDialog();
+        }
+
+        private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
+            
+        }
     }
 }
