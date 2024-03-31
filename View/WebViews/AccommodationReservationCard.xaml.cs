@@ -32,7 +32,7 @@ namespace BookingApp.View.WebViews {
         private void ButtonCancelClick(object sender, RoutedEventArgs e) {
             AccommodationReservationDTO reservationDTO = DataContext as AccommodationReservationDTO;
 
-            var rescheduleRequests = _rescheduleRepository.GetRequestsByReservationId(reservationDTO.Id);
+            var rescheduleRequests = _rescheduleRepository.GetByReservationId(reservationDTO.Id);
             rescheduleRequests.Select(x => _rescheduleRepository.Delete(x));
 
             var reservation = _reservationRepository.GetById(reservationDTO.Id);

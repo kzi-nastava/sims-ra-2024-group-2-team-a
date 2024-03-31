@@ -39,18 +39,18 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="Name" FontSize="18" Margin="40 10 0 10"/>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Reservation.Accommodation.Name}" FontSize="18" Margin="40 10 0 10"/>
 
             <Border Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2"
                     CornerRadius="10" Background="LightGray">
-                <TextBlock FontSize="15" Text="Pending" Margin="10 10 10 10"
+                <TextBlock FontSize="15" Text="{Binding Status}" Margin="10 10 10 10"
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
 
             <Label Grid.Row="1" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{StaticResource InfoImage}" Source="{StaticResource LocationIcon}"/>
-                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="Location"/>
+                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.Accommodation.Location.LocationInfoTemplate}"/>
                 </StackPanel>
             </Label>
 
@@ -70,7 +70,7 @@
 
             <Border Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2"
                     CornerRadius="10" BorderThickness="1" BorderBrush="Gray">
-                <TextBlock Text="Owner comment" Margin="10 10 10 10"/>
+                <TextBlock Text="{Binding OwnerComment}" Margin="10 10 10 10"/>
             </Border>
 
         </Grid>

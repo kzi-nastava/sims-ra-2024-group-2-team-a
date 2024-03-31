@@ -13,8 +13,12 @@ namespace BookingApp.Repository {
             return this.GetAll().FindAll(x => x.OwnerId == ownerId && x.Status == RescheduleRequestStatus.Pending);
         }
 
-        public List<RescheduleRequest> GetRequestsByReservationId(int reservationId) {
+        public List<RescheduleRequest> GetByReservationId(int reservationId) {
             return this.GetAll().FindAll(x => x.ReservationId == reservationId);
+        }
+
+        public List<RescheduleRequest> GetByGuestId(int guestId) {
+            return this.GetAll().FindAll(x => x.GuestId == guestId);
         }
     }
 }

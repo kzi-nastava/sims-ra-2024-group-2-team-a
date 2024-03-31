@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:BookingApp.View.WebViews"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800"
-             x:Name="reservationsPage">
+             x:Name="reservationsPage"
+             Loaded="ReservationsPageLoaded">
 
     <Page.Resources>
         <BitmapImage x:Key="TimeIcon" UriSource="../../Resources/Images/Icons/time-icon.png"/>

@@ -36,6 +36,10 @@ namespace BookingApp.View.WebViews {
 
         public ReservationsPage() {
             InitializeComponent();
+            Loaded += ReservationsPageLoaded;
+        }
+
+        private void ReservationsPageLoaded(object sender, RoutedEventArgs e) {
             Update();
         }
 
@@ -82,6 +86,8 @@ namespace BookingApp.View.WebViews {
         }
         
         public void UpdateRescheduleRequestDTOs() {
+            var window = Window.GetWindow(this);
+
             var rescheduleRequests = _rescheduleRequestRepository.GetAll();
             _rescheduleRequestDTOs = rescheduleRequests.Select(r => new RescheduleRequestDTO(r)).ToList();
 

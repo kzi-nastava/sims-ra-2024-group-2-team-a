@@ -29,7 +29,7 @@ namespace BookingApp.DTO {
         }
 
         public bool MatchesLocation(int locationId) {
-            return locationId == Location.Id || Location.Id == -1;
+            return locationId == Location.Id || Location.Id == 0;
         }
 
         public bool MatchesType(AccommodationType type) {
