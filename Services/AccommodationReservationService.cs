@@ -25,6 +25,10 @@ namespace BookingApp.Services
             return _reservationRepository.GetAll();
         }
 
+        public List<AccommodationReservation> GetByGuestId(int id) {
+            return _reservationRepository.GetByGuestId(id);
+        }
+
         public AccommodationReservation Save(AccommodationReservation reservation) {
             return _reservationRepository.Save(reservation);
         }

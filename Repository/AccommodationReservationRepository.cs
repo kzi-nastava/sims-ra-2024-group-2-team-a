@@ -17,6 +17,15 @@ namespace BookingApp.Repository {
             return reservations.Where(r => r.AccommodationId == id).ToList();
         }
 
+        public List<AccommodationReservation> GetByGuestId(int id) {
+            var reservations = _serializer.FromCSV();
+
+            return reservations.Where(r => r.GuestId == id).ToList();
+        }
+
+        // These methods are copied to AccommodationReservationService
+        // Should be deleted from here
+
         public List<AccommodationReservation> SuggestReservations(AccommodationReservationDTO rDTO) {
             var possibleReservations = GetPossibleReservations(rDTO);
 

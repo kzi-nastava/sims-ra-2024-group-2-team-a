@@ -1,5 +1,4 @@
 ﻿using BookingApp.DTO;
-using BookingApp.Repository;
 using BookingApp.Model;
 using System;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ namespace BookingApp.View.WebViews {
 
         private readonly int maxSuggestedReservationsCount = 20;
 
-        private readonly AccommodationReservationService _reservationnService = new AccommodationReservationService();
+        private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
 
         public CreateReservationPage(AccommodationDTO accommodationDTO) {
             InitializeComponent();
@@ -58,8 +57,7 @@ namespace BookingApp.View.WebViews {
             rDTO.StartDate = DateOnly.FromDateTime(datePickerStartDate.SelectedDate.Value);
             rDTO.EndDate = DateOnly.FromDateTime(datePickerEndDate.SelectedDate.Value);
 
-            var accommodationReservationRepository = new AccommodationReservationRepository();
-            var reservations = accommodationReservationRepository.SuggestReservations(rDTO);
+            var reservations = _reservationService.SuggestReservations(rDTO);
 
             if(reservations.Count > maxSuggestedReservationsCount)
                 reservations = reservations.GetRange(0, maxSuggestedReservationsCount);
@@ -114,7 +112,7 @@ namespace BookingApp.View.WebViews {
             selectedReservation.GuestId = currentUser.Id;
             selectedReservation.AccommodationId = _accommodationDTO.Id;
             selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
-            _reservationnService.Save(selectedReservation);
+            _reservationService.Save(selectedReservation);
         }
     }
 }

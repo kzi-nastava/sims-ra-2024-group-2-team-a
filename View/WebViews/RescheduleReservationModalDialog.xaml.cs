@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,7 +25,7 @@ namespace BookingApp.View.WebViews
     /// </summary>
     public partial class RescheduleReservationModalDialog : UserControl
     {
-        private readonly RescheduleRequestRepository _rescheduleRepository = new RescheduleRequestRepository();
+        private readonly RescheduleRequestService _rescheduleRequestService = new RescheduleRequestService();
 
         private AccommodationReservationDTO _reservation;
         private ReservationsPage _parentPage;
@@ -42,20 +43,18 @@ namespace BookingApp.View.WebViews
         }
 
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
-            AccommodationRepository accommodationRepository = new AccommodationRepository();
-            var accommodation = accommodationRepository.GetById(_reservation.AccommodationId);
             DateOnly newDate = DateOnly.FromDateTime(dataPickerNewDate.SelectedDate.Value);
 
             RescheduleRequest newRequest = new RescheduleRequest(
                 RescheduleRequestStatus.Pending,
                 _reservation.Id,
                 _reservation.GuestId,
-                accommodation.OwnerId,
+                _reservation.Accommodation.OwnerId,
                 _reservation.StartDate,
                 newDate,
                 "");
 
-            _rescheduleRepository.Save(newRequest);
+            _rescheduleRequestService.Save(newRequest);
             _parentPage.CloseModalDialog();
         }
     }
