@@ -16,9 +16,8 @@ namespace BookingApp.View.WebViews {
         private List<AccommodationDTO> _accommodationDTOs = new List<AccommodationDTO>();
         private List<LocationDTO> _locationDTOs = new List<LocationDTO>();
 
-        private LocationRepository _locationRepository = new LocationRepository();
-
         private readonly AccommodationService _accommodationService = new AccommodationService();
+        private readonly LocationService _locationService = new LocationService();
 
         public BookingPage() {
             InitializeComponent();
@@ -27,18 +26,21 @@ namespace BookingApp.View.WebViews {
         }
 
         public void Update() {
-            var locations = _locationRepository.GetAll();
+            UpdateLocationDTOs();
+            UpdateAccommodationDTOs(_accommodationService.GetAll());
+        }
+
+        private void UpdateLocationDTOs() {
+            var locations = _locationService.GetAll();
             _locationDTOs = locations.Select(l => new LocationDTO(l)).ToList();
             _locationDTOs.Insert(0, new LocationDTO());
-
-            UpdateAccommodationDTOs(_accommodationService.GetAll());
         }
 
         public void UpdateAccommodationDTOs(List<Accommodation> accommodations) {
             _accommodationDTOs = accommodations.Select(a => new AccommodationDTO(a)).ToList();
 
             foreach (var acc in _accommodationDTOs) {
-                var loc = _locationDTOs.FirstOrDefault(l => l.Id == acc.LocationId);
+                var loc = _locationDTOs.Find(l => l.Id == acc.LocationId);
                 acc.Location = loc;
             }
 
