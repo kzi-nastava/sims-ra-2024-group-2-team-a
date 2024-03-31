@@ -73,15 +73,8 @@ namespace BookingApp.DTO {
                 }
             }
         }
-
-        public string AccommodationName { get; set; }
-        public AccommodationType AccommodationType { get; set; }
-        public string AccommodationLocation { get; set; }
-
         public AccommodationDTO Accommodation { get; set; }
-
-        public int LastCancellationDay { get; set; }
-        public String CancellationDate => StartDate.AddDays(-LastCancellationDay).ToString();
+        public String CancellationDate => StartDate.AddDays(-Accommodation.LastCancellationDay).ToString();
         public bool Graded { get; set; }
         public int ReservationDays { get; set; }
         public string DateString => $"{StartDate}\n{EndDate}";
@@ -124,5 +117,12 @@ namespace BookingApp.DTO {
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
+        // Should be removed from class
+        public string AccommodationName { get; set; }
+        public AccommodationType AccommodationType { get; set; }
+        public string AccommodationLocation { get; set; }
+        public int LastCancellationDay { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace BookingApp.View.WebViews {
 
             foreach (var acc in _accommodationDTOs) {
                 var loc = _locationDTOs.FirstOrDefault(l => l.Id == acc.LocationId);
-                acc.SetDisplayLocation(loc.City, loc.Country);
+                acc.Location = loc;
             }
 
             itemsControlAccommodations.ItemsSource = _accommodationDTOs;

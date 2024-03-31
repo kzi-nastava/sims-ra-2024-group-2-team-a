@@ -116,12 +116,6 @@ namespace BookingApp.DTO {
         public List<string> ProfilePictures { get; set; } = new List<string>();
         public LocationDTO Location { get; set; }
 
-        public string DisplayLocation { get; set; }
-
-        public void SetDisplayLocation(string city, string country) {
-            DisplayLocation = $"{country}, {city}";
-        }
-
         public Accommodation ToAccommodation() {
             Accommodation acc = new Accommodation(Name, LocationId, Type, MaxGuestNumber, MinReservationDays, LastCancellationDay, OwnerId, ProfilePictures);
             acc.Id = Id;
@@ -131,6 +125,12 @@ namespace BookingApp.DTO {
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        // Should be removed from class
+        public string DisplayLocation { get; set; }
+        public void SetDisplayLocation(string city, string country) {
+            DisplayLocation = $"{country}, {city}";
         }
     }
 }
