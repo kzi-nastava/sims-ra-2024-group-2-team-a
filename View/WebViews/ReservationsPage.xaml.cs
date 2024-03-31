@@ -50,7 +50,7 @@ namespace BookingApp.View.WebViews {
 
             foreach (var acc in _accommodationDTOs) {
                 var loc = _locationDTOs.FirstOrDefault(l => l.Id == acc.LocationId);
-                acc.SetDisplayLocation(loc.City, loc.Country);
+                acc.Location = loc;
             }
         }
 
@@ -77,16 +77,18 @@ namespace BookingApp.View.WebViews {
 
             foreach(var res in _reservationDTOs) {
                 var acc = _accommodationDTOs.FirstOrDefault(a => a.Id == res.AccommodationId);
-                res.AccommodationName = acc.Name;
-                res.AccommodationType = acc.Type;
-                res.AccommodationLocation = acc.DisplayLocation;
-                res.LastCancellationDay = acc.LastCancellationDay;
+                res.Accommodation = acc;
             }
         }
         
         public void UpdateRescheduleRequestDTOs() {
             var rescheduleRequests = _rescheduleRequestRepository.GetAll();
             _rescheduleRequestDTOs = rescheduleRequests.Select(r => new RescheduleRequestDTO(r)).ToList();
+
+            foreach(var req in _rescheduleRequestDTOs) {
+                var res = _reservationDTOs.FirstOrDefault(res => res.Id == req.ReservationId);
+                req.Reservation = res;
+            }
         }
 
         private void ButtonScheduledClick(object sender, RoutedEventArgs e) {

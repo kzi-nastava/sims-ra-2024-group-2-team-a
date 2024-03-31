@@ -46,25 +46,26 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
-            
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding AccommodationName}" FontSize="18" Margin="40 10 0 10"/>
+
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Accommodation.Name}" FontSize="18" Margin="40 10 0 10"/>
 
             <Label Grid.Row="1" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{StaticResource InfoImage}" Source="{StaticResource LocationIcon}"/>
-                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding AccommodationLocation}"/>
+                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Accommodation.Location.LocationInfoTemplate}"/>
                 </StackPanel>
             </Label>
 
             <Label Grid.Row="2" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{StaticResource InfoImage}" Source="{StaticResource HouseIcon}"/>
-                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding AccommodationType}"/>
+                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Accommodation.Type}"/>
                 </StackPanel>
             </Label>
 

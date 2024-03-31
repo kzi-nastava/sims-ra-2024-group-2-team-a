@@ -1,29 +1,12 @@
 ﻿using BookingApp.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BookingApp.DTO
-{
+namespace BookingApp.DTO {
     public class AccommodationReservationDTO : INotifyPropertyChanged {
 
-        public AccommodationReservationDTO() {
-        }
-
-        public AccommodationReservationDTO(AccommodationReservation acc) {
-            Id = acc.Id;
-            GuestId = acc.GuestId;
-            AccommodationId = acc.AccommodationId;
-            GuestsNumber = acc.GuestsNumber;
-            StartDate = acc.StartDate;
-            EndDate = acc.EndDate;
-            Graded = false;
-        }
+        public AccommodationReservationDTO() { }
 
         public AccommodationReservationDTO(AccommodationReservationDTO accDTO) {
             Id = accDTO.Id;
@@ -37,9 +20,20 @@ namespace BookingApp.DTO
             Graded = accDTO.Graded;
         }
 
-        public int Id { get; set; }
-        public int GuestId { get; set; }
-        public int AccommodationId { get; set; }
+        public AccommodationReservationDTO(AccommodationReservation acc) {
+            Id = acc.Id;
+            GuestId = acc.GuestId;
+            AccommodationId = acc.AccommodationId;
+            GuestsNumber = acc.GuestsNumber;
+            StartDate = acc.StartDate;
+            EndDate = acc.EndDate;
+            ReservationDays = acc.ReservationDays;
+            Graded = false;
+        }
+
+        public int Id { get; set; } = 0;
+        public int GuestId { get; set; } = 0;
+        public int AccommodationId { get; set; } = 0;
 
         public int _guestsNumber;
         public int GuestsNumber {
@@ -79,12 +73,8 @@ namespace BookingApp.DTO
                 }
             }
         }
-
-        public string AccommodationName { get; set; }
-        public AccommodationType AccommodationType { get; set; }
-        public string AccommodationLocation { get; set; }
-        public int LastCancellationDay { get; set; }
-        public String CancellationDate => StartDate.AddDays(-LastCancellationDay).ToString();
+        public AccommodationDTO Accommodation { get; set; }
+        public String CancellationDate => StartDate.AddDays(-Accommodation.LastCancellationDay).ToString();
         public bool Graded { get; set; }
         public int ReservationDays { get; set; }
         public string DateString => $"{StartDate}\n{EndDate}";
@@ -118,12 +108,21 @@ namespace BookingApp.DTO
         }
 
         public AccommodationReservation ToAccommodationReservation() {
-            return new AccommodationReservation();
+            var res = new AccommodationReservation(GuestId, AccommodationId, GuestsNumber, StartDate, EndDate);
+            res.Id = Id;
+            return res;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
+        // Should be removed from class
+        public string AccommodationName { get; set; }
+        public AccommodationType AccommodationType { get; set; }
+        public string AccommodationLocation { get; set; }
+        public int LastCancellationDay { get; set; }
     }
 }

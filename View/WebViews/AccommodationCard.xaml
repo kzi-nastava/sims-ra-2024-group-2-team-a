@@ -60,7 +60,7 @@
                 <Label Grid.Row="0">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource LocationIcon}"/>
-                        <TextBlock HorizontalAlignment="Left" Text="{Binding DisplayLocation}"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding Location.LocationInfoTemplate}"/>
                     </StackPanel>
                 </Label>
 

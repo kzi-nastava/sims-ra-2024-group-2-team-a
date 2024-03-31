@@ -15,6 +15,7 @@ namespace BookingApp.Model {
         public int GuestsNumber { get; set; }
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
+        public int ReservationDays => EndDate.Day - StartDate.Day;
 
         public AccommodationReservation() { }
 
