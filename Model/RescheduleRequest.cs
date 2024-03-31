@@ -26,6 +26,14 @@ namespace BookingApp.Model {
 
         public RescheduleRequest() {}
 
+        public RescheduleRequest(int resId, int guestId, int ownerId, DateOnly oldStartDate, DateOnly newStartDate) {
+            ReservationId = resId;
+            GuestId = guestId;
+            OwnerId = ownerId;
+            OldStartDate = oldStartDate;
+            NewStartDate = newStartDate;
+        }
+
         public RescheduleRequest(RescheduleRequestStatus status, int resId, int guestId, int ownerId, DateOnly oldStartDate, DateOnly newStartDate, string ownerComment) {
             Status = status;
             ReservationId = resId;

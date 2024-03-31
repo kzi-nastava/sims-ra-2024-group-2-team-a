@@ -12,6 +12,17 @@ namespace BookingApp.DTO {
 
         public RescheduleRequestDTO() {}
 
+        public RescheduleRequestDTO(RescheduleRequest request) {
+            Id = request.Id;
+            Status = request.Status;
+            ReservationId = request.ReservationId;
+            GuestId = request.GuestId;
+            OwnerId = request.OwnerId;
+            OldStartDate = request.OldStartDate;
+            NewStartDate = request.NewStartDate;
+            OwnerComment = request.OwnerComment;
+        }
+
         public RescheduleRequestDTO(RescheduleRequestStatus status, int reservationId, int guestId, int ownerId, DateOnly oldStartDate, DateOnly newStartDate, string ownerComment) {
             Status = status;
             ReservationId = reservationId;
@@ -20,17 +31,6 @@ namespace BookingApp.DTO {
             OldStartDate = oldStartDate;
             NewStartDate = newStartDate;
             OwnerComment = ownerComment;
-        }
-
-        public RescheduleRequestDTO(RescheduleRequest rescheduleRequest) {
-            Id = rescheduleRequest.Id;
-            Status = rescheduleRequest.Status;
-            ReservationId = rescheduleRequest.ReservationId;
-            GuestId = rescheduleRequest.GuestId;
-            OwnerId = rescheduleRequest.OwnerId;
-            OldStartDate = rescheduleRequest.OldStartDate;
-            NewStartDate = rescheduleRequest.NewStartDate;
-            OwnerComment = rescheduleRequest.OwnerComment;
         }
 
         private int _id;
