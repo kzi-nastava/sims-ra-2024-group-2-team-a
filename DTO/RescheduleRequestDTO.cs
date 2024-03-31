@@ -217,6 +217,8 @@ namespace BookingApp.DTO {
             }
         }
 
+        public AccommodationReservationDTO Reservation { get; set; }
+
         public void SetDates(DateOnly oldEndDate) {
             int reservationDuration = oldEndDate.DayNumber - OldStartDate.DayNumber;
             NewEndDate = NewStartDate.AddDays(reservationDuration);

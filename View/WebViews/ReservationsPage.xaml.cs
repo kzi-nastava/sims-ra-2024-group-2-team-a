@@ -84,6 +84,11 @@ namespace BookingApp.View.WebViews {
         public void UpdateRescheduleRequestDTOs() {
             var rescheduleRequests = _rescheduleRequestRepository.GetAll();
             _rescheduleRequestDTOs = rescheduleRequests.Select(r => new RescheduleRequestDTO(r)).ToList();
+
+            foreach(var req in _rescheduleRequestDTOs) {
+                var res = _reservationDTOs.FirstOrDefault(res => res.Id == req.ReservationId);
+                req.Reservation = res;
+            }
         }
 
         private void ButtonScheduledClick(object sender, RoutedEventArgs e) {
