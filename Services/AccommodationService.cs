@@ -14,6 +14,14 @@ namespace BookingApp.Services
     {
         private readonly AccommodationRepository _accommodationRepository = new AccommodationRepository();
 
+        public List<Accommodation> GetAll() {
+            return _accommodationRepository.GetAll();
+        }
+
+        public Accommodation Save(Accommodation accommodation) {
+            return _accommodationRepository.Save(accommodation);
+        }
+
         public List<Accommodation> GetByOwnerId(int ownerId) {
             return _accommodationRepository.GetByOwnerId(ownerId);
         }

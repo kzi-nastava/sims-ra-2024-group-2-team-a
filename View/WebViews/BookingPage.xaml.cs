@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,9 @@ namespace BookingApp.View.WebViews {
         private List<AccommodationDTO> _accommodationDTOs = new List<AccommodationDTO>();
         private List<LocationDTO> _locationDTOs = new List<LocationDTO>();
 
-        private AccommodationRepository _accommodationRepository = new AccommodationRepository();
         private LocationRepository _locationRepository = new LocationRepository();
+
+        private readonly AccommodationService _accommodationService = new AccommodationService();
 
         public BookingPage() {
             InitializeComponent();
@@ -29,7 +31,7 @@ namespace BookingApp.View.WebViews {
             _locationDTOs = locations.Select(l => new LocationDTO(l)).ToList();
             _locationDTOs.Insert(0, new LocationDTO());
 
-            UpdateAccommodationDTOs(_accommodationRepository.GetAll());
+            UpdateAccommodationDTOs(_accommodationService.GetAll());
         }
 
         public void UpdateAccommodationDTOs(List<Accommodation> accommodations) {
@@ -68,7 +70,7 @@ namespace BookingApp.View.WebViews {
 
             AccommodationFilterDTO filter = new AccommodationFilterDTO(name, location, type, guestNumber, reservationDays);
 
-            var accommodations = _accommodationRepository.GetFilteredAccommodations(filter);
+            var accommodations = _accommodationService.GetFilteredAccommodations(filter);
             UpdateAccommodationDTOs(accommodations);
         }
 

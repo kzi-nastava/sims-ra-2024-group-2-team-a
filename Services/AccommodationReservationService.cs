@@ -17,6 +17,23 @@ namespace BookingApp.Services
             return _reservationRepository.GetByAccommodationId(id);
         }
 
+        public AccommodationReservation GetById(int id) {
+            return _reservationRepository.GetById(id);
+        }
+
+        public List<AccommodationReservation> GetAll() {
+            return _reservationRepository.GetAll();
+        }
+
+        public AccommodationReservation Save(AccommodationReservation reservation) {
+            return _reservationRepository.Save(reservation);
+        }
+
+        public bool Delete(int id) {
+            var reservation =  _reservationRepository.GetById(id);
+            return _reservationRepository.Delete(reservation);
+        }
+
         public List<AccommodationReservation> SuggestReservations(AccommodationReservationDTO rDTO) {
             var possibleReservations = GetPossibleReservations(rDTO);
 

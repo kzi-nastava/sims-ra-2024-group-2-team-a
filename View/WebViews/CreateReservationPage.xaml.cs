@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.Services;
 
 namespace BookingApp.View.WebViews {
     /// <summary>
@@ -25,6 +26,8 @@ namespace BookingApp.View.WebViews {
         private AccommodationDTO _accommodationDTO;
 
         private readonly int maxSuggestedReservationsCount = 20;
+
+        private readonly AccommodationReservationService _reservationnService = new AccommodationReservationService();
 
         public CreateReservationPage(AccommodationDTO accommodationDTO) {
             InitializeComponent();
@@ -108,12 +111,10 @@ namespace BookingApp.View.WebViews {
             GuestMainWindow window = Window.GetWindow(this) as GuestMainWindow;
             User currentUser = window.User;
 
-            AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
-
             selectedReservation.GuestId = currentUser.Id;
             selectedReservation.AccommodationId = _accommodationDTO.Id;
             selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
-            accommodationReservationRepository.Save(selectedReservation);
+            _reservationnService.Save(selectedReservation);
         }
     }
 }

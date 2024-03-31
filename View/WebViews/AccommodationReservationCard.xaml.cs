@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,8 @@ namespace BookingApp.View.WebViews {
     /// </summary>
     public partial class AccommodationReservationCard : UserControl {
 
-        private readonly AccommodationReservationRepository _reservationRepository = new AccommodationReservationRepository();
-        private readonly RescheduleRequestRepository _rescheduleRepository = new RescheduleRequestRepository(); 
+        private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
+        private readonly RescheduleRequestService _rescheduleService = new RescheduleRequestService();
 
         public AccommodationReservationCard() {
             InitializeComponent();
@@ -32,11 +33,9 @@ namespace BookingApp.View.WebViews {
         private void ButtonCancelClick(object sender, RoutedEventArgs e) {
             AccommodationReservationDTO reservationDTO = DataContext as AccommodationReservationDTO;
 
-            var rescheduleRequests = _rescheduleRepository.GetByReservationId(reservationDTO.Id);
-            rescheduleRequests.Select(x => _rescheduleRepository.Delete(x));
+            _rescheduleService.DeleteByReservationId(reservationDTO.Id);
 
-            var reservation = _reservationRepository.GetById(reservationDTO.Id);
-            _reservationRepository.Delete(reservation);
+            _reservationService.Delete(reservationDTO.Id);
 
             Update();
         }

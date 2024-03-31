@@ -12,6 +12,21 @@ namespace BookingApp.Services
     {
         private readonly RescheduleRequestRepository _requestRepository = new RescheduleRequestRepository();
 
+        public List<RescheduleRequest> GetAll() {
+            return _requestRepository.GetAll();
+        }
+
+        public bool Delete(int id) {
+            var request = _requestRepository.GetById(id);
+            return _requestRepository.Delete(request);
+        }
+
+        public bool DeleteByReservationId(int reservationId) {
+            var requests = _requestRepository.GetByReservationId(reservationId);
+            requests.ForEach(r => _requestRepository.Delete(r));
+            return true;
+        }
+
         public List<RescheduleRequest> GetPendingRequestsByOwnerId(int ownerId) {
             return _requestRepository.GetPendingRequestsByOwnerId(ownerId);
         }
