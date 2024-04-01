@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,15 +23,15 @@ namespace BookingApp.View.WebViews {
     /// </summary>
     public partial class ReservationsPage : Page {
 
-        private List<AccommodationReservationDTO> _reservationDTOs = new List<AccommodationReservationDTO>();
-        private List<AccommodationDTO> _accommodationDTOs = new List<AccommodationDTO>();
-        private List<LocationDTO> _locationDTOs = new List<LocationDTO>();
-        private List<RescheduleRequestDTO> _rescheduleRequestDTOs = new List<RescheduleRequestDTO>();
+        private readonly LocationService _locationService = new LocationService();
+        private readonly AccommodationService _accommodationService = new AccommodationService();
+        private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
+        private readonly RescheduleRequestService _rescheduleRequestService = new RescheduleRequestService();
 
-        private readonly AccommodationReservationRepository _reservationsRepository = new AccommodationReservationRepository();
-        private readonly AccommodationRepository _accommodationRepository = new AccommodationRepository();
-        private readonly LocationRepository _locationRepository = new LocationRepository();
-        private readonly RescheduleRequestRepository _rescheduleRequestRepository = new RescheduleRequestRepository();
+        private List<LocationDTO> _locationDTOs = new List<LocationDTO>();
+        private List<AccommodationDTO> _accommodationDTOs = new List<AccommodationDTO>();
+        private List<AccommodationReservationDTO> _reservationDTOs = new List<AccommodationReservationDTO>();
+        private List<RescheduleRequestDTO> _rescheduleRequestDTOs = new List<RescheduleRequestDTO>();
 
         private bool ScheduledSelected = true;
 
@@ -44,16 +45,16 @@ namespace BookingApp.View.WebViews {
         }
 
         public void UpdateLocationDTOs() {
-            var locations = _locationRepository.GetAll();
+            var locations = _locationService.GetAll();
             _locationDTOs = locations.Select(l => new LocationDTO(l)).ToList();
         }
 
         public void UpdateAccommodationDTOs() {
-            var accommodations = _accommodationRepository.GetAll();
+            var accommodations = _accommodationService.GetAll();
             _accommodationDTOs = accommodations.Select(a => new AccommodationDTO(a)).ToList();
 
             foreach (var acc in _accommodationDTOs) {
-                var loc = _locationDTOs.FirstOrDefault(l => l.Id == acc.LocationId);
+                var loc = _locationDTOs.Find(l => l.Id == acc.LocationId);
                 acc.Location = loc;
             }
         }
@@ -76,7 +77,7 @@ namespace BookingApp.View.WebViews {
         }
 
         public void UpdateReservationDTOs() {
-            var reservations = _reservationsRepository.GetAll();
+            var reservations = _reservationService.GetAll();
             _reservationDTOs = reservations.Select(r => new AccommodationReservationDTO(r)).ToList();
 
             foreach(var res in _reservationDTOs) {
@@ -86,9 +87,10 @@ namespace BookingApp.View.WebViews {
         }
         
         public void UpdateRescheduleRequestDTOs() {
-            var window = Window.GetWindow(this);
+            var window = Window.GetWindow(this) as GuestMainWindow;
+            int guestId = window.User.Id;
 
-            var rescheduleRequests = _rescheduleRequestRepository.GetAll();
+            var rescheduleRequests = _rescheduleRequestService.GetByGuestId(guestId);
             _rescheduleRequestDTOs = rescheduleRequests.Select(r => new RescheduleRequestDTO(r)).ToList();
 
             foreach(var req in _rescheduleRequestDTOs) {

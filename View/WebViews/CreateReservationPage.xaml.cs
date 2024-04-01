@@ -1,5 +1,4 @@
 ﻿using BookingApp.DTO;
-using BookingApp.Repository;
 using BookingApp.Model;
 using System;
 using System.Collections.Generic;
@@ -15,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.Services;
 
 namespace BookingApp.View.WebViews {
     /// <summary>
@@ -25,6 +25,8 @@ namespace BookingApp.View.WebViews {
         private AccommodationDTO _accommodationDTO;
 
         private readonly int maxSuggestedReservationsCount = 20;
+
+        private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
 
         public CreateReservationPage(AccommodationDTO accommodationDTO) {
             InitializeComponent();
@@ -55,8 +57,7 @@ namespace BookingApp.View.WebViews {
             rDTO.StartDate = DateOnly.FromDateTime(datePickerStartDate.SelectedDate.Value);
             rDTO.EndDate = DateOnly.FromDateTime(datePickerEndDate.SelectedDate.Value);
 
-            var accommodationReservationRepository = new AccommodationReservationRepository();
-            var reservations = accommodationReservationRepository.SuggestReservations(rDTO);
+            var reservations = _reservationService.SuggestReservations(rDTO);
 
             if(reservations.Count > maxSuggestedReservationsCount)
                 reservations = reservations.GetRange(0, maxSuggestedReservationsCount);
@@ -108,12 +109,10 @@ namespace BookingApp.View.WebViews {
             GuestMainWindow window = Window.GetWindow(this) as GuestMainWindow;
             User currentUser = window.User;
 
-            AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
-
             selectedReservation.GuestId = currentUser.Id;
             selectedReservation.AccommodationId = _accommodationDTO.Id;
             selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
-            accommodationReservationRepository.Save(selectedReservation);
+            _reservationService.Save(selectedReservation);
         }
     }
 }

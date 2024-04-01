@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,8 @@ namespace BookingApp.View.WebViews {
         private List<AccommodationDTO> _accommodationDTOs = new List<AccommodationDTO>();
         private List<LocationDTO> _locationDTOs = new List<LocationDTO>();
 
-        private AccommodationRepository _accommodationRepository = new AccommodationRepository();
-        private LocationRepository _locationRepository = new LocationRepository();
+        private readonly AccommodationService _accommodationService = new AccommodationService();
+        private readonly LocationService _locationService = new LocationService();
 
         public BookingPage() {
             InitializeComponent();
@@ -25,18 +26,21 @@ namespace BookingApp.View.WebViews {
         }
 
         public void Update() {
-            var locations = _locationRepository.GetAll();
+            UpdateLocationDTOs();
+            UpdateAccommodationDTOs(_accommodationService.GetAll());
+        }
+
+        private void UpdateLocationDTOs() {
+            var locations = _locationService.GetAll();
             _locationDTOs = locations.Select(l => new LocationDTO(l)).ToList();
             _locationDTOs.Insert(0, new LocationDTO());
-
-            UpdateAccommodationDTOs(_accommodationRepository.GetAll());
         }
 
         public void UpdateAccommodationDTOs(List<Accommodation> accommodations) {
             _accommodationDTOs = accommodations.Select(a => new AccommodationDTO(a)).ToList();
 
             foreach (var acc in _accommodationDTOs) {
-                var loc = _locationDTOs.FirstOrDefault(l => l.Id == acc.LocationId);
+                var loc = _locationDTOs.Find(l => l.Id == acc.LocationId);
                 acc.Location = loc;
             }
 
@@ -68,7 +72,7 @@ namespace BookingApp.View.WebViews {
 
             AccommodationFilterDTO filter = new AccommodationFilterDTO(name, location, type, guestNumber, reservationDays);
 
-            var accommodations = _accommodationRepository.GetFilteredAccommodations(filter);
+            var accommodations = _accommodationService.GetFilteredAccommodations(filter);
             UpdateAccommodationDTOs(accommodations);
         }
 
