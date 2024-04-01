@@ -2,15 +2,29 @@
 using BookingApp.Model;
 using BookingApp.Repository;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace BookingApp.View.TabletView {
+namespace BookingApp.View.TabletView
+{
     /// <summary>
-    /// Interaction logic for FollowLiveTourPage.xaml
+    /// Interaction logic for ScheduledToursPage.xaml
     /// </summary>
-    public partial class FollowLiveTourPage : Page {
+    public partial class ScheduledToursPage : Page {
+
         private int _userId;
 
         private readonly TourRepository _tourRepository;
@@ -23,7 +37,7 @@ namespace BookingApp.View.TabletView {
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public ObservableCollection<TourDTO> tourDTOs { get; set; }
-        public FollowLiveTourPage(int userId) {
+        public ScheduledToursPage(int userId) {
             InitializeComponent();
             _userId = userId;
             DataContext = this;
@@ -31,7 +45,6 @@ namespace BookingApp.View.TabletView {
             _tourRepository = new TourRepository();
             _locationRepository = new LocationRepository();
             _languageRepository = new LanguageRepository();
-
             Load();
         }
 
@@ -39,21 +52,23 @@ namespace BookingApp.View.TabletView {
             _filterDTO = SetFilter();
 
             tourDTOs.Clear();
-            foreach (var tour in _tourRepository.GetFilteredLive(_filterDTO, _userId)) {
+            foreach (var tour in _tourRepository.GetFilteredScheduled(_filterDTO, _userId)) {
                 TourDTO temp = new TourDTO(tour);
                 setLocationLanguage(temp, tour);
                 tourDTOs.Add(temp);
             }
 
-            itemsControlLiveTours.ItemsSource = tourDTOs;
+            itemsControlScheduledTours.ItemsSource = tourDTOs;
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e) {
             textBoxName.Text = string.Empty;
             textBoxTouristNumber.Text = string.Empty;
             textBoxDuration.Text = string.Empty;
+            textBoxTime.Text = string.Empty;
             comboBoxLanguage.SelectedIndex = 0;
             comboBoxLocation.SelectedIndex = 0;
+            datePicker.SelectedDate = DateTime.MinValue;
         }
         private void Load() {
             locationDTOs = new ObservableCollection<LocationDTO>();
@@ -68,11 +83,12 @@ namespace BookingApp.View.TabletView {
             foreach (var loc in _locationRepository.GetAll()) {
                 locationDTOs.Add(new LocationDTO(loc));
             }
-            LoadLive();
+            LoadScheduled();
         }
-        private void LoadLive() {
+
+        private void LoadScheduled() {
             tourDTOs = new ObservableCollection<TourDTO>();
-            foreach (var tour in _tourRepository.GetLive(_userId)) {
+            foreach (var tour in _tourRepository.GetScheduled(_userId)) {
                 TourDTO tempTourDTO = new TourDTO(tour);
                 setLocationLanguage(tempTourDTO, tour);
                 tourDTOs.Add(tempTourDTO);
@@ -102,7 +118,13 @@ namespace BookingApp.View.TabletView {
             if (!int.TryParse(textBoxDuration.Text, out int duration)) {
                 textBoxDuration.Text = string.Empty;
             }
-            return  new TourFilterDTO(name, duration, touristsNumber, location, language, DateTime.MinValue);
+
+            DateOnly date = DateOnly.FromDateTime(datePicker.SelectedDate.Value);
+            int time;
+            int.TryParse(textBoxTime.Text, out time);
+            DateTime beggining = new DateTime(date.Year, date.Month, date.Day, time, 0, 0);
+
+            return new TourFilterDTO(name, duration, touristsNumber, location, language, beggining);
         }
     }
 }

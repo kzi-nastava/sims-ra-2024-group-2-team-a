@@ -66,9 +66,7 @@ namespace BookingApp.View
                         GuideMainWindow guideMainWindow = new GuideMainWindow(user.Id);
                         guideMainWindow.Show();
                         this.Close();
-                    }
-                    else
-                    {
+                    }else{
                         GuestMainWindow  guestMainWindwo = new GuestMainWindow(user);
                         guestMainWindwo.Show();
                         Close();

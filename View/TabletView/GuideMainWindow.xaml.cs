@@ -15,7 +15,7 @@ namespace BookingApp.View.TabletView {
             _menuBarFrame = menuBarFrame;
             _userId = userId;
 
-            _mainFrame.Content = new AddTourPage(mainFrame, _userId);
+            _mainFrame.Content = new ScheduledToursPage(_userId);
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
 
