@@ -50,16 +50,6 @@ namespace BookingApp.View.AndroidViews {
         }
 
         private void Confirm_Click(object sender, RoutedEventArgs e) {
-            if (radioButtonApartment.IsChecked == true) {
-                AccommodationDTO.Type = AccommodationType.apartment;
-            }
-            else if (radioButtonHouse.IsChecked == true) {
-                AccommodationDTO.Type = AccommodationType.house;
-            }
-            else if (radioButtonHut.IsChecked == true) {
-                AccommodationDTO.Type = AccommodationType.hut;
-            }
-
             Accommodation acc = AccommodationDTO.ToAccommodation();
 
             acc.LocationId = SelectedLocationDTO.Id;

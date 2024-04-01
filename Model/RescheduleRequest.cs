@@ -22,17 +22,19 @@ namespace BookingApp.Model {
         public int OwnerId { get; set; } = 0;
         public DateOnly OldStartDate { get; set; } = new DateOnly();
         public DateOnly NewStartDate { get; set; } = new DateOnly();
+        public int ReservationDuration { get; set; } = 0;
         public string OwnerComment { get; set; } = "";
 
         public RescheduleRequest() {}
 
-        public RescheduleRequest(RescheduleRequestStatus status, int resId, int guestId, int ownerId, DateOnly oldStartDate, DateOnly newStartDate, string ownerComment) {
+        public RescheduleRequest(RescheduleRequestStatus status, int resId, int guestId, int ownerId, DateOnly oldStartDate, DateOnly newStartDate, int duration, string ownerComment) {
             Status = status;
             ReservationId = resId;
             GuestId = guestId;
             OwnerId = ownerId;
             OldStartDate = oldStartDate;
             NewStartDate = newStartDate;
+            ReservationDuration = duration;
             OwnerComment = ownerComment;
         }
 
@@ -44,7 +46,8 @@ namespace BookingApp.Model {
             OwnerId = int.Parse(values[4]);
             OldStartDate = DateOnly.ParseExact(values[5], "dd-MM-yyyy");
             NewStartDate = DateOnly.ParseExact(values[6], "dd-MM-yyyy");
-            OwnerComment = values[7];
+            ReservationDuration = int.Parse(values[7]);
+            OwnerComment = values[8];
         }
 
         public string[] ToCSV() {
@@ -56,6 +59,7 @@ namespace BookingApp.Model {
                 OwnerId.ToString(),
                 OldStartDate.ToString("dd-MM-yyyy"),
                 NewStartDate.ToString("dd-MM-yyyy"),
+                ReservationDuration.ToString(),
                 OwnerComment
             };
 

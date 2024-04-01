@@ -4,9 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.AndroidViews"
+      xmlns:converters="clr-namespace:BookingApp.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="624" d:DesignWidth="430"
       Title="AddAccommodationPage">
+    <Page.Resources>
+        <converters:RadioButtonToAccommodationTypeConverter x:Key="AccTypeConverter"/>
+    </Page.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Background="#BABDE2">
         <Grid Height="600" Width="430">
             <Grid.RowDefinitions>
@@ -38,9 +42,12 @@
 
             <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Type:" FontSize="16"/>
             <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                <RadioButton x:Name="radioButtonApartment" FontSize="16" Content="Apartment" GroupName="AccomodationType" IsChecked="True"/>
-                <RadioButton x:Name="radioButtonHouse" FontSize="16" Content="House" GroupName="AccomodationType"/>
-                <RadioButton x:Name="radioButtonHut" FontSize="16" Content="Hut" GroupName="AccomodationType"/>
+                <RadioButton x:Name="radioButtonApartment" FontSize="16" Content="Apartment" GroupName="AccomodationType" 
+                             IsChecked="{Binding AccommodationDTO.Type, Converter={StaticResource AccTypeConverter}, ConverterParameter=apartment}"/>
+                <RadioButton x:Name="radioButtonHouse" FontSize="16" Content="House" GroupName="AccomodationType" 
+                             IsChecked="{Binding AccommodationDTO.Type, Converter={StaticResource AccTypeConverter}, ConverterParameter=house}"/>
+                <RadioButton x:Name="radioButtonHut" FontSize="16" Content="Hut" GroupName="AccomodationType"
+                             IsChecked="{Binding AccommodationDTO.Type, Converter={StaticResource AccTypeConverter}, ConverterParameter=hut}"/>
             </StackPanel>
 
             <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontSize="16"/>

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace BookingApp.Model {
     public class Location : ISerializable, IIdentifiable {
 
-        public int Id { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
+        public int Id { get; set; } = 0;
+        public string City { get; set; } = "";
+        public string Country { get; set; } = "";
 
-        public Location() { }
+        public Location() {}
 
         public Location(string city, string country) {
             City = city;

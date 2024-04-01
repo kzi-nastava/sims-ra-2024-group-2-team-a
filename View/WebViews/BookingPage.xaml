@@ -7,7 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800">
     <Grid>
-        <Grid Background="LightGray" Height="80" VerticalAlignment="Top" HorizontalAlignment="Right" Width="800">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="453*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="LightGray" Height="80" VerticalAlignment="Top" HorizontalAlignment="Center" Width="800" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="337*"/>
                 <ColumnDefinition Width="317*"/>
@@ -33,7 +37,7 @@
             <Button x:Name="buttonFilter" Content="Filter" Margin="48,40,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88" Grid.Column="2" Click="ButtonFilterClick"/>
             <Button x:Name="buttonClear" Content="Clear" Margin="90,10,0,0" Height="20" VerticalAlignment="Top" Grid.Column="2" HorizontalAlignment="Left" Width="46" Click="ButtonClearClick"/>
         </Grid>
-        <ScrollViewer Margin="0,80,0,25" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Margin="0,33,0,25" VerticalScrollBarVisibility="Auto" Grid.Row="1">
             <ItemsControl x:Name="itemsControlAccommodations" ItemsSource="{Binding _accommodationDTOs}" Margin="10 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

@@ -13,19 +13,17 @@ namespace BookingApp.Model {
 
     public class Accommodation : ISerializable, IIdentifiable {
 
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public int LocationId { get; set; }
-        public AccommodationType Type { get; set; }
-        public int MaxGuestNumber { get; set; }
-        public int MinReservationDays { get; set; }
-        public int LastCancellationDay { get; set; }
-        public int OwnerId { get; set; }
-        public List<string> ProfilePictures { get; set; }
+        public int Id { get; set; } = 0;
+        public string Name { get; set; } = "";
+        public int LocationId { get; set; } = 0;
+        public AccommodationType Type { get; set; } = AccommodationType.any;
+        public int MaxGuestNumber { get; set; } = 0;
+        public int MinReservationDays { get; set; } = 0;
+        public int LastCancellationDay { get; set; } = 0;
+        public int OwnerId { get; set; } = 0;
+        public List<string> ProfilePictures { get; set; } = new List<string>();
 
-        public Accommodation() {
-            ProfilePictures = new List<string>();
-        }
+        public Accommodation() {}
 
         public Accommodation(string name, int locationId, AccommodationType accomodationType,
             int maxGuestNumber, int minReservationDays, int cancellationDate, int ownerId, List<string> profilePictures) {

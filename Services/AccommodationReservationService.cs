@@ -1,30 +1,42 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
-using BookingApp.Serializer;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.Repository {
-    class AccommodationReservationRepository : Repository<AccommodationReservation> {
+namespace BookingApp.Services
+{
+    class AccommodationReservationService
+    {
+        private readonly AccommodationReservationRepository _reservationRepository = new AccommodationReservationRepository();
 
         public List<AccommodationReservation> GetByAccommodationId(int id) {
-            var reservations = _serializer.FromCSV();
+            return _reservationRepository.GetByAccommodationId(id);
+        }
 
-            return reservations.Where(r => r.AccommodationId == id).ToList();
+        public AccommodationReservation GetById(int id) {
+            return _reservationRepository.GetById(id);
+        }
+
+        public List<AccommodationReservation> GetAll() {
+            return _reservationRepository.GetAll();
         }
 
         public List<AccommodationReservation> GetByGuestId(int id) {
-            var reservations = _serializer.FromCSV();
-
-            return reservations.Where(r => r.GuestId == id).ToList();
+            return _reservationRepository.GetByGuestId(id);
         }
 
-        // These methods are copied to AccommodationReservationService
-        // Should be deleted from here
+        public AccommodationReservation Save(AccommodationReservation reservation) {
+            return _reservationRepository.Save(reservation);
+        }
+
+        public bool Delete(int id) {
+            var reservation =  _reservationRepository.GetById(id);
+            return _reservationRepository.Delete(reservation);
+        }
 
         public List<AccommodationReservation> SuggestReservations(AccommodationReservationDTO rDTO) {
             var possibleReservations = GetPossibleReservations(rDTO);
@@ -51,7 +63,7 @@ namespace BookingApp.Repository {
             return possibleReservations;
         }
 
-        public List<AccommodationReservation> GetPossibleReservations(AccommodationReservationDTO rDTO) {
+        private List<AccommodationReservation> GetPossibleReservations(AccommodationReservationDTO rDTO) {
 
             List<AccommodationReservation> exisitingReservations = GetByAccommodationId(rDTO.AccommodationId);
             var reservationPool = exisitingReservations.Where(r => IsReservationInDateRange(r, rDTO.StartDate, rDTO.EndDate)).ToList();
@@ -64,19 +76,19 @@ namespace BookingApp.Repository {
             return possibleReservations;
         }
 
-        public bool DoReservationsOverlap(AccommodationReservation r1, AccommodationReservation r2) {
+        private bool DoReservationsOverlap(AccommodationReservation r1, AccommodationReservation r2) {
             if (r1.StartDate >= r2.EndDate || r2.StartDate >= r1.EndDate)
                 return false;
 
             return true;
         }
 
-        public bool IsReservationInDateRange(AccommodationReservation r, DateOnly start, DateOnly end) {
+        private bool IsReservationInDateRange(AccommodationReservation r, DateOnly start, DateOnly end) {
             return r.StartDate >= start && r.EndDate <= end;
         }
 
         // Returns true if it found slot for reservation and adds it to reservations list
-        public bool GeneratePossibleReservationFirstFit(List<AccommodationReservation> reservations, AccommodationReservationDTO rDTO) {
+        private bool GeneratePossibleReservationFirstFit(List<AccommodationReservation> reservations, AccommodationReservationDTO rDTO) {
 
             List<DateOnly> endDates = reservations.Select(r => r.EndDate).ToList();
             endDates.Add(rDTO.StartDate);
@@ -94,7 +106,7 @@ namespace BookingApp.Repository {
             return false;
         }
 
-        public bool CheckAccommodationAvailability(int accommodationId, DateOnly startDate, DateOnly endDate) {
+        private bool CheckAccommodationAvailability(int accommodationId, DateOnly startDate, DateOnly endDate) {
             foreach (var r in this.GetByAccommodationId(accommodationId)) {
                 if (!(r.StartDate >= endDate || startDate >= r.EndDate))
                     return false;
@@ -102,6 +114,5 @@ namespace BookingApp.Repository {
 
             return true;
         }
-
     }
 }
