@@ -61,7 +61,7 @@ namespace BookingApp.DTO {
             }
         }
 
-        public AccommodationType _type;
+        public AccommodationType _type = AccommodationType.apartment;
         public AccommodationType Type {
             get {
                 return _type;

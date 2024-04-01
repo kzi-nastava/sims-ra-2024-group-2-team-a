@@ -52,6 +52,7 @@ namespace BookingApp.View.WebViews
                 _reservation.Accommodation.OwnerId,
                 _reservation.StartDate,
                 newDate,
+                _reservation.ReservationDays,
                 "");
 
             _rescheduleRequestService.Save(newRequest);

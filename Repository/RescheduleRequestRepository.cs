@@ -20,5 +20,10 @@ namespace BookingApp.Repository {
         public List<RescheduleRequest> GetByGuestId(int guestId) {
             return this.GetAll().FindAll(x => x.GuestId == guestId);
         }
+
+        public List<RescheduleRequest> GetSortedRequestsByOwnerId(int ownerId) {
+            List<RescheduleRequest> requests = this.GetAll().FindAll(x => x.OwnerId == ownerId);
+            return requests.OrderBy(x => x.Status).ToList();
+        }
     }
 }
