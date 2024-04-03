@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,9 @@ namespace BookingApp.View.AndroidViews {
     /// </summary>
     public partial class NotificationsPage : Page {
 
-        private readonly NotificationRepository _notificationRepository;
+        //private readonly NotificationRepository _notificationRepository;
+
+        private NotificationService notificationService = new NotificationService();
 
         private readonly User _user;
         public List<NotificationDTO> NotificationDTOs { get; set; }
@@ -32,13 +35,12 @@ namespace BookingApp.View.AndroidViews {
             DataContext = this;
 
             _user = user;
-            _notificationRepository = new NotificationRepository(); 
             NotificationDTOs = new List<NotificationDTO>();
             Update();
         }
 
         public void Update() {
-            foreach (Notification notification in _notificationRepository.GetByUserId(_user.Id)) {
+            foreach (Notification notification in notificationService.GetByUserId(_user.Id)) {
                 if (!notification.IsRead) 
                     NotificationDTOs.Add(new NotificationDTO(notification));
             }
@@ -50,7 +52,7 @@ namespace BookingApp.View.AndroidViews {
                 NotificationDTO item = checkBox.DataContext as NotificationDTO;
                 if (item != null) {
                     item.IsRead = true;
-                    _notificationRepository.Update(item.ToNotification());
+                    notificationService.Update(item.ToNotification());
                 }
             }
         }
@@ -61,7 +63,7 @@ namespace BookingApp.View.AndroidViews {
                 NotificationDTO item = checkBox.DataContext as NotificationDTO;
                 if (item != null) {
                     item.IsRead = false;
-                    _notificationRepository.Update(item.ToNotification());
+                    notificationService.Update(item.ToNotification());
                 }
             }
         }
@@ -69,7 +71,7 @@ namespace BookingApp.View.AndroidViews {
         private void MarkReadButton_Click(object sender, RoutedEventArgs e) {
             foreach (var notificationDTO in NotificationDTOs) {
                 notificationDTO.IsRead = true;
-                _notificationRepository.Update(notificationDTO.ToNotification());
+                notificationService.Update(notificationDTO.ToNotification());
             }
         }
     }

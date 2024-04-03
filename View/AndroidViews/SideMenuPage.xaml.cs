@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,8 +28,8 @@ namespace BookingApp.View.AndroidViews {
         }
 
         private void SetAverageAndSuperLabels(int userId) {
-            OwnerRepository ownerRepository = new OwnerRepository();
-            Owner owner = ownerRepository.GetByUserId(userId);
+            OwnerService ownerService = new OwnerService(); 
+            Owner owner = ownerService.GetByUserId(userId);
             AverageGradeLabel.Content = owner.AverageGrade.ToString();
             if (owner.IsSuper) {
                 SuperLabel.Content = "Super";

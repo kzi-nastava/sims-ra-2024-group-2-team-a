@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,10 +15,9 @@ namespace BookingApp.View.AndroidViews {
 
         private readonly User _user;
 
-        private readonly AccommodationRepository _accommodationRepository;
+        private AccommodationService accommodationService = new AccommodationService();
 
-        private readonly LocationRepository _locationRepository;
-
+        private LocationService locationService = new LocationService();
         public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
 
         public AccommodationPage(Frame mFrame, User user) {
@@ -25,17 +25,15 @@ namespace BookingApp.View.AndroidViews {
             mainFrame = mFrame;
             this._user = user;
             DataContext = this;
-            _accommodationRepository = new AccommodationRepository();
-            _locationRepository = new LocationRepository();
             AccommodationDTOs = new ObservableCollection<AccommodationDTO>();
 
             Update();
         }
 
         public void Update() {
-            foreach (var acc in _accommodationRepository.GetByOwnerId(_user.Id)) {
+            foreach (var acc in accommodationService.GetByOwnerId(_user.Id)) {
                 AccommodationDTO accDTO = new AccommodationDTO(acc);
-                Location location = _locationRepository.GetById(acc.LocationId);
+                Location location = locationService.GetById(acc.LocationId);
                 accDTO.SetDisplayLocation(location.City, location.Country);
                 AccommodationDTOs.Add(accDTO);
             }
