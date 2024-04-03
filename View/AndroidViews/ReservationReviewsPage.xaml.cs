@@ -4,6 +4,7 @@ using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Windows;
@@ -124,16 +125,16 @@ namespace BookingApp.View.AndroidViews {
             }
         }
 
-        private void Decline_Click(object sender, RoutedEventArgs e) {
+        /*private void Decline_Click(object sender, RoutedEventArgs e) {
             if (SelectedRequest == null)
                 return;
 
             RescheduleRequestDeclineWindow rescheduleRequestDeclineWindow = new RescheduleRequestDeclineWindow(SelectedRequest);
             rescheduleRequestDeclineWindow.ShowDialog();
             this.Update();
-        }
+        }*/
 
-        private void Accept_Click(object sender, RoutedEventArgs e) {
+       /* private void Accept_Click(object sender, RoutedEventArgs e) {
             if (SelectedRequest == null)
                 return;
 
@@ -146,10 +147,45 @@ namespace BookingApp.View.AndroidViews {
             rescheduleRequest.Status = RescheduleRequestStatus.Approved;
             _rescheduleRequestRepository.Update(rescheduleRequest);
             this.Update();
-        }
+        }*/
 
         private void RequestsList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 
+        }
+
+        private void AcceptButtonCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            if (SelectedRequest == null || SelectedRequest.Status!=RescheduleRequestStatus.Pending) {
+                e.CanExecute = false;
+            }
+            else {
+                e.CanExecute = true;
+            }
+        }
+        private void AcceptButtonCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+            AccommodationReservation accommodationReservation = _accommodationReservationRepository.GetById(SelectedRequest.ReservationId);
+            accommodationReservation.StartDate = SelectedRequest.NewStartDate;
+            accommodationReservation.EndDate = SelectedRequest.NewEndDate;
+            _accommodationReservationRepository.Update(accommodationReservation);
+
+            RescheduleRequest rescheduleRequest = SelectedRequest.ToRescheduleRequest();
+            rescheduleRequest.Status = RescheduleRequestStatus.Approved;
+            _rescheduleRequestRepository.Update(rescheduleRequest);
+            this.Update();
+        }
+
+        private void DeclineCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            if (SelectedRequest == null || SelectedRequest.Status != RescheduleRequestStatus.Pending) {
+                e.CanExecute = false;
+            }
+            else {
+                e.CanExecute = true;
+            }
+        }
+
+        private void DeclineCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+            RescheduleRequestDeclineWindow rescheduleRequestDeclineWindow = new RescheduleRequestDeclineWindow(SelectedRequest);
+            rescheduleRequestDeclineWindow.ShowDialog();
+            this.Update();
         }
     }
 }
