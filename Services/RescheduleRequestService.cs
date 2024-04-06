@@ -24,6 +24,9 @@ namespace BookingApp.Services
         public RescheduleRequest Save(RescheduleRequest request) {
             return _requestRepository.Save(request);
         }
+        public bool Update(RescheduleRequest rescheduleRequest) {
+            return _requestRepository.Update(rescheduleRequest);
+        }
 
         public bool DeleteByReservationId(int reservationId) {
             var requests = _requestRepository.GetByReservationId(reservationId);
@@ -41,6 +44,11 @@ namespace BookingApp.Services
 
         public List<RescheduleRequest> GetByGuestId(int guestId) {
             return _requestRepository.GetByGuestId(guestId);
+        }
+
+        public List<RescheduleRequest> GetSortedRequestsByOwnerId(int ownerId) {
+            List<RescheduleRequest> requests = this.GetAll().FindAll(x => x.OwnerId == ownerId);
+            return requests.OrderBy(x => x.Status).ToList();
         }
     }
 }

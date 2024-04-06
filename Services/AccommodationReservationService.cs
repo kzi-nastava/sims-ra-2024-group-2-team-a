@@ -38,6 +38,10 @@ namespace BookingApp.Services
             return _reservationRepository.Delete(reservation);
         }
 
+        public bool Update(AccommodationReservation accReservation) {
+            return _reservationRepository.Update(accReservation);  
+        }
+
         public List<AccommodationReservation> SuggestReservations(AccommodationReservationDTO rDTO) {
             var possibleReservations = GetPossibleReservations(rDTO);
 
@@ -106,7 +110,7 @@ namespace BookingApp.Services
             return false;
         }
 
-        private bool CheckAccommodationAvailability(int accommodationId, DateOnly startDate, DateOnly endDate) {
+        public bool CheckAccommodationAvailability(int accommodationId, DateOnly startDate, DateOnly endDate) {
             foreach (var r in this.GetByAccommodationId(accommodationId)) {
                 if (!(r.StartDate >= endDate || startDate >= r.EndDate))
                     return false;

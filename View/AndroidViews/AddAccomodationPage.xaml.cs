@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
@@ -17,8 +18,8 @@ namespace BookingApp.View.AndroidViews {
 
         private readonly User _user;
 
-        private readonly AccommodationRepository _accommodationRepository;
-        private readonly LocationRepository _locationRepository;
+        private AccommodationService accommodationService = new AccommodationService();
+        private LocationService locationService = new LocationService();
         public AccommodationDTO AccommodationDTO { get; set; }
         public LocationDTO SelectedLocationDTO { get; set; }
 
@@ -29,15 +30,12 @@ namespace BookingApp.View.AndroidViews {
             this.mainFrame = mainFrame;
             DataContext = this;
 
-            _accommodationRepository = new AccommodationRepository();
-            _locationRepository = new LocationRepository();
-
             _user = user;
             AccommodationDTO = new AccommodationDTO();
             AccommodationDTO.OwnerId = _user.Id;
             LocationDTOs = new ObservableCollection<LocationDTO>();
 
-            foreach (var loc in _locationRepository.GetAll()) {
+            foreach (var loc in locationService.GetAll()) {
                 LocationDTOs.Add(new LocationDTO(loc));
             }
         }
@@ -53,7 +51,7 @@ namespace BookingApp.View.AndroidViews {
             Accommodation acc = AccommodationDTO.ToAccommodation();
 
             acc.LocationId = SelectedLocationDTO.Id;
-            _accommodationRepository.Save(acc);
+            accommodationService.Save(acc);
 
             mainFrame.Content = new AccommodationPage(mainFrame, _user);
         }
