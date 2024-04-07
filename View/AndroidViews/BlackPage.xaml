@@ -1,13 +1,14 @@
-﻿<Page x:Class="BookingApp.View.AndroidViews.SmallNotificationPage"
+﻿<Page x:Class="BookingApp.View.AndroidViews.BlackPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.AndroidViews"
       mc:Ignorable="d" 
-      d:DesignHeight="40" d:DesignWidth="40"
-      Title="SmallNotificationPage">
-    <Grid Background="LightBlue">
-        <Button x:Name="NotificationButton" Content="notify" Click="NotificationButton_Click"/>
+      d:DesignHeight="700" d:DesignWidth="180"
+      Title="BlackPage">
+
+    <Grid Background="Black" Opacity="0.8" >
+        
     </Grid>
 </Page>

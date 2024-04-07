@@ -15,8 +15,6 @@ namespace BookingApp.View.AndroidViews {
 
         public Frame SideFrame { get; set; }
 
-        public Frame SmallNotificationFrame { get; set; }
-
         public NotificationService notificationService = new NotificationService(); 
 
         private readonly User _user;
@@ -27,7 +25,6 @@ namespace BookingApp.View.AndroidViews {
             _user = user;
             MainFrame.Content = new AccommodationPage(MainFrame, _user);
             SideFrame.Content = null;
-            SmallNotificationFrame = smallNotificationFrame;
 
             CreateNotifications();
         }
@@ -78,17 +75,37 @@ namespace BookingApp.View.AndroidViews {
             return (accommodationService.GetById(accommodationId).OwnerId == _user.Id);
         }
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
-            sideFrame.Content = new SideMenuPage(MainFrame, SideFrame, _user, HeaderLabel);
-            mainFrame.IsHitTestVisible = false;
-            mainFrame.Opacity = 0.4;
+            sideFrame.Content = new SideMenuPage(MainFrame, SideFrame, blackFrame ,_user);
+            blackFrame.Content = new BlackPage();
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e) {
             MainFrame.Content = new AccommodationPage(MainFrame, _user);
-            MainFrame.Opacity = 1;
-            MainFrame.IsHitTestVisible = true;
             SideFrame.Content = null;
-            HeaderLabel.Content = "My accommodations and statistics";
+            blackFrame.Content = null;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e) {
+            if (MainFrame.CanGoBack) {
+                mainFrame.GoBack();
+            }
+        }
+
+        private void mainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e) {
+            switch (e.Content as Page) {
+                case AccommodationPage: {
+                        HeaderLabel.Content = "My accommodations and statistics";
+                        break;
+                    }
+                case ReservationReviewsPage: {
+                        HeaderLabel.Content = "Reservations";
+                        break;
+                    }
+                case NotificationsPage: {
+                        HeaderLabel.Content = "Inbox";
+                        break;
+                    }
+            }
         }
     }
 }

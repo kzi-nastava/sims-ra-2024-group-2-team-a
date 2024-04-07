@@ -38,6 +38,7 @@
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\notification-request-icon.png" />
     <None Remove="Resources\Images\notification-review-icon.png" />
+    <None Remove="Resources\Images\notification-super-icon.png" />
     <None Remove="Resources\Images\owner-icon.png" />
     <None Remove="Resources\Images\renovation-icon.png" />
     <None Remove="Resources\Images\request.png" />
@@ -113,6 +114,7 @@
     <Resource Include="Resources\Images\live.png" />
     <Resource Include="Resources\Images\notification-request-icon.png" />
     <Resource Include="Resources\Images\notification-review-icon.png" />
+    <Resource Include="Resources\Images\notification-super-icon.png" />
     <Resource Include="Resources\Images\owner-icon.png" />
     <Resource Include="Resources\Images\renovation-icon.png" />
     <Resource Include="Resources\Images\request.png" />
