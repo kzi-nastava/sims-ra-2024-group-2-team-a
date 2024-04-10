@@ -47,5 +47,20 @@ namespace BookingApp.Repository {
 
             return 0;
         }
+        public List<TourReservation> DeleteByTourId(int id) {
+            List<TourReservation> reservations = GetByTourId(id);
+            if (reservations == null)
+                return new List<TourReservation>();
+            if(DeleteMultiple(reservations))
+                return reservations;
+            return null;
+        }
+        public bool DeleteMultiple(List<TourReservation> reservations) {
+            _items = _serializer.FromCSV();
+            if (_items.RemoveAll(x => reservations.Select(y => y.Id).Contains(x.Id)) != reservations.Count)
+                    return false;
+            _serializer.ToCSV(_items);
+            return true;
+        }
     }
 }

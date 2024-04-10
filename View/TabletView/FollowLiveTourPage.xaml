@@ -52,7 +52,7 @@
             <ItemsControl x:Name="itemsControlLiveTours" ItemsSource="{Binding tourDTOs}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:TourCard/>
+                        <local:LiveTourCard/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
