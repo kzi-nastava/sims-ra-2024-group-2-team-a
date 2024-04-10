@@ -91,6 +91,9 @@ namespace BookingApp.DTO {
             if (Category == NotificationCategory.Request) {
                 NotificationIcon += "notification-request-icon.png";
             }
+            if (Category == NotificationCategory.SuperOwner) {
+                NotificationIcon += "notification-super-icon.png";
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

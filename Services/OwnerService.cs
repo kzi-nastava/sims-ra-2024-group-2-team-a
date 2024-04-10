@@ -42,8 +42,10 @@ namespace BookingApp.Services {
                 owner.IsSuper = false;
 
             if (!oldSuper && owner.IsSuper) {
-                //posalji notifikaciju:
-                //Postali ste Super Vlasnik!
+                NotificationService notificationService = new NotificationService();
+                string message = $"CONGRATULATIONS!! You have just become SUPER owner!!";
+                Notification notification = new Notification(message, NotificationCategory.SuperOwner, owner.UserId, DateTime.Now, false);
+                notificationService.Save(notification);
             }
 
             _ownerRepository.Update(owner);
