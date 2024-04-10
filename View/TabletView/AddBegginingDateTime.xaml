@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:BookingApp.View.TabletView"
         mc:Ignorable="d"
                Title="AddBegginingDateTimeWindow" Height="150" Width="350" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
@@ -17,7 +18,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.ColumnSpan="2"  Content="Date:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18"/>
-        <DatePicker x:Name="datePicker" Grid.Row="0" Grid.Column="3"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePicker_SelectedDateChanged"/>
+        <DatePicker x:Name="datePicker" Grid.Row="0" Grid.Column="3" DisplayDateStart="{x:Static sys:DateTime.Today}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePicker_SelectedDateChanged"/>
 
 
         <Label Grid.Row="1" Grid.ColumnSpan="2" Content="Time:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18"/>

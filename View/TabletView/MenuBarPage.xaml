@@ -21,42 +21,48 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Label Grid.Row="0" HorizontalAlignment="Right" Content="Tour Menu" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Margin="0,5,10,1"/>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0"/>
-
-            <Button x:Name="addButton" Grid.Row="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,20,0,5" Click="addButton_Click">
+            <Button x:Name="homeButton" Grid.Row="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,20,0,5" Click="homeButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                    <Image Source="/Resources/Images/normal-home-icon.png" Width="40" Height="40" />
+                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Home Page</Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="addButton" Grid.Row="2" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="addButton_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="/Resources/Images/add2.png" Width="40" Height="40" />
                     <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Add Tour</Label>
                 </StackPanel>
             </Button>
-            <Button x:Name="removeButton" Grid.Row="2" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="removeButton_Click">
+            <Button x:Name="removeButton" Grid.Row="3" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="removeButton_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="/Resources/Images/trash.png" Width="40" Height="40" />
                     <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Remove Tour</Label>
                 </StackPanel>
             </Button>
-            <Button x:Name="followLiveButton" Grid.Row="3" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="followLiveButton_Click">
+            <Button x:Name="followLiveButton" Grid.Row="4" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="followLiveButton_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="/Resources/Images/live.png" Width="40" Height="40" />
                     <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Follow Live</Label>
                 </StackPanel>
             </Button>
-            <Button x:Name="statsButton" Grid.Row="4" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="statsButton_Click">
+            <Button x:Name="statsButton" Grid.Row="5" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="statsButton_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="/Resources/Images/stats.png" Width="40" Height="40" />
                     <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Tour Stats</Label>
                 </StackPanel>
             </Button>
-            <Button x:Name="reviewsButton" Grid.Row="5" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="reviewsButton_Click">
+            <Button x:Name="reviewsButton" Grid.Row="6" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="reviewsButton_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="/Resources/Images/reviews.png" Width="40" Height="40" />
                     <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Tourist Reviews</Label>
                 </StackPanel>
             </Button>
-            <Button x:Name="requestsButton" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="requestsButton_Click">
+            <Button x:Name="requestsButton" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Click="requestsButton_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="/Resources/Images/request.png" Width="40" Height="40" />
                     <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Tourist Requests</Label>
