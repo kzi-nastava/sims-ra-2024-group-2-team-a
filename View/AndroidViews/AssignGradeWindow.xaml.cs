@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System.Windows;
 
 namespace BookingApp.View.AndroidViews {
@@ -11,7 +12,7 @@ namespace BookingApp.View.AndroidViews {
         public AccommodationReservationDTO AccReservationDTO { get; set; }
         public ReviewDTO ReviewDTO { get; set; }
 
-        private ReviewRepository _reviewRepository;
+        private ReviewService reviewService = new ReviewService();
 
         private int _ownerId;
 
@@ -20,7 +21,6 @@ namespace BookingApp.View.AndroidViews {
             InitializeComponent();
             DataContext = this;
 
-            _reviewRepository = new ReviewRepository();
             AccReservationDTO = accResDTO;
             _ownerId = ownerId;
             ReviewDTO = new ReviewDTO();
@@ -39,7 +39,7 @@ namespace BookingApp.View.AndroidViews {
             ReviewDTO.OwnerId = _ownerId;
             ReviewDTO.ReservationId = AccReservationDTO.Id;
 
-            _reviewRepository.GradeGuest(ReviewDTO);
+            reviewService.GradeGuest(ReviewDTO);
             _reservationReviewsPage.Update();
             this.Close();
         }
