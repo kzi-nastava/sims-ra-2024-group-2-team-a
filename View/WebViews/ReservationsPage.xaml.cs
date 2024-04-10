@@ -114,6 +114,11 @@ namespace BookingApp.View.WebViews {
             mainGrid.Children.Add(new RescheduleReservationModalDialog(this, reservation));
         }
 
+        public void OpenReviewDialog(AccommodationReservationDTO reservation) {
+            rectBlurBackground.Visibility = Visibility.Visible;
+            mainGrid.Children.Add(new ReviewAccommodationModalDialog(this, reservation));
+        }
+
         public void CloseModalDialog() {
             rectBlurBackground.Visibility = Visibility.Hidden;
             mainGrid.Children.RemoveAt(mainGrid.Children.Count - 1);
