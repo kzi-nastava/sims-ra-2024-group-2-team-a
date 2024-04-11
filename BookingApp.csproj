@@ -13,6 +13,7 @@
     <None Remove="Resources\Images\Accomodations\benefits-penthouse-living-main-image.png" />
     <None Remove="Resources\Images\default-coupon.png" />
     <None Remove="Resources\Images\Icons\calendar-icon.png" />
+    <None Remove="Resources\Images\Icons\camera-icon.png" />
     <None Remove="Resources\Images\Icons\cancel-event-icon.png" />
     <None Remove="Resources\Images\Icons\cancel-icon.png" />
     <None Remove="Resources\Images\Icons\confirm-icon.png" />
@@ -93,6 +94,7 @@
     <Resource Include="Resources\Images\finish.png" />
     <Resource Include="Resources\Images\Accomodations\360_F_129692052_B3NtnybQl1E6vP6HcsHJbvNAnEFffXBh.jpg" />
     <Resource Include="Resources\Images\Accomodations\benefits-penthouse-living-main-image.png" />
+    <Resource Include="Resources\Images\Icons\camera-icon.png" />
     <Resource Include="Resources\Images\default-coupon.png" />
     <Resource Include="Resources\Images\Icons\cancel-icon.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon.png" />

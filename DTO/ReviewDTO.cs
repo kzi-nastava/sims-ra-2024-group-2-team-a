@@ -24,6 +24,9 @@ namespace BookingApp.DTO
             AccommodationCleannessGrade = review.AccommodationCleannessGrade;
             OwnerCorrectnessGrade = review.OwnerCorrectnessGrade;
             GuestComment = review.GuestComment;
+            RequiresRenovation = review.RequiresRenovation;
+            Importance = review.Importance;
+            RenovationComment = review.RenovationComment;
         }
 
         public int Id { get; set; }
@@ -109,8 +112,49 @@ namespace BookingApp.DTO
             }
         }
 
+        private bool _requiresRenovation;
+        public bool RequiresRenovation {
+            get {
+                return _requiresRenovation;
+            }
+            set {
+                if (value != _requiresRenovation) {
+                    _requiresRenovation = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private ImportanceType _importance;
+        public ImportanceType Importance {
+            get {
+                return _importance;
+            }
+            set {
+                if (value != _importance) {
+                    _importance = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _renovationComment;
+        public string RenovationComment {
+            get {
+                return _renovationComment;
+            }
+            set {
+                if (value != _renovationComment) {
+                    _renovationComment = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public Review ToReview() {
-            return new Review(ReservationId, GuestId, OwnerId, GuestCleannessGrade, RuleFollowingGrade, OwnerComment, AccommodationCleannessGrade, OwnerCorrectnessGrade, GuestComment);
+            var review = new Review(ReservationId, GuestId, OwnerId, GuestCleannessGrade, RuleFollowingGrade, OwnerComment, AccommodationCleannessGrade, OwnerCorrectnessGrade, GuestComment, RequiresRenovation, Importance, RenovationComment);
+            review.Id = Id;
+            return review;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

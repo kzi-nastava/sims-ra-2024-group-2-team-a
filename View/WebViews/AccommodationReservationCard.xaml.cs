@@ -63,5 +63,12 @@ namespace BookingApp.View.WebViews {
             ReservationsPage page =  window.MainFrame.Content as ReservationsPage;
             page.OpenRescheduleDialog(DataContext as AccommodationReservationDTO);
         }
+
+        private void ButtonReviewClick(object sender, RoutedEventArgs e) {
+            GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
+            ReservationsPage page = window.MainFrame.Content as ReservationsPage;
+            page.OpenReviewDialog(DataContext as AccommodationReservationDTO);
+
+        }
     }
 }
