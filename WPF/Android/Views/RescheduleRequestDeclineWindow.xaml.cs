@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.View {
+namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for RescheduleRequestDeclineWindow.xaml
     /// </summary>

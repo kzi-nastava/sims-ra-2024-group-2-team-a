@@ -1,18 +1,18 @@
-﻿<Window x:Class="BookingApp.View.AndroidViews.MainWindow"
+﻿<Window x:Class="BookingApp.WPF.Android.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.View.AndroidViews"
+        xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="750" Width="430">
     <Window.Resources>
-        <BitmapImage x:Key="HamburgerIcon" UriSource="../../Resources/Images/hamburger.png"/>
-        <BitmapImage x:Key="HelpIcon" UriSource="../../Resources/Images/help.png"/>
-        <BitmapImage x:Key="BackIcon" UriSource="../../Resources/Images/android-back-icon.png"/>
-        <BitmapImage x:Key="HomeIcon" UriSource="../../Resources/Images/android-home-icon.png"/>
-        <BitmapImage x:Key="MenuIcon" UriSource="../../Resources/Images/android-menu-icon.png"/>
+        <BitmapImage x:Key="HamburgerIcon" UriSource="../../../Resources/Images/hamburger.png"/>
+        <BitmapImage x:Key="HelpIcon" UriSource="../../../Resources/Images/help.png"/>
+        <BitmapImage x:Key="BackIcon" UriSource="../../../Resources/Images/android-back-icon.png"/>
+        <BitmapImage x:Key="HomeIcon" UriSource="../../../Resources/Images/android-home-icon.png"/>
+        <BitmapImage x:Key="MenuIcon" UriSource="../../../Resources/Images/android-menu-icon.png"/>
     </Window.Resources>
 
     <Grid>

@@ -2,9 +2,10 @@
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.WPF.Android.Views;
 using System.Windows;
 
-namespace BookingApp.View.AndroidViews {
+namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for AssignGradeWindow.xaml
     /// </summary>

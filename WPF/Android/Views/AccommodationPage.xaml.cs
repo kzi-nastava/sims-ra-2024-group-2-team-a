@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace BookingApp.View.AndroidViews {
+namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for AccomodationPage.xaml
     /// </summary>

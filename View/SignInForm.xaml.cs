@@ -1,12 +1,12 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
-using BookingApp.View.AndroidViews;
 using BookingApp.View.DesktopViews;
 using BookingApp.View.TabletView;
 using BookingApp.View.WebViews;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using BookingApp.WPF.Android.Views;
 
 namespace BookingApp.View
 {

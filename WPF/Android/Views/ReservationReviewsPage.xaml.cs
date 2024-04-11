@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using BookingApp.Services;
 
-namespace BookingApp.View.AndroidViews {
+namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for ReservationReviewsPage.xaml
     /// </summary>
