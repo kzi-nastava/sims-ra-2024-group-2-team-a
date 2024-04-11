@@ -8,7 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace BookingApp.View.WebViews {
+namespace BookingApp.WPF.Web.Views {
     /// <summary>
     /// Interaction logic for BookingPage.xaml
     /// </summary>

@@ -3,7 +3,7 @@ using BookingApp.Repository;
 using BookingApp.View.AndroidViews;
 using BookingApp.View.DesktopViews;
 using BookingApp.View.TabletView;
-using BookingApp.View.WebViews;
+using BookingApp.WPF.Web.Views;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;

@@ -156,6 +156,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\Accomodations\" />
+    <Folder Include="View\WebViews\" />
     <Folder Include="WPF\Android\ViewModels\" />
     <Folder Include="WPF\Android\Views\" />
     <Folder Include="WPF\Desktop\ViewModels\" />
@@ -163,7 +164,6 @@
     <Folder Include="WPF\Tablet\ViewModels\" />
     <Folder Include="WPF\Tablet\Views\" />
     <Folder Include="WPF\Web\ViewModels\" />
-    <Folder Include="WPF\Web\Views\" />
   </ItemGroup>
 
   <ItemGroup>
