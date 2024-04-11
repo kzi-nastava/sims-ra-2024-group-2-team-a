@@ -34,8 +34,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="1.8*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>
             <TextBlock Grid.Row="1" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Duration, StringFormat=Duration: {0} hours}" FontSize="18"/>
@@ -43,17 +43,17 @@
             <TextBlock Grid.Row="3" Grid.Column="0" Margin="10" Text="{Binding tourDTO.LocationTemplate, StringFormat=Location: {0}}" FontSize="18"/>
             <TextBlock Grid.Row="4" Grid.Column="0" Margin="10" Text="{Binding tourDTO.LanguageTemplate, StringFormat=Language: {0}}" FontSize="18"/>
             <TextBlock Grid.Row="5" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Beggining, StringFormat=Start: {0}}" FontSize="18"/>
-            <TextBlock Grid.Row="6" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Beggining, StringFormat=End: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="6" Grid.Column="0" Margin="10" Text="{Binding tourDTO.End, StringFormat=End: {0}}" FontSize="18"/>
 
-            <Button x:Name="statsButton" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Left" Margin="30,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Click="statsButton_Click">
-                <StackPanel Orientation="Vertical" Margin="20,0,20,0">
+            <Button x:Name="statsButton" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="statsButton_Click">
+                <StackPanel Orientation="Vertical" Margin="10">
                     <Image Source="/Resources/Images/stats.png" Width="50" Height="50" />
                     <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Stats</Label>
                 </StackPanel>
             </Button>
             
-            <Button x:Name="reviewsButton" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Right" Margin="0,0,30,0" Background="{x:Null}" BorderBrush="{x:Null}" Click="reviewsButton_Click">
-                <StackPanel Orientation="Vertical" Margin="10">
+            <Button x:Name="reviewsButton" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Margin="0,0,10,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="reviewsButton_Click">
+                <StackPanel Orientation="Vertical">
                     <Image Source="/Resources/Images/reviews.png" Width="50" Height="50" />
                     <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Reviews</Label>
                 </StackPanel>

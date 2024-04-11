@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Repository;
 using BookingApp.WPF.Tablet.Views;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,11 +51,11 @@ namespace BookingApp.View.TabletView {
             if (_pointOfInterestIndex != pointOfInterestDTOs.Count)
                 return;
 
-            finishTour();
+            FinishTour();
         }
 
         private void finishButton_Click(object sender, RoutedEventArgs e) {
-            finishTour();
+            FinishTour();
         }
         private void Load() {
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
@@ -74,9 +75,10 @@ namespace BookingApp.View.TabletView {
                                                                                   Izlazenje tokom startovanja ture
             }*/
         }
-        private void finishTour() {
+        private void FinishTour() {
             MessageBox.Show("Finished", "Finished", MessageBoxButton.OK, MessageBoxImage.Information);
-            tourDTO.IsFinished = true;
+            tourDTO.State = Model.TourState.Finished;
+            tourDTO.End = DateTime.Now;
             _tourRepository.Update(tourDTO.ToModel());
             _mainFrame.Content = new FollowLiveTourPage(_userId);
             _menuBarFrame.IsHitTestVisible = true;
