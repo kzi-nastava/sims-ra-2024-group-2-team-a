@@ -1,6 +1,8 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
+using System.Security.AccessControl;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,9 +15,7 @@ namespace BookingApp.View.AndroidViews {
 
         public Frame SideFrame { get; set; }
 
-        public Frame SmallNotificationFrame { get; set; }
-
-        private readonly NotificationRepository _notificationRepository;
+        public NotificationService notificationService = new NotificationService(); 
 
         private readonly User _user;
         public MainWindow(User user) {
@@ -25,41 +25,38 @@ namespace BookingApp.View.AndroidViews {
             _user = user;
             MainFrame.Content = new AccommodationPage(MainFrame, _user);
             SideFrame.Content = null;
-            SmallNotificationFrame = smallNotificationFrame;
-            _notificationRepository = new NotificationRepository();
 
             CreateNotifications();
         }
 
         public void CreateNotifications() {
-            RescheduleRequestRepository rescheduleRequestRepository = new RescheduleRequestRepository();
+            RescheduleRequestService rescheduleRequestService = new RescheduleRequestService(); 
 
             int ungradedReservations = CheckForNotGradedReservations();
-            int pendingRescheduleRequests = rescheduleRequestRepository.GetPendingRequestsByOwnerId(_user.Id).Count;
+            int pendingRescheduleRequests = rescheduleRequestService.GetPendingRequestsByOwnerId(_user.Id).Count;
 
             if (ungradedReservations != 0) {
-                //SmallNotificationFrame.Content = new SmallNotificationPage(SmallNotificationFrame, ungradedReservations);
                 string message = $"You have {ungradedReservations} ungraded reservations. Navigate to reservations tab to grade them!";
                 Notification notification = new Notification(message, NotificationCategory.Review, _user.Id, DateTime.Now, false);
-                _notificationRepository.Save(notification);
+                notificationService.Save(notification);
             }
             if (pendingRescheduleRequests > 0) {
                 string message = $"You have {pendingRescheduleRequests} pending reschedule requests. Navigate to reservations/requests tab to accept/decline them!";
                 Notification notification = new Notification(message, NotificationCategory.Request, _user.Id, DateTime.Now, false);
-                _notificationRepository.Save(notification);
+                notificationService.Save(notification);
             }
         }
 
         public int CheckForNotGradedReservations() {
-            AccommodationReservationRepository accResRepository = new AccommodationReservationRepository();
-            ReviewRepository reviewRepository = new ReviewRepository();
+            AccommodationReservationService accResService = new AccommodationReservationService();
+            ReviewService reviewService = new ReviewService();
             int counter = 0;
 
-            foreach (var reservation in accResRepository.GetAll()) {
+            foreach (var reservation in accResService.GetAll()) {
                 if (!CheckReservationOwner(reservation.AccommodationId))
                     continue;
 
-                if (reviewRepository.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation))
+                if (reviewService.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation))
                     counter++;
             }
 
@@ -74,21 +71,41 @@ namespace BookingApp.View.AndroidViews {
             return (currentDate > reservation.EndDate && currentDate < offsetDate);
         }
         private bool CheckReservationOwner(int accommodationId) {
-            AccommodationRepository accommodationRepository = new AccommodationRepository();
-            return (accommodationRepository.GetById(accommodationId).OwnerId == _user.Id);
+            AccommodationService accommodationService = new AccommodationService();
+            return (accommodationService.GetById(accommodationId).OwnerId == _user.Id);
         }
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
-            sideFrame.Content = new SideMenuPage(MainFrame, SideFrame, _user, HeaderLabel);
-            mainFrame.IsHitTestVisible = false;
-            mainFrame.Opacity = 0.4;
+            sideFrame.Content = new SideMenuPage(MainFrame, SideFrame, blackFrame ,_user);
+            blackFrame.Content = new BlackPage();
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e) {
             MainFrame.Content = new AccommodationPage(MainFrame, _user);
-            MainFrame.Opacity = 1;
-            MainFrame.IsHitTestVisible = true;
             SideFrame.Content = null;
-            HeaderLabel.Content = "My accommodations and statistics";
+            blackFrame.Content = null;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e) {
+            if (MainFrame.CanGoBack) {
+                mainFrame.GoBack();
+            }
+        }
+
+        private void mainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e) {
+            switch (e.Content as Page) {
+                case AccommodationPage: {
+                        HeaderLabel.Content = "My accommodations and statistics";
+                        break;
+                    }
+                case ReservationReviewsPage: {
+                        HeaderLabel.Content = "Reservations";
+                        break;
+                    }
+                case NotificationsPage: {
+                        HeaderLabel.Content = "Inbox";
+                        break;
+                    }
+            }
         }
     }
 }

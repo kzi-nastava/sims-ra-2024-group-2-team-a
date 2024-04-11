@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,21 +22,21 @@ namespace BookingApp.View {
     /// </summary>
     public partial class RescheduleRequestDeclineWindow : Window {
 
-        private RescheduleRequestRepository _rescheduleRequestRepository;
+        //private RescheduleRequestRepository _rescheduleRequestRepository;
+        private RescheduleRequestService rescheduleRequestService = new RescheduleRequestService();
 
         public RescheduleRequestDTO RescheduleRequestDTO { get; set; }
         public RescheduleRequestDeclineWindow(RescheduleRequestDTO rescheduleRequestDTO) {
             InitializeComponent();
             DataContext = this;
 
-            _rescheduleRequestRepository = new RescheduleRequestRepository();
             this.RescheduleRequestDTO = rescheduleRequestDTO;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
             RescheduleRequest rescheduleRequest = RescheduleRequestDTO.ToRescheduleRequest();
             rescheduleRequest.Status = RescheduleRequestStatus.Rejected;
-            _rescheduleRequestRepository.Update(rescheduleRequest);
+            rescheduleRequestService.Update(rescheduleRequest);
             this.Close();
         }
     }

@@ -15,7 +15,7 @@ namespace BookingApp.Repository {
             return _serializer.FromCSV().Where(review => review.OwnerId == ownerId).ToList();
         }
 
-        public void GradeGuest(ReviewDTO reviewDTO) {
+       /*public void GradeGuest(ReviewDTO reviewDTO) {
             Review review = this.GetByReservationId(reviewDTO.ReservationId);
             if (review == null) {
                 this.Save(reviewDTO.ToReview());
@@ -27,8 +27,8 @@ namespace BookingApp.Repository {
             review.OwnerComment = reviewDTO.OwnerComment;
             this.Update(review);
         }
-
-        public bool IsGuestGraded(int reservationId) {
+       */
+       /* public bool IsGuestGraded(int reservationId) {
             Review review = this.GetByReservationId(reservationId);
             if (review == null) {
                 return false;
@@ -37,7 +37,7 @@ namespace BookingApp.Repository {
                 return false;
             }
             return true;
-        }
+        }*/
         
         public void GradeOwner(ReviewDTO reviewDTO) {
 
@@ -60,6 +60,7 @@ namespace BookingApp.Repository {
             ownerRepository.AdjustSuperOwner(reviewDTO.OwnerId);
         }
 
+        /*
         public bool IsGradedByOwner(int reservationId) {
             Review review = this.GetByReservationId(reservationId);
             if (review == null) {
@@ -70,7 +71,7 @@ namespace BookingApp.Repository {
             }
             return true;
         }
-
+        */
         public bool OwnerCanBeGraded(ReviewDTO reviewDTO) {
             AccommodationReservationRepository accommodationReservationRepository = new AccommodationReservationRepository();
             AccommodationReservation reservation = accommodationReservationRepository.GetById(reviewDTO.ReservationId);

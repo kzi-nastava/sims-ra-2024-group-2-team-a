@@ -24,15 +24,15 @@ namespace BookingApp.View.DesktopViews {
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e) {
-            // TODO: Implement.
-        }
-
-        private void MyAccountButton_Click(object sender, RoutedEventArgs e) {
-            // TODO: Implement.
+            PageFrame.Navigate(new TouristHomePage(UserId));
         }
 
         private void ReservationsButton_Click(object sender, RoutedEventArgs e) {
             // TODO: Implement.
+        }
+
+        private void CouponsButton_Click(object sender, RoutedEventArgs e) {
+            PageFrame.Navigate(new TouristVouchersPage(UserId));
         }
     }
 }

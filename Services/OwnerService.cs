@@ -1,18 +1,20 @@
-﻿using System;
+﻿using BookingApp.Model;
+using BookingApp.Repository;
+using BookingApp.Serializer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BookingApp.Model;
-using BookingApp.Serializer;
 
-namespace BookingApp.Repository {
-    public class OwnerRepository : Repository<Owner> {
-        
-        /*public Owner GetByUserId(int userId) {
-            return _serializer.FromCSV().Find(owner => owner.UserId == userId);
-        }*/
+namespace BookingApp.Services {
+    public class OwnerService {
+        private readonly OwnerRepository _ownerRepository = new OwnerRepository();
+        public OwnerService() { }
 
+        public Owner GetByUserId(int userId) {
+            return _ownerRepository.GetAll().Find(owner => owner.UserId == userId);
+        }
         public void AdjustSuperOwner(int ownerId) {
             ReviewRepository reviewRepository = new ReviewRepository();
             List<Review> reviews = reviewRepository.GetByOwnerId(ownerId);
@@ -29,7 +31,7 @@ namespace BookingApp.Repository {
                 numberOfReviews++;
             }
 
-            Owner owner = this.GetById(ownerId);
+            Owner owner = _ownerRepository.GetById(ownerId);
             owner.AverageGrade = sum / numberOfReviews;
 
             bool oldSuper = owner.IsSuper;
@@ -40,11 +42,13 @@ namespace BookingApp.Repository {
                 owner.IsSuper = false;
 
             if (!oldSuper && owner.IsSuper) {
-                //posalji notifikaciju:
-                //Postali ste Super Vlasnik!
+                NotificationService notificationService = new NotificationService();
+                string message = $"CONGRATULATIONS!! You have just become SUPER owner!!";
+                Notification notification = new Notification(message, NotificationCategory.SuperOwner, owner.UserId, DateTime.Now, false);
+                notificationService.Save(notification);
             }
 
-            this.Update(owner);
+            _ownerRepository.Update(owner);
         }
 
         private bool IsOwnerGraded(Review review) {
@@ -54,4 +58,5 @@ namespace BookingApp.Repository {
             return false;
         }
     }
+
 }

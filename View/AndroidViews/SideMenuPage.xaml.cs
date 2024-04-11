@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,22 +14,22 @@ namespace BookingApp.View.AndroidViews {
 
         public Frame SideFrame { get; set; }
 
-        public Label HeaderLabel { get; set; }
+        public Frame BlackFrame { get; set; }
 
         private User _user;
-        public SideMenuPage(Frame mainFrame, Frame sideFrame, User user, Label label) {
+        public SideMenuPage(Frame mainFrame, Frame sideFrame, Frame blackFrame, User user) {
             InitializeComponent();
             MainFrame = mainFrame;
             SideFrame = sideFrame;
             _user = user;
-            HeaderLabel = label;
             UsernameLabel.Content = user.Username;
             SetAverageAndSuperLabels(user.Id);
+            BlackFrame = blackFrame;
         }
 
         private void SetAverageAndSuperLabels(int userId) {
-            OwnerRepository ownerRepository = new OwnerRepository();
-            Owner owner = ownerRepository.GetByUserId(userId);
+            OwnerService ownerService = new OwnerService(); 
+            Owner owner = ownerService.GetByUserId(userId);
             AverageGradeLabel.Content = owner.AverageGrade.ToString();
             if (owner.IsSuper) {
                 SuperLabel.Content = "Super";
@@ -41,34 +42,26 @@ namespace BookingApp.View.AndroidViews {
 
         private void AccommodationsButton_Click(object sender, RoutedEventArgs e) {
             MainFrame.Content = new AccommodationPage(MainFrame, _user);
-            MainFrame.Opacity = 1;
-            MainFrame.IsHitTestVisible = true;
             SideFrame.Content = null;
-            HeaderLabel.Content = "My accommodations and statistics";
+            BlackFrame.Content = null;
         }
 
         private void InboxButton_Click(object sender, RoutedEventArgs e) {
             MainFrame.Content = new NotificationsPage(_user);
-            MainFrame.Opacity = 1;
-            MainFrame.IsHitTestVisible = true;
             SideFrame.Content = null;
-            HeaderLabel.Content = "Inbox";
+            BlackFrame.Content = null;
         }
 
         private void ReservationsButton_Click(object sender, RoutedEventArgs e) {
             MainFrame.Content = new ReservationReviewsPage(_user);
-            MainFrame.Opacity = 1;
-            MainFrame.IsHitTestVisible = true;
             SideFrame.Content = null;
-            HeaderLabel.Content = "Reservations";
+            BlackFrame.Content = null;
         }
 
         private void RenovationsButton_Click(object sender, RoutedEventArgs e) {
             // MainFrame.Content = new AccommodationPage(MainFrame, _user);
-            MainFrame.Opacity = 1;
-            MainFrame.IsHitTestVisible = true;
             SideFrame.Content = null;
-            HeaderLabel.Content = "Renovations";
+            BlackFrame.Content = null;
         }
 
         private void LogOutButton_Click(object sender, RoutedEventArgs e) {
