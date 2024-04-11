@@ -157,7 +157,6 @@
   <ItemGroup>
     <Folder Include="Resources\Images\Accomodations\" />
     <Folder Include="View\AndroidViews\" />
-    <Folder Include="WPF\Android\ViewModels\" />
     <Folder Include="WPF\Desktop\ViewModels\" />
     <Folder Include="WPF\Desktop\Views\" />
     <Folder Include="WPF\Tablet\ViewModels\" />

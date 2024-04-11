@@ -2,6 +2,7 @@
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.WPF.Android.ViewModels;
 using BookingApp.WPF.Android.Views;
 using System.Windows;
 
@@ -17,15 +18,15 @@ namespace BookingApp.WPF.Android.Views {
 
         private int _ownerId;
 
-        private ReservationReviewsPage _reservationReviewsPage;
-        public AssignGradeWindow(AccommodationReservationDTO accResDTO, int ownerId, ReservationReviewsPage page) {
+        private ReservationReviewsViewmodel _reservationReviewsViewmodel;
+        public AssignGradeWindow(AccommodationReservationDTO accResDTO, int ownerId, ReservationReviewsViewmodel viewmodel) {
             InitializeComponent();
             DataContext = this;
 
             AccReservationDTO = accResDTO;
             _ownerId = ownerId;
             ReviewDTO = new ReviewDTO();
-            _reservationReviewsPage = page;
+            _reservationReviewsViewmodel = viewmodel;
         }
 
         private void DoneButton_Click(object sender, RoutedEventArgs e) {
@@ -41,7 +42,7 @@ namespace BookingApp.WPF.Android.Views {
             ReviewDTO.ReservationId = AccReservationDTO.Id;
 
             reviewService.GradeGuest(ReviewDTO);
-            _reservationReviewsPage.Update();
+            _reservationReviewsViewmodel.Update();
             this.Close();
         }
 
