@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\finish.png" />
     <None Remove="Resources\Images\Icons\calendar-icon.png" />
     <None Remove="Resources\Images\Icons\cancel-event-icon.png" />
     <None Remove="Resources\Images\Icons\cancel-icon.png" />
@@ -85,6 +86,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\finish.png" />
     <Resource Include="Resources\Images\Icons\cancel-icon.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon.png" />
     <Resource Include="Resources\Images\Icons\house-icon.png" />

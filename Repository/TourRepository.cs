@@ -12,7 +12,10 @@ namespace BookingApp.Repository {
             _items = _serializer.FromCSV();
             return _items.FindAll(x => x.GuideId == userId && x.Beggining >= today && !x.IsFinished);
         }
-
+        public List<Tour> GetFinished(int userId) {
+            _items = _serializer.FromCSV();
+            return _items.FindAll(x => x.GuideId == userId && x.IsFinished);
+        }
 
         public List<Tour> GetLive(int userId) {
             DateTime today = DateTime.Today;
