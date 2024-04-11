@@ -79,7 +79,7 @@ namespace BookingApp.View.TabletView
                     MessageBox.Show("NESTO NE VALJA putnici", "PROBLEEEEM1", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                if(!_voucherRepository.AddMultiple(reservations.Select(x => x.TouristId).Distinct().ToList(), DateOnly.FromDateTime(DateTime.Today.AddYears(1)))){
+                if(!_voucherRepository.AddMultiple(reservations.Select(x => x.TouristId).Distinct().ToList(), DateTime.Today.AddYears(1))){
                     MessageBox.Show("NESTO NE VALJA vauceri", "PROBLEEEEM1", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
