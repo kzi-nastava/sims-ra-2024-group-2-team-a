@@ -84,7 +84,7 @@ namespace BookingApp.DTO {
         }
 
         public void SetNotificationIcon() {
-            NotificationIcon = "../../Resources/Images/";
+            NotificationIcon = "../../../Resources/Images/";
             if (Category == NotificationCategory.Review) {
                 NotificationIcon += "notification-review-icon.png";
             }

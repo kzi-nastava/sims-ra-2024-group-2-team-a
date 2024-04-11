@@ -1,11 +1,13 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.WPF.Android.Views;
+using BookingApp.View;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace BookingApp.View.AndroidViews {
+namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for SideMenuPage.xaml
     /// </summary>

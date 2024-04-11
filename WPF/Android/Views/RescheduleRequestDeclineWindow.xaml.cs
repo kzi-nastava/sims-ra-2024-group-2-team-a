@@ -2,6 +2,7 @@
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.WPF.Android.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,27 +17,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.View {
+namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for RescheduleRequestDeclineWindow.xaml
     /// </summary>
     public partial class RescheduleRequestDeclineWindow : Window {
-
-        //private RescheduleRequestRepository _rescheduleRequestRepository;
-        private RescheduleRequestService rescheduleRequestService = new RescheduleRequestService();
-
-        public RescheduleRequestDTO RescheduleRequestDTO { get; set; }
+        
+        RescheduleDeclineViewmodel RescheduleDeclineViewmodel { get; set; }
         public RescheduleRequestDeclineWindow(RescheduleRequestDTO rescheduleRequestDTO) {
             InitializeComponent();
-            DataContext = this;
-
-            this.RescheduleRequestDTO = rescheduleRequestDTO;
+            RescheduleDeclineViewmodel = new RescheduleDeclineViewmodel(rescheduleRequestDTO);
+            DataContext = RescheduleDeclineViewmodel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            RescheduleRequest rescheduleRequest = RescheduleRequestDTO.ToRescheduleRequest();
-            rescheduleRequest.Status = RescheduleRequestStatus.Rejected;
-            rescheduleRequestService.Update(rescheduleRequest);
+            RescheduleDeclineViewmodel.DeclineRequest();
             this.Close();
         }
     }

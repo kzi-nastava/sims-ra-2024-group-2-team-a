@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.View.AndroidViews {
+namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for BlackPage.xaml
     /// </summary>

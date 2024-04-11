@@ -1,21 +1,21 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
-using BookingApp.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Windows;
-using System.Windows.Controls;
+using System.Text;
+using System.Threading.Tasks;
+using BookingApp.Model;
 using BookingApp.Services;
+using BookingApp.DTO;
+using System.Collections.ObjectModel;
+using BookingApp.WPF.Android.Views;
+using System.Windows;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using BookingApp.Commands;
 
-namespace BookingApp.View.AndroidViews {
-    /// <summary>
-    /// Interaction logic for ReservationReviewsPage.xaml
-    /// </summary>
-    public partial class ReservationReviewsPage : Page {
+namespace BookingApp.WPF.Android.ViewModels {
+    public class ReservationReviewsViewmodel : INotifyPropertyChanged {
 
         private AccommodationService accommodationService = new AccommodationService();
 
@@ -30,16 +30,49 @@ namespace BookingApp.View.AndroidViews {
         public ObservableCollection<RescheduleRequestDTO> RescheduleRequestDTOs { get; set; }
         public AccommodationReservationDTO SelectedReservation { get; set; }
         public RescheduleRequestDTO SelectedRequest { get; set; }
-        public ReservationReviewsPage(User user) {
-            InitializeComponent();
-            this.DataContext = this;
 
+        private bool _assignGradeEnabled;
+        public bool AssignGradeEnabled {
+            get {
+                return _assignGradeEnabled;
+            }
+            set {
+                if (value != _assignGradeEnabled) {
+                    _assignGradeEnabled = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _viewGuestGradeEnabled;
+        public bool ViewGuestGradeEnabled {
+            get {
+                return _viewGuestGradeEnabled;
+            }
+            set {
+                if (value != _viewGuestGradeEnabled) {
+                    _viewGuestGradeEnabled = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public AndroidCommand AcceptButtonCommand{ get; set;}
+
+        public AndroidCommand DeclineButtonCommand { get; set; }
+        public ReservationReviewsViewmodel(User user) {
             _user = user;
 
             ReservationCollection = new ObservableCollection<AccommodationReservationDTO>();
             RescheduleRequestDTOs = new ObservableCollection<RescheduleRequestDTO>();
 
             Update();
+
+            ViewGuestGradeEnabled = true;
+            AssignGradeEnabled = true;
+
+            AcceptButtonCommand = new AndroidCommand(AcceptButton_Executed, AcceptButton_CanExecute);
+            DeclineButtonCommand = new AndroidCommand(DeclineButton_Executed , DeclineButton_CanExecute);
         }
 
         public void Update() {
@@ -79,7 +112,7 @@ namespace BookingApp.View.AndroidViews {
             }
         }
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+        public void ListViewSelectionChanged() {
             if (SelectedReservation == null)
                 return;
 
@@ -88,51 +121,48 @@ namespace BookingApp.View.AndroidViews {
             offsetDate = offsetDate.AddDays(5);
 
             if (SelectedReservation.Graded)
-                AssignGradeButton.IsEnabled = false;
+                AssignGradeEnabled = false;
             else if (currentDate > SelectedReservation.EndDate && currentDate < offsetDate)
-                AssignGradeButton.IsEnabled = true;
+                AssignGradeEnabled = true;
             else
-                AssignGradeButton.IsEnabled = false;
+                AssignGradeEnabled = false;
 
-            ViewGradeButton.IsEnabled = true;
+            ViewGuestGradeEnabled = true;
         }
 
-        private void AssignGradeButton_Click(object sender, RoutedEventArgs e) {
+        public void AssignGradeButton() {
             if (SelectedReservation == null) {
-                AssignGradeButton.IsEnabled = false;
+                AssignGradeEnabled = false;
             }
             else {
-                AssignGradeButton.IsEnabled = true;
+                AssignGradeEnabled = true;
                 AssignGradeWindow assignGradeWindow = new AssignGradeWindow(SelectedReservation, _user.Id, this);
                 assignGradeWindow.ShowDialog();
             }
         }
 
-        private void ViewGradeButton_Click(object sender, RoutedEventArgs e) {
+        public void ViewGradeButton() {
             if (SelectedReservation == null) {
-                ViewGradeButton.IsEnabled = false;
+                ViewGuestGradeEnabled = false;
             }
-            else if(!reviewService.IsGradedByOwner(SelectedReservation.Id)){
-                MessageBox.Show("You must grade this reservation first!","View guest grade",MessageBoxButton.OK,MessageBoxImage.Information);
+            else if (!reviewService.IsGradedByOwner(SelectedReservation.Id)) {
+                MessageBox.Show("You must grade this reservation first!", "View guest grade", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else {
                 ViewGuestGradeWindow viewGuestGradeWindow = new ViewGuestGradeWindow(SelectedReservation);
                 viewGuestGradeWindow.ShowDialog();
             }
         }
-        private void RequestsList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 
-        }
-
-        private void AcceptButtonCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
-            if (SelectedRequest == null || SelectedRequest.Status!=RescheduleRequestStatus.Pending) {
-                e.CanExecute = false;
+        public bool AcceptButton_CanExecute(object obj) {
+            if (SelectedRequest == null || SelectedRequest.Status != RescheduleRequestStatus.Pending) {
+                return false;
             }
             else {
-                e.CanExecute = true;
+                return true;
             }
         }
-        private void AcceptButtonCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+        public void AcceptButton_Executed(object obj) {
             AccommodationReservation accommodationReservation = accReservationService.GetById(SelectedRequest.ReservationId);
             accommodationReservation.StartDate = SelectedRequest.NewStartDate;
             accommodationReservation.EndDate = SelectedRequest.NewEndDate;
@@ -144,19 +174,30 @@ namespace BookingApp.View.AndroidViews {
             this.Update();
         }
 
-        private void DeclineCommand_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+        public bool DeclineButton_CanExecute(object obj) {
             if (SelectedRequest == null || SelectedRequest.Status != RescheduleRequestStatus.Pending) {
-                e.CanExecute = false;
+                return false;
             }
             else {
-                e.CanExecute = true;
+                return true;
             }
         }
 
-        private void DeclineCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+        public void DeclineButton_Executed(object obj) {
             RescheduleRequestDeclineWindow rescheduleRequestDeclineWindow = new RescheduleRequestDeclineWindow(SelectedRequest);
             rescheduleRequestDeclineWindow.ShowDialog();
             this.Update();
         }
+
+        public void RequestsListSelectionChanged() {
+            AcceptButtonCommand.RaiseCanExecuteChanged();
+            DeclineButtonCommand.RaiseCanExecuteChanged();
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
+
