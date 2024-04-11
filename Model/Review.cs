@@ -8,6 +8,10 @@ using System.Xml.Linq;
 using BookingApp.Serializer;
 
 namespace BookingApp.Model {
+    public enum ImportanceType {
+           Level_1, Level_2, Level_3, Level_4, Level_5
+       }
+
     public class Review : ISerializable, IIdentifiable {
 
         public int Id { get; set; } = 0;
@@ -20,6 +24,9 @@ namespace BookingApp.Model {
         public int AccommodationCleannessGrade { get; set; } = 0;
         public int OwnerCorrectnessGrade { get; set; } = 0;
         public string GuestComment { get; set; } = "";
+        public bool RequiresRenovation { get; set;} = false;
+        public ImportanceType Importance { get; set; } = ImportanceType.Level_1;
+        public string RenovationComment { get; set; } = "";
 
         public Review() { }
 
@@ -33,9 +40,14 @@ namespace BookingApp.Model {
             AccommodationCleannessGrade = 0;
             OwnerCorrectnessGrade = 0;
             GuestComment = "";
+            RequiresRenovation = false;
+            Importance = ImportanceType.Level_1;
+            RenovationComment = "";
         }
 
-        public Review(int resId, int guestId, int ownerId, int guestCleannessGrade, int ruleFollowingGrade, string ownerComment, int accommodationCleannessGrade, int ownerCorrectnessGrade, string guestComment) {
+        public Review(int resId, int guestId, int ownerId, int guestCleannessGrade, int ruleFollowingGrade, 
+            string ownerComment, int accommodationCleannessGrade, int ownerCorrectnessGrade, string guestComment,
+            bool requiresRenovation, ImportanceType importance, string renovationComment) {
             ReservationId = resId;
             GuestId = guestId;
             OwnerId = ownerId;
@@ -45,6 +57,9 @@ namespace BookingApp.Model {
             AccommodationCleannessGrade = accommodationCleannessGrade;
             OwnerCorrectnessGrade = ownerCorrectnessGrade;
             GuestComment = guestComment;
+            RequiresRenovation = requiresRenovation;
+            Importance = importance;
+            RenovationComment = renovationComment;
         }
 
         public string[] ToCSV() {
@@ -58,7 +73,10 @@ namespace BookingApp.Model {
                 OwnerComment,
                 AccommodationCleannessGrade.ToString(),
                 OwnerCorrectnessGrade.ToString(),
-                GuestComment
+                GuestComment,
+                RequiresRenovation.ToString(),
+                Importance.ToString(),
+                RenovationComment
             };
 
             return csvValues;
@@ -75,6 +93,9 @@ namespace BookingApp.Model {
             AccommodationCleannessGrade = int.Parse(values[7]);
             OwnerCorrectnessGrade = int.Parse(values[8]);
             GuestComment = values[9];
+            RequiresRenovation = bool.Parse(values[10]);
+            Importance = (ImportanceType)Enum.Parse(typeof(ImportanceType), values[11]);
+            RenovationComment = values[12];
         }
     }
 }

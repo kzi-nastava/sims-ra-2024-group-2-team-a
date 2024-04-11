@@ -9,11 +9,15 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Services {
     public class ReviewService {
+        
         private readonly ReviewRepository _reviewRepository = new ReviewRepository();
+        
         public ReviewService() { }
+        
         public Review GetByReservationId(int reservationId) {
             return _reviewRepository.GetByReservationId(reservationId);
         }
+        
         public void GradeGuest(ReviewDTO reviewDTO) {
             Review review = this.GetByReservationId(reviewDTO.ReservationId);
             if (review == null) {
@@ -26,6 +30,23 @@ namespace BookingApp.Services {
             review.OwnerComment = reviewDTO.OwnerComment;
             _reviewRepository.Update(review);
         }
+
+        public void GradeOwner(ReviewDTO reviewDTO) {
+            Review review = this.GetByReservationId(reviewDTO.ReservationId);
+            if (review == null) {
+                _reviewRepository.Save(reviewDTO.ToReview());
+                return;
+            }
+
+            review.AccommodationCleannessGrade = reviewDTO.AccommodationCleannessGrade;
+            review.OwnerCorrectnessGrade = reviewDTO.OwnerCorrectnessGrade;
+            review.GuestComment = reviewDTO.GuestComment;
+            review.RequiresRenovation = reviewDTO.RequiresRenovation;
+            review.Importance = reviewDTO.Importance;
+            review.RenovationComment = reviewDTO.RenovationComment;
+            _reviewRepository.Update(review);
+        }
+
         public bool IsGuestGraded(int reservationId) {
             Review review = this.GetByReservationId(reservationId);
             if (review == null) {
@@ -36,6 +57,7 @@ namespace BookingApp.Services {
             }
             return true;
         }
+        
         public bool IsGradedByOwner(int reservationId) {
             Review review = this.GetByReservationId(reservationId);
             if (review == null) {
