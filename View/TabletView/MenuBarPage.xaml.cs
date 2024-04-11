@@ -30,22 +30,17 @@ namespace BookingApp.View.TabletView {
             _mainFrame.Content = new AddTourPage(_mainFrame, _userId);
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
-        private void removeButton_Click(object sender, RoutedEventArgs e) {
-            MessageBox.Show("Pay 5$ to Unlock", "Attention!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-        }
 
         private void followLiveButton_Click(object sender, RoutedEventArgs e) {
             _mainFrame.Content = new FollowLiveTourPage(_userId);
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
             
         }
-
-        private void statsButton_Click(object sender, RoutedEventArgs e) {
-            MessageBox.Show("Pay 5$ to Unlock", "Attention!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-
+        private void finishedToursButton_Click(object sender, RoutedEventArgs e) {
+            _mainFrame.Content = new FinishedToursPage(_userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
-
-        private void reviewsButton_Click(object sender, RoutedEventArgs e) {
+        private void statsButton_Click(object sender, RoutedEventArgs e) {
             MessageBox.Show("Pay 5$ to Unlock", "Attention!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
 
         }

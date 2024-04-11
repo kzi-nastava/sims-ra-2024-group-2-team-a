@@ -6,33 +6,38 @@ namespace BookingApp.Model
 {
     public class Voucher : ISerializable, IIdentifiable {
         public int Id { get; set; }
-        public DateOnly Expiries { get; set; }
+        public DateTime ExpireDate { get; set; }
         public int TouristId { get; set; }
+        public string Image { get; set; }
 
         public Voucher() { }
-        public Voucher(int id, DateOnly expiries, int touristId) {
+        public Voucher(int id, DateTime expireDate, int touristId) {
             Id = id;
-            Expiries = expiries;
+            ExpireDate = expireDate;
             TouristId = touristId;
+            Image = "../../../Resources/Images/default-coupon.png";
         }
-        public Voucher(DateOnly expiries, int touristId) {
-            Expiries = expiries;
+        public Voucher(DateTime expireDate, int touristId) {
+            ExpireDate = expireDate;
             TouristId = touristId;
+            Image = "../../../Resources/Images/default-coupon.png";
         }
 
         public string[] ToCSV() {
             string[] cssValues = {
                 Id.ToString(),
-                Expiries.ToString("dd-MM-yyyy"),
-                TouristId.ToString()
+                ExpireDate.ToString("dd-MM-yyyy HH:mm"),
+                TouristId.ToString(),
+                Image
             };
             return cssValues;
         }
         public void FromCSV(string[] values) {
             Id = int.Parse(values[0]);
             CultureInfo provider = CultureInfo.InvariantCulture;
-            Expiries = DateOnly.ParseExact(values[1], "dd-MM-yyyy", provider);
+            ExpireDate = DateTime.ParseExact(values[1], "dd-MM-yyyy HH:mm", provider);
             TouristId= int.Parse(values[2]);
+            Image = values[3];
         }
     }
 }
