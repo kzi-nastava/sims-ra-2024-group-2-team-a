@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\finish.png" />
     <None Remove="Resources\Images\Accomodations\360_F_129692052_B3NtnybQl1E6vP6HcsHJbvNAnEFffXBh.jpg" />
     <None Remove="Resources\Images\Accomodations\benefits-penthouse-living-main-image.png" />
     <None Remove="Resources\Images\default-coupon.png" />
@@ -89,6 +90,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\finish.png" />
     <Resource Include="Resources\Images\Accomodations\360_F_129692052_B3NtnybQl1E6vP6HcsHJbvNAnEFffXBh.jpg" />
     <Resource Include="Resources\Images\Accomodations\benefits-penthouse-living-main-image.png" />
     <Resource Include="Resources\Images\default-coupon.png" />
