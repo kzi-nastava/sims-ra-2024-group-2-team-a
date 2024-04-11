@@ -85,7 +85,6 @@
                 </DataGrid>
             </Grid>
         </Grid>
-        <Button Grid.Column="0" Grid.Row="2" x:Name="closeButton" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Content="Close" Click="closeButton_Click"/>
-        <Button Grid.Column="1" Grid.Row="2" x:Name="deletehButton" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Content="Delete" Click="deletehButton_Click"/>
+        <Button Grid.ColumnSpan="2" Grid.Row="2" x:Name="closeButton" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Content="Close" Click="closeButton_Click"/>
     </Grid>
 </Page>
