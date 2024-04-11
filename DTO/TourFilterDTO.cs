@@ -20,7 +20,7 @@ namespace BookingApp.DTO {
         }
 
         public bool isEmpty() {
-            return Location.Id == -1 && Language.Id == -1 && Duration == 0 && TouristNumber == 0 && Name == "" && Beggining == DateTime.MinValue;
+            return Location.Id == 0 && Language.Id == -1 && Duration == 0 && TouristNumber == 0 && Name == "" && Beggining == DateTime.MinValue;
         }
     }
 }
