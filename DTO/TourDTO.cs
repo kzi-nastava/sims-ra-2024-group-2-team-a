@@ -11,7 +11,7 @@ namespace BookingApp.DTO {
         }
 
 
-        public TourDTO(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, bool isFinished, int guideId, List<string> profilePictures) {
+        public TourDTO(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, TourState state, int guideId, List<string> profilePictures) {
 
             Name = name;
             LocationId = locationId;
@@ -21,7 +21,7 @@ namespace BookingApp.DTO {
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
             Beggining = beggining;
-            IsFinished = _isFinished;
+            State = _state;
             GuideId = guideId;
             ProfilePictures = profilePictures;
         }
@@ -36,11 +36,11 @@ namespace BookingApp.DTO {
             Duration = t.Duration;
             CurrentTouristNumber = t.CurrentTouristNumber;
             Beggining = t.Beggining;
-            IsFinished = t.IsFinished;
+            State = t.State;
+            End = t.End;
             GuideId = t.GuideId;
             ProfilePictures = t.ProfilePictures;
         }
-
         private int _id;
         public int Id {
             get { return _id; }
@@ -158,14 +158,26 @@ namespace BookingApp.DTO {
                 }
             }
         }
-        private bool _isFinished;
-        public bool IsFinished {
+        private DateTime _end;
+        public DateTime End {
             get {
-                return _isFinished;
+                return _end;
             }
             set {
-                if (_isFinished != value) {
-                    _isFinished = value;
+                if (_end != value) {
+                    _end = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private TourState _state;
+        public TourState State {
+            get {
+                return _state;
+            }
+            set {
+                if (_state != value) {
+                    _state = value;
                     OnPropertyChanged();
                 }
             }
@@ -197,10 +209,10 @@ namespace BookingApp.DTO {
         }
 
         public Tour ToModelNoId() {
-            return new Tour(Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, IsFinished, GuideId, ProfilePictures);
+            return new Tour(Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, State, GuideId, ProfilePictures);
         }
         public Tour ToModel() {
-            return new Tour(Id, Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, IsFinished, GuideId, ProfilePictures);
+            return new Tour(Id, Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, End, State, GuideId, ProfilePictures);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
