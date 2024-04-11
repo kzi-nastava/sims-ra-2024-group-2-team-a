@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using BookingApp.Repository;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BookingApp.WPF.Tablet.Views {
@@ -8,13 +9,17 @@ namespace BookingApp.WPF.Tablet.Views {
     public partial class MenuBarPage : Page {
         private Frame _menuBarFrame, _mainFrame;
         private int _userId;
+
+        private readonly TourRepository _tourRepository;
         public MenuBarPage(Frame menuBarF, Frame mainF, int userId) {
             InitializeComponent();
             _mainFrame = mainF;
             _menuBarFrame = menuBarF;
             _userId = userId;
             _mainFrame.IsHitTestVisible = false;
-            _mainFrame.Opacity = 0.6;
+            _mainFrame.Opacity = 0.6;          
+            _tourRepository = new TourRepository();
+
         }
 
         private void menuButton_Click(object sender, RoutedEventArgs e) {
@@ -41,8 +46,8 @@ namespace BookingApp.WPF.Tablet.Views {
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
         private void statsButton_Click(object sender, RoutedEventArgs e) {
-            MessageBox.Show("Pay 5$ to Unlock", "Attention!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-
+            _mainFrame.Content = new TourStatsPage(new DTO.TourDTO(_tourRepository.GetMostViewedByYear(-1)), _mainFrame, _menuBarFrame, _userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
 
         private void requestsButton_Click(object sender, RoutedEventArgs e) {

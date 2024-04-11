@@ -1,5 +1,4 @@
 ﻿using BookingApp.DTO;
-using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -18,11 +16,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.WPF.Tablet.Views{
+namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
-    /// Interaction logic for FinishedTourPage.xaml
+    /// Interaction logic for TourStatsPage.xaml
     /// </summary>
-    public partial class FinishedTourPage : Page {
+    public partial class TourStatsPage : Page {
         private Frame _mainFrame, _menuBarFrame;
         private int _userId;
 
@@ -33,9 +31,9 @@ namespace BookingApp.WPF.Tablet.Views{
         private readonly VoucherRepository _voucherRepository;
         public TourDTO tourDTO { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
-        public FinishedTourPage(TourDTO tDTO, Frame mainF, Frame menuBarF, int userId) {
-            InitializeComponent();
 
+        public TourStatsPage(TourDTO tDTO, Frame mainF, Frame menuBarF, int userId) {
+            InitializeComponent();
             DataContext = this;
 
             tourDTO = tDTO;
@@ -56,16 +54,8 @@ namespace BookingApp.WPF.Tablet.Views{
             }
         }
 
-        private void reviewsButton_Click(object sender, RoutedEventArgs e) {
+        private void showButton_Click(object sender, RoutedEventArgs e) {
 
-        }
-
-        private void statsButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.Content = new TourStatsPage(tourDTO, _mainFrame, _menuBarFrame, _userId);
-        }
-
-        private void closeButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.GoBack();
         }
     }
 }

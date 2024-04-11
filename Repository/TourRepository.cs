@@ -22,6 +22,18 @@ namespace BookingApp.Repository {
             _items = _serializer.FromCSV();
             return _items.FindAll(x => x.GuideId == userId && x.Beggining.Date == today.Date && x.State.Equals(TourState.Scheduled));
         }
+
+        public Tour GetMostViewedByYear(int year) {
+            _items = _serializer.FromCSV();
+            Tour tour;
+            if (year == -1)
+                tour = _items.MaxBy(x => x.CurrentTouristNumber);
+            else
+                tour = _items.FindAll(x => x.Beggining.Year == year).MaxBy(y => y.CurrentTouristNumber);
+
+            return tour;
+        }
+
         public List<Tour> GetFilteredScheduled(TourFilterDTO filter, int userId) {
             _items = GetScheduled(userId);
 
