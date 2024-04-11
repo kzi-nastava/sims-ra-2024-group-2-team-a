@@ -28,7 +28,7 @@ namespace BookingApp.View.WebViews {
 
         private ReservationsPage _parentPage;
 
-        private readonly ReviewService reviewService = new ReviewService();
+        private readonly ReviewService _reviewService = new ReviewService();
 
         public ReviewAccommodationModalDialog(ReservationsPage parentPage, AccommodationReservationDTO reservation) {
             InitializeComponent();
@@ -47,7 +47,7 @@ namespace BookingApp.View.WebViews {
         }
 
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
-            reviewService.GradeOwner(Review);
+            _reviewService.GradeOwner(Review);
             _parentPage.CloseModalDialog();
         }
 
