@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:BookingApp.WPF.Desktop.Views"
       xmlns:converters="clr-namespace:BookingApp.Converters"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1594"
       Title="TouristReservationsPage">
     <Page.Resources>
         <converters:TourStateToButtonVisibilityConverter x:Key="ButtonConverter"/>

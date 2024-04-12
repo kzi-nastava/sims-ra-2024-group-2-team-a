@@ -16,9 +16,7 @@ namespace BookingApp.Services {
         }
 
         public List<Voucher> GetByTouristId(int userId) {
-            List<Voucher> allVouchers = _voucherRepository.GetAll();
-
-            return allVouchers.Where(v => v.TouristId == userId).ToList();
+            return _voucherRepository.GetAll().Where(v => v.TouristId == userId).ToList();
         }
 
         public List<Voucher> GetAvailableVouchers(int userId) {

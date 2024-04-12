@@ -1,4 +1,5 @@
-﻿using BookingApp.Serializer;
+﻿using BookingApp.DTO;
+using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -50,6 +51,18 @@ namespace BookingApp.Model
             Pictures = pictures;
         }
 
+        public TourReview(TourReviewDTO tourReview) {
+            this.KnowledgeGrade = tourReview.KnowledgeGrade;
+            this.LanguageGrade = tourReview.LanguageGrade;
+            this.InterestGrade = tourReview.InterestGrade;
+            this.AvrageGrade = (tourReview.KnowledgeGrade + tourReview.InterestGrade + tourReview.LanguageGrade) / 3;
+            this.TouristId = tourReview.TouristId;
+            this.TourId = tourReview.TourId;
+            this.Comment = tourReview.Comment;
+            this.Pictures = tourReview.Pictures;
+            this.Posted = DateTime.Now;
+            this.IsValid = true;
+        }
         public string[] ToCSV() {
             string[] csvValues = {
                 Id.ToString(),
