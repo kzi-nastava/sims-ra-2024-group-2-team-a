@@ -1,6 +1,7 @@
 ﻿using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,26 +14,38 @@ namespace BookingApp.Model
         public int LanguageGrade { get; set; }
         public int InterestGrade { get; set; }
         public double AvrageGrade {  get; set; }
-        public String Comment {  get; set; }
+        public DateTime Posted { get; set; }
+        public bool IsValid { get; set; }
+        public int TouristId { get; set; }
+        public int TourId {  get; set; }
+        public string Comment {  get; set; }
         public List<string> Pictures {  get; set; }
         
         public TourReview() {
             Pictures = new List<string>();
         }
-        public TourReview(int id, int knowledgeGrade, int languageGrade, int interestGrade, double avrageGrade, string comment, List<string> pictures) {
+        public TourReview(int id, int knowledgeGrade, int languageGrade, int interestGrade, string comment, int touristId, int tourId, bool isValid, List<string> pictures) {
             Id = id;
             KnowledgeGrade = knowledgeGrade;
             LanguageGrade = languageGrade;
             InterestGrade = interestGrade;
-            AvrageGrade = avrageGrade;
+            AvrageGrade = (knowledgeGrade + languageGrade + interestGrade)/3;
+            Posted = DateTime.Now;
+            IsValid = isValid;
+            TouristId = touristId;
+            TourId = tourId;
             Comment = comment;
             Pictures = pictures;
         }
-        public TourReview(int knowledgeGrade, int languageGrade, int interestGrade, double avrageGrade, string comment, List<string> pictures) {
+        public TourReview(int knowledgeGrade, int languageGrade, int interestGrade, string comment, int touristId, int tourId, bool isValid, List<string> pictures) {
             KnowledgeGrade = knowledgeGrade;
             LanguageGrade = languageGrade;
             InterestGrade = interestGrade;
-            AvrageGrade = avrageGrade;
+            AvrageGrade = (knowledgeGrade + languageGrade + interestGrade) / 3;
+            Posted = DateTime.Now;
+            IsValid = isValid;
+            TouristId = touristId;
+            TourId = tourId;
             Comment = comment;
             Pictures = pictures;
         }
@@ -44,6 +57,10 @@ namespace BookingApp.Model
                 LanguageGrade.ToString(),
                 InterestGrade.ToString(),
                 AvrageGrade.ToString(),
+                Posted.ToString("dd-MM-yyyy HH:mm"),
+                IsValid.ToString(),
+                TouristId.ToString(),
+                TourId.ToString(),
                 Comment,
                 };
 
@@ -65,8 +82,12 @@ namespace BookingApp.Model
             LanguageGrade = int.Parse(values[2]);
             InterestGrade = int.Parse(values[3]);
             AvrageGrade = int.Parse(values[4]);
-            Comment = values[5];
-            Pictures.AddRange(values[6..]);
+            Posted = DateTime.ParseExact(values[5], "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
+            IsValid = bool.Parse(values[6]);
+            TouristId = int.Parse(values[7]);
+            TourId = int.Parse(values[8]);
+            Comment = values[9];
+            Pictures.AddRange(values[10..]);
         }
     }
 }
