@@ -15,11 +15,14 @@ namespace BookingApp.Services
         private readonly PassengerRepository _passengerRepository = new PassengerRepository();
         private readonly TourReviewRepository _tourReviewRepository = new TourReviewRepository();
 
+        public List<Passenger> GetTouristEntries(int touristId) {
+            return _passengerRepository.GetAll().Where(p => p.UserId == touristId).ToList();
+        }
+
         public bool WasTouristPresent(int touristId, TourDTO tour) {
             List<PointOfInterest> checkpoints = _pointOfInterestRepository.GetAllByTourId(tour.Id);
-            List<Passenger> touristEntries = _passengerRepository.GetAll().Where(p => p.UserId == touristId).ToList();
 
-            foreach (var tourist in touristEntries) {
+            foreach (var tourist in GetTouristEntries(touristId)) {
                 if (checkpoints.Any(c => c.Id == tourist.JoinedPointOfInterestId))
                     return true;
             }
