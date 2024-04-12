@@ -1,0 +1,52 @@
+﻿<Window x:Class="BookingApp.WPF.Android.Views.ViewSelectedImagesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
+        xmlns:converters="clr-namespace:BookingApp.Converters"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="ViewSelectedImagesWindow" Height="450" Width="400">
+    <Window.Resources>
+        <converters:PathToImageConverter x:Key="Converter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+            
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="0,0,0,1">
+            <Label Content="Selected images: " FontFamily="Global Sans Serif" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="1">
+            <ScrollViewer  Width="370" VerticalAlignment="Top" HorizontalAlignment="Center" VerticalScrollBarVisibility="Hidden">
+            <ItemsControl ItemsSource="{Binding ProfilePictures}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Image Source="{Binding Converter={StaticResource Converter}}" Height="120" Width="120" SnapsToDevicePixels="True"/>
+                            <Button Content="Delete" Click="DeleteSelectedImage_Click" Height="40" Width="70" Margin="0,-10,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        </Border>
+
+                <Button Content="Done" Height="50" Width="120" Grid.Row="2" HorizontalAlignment="Center" Grid.Column="1" Click="Button_Click"/>
+    </Grid>
+</Window>
