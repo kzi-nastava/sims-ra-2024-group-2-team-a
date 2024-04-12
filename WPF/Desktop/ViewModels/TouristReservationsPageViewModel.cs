@@ -28,7 +28,7 @@ namespace BookingApp.WPF.Desktop.ViewModels {
         }
 
         public bool IsRatingAvailable(TourDTO tour) {
-            return _tourService.WasTouristPresent(UserId, tour);
+            return _tourService.WasTouristPresent(UserId, tour) && !_tourService.IsTourReviewedForUser(UserId, tour);
         }
     }
 }

@@ -5,8 +5,157 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Desktop.Views"
         mc:Ignorable="d"
-        Title="TourRatingWindow" Height="450" Width="800">
-    <Grid>
+        Title="TourRatingWindow" Height="768" Width="1366">
+    <Window.Resources>
+        <Style TargetType="TextBox" x:Key="TextBoxStyle">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="#88C0D0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="Black"
+                BorderThickness="1">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock FontSize="24">
+                    Guide's knowledge:
+                </TextBlock>
+                <Slider x:Name="KnowledgeSlider" 
+                        Value="{Binding TourReview.KnowledgeGrade,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                        Minimum="1" 
+                        Maximum="5" 
+                        TickPlacement="BottomRight" 
+                        TickFrequency="1" 
+                        IsSnapToTickEnabled="True"
+                        Width="400"
+                        HorizontalAlignment="Left"/>
+               </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <TextBlock FontSize="24">
+                    Guide's language skill:
+                    </TextBlock>
+                    <Slider x:Name="LanguageSkillSlider" 
+                        Value="{Binding TourReview.LanguageGrade,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                        Minimum="1" 
+                        Maximum="5" 
+                        TickPlacement="BottomRight" 
+                        TickFrequency="1" 
+                        IsSnapToTickEnabled="True"
+                        Width="400"
+                        HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2">
+                <TextBlock FontSize="24">
+                    How interesting was the tour?
+                </TextBlock>
+                <Slider x:Name="InterestSlider" 
+                        Value="{Binding TourReview.InterestGrade,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                        Minimum="1" 
+                        Maximum="5" 
+                        TickPlacement="BottomRight" 
+                        TickFrequency="1" 
+                        IsSnapToTickEnabled="True"
+                        Width="400"
+                        HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Grid.Row="3">
+                    <TextBlock FontSize="24">
+                        Additional comments:
+                    </TextBlock>
+                    <TextBox Margin="5" 
+                             Height="80"
+                             Text="{Binding TourReview.Comment}">
+                        
+                    </TextBox>
+                </StackPanel>
+                <WrapPanel Grid.Row="4">
+                    <Button x:Name="PostPhotosButton"
+                            Style="{StaticResource ButtonStyle}"
+                            FontSize="24"
+                            Click="PostPhotosButton_Click">
+                        Post some photos</Button>
+                </WrapPanel>
+                <Button x:Name="ConfirmationButton"
+                        Grid.Row="5"
+                        Width="300"
+                        Margin="20"
+                        Style="{StaticResource ButtonStyle}"
+                        FontSize="32"
+                        Click="ConfirmationButton_Click">
+                    Confirm
+                </Button>
+            </Grid>
+        </Border>
         
+        <Grid Width="568"
+                  Height="685"
+                  Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0"
+                       Margin="0, 0, 0, 5"
+                       Source="{Binding SelectedTour.ProfilePictures[0]}"
+                       Width="500">
+
+            </Image>
+            <WrapPanel Grid.Row="1"
+                           Margin="0, 0, 0, 5">
+                <Image Margin="2.5, 0, 0, 5"
+                           Source="{Binding SelectedTour.ProfilePictures[1]}"
+                           Width="250">
+
+                </Image>
+                <Image Margin="2.5, 0, 0, 0"
+                           Source="{Binding SelectedTour.ProfilePictures[2]}"
+                           Width="250">
+
+                </Image>
+            </WrapPanel>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Width="214"
+                                Grid.Column="0">
+                    <TextBlock Text="{Binding SelectedTour.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="40" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedTour.LocationTemplate, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedTour.LanguageTemplate, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedTour.Duration, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
+                </StackPanel>
+                <Border BorderBrush="Black" 
+                            BorderThickness="1"
+                            Grid.Column="1">
+                    <TextBlock  Width="354"
+                                    Height="269"
+                                    Text="{Binding SelectedTour.Description, UpdateSourceTrigger=PropertyChanged}"/>
+                </Border>
+            </Grid>
+        </Grid>
+
     </Grid>
 </Window>

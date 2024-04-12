@@ -13,6 +13,7 @@ namespace BookingApp.Services
         private readonly TourRepository _tourRepository = new TourRepository();
         private readonly PointOfInterestRepository _pointOfInterestRepository = new PointOfInterestRepository();
         private readonly PassengerRepository _passengerRepository = new PassengerRepository();
+        private readonly TourReviewRepository _tourReviewRepository = new TourReviewRepository();
 
         public bool WasTouristPresent(int touristId, TourDTO tour) {
             List<PointOfInterest> checkpoints = _pointOfInterestRepository.GetAllByTourId(tour.Id);
@@ -24,6 +25,10 @@ namespace BookingApp.Services
             }
 
             return false;
+        }
+
+        public bool IsTourReviewedForUser(int userId, TourDTO tour) {
+            return _tourReviewRepository.GetAll().Find(t => t.TourId == tour.Id && t.TouristId == userId) != null;
         }
     }
 }
