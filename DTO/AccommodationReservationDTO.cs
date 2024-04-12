@@ -90,10 +90,10 @@ namespace BookingApp.DTO {
         }
 
         public AccommodationDTO Accommodation { get; set; }
-        public String CancellationDate => StartDate.AddDays(-Accommodation.LastCancellationDay).ToString();
+        public DateOnly CancellationDate => StartDate.AddDays(-Accommodation.LastCancellationDay);
         public bool Graded { get; set; }
         public int ReservationDays { get; set; }
-        public string DateString => $"{StartDate}\n{EndDate}";
+        public string DateString => $"{StartDate}\n{EndDate}"; // Can be deleted
 
         public bool HasExpired {
             get {

@@ -11,6 +11,7 @@
 
     <UserControl.Resources>
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
 
         <Style x:Key="InfoTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="10 5 0 5"/>
@@ -51,7 +52,7 @@
 
                 <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Reservation.Accommodation.Name}" FontSize="18" Margin="40 10 0 10"/>
 
-                <Label Grid.Row="1" Grid.Column="0">
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <StackPanel Orientation="Horizontal">
                         <Image Style="{StaticResource InfoImage}" Source="{StaticResource LocationIcon}"/>
                         <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.Accommodation.Location.LocationInfoTemplate}"/>
@@ -75,14 +76,18 @@
                 <Label Grid.Row="2" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <Image Style="{StaticResource InfoImage}" Source="{StaticResource CalendarIcon}"/>
-                        <TextBlock Style="{StaticResource InfoTextBlock}" FontSize="9" Text="{Binding Reservation.DateString}"/>
+                        <TextBlock Style="{StaticResource InfoTextBlock}" FontSize="9">
+                            <Run Text="{Binding Reservation.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                            <LineBreak/>
+                            <Run Text="{Binding Reservation.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                        </TextBlock>
                     </StackPanel>
                 </Label>
 
                 <Label Grid.Row="3" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <Image Style="{StaticResource InfoImage}" Source="{StaticResource CancelEventIcon}"/>
-                        <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.CancellationDate}"/>
+                        <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.CancellationDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
                     </StackPanel>
                 </Label>
 

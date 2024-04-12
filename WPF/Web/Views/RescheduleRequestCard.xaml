@@ -4,10 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
+             xmlns:converter="clr-namespace:BookingApp.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
+        <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
+
         <Style x:Key="InfoTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="10 5 0 5"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -21,7 +24,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Border Margin="5 5 5 5" BorderBrush="Gray" Background="White" BorderThickness="1" Width="320" CornerRadius="10">
+    <Border Margin="5 5 5 5" BorderBrush="Gray" Background="White" BorderThickness="1" Width="350" CornerRadius="10">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -44,7 +47,7 @@
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
 
-            <Label Grid.Row="1" Grid.Column="0">
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{StaticResource InfoImage}" Source="{StaticResource LocationIcon}"/>
                     <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.Accommodation.Location.LocationInfoTemplate}"/>
@@ -54,14 +57,22 @@
             <Label Grid.Row="2" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{StaticResource InfoImage}" Source="{StaticResource CalendarIcon}"/>
-                    <TextBlock Style="{StaticResource InfoTextBlock}" FontSize="9" Text="{Binding OldStartDate}"/>
+                    <TextBlock Style="{StaticResource InfoTextBlock}">
+                        <Run Text="Old date"/> 
+                        <LineBreak/>
+                        <Run Text="{Binding OldStartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                    </TextBlock>
                 </StackPanel>
             </Label>
 
             <Label Grid.Row="3" Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
                     <Image Style="{StaticResource InfoImage}" Source="{StaticResource CalendarIcon}"/>
-                    <TextBlock Style="{StaticResource InfoTextBlock}" FontSize="9" Text="{Binding NewStartDate}"/>
+                    <TextBlock Style="{StaticResource InfoTextBlock}">
+                        <Run Text="New date"/>
+                        <LineBreak/>
+                        <Run Text="{Binding NewStartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                    </TextBlock> 
                 </StackPanel>
             </Label>
 
