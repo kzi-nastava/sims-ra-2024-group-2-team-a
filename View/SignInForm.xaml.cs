@@ -1,10 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
-using BookingApp.View.AndroidViews;
-using BookingApp.View.TabletView;
 using BookingApp.View.WebViews;
 using BookingApp.WPF.Desktop.Views;
-using BookingApp.View.DesktopViews;
 using BookingApp.WPF.Tablet.Views;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
