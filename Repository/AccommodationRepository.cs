@@ -16,20 +16,5 @@ namespace BookingApp.Repository {
 
             return _items.Where(a => a.OwnerId == ownerId).ToList();
         }
-
-        public List<Accommodation> GetFilteredAccommodations(AccommodationFilterDTO filter) {
-            _items = _serializer.FromCSV();
-
-            return _items.Where(a => SatisfiesFilter(a, filter)).ToList();
-        }
-
-        private bool SatisfiesFilter(Accommodation accommodation, AccommodationFilterDTO filter) {
-
-            return filter.MatchesName(accommodation.Name) 
-                && filter.MatchesLocation(accommodation.LocationId)
-                && filter.MatchesType(accommodation.Type) 
-                && filter.MatchesGuestNumber(accommodation.MaxGuestNumber) 
-                && filter.MatchesReservationDays(accommodation.MinReservationDays);
-        }
     }
 }

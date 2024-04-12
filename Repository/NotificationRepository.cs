@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository {
     public class NotificationRepository: Repository<Notification> {
-        /*
-        public List<Notification> GetByUserId(int userId) {
-            return this.GetAll().FindAll(x=> x.UserId == userId);
-        }*/
+
     }
 }
