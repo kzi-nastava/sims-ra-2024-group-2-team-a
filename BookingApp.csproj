@@ -8,6 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="View\DesktopViews\**" />
+    <Compile Remove="View\TabletView\**" />
+    <Compile Remove="View\WebViews\**" />
+    <EmbeddedResource Remove="View\DesktopViews\**" />
+    <EmbeddedResource Remove="View\TabletView\**" />
+    <EmbeddedResource Remove="View\WebViews\**" />
+    <None Remove="View\DesktopViews\**" />
+    <None Remove="View\TabletView\**" />
+    <None Remove="View\WebViews\**" />
+    <Page Remove="View\DesktopViews\**" />
+    <Page Remove="View\TabletView\**" />
+    <Page Remove="View\WebViews\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Images\eye.png" />
     <None Remove="Resources\Images\finish.png" />
     <None Remove="Resources\Images\Accomodations\360_F_129692052_B3NtnybQl1E6vP6HcsHJbvNAnEFffXBh.jpg" />
@@ -158,9 +173,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\Accomodations\" />
-    <Folder Include="View\WebViews\" />
-    <Folder Include="View\DesktopViews\" />
-    <Folder Include="View\TabletView\" />
     <Folder Include="WPF\Android\ViewModels\" />
     <Folder Include="WPF\Android\Views\" />
     <Folder Include="WPF\Tablet\ViewModels\" />
