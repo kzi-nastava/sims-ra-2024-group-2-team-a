@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TouristReservationsPageViewModel {
         private readonly TourReservationService _tourReservationService = new TourReservationService();
+        private readonly TourService _tourService = new TourService();
         public int UserId { get; set; }
         public ObservableCollection<TourDTO> ReservedTours { get; set; }
         public TouristReservationsPageViewModel(int userId) { 
@@ -24,6 +25,10 @@ namespace BookingApp.WPF.Desktop.ViewModels {
             foreach (var tour in _tourReservationService.GetReservedTours(UserId)) {
                 ReservedTours.Add(new TourDTO(tour));
             }
+        }
+
+        public bool IsRatingAvailable(TourDTO tour) {
+            return _tourService.WasTouristPresent(UserId, tour);
         }
     }
 }

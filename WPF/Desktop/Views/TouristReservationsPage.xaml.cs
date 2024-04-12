@@ -1,4 +1,5 @@
-﻿using BookingApp.WPF.Desktop.ViewModels;
+﻿using BookingApp.DTO;
+using BookingApp.WPF.Desktop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,12 @@ namespace BookingApp.WPF.Desktop.Views {
         }
 
         private void RateTourButton_Click(object sender, RoutedEventArgs e) {
+            var button = (Button)sender;
+            var tour = (TourDTO)button.DataContext;
 
+            if (viewModel.IsRatingAvailable(tour)) {
+
+            }
         }
 
         private void FollowLiveButton_Click(object sender, RoutedEventArgs e) {
