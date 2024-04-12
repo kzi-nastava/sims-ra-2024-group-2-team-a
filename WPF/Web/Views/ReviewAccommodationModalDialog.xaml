@@ -11,6 +11,7 @@
     
     <UserControl.Resources>
         <converter:ImportanceTypeToStringConverter x:Key="ImportanceTypeToStringConverter"/>
+        <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
 
         <DataTemplate x:Key="ComboBoxItemTemplate">
             <TextBlock Text="{Binding Converter={StaticResource ImportanceTypeToStringConverter}}"/>
@@ -47,13 +48,13 @@
 
             <Grid Grid.Row="1">
 
-                <Label Grid.Row="1" FontSize="15" Content="{Binding Reservation.Accommodation.Name}" HorizontalAlignment="Left" Margin="10 10 0 10"/>
+                <Label Grid.Row="1" FontSize="18" Content="{Binding Reservation.Accommodation.Name}" HorizontalAlignment="Left" Margin="10 10 0 10"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label HorizontalAlignment="Right" Margin="10 10 0 0">
                         <WrapPanel>
                             <Image Style="{StaticResource ImageStyle}" Height="20" Width="20" Source="{StaticResource CalendarIcon}"/>
-                            <TextBlock Text="{Binding Reservation.StartDate}"/>
+                            <TextBlock Text="{Binding Reservation.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
                         </WrapPanel>
                     </Label>
 
