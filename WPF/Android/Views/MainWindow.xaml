@@ -1,0 +1,63 @@
+﻿<Window x:Class="BookingApp.WPF.Android.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="750" Width="430">
+    <Window.Resources>
+        <BitmapImage x:Key="HamburgerIcon" UriSource="../../../Resources/Images/hamburger.png"/>
+        <BitmapImage x:Key="HelpIcon" UriSource="../../../Resources/Images/help.png"/>
+        <BitmapImage x:Key="BackIcon" UriSource="../../../Resources/Images/android-back-icon.png"/>
+        <BitmapImage x:Key="HomeIcon" UriSource="../../../Resources/Images/android-home-icon.png"/>
+        <BitmapImage x:Key="MenuIcon" UriSource="../../../Resources/Images/android-menu-icon.png"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Background="#374375" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="10,0,0,0">
+                <Button Width="40" Height="40" Click="HamburgerButton_Click" Background="Transparent" BorderBrush="Transparent">
+                    <Image Source="{StaticResource HamburgerIcon}"/>
+                </Button>
+                <Label x:Name="HeaderLabel" Content="My accommodations and statistics" VerticalAlignment="Center" FontWeight="Regular" FontSize="16" FontFamily="Global Sans Serif" Margin="10,0,0,0" />
+            </StackPanel>
+            <Button Grid.Column="1" Height="40" Width="40" Background="Transparent" BorderBrush="Transparent">
+                <Image Source="{StaticResource HelpIcon}"/>
+            </Button>
+        </Grid>
+        <Frame x:Name="mainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2" Navigated="mainFrame_Navigated"/>
+        <Frame x:Name="sideFrame"  Grid.Row="0"  Grid.Column="0" Grid.RowSpan="2" NavigationUIVisibility="Hidden" Panel.ZIndex="1000"/>
+        <Frame x:Name="blackFrame" Grid.Row="1" Grid.Column="1" NavigationUIVisibility="Hidden" Panel.ZIndex="1000"/>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="LightSkyBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Width="50" Background="Transparent" BorderBrush="Transparent" Click="BackButton_Click">
+                <Image Source="{StaticResource BackIcon}" Stretch="UniformToFill" Height="35" Width="35"/>
+            </Button>
+            <Button Grid.Column="1" Width="50" Background="Transparent" BorderBrush="Transparent" Click="HomeButton_Click">
+                <Image Source="{StaticResource HomeIcon}" Stretch="UniformToFill" Height="35" Width="35"/>
+            </Button>
+            <Button Grid.Column="2" Width="50" Background="Transparent" BorderBrush="Transparent" Click="HamburgerButton_Click">
+                <Image Source="{StaticResource MenuIcon}" Height="35" Width="35" Stretch="UniformToFill"/>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

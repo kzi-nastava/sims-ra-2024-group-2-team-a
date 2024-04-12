@@ -4,9 +4,12 @@ using BookingApp.View.AndroidViews;
 using BookingApp.View.TabletView;
 using BookingApp.View.WebViews;
 using BookingApp.WPF.Desktop.Views;
+using BookingApp.View.DesktopViews;
+using BookingApp.WPF.Tablet.Views;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using BookingApp.WPF.Android.Views;
 
 namespace BookingApp.View
 {
