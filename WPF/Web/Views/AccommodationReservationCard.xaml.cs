@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Services;
+using BookingApp.WPF.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,9 @@ namespace BookingApp.WPF.Web.Views {
     /// </summary>
     public partial class AccommodationReservationCard : UserControl {
 
+        private ReservationsPage _parentPage;
+        public AccommodationReservationCardViewModel ViewModel { get; set; }
+
         private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
         private readonly RescheduleRequestService _rescheduleService = new RescheduleRequestService();
 
@@ -29,46 +33,26 @@ namespace BookingApp.WPF.Web.Views {
             InitializeComponent();
         }
 
-        private void ButtonCancelClick(object sender, RoutedEventArgs e) {
-            AccommodationReservationDTO reservationDTO = DataContext as AccommodationReservationDTO;
-
-            _rescheduleService.DeleteByReservationId(reservationDTO.Id);
-
-            _reservationService.Delete(reservationDTO.Id);
-
-            Update();
-        }
-
-        // NOTE: This should be implemented as observer
-        private void Update() {
-
+        private void UserControlLoaded(object sender, RoutedEventArgs e) {
             GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
-            ReservationsPage reservationsPage = window.MainFrame.Content as ReservationsPage;
-            reservationsPage.Update();
-        }
-
-        private void UserControlDataContextChanged(object sender, DependencyPropertyChangedEventArgs e) {
+            _parentPage = window.MainFrame.Content as ReservationsPage;
 
             AccommodationReservationDTO reservationDTO = DataContext as AccommodationReservationDTO;
+            ViewModel = new AccommodationReservationCardViewModel(reservationDTO);
+            DataContext = ViewModel;
+        }
 
-            buttonRate.Visibility = reservationDTO.CanBeGraded ? Visibility.Visible : Visibility.Hidden;
-
-            buttonRescheduleDate.Visibility = reservationDTO.CanBeRescheduled ? Visibility.Visible : Visibility.Hidden;
-
-            buttonCancel.Visibility = reservationDTO.CanBeCancelled ? Visibility.Visible : Visibility.Hidden;
+        private void ButtonCancelClick(object sender, RoutedEventArgs e) {
+            ViewModel.CancelReservation();
+            _parentPage.Update();
         }
 
         private void ButtonRescheduleDateClick(object sender, RoutedEventArgs e) {
-            GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
-            ReservationsPage page =  window.MainFrame.Content as ReservationsPage;
-            page.OpenRescheduleDialog(DataContext as AccommodationReservationDTO);
+            _parentPage.OpenRescheduleDialog(ViewModel.Reservation);
         }
 
         private void ButtonReviewClick(object sender, RoutedEventArgs e) {
-            GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
-            ReservationsPage page = window.MainFrame.Content as ReservationsPage;
-            page.OpenReviewDialog(DataContext as AccommodationReservationDTO);
-
+            _parentPage.OpenReviewDialog(ViewModel.Reservation);
         }
     }
 }

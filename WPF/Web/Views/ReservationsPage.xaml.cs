@@ -40,11 +40,11 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void ButtonScheduledClick(object sender, RoutedEventArgs e) {
-            ViewModel.FilterBySelection();
+            ViewModel.FilterBySelection(true);
         }
 
         private void ButtonExpiredClick(object sender, RoutedEventArgs e) {
-            ViewModel.FilterBySelection();
+            ViewModel.FilterBySelection(false);
         }
 
         public void OpenRescheduleDialog(AccommodationReservationDTO reservation) {

@@ -51,7 +51,7 @@ namespace BookingApp.WPF.Web.ViewModels
             }
         }
 
-        public bool ScheduledSelected { get; set; } = false;
+        public bool ScheduledSelected { get; set; } = true;
 
         public ReservationsPageViewModel(int guestId) {
             _guestId = guestId;
@@ -104,11 +104,11 @@ namespace BookingApp.WPF.Web.ViewModels
             UpdateReservationDTOs();
             UpdateRescheduleRequestDTOs();
 
-            FilterBySelection();
+            FilterBySelection(true);
         }
 
-        public void FilterBySelection() {
-            ScheduledSelected = !ScheduledSelected;
+        public void FilterBySelection(bool scheduledSelected) {
+            ScheduledSelected = scheduledSelected;
 
             if (ScheduledSelected) {
                 var dtos = Reservations.Where(x => !x.HasExpired).OrderByDescending(x => x.Id);
