@@ -75,11 +75,11 @@ namespace BookingApp.WPF.Desktop.Views
 
         private void UseCouponsLink_Click(object sender, RoutedEventArgs e) {
             if (!TourReservationViewModel.IsVoucherSelected) {
-                UseVouchersWindow useVouchersWindow = new UseVouchersWindow(TourReservationViewModel.UserId, this);
+                UseVouchersWindow useVouchersWindow = new UseVouchersWindow(TourReservationViewModel);
                 useVouchersWindow.ShowDialog();
             }
             else {
-                TourReservationViewModel.IsVoucherSelected = false;
+                TourReservationViewModel.RemoveVoucher();
             }  
         }
     }

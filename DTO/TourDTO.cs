@@ -40,6 +40,7 @@ namespace BookingApp.DTO {
             End = t.End;
             GuideId = t.GuideId;
             ProfilePictures = t.ProfilePictures;
+            TourStatus = t.State.ToString();
         }
         private int _id;
         public int Id {
@@ -178,6 +179,19 @@ namespace BookingApp.DTO {
             set {
                 if (_state != value) {
                     _state = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _tourStatus;
+        public string TourStatus {
+            get {
+                return _tourStatus;
+            }
+            set {
+                if(_tourStatus != value) { 
+                    _tourStatus = value;
                     OnPropertyChanged();
                 }
             }

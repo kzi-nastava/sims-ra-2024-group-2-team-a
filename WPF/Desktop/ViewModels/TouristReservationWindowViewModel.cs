@@ -14,13 +14,10 @@ using System.Threading.Tasks;
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TouristReservationWindowViewModel : INotifyPropertyChanged {
         private int _passengerNumber = 0;
-        private TourReservationRepository _tourReservationRepository;
+        private TourReservationService _tourReservationService;
         private readonly LocationRepository _locationRepository;
         private readonly LanguageRepository _languageRepository;
         private readonly VoucherService _voucherService;
-
-        public PassengerDTO Passenger { get; set; }
-        public PassengerDTO Tourist { get; set; }
 
         public ObservableCollection<PassengerDTO> Passengers { get; set; }
 
@@ -119,6 +116,35 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 }
             }
         }
+
+        private PassengerDTO _passenger;
+        public PassengerDTO Passenger {
+            get {
+                return _passenger;
+            }
+            set {
+                if (value != _passenger) {
+                    _passenger = value;
+                    OnPropertyChanged();
+                    UpdatePassengerButtonState();
+                }
+            }
+        }
+
+        private PassengerDTO _tourist;
+        public PassengerDTO Tourist {
+            get {
+                return _tourist;
+            }
+            set {
+                if (value != _tourist) {
+                    _tourist = value;
+                    OnPropertyChanged();
+                    UpdatePassengerButtonState();
+                }
+            }
+        }
+
         public VoucherDTO SelectedVoucher { get; set; }
 
         private bool _isVoucherSelected;
@@ -185,7 +211,7 @@ namespace BookingApp.WPF.Desktop.ViewModels {
             IsPassengerButtonEnabled = false;
 
             Passengers = new ObservableCollection<PassengerDTO>();
-            _tourReservationRepository = new TourReservationRepository();
+            _tourReservationService = new TourReservationService();
             _locationRepository = new LocationRepository();
             _languageRepository = new LanguageRepository();
 
@@ -231,9 +257,13 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 IsConfirmationButtonEnabled = false;
         }
 
+        public void RemoveVoucher() {
+            IsVoucherSelected = false;
+        }
+
         public int MakeReservation() {
             SelectedVoucher.Used = IsVoucherSelected;
-            return _tourReservationRepository.MakeReservation(this.UserId, SelectedTour, Passengers.ToList(), SelectedVoucher);
+            return _tourReservationService.MakeReservation(this.UserId, SelectedTour, Passengers.ToList(), SelectedVoucher);
         }
 
         public void AddTourist() {
