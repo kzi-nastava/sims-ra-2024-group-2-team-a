@@ -32,6 +32,9 @@ namespace BookingApp.WPF.Tablet.Views {
         private readonly VoucherRepository _voucherRepository;
         public TourDTO tourDTO { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
+        public int teen { get; set; }
+        public int mid { get; set; }
+        public int old { get; set; }
 
         public TourStatsPage(TourDTO tDTO, Frame mainF, Frame menuBarF, int userId) {
             InitializeComponent();
@@ -53,6 +56,12 @@ namespace BookingApp.WPF.Tablet.Views {
             foreach (var point in _pointOfInterestRepository.GetAllByTourId(tourDTO.Id)) {
                 pointOfInterestDTOs.Add(new PointOfInterestDTO(point));
             }
+
+            List<TourReservation> reservations = _tourReservationRepository.GetByTourId(tDTO.Id);
+            List<Passenger> passengers = _passengerRepository.GetByReservations(reservations);
+            teen = _passengerRepository.GetStatsTeen(passengers);
+            mid = _passengerRepository.GetStatsMid(passengers);
+            old = _passengerRepository.GetStatsOld(passengers);
         }
 
         private void showButton_Click(object sender, RoutedEventArgs e) {

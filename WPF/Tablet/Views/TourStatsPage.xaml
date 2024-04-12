@@ -87,7 +87,19 @@
                     </DataGrid>
                 </Grid>
             </Grid>
-            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" FontSize="50">Ovde je Chart</Label>
+            <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="250" Width="500">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border Grid.RowSpan="4" BorderBrush="Black" BorderThickness="1"/>
+                <Label Grid.Row="0" FontSize="20" FontWeight="Bold" Content="Stats:"/>
+                <TextBlock Grid.Row="1" FontSize="18" Margin="10" Text="{Binding teen, StringFormat=Bellow 18 years:      {0}}"/>
+                <TextBlock Grid.Row="2" FontSize="18" Margin="10" Text="{Binding mid, StringFormat=Between 18 and 50 years:      {0}}"/>
+                <TextBlock Grid.Row="3" FontSize="18" Margin="10" Text="{Binding old, StringFormat=Over 50 years:      {0}}"/>
+            </Grid>
         </Grid>
     </Grid>
 </Page>
