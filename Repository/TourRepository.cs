@@ -8,20 +8,32 @@ namespace BookingApp.Repository {
 
     public class TourRepository : Repository<Tour> {
         public List<Tour> GetScheduled(int userId) {
-            DateTime today = DateTime.Now;
+            DateTime today = DateTime.Today;
             _items = _serializer.FromCSV();
-            return _items.FindAll(x => x.GuideId == userId && x.Beggining >= today && !x.IsFinished);
+            return _items.FindAll(x => x.GuideId == userId && x.Beggining >= today && x.State.Equals(TourState.Scheduled));
         }
         public List<Tour> GetFinished(int userId) {
             _items = _serializer.FromCSV();
-            return _items.FindAll(x => x.GuideId == userId && x.IsFinished);
+            return _items.FindAll(x => x.GuideId == userId && x.State.Equals(TourState.Finished));
         }
 
         public List<Tour> GetLive(int userId) {
             DateTime today = DateTime.Today;
             _items = _serializer.FromCSV();
-            return _items.FindAll(x => x.GuideId == userId && x.Beggining.Date == today.Date && !x.IsFinished);
+            return _items.FindAll(x => x.GuideId == userId && x.Beggining.Date == today.Date && x.State.Equals(TourState.Scheduled));
         }
+
+        public Tour GetMostViewedByYear(int year) {
+            _items = _serializer.FromCSV();
+            Tour tour;
+            if (year == -1)
+                tour = _items.MaxBy(x => x.CurrentTouristNumber);
+            else
+                tour = _items.FindAll(x => x.Beggining.Year == year).MaxBy(y => y.CurrentTouristNumber);
+
+            return tour;
+        }
+
         public List<Tour> GetFilteredScheduled(TourFilterDTO filter, int userId) {
             _items = GetScheduled(userId);
 

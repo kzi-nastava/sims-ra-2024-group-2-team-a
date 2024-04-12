@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 
 namespace BookingApp.Model {
-
+    public enum TourState { Scheduled = 0, Active, Finished}
     public class Tour : ISerializable, IIdentifiable {
 
         public int Id { get; set; }
@@ -16,18 +16,17 @@ namespace BookingApp.Model {
         public double Duration { get; set; }
         public int CurrentTouristNumber { get; set; }
         public DateTime Beggining { get; set; }
-        public bool IsFinished {  get; set; }
+        public DateTime End {  get; set; }
+        public TourState State {  get; set; }
         public int GuideId { get; set; }
         public List<string> ProfilePictures { get; set; }
-        public List<PointOfInterest> PointOfInterests { get; set; }
 
 
         public Tour() {
             ProfilePictures = new List<string>();
-            PointOfInterests = new List<PointOfInterest>(); 
         }
 
-        public Tour(int id, string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, bool isFinished, int guideId, List<string> profilePictures) {
+        public Tour(int id, string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, DateTime end, TourState state, int guideId, List<string> profilePictures) {
             Id = id;
             Name = name;
             LocationId = locationId;
@@ -37,11 +36,27 @@ namespace BookingApp.Model {
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
             Beggining = beggining;
-            IsFinished = isFinished;
+            End = end;
+            State = state;
             GuideId = guideId;
             ProfilePictures = profilePictures;
         }
-        public Tour(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, bool isFinished, int guideId, List<string> profilePictures) {
+        public Tour(int id, string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, TourState state, int guideId, List<string> profilePictures) {
+            Id = id;
+            Name = name;
+            LocationId = locationId;
+            Description = description;
+            LanguageId = languageId;
+            MaxTouristNumber = maxTouristNumber;
+            Duration = duration;
+            CurrentTouristNumber = currentTouristNumber;
+            Beggining = beggining;
+            End = DateTime.MinValue;
+            State = state;
+            GuideId = guideId;
+            ProfilePictures = profilePictures;
+        }
+        public Tour(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, TourState state, int guideId, List<string> profilePictures) {
 
             Name = name;
             LocationId = locationId;
@@ -51,7 +66,8 @@ namespace BookingApp.Model {
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
             Beggining = beggining;
-            IsFinished = isFinished;
+            End = DateTime.MinValue;
+            State = state;
             GuideId = guideId;
             ProfilePictures = profilePictures;
         }
@@ -67,7 +83,8 @@ namespace BookingApp.Model {
                 Duration.ToString(),
                 CurrentTouristNumber.ToString(),
                 Beggining.ToString("dd-MM-yyyy HH:mm"),
-                IsFinished.ToString(),
+                End.ToString("dd-MM-yyyy HH:mm"),
+                State.ToString(),
                 GuideId.ToString(),
                 };
 
@@ -92,9 +109,10 @@ namespace BookingApp.Model {
             CurrentTouristNumber = Convert.ToInt32(values[7]);
             CultureInfo provider = CultureInfo.InvariantCulture;
             Beggining = DateTime.ParseExact(values[8], "dd-MM-yyyy HH:mm", provider);
-            IsFinished = bool.Parse(values[9]);
-            GuideId = Convert.ToInt32(values[10]);
-            ProfilePictures.AddRange(values[11..]);
+            End = DateTime.ParseExact(values[9], "dd-MM-yyyy HH:mm", provider);
+            State = (TourState)Enum.Parse(typeof(TourState), values[10], false);
+            GuideId = Convert.ToInt32(values[11]);
+            ProfilePictures.AddRange(values[12..]);
         }
     }
 }

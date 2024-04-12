@@ -15,11 +15,5 @@ namespace BookingApp.Repository{
             }
             return true;
         }
-
-        public List<Voucher> GetByTouristId(int touristId) {
-            List<Voucher> allVouchers = _serializer.FromCSV();
-
-            return allVouchers.Where(v => v.TouristId == touristId).ToList();
-        }
     }
 }

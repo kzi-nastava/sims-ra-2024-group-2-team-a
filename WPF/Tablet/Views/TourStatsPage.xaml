@@ -1,0 +1,93 @@
+﻿<Page x:Class="BookingApp.WPF.Tablet.Views.TourStatsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="726" d:DesignWidth="1024"
+      Title="TourStatsPage">
+
+    <Grid Background="White" Margin="0,10,0,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Margin="10" Grid.Row="0">
+            <Border BorderBrush="Black" BorderThickness="1"/>
+            <Label x:Name="titleText" Content="Stats For Most Visited Tour" Margin="100,10,0,10" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="40"/>
+            <ComboBox x:Name="yearComboBox" SelectedValuePath="Tag" HorizontalAlignment="Center" Width="100" Margin="550,30,0,30" SelectedIndex="0" FontSize="16">
+                <ComboBoxItem Content="All Time" Tag="-1"/>
+                <ComboBoxItem Content="2024" Tag="2024"/>
+                <ComboBoxItem Content="2023" Tag="2023"/>
+                <ComboBoxItem Content="2022" Tag="2022"/>
+                <ComboBoxItem Content="2021" Tag="2021"/>
+            </ComboBox>
+            <Button x:Name="showButton" Margin="0,0,40,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="showButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Show</Label>
+                    <Image Source="/Resources/Images/eye.png" Width="50" Height="50" />
+                </StackPanel>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Margin="10" BorderBrush="Black" BorderThickness="1">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding tourDTO.ProfilePictures[0]}"/>
+                </Border.Background>
+            </Border>
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Name, StringFormat=OCENA: {0}}" FontSize="20"/>
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="{Binding tourDTO.Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="10" Text="{Binding tourDTO.CurrentTouristNumber, StringFormat=Tourists: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="10" Text="{Binding tourDTO.Duration, StringFormat=Duration: {0} hours}" FontSize="18"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Margin="10" Text="{Binding tourDTO.LocationTemplate, StringFormat=Location: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="10" Text="{Binding tourDTO.LanguageTemplate, StringFormat=Language: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Margin="10" Text="{Binding tourDTO.Beggining, StringFormat=Start: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Margin="10" Text="{Binding tourDTO.End, StringFormat=End: {0}}" FontSize="18"/>
+
+            <DockPanel Grid.Row="2" Grid.Column="2" Grid.RowSpan="4">
+                <Label DockPanel.Dock="Top" Content="Description:" Margin="5" FontSize="18"/>
+                <Border BorderBrush="Black" BorderThickness="1"  Margin="10">
+                    <ScrollViewer>
+                        <TextBlock TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" Text="{Binding tourDTO.Description}" FontSize="18"/>
+                    </ScrollViewer>
+                </Border>
+            </DockPanel>
+            <Grid Grid.Row="6" Grid.Column="2" Grid.RowSpan="2" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Keypoints:" Margin="5" FontSize="18"/>
+                <Grid Grid.Row="1" Background="White">
+                    <DataGrid x:Name="dataGrid" ItemsSource="{Binding pointOfInterestDTOs}" IsReadOnly="True" 
+  SelectionMode="Single" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="100"/>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="250"/>
+                            <DataGridCheckBoxColumn x:Name="checkPointOfInterest" Header="Checkpoint" Binding="{Binding IsChecked}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" FontSize="50">Ovde je Chart</Label>
+        </Grid>
+    </Grid>
+</Page>

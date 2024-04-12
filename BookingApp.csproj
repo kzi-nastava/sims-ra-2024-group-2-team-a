@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\eye.png" />
     <None Remove="Resources\Images\finish.png" />
     <None Remove="Resources\Images\Accomodations\360_F_129692052_B3NtnybQl1E6vP6HcsHJbvNAnEFffXBh.jpg" />
     <None Remove="Resources\Images\Accomodations\benefits-penthouse-living-main-image.png" />
@@ -91,6 +92,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\eye.png" />
     <Resource Include="Resources\Images\finish.png" />
     <Resource Include="Resources\Images\Accomodations\360_F_129692052_B3NtnybQl1E6vP6HcsHJbvNAnEFffXBh.jpg" />
     <Resource Include="Resources\Images\Accomodations\benefits-penthouse-living-main-image.png" />
@@ -157,12 +159,14 @@
   <ItemGroup>
     <Folder Include="Resources\Images\Accomodations\" />
     <Folder Include="View\WebViews\" />
+    <Folder Include="View\DesktopViews\" />
+    <Folder Include="View\TabletView\" />
     <Folder Include="WPF\Android\ViewModels\" />
     <Folder Include="WPF\Android\Views\" />
-    <Folder Include="WPF\Desktop\ViewModels\" />
-    <Folder Include="WPF\Desktop\Views\" />
     <Folder Include="WPF\Tablet\ViewModels\" />
     <Folder Include="WPF\Tablet\Views\" />
+    <Folder Include="WPF\Web\ViewModels\" />
+    <Folder Include="WPF\Web\Views\" />
   </ItemGroup>
 
   <ItemGroup>
