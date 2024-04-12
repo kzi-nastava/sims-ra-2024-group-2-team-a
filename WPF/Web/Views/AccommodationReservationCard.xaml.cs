@@ -44,7 +44,7 @@ namespace BookingApp.WPF.Web.Views {
 
             GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
             ReservationsPage reservationsPage = window.MainFrame.Content as ReservationsPage;
-            reservationsPage.Update();
+            // reservationsPage.Update();
         }
 
         private void UserControlDataContextChanged(object sender, DependencyPropertyChangedEventArgs e) {

@@ -163,7 +163,6 @@
     <Folder Include="WPF\Desktop\Views\" />
     <Folder Include="WPF\Tablet\ViewModels\" />
     <Folder Include="WPF\Tablet\Views\" />
-    <Folder Include="WPF\Web\ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
