@@ -28,7 +28,7 @@ namespace BookingApp.WPF.Desktop.Views {
         }
 
         private void ReservationsButton_Click(object sender, RoutedEventArgs e) {
-            // TODO: Implement.
+            PageFrame.Navigate(new TouristReservationsPage(UserId));
         }
 
         private void CouponsButton_Click(object sender, RoutedEventArgs e) {
