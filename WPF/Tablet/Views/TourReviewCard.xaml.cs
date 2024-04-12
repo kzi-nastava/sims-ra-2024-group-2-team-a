@@ -34,6 +34,7 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void reportButton_Click(object sender, RoutedEventArgs e) {
             tourReviewDTO.IsValid = false;
+            _tourReviewRepository.Update(tourReviewDTO.ToModel());
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e) {

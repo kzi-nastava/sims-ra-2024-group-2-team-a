@@ -155,9 +155,10 @@ namespace BookingApp.DTO {
                 }
             }
         }
-/*
+
         public TourReview ToModel() {
-        }*/
+            return new TourReview(Id, KnowledgeGrade, LanguageGrade, InterestGrade, AvrageGrade, Posted, IsValid, TouristId, TourId, Comment, Pictures);
+        }
         public List<string> Pictures { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {

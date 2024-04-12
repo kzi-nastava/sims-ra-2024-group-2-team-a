@@ -25,6 +25,20 @@ namespace BookingApp.Model
         public TourReview() {
             Pictures = new List<string>();
         }
+        public TourReview(int id, int knowledgeGrade, int languageGrade, int interestGrade, double avrageGrade, DateTime posted, bool isValid, int touristId, int tourId, string comment, List<string> pictures) {
+            Id = id;
+            KnowledgeGrade = knowledgeGrade;
+            LanguageGrade = languageGrade;
+            InterestGrade = interestGrade;
+            AvrageGrade = avrageGrade;
+            Posted = posted;
+            IsValid = isValid;
+            TouristId = touristId;
+            TourId = tourId;
+            Comment = comment;
+            Pictures = pictures;
+        }
+
         public TourReview(int id, int knowledgeGrade, int languageGrade, int interestGrade, string comment, int touristId, int tourId, bool isValid, List<string> pictures) {
             Id = id;
             KnowledgeGrade = knowledgeGrade;

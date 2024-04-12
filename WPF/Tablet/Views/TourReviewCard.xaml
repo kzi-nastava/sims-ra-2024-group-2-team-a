@@ -18,7 +18,7 @@
                 <TextBlock Margin="10,0,0,0" Text="{Binding TouristSurname}" FontSize="20" FontWeight="Bold"/>
                 <TextBlock Margin="50,0,0,0" Text="{Binding PointOfInterestName, StringFormat=Joined: {0}}" FontSize="20"/>
                 <TextBlock Margin="50,0,0,0" Text="{Binding IsValid, StringFormat=Valid: {0}}" FontSize="20"/>
-                <TextBlock Margin="450,0,0,0" Text="{Binding AvrageGrade, StringFormat=Grade: {0}}" FontSize="20" FontWeight="Bold"/>
+                <TextBlock Margin="300,0,0,0" Text="{Binding AvrageGrade, StringFormat=Grade: {0}}" FontSize="20" FontWeight="Bold"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <Border BorderBrush="Black" BorderThickness="1" Width="700" Margin="5,5,5,20">
