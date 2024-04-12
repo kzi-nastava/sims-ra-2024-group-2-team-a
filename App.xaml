@@ -4,6 +4,19 @@
              xmlns:local="clr-namespace:BookingApp"
              StartupUri="View/SignInForm.xaml">
     <Application.Resources>
-         
+        <BitmapImage x:Key="TimeIcon" UriSource="Resources/Images/Icons/time-icon.png"/>
+        <BitmapImage x:Key="ScheduledIcon" UriSource="Resources/Images/Icons/scheduled-icon.png"/>
+        <BitmapImage x:Key="CancelIcon" UriSource="Resources/Images/Icons/cancel-icon.png"/>
+        <BitmapImage x:Key="LocationIcon" UriSource="Resources/Images/Icons/location-icon.png"/>
+        <BitmapImage x:Key="HouseIcon" UriSource="Resources/Images/Icons/house-icon.png"/>
+        <BitmapImage x:Key="CalendarIcon" UriSource="Resources/Images/Icons/calendar-icon.png"/>
+        <BitmapImage x:Key="PeopleIcon" UriSource="Resources/Images/Icons/people-icon.png"/>
+        <BitmapImage x:Key="CancelEventIcon" UriSource="Resources/Images/Icons/cancel-event-icon.png"/>
+        <BitmapImage x:Key="ReviewIcon" UriSource="Resources/Images/Icons/star-icon.png"/>
+        <BitmapImage x:Key="RescheduleIcon" UriSource="Resources/Images/Icons/reschedule-icon.png"/>
+        <BitmapImage x:Key="ConfirmIcon" UriSource="Resources/Images/Icons/confirm-icon.png"/>
+        <BitmapImage x:Key="CaneclIcon" UriSource="Resources/Images/Icons/cancel-icon.png"/>
+        <BitmapImage x:Key="RightArrowIcon" UriSource="Resources/Images/Icons/right-arrow-icon.png"/>
+        <BitmapImage x:Key="CameraIcon" UriSource="Resources/Images/Icons/camera-icon.png"/>
     </Application.Resources>
 </Application>
