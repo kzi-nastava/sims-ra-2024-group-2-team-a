@@ -24,8 +24,6 @@ namespace BookingApp.WPF.Android.Views {
     /// </summary>
     public partial class NotificationsPage : Page {
 
-        //private readonly NotificationRepository _notificationRepository;
-
         private NotificationService notificationService = new NotificationService();
 
         private readonly User _user;

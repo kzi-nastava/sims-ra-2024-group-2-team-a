@@ -118,5 +118,33 @@ namespace BookingApp.Services
 
             return true;
         }
+
+        public int CheckForNotGradedReservations(int ownerId) {
+            ReviewService reviewService = new ReviewService();
+            int counter = 0;
+
+            foreach (var reservation in this.GetAll()) {
+                if (!CheckReservationOwner(reservation.AccommodationId,ownerId))
+                    continue;
+
+                if (reviewService.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation))
+                    counter++;
+            }
+
+            return counter;
+        }
+
+        private bool CheckReservationDate(AccommodationReservation reservation) {
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
+            DateOnly offsetDate = reservation.EndDate;
+            offsetDate = offsetDate.AddDays(5);
+
+            return (currentDate > reservation.EndDate && currentDate < offsetDate);
+        }
+        private bool CheckReservationOwner(int accommodationId, int ownerId) {
+            AccommodationService accommodationService = new AccommodationService();
+            return (accommodationService.GetById(accommodationId).OwnerId == ownerId);
+        }
+
     }
 }
