@@ -35,6 +35,10 @@ namespace BookingApp.WPF.Web.Views {
             DataContext = ViewModel;
         }
 
+        public void Update() {
+            ViewModel.UpdateAllCollections();
+        }
+
         private void ButtonScheduledClick(object sender, RoutedEventArgs e) {
             ViewModel.FilterBySelection();
         }
