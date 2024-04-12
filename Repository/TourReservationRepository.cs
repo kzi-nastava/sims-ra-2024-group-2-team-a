@@ -7,6 +7,7 @@ using System.Windows.Documents;
 
 namespace BookingApp.Repository {
     public class TourReservationRepository : Repository<TourReservation> {
+        private readonly VoucherRepository _voucherRepository = new VoucherRepository();
 
         private void FillTourCapacity(int tourId, int addedPassengersNumber) {
             TourRepository tourRepository = new TourRepository();
@@ -29,7 +30,13 @@ namespace BookingApp.Repository {
             return addedPassengersNumber;
         }
 
-        public int MakeReservation(int userId, TourDTO selectedTour, List<PassengerDTO> passengers) {
+        private void UpdateVoucherStatus(VoucherDTO selectedVoucher) {
+            Voucher newVoucher = _voucherRepository.GetById(selectedVoucher.Id);
+            newVoucher.Used = selectedVoucher.Used;
+            _voucherRepository.Update(newVoucher);
+        }
+
+        public int MakeReservation(int userId, TourDTO selectedTour, List<PassengerDTO> passengers, VoucherDTO selectedVoucher) {
             PassengerRepository passengerRepository = new PassengerRepository();
             TourRepository tourRepository = new TourRepository();
 
@@ -44,6 +51,7 @@ namespace BookingApp.Repository {
             TourReservation reservation = new TourReservation(userId, selectedTour.Id);
             Save(reservation);
             FillTourCapacity(selectedTour.Id, UpdatePassengerNumber(reservation, passengers, passengerRepository));
+            UpdateVoucherStatus(selectedVoucher);
 
             return 0;
         }

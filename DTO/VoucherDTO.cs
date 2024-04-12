@@ -9,6 +9,16 @@ using System.Threading.Tasks;
 
 namespace BookingApp.DTO {
     public class VoucherDTO : INotifyPropertyChanged {
+        private int _id;
+        public int Id {
+            get { return _id; }
+            set {
+                if (_id != value) {
+                    _id = value; OnPropertyChanged();
+                }
+            }
+        }
+
         private string _image;
         public string Image {
             get {
@@ -33,9 +43,24 @@ namespace BookingApp.DTO {
             }
         }
 
+        private bool _used;
+        public bool Used {
+            get {
+                return _used;
+            }
+            set {
+                if(_used != value) {
+                    _used = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public VoucherDTO(Voucher voucher) {
+            Id = voucher.Id;
             Image = voucher.Image;
             ExpireDate = voucher.ExpireDate;
+            Used = voucher.Used;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

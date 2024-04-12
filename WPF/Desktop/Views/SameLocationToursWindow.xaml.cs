@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BookingApp.View.DesktopViews {
+namespace BookingApp.WPF.Desktop.Views {
     /// <summary>
     /// Interaction logic for SameLocationToursWindow.xaml
     /// </summary>
@@ -48,7 +48,7 @@ namespace BookingApp.View.DesktopViews {
             var selectedTour = (TourDTO)button.DataContext;
 
             if (_tourRepository.GetAvailableSpace(selectedTour) != 0) {
-                TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, _parentWindow.UserId);
+                TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, 4);
                 reservationWindow.ShowDialog();
             }
         }

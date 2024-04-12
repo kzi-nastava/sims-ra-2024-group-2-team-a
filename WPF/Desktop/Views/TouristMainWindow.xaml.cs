@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace BookingApp.View.DesktopViews {
+namespace BookingApp.WPF.Desktop.Views {
     /// <summary>
     /// Interaction logic for TouristMainWindow.xaml
     /// </summary>
