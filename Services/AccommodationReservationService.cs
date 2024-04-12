@@ -13,6 +13,8 @@ namespace BookingApp.Services
     {
         private readonly AccommodationReservationRepository _reservationRepository = new AccommodationReservationRepository();
 
+        private readonly RescheduleRequestService _rescheduleService = new RescheduleRequestService();
+
         public List<AccommodationReservation> GetByAccommodationId(int id) {
             return _reservationRepository.GetByAccommodationId(id);
         }
@@ -33,9 +35,14 @@ namespace BookingApp.Services
             return _reservationRepository.Save(reservation);
         }
 
-        public bool Delete(int id) {
-            var reservation =  _reservationRepository.GetById(id);
-            return _reservationRepository.Delete(reservation);
+        public void CancelReservation(int id) {
+            var reservation = _reservationRepository.GetById(id);
+            reservation.Cancelled = true;
+            _reservationRepository.Update(reservation);
+
+            var rescheduleRequests = _rescheduleService.GetByReservationId(id);
+            rescheduleRequests.ForEach(r => r.Status = RescheduleRequestStatus.Cancelled);
+            rescheduleRequests.ForEach(r => _rescheduleService.Update(r));
         }
 
         public bool Update(AccommodationReservation accReservation) {

@@ -18,6 +18,7 @@ namespace BookingApp.DTO {
             ReservationDays = accDTO.ReservationDays;
             AccommodationName = accDTO.AccommodationName;
             Graded = accDTO.Graded;
+            Cancelled = accDTO.Cancelled;
         }
 
         public AccommodationReservationDTO(AccommodationReservation acc) {
@@ -29,6 +30,7 @@ namespace BookingApp.DTO {
             EndDate = acc.EndDate;
             ReservationDays = acc.ReservationDays;
             Graded = false;
+            Cancelled = acc.Cancelled;
         }
 
         public int Id { get; set; } = 0;
@@ -73,6 +75,20 @@ namespace BookingApp.DTO {
                 }
             }
         }
+
+        private bool _cancelled;
+        public bool Cancelled {
+            get {
+                return _cancelled;
+            }
+            set {
+                if (value != _cancelled) {
+                    _cancelled = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public AccommodationDTO Accommodation { get; set; }
         public String CancellationDate => StartDate.AddDays(-Accommodation.LastCancellationDay).ToString();
         public bool Graded { get; set; }
@@ -89,21 +105,21 @@ namespace BookingApp.DTO {
         public bool CanBeGraded {
             get {
                 var dateNow = DateOnly.FromDateTime(DateTime.Now);
-                return dateNow <= EndDate.AddDays(5) && dateNow > EndDate;
+                return dateNow <= EndDate.AddDays(5) && dateNow > EndDate && !Cancelled;
             }
         }
 
         public bool CanBeRescheduled {
             get {
                 var dateNow = DateOnly.FromDateTime(DateTime.Now);
-                return dateNow <= StartDate;
+                return dateNow <= StartDate && !Cancelled;
             }
         }
 
         public bool CanBeCancelled {
             get {
                 var dateNow = DateOnly.FromDateTime(DateTime.Now);
-                return dateNow <= StartDate.AddDays(-LastCancellationDay);
+                return dateNow <= StartDate.AddDays(-LastCancellationDay) && !Cancelled;
             }
         }
 

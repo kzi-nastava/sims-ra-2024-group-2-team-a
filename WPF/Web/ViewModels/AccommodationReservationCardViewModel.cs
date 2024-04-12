@@ -13,15 +13,13 @@ namespace BookingApp.WPF.Web.ViewModels {
         public AccommodationReservationDTO Reservation { get; set; }
 
         private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
-        private readonly RescheduleRequestService _rescheduleService = new RescheduleRequestService();
 
         public AccommodationReservationCardViewModel(AccommodationReservationDTO reservation) {
             Reservation = reservation;
         }
 
         public void CancelReservation() {
-            _rescheduleService.DeleteByReservationId(Reservation.Id);
-            _reservationService.Delete(Reservation.Id);
+            _reservationService.CancelReservation(Reservation.Id);
         }
     }
 }
