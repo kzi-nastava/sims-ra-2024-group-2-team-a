@@ -2,6 +2,7 @@
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.WPF.Desktop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,31 +23,18 @@ namespace BookingApp.WPF.Desktop.Views {
     /// Interaction logic for UseVouchersWindow.xaml
     /// </summary>
     public partial class UseVouchersWindow : Window {
-        public int UserId { get; set; }
-        private readonly VoucherService _voucherService;
-        public ObservableCollection<VoucherDTO> VouchersOnDisplay { get; set; }
-        public VoucherDTO SelectedVoucher { get; set; }
         public TourReservationWindow tourReservationWindow;
-        public UseVouchersWindow(int userId, TourReservationWindow parentWindow) {
-            InitializeComponent();
-            DataContext = this;
-            UserId = userId;
-            _voucherService = new VoucherService();
-            VouchersOnDisplay = new ObservableCollection<VoucherDTO>();
-            LoadVouchers();
-            tourReservationWindow = parentWindow;
-        }
+        public UseVouchersWindowViewModel viewModel { get; set; }
 
-        public void LoadVouchers() {
-            VouchersOnDisplay.Clear();
-            foreach (Voucher voucher in _voucherService.GetAvailableVouchers(UserId)) {
-                VouchersOnDisplay.Add(new VoucherDTO(voucher));
-            }
+        public UseVouchersWindow(TouristReservationWindowViewModel parentViewModel) {
+            InitializeComponent();
+
+            viewModel = new UseVouchersWindowViewModel(parentViewModel);
+            DataContext = viewModel;
         }
 
         private void UseVoucherButton_Click(object sender, RoutedEventArgs e) {
-            tourReservationWindow.TourReservationViewModel.IsVoucherSelected = true;
-            tourReservationWindow.TourReservationViewModel.SelectedVoucher = SelectedVoucher;
+            viewModel.UseVoucher();
             this.Close();
         }
     }

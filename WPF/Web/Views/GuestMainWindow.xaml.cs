@@ -12,8 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.View;
 
-namespace BookingApp.View.WebViews {
+namespace BookingApp.WPF.Web.Views {
     /// <summary>
     /// Interaction logic for GuestMainWindow.xaml
     /// </summary>
@@ -40,7 +41,7 @@ namespace BookingApp.View.WebViews {
         }
 
         private void ButtonReservationsClick(object sender, RoutedEventArgs e) {
-            mainFrame.Content = new ReservationsPage();
+            mainFrame.Content = new ReservationsPage(User.Id);
         }
 
         private void ButtonLogoutClick(object sender, RoutedEventArgs e) {

@@ -16,8 +16,8 @@
         <Grid Margin="10" Grid.Row="0">
             <Border BorderBrush="Black" BorderThickness="1"/>
             <Label x:Name="titleText" Content="Stats For Most Visited Tour" Margin="100,10,0,10" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="40"/>
-            <ComboBox HorizontalAlignment="Center" Width="100" Margin="550,30,0,30" SelectedIndex="0" FontSize="16">
-                <ComboBoxItem Content="All Time" Tag="0"/>
+            <ComboBox x:Name="yearComboBox" SelectedValuePath="Tag" HorizontalAlignment="Center" Width="100" Margin="550,30,0,30" SelectedIndex="0" FontSize="16">
+                <ComboBoxItem Content="All Time" Tag="-1"/>
                 <ComboBoxItem Content="2024" Tag="2024"/>
                 <ComboBoxItem Content="2023" Tag="2023"/>
                 <ComboBoxItem Content="2022" Tag="2022"/>
@@ -87,7 +87,19 @@
                     </DataGrid>
                 </Grid>
             </Grid>
-            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1" FontSize="50">Ovde je Chart</Label>
+            <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="250" Width="500">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border Grid.RowSpan="4" BorderBrush="Black" BorderThickness="1"/>
+                <Label Grid.Row="0" FontSize="20" FontWeight="Bold" Content="Stats:"/>
+                <TextBlock Grid.Row="1" FontSize="18" Margin="10" Text="{Binding teen, StringFormat=Bellow 18 years:      {0}}"/>
+                <TextBlock Grid.Row="2" FontSize="18" Margin="10" Text="{Binding mid, StringFormat=Between 18 and 50 years:      {0}}"/>
+                <TextBlock Grid.Row="3" FontSize="18" Margin="10" Text="{Binding old, StringFormat=Over 50 years:      {0}}"/>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

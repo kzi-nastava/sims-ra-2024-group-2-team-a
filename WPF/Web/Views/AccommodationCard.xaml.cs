@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.View.WebViews {
+namespace BookingApp.WPF.Web.Views {
     /// <summary>
     /// Interaction logic for AccommodationCard.xaml
     /// </summary>

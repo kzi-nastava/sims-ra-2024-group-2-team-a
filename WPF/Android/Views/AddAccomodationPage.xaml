@@ -21,7 +21,7 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="70"/>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -62,7 +62,9 @@
             <TextBox Grid.Row="6" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
                      Text="{Binding AccommodationDTO.LastCancellationDay}"/>
 
-            <Button Content="Import Images" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="130" Click="SelectImages_Click"/>
+            <Button Content="Import Images" Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="SelectImages_Click"/>
+
+            <Button Content="View Selected" Grid.Column="2"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="ViewImages_Click"/>
 
             <Button Grid.Row="9" Grid.Column="1" Content="Decline" Height="50" Width="120" Click="Decline_Click"/>
 

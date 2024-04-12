@@ -5,6 +5,15 @@ using System.Linq;
 
 namespace BookingApp.Repository {
     public class PassengerRepository : Repository<Passenger> {
+        public int GetStatsTeen(List<Passenger> passengers) {
+            return passengers.Count(x => x.Age < 18 && x.JoinedPointOfInterestId != -1);
+        }
+        public int GetStatsMid(List<Passenger> passengers) {
+            return passengers.Count(x => x.Age >= 18 && x.Age <= 50 && x.JoinedPointOfInterestId != -1);
+        }
+        public int GetStatsOld(List<Passenger> passengers) {
+            return passengers.Count(x => x.Age > 50 && x.JoinedPointOfInterestId != -1);
+        }
         public List<Passenger> GetUnJoined(List<TourReservation> reservations) {
             _items = _serializer.FromCSV();
             List<int> ids = new List<int>();

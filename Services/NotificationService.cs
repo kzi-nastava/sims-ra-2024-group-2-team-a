@@ -20,5 +20,24 @@ namespace BookingApp.Services {
         public void Update(Notification notification) {
             _notificationRepository.Update(notification);
         }
+
+        public void CreateNotifications(int ownerId) {
+            RescheduleRequestService rescheduleRequestService = new RescheduleRequestService();
+            AccommodationReservationService accResService = new AccommodationReservationService();
+
+            int ungradedReservations = accResService.CheckForNotGradedReservations(ownerId);
+            int pendingRescheduleRequests = rescheduleRequestService.GetPendingRequestsByOwnerId(ownerId).Count;
+
+            if (ungradedReservations != 0) {
+                string message = $"You have {ungradedReservations} ungraded reservations. Navigate to reservations tab to grade them!";
+                Notification notification = new Notification(message, NotificationCategory.Review, ownerId, DateTime.Now, false);
+                this.Save(notification);
+            }
+            if (pendingRescheduleRequests > 0) {
+                string message = $"You have {pendingRescheduleRequests} pending reschedule requests. Navigate to reservations/requests tab to accept/decline them!";
+                Notification notification = new Notification(message, NotificationCategory.Request, ownerId, DateTime.Now, false);
+                this.Save(notification);
+            }
+        }
     }
 }

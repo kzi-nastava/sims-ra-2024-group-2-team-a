@@ -76,5 +76,15 @@ namespace BookingApp.WPF.Android.Views {
             Uri fullUri = new Uri(fullPath);
             return baseUri.MakeRelativeUri(fullUri).ToString();
         }
+
+        private void ViewImages_Click(object sender, RoutedEventArgs e) {
+            if (AccommodationDTO.ProfilePictures.Count == 0) {
+                MessageBox.Show("Please select an image first","",MessageBoxButton.OK);
+            }
+            else {
+                ViewSelectedImagesWindow viewSelectedImagesWindow = new ViewSelectedImagesWindow(AccommodationDTO);
+                viewSelectedImagesWindow.ShowDialog();
+            }
+        }
     }
 }

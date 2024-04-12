@@ -27,9 +27,9 @@ namespace BookingApp.Repository {
             _items = _serializer.FromCSV();
             Tour tour;
             if (year == -1)
-                tour = _items.MaxBy(x => x.CurrentTouristNumber);
+                tour = _items.FindAll(x => x.State == TourState.Finished).MaxBy(y => y.CurrentTouristNumber);
             else
-                tour = _items.FindAll(x => x.Beggining.Year == year).MaxBy(y => y.CurrentTouristNumber);
+                tour = _items.FindAll(x => x.Beggining.Year == year && x.State == TourState.Finished).MaxBy(y => y.CurrentTouristNumber);
 
             return tour;
         }

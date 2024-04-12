@@ -1,6 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
-using BookingApp.View.WebViews;
+using BookingApp.WPF.Web.Views;
 using BookingApp.WPF.Desktop.Views;
 using BookingApp.WPF.Tablet.Views;
 using System.ComponentModel;

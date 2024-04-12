@@ -16,7 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.Services;
 
-namespace BookingApp.View.WebViews {
+namespace BookingApp.WPF.Web.Views {
     /// <summary>
     /// Interaction logic for CreateReservationPage.xaml
     /// </summary>

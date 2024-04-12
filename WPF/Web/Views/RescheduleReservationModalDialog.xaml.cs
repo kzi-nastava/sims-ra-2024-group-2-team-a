@@ -2,6 +2,7 @@
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.WPF.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,24 +19,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.View.WebViews
-{
+namespace BookingApp.WPF.Web.Views {
     /// <summary>
     /// Interaction logic for RescheduleReservationModalDialog.xaml
     /// </summary>
     public partial class RescheduleReservationModalDialog : UserControl
     {
-        private readonly RescheduleRequestService _rescheduleRequestService = new RescheduleRequestService();
-
-        private AccommodationReservationDTO _reservation;
-        private ReservationsPage _parentPage;
+        private readonly ReservationsPage _parentPage;
+        private RescheduleReservationModalDialogViewModel ViewModel { get; set; }
 
         public RescheduleReservationModalDialog(ReservationsPage parentPage, AccommodationReservationDTO reservation)
         {
             InitializeComponent();
-            _reservation = reservation;
             _parentPage = parentPage;
-            DataContext = _reservation;
+            ViewModel = new RescheduleReservationModalDialogViewModel(reservation);
+            DataContext = ViewModel;
+            dataPickerNewDate.SelectedDate = DateTime.Now;
         }
 
         private void ButtonCancelClick(object sender, RoutedEventArgs e) {
@@ -43,19 +42,7 @@ namespace BookingApp.View.WebViews
         }
 
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
-            DateOnly newDate = DateOnly.FromDateTime(dataPickerNewDate.SelectedDate.Value);
-
-            RescheduleRequest newRequest = new RescheduleRequest(
-                RescheduleRequestStatus.Pending,
-                _reservation.Id,
-                _reservation.GuestId,
-                _reservation.Accommodation.OwnerId,
-                _reservation.StartDate,
-                newDate,
-                _reservation.ReservationDays,
-                "");
-
-            _rescheduleRequestService.Save(newRequest);
+            ViewModel.Reschedule();
             _parentPage.CloseModalDialog();
         }
     }
