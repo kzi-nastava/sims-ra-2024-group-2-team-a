@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
+             xmlns:converter="clr-namespace:BookingApp.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="230" d:DesignWidth="800"
              HorizontalAlignment="Center" VerticalAlignment="Center">
 
     <UserControl.Resources>
+        <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
 
         <Style x:Key="ImageStyle" TargetType="Image">
             <Setter Property="Height" Value="16"/>
@@ -32,7 +34,7 @@
                            Text="Reschedule reservation date"/>
 
 
-            <Label Grid.Row="1" FontSize="15" Content="{Binding Reservation.Accommodation.Name}" HorizontalAlignment="Left" Margin="10 10 0 10"/>
+            <Label Grid.Row="1" FontSize="18" Content="{Binding Reservation.Accommodation.Name}" HorizontalAlignment="Left" Margin="10 10 0 10"/>
 
             <Label Grid.Row="1" HorizontalAlignment="Right" Margin="0 10 10 10">
                 <WrapPanel>
@@ -51,7 +53,7 @@
                 <Label Grid.Column="0" Margin="10 5 0 0">
                     <WrapPanel>
                         <Image Style="{StaticResource ImageStyle}" Height="20" Width="20" Source="{StaticResource CalendarIcon}"/>
-                        <TextBlock FontSize="15" Text="{Binding Reservation.StartDate}"/>
+                        <TextBlock FontSize="15" Text="{Binding Reservation.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
                     </WrapPanel>
                 </Label>
 

@@ -16,6 +16,7 @@ namespace BookingApp.Model {
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
         public int ReservationDays => EndDate.Day - StartDate.Day;
+        public bool Cancelled { get; set; } = false;
 
         public AccommodationReservation() { }
 
@@ -28,7 +29,16 @@ namespace BookingApp.Model {
         }
 
         public string[] ToCSV() {
-            string[] csvValues = { Id.ToString(), GuestId.ToString(), AccommodationId.ToString(), GuestsNumber.ToString(), StartDate.ToString("dd-MM-yyyy"), EndDate.ToString("dd-MM-yyyy") };
+            string[] csvValues = { 
+                Id.ToString(), 
+                GuestId.ToString(), 
+                AccommodationId.ToString(), 
+                GuestsNumber.ToString(), 
+                StartDate.ToString("dd-MM-yyyy"), 
+                EndDate.ToString("dd-MM-yyyy"),
+                Cancelled.ToString()
+            };
+            
             return csvValues;
         }
 
@@ -39,6 +49,7 @@ namespace BookingApp.Model {
             GuestsNumber = Convert.ToInt32(values[3]);
             StartDate = DateOnly.ParseExact(values[4], "dd-MM-yyyy");
             EndDate = DateOnly.ParseExact(values[5], "dd-MM-yyyy");
+            Cancelled = Convert.ToBoolean(values[6]);
         }
     }
 }

@@ -11,6 +11,7 @@
 
     <UserControl.Resources>
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
 
         <Style x:Key="InfoTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="10 5 0 5"/>
@@ -31,81 +32,89 @@
         </Style>
 
     </UserControl.Resources>
-    
-    <Border Margin="5 5 5 5" BorderBrush="Gray" BorderThickness="1" Width="320" CornerRadius="10">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+
+    <Grid>
+        <Border Margin="5 5 5 5" Background="White" BorderBrush="Gray" BorderThickness="1" Width="320" CornerRadius="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="80"/>
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Reservation.Accommodation.Name}" FontSize="18" Margin="40 10 0 10"/>
+                <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Reservation.Accommodation.Name}" FontSize="18" Margin="40 10 0 10"/>
 
-            <Label Grid.Row="1" Grid.Column="0">
-                <StackPanel Orientation="Horizontal">
-                    <Image Style="{StaticResource InfoImage}" Source="{StaticResource LocationIcon}"/>
-                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.Accommodation.Location.LocationInfoTemplate}"/>
-                </StackPanel>
-            </Label>
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Style="{StaticResource InfoImage}" Source="{StaticResource LocationIcon}"/>
+                        <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.Accommodation.Location.LocationInfoTemplate}"/>
+                    </StackPanel>
+                </Label>
 
-            <Label Grid.Row="2" Grid.Column="0">
-                <StackPanel Orientation="Horizontal">
-                    <Image Style="{StaticResource InfoImage}" Source="{StaticResource HouseIcon}"/>
-                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.Accommodation.Type}"/>
-                </StackPanel>
-            </Label>
+                <Label Grid.Row="2" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Style="{StaticResource InfoImage}" Source="{StaticResource HouseIcon}"/>
+                        <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.Accommodation.Type}"/>
+                    </StackPanel>
+                </Label>
 
-            <Label Grid.Row="3" Grid.Column="0">
-                <StackPanel Orientation="Horizontal">
-                    <Image Style="{StaticResource InfoImage}" Source="{StaticResource PeopleIcon}"/>
-                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.GuestsNumber, StringFormat=Guests: {0}}"/>
-                </StackPanel>
-            </Label>
+                <Label Grid.Row="3" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Style="{StaticResource InfoImage}" Source="{StaticResource PeopleIcon}"/>
+                        <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.GuestsNumber, StringFormat=Guests: {0}}"/>
+                    </StackPanel>
+                </Label>
 
-            <Label Grid.Row="2" Grid.Column="1">
-                <StackPanel Orientation="Horizontal">
-                    <Image Style="{StaticResource InfoImage}" Source="{StaticResource CalendarIcon}"/>
-                    <TextBlock Style="{StaticResource InfoTextBlock}" FontSize="9" Text="{Binding Reservation.DateString}"/>
-                </StackPanel>
-            </Label>
+                <Label Grid.Row="2" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Style="{StaticResource InfoImage}" Source="{StaticResource CalendarIcon}"/>
+                        <TextBlock Style="{StaticResource InfoTextBlock}" FontSize="9">
+                            <Run Text="{Binding Reservation.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                            <LineBreak/>
+                            <Run Text="{Binding Reservation.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Label>
 
-            <Label Grid.Row="3" Grid.Column="1">
-                <StackPanel Orientation="Horizontal">
-                    <Image Style="{StaticResource InfoImage}" Source="{StaticResource CancelEventIcon}"/>
-                    <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.CancellationDate}"/>
-                </StackPanel>
-            </Label>
+                <Label Grid.Row="3" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Style="{StaticResource InfoImage}" Source="{StaticResource CancelEventIcon}"/>
+                        <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Reservation.CancellationDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                    </StackPanel>
+                </Label>
 
-            <Button x:Name="buttonRate" Grid.Column="2" Grid.Row="0" Margin="30 10 10 10" Click="ButtonReviewClick" 
-                    Visibility="{Binding Reservation.CanBeGraded, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <WrapPanel>
-                    <Image Style="{StaticResource ButtonImage}" Source="{StaticResource ReviewIcon}"/>
-                </WrapPanel>
-            </Button>
+                <Button x:Name="buttonRate" Grid.Column="2" Grid.Row="0" Margin="30 10 10 10" Click="ButtonReviewClick" 
+                Visibility="{Binding Reservation.CanBeGraded, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <WrapPanel>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource ReviewIcon}"/>
+                    </WrapPanel>
+                </Button>
 
-            <Button x:Name="buttonRescheduleDate" Grid.Column="2" Grid.Row="2"  Margin="30 10 10 10" Click="ButtonRescheduleDateClick" 
-                    Visibility="{Binding Reservation.CanBeRescheduled, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <WrapPanel>
-                    <Image Style="{StaticResource ButtonImage}" Source="{StaticResource RescheduleIcon}"/>
-                </WrapPanel>
-            </Button>
-            
-            <Button x:Name="buttonCancel" Grid.Column="2" Grid.Row="3" Margin="30 10 10 10" Click="ButtonCancelClick"
-                    Visibility="{Binding Reservation.CanBeCancelled, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <WrapPanel>
-                    <Image Style="{StaticResource ButtonImage}" Source="{StaticResource CancelEventIcon}"/>
-                </WrapPanel>
-            </Button>
+                <Button x:Name="buttonRescheduleDate" Grid.Column="2" Grid.Row="2"  Margin="30 10 10 10" Click="ButtonRescheduleDateClick" 
+                Visibility="{Binding Reservation.CanBeRescheduled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <WrapPanel>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource RescheduleIcon}"/>
+                    </WrapPanel>
+                </Button>
 
-        </Grid>
-    </Border>
+                <Button x:Name="buttonCancel" Grid.Column="2" Grid.Row="3" Margin="30 10 10 10" Click="ButtonCancelClick"
+                Visibility="{Binding Reservation.CanBeCancelled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <WrapPanel>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource CancelEventIcon}"/>
+                    </WrapPanel>
+                </Button>
+
+            </Grid>
+        </Border>
+
+        <Border Margin="5 5 5 5" Background="LightGray" Opacity="0.5" BorderBrush="Gray" BorderThickness="1" Width="320" CornerRadius="10" Visibility="{Binding Reservation.Cancelled, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+    </Grid>
 </UserControl>

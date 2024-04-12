@@ -10,7 +10,8 @@ namespace BookingApp.Model {
     public enum RescheduleRequestStatus {
         Pending,
         Approved,
-        Rejected
+        Rejected,
+        Cancelled
     }
 
     public class RescheduleRequest : ISerializable, IIdentifiable {
