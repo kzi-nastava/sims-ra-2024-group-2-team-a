@@ -128,6 +128,36 @@ namespace BookingApp.DTO {
                 }
             }
         }
+        private string _touristName;
+        public string TouristName {
+            get { return _touristName; }
+            set {
+                if (_touristName != value) {
+                    _touristName = value; OnPropertyChanged();
+                }
+            }
+        }
+        private string _touristSurname;
+        public string TouristSurname {
+            get { return _touristSurname; }
+            set {
+                if (_touristSurname != value) {
+                    _touristSurname = value; OnPropertyChanged();
+                }
+            }
+        }
+        private string _pointOfInterestName;
+        public string PointOfInterestName {
+            get { return _pointOfInterestName; }
+            set {
+                if (_pointOfInterestName != value) {
+                    _pointOfInterestName = value; OnPropertyChanged();
+                }
+            }
+        }
+/*
+        public TourReview ToModel() {
+        }*/
         public List<string> Pictures { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {

@@ -110,6 +110,18 @@ namespace BookingApp.DTO {
                 }
             }
         }
+        private string _joinedPointOfInterestName;
+        public string JoinedPointOfInterestName {
+            get {
+                return _joinedPointOfInterestName;
+            }
+            set {
+                if (_joinedPointOfInterestName != value) {
+                    _joinedPointOfInterestName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private int _userId;
         public int UserId {
             get {
@@ -122,7 +134,9 @@ namespace BookingApp.DTO {
                 }
             }
         }
-
+        public void SetPointOfInterestName(string pointOfInterestName) {
+            JoinedPointOfInterestName = pointOfInterestName;
+        }
         public Passenger ToModel() {
             return new Passenger(Id, TourReservationId, Name, Surname, Age, JoinedPointOfInterestId, UserId);
         }

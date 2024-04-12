@@ -12,7 +12,10 @@ namespace BookingApp.Repository {
             _items = _serializer.FromCSV();
             return _items.FindAll(x => x.TourId == tourId);
         }
-
+        public TourReservation GetByTourAndTourist(int tourId, int touristId) {
+            _items = _serializer.FromCSV();
+            return _items.Find(x => x.TourId == tourId && x.TouristId == touristId);
+        }
         public List<TourReservation> DeleteByTourId(int id) {
             List<TourReservation> reservations = GetByTourId(id);
             if (reservations == null)

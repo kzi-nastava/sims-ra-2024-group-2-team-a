@@ -14,6 +14,10 @@ namespace BookingApp.Repository {
         public int GetStatsOld(List<Passenger> passengers) {
             return passengers.Count(x => x.Age > 50 && x.JoinedPointOfInterestId != -1);
         }
+        public Passenger GetByReservationAndTourist(int reservationId, int touristId) {
+            _items = _serializer.FromCSV();
+            return _items.Find(x => x.TourReservationId == reservationId && x.UserId == touristId);
+        }
         public List<Passenger> GetUnJoined(List<TourReservation> reservations) {
             _items = _serializer.FromCSV();
             List<int> ids = new List<int>();

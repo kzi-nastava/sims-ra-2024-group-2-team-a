@@ -57,7 +57,7 @@ namespace BookingApp.WPF.Tablet.Views{
         }
 
         private void reviewsButton_Click(object sender, RoutedEventArgs e) {
-
+            _mainFrame.Content = new TourReviewsPage(_userId ,tourDTO, _mainFrame);
         }
 
         private void statsButton_Click(object sender, RoutedEventArgs e) {
