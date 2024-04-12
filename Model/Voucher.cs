@@ -10,6 +10,8 @@ namespace BookingApp.Model
         public int TouristId { get; set; }
         public string Image { get; set; }
 
+        public bool Used { get; set; } = false;
+
         public Voucher() { }
         public Voucher(int id, DateTime expireDate, int touristId) {
             Id = id;
@@ -28,7 +30,8 @@ namespace BookingApp.Model
                 Id.ToString(),
                 ExpireDate.ToString("dd-MM-yyyy HH:mm"),
                 TouristId.ToString(),
-                Image
+                Image,
+                Used.ToString()
             };
             return cssValues;
         }
@@ -38,6 +41,7 @@ namespace BookingApp.Model
             ExpireDate = DateTime.ParseExact(values[1], "dd-MM-yyyy HH:mm", provider);
             TouristId= int.Parse(values[2]);
             Image = values[3];
+            Used = bool.Parse(values[4]);
         }
     }
 }

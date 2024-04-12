@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace BookingApp.View.DesktopViews {
+namespace BookingApp.WPF.Desktop.Views {
     /// <summary>
     /// Interaction logic for HomePage.xaml
     /// </summary>
