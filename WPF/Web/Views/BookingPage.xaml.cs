@@ -45,7 +45,7 @@ namespace BookingApp.WPF.Web.Views {
                 acc.Location = loc;
             }
 
-            _accommodationDTOs = _accommodationDTOs.OrderBy(a => IsAccommodationOwnerSuper(a.OwnerId)).ToList();
+            _accommodationDTOs = _accommodationDTOs.OrderByDescending(a => IsAccommodationOwnerSuper(a.OwnerId)).ToList();
             itemsControlAccommodations.ItemsSource = _accommodationDTOs;
         }
 

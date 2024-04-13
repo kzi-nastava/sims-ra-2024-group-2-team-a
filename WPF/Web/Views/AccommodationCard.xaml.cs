@@ -28,7 +28,11 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void UserControlLoaded(object sender, RoutedEventArgs e) {
-            AccommodationDTO accommodation = (AccommodationDTO) DataContext;
+
+            if (DataContext is AccommodationCardViewModel)
+                return;
+
+            AccommodationDTO accommodation = (AccommodationDTO)DataContext;
             ViewModel = new AccommodationCardViewModel(accommodation);
             DataContext = ViewModel;
 
