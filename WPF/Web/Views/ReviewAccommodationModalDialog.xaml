@@ -94,7 +94,7 @@
 
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Accommodation photos" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="buttonUpload" Margin="10" HorizontalAlignment="Left">
+                            <Button x:Name="buttonUpload" Margin="10" HorizontalAlignment="Left" Click="ButtonUploadClick">
                                 <WrapPanel Margin="5">
                                     <Image Style="{StaticResource ImageStyle}" Source="{StaticResource CameraIcon}"/>
                                     <TextBlock Text="Upload"/>
@@ -105,7 +105,7 @@
                         <StackPanel Orientation="Horizontal">
                             <CheckBox x:Name="checkBoxRequiresRenovation" Margin="10 0 0 0" VerticalAlignment="Center"
                                       IsChecked="{Binding Review.RequiresRenovation, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                                      Unchecked="checkBoxRequiresRenovationUnchecked"/>
+                                      Unchecked="CheckBoxRequiresRenovationUnchecked"/>
                             <Label Content="Requires renovation" Style="{StaticResource LabelStyle}"/>
                         </StackPanel>
 

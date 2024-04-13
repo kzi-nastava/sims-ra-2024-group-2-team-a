@@ -27,6 +27,7 @@ namespace BookingApp.Model {
         public bool RequiresRenovation { get; set;} = false;
         public ImportanceType Importance { get; set; } = ImportanceType.Level_1;
         public string RenovationComment { get; set; } = "";
+        public List<string> AccommodationPhotos { get; set; } = new List<string>();
 
         public Review() { }
 
@@ -34,20 +35,11 @@ namespace BookingApp.Model {
             ReservationId = resId;
             GuestId = guestId;
             OwnerId = ownerId;
-            GuestCleannessGrade = 0;
-            RuleFollowingGrade = 0;
-            OwnerComment = "";
-            AccommodationCleannessGrade = 0;
-            OwnerCorrectnessGrade = 0;
-            GuestComment = "";
-            RequiresRenovation = false;
-            Importance = ImportanceType.Level_1;
-            RenovationComment = "";
         }
 
         public Review(int resId, int guestId, int ownerId, int guestCleannessGrade, int ruleFollowingGrade, 
             string ownerComment, int accommodationCleannessGrade, int ownerCorrectnessGrade, string guestComment,
-            bool requiresRenovation, ImportanceType importance, string renovationComment) {
+            bool requiresRenovation, ImportanceType importance, string renovationComment, List<string> accommodationPhotos) {
             ReservationId = resId;
             GuestId = guestId;
             OwnerId = ownerId;
@@ -60,6 +52,7 @@ namespace BookingApp.Model {
             RequiresRenovation = requiresRenovation;
             Importance = importance;
             RenovationComment = renovationComment;
+            AccommodationPhotos.AddRange(accommodationPhotos);
         }
 
         public string[] ToCSV() {
@@ -79,6 +72,8 @@ namespace BookingApp.Model {
                 RenovationComment
             };
 
+            csvValues = csvValues.Concat(AccommodationPhotos).ToArray();
+
             return csvValues;
         }
 
@@ -96,6 +91,7 @@ namespace BookingApp.Model {
             RequiresRenovation = bool.Parse(values[10]);
             Importance = (ImportanceType)Enum.Parse(typeof(ImportanceType), values[11]);
             RenovationComment = values[12];
+            AccommodationPhotos.AddRange(values[13..]);
         }
     }
 }
