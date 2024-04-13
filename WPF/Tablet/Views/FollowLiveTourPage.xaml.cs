@@ -1,9 +1,6 @@
 ﻿using BookingApp.DTO;
-using BookingApp.Model;
-using BookingApp.Repository;
-using BookingApp.Services;
+using BookingApp.WPF.Tablet.ViewModels;
 using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,39 +9,16 @@ namespace BookingApp.WPF.Tablet.Views {
     /// Interaction logic for FollowLiveTourPage.xaml
     /// </summary>
     public partial class FollowLiveTourPage : Page {
-        private int _userId;
-
-
-        private readonly LocationService _locationService = new LocationService();
-        private readonly LanguageService _languageService = new LanguageService();
-        private readonly TourService _tourService = new TourService();
-
-        private TourFilterDTO _filterDTO;
-        public TourDTO tourDTO { get; set; }
-        public LocationDTO selectedLocationDTO { get; set; }
-        public LanguageDTO selectedLanguageDTO { get; set; }
-        public ObservableCollection<LocationDTO> locationDTOs { get; set; }
-        public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
-        public ObservableCollection<TourDTO> tourDTOs { get; set; }
+        public LiveTourViewModel ViewModel { get; set; }
         public FollowLiveTourPage(int userId) {
             InitializeComponent();
-            _userId = userId;
-            DataContext = this;
-
-            Load();
+            ViewModel = new LiveTourViewModel(userId);
+            DataContext = ViewModel;
         }
 
         private void filterButton_Click(object sender, RoutedEventArgs e) {
-            _filterDTO = SetFilter();
-
-            tourDTOs.Clear();
-            foreach (var tour in _tourService.GetFilteredLive(_filterDTO, _userId)) {
-                TourDTO temp = new TourDTO(tour);
-                setLocationLanguage(temp, tour);
-                tourDTOs.Add(temp);
-            }
-
-            itemsControlLiveTours.ItemsSource = tourDTOs;
+            ViewModel.FilterTours(SetFilter());
+            itemsControlLiveTours.ItemsSource = ViewModel.tourDTOs;
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e) {
@@ -54,36 +28,7 @@ namespace BookingApp.WPF.Tablet.Views {
             comboBoxLanguage.SelectedIndex = 0;
             comboBoxLocation.SelectedIndex = 0;
         }
-        private void Load() {
-            locationDTOs = new ObservableCollection<LocationDTO>();
-            languageDTOs = new ObservableCollection<LanguageDTO>();
-
-            locationDTOs.Add(new LocationDTO());
-            languageDTOs.Add(new LanguageDTO());
-
-            foreach (var lan in _languageService.GetAll()) {
-                languageDTOs.Add(new LanguageDTO(lan));
-            }
-            foreach (var loc in _locationService.GetAll()) {
-                locationDTOs.Add(new LocationDTO(loc));
-            }
-            LoadLive();
-        }
-        private void LoadLive() {
-            tourDTOs = new ObservableCollection<TourDTO>();
-            foreach (var tour in _tourService.GetLive(_userId)) {
-                TourDTO tempTourDTO = new TourDTO(tour);
-                setLocationLanguage(tempTourDTO, tour);
-                tourDTOs.Add(tempTourDTO);
-            }
-        }
-        private void setLocationLanguage(TourDTO tempTourDTO, Tour tour) {
-            Location location = _locationService.GetById(tour.LocationId);
-            string city = location.City;
-            string country = location.Country;
-            tempTourDTO.setLocationTemplate(city, country);
-            tempTourDTO.LanguageTemplate = _languageService.GetById(tour.LanguageId).Name;
-        }
+        
 
         private TourFilterDTO SetFilter() {
             string name = textBoxName.Text;

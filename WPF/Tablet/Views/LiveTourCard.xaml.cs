@@ -1,6 +1,4 @@
 ﻿using BookingApp.DTO;
-using BookingApp.Repository;
-using BookingApp.Services;
 using BookingApp.View.TabletView;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +9,6 @@ namespace BookingApp.WPF.Tablet.Views {
     /// Interaction logic for LiveTourCard.xaml
     /// </summary>
     public partial class LiveTourCard : UserControl {
-        private readonly TourService _tourService = new TourService();
         public LiveTourCard() {
             InitializeComponent();
         }
@@ -23,8 +20,6 @@ namespace BookingApp.WPF.Tablet.Views {
             Frame mainFrame = (Frame)Window.GetWindow(this).FindName("mainFrame");
             Frame menuBarFrame = (Frame)Window.GetWindow(this).FindName("menuBarFrame");
             TourDTO tourDTO = (TourDTO)DataContext;
-            tourDTO.State = Model.TourState.Active;
-            _tourService.Update(tourDTO.ToModel());
             mainFrame.Content = new LiveTourPage(tourDTO, mainFrame, menuBarFrame, tourDTO.GuideId);
         }
     }
