@@ -31,6 +31,7 @@
             <TextBlock Grid.Row="3" Grid.Column="1" Margin="10" Text="{Binding CurrentTouristNumber, StringFormat=Tourists: {0}}" FontSize="18"/>
             <TextBlock Grid.Row="4" Grid.Column="1" Margin="10" Text="{Binding Duration, StringFormat=Duration: {0} hours}" FontSize="18"/>
 
+            <TextBlock Grid.Row="0" Grid.Column="2" Margin="10" Text="{Binding Duration, StringFormat=Grade: {0.2f}}" FontSize="18"/>
             <Label Grid.Row="1" Grid.Column="2" Margin="10" FontSize="18" Content="Start:"/>
             <TextBlock Grid.Row="2" Grid.Column="2" Margin="10" Text="{Binding Beggining}" FontSize="18"/>
             <Label Grid.Row="3" Grid.Column="2" Margin="10" FontSize="18" Content="End:"/>

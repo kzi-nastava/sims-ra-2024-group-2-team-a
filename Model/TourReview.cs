@@ -25,6 +25,20 @@ namespace BookingApp.Model
         public TourReview() {
             Pictures = new List<string>();
         }
+        public TourReview(int id, int knowledgeGrade, int languageGrade, int interestGrade, double avrageGrade, DateTime posted, bool isValid, int touristId, int tourId, string comment, List<string> pictures) {
+            Id = id;
+            KnowledgeGrade = knowledgeGrade;
+            LanguageGrade = languageGrade;
+            InterestGrade = interestGrade;
+            AvrageGrade = avrageGrade;
+            Posted = posted;
+            IsValid = isValid;
+            TouristId = touristId;
+            TourId = tourId;
+            Comment = comment;
+            Pictures = pictures;
+        }
+
         public TourReview(int id, int knowledgeGrade, int languageGrade, int interestGrade, string comment, int touristId, int tourId, bool isValid, List<string> pictures) {
             Id = id;
             KnowledgeGrade = knowledgeGrade;
@@ -94,7 +108,7 @@ namespace BookingApp.Model
             KnowledgeGrade = int.Parse(values[1]);
             LanguageGrade = int.Parse(values[2]);
             InterestGrade = int.Parse(values[3]);
-            AvrageGrade = int.Parse(values[4]);
+            AvrageGrade = double.Parse(values[4]);
             Posted = DateTime.ParseExact(values[5], "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
             IsValid = bool.Parse(values[6]);
             TouristId = int.Parse(values[7]);

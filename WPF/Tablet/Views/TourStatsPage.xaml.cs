@@ -64,6 +64,10 @@ namespace BookingApp.WPF.Tablet.Views {
             old = _passengerRepository.GetStatsOld(passengers);
         }
 
+        private void closeButton_Click(object sender, RoutedEventArgs e) {
+            _mainFrame.GoBack();
+        }
+
         private void showButton_Click(object sender, RoutedEventArgs e) {
             int year = int.Parse( (string) yearComboBox.SelectedValue);
             Tour tour = _tourRepository.GetMostViewedByYear(year);
