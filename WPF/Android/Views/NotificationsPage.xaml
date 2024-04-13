@@ -28,7 +28,7 @@
 
                 <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
                     <ScrollViewer Width="390" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalScrollBarVisibility="Hidden">
-                        <ItemsControl Margin="5" Height="900" ItemsSource="{Binding NotificationDTOs}">
+                        <ItemsControl Margin="5" VerticalAlignment="Top" ItemsSource="{Binding NotificationDTOs}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Background="#FFFCF5" BorderBrush="Black" BorderThickness="1" Height="80" CornerRadius="20">

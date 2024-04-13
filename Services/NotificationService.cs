@@ -39,5 +39,11 @@ namespace BookingApp.Services {
                 this.Save(notification);
             }
         }
+
+        public void CreateSuperNotification(int userId) {
+            string message = $"CONGRATULATIONS!! You have just become SUPER owner!!";
+            Notification notification = new Notification(message, NotificationCategory.SuperOwner, userId, DateTime.Now, false);
+            this.Save(notification);
+        }
     }
 }

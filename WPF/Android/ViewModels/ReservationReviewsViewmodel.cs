@@ -56,9 +56,7 @@ namespace BookingApp.WPF.Android.ViewModels {
                 }
             }
         }
-
         public AndroidCommand AcceptButtonCommand{ get; set;}
-
         public AndroidCommand DeclineButtonCommand { get; set; }
         public ReservationReviewsViewmodel(User user) {
             _user = user;
@@ -120,9 +118,7 @@ namespace BookingApp.WPF.Android.ViewModels {
             DateOnly offsetDate = SelectedReservation.EndDate;
             offsetDate = offsetDate.AddDays(5);
 
-            if (SelectedReservation.Graded)
-                AssignGradeEnabled = false;
-            else if (currentDate > SelectedReservation.EndDate && currentDate < offsetDate)
+            if (currentDate > SelectedReservation.EndDate && currentDate < offsetDate && !SelectedReservation.Graded)
                 AssignGradeEnabled = true;
             else
                 AssignGradeEnabled = false;
