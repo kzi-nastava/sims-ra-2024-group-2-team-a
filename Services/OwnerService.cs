@@ -16,8 +16,28 @@ namespace BookingApp.Services {
             return _ownerRepository.GetAll().Find(owner => owner.UserId == userId);
         }
         public void AdjustSuperOwner(int ownerId) {
+            Owner owner = this.GetByUserId(ownerId);
+
+            int numberOfReviews = this.CalculateOwnerAverageGrade(owner);
+
+            bool oldSuper = owner.IsSuper;
+
+            if (numberOfReviews >= 50 && owner.AverageGrade > 4.5)
+                owner.IsSuper = true;
+            else
+                owner.IsSuper = false;
+
+            if (!oldSuper && owner.IsSuper) {
+                NotificationService notificationService = new NotificationService();
+                notificationService.CreateSuperNotification(owner.UserId);
+            }
+
+            _ownerRepository.Update(owner);
+        }
+
+        private int CalculateOwnerAverageGrade(Owner owner) {
             ReviewRepository reviewRepository = new ReviewRepository();
-            List<Review> reviews = reviewRepository.GetByOwnerId(ownerId);
+            List<Review> reviews = reviewRepository.GetByOwnerId(owner.UserId);
 
             double sum = 0;
             int numberOfReviews = 0;
@@ -31,24 +51,9 @@ namespace BookingApp.Services {
                 numberOfReviews++;
             }
 
-            Owner owner = this.GetByUserId(ownerId);
             owner.AverageGrade = sum / numberOfReviews;
 
-            bool oldSuper = owner.IsSuper;
-
-            if (numberOfReviews >= 50 && owner.AverageGrade > 4.5)
-                owner.IsSuper = true;
-            else
-                owner.IsSuper = false;
-
-            if (!oldSuper && owner.IsSuper) {
-                NotificationService notificationService = new NotificationService();
-                string message = $"CONGRATULATIONS!! You have just become SUPER owner!!";
-                Notification notification = new Notification(message, NotificationCategory.SuperOwner, owner.UserId, DateTime.Now, false);
-                notificationService.Save(notification);
-            }
-
-            _ownerRepository.Update(owner);
+            return numberOfReviews;
         }
 
         private bool IsOwnerGraded(Review review) {
