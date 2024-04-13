@@ -32,6 +32,10 @@ namespace BookingApp.Repository {
            
         }
 
+        public int GetAvailableSpace(TourDTO tour) {
+            return tour.MaxTouristNumber - tour.CurrentTouristNumber;
+        }
+
         public bool MatchesName(Tour tour, TourFilterDTO filter) {
             return tour.Name.Contains(filter.Name) || filter.Name == "";
         }

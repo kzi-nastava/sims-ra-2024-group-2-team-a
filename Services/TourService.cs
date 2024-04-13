@@ -49,6 +49,10 @@ namespace BookingApp.Services {
             return allTours.Where(t => IsFiltered(t, filter)).ToList();
         }
 
+        public int GetAvailableSpace(TourDTO tour) {
+            return _tourRepository.GetAvailableSpace(tour);
+        }
+
         public List<Passenger> GetTouristEntries(int touristId) {
             return _passengerRepository.GetAll().Where(p => p.UserId == touristId).ToList();
         }
@@ -131,10 +135,6 @@ namespace BookingApp.Services {
 
         public List<Tour> GetSameLocationTours(TourDTO tour) {
             return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
-        }
-
-        public int GetAvailableSpace(TourDTO tour) {
-            return tour.MaxTouristNumber - tour.CurrentTouristNumber;
         }
     }
 }
