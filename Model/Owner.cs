@@ -12,7 +12,7 @@ namespace BookingApp.Model {
         public int UserId { get; set; }
         public int Id { get; set; }
         public bool IsSuper { get; set; }
-        public double AverageGrade { get; set; }    
+        public double AverageGrade { get; set; }
         public Owner() {
             IsSuper = false;
             AverageGrade = 0;
