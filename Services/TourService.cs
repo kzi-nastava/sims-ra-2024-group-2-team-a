@@ -123,6 +123,7 @@ namespace BookingApp.Services {
         public bool Delete(Tour tour) => _tourRepository.Delete(tour);
         public bool Update(Tour tour) {
             return _tourRepository.Update(tour);
+        }
 
         public List<Tour> GetToursByLocation(int locationId) {
             return _tourRepository.GetAll().Where(t => (locationId == t.LocationId)).ToList();

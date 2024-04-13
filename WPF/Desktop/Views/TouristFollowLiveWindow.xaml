@@ -39,10 +39,12 @@
                                FontWeight="Bold">
                         Points of interest:
                     </TextBlock>
-                    <DataGrid>
+                    <DataGrid ItemsSource="{Binding PointsOfInterest}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Point of interest"/>
-                            <DataGridCheckBoxColumn Header="Is Checked"/>
+                            <DataGridTextColumn Header="Point of interest"
+                                                Binding="{Binding Name}"/>
+                            <DataGridCheckBoxColumn Header="Is Checked"
+                                                    Binding="{Binding IsChecked}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>

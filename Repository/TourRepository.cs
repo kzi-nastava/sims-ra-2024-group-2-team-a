@@ -32,7 +32,7 @@ namespace BookingApp.Repository {
            
         }
 
-        private bool MatchesName(Tour tour, TourFilterDTO filter) {
+        public bool MatchesName(Tour tour, TourFilterDTO filter) {
             return tour.Name.Contains(filter.Name) || filter.Name == "";
         }
 
@@ -52,7 +52,7 @@ namespace BookingApp.Repository {
             return tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
         }
 
-        private bool MatchesCurrentTouristNumber(Tour tour, TourFilterDTO filter) {
+        public bool MatchesCurrentTouristNumber(Tour tour, TourFilterDTO filter) {
             return tour.CurrentTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
         }
         public bool MatchesDate(Tour tour, TourFilterDTO filter) {
