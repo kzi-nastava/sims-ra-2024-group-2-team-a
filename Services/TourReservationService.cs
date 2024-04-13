@@ -70,6 +70,7 @@ namespace BookingApp.Services {
         public List<TourReservation> GetByTourId(int tourId) {
             return _tourReservationRepository.GetByTourId(tourId).ToList();
         }
+
         public TourReservation GetByTourAndTourist(int tourId, int touristId) {
             return _tourReservationRepository.GetByTourAndTourist(tourId, touristId);
         }

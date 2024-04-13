@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Serializer;
 using System;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 namespace BookingApp.Services {
     public class PassengerService {
         private readonly PassengerRepository _passengerRepository = new PassengerRepository();
+        private readonly TourRepository _tourRepository = new TourRepository();
+        private readonly TourReservationRepository _tourReservationRepository = new TourReservationRepository();
 
         public List<int> GetAttendance(List<TourReservation> reservations) {
             List<Passenger> passengers = GetByReservations(reservations);
@@ -34,6 +37,10 @@ namespace BookingApp.Services {
 
         public bool Update(Passenger? passenger) {
             return _passengerRepository.Update(passenger);
+        }
+
+        public List<Passenger> GetPresent(int touristId, TourDTO tour) {
+            return _passengerRepository.GetAll().Where(r => r.TourReservationId == _tourReservationRepository.GetByTourAndTourist(tour.Id, touristId).Id && r.JoinedPointOfInterestId != -1).ToList();
         }
     }
 }
