@@ -168,7 +168,6 @@
 
   <ItemGroup>
     <Folder Include="WPF\Android\ViewModels\" />
-    <Folder Include="WPF\Web\ViewModels\" />
     <Folder Include="WPF\Web\Views\" />
   </ItemGroup>
 
