@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +22,7 @@ namespace BookingApp.WPF.Desktop.Views {
     /// Interaction logic for SameLocationToursWindow.xaml
     /// </summary>
     public partial class SameLocationToursWindow : Window {
-        private TourRepository _tourRepository;
+        private TourService _tourService = new TourService();
         private TourReservationWindow _parentWindow;
         public TourDTO CurrentTour { get; set; }
         public ObservableCollection<TourDTO> SameLocationTours { get; set; }
@@ -30,7 +31,6 @@ namespace BookingApp.WPF.Desktop.Views {
             DataContext = this;
             CurrentTour = currentTour;
             _parentWindow = parentWindow;
-            _tourRepository = new TourRepository();
             SameLocationTours = new ObservableCollection<TourDTO>();
 
             Update();
@@ -38,7 +38,7 @@ namespace BookingApp.WPF.Desktop.Views {
 
         public void Update() {
             SameLocationTours.Clear();
-            foreach (var tour in _tourRepository.GetSameLocationTours(CurrentTour))
+            foreach (var tour in _tourService.GetSameLocationTours(CurrentTour))
                 SameLocationTours.Add(new TourDTO(tour));
         }
 
@@ -47,7 +47,7 @@ namespace BookingApp.WPF.Desktop.Views {
             var button = (Button)sender;
             var selectedTour = (TourDTO)button.DataContext;
 
-            if (_tourRepository.GetAvailableSpace(selectedTour) != 0) {
+            if (_tourService.GetAvailableSpace(selectedTour) != 0) {
                 TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, 4);
                 reservationWindow.ShowDialog();
             }

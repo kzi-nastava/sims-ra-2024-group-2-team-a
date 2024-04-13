@@ -43,7 +43,11 @@ namespace BookingApp.WPF.Desktop.Views {
         }
 
         private void FollowLiveButton_Click(object sender, RoutedEventArgs e) {
-            // TODO
+            var button = (Button)sender;
+            var tour = (TourDTO)button.DataContext;
+
+            TouristFollowLiveWindow followLiveWindow = new TouristFollowLiveWindow(tour, UserId);
+            followLiveWindow.ShowDialog();
         }
     }
 }

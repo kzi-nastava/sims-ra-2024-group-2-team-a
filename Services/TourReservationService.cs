@@ -16,10 +16,9 @@ namespace BookingApp.Services {
         private readonly VoucherRepository _voucherRepository = new VoucherRepository();
 
         private void FillTourCapacity(int tourId, int addedPassengersNumber) {
-            TourRepository tourRepository = new TourRepository();
-            Tour selectedTour = tourRepository.GetById(tourId);
+            Tour selectedTour = _tourRepository.GetById(tourId);
             selectedTour.CurrentTouristNumber += addedPassengersNumber;
-            tourRepository.Update(selectedTour);
+            _tourRepository.Update(selectedTour);
         }
 
         public int MakeReservation(int userId, TourDTO selectedTour, List<PassengerDTO> passengers, VoucherDTO selectedVoucher) {
@@ -49,6 +48,8 @@ namespace BookingApp.Services {
         }
 
         private void UpdateVoucherStatus(VoucherDTO selectedVoucher) {
+            if (selectedVoucher == null)
+                return;
             Voucher newVoucher = _voucherRepository.GetById(selectedVoucher.Id);
             newVoucher.Used = selectedVoucher.Used;
             _voucherRepository.Update(newVoucher);

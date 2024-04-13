@@ -13,11 +13,9 @@ using System.Threading.Tasks;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TouristReservationWindowViewModel : INotifyPropertyChanged {
-        private int _passengerNumber = 0;
-        private TourReservationService _tourReservationService;
-        private readonly LocationRepository _locationRepository;
-        private readonly LanguageRepository _languageRepository;
-        private readonly VoucherService _voucherService;
+        private readonly TourReservationService _tourReservationService = new TourReservationService();
+        private readonly LocationRepository _locationRepository = new LocationRepository();
+        private readonly LanguageRepository _languageRepository = new LanguageRepository();
 
         public ObservableCollection<PassengerDTO> Passengers { get; set; }
 
@@ -105,46 +103,6 @@ namespace BookingApp.WPF.Desktop.ViewModels {
             }
         }
 
-        public int PassengerNumber {
-            get {
-                return _passengerNumber;
-            }
-            set {
-                if (value != _passengerNumber) {
-                    _passengerNumber = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private PassengerDTO _passenger;
-        public PassengerDTO Passenger {
-            get {
-                return _passenger;
-            }
-            set {
-                if (value != _passenger) {
-                    _passenger = value;
-                    OnPropertyChanged();
-                    UpdatePassengerButtonState();
-                }
-            }
-        }
-
-        private PassengerDTO _tourist;
-        public PassengerDTO Tourist {
-            get {
-                return _tourist;
-            }
-            set {
-                if (value != _tourist) {
-                    _tourist = value;
-                    OnPropertyChanged();
-                    UpdatePassengerButtonState();
-                }
-            }
-        }
-
         public VoucherDTO SelectedVoucher { get; set; }
 
         private bool _isVoucherSelected;
@@ -209,11 +167,9 @@ namespace BookingApp.WPF.Desktop.ViewModels {
             IsConfirmationButtonEnabled = false;
             IsTouristButtonEnabled = false;
             IsPassengerButtonEnabled = false;
+            IsVoucherSelected = false;
 
             Passengers = new ObservableCollection<PassengerDTO>();
-            _tourReservationService = new TourReservationService();
-            _locationRepository = new LocationRepository();
-            _languageRepository = new LanguageRepository();
 
             GetPresentableTour();
         }
@@ -262,7 +218,8 @@ namespace BookingApp.WPF.Desktop.ViewModels {
         }
 
         public int MakeReservation() {
-            SelectedVoucher.Used = IsVoucherSelected;
+            if(SelectedVoucher != null)
+                SelectedVoucher.Used = IsVoucherSelected;
             return _tourReservationService.MakeReservation(this.UserId, SelectedTour, Passengers.ToList(), SelectedVoucher);
         }
 
