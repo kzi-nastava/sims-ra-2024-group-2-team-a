@@ -167,6 +167,7 @@ namespace BookingApp.WPF.Desktop.ViewModels {
             IsConfirmationButtonEnabled = false;
             IsTouristButtonEnabled = false;
             IsPassengerButtonEnabled = false;
+            IsVoucherSelected = false;
 
             Passengers = new ObservableCollection<PassengerDTO>();
 
@@ -217,7 +218,8 @@ namespace BookingApp.WPF.Desktop.ViewModels {
         }
 
         public int MakeReservation() {
-            SelectedVoucher.Used = IsVoucherSelected;
+            if(SelectedVoucher != null)
+                SelectedVoucher.Used = IsVoucherSelected;
             return _tourReservationService.MakeReservation(this.UserId, SelectedTour, Passengers.ToList(), SelectedVoucher);
         }
 

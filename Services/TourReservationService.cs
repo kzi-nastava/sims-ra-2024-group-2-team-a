@@ -48,6 +48,8 @@ namespace BookingApp.Services {
         }
 
         private void UpdateVoucherStatus(VoucherDTO selectedVoucher) {
+            if (selectedVoucher == null)
+                return;
             Voucher newVoucher = _voucherRepository.GetById(selectedVoucher.Id);
             newVoucher.Used = selectedVoucher.Used;
             _voucherRepository.Update(newVoucher);
