@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingApp.Services {
+
     public class OwnerService {
+
         private readonly OwnerRepository _ownerRepository = new OwnerRepository();
-        public OwnerService() { }
 
         public Owner GetByUserId(int userId) {
             return _ownerRepository.GetAll().Find(owner => owner.UserId == userId);
         }
+
+        public Owner Save(Owner owner) {
+            return _ownerRepository.Save(owner);
+        }
+
         public void AdjustSuperOwner(int ownerId) {
             ReviewRepository reviewRepository = new ReviewRepository();
             List<Review> reviews = reviewRepository.GetByOwnerId(ownerId);

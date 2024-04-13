@@ -16,14 +16,6 @@ namespace BookingApp.Repository {
             _items = _serializer.FromCSV();
             return _items.Find(x => x.TourId == tourId && x.TouristId == touristId);
         }
-        public List<TourReservation> DeleteByTourId(int id) {
-            List<TourReservation> reservations = GetByTourId(id);
-            if (reservations == null)
-                return new List<TourReservation>();
-            if(DeleteMultiple(reservations))
-                return reservations;
-            return null;
-        }
         public bool DeleteMultiple(List<TourReservation> reservations) {
             _items = _serializer.FromCSV();
             if (_items.RemoveAll(x => reservations.Select(y => y.Id).Contains(x.Id)) != reservations.Count)

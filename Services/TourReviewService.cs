@@ -16,5 +16,11 @@ namespace BookingApp.Services {
             tourReviewDTO.TouristId = touristId;
             _tourReviewRepository.Save(new TourReview(tourReviewDTO));
         }
+        public List<TourReview> GetByTourId(int tourId) {
+            return _tourReviewRepository.GetByTourId(tourId);
+        }
+        public bool Update(TourReview tourReview) {
+            return _tourReviewRepository.Update(tourReview);
+        }
     }
 }

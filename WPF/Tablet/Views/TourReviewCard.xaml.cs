@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,8 @@ namespace BookingApp.WPF.Tablet.Views {
     /// Interaction logic for TourReviewCard.xaml
     /// </summary>
     public partial class TourReviewCard : UserControl {
-        private readonly PassengerRepository _passengerRepository = new PassengerRepository();
-        private readonly PointOfInterestRepository _pointOfInterestRepository = new PointOfInterestRepository();
-        private readonly TourReservationRepository _tourReservationRepository = new TourReservationRepository();
         private readonly TourReviewRepository _tourReviewRepository = new TourReviewRepository();
+        private readonly TourReviewService _tourReviewService = new TourReviewService();
         public TourReviewDTO tourReviewDTO { get; set; }
         public PassengerDTO passengerDTO { get; set; }
         
@@ -34,7 +33,7 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void reportButton_Click(object sender, RoutedEventArgs e) {
             tourReviewDTO.IsValid = false;
-            _tourReviewRepository.Update(tourReviewDTO.ToModel());
+            _tourReviewService.Update(tourReviewDTO.ToModel());
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e) {

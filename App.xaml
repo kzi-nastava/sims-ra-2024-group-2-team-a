@@ -2,7 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BookingApp"
-             StartupUri="View/SignInForm.xaml">
+             StartupUri="WPF/SignInForm.xaml">
     <Application.Resources>
         <BitmapImage x:Key="TimeIcon" UriSource="Resources/Images/Icons/time-icon.png"/>
         <BitmapImage x:Key="ScheduledIcon" UriSource="Resources/Images/Icons/scheduled-icon.png"/>

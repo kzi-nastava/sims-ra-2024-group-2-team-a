@@ -14,7 +14,7 @@ namespace BookingApp.Repository {
         public int GetStatsOld(List<Passenger> passengers) {
             return passengers.Count(x => x.Age > 50 && x.JoinedPointOfInterestId != -1);
         }
-        public Passenger GetByReservationAndTourist(int reservationId, int touristId) {
+        public Passenger? GetByReservationAndTourist(int reservationId, int touristId) {
             _items = _serializer.FromCSV();
             return _items.Find(x => x.TourReservationId == reservationId && x.UserId == touristId);
         }
@@ -25,9 +25,6 @@ namespace BookingApp.Repository {
                 ids.Add(reservatuon.Id);
             }
             return _items.FindAll(x => ids.Contains(x.TourReservationId) && x.JoinedPointOfInterestId == -1);
-        }
-        public bool DeleteByReservations(List<TourReservation> reservations) {
-            return DeleteMultiple(GetByReservations(reservations));
         }
         public List<Passenger> GetByReservations(List<TourReservation> reservations) {
             _items = _serializer.FromCSV();

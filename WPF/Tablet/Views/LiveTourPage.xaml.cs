@@ -1,5 +1,6 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Repository;
+using BookingApp.Services;
 using BookingApp.WPF.Tablet.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -14,9 +15,8 @@ namespace BookingApp.View.TabletView {
         private Frame _mainFrame, _menuBarFrame;
         private int _userId;
 
-        private readonly TourRepository _tourRepository;
-        private readonly PointOfInterestRepository _pointOfInterestRepository;
-
+        private readonly TourService _tourService = new TourService();  
+        private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
         private int _pointOfInterestIndex;
         public TourDTO tourDTO { get; set; }
         public PointOfInterestDTO pointOfInterestDTO { get; set; }
@@ -29,8 +29,6 @@ namespace BookingApp.View.TabletView {
             _mainFrame = mainF;
             _menuBarFrame = menuBarF;
             _userId = userId;
-            _tourRepository = new TourRepository();
-            _pointOfInterestRepository = new PointOfInterestRepository();
             _pointOfInterestIndex = 0;
 
             _menuBarFrame.IsHitTestVisible = false;
@@ -46,7 +44,7 @@ namespace BookingApp.View.TabletView {
             
             pointOfInterestDTOs[_pointOfInterestIndex].IsChecked = true;
             _pointOfInterestIndex++;
-            _pointOfInterestRepository.Update(pointOfInterestDTO.ToModel());
+            _pointOfInterestService.Update(pointOfInterestDTO.ToModel());
 
             if (_pointOfInterestIndex != pointOfInterestDTOs.Count)
                 return;
@@ -60,14 +58,14 @@ namespace BookingApp.View.TabletView {
         private void Load() {
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
 
-            foreach (var point in _pointOfInterestRepository.GetAllByTourId(tourDTO.Id)) {
+            foreach (var point in _pointOfInterestService.GetAllByTourId(tourDTO.Id)) {
                 /*if (!point.IsChecked && _pointOfInterestIndex == -1)
                     _pointOfInterestIndex = pointOfInterestDTOs.Count;            Ovo isto */
                 pointOfInterestDTOs.Add(new PointOfInterestDTO(point));
             }
             pointOfInterestDTOs[0].IsChecked = true;
             pointOfInterestDTO = pointOfInterestDTOs[_pointOfInterestIndex++];
-            _pointOfInterestRepository.Update(pointOfInterestDTO.ToModel());
+            _pointOfInterestService.Update(pointOfInterestDTO.ToModel());
             /*if (_pointOfInterestIndex == 0) {
                 pointOfInterestDTOs[0].IsChecked = true;
                 pointOfInterestDTO = pointOfInterestDTOs[_pointOfInterestIndex++];
@@ -79,7 +77,7 @@ namespace BookingApp.View.TabletView {
             MessageBox.Show("Finished", "Finished", MessageBoxButton.OK, MessageBoxImage.Information);
             tourDTO.State = Model.TourState.Finished;
             tourDTO.End = DateTime.Now;
-            _tourRepository.Update(tourDTO.ToModel());
+            _tourService.Update(tourDTO.ToModel());
             _mainFrame.Content = new FollowLiveTourPage(_userId);
             _menuBarFrame.IsHitTestVisible = true;
             _menuBarFrame.Opacity = 1;

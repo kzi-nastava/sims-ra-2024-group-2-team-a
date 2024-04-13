@@ -9,20 +9,6 @@ namespace BookingApp.DTO {
         public TourReviewDTO() {
             Pictures = new List<string>();
         }
-
-        public TourReviewDTO(int id, int knowledgeGrade, int languageGrade, int interestGrade, double avrageGrade, DateTime posted, string comment, int touristId, int tourId, bool isValid, List<string> pictures) {
-            Id = id;
-            KnowledgeGrade = knowledgeGrade;
-            LanguageGrade = languageGrade;
-            InterestGrade = interestGrade;
-            AvrageGrade = avrageGrade;
-            Posted = posted;
-            IsValid = isValid;
-            TouristId = touristId;
-            TourId = tourId;
-            Comment = comment;
-            Pictures = pictures;
-        }
         public TourReviewDTO(TourReview t) {
             Id = t.Id;
             KnowledgeGrade = t.KnowledgeGrade;

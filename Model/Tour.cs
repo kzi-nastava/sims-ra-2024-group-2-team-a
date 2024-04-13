@@ -41,21 +41,6 @@ namespace BookingApp.Model {
             GuideId = guideId;
             ProfilePictures = profilePictures;
         }
-        public Tour(int id, string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, TourState state, int guideId, List<string> profilePictures) {
-            Id = id;
-            Name = name;
-            LocationId = locationId;
-            Description = description;
-            LanguageId = languageId;
-            MaxTouristNumber = maxTouristNumber;
-            Duration = duration;
-            CurrentTouristNumber = currentTouristNumber;
-            Beggining = beggining;
-            End = DateTime.MinValue;
-            State = state;
-            GuideId = guideId;
-            ProfilePictures = profilePictures;
-        }
         public Tour(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, TourState state, int guideId, List<string> profilePictures) {
 
             Name = name;

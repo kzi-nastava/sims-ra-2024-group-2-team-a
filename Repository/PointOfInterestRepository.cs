@@ -8,9 +8,7 @@ namespace BookingApp.Repository {
             List<PointOfInterest> points = _items = _serializer.FromCSV();
             return points.FindAll(c => c.TourId == tourId);
         }
-        public bool DeleteByTourId(int id) {
-            return DeleteMultiple(GetAllByTourId(id));
-        }
+        
         public bool DeleteMultiple(List<PointOfInterest> points) {
             _items = _serializer.FromCSV();
             if (_items.RemoveAll(x => points.Select(y => y.Id).Contains(x.Id)) != points.Count)

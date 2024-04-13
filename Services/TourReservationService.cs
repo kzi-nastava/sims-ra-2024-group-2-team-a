@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,20 @@ namespace BookingApp.Services {
                 tours.Add(_tourRepository.GetById(reservation.TourId));
             
             return tours;
+        }
+        public List<TourReservation> GetByTourId(int tourId) {
+            return _tourReservationRepository.GetByTourId(tourId).ToList();
+        }
+        public TourReservation GetByTourAndTourist(int tourId, int touristId) {
+            return _tourReservationRepository.GetByTourAndTourist(tourId, touristId);
+        }
+        public List<TourReservation> DeleteByTourId(int id) {
+            List<TourReservation> reservations = GetByTourId(id);
+            if (reservations == null)
+                return new List<TourReservation>();
+            if (_tourReservationRepository.DeleteMultiple(reservations))
+                return reservations;
+            return null;
         }
     }
 }

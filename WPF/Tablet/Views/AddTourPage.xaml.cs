@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,11 @@ namespace BookingApp.WPF.Tablet.Views {
     public partial class AddTourPage : Page {
         private Frame _mainFrame;
         private int _userId;
-        private readonly User _user;
-        private readonly TourRepository _tourRepository;
-        private readonly LocationRepository _locationRepository;
-        private readonly LanguageRepository _languageRepository;
-        private readonly PointOfInterestRepository _pointOfInterestRepository;
+
+        private readonly TourService _tourService = new TourService();
+        private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
+        private readonly LocationService _locationService = new LocationService();
+        private readonly LanguageService _languageService = new LanguageService();
 
         public TourDTO tourDTO { get; set; }
         public LocationDTO selectedLocationDTO { get; set; }
@@ -30,8 +31,6 @@ namespace BookingApp.WPF.Tablet.Views {
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
         public ObservableCollection<DateTime> begginings { get; set; }
 
-        private string _dateText;
-        private string _timeText;
         public AddTourPage(Frame mainF, int userId) {
             InitializeComponent();
             _mainFrame = mainF;
@@ -39,10 +38,6 @@ namespace BookingApp.WPF.Tablet.Views {
 
             DataContext = this;
 
-            _tourRepository = new TourRepository();
-            _locationRepository = new LocationRepository();
-            _languageRepository = new LanguageRepository();
-            _pointOfInterestRepository = new PointOfInterestRepository();
 
             Load();
         }
@@ -126,10 +121,10 @@ namespace BookingApp.WPF.Tablet.Views {
             begginings = new ObservableCollection<DateTime>();
 
 
-            foreach (var lan in _languageRepository.GetAll()) {
+            foreach (var lan in _languageService.GetAll()) {
                 languageDTOs.Add(new LanguageDTO(lan));
             }
-            foreach (var loc in _locationRepository.GetAll()) {
+            foreach (var loc in _locationService.GetAll()) {
                 locationDTOs.Add(new LocationDTO(loc));
             }
         }
@@ -143,10 +138,10 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void SaveTour() {
-            Tour tour = _tourRepository.Save(tourDTO.ToModelNoId());
+            Tour tour = _tourService.Save(tourDTO.ToModelNoId());
             foreach (var pDTO in pointOfInterestDTOs) {
                 pDTO.TourId = tour.Id;
-                _pointOfInterestRepository.Save(pDTO.ToModelNoId());
+                _pointOfInterestService.Save(pDTO.ToModelNoId());
             }
         }
 
