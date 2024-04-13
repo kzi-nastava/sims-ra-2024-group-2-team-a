@@ -1,5 +1,4 @@
-﻿using BookingApp.View;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace BookingApp.WPF.Tablet.Views {

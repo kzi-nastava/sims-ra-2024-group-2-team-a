@@ -35,32 +35,5 @@ namespace BookingApp.Repository {
         public int GetAvailableSpace(TourDTO tour) {
             return tour.MaxTouristNumber - tour.CurrentTouristNumber;
         }
-
-        public bool MatchesName(Tour tour, TourFilterDTO filter) {
-            return tour.Name.Contains(filter.Name) || filter.Name == "";
-        }
-
-        public bool MatchesLocation(Tour tour, TourFilterDTO filter) {
-            return tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
-        }
-
-        public bool MatchesDuration(Tour tour, TourFilterDTO filter) {
-            return tour.Duration <= filter.Duration || filter.Duration == 0;
-        }
-
-        public bool MatchesLanguage(Tour tour, TourFilterDTO filter) {
-            return tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
-        }
-
-        public bool MatchesMaxTouristNumber(Tour tour, TourFilterDTO filter) {
-            return tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
-        }
-
-        public bool MatchesCurrentTouristNumber(Tour tour, TourFilterDTO filter) {
-            return tour.CurrentTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
-        }
-        public bool MatchesDate(Tour tour, TourFilterDTO filter) {
-            return tour.Beggining >= filter.Beggining || filter.Beggining == DateTime.MinValue;
-        }
     }
 }

@@ -1,8 +1,4 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
-using BookingApp.Repository;
-using BookingApp.Services;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace BookingApp.WPF.Tablet.Views {
