@@ -32,22 +32,7 @@ namespace BookingApp.Repository {
            
         }
 
-        public List<Tour> GetFiltered(TourFilterDTO filter) {
-            _items = GetAll();
-
-            if (filter.isEmpty())
-                return _items;
-
-            return _items.Where(t => IsFiltered(t, filter)).ToList();
-        }
-
-        public bool IsFiltered(Tour tour, TourFilterDTO filter) {
-            return MatchesLocation(tour, filter) &&
-                   MatchesDuration(tour, filter) &&
-                   MatchesLanguage(tour, filter) &&
-                   MatchesMaxTouristNumber(tour, filter);
-        }
-        public bool MatchesName(Tour tour, TourFilterDTO filter) {
+        private bool MatchesName(Tour tour, TourFilterDTO filter) {
             return tour.Name.Contains(filter.Name) || filter.Name == "";
         }
 
@@ -66,23 +51,12 @@ namespace BookingApp.Repository {
         public bool MatchesMaxTouristNumber(Tour tour, TourFilterDTO filter) {
             return tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
         }
-        public bool MatchesCurrentTouristNumber(Tour tour, TourFilterDTO filter) {
+
+        private bool MatchesCurrentTouristNumber(Tour tour, TourFilterDTO filter) {
             return tour.CurrentTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
         }
         public bool MatchesDate(Tour tour, TourFilterDTO filter) {
             return tour.Beggining >= filter.Beggining || filter.Beggining == DateTime.MinValue;
-        }
-
-        public List<Tour> GetToursByLocation(int locationId) {
-            return GetAll().Where(t => (locationId == t.LocationId)).ToList();
-        }
-
-        public List<Tour> GetSameLocationTours(TourDTO tour) {
-            return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
-        }
-
-        public int GetAvailableSpace(TourDTO tour) {
-            return tour.MaxTouristNumber - tour.CurrentTouristNumber;
         }
     }
 }

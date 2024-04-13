@@ -14,10 +14,40 @@ namespace BookingApp.Services {
         private readonly PointOfInterestRepository _pointOfInterestRepository = new PointOfInterestRepository();
         private readonly PassengerRepository _passengerRepository = new PassengerRepository();
         private readonly TourReviewRepository _tourReviewRepository = new TourReviewRepository();
-
         private readonly PassengerService _passengerService = new PassengerService();
         private readonly TourReservationService _tourReservationService = new TourReservationService();
 
+        private bool IsFiltered(Tour tour, TourFilterDTO filter) {
+            return MatchesLocation(tour, filter) &&
+                   MatchesDuration(tour, filter) &&
+                   MatchesLanguage(tour, filter) &&
+                   MatchesMaxTouristNumber(tour, filter);
+        }
+
+        private bool MatchesLocation(Tour tour, TourFilterDTO filter) {
+            return tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
+        }
+
+        private bool MatchesDuration(Tour tour, TourFilterDTO filter) {
+            return tour.Duration <= filter.Duration || filter.Duration == 0;
+        }
+
+        private bool MatchesLanguage(Tour tour, TourFilterDTO filter) {
+            return tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
+        }
+
+        private bool MatchesMaxTouristNumber(Tour tour, TourFilterDTO filter) {
+            return tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
+        }
+
+        public List<Tour> GetFiltered(TourFilterDTO filter) {
+            List<Tour> allTours = _tourRepository.GetAll();
+
+            if (filter.isEmpty())
+                return allTours;
+
+            return allTours.Where(t => IsFiltered(t, filter)).ToList();
+        }
 
         public List<Passenger> GetTouristEntries(int touristId) {
             return _passengerRepository.GetAll().Where(p => p.UserId == touristId).ToList();
@@ -93,6 +123,17 @@ namespace BookingApp.Services {
         public bool Delete(Tour tour) => _tourRepository.Delete(tour);
         public bool Update(Tour tour) {
             return _tourRepository.Update(tour);
+
+        public List<Tour> GetToursByLocation(int locationId) {
+            return _tourRepository.GetAll().Where(t => (locationId == t.LocationId)).ToList();
+        }
+
+        public List<Tour> GetSameLocationTours(TourDTO tour) {
+            return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
+        }
+
+        public int GetAvailableSpace(TourDTO tour) {
+            return tour.MaxTouristNumber - tour.CurrentTouristNumber;
         }
     }
 }
