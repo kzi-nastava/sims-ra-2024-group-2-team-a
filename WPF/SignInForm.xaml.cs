@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using BookingApp.WPF.Android.Views;
 
-namespace BookingApp.View
+namespace BookingApp.WPF
 {
     /// <summary>
     /// Interaction logic for SignInForm.xaml
