@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,11 +26,9 @@ namespace BookingApp.WPF.Tablet.Views {
         private Frame _mainFrame, _menuBarFrame;
         private int _userId;
 
-        private readonly TourRepository _tourRepository;
-        private readonly PointOfInterestRepository _pointOfInterestRepository;
-        private readonly TourReservationRepository _tourReservationRepository;
-        private readonly PassengerRepository _passengerRepository;
-        private readonly VoucherRepository _voucherRepository;
+
+        private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
+        private readonly TourService _tourService = new TourService();
         public TourDTO tourDTO { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
         public int teen { get; set; }
@@ -44,24 +43,18 @@ namespace BookingApp.WPF.Tablet.Views {
             _mainFrame = mainF;
             _menuBarFrame = menuBarF;
             _userId = userId;
-            _tourRepository = new TourRepository();
-            _pointOfInterestRepository = new PointOfInterestRepository();
-            _tourReservationRepository = new TourReservationRepository();
-            _passengerRepository = new PassengerRepository();
-            _voucherRepository = new VoucherRepository();
 
 
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
 
-            foreach (var point in _pointOfInterestRepository.GetAllByTourId(tourDTO.Id)) {
+            foreach (var point in _pointOfInterestService.GetAllByTourId(tourDTO.Id)) {
                 pointOfInterestDTOs.Add(new PointOfInterestDTO(point));
             }
 
-            List<TourReservation> reservations = _tourReservationRepository.GetByTourId(tDTO.Id);
-            List<Passenger> passengers = _passengerRepository.GetByReservations(reservations);
-            teen = _passengerRepository.GetStatsTeen(passengers);
-            mid = _passengerRepository.GetStatsMid(passengers);
-            old = _passengerRepository.GetStatsOld(passengers);
+            List<int> stats = _tourService.GetTourStats(tDTO.Id);
+            teen = stats[0];
+            mid = stats[1];
+            old = stats[2];
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e) {
@@ -70,7 +63,7 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void showButton_Click(object sender, RoutedEventArgs e) {
             int year = int.Parse( (string) yearComboBox.SelectedValue);
-            Tour tour = _tourRepository.GetMostViewedByYear(year);
+            Tour tour = _tourService.GetMostViewedByYear(year);
             if (tour == null) {
                 MessageBox.Show("Nema tura iz te godine", "NEMA", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;

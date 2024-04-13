@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,10 +25,11 @@ namespace BookingApp.WPF.Tablet.Views {
     public partial class TourReviewsPage : Page {
         private int _userId;
         private Frame _mainFrame;
-        private readonly TourReviewRepository _tourReviewRepository;
-        private readonly PassengerRepository _passengerRepository;
-        private readonly PointOfInterestRepository _pointOfInterestRepository;
-        private readonly TourReservationRepository _tourReservationRepository;
+
+        private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
+        private readonly TourReviewService _tourReviewService = new TourReviewService();
+        private readonly TourReservationService _tourReservationService = new TourReservationService();
+        private readonly PassengerService _passengerService = new PassengerService();
         public ObservableCollection<TourReviewDTO> tourReviewDTOs { get; set; }
         public TourDTO tourDTO { get; set; }
 
@@ -37,22 +39,25 @@ namespace BookingApp.WPF.Tablet.Views {
             _userId = userId;
             _mainFrame = mFrame;
             tourDTO = tDTO;
-            _tourReviewRepository = new TourReviewRepository();
-            _passengerRepository = new PassengerRepository();
-            _tourReservationRepository = new TourReservationRepository();
-            _pointOfInterestRepository = new PointOfInterestRepository();
+
             tourReviewDTOs = new ObservableCollection<TourReviewDTO>();
             
-            foreach(var review in _tourReviewRepository.GetByTourId(tDTO.Id)) {
+            foreach(var review in _tourReviewService.GetByTourId(tDTO.Id)) {
                 TourReviewDTO tempDTO = new TourReviewDTO(review);
-                TourReservation tourReservation = _tourReservationRepository.GetByTourAndTourist(tempDTO.TourId, tempDTO.TouristId); 
-                PassengerDTO passengerDTO = new PassengerDTO(_passengerRepository.GetByReservationAndTourist(tourReservation.Id, tempDTO.TouristId));
-                PointOfInterestDTO pointOfInterestDTO = new PointOfInterestDTO(_pointOfInterestRepository.GetById(passengerDTO.JoinedPointOfInterestId));
-                passengerDTO.SetPointOfInterestName(pointOfInterestDTO.Name);
+                TourReservation tourReservation = _tourReservationService.GetByTourAndTourist(tempDTO.TourId, tempDTO.TouristId); 
+                PassengerDTO passengerDTO = new PassengerDTO(_passengerService.GetByReservationAndTourist(tourReservation.Id, tempDTO.TouristId));
+                PointOfInterest point = _pointOfInterestService.GetById(passengerDTO.JoinedPointOfInterestId);
+                if(point != null ) {
+                    PointOfInterestDTO pointOfInterestDTO = new PointOfInterestDTO(point);
+                    passengerDTO.SetPointOfInterestName(pointOfInterestDTO.Name);
+                    tempDTO.PointOfInterestName = passengerDTO.JoinedPointOfInterestName;
+                }
+                else {
+                    tempDTO.PointOfInterestName = "!NEVER!";
+                }
 
                 tempDTO.TouristName = passengerDTO.Name;
                 tempDTO.TouristSurname = passengerDTO.Surname;
-                tempDTO.PointOfInterestName = passengerDTO.JoinedPointOfInterestName;
                 tourReviewDTOs.Add(tempDTO);
             }
             DataContext = this;

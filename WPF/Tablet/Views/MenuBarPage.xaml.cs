@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,7 +13,7 @@ namespace BookingApp.WPF.Tablet.Views {
         private Frame _menuBarFrame, _mainFrame;
         private int _userId;
 
-        private readonly TourRepository _tourRepository;
+        private readonly TourService _tourService = new TourService();
         public MenuBarPage(Frame menuBarF, Frame mainF, int userId) {
             InitializeComponent();
             _mainFrame = mainF;
@@ -20,7 +21,6 @@ namespace BookingApp.WPF.Tablet.Views {
             _userId = userId;
             _mainFrame.IsHitTestVisible = false;
             _mainFrame.Opacity = 0.6;          
-            _tourRepository = new TourRepository();
 
         }
 
@@ -48,7 +48,7 @@ namespace BookingApp.WPF.Tablet.Views {
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
         private void statsButton_Click(object sender, RoutedEventArgs e) {
-            Tour tour = _tourRepository.GetMostViewedByYear(-1);
+            Tour tour = _tourService.GetMostViewedByYear(-1);
             if (tour == null) {
                 MessageBox.Show("Nema tura iz te godine", "NEMA", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
