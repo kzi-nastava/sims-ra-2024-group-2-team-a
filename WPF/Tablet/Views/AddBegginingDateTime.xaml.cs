@@ -21,26 +21,8 @@ namespace BookingApp.WPF.Tablet.Views {
     public partial class AddBegginingDateTimeWindow : Window
     {
         public ObservableCollection<DateTime> begginings { get; set; }
-        private DateOnly _date;
-        public DateOnly Date {
-            get {
-                return _date;
-            }
-            set {
-                if( _date != value ) {
-                    _date = value;
-                }
-            }
-        }
-        private int _time;
-        public int Time {
-            get { return _time; }
-            set {
-                if(_time != value ) {
-                    _time = value;
-                }
-            }
-        }
+        public DateOnly Date { get; set; }
+        public int Time { get; set; }
         public AddBegginingDateTimeWindow(ObservableCollection<DateTime> dateTimes) {
             InitializeComponent();
             DataContext = this;

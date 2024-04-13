@@ -22,7 +22,6 @@ namespace BookingApp.WPF.Tablet.Views {
     /// Interaction logic for TourReviewCard.xaml
     /// </summary>
     public partial class TourReviewCard : UserControl {
-        private readonly TourReviewRepository _tourReviewRepository = new TourReviewRepository();
         private readonly TourReviewService _tourReviewService = new TourReviewService();
         public TourReviewDTO tourReviewDTO { get; set; }
         public PassengerDTO passengerDTO { get; set; }

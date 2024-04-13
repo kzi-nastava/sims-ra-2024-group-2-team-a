@@ -26,7 +26,6 @@ namespace BookingApp.WPF.Tablet.Views {
         private Frame _mainFrame, _menuBarFrame;
         private int _userId;
 
-
         private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
         private readonly TourService _tourService = new TourService();
         public TourDTO tourDTO { get; set; }
@@ -39,11 +38,19 @@ namespace BookingApp.WPF.Tablet.Views {
             InitializeComponent();
             DataContext = this;
 
+            if (tDTO == null) {
+                Tour tour = _tourService.GetMostViewedByYear(-1);
+                if(tour == null) {
+                    MessageBox.Show("Nema tura iz te godine", "NEMA", MessageBoxButton.OK, MessageBoxImage.Error);
+                    mainF.GoBack();
+                }
+                tourDTO = new TourDTO(tour);
+            }
+
             tourDTO = tDTO;
             _mainFrame = mainF;
             _menuBarFrame = menuBarF;
             _userId = userId;
-
 
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
 
