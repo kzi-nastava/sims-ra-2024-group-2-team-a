@@ -27,5 +27,8 @@ namespace BookingApp.Services {
             Voucher voucher = _voucherRepository.GetById(selectedVoucher.Id);
             voucher.Used = false;
         }
+        public bool AddMultiple(List<int> TouristIds, DateTime expireDate) {
+            return _voucherRepository.AddMultiple(TouristIds, expireDate);  
+        }
     }
 }

@@ -39,32 +39,6 @@ namespace BookingApp.Model
             Pictures = pictures;
         }
 
-        public TourReview(int id, int knowledgeGrade, int languageGrade, int interestGrade, string comment, int touristId, int tourId, bool isValid, List<string> pictures) {
-            Id = id;
-            KnowledgeGrade = knowledgeGrade;
-            LanguageGrade = languageGrade;
-            InterestGrade = interestGrade;
-            AvrageGrade = (knowledgeGrade + languageGrade + interestGrade)/3;
-            Posted = DateTime.Now;
-            IsValid = isValid;
-            TouristId = touristId;
-            TourId = tourId;
-            Comment = comment;
-            Pictures = pictures;
-        }
-        public TourReview(int knowledgeGrade, int languageGrade, int interestGrade, string comment, int touristId, int tourId, bool isValid, List<string> pictures) {
-            KnowledgeGrade = knowledgeGrade;
-            LanguageGrade = languageGrade;
-            InterestGrade = interestGrade;
-            AvrageGrade = (knowledgeGrade + languageGrade + interestGrade) / 3;
-            Posted = DateTime.Now;
-            IsValid = isValid;
-            TouristId = touristId;
-            TourId = tourId;
-            Comment = comment;
-            Pictures = pictures;
-        }
-
         public TourReview(TourReviewDTO tourReview) {
             this.KnowledgeGrade = tourReview.KnowledgeGrade;
             this.LanguageGrade = tourReview.LanguageGrade;

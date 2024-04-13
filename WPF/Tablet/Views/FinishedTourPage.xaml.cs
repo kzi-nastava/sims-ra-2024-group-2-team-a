@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,11 +27,8 @@ namespace BookingApp.WPF.Tablet.Views{
         private Frame _mainFrame, _menuBarFrame;
         private int _userId;
 
-        private readonly TourRepository _tourRepository;
-        private readonly PointOfInterestRepository _pointOfInterestRepository;
-        private readonly TourReservationRepository _tourReservationRepository;
-        private readonly PassengerRepository _passengerRepository;
-        private readonly VoucherRepository _voucherRepository;
+        private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
+
         public TourDTO tourDTO { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
         public FinishedTourPage(TourDTO tDTO, Frame mainF, Frame menuBarF, int userId) {
@@ -42,16 +40,11 @@ namespace BookingApp.WPF.Tablet.Views{
             _mainFrame = mainF;
             _menuBarFrame = menuBarF;
             _userId = userId;
-            _tourRepository = new TourRepository();
-            _pointOfInterestRepository = new PointOfInterestRepository();
-            _tourReservationRepository = new TourReservationRepository();
-            _passengerRepository = new PassengerRepository();
-            _voucherRepository = new VoucherRepository();
 
 
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
 
-            foreach (var point in _pointOfInterestRepository.GetAllByTourId(tourDTO.Id)) {
+            foreach (var point in _pointOfInterestService.GetAllByTourId(tourDTO.Id)) {
                 pointOfInterestDTOs.Add(new PointOfInterestDTO(point));
             }
         }

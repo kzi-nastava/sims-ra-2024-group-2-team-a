@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,9 +25,11 @@ namespace BookingApp.WPF.Tablet.Views{
     public partial class FinishedToursPage : Page {
         private int _userId;
 
-        private readonly TourRepository _tourRepository;
-        private readonly LocationRepository _locationRepository;
-        private readonly LanguageRepository _languageRepository;
+
+        private readonly LocationService _locationService = new LocationService();
+        private readonly LanguageService _languageService = new LanguageService();
+        private readonly TourService _tourService = new TourService();
+
         private TourFilterDTO _filterDTO;
         public TourDTO tourDTO { get; set; }
         public LocationDTO selectedLocationDTO { get; set; }
@@ -40,9 +43,6 @@ namespace BookingApp.WPF.Tablet.Views{
             _userId = userId;
             DataContext = this;
 
-            _tourRepository = new TourRepository();
-            _locationRepository = new LocationRepository();
-            _languageRepository = new LanguageRepository();
             Load();
         }
 
@@ -50,7 +50,7 @@ namespace BookingApp.WPF.Tablet.Views{
             _filterDTO = SetFilter();
 
             tourDTOs.Clear();
-            foreach (var tour in _tourRepository.GetFilteredScheduled(_filterDTO, _userId)) {
+            foreach (var tour in _tourService.GetFilteredScheduled(_filterDTO, _userId)) {
                 TourDTO temp = new TourDTO(tour);
                 setLocationLanguage(temp, tour);
                 tourDTOs.Add(temp);
@@ -74,10 +74,10 @@ namespace BookingApp.WPF.Tablet.Views{
             locationDTOs.Add(new LocationDTO());
             languageDTOs.Add(new LanguageDTO());
 
-            foreach (var lan in _languageRepository.GetAll()) {
+            foreach (var lan in _languageService.GetAll()) {
                 languageDTOs.Add(new LanguageDTO(lan));
             }
-            foreach (var loc in _locationRepository.GetAll()) {
+            foreach (var loc in _locationService.GetAll()) {
                 locationDTOs.Add(new LocationDTO(loc));
             }
             LoadFinished();
@@ -85,18 +85,18 @@ namespace BookingApp.WPF.Tablet.Views{
 
         private void LoadFinished() {
             tourDTOs = new ObservableCollection<TourDTO>();
-            foreach (var tour in _tourRepository.GetFinished(_userId)) {
+            foreach (var tour in _tourService.GetFinished(_userId)) {
                 TourDTO tempTourDTO = new TourDTO(tour);
                 setLocationLanguage(tempTourDTO, tour);
                 tourDTOs.Add(tempTourDTO);
             }
         }
         private void setLocationLanguage(TourDTO tempTourDTO, Tour tour) {
-            Location location = _locationRepository.GetById(tour.LocationId);
+            Location location = _locationService.GetById(tour.LocationId);
             string city = location.City;
             string country = location.Country;
             tempTourDTO.setLocationTemplate(city, country);
-            tempTourDTO.LanguageTemplate = _languageRepository.GetById(tour.LanguageId).Name;
+            tempTourDTO.LanguageTemplate = _languageService.GetById(tour.LanguageId).Name;
         }
 
         private TourFilterDTO SetFilter() {

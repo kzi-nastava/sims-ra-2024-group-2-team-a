@@ -10,22 +10,6 @@ namespace BookingApp.DTO {
             ProfilePictures = new List<string>();
         }
 
-
-        public TourDTO(string name, int locationId, string description, int languageId, int maxTouristNumber, double duration, int currentTouristNumber, DateTime beggining, TourState state, int guideId, List<string> profilePictures) {
-
-            Name = name;
-            LocationId = locationId;
-            Description = description;
-            LanguageId = languageId;
-            MaxTouristNumber = maxTouristNumber;
-            Duration = duration;
-            CurrentTouristNumber = currentTouristNumber;
-            Beggining = beggining;
-            State = _state;
-            GuideId = guideId;
-            ProfilePictures = profilePictures;
-        }
-
         public TourDTO(Tour t) {
             Id = t.Id;
             Name = t.Name;
