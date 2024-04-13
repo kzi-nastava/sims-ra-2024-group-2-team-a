@@ -28,7 +28,7 @@ namespace BookingApp.Services {
 
             bool oldSuper = owner.IsSuper;
 
-            if (numberOfReviews >= 50 && owner.AverageGrade > 4.5)
+            if (numberOfReviews >= 50 && owner.AverageGrade >= 4.5)
                 owner.IsSuper = true;
             else
                 owner.IsSuper = false;
