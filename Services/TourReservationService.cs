@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 namespace BookingApp.Services {
     public class TourReservationService {
         private readonly TourReservationRepository _tourReservationRepository = new TourReservationRepository();
+        private readonly TourService _tourService = new TourService();
         private readonly TourRepository _tourRepository = new TourRepository();
         private readonly PassengerRepository _passengerRepository = new PassengerRepository();
         private readonly VoucherRepository _voucherRepository = new VoucherRepository();
 
         private void FillTourCapacity(int tourId, int addedPassengersNumber) {
-            TourRepository tourRepository = new TourRepository();
-            Tour selectedTour = tourRepository.GetById(tourId);
+            Tour selectedTour = _tourRepository.GetById(tourId);
             selectedTour.CurrentTouristNumber += addedPassengersNumber;
-            tourRepository.Update(selectedTour);
+            _tourRepository.Update(selectedTour);
         }
 
         public int MakeReservation(int userId, TourDTO selectedTour, List<PassengerDTO> passengers, VoucherDTO selectedVoucher) {
-            int availableSpace = _tourRepository.GetAvailableSpace(selectedTour);
+            int availableSpace = _tourService.GetAvailableSpace(selectedTour);
 
-            if (_tourRepository.GetAvailableSpace(selectedTour) == 0)
+            if (_tourService.GetAvailableSpace(selectedTour) == 0)
                 return -1;
 
             if (passengers.Count > availableSpace)
