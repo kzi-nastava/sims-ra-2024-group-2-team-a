@@ -52,14 +52,6 @@ namespace BookingApp.Repository {
             return _items.Where(x => IsFilteredLive(x, filter)).ToList();
         }
 
-        public List<Tour> GetFiltered(TourFilterDTO filter) {
-            _items = GetAll();
-
-            if (filter.isEmpty())
-                return _items;
-
-            return _items.Where(t => IsFiltered(t, filter)).ToList();
-        }
         private bool IsFilteredScheduled(Tour tour, TourFilterDTO filter) {
             return MatchesName(tour, filter) &&
                    MatchesLocation(tour, filter) &&
@@ -75,12 +67,7 @@ namespace BookingApp.Repository {
                    MatchesLanguage(tour, filter) &&
                    MatchesCurrentTouristNumber(tour, filter);
         }
-        private bool IsFiltered(Tour tour, TourFilterDTO filter) {
-            return MatchesLocation(tour, filter) &&
-                   MatchesDuration(tour, filter) &&
-                   MatchesLanguage(tour, filter) &&
-                   MatchesMaxTouristNumber(tour, filter);
-        }
+
         private bool MatchesName(Tour tour, TourFilterDTO filter) {
             return tour.Name.Contains(filter.Name) || filter.Name == "";
         }
@@ -97,26 +84,11 @@ namespace BookingApp.Repository {
             return tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
         }
 
-        private bool MatchesMaxTouristNumber(Tour tour, TourFilterDTO filter) {
-            return tour.MaxTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
-        }
         private bool MatchesCurrentTouristNumber(Tour tour, TourFilterDTO filter) {
             return tour.CurrentTouristNumber >= filter.TouristNumber || filter.TouristNumber == 0;
         }
         private bool MatchesDate(Tour tour, TourFilterDTO filter) {
             return tour.Beggining >= filter.Beggining || filter.Beggining == DateTime.MinValue;
-        }
-
-        public List<Tour> GetToursByLocation(int locationId) {
-            return GetAll().Where(t => (locationId == t.LocationId)).ToList();
-        }
-
-        public List<Tour> GetSameLocationTours(TourDTO tour) {
-            return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
-        }
-
-        public int GetAvailableSpace(TourDTO tour) {
-            return tour.MaxTouristNumber - tour.CurrentTouristNumber;
         }
     }
 }

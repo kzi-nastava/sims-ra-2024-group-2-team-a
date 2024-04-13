@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ namespace BookingApp.WPF.Desktop.Views {
     /// Interaction logic for HomePage.xaml
     /// </summary>
     public partial class TouristHomePage : Page {
-        private readonly TourRepository _tourRepository;
+        private readonly TourService _tourService = new TourService();
         private readonly LocationRepository _locationRepository;
         private readonly LanguageRepository _languageRepository;
 
@@ -26,7 +27,6 @@ namespace BookingApp.WPF.Desktop.Views {
             InitializeComponent();
             DataContext = this;
 
-            _tourRepository = new TourRepository();
             _locationRepository = new LocationRepository();
             _languageRepository = new LanguageRepository();
             ToursOnDisplay = new ObservableCollection<TourDTO>();
@@ -71,7 +71,7 @@ namespace BookingApp.WPF.Desktop.Views {
 
         public void Update() {
             ToursOnDisplay.Clear();
-            foreach (var tour in _tourRepository.GetFiltered(Filter)) {
+            foreach (var tour in _tourService.GetFiltered(Filter)) {
                 ToursOnDisplay.Add(GetPresentableTour(tour));
             }
         }
