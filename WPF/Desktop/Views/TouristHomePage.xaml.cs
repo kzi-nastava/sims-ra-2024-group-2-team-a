@@ -72,7 +72,8 @@ namespace BookingApp.WPF.Desktop.Views {
         public void Update() {
             ToursOnDisplay.Clear();
             foreach (var tour in _tourService.GetFiltered(Filter)) {
-                ToursOnDisplay.Add(GetPresentableTour(tour));
+                if(tour.State == TourState.Scheduled)
+                    ToursOnDisplay.Add(GetPresentableTour(tour));
             }
         }
         private void LocationComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
