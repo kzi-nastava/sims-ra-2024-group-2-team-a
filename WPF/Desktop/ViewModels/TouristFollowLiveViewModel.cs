@@ -29,9 +29,11 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 PointsOfInterest.Add(new PointOfInterestDTO(point));
             }
 
-            Passengers.Clear();
-            foreach (var passenger in _passengerService.GetPresent(UserId, SelectedTour)) {
-                Passengers.Add(new PassengerDTO(passenger));
+            if(_passengerService.IsTouristPresent(UserId, SelectedTour)) {
+                Passengers.Clear();
+                foreach (var passenger in _passengerService.GetPresent(UserId, SelectedTour)) {
+                    Passengers.Add(new PassengerDTO(passenger));
+                }
             }
         }
     }

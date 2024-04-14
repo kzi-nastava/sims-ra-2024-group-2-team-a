@@ -37,5 +37,9 @@ namespace BookingApp.Services {
         public List<Passenger> GetPresent(int touristId, TourDTO tour) {
             return _passengerRepository.GetAll().Where(r => r.TourReservationId == _tourReservationRepository.GetByTourAndTourist(tour.Id, touristId).Id && r.JoinedPointOfInterestId != -1).ToList();
         }
+
+        public bool IsTouristPresent(int touristId, TourDTO tour) {
+            return GetPresent(touristId, tour).Any(p => p.UserId == touristId);
+        }
     }
 }
