@@ -55,7 +55,6 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         }
         public bool CheckKeyPoint() {
             pointOfInterestDTOs[_pointOfInterestIndex++].IsChecked = true;
-            _pointOfInterestIndex++;
             _pointOfInterestService.Update(pointOfInterestDTO.ToModel());
 
             if (_pointOfInterestIndex != pointOfInterestDTOs.Count)
