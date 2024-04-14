@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
 using System.Collections.Generic;

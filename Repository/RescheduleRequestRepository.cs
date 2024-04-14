@@ -1,5 +1,5 @@
-﻿using BookingApp.Model;
-using BookingApp.RepositoryInterfaces;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using System.Collections.Generic;
 
 namespace BookingApp.Repository {

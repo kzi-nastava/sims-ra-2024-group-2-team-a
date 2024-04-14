@@ -1,5 +1,5 @@
-﻿using BookingApp.Model;
-using BookingApp.RepositoryInterfaces;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Services {
     public class UserService {

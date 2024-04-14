@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 
 namespace BookingApp.WPF.DTO {
     public class AccommodationFilterDTO

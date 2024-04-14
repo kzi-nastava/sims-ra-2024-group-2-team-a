@@ -1,10 +1,10 @@
-﻿using BookingApp.Model;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.WPF.Web.Views {
     /// <summary>

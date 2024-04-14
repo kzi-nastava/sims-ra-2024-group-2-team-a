@@ -1,7 +1,7 @@
-﻿using BookingApp.Model;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using BookingApp.WPF.Android.ViewModels;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.WPF.Android.Views {
     /// <summary>

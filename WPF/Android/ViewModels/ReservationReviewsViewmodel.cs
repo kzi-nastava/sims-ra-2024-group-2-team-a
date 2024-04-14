@@ -1,5 +1,4 @@
 ﻿using System;
-using BookingApp.Model;
 using BookingApp.Services;
 using System.Collections.ObjectModel;
 using BookingApp.WPF.Android.Views;
@@ -8,6 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using BookingApp.Commands;
 using BookingApp.WPF.DTO;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.WPF.Android.ViewModels {
     public class ReservationReviewsViewmodel : INotifyPropertyChanged {

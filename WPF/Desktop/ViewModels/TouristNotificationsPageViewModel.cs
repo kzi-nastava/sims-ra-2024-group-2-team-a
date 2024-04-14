@@ -1,4 +1,5 @@
-﻿using BookingApp.Services;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using BookingApp.WPF.Desktop.Views;
 using BookingApp.WPF.DTO;
 using System.Collections.ObjectModel;
@@ -30,7 +31,7 @@ namespace BookingApp.WPF.Desktop.ViewModels {
 
             if (notification != null) {
                 switch (notification.Category) {
-                    case Model.NotificationCategory.TourActive:
+                    case NotificationCategory.TourActive:
                         TouristFollowLiveWindow window = new TouristFollowLiveWindow(new TourDTO(_tourService.GetById(notification.TourId)), UserId);
                         window.ShowDialog();
                         break;

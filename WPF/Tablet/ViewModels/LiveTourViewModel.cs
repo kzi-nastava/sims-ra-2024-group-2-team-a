@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
 using System;
@@ -30,7 +30,7 @@ namespace BookingApp.WPF.Tablet.ViewModels {
             tourDTO = tDTO;
 
             if(tDTO.State != TourState.Active){
-                tourDTO.State = Model.TourState.Active;
+                tourDTO.State = TourState.Active;
                 _tourService.Update(tourDTO.ToModel());
             }
             _pointOfInterestIndex = -1;
@@ -54,7 +54,7 @@ namespace BookingApp.WPF.Tablet.ViewModels {
             }
         }
         public void FinishTour() {
-            tourDTO.State = Model.TourState.Finished;
+            tourDTO.State = TourState.Finished;
             tourDTO.End = DateTime.Now;
             _tourService.Update(tourDTO.ToModel());
         }
