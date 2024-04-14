@@ -89,7 +89,7 @@ namespace BookingApp.WPF.Web.ViewModels
         public void UpdateRescheduleRequestDTOs() {
 
             var rescheduleRequests = _rescheduleRequestService.GetByGuestId(_guestId);
-            var dtos = rescheduleRequests.Select(r => new RescheduleRequestDTO(r));
+            var dtos = rescheduleRequests.Select(r => new RescheduleRequestDTO(r)).OrderByDescending(r => r.Id);
             RescheduleRequests = new ObservableCollection<RescheduleRequestDTO>(dtos);
 
             foreach (var req in RescheduleRequests) {
