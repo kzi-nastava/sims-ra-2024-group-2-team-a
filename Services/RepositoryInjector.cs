@@ -28,6 +28,13 @@ namespace BookingApp.Services {
             { typeof(IUserRepository), new Dictionary<RepositoryType, object>() },
             { typeof(IReviewRepository), new Dictionary<RepositoryType, object>() },
             { typeof(IOwnerRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(ILanguageRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(IPassengerRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(IPointOfInterestRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(ITourRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(ITourReservationRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(ITourReviewRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(IVoucherRepository), new Dictionary<RepositoryType, object>() },
         };
 
         static RepositoryInjector() {
@@ -39,7 +46,13 @@ namespace BookingApp.Services {
             _repositoryInstances[typeof(IUserRepository)][RepositoryType.CSV] = new UserRepository();
             _repositoryInstances[typeof(IReviewRepository)][RepositoryType.CSV] = new ReviewRepository();
             _repositoryInstances[typeof(IOwnerRepository)][RepositoryType.CSV] = new OwnerRepository();
-
+            _repositoryInstances[typeof(ILanguageRepository)][RepositoryType.CSV] = new LanguageRepository();
+            _repositoryInstances[typeof(IPassengerRepository)][RepositoryType.CSV] = new PassengerRepository();
+            _repositoryInstances[typeof(IPointOfInterestRepository)][RepositoryType.CSV] = new PointOfInterestRepository();
+            _repositoryInstances[typeof(ITourRepository)][RepositoryType.CSV] = new TourRepository();
+            _repositoryInstances[typeof(ITourReservationRepository)][RepositoryType.CSV] = new TourReservationRepository();
+            _repositoryInstances[typeof(ITourReviewRepository)][RepositoryType.CSV] = new TourReviewRepository();
+            _repositoryInstances[typeof(IVoucherRepository)][RepositoryType.CSV] = new VoucherRepository();
             // SQL repository registration
             // ...
         }

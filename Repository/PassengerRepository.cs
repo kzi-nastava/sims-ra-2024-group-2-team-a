@@ -1,10 +1,11 @@
 ﻿using BookingApp.Model;
+using BookingApp.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Repository {
-    public class PassengerRepository : Repository<Passenger> {
+    public class PassengerRepository : Repository<Passenger>, IPassengerRepository{
         public int GetStatsTeen(List<Passenger> passengers) {
             return passengers.Count(x => x.Age < 18 && x.JoinedPointOfInterestId != -1);
         }
