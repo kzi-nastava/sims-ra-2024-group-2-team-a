@@ -8,6 +8,7 @@ using System.Linq;
 namespace BookingApp.Services {
     public class PassengerService {
         private readonly IPassengerRepository _passengerRepository = RepositoryInjector.GetInstance<IPassengerRepository>();
+        private readonly ITourReservationRepository _tourReservationRepository = RepositoryInjector.GetInstance<ITourReservationRepository>();
 
         public List<int> GetAttendance(List<TourReservation> reservations) {
             List<Passenger> passengers = GetByReservations(reservations);
