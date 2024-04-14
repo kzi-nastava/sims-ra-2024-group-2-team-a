@@ -76,7 +76,7 @@ namespace BookingApp.WPF.Web.ViewModels
         }
 
         public void UpdateReservationDTOs() {
-            var reservations = _reservationService.GetAll();
+            var reservations = _reservationService.GetByGuestId(_guestId);
             var dtos = reservations.Select(r => new AccommodationReservationDTO(r));
             Reservations = new ObservableCollection<AccommodationReservationDTO>(dtos);
 
