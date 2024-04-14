@@ -186,11 +186,11 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+
     }
 }
 

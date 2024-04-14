@@ -102,11 +102,11 @@ namespace BookingApp.WPF.Desktop.Views {
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+
 
         private void ReservationButton_Click(object sender, RoutedEventArgs e) {
             var button = (Button)sender;
