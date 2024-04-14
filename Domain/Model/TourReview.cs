@@ -43,7 +43,7 @@ namespace BookingApp.Domain.Model {
             KnowledgeGrade = tourReview.KnowledgeGrade;
             LanguageGrade = tourReview.LanguageGrade;
             InterestGrade = tourReview.InterestGrade;
-            AvrageGrade = (tourReview.KnowledgeGrade + tourReview.InterestGrade + tourReview.LanguageGrade) / 3;
+            AvrageGrade = (tourReview.KnowledgeGrade + tourReview.InterestGrade + tourReview.LanguageGrade) / 3.0;
             TouristId = tourReview.TouristId;
             TourId = tourReview.TourId;
             Comment = tourReview.Comment;
