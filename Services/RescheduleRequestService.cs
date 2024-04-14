@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace BookingApp.Services
 {
     class RescheduleRequestService
     {
-        private readonly RescheduleRequestRepository _requestRepository = new RescheduleRequestRepository();
+        private readonly IRescheduleRequestRepository _requestRepository = RepositoryInjector.GetInstance<IRescheduleRequestRepository>();
 
         public List<RescheduleRequest> GetAll() {
             return _requestRepository.GetAll();
