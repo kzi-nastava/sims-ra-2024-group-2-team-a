@@ -5,12 +5,12 @@ public class RelayCommand : ICommand {
     private readonly Action<object> _execute;
     private readonly Func<bool> _canExecute;
 
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+
     public RelayCommand(Action<object> execute, Func<bool> canExecute = null) {
         _execute = execute ?? throw new ArgumentNullException(nameof(execute));
         _canExecute = canExecute;
     }
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+
 
 #pragma warning disable CS8612 // Nullability of reference types in type doesn't match implicitly implemented member.
     public event EventHandler CanExecuteChanged {

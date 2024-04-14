@@ -30,6 +30,7 @@ namespace BookingApp.WPF.Web.Views {
 
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
             ViewModel.GradeOwner();
+            _parentPage.Update();
             _parentPage.CloseModalDialog();
         }
 

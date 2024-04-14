@@ -45,12 +45,12 @@ namespace BookingApp.Services {
             _ownerService.AdjustSuperOwner(review.OwnerId);
         }
 
-        public bool IsGuestGraded(int reservationId) {
+        public bool IsGradedByGuest(int reservationId) {
             Review review = this.GetByReservationId(reservationId);
             if (review == null) {
                 return false;
             }
-            if (review.GuestCleannessGrade == 0 || review.RuleFollowingGrade == 0) {
+            if (review.OwnerCorrectnessGrade == 0 || review.AccommodationCleannessGrade == 0) {
                 return false;
             }
             return true;
