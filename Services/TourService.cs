@@ -83,6 +83,9 @@ namespace BookingApp.Services {
         public List<int> GetTourStats(int tourId) {
             return _passengerService.GetAttendance(_tourReservationService.GetByTourId(tourId));
         }
+        public Tour GetActive(int userId) {
+            return _tourRepository.GetActive(userId);
+        }
         public List<Tour> GetScheduled(int userId) {
             return _tourRepository.GetScheduled(userId);
         }

@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using BookingApp.Model;
+using BookingApp.View.TabletView;
+using BookingApp.WPF.Tablet.ViewModels;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BookingApp.WPF.Tablet.Views {
@@ -34,9 +37,13 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void followLiveButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.Content = new FollowLiveTourPage(_userId);
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            MenuBarViewModel viewModel = new MenuBarViewModel(_userId);
+            if(viewModel.IsTourActive())
+                _mainFrame.Content = new LiveTourPage(viewModel.tourDTO, _mainFrame,  _userId);
+            else
+                _mainFrame.Content = new FollowLiveTourPage(_userId);
             
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
         private void finishedToursButton_Click(object sender, RoutedEventArgs e) {
             _mainFrame.Content = new FinishedToursPage(_userId);

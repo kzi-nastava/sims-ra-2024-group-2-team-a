@@ -7,6 +7,10 @@ using System.Linq;
 namespace BookingApp.Repository {
 
     public class TourRepository : Repository<Tour> {
+        public Tour GetActive(int userId) {
+            _items = _serializer.FromCSV();
+            return _items.Find(x => x.GuideId == userId && x.State.Equals(TourState.Active));
+        }
         public List<Tour> GetScheduled(int userId) {
             DateTime today = DateTime.Today;
             _items = _serializer.FromCSV();
