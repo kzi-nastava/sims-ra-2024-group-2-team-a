@@ -45,5 +45,10 @@ namespace BookingApp.Services {
             Notification notification = new Notification(message, NotificationCategory.SuperOwner, userId, DateTime.Now, false);
             this.Save(notification);
         }
+
+        public void SendTouristNotification(NotificationCategory category, int touristId, int tourId) {
+            if(touristId != -1)
+                this.Save(new Notification(category, touristId, tourId));
+        }
     }
 }
