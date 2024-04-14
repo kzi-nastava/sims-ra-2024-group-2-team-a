@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace BookingApp.Services {
     public class ReviewService {
         
-        private readonly ReviewRepository _reviewRepository = new ReviewRepository();
+        private readonly IReviewRepository _reviewRepository = RepositoryInjector.GetInstance<IReviewRepository>();
         private readonly OwnerService _ownerService = new OwnerService();
         
         public ReviewService() { }

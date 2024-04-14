@@ -1,12 +1,13 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
+using BookingApp.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Documents;
 
 namespace BookingApp.Repository {
-    public class TourReservationRepository : Repository<TourReservation> {
+    public class TourReservationRepository : Repository<TourReservation>, ITourReservationRepository {
 
         public List<TourReservation> GetByTourId(int tourId) {
             _items = _serializer.FromCSV();

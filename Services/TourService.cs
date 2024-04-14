@@ -1,16 +1,18 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Services {
     public class TourService {
-        private readonly TourRepository _tourRepository = new TourRepository();
-        private readonly PointOfInterestRepository _pointOfInterestRepository = new PointOfInterestRepository();
-        private readonly PassengerRepository _passengerRepository = new PassengerRepository();
-        private readonly TourReviewRepository _tourReviewRepository = new TourReviewRepository();
+        private readonly ITourRepository _tourRepository = RepositoryInjector.GetInstance<ITourRepository>();
+        private readonly IPointOfInterestRepository _pointOfInterestRepository = RepositoryInjector.GetInstance<IPointOfInterestRepository>();
+        private readonly IPassengerRepository _passengerRepository = RepositoryInjector.GetInstance<IPassengerRepository>();
+        private readonly ITourReviewRepository _tourReviewRepository = RepositoryInjector.GetInstance<ITourReviewRepository>();
+
         private readonly PassengerService _passengerService = new PassengerService();
         private readonly TourReservationService _tourReservationService = new TourReservationService();
 

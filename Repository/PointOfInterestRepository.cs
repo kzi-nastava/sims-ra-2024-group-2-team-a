@@ -1,9 +1,10 @@
 ﻿using BookingApp.Model;
+using BookingApp.RepositoryInterfaces;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Repository {
-    public class PointOfInterestRepository : Repository<PointOfInterest> {
+    public class PointOfInterestRepository : Repository<PointOfInterest>, IPointOfInterestRepository {
         public List<PointOfInterest> GetAllByTourId(int tourId) {
             List<PointOfInterest> points = _items = _serializer.FromCSV();
             return points.FindAll(c => c.TourId == tourId);

@@ -1,15 +1,16 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Services {
     public class TourReservationService {
-        private readonly TourReservationRepository _tourReservationRepository = new TourReservationRepository();
-        private readonly TourRepository _tourRepository = new TourRepository();
-        private readonly PassengerRepository _passengerRepository = new PassengerRepository();
-        private readonly VoucherRepository _voucherRepository = new VoucherRepository();
+        private readonly ITourReservationRepository _tourReservationRepository = RepositoryInjector.GetInstance<ITourReservationRepository>();
+        private readonly ITourRepository _tourRepository = RepositoryInjector.GetInstance<ITourRepository>();
+        private readonly IPassengerRepository _passengerRepository = RepositoryInjector.GetInstance<IPassengerRepository>();
+        private readonly IVoucherRepository _voucherRepository = RepositoryInjector.GetInstance<IVoucherRepository>();
 
         private void FillTourCapacity(int tourId, int addedPassengersNumber) {
             Tour selectedTour = _tourRepository.GetById(tourId);

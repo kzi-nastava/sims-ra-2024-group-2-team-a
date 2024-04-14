@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace BookingApp.Services {
 
     public class OwnerService {
 
-        private readonly OwnerRepository _ownerRepository = new OwnerRepository();
+        private readonly IOwnerRepository _ownerRepository = RepositoryInjector.GetInstance<IOwnerRepository>();
 
         public Owner GetByUserId(int userId) {
             return _ownerRepository.GetAll().Find(owner => owner.UserId == userId);
