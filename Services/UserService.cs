@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace BookingApp.Services {
     public class UserService {
 
-        private readonly UserRepository _userRepository = new UserRepository();
+        private readonly IUserRepository _userRepository = RepositoryInjector.GetInstance<IUserRepository>();
         private readonly OwnerService _ownerService = new OwnerService();
 
         public User GetByUsername(string username) {

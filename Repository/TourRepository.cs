@@ -1,12 +1,13 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
+using BookingApp.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Repository {
 
-    public class TourRepository : Repository<Tour> {
+    public class TourRepository : Repository<Tour>, ITourRepository {
         public Tour GetActive(int userId) {
             _items = _serializer.FromCSV();
             return _items.Find(x => x.GuideId == userId && x.State.Equals(TourState.Active));

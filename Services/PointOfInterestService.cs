@@ -1,10 +1,11 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using System.Collections.Generic;
 
 namespace BookingApp.Services {
     public class PointOfInterestService {
-        private readonly PointOfInterestRepository _pointOfInterestRepository = new PointOfInterestRepository();
+        private readonly IPointOfInterestRepository _pointOfInterestRepository = RepositoryInjector.GetInstance<IPointOfInterestRepository>();
         public List<PointOfInterest> GetAllByTourId(int tourId) {
             return _pointOfInterestRepository.GetAllByTourId(tourId);
         }

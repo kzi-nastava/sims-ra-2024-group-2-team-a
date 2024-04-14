@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.Repository {
-    public interface IRepository<T> {
+namespace BookingApp.RepositoryInterfaces {
 
+    public interface IRepository<T> {
         List<T> GetAll();
         T Save(T item);
         bool Update(T item);

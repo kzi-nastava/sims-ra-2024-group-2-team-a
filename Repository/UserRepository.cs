@@ -1,14 +1,14 @@
 ﻿using BookingApp.Model;
+using BookingApp.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Repository {
-    public class UserRepository : Repository<User> {
+    public class UserRepository : Repository<User>, IUserRepository {
 
         public User GetByUsername(string username) {
-            _items = GetAll();
-            return _items.FirstOrDefault(x => x.Username == username);
+            return this.GetAll().FirstOrDefault(x => x.Username == username);
         }
     }
 }

@@ -1,16 +1,17 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Services {
     public class VoucherService {
-        private readonly VoucherRepository _voucherRepository;
+        private readonly IVoucherRepository _voucherRepository = RepositoryInjector.GetInstance<IVoucherRepository>();
 
         public VoucherService() {
-            _voucherRepository = new VoucherRepository();
+
         }
 
         public List<Voucher> GetByTouristId(int userId) {

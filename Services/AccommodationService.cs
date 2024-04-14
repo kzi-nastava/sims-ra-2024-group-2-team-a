@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookingApp.Services
 {
     class AccommodationService
     {
-        private readonly AccommodationRepository _accommodationRepository = new AccommodationRepository();
+        private readonly IAccommodationRepository _accommodationRepository = RepositoryInjector.GetInstance<IAccommodationRepository>();
 
         public List<Accommodation> GetAll() {
             return _accommodationRepository.GetAll();

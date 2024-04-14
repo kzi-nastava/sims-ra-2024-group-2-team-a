@@ -1,14 +1,13 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Services {
     public class PassengerService {
-        private readonly PassengerRepository _passengerRepository = new PassengerRepository();
-        private readonly TourRepository _tourRepository = new TourRepository();
-        private readonly TourReservationRepository _tourReservationRepository = new TourReservationRepository();
+        private readonly IPassengerRepository _passengerRepository = RepositoryInjector.GetInstance<IPassengerRepository>();
 
         public List<int> GetAttendance(List<TourReservation> reservations) {
             List<Passenger> passengers = GetByReservations(reservations);

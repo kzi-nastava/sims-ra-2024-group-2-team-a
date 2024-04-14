@@ -1,11 +1,12 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using System.Collections.Generic;
 
 namespace BookingApp.Services {
     public class TourReviewService {
-        private readonly TourReviewRepository _tourReviewRepository = new TourReviewRepository();
+        private readonly ITourReviewRepository _tourReviewRepository = RepositoryInjector.GetInstance<ITourReviewRepository>();
 
         public void SendReview(TourDTO tour, int touristId, TourReviewDTO tourReviewDTO) {
             tourReviewDTO.TourId = tour.Id;
