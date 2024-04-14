@@ -42,6 +42,8 @@ namespace BookingApp.WPF.Android.Views {
                 if (!notification.IsRead) 
                     NotificationDTOs.Add(new NotificationDTO(notification));
             }
+
+            NotificationDTOs = NotificationDTOs.OrderByDescending(notification => notification.CreationDate).ToList();
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e) {

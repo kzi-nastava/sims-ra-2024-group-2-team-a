@@ -34,11 +34,14 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void UserControlLoaded(object sender, RoutedEventArgs e) {
+            if (DataContext is AccommodationReservationCardViewModel)
+                return;
+
             GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
             _parentPage = window.MainFrame.Content as ReservationsPage;
 
-            AccommodationReservationDTO reservationDTO = DataContext as AccommodationReservationDTO;
-            ViewModel = new AccommodationReservationCardViewModel(reservationDTO);
+            AccommodationReservationDTO reservation= DataContext as AccommodationReservationDTO;
+            ViewModel = new AccommodationReservationCardViewModel(reservation);
             DataContext = ViewModel;
         }
 

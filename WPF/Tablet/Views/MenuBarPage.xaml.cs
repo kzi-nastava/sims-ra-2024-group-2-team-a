@@ -1,7 +1,6 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
-using BookingApp.Repository;
-using BookingApp.Services;
+﻿using BookingApp.Model;
+using BookingApp.View.TabletView;
+using BookingApp.WPF.Tablet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,7 +12,6 @@ namespace BookingApp.WPF.Tablet.Views {
         private Frame _menuBarFrame, _mainFrame;
         private int _userId;
 
-        private readonly TourService _tourService = new TourService();
         public MenuBarPage(Frame menuBarF, Frame mainF, int userId) {
             InitializeComponent();
             _mainFrame = mainF;
@@ -39,22 +37,20 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void followLiveButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.Content = new FollowLiveTourPage(_userId);
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            MenuBarViewModel viewModel = new MenuBarViewModel(_userId);
+            if(viewModel.IsTourActive())
+                _mainFrame.Content = new LiveTourPage(viewModel.tourDTO, _mainFrame,  _userId);
+            else
+                _mainFrame.Content = new FollowLiveTourPage(_userId);
             
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
         private void finishedToursButton_Click(object sender, RoutedEventArgs e) {
             _mainFrame.Content = new FinishedToursPage(_userId);
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
         private void statsButton_Click(object sender, RoutedEventArgs e) {
-            Tour tour = _tourService.GetMostViewedByYear(-1);
-            if (tour == null) {
-                MessageBox.Show("Nema tura iz te godine", "NEMA", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            
-            _mainFrame.Content = new TourStatsPage(new DTO.TourDTO(tour), _mainFrame, _menuBarFrame, _userId);
+            _mainFrame.Content = new TourStatsPage(null, _mainFrame, _menuBarFrame, _userId);
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
 

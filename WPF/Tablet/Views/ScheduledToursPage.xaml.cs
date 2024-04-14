@@ -1,23 +1,8 @@
 ﻿using BookingApp.DTO;
-using BookingApp.Model;
-using BookingApp.Repository;
-using BookingApp.Services;
+using BookingApp.WPF.Tablet.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
@@ -25,38 +10,16 @@ namespace BookingApp.WPF.Tablet.Views {
     /// </summary>
     public partial class ScheduledToursPage : Page {
 
-        private int _userId;
-
-        private readonly LocationService _locationService = new LocationService();
-        private readonly LanguageService _languageService = new LanguageService();
-
-        private readonly TourService _tourService = new TourService();
-
-        private TourFilterDTO _filterDTO;
-        public TourDTO tourDTO { get; set; }
-        public LocationDTO selectedLocationDTO { get; set; }
-        public LanguageDTO selectedLanguageDTO { get; set; }
-        public ObservableCollection<LocationDTO> locationDTOs { get; set; }
-        public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
-        public ObservableCollection<TourDTO> tourDTOs { get; set; }
+        public ScheduledTourViewModel ViewModel { get; set; }
         public ScheduledToursPage(int userId) {
             InitializeComponent();
-            _userId = userId;
-            DataContext = this;
-            Load();
+            ViewModel = new ScheduledTourViewModel(userId);
+            DataContext = ViewModel;
         }
 
         private void filterButton_Click(object sender, RoutedEventArgs e) {
-            _filterDTO = SetFilter();
-
-            tourDTOs.Clear();
-            foreach (var tour in _tourService.GetFilteredScheduled(_filterDTO, _userId)) {
-                TourDTO temp = new TourDTO(tour);
-                setLocationLanguage(temp, tour);
-                tourDTOs.Add(temp);
-            }
-
-            itemsControlScheduledTours.ItemsSource = tourDTOs;
+            ViewModel.FilterTours(SetFilter());
+            itemsControlScheduledTours.ItemsSource = ViewModel.tourDTOs;
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e) {
@@ -67,37 +30,6 @@ namespace BookingApp.WPF.Tablet.Views {
             comboBoxLanguage.SelectedIndex = 0;
             comboBoxLocation.SelectedIndex = 0;
             datePicker.SelectedDate = DateTime.MinValue;
-        }
-        private void Load() {
-            locationDTOs = new ObservableCollection<LocationDTO>();
-            languageDTOs = new ObservableCollection<LanguageDTO>();
-
-            locationDTOs.Add(new LocationDTO());
-            languageDTOs.Add(new LanguageDTO());
-
-            foreach (var lan in _languageService.GetAll()) {
-                languageDTOs.Add(new LanguageDTO(lan));
-            }
-            foreach (var loc in _locationService.GetAll()) {
-                locationDTOs.Add(new LocationDTO(loc));
-            }
-            LoadScheduled();
-        }
-
-        private void LoadScheduled() {
-            tourDTOs = new ObservableCollection<TourDTO>();
-            foreach (var tour in _tourService.GetScheduled(_userId)) {
-                TourDTO tempTourDTO = new TourDTO(tour);
-                setLocationLanguage(tempTourDTO, tour);
-                tourDTOs.Add(tempTourDTO);
-            }
-        }
-        private void setLocationLanguage(TourDTO tempTourDTO, Tour tour) {
-            Location location = _locationService.GetById(tour.LocationId);
-            string city = location.City;
-            string country = location.Country;
-            tempTourDTO.setLocationTemplate(city, country);
-            tempTourDTO.LanguageTemplate = _languageService.GetById(tour.LanguageId).Name;
         }
 
         private TourFilterDTO SetFilter() {

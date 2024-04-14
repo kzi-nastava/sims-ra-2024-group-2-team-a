@@ -1,18 +1,7 @@
-﻿using BookingApp.DTO;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
@@ -21,26 +10,8 @@ namespace BookingApp.WPF.Tablet.Views {
     public partial class AddBegginingDateTimeWindow : Window
     {
         public ObservableCollection<DateTime> begginings { get; set; }
-        private DateOnly _date;
-        public DateOnly Date {
-            get {
-                return _date;
-            }
-            set {
-                if( _date != value ) {
-                    _date = value;
-                }
-            }
-        }
-        private int _time;
-        public int Time {
-            get { return _time; }
-            set {
-                if(_time != value ) {
-                    _time = value;
-                }
-            }
-        }
+        public DateOnly Date { get; set; }
+        public int Time { get; set; }
         public AddBegginingDateTimeWindow(ObservableCollection<DateTime> dateTimes) {
             InitializeComponent();
             DataContext = this;

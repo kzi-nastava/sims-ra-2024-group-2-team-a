@@ -27,6 +27,7 @@ namespace BookingApp.DTO
             RequiresRenovation = review.RequiresRenovation;
             Importance = review.Importance;
             RenovationComment = review.RenovationComment;
+            AccommodationPhotos.AddRange(review.AccommodationPhotos);
         }
 
         public int Id { get; set; }
@@ -151,8 +152,10 @@ namespace BookingApp.DTO
             }
         }
 
+        public List<string> AccommodationPhotos { get; set; } = new List<string>();
+
         public Review ToReview() {
-            var review = new Review(ReservationId, GuestId, OwnerId, GuestCleannessGrade, RuleFollowingGrade, OwnerComment, AccommodationCleannessGrade, OwnerCorrectnessGrade, GuestComment, RequiresRenovation, Importance, RenovationComment);
+            var review = new Review(ReservationId, GuestId, OwnerId, GuestCleannessGrade, RuleFollowingGrade, OwnerComment, AccommodationCleannessGrade, OwnerCorrectnessGrade, GuestComment, RequiresRenovation, Importance, RenovationComment, AccommodationPhotos);
             review.Id = Id;
             return review;
         }

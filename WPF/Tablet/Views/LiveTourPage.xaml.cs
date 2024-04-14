@@ -1,9 +1,6 @@
 ﻿using BookingApp.DTO;
-using BookingApp.Repository;
-using BookingApp.Services;
+using BookingApp.WPF.Tablet.ViewModels;
 using BookingApp.WPF.Tablet.Views;
-using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,80 +9,38 @@ namespace BookingApp.View.TabletView {
     /// Interaction logic for LiveTourPage.xaml
     /// </summary>
     public partial class LiveTourPage : Page {
-        private Frame _mainFrame, _menuBarFrame;
-        private int _userId;
+        private Frame _mainFrame;
+        private int _userId; 
 
-        private readonly TourService _tourService = new TourService();  
-        private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
-        private int _pointOfInterestIndex;
-        public TourDTO tourDTO { get; set; }
-        public PointOfInterestDTO pointOfInterestDTO { get; set; }
-        public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
-        public LiveTourPage(TourDTO tDTO, Frame mainF, Frame menuBarF, int userId) {
+        public LiveTourViewModel ViewModel { get; set; }    
+        public LiveTourPage(TourDTO tDTO, Frame mainF, int userId) {
             InitializeComponent();
-            DataContext = this;
+            ViewModel = new LiveTourViewModel(tDTO, userId);
+            DataContext = ViewModel;
 
-            tourDTO = tDTO;
             _mainFrame = mainF;
-            _menuBarFrame = menuBarF;
-            _userId = userId;
-            _pointOfInterestIndex = 0;
-
-            _menuBarFrame.IsHitTestVisible = false;
-            _menuBarFrame.Opacity = 0.3;
-
-            Load();
         }
         private void checkButton_Click(object sender, RoutedEventArgs e) {
-
             bool isConfirmed = JoinPassengers();
-            if(!isConfirmed) 
+            if (!isConfirmed)
                 return;
-            
-            pointOfInterestDTOs[_pointOfInterestIndex].IsChecked = true;
-            _pointOfInterestIndex++;
-            _pointOfInterestService.Update(pointOfInterestDTO.ToModel());
-
-            if (_pointOfInterestIndex != pointOfInterestDTOs.Count)
-                return;
-
-            FinishTour();
+            if(ViewModel.CheckKeyPoint())
+                FinishTour();
         }
 
         private void finishButton_Click(object sender, RoutedEventArgs e) {
             FinishTour();
         }
-        private void Load() {
-            pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
-
-            foreach (var point in _pointOfInterestService.GetAllByTourId(tourDTO.Id)) {
-                /*if (!point.IsChecked && _pointOfInterestIndex == -1)
-                    _pointOfInterestIndex = pointOfInterestDTOs.Count;            Ovo isto */
-                pointOfInterestDTOs.Add(new PointOfInterestDTO(point));
-            }
-            pointOfInterestDTOs[0].IsChecked = true;
-            pointOfInterestDTO = pointOfInterestDTOs[_pointOfInterestIndex++];
-            _pointOfInterestService.Update(pointOfInterestDTO.ToModel());
-            /*if (_pointOfInterestIndex == 0) {
-                pointOfInterestDTOs[0].IsChecked = true;
-                pointOfInterestDTO = pointOfInterestDTOs[_pointOfInterestIndex++];
-                _pointOfInterestRepository.Update(pointOfInterestDTO.ToModel());  Ovo sacuvaj ako vudes omogucio
-                                                                                  Izlazenje tokom startovanja ture
-            }*/
-        }
+        
         private void FinishTour() {
             MessageBox.Show("Finished", "Finished", MessageBoxButton.OK, MessageBoxImage.Information);
-            tourDTO.State = Model.TourState.Finished;
-            tourDTO.End = DateTime.Now;
-            _tourService.Update(tourDTO.ToModel());
+            ViewModel.FinishTour();
             _mainFrame.Content = new FollowLiveTourPage(_userId);
-            _menuBarFrame.IsHitTestVisible = true;
-            _menuBarFrame.Opacity = 1;
         }
 
         private bool JoinPassengers() {
-            pointOfInterestDTO = pointOfInterestDTOs[_pointOfInterestIndex];
-            PassengerWindow passengerWindow = new PassengerWindow(tourDTO.Id, pointOfInterestDTO.Id);
+            ViewModel.SetPointOfInterestDTO();
+            PassengerWindow passengerWindow = new PassengerWindow(ViewModel.tourDTO.Id, ViewModel.pointOfInterestDTO.Id);
             bool isConfirmed = (bool)passengerWindow.ShowDialog();
             return isConfirmed;
         }

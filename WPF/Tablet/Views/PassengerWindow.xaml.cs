@@ -1,9 +1,5 @@
 ﻿using BookingApp.DTO;
-using BookingApp.Model;
-using BookingApp.Repository;
-using BookingApp.Services;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using BookingApp.WPF.Tablet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,21 +8,11 @@ namespace BookingApp.WPF.Tablet.Views {
     /// Interaction logic for PassengerWindow.xaml
     /// </summary>
     public partial class PassengerWindow : Window {
-        private int _tourId;
-        private int _pointOfInterestId;
-
-        private readonly TourReservationService _tourReservationService = new TourReservationService();
-        private readonly PassengerService _passengerService = new PassengerService();
-
-        public PassengerDTO passengerDTO { get; set; }
-        public ObservableCollection<PassengerDTO> passengerDTOs { get; set; }
-        public List<PassengerDTO> joinedPassengerDTOs { get; set; }
+        public PassengerWindowViewModel ViewModel { get; set; }
         public PassengerWindow(int tourID, int pointOfInterestId) {
             InitializeComponent();
-            DataContext = this;
-            _tourId = tourID;
-            _pointOfInterestId = pointOfInterestId;
-            Load();
+            ViewModel = new PassengerWindowViewModel(tourID, pointOfInterestId);
+            DataContext = ViewModel;
         }
 
         private void joinPassengerTourComboBox_Click(object sender, RoutedEventArgs e) {
@@ -44,22 +30,10 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void confirmButton_Click(object sender, RoutedEventArgs e) {
-            foreach (var passengerDTO in passengerDTOs) {
-                if (passengerDTO.IsJoined)
-                    passengerDTO.JoinedPointOfInterestId = _pointOfInterestId;
-                _passengerService.Update(passengerDTO.ToModel());
-            }
+            ViewModel.JoinPassengers();
             this.DialogResult = true;
             this.Close();
         }
 
-        private void Load() {
-            passengerDTOs = new ObservableCollection<PassengerDTO>();
-            joinedPassengerDTOs = new List<PassengerDTO>();
-            List<TourReservation> reservations = _tourReservationService.GetByTourId(_tourId);
-            foreach (var passenger in _passengerService.GetUnJoined(reservations)) {
-                passengerDTOs.Add(new PassengerDTO(passenger));
-            }
-        }
     }
 }

@@ -1,22 +1,8 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Model;
-using BookingApp.Repository;
-using BookingApp.Services;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BookingApp.WPF.Tablet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
@@ -26,35 +12,15 @@ namespace BookingApp.WPF.Tablet.Views {
         private Frame _mainFrame, _menuBarFrame;
         private int _userId;
 
-
-        private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
-        private readonly TourService _tourService = new TourService();
-        public TourDTO tourDTO { get; set; }
-        public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
-        public int teen { get; set; }
-        public int mid { get; set; }
-        public int old { get; set; }
-
+        public TourStatsViewModel ViewModel { get; set; }
         public TourStatsPage(TourDTO tDTO, Frame mainF, Frame menuBarF, int userId) {
             InitializeComponent();
-            DataContext = this;
+            ViewModel = new TourStatsViewModel(tDTO, userId);
+            DataContext = ViewModel;
 
-            tourDTO = tDTO;
             _mainFrame = mainF;
             _menuBarFrame = menuBarF;
             _userId = userId;
-
-
-            pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
-
-            foreach (var point in _pointOfInterestService.GetAllByTourId(tourDTO.Id)) {
-                pointOfInterestDTOs.Add(new PointOfInterestDTO(point));
-            }
-
-            List<int> stats = _tourService.GetTourStats(tDTO.Id);
-            teen = stats[0];
-            mid = stats[1];
-            old = stats[2];
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e) {
@@ -63,7 +29,7 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void showButton_Click(object sender, RoutedEventArgs e) {
             int year = int.Parse( (string) yearComboBox.SelectedValue);
-            Tour tour = _tourService.GetMostViewedByYear(year);
+            Tour tour = ViewModel.GetMostViewedByYear(year);
             if (tour == null) {
                 MessageBox.Show("Nema tura iz te godine", "NEMA", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;

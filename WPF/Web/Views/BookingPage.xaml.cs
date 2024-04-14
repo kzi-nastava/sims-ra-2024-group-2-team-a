@@ -18,6 +18,7 @@ namespace BookingApp.WPF.Web.Views {
 
         private readonly AccommodationService _accommodationService = new AccommodationService();
         private readonly LocationService _locationService = new LocationService();
+        private readonly OwnerService _ownerService = new OwnerService();
 
         public BookingPage() {
             InitializeComponent();
@@ -44,7 +45,12 @@ namespace BookingApp.WPF.Web.Views {
                 acc.Location = loc;
             }
 
+            _accommodationDTOs = _accommodationDTOs.OrderByDescending(a => IsAccommodationOwnerSuper(a.OwnerId)).ToList();
             itemsControlAccommodations.ItemsSource = _accommodationDTOs;
+        }
+
+        private bool IsAccommodationOwnerSuper(int ownerId) {
+            return _ownerService.GetByUserId(ownerId).IsSuper;
         }
 
         private void SetItemSources() {
