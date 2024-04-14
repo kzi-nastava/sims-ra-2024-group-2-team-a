@@ -29,12 +29,12 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void showButton_Click(object sender, RoutedEventArgs e) {
             int year = int.Parse( (string) yearComboBox.SelectedValue);
-            Tour tour = ViewModel.GetMostViewedByYear(year);
-            if (tour == null) {
+            
+            if (!ViewModel.GetMostViewedByYear(year)) {
                 MessageBox.Show("Nema tura iz te godine", "NEMA", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            _mainFrame.Content = new TourStatsPage(new DTO.TourDTO(tour), _mainFrame, _menuBarFrame, _userId);
+            _mainFrame.Content = new TourStatsPage(ViewModel.tourDTO, _mainFrame, _menuBarFrame, _userId);
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
     }

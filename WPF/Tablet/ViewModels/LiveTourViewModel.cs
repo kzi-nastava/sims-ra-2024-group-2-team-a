@@ -47,11 +47,6 @@ namespace BookingApp.WPF.Tablet.ViewModels {
                     _pointOfInterestIndex = pointOfInterestDTOs.Count;
                 pointOfInterestDTOs.Add(new PointOfInterestDTO(point));
             }
-            if (_pointOfInterestIndex == 0) {
-                pointOfInterestDTOs[0].IsChecked = true;
-                pointOfInterestDTO = pointOfInterestDTOs[_pointOfInterestIndex++];
-                _pointOfInterestService.Update(pointOfInterestDTO.ToModel());
-            }
         }
         public void FinishTour() {
             tourDTO.State = TourState.Finished;
@@ -59,7 +54,7 @@ namespace BookingApp.WPF.Tablet.ViewModels {
             _tourService.Update(tourDTO.ToModel());
         }
         public bool CheckKeyPoint() {
-            pointOfInterestDTOs[_pointOfInterestIndex].IsChecked = true;
+            pointOfInterestDTOs[_pointOfInterestIndex++].IsChecked = true;
             _pointOfInterestIndex++;
             _pointOfInterestService.Update(pointOfInterestDTO.ToModel());
 
@@ -108,6 +103,11 @@ namespace BookingApp.WPF.Tablet.ViewModels {
                 SetLocationLanguage(temp, tour);
                 tourDTOs.Add(temp);
             }
+        }
+        public bool HasStarted() {
+            if(_pointOfInterestIndex == 0)
+                return false;
+            return true;
         }
     }
 }

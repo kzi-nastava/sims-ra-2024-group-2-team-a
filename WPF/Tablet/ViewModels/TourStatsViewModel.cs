@@ -11,6 +11,8 @@ namespace BookingApp.WPF.Tablet.ViewModels {
 
         private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
         private readonly TourService _tourService = new TourService();
+        private readonly LanguageService _languageService = new LanguageService();
+        private readonly LocationService _locationService = new LocationService();
         public TourDTO tourDTO { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
         public int teen { get; set; }
@@ -19,12 +21,10 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         
         public TourStatsViewModel(TourDTO tDTO, int userId) {
             if (tDTO == null) {
-                Tour tour = _tourService.GetMostViewedByYear(-1);
-                if (tour == null) {
+                if (!GetMostViewedByYear(-1)) {
                     MessageBox.Show("Nema tura iz te godine", "NEMA", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                tourDTO = new TourDTO(tour);
             }
             else {
                 tourDTO = tDTO;
@@ -43,8 +43,20 @@ namespace BookingApp.WPF.Tablet.ViewModels {
             mid = stats[1];
             old = stats[2];
         }
-        public Tour GetMostViewedByYear(int year) {
-            return _tourService.GetMostViewedByYear(year);
+        public bool GetMostViewedByYear(int year) {
+            Tour tour = _tourService.GetMostViewedByYear(year);
+            if (tour == null)
+                return false;
+            tourDTO = new TourDTO(tour);
+            SetLanguageLocation();
+            return true;
+        }
+        private void SetLanguageLocation() {
+            Location location = _locationService.GetById(tourDTO.LocationId);
+            string city = location.City;
+            string country = location.Country;
+            tourDTO.setLocationTemplate(city, country);
+            tourDTO.LanguageTemplate = _languageService.GetById(tourDTO.LanguageId).Name;
         }
     }
 }

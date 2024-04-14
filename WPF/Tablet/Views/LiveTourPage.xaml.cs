@@ -18,20 +18,24 @@ namespace BookingApp.View.TabletView {
             ViewModel = new LiveTourViewModel(tDTO, userId);
             DataContext = ViewModel;
 
+            if (!ViewModel.HasStarted())
+                CheckKeypoint();
             _mainFrame = mainF;
         }
         private void checkButton_Click(object sender, RoutedEventArgs e) {
-            bool isConfirmed = JoinPassengers();
-            if (!isConfirmed)
-                return;
-            if(ViewModel.CheckKeyPoint())
-                FinishTour();
+            CheckKeypoint();
         }
 
         private void finishButton_Click(object sender, RoutedEventArgs e) {
             FinishTour();
         }
-        
+        private void CheckKeypoint() {
+            bool isConfirmed = JoinPassengers();
+            if (!isConfirmed)
+                return;
+            if (ViewModel.CheckKeyPoint())
+                FinishTour();
+        }
         private void FinishTour() {
             MessageBox.Show("Finished", "Finished", MessageBoxButton.OK, MessageBoxImage.Information);
             ViewModel.FinishTour();
