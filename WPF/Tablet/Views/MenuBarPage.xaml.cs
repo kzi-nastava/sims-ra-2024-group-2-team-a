@@ -1,5 +1,4 @@
-﻿using BookingApp.Model;
-using BookingApp.View.TabletView;
+﻿using BookingApp.View.TabletView;
 using BookingApp.WPF.Tablet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;

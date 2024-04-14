@@ -1,11 +1,6 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
+﻿using BookingApp.Model;
 using BookingApp.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BookingApp.WPF.DTO;
 
 namespace BookingApp.WPF.Tablet.ViewModels {
     public class MenuBarViewModel {

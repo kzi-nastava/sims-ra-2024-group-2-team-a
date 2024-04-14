@@ -1,10 +1,6 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
-using System;
+﻿using BookingApp.Model;
+using BookingApp.WPF.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.RepositoryInterfaces {
     public interface ITourRepository : IRepository<Tour>{

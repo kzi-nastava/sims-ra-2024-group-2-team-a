@@ -1,31 +1,35 @@
 ﻿using BookingApp.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BookingApp.DTO {
-    public class VoucherDTO : INotifyPropertyChanged {
+namespace BookingApp.WPF.DTO {
+    public class VoucherDTO : INotifyPropertyChanged
+    {
         private int _id;
-        public int Id {
+        public int Id
+        {
             get { return _id; }
-            set {
-                if (_id != value) {
+            set
+            {
+                if (_id != value)
+                {
                     _id = value; OnPropertyChanged();
                 }
             }
         }
 
         private string _image;
-        public string Image {
-            get {
+        public string Image
+        {
+            get
+            {
                 return _image;
             }
-            set {
-                if (_image != value) {
+            set
+            {
+                if (_image != value)
+                {
                     _image = value;
                     OnPropertyChanged();
                 }
@@ -33,10 +37,13 @@ namespace BookingApp.DTO {
         }
 
         private DateTime _expireDate;
-        public DateTime ExpireDate {
+        public DateTime ExpireDate
+        {
             get { return _expireDate; }
-            set {
-                if (_expireDate != value) {
+            set
+            {
+                if (_expireDate != value)
+                {
                     _expireDate = value;
                     OnPropertyChanged();
                 }
@@ -44,19 +51,24 @@ namespace BookingApp.DTO {
         }
 
         private bool _used;
-        public bool Used {
-            get {
+        public bool Used
+        {
+            get
+            {
                 return _used;
             }
-            set {
-                if(_used != value) {
+            set
+            {
+                if (_used != value)
+                {
                     _used = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public VoucherDTO(Voucher voucher) {
+        public VoucherDTO(Voucher voucher)
+        {
             Id = voucher.Id;
             Image = voucher.Image;
             ExpireDate = voucher.ExpireDate;
@@ -64,7 +76,8 @@ namespace BookingApp.DTO {
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

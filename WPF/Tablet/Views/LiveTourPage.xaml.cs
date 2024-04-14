@@ -1,4 +1,4 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.WPF.DTO;
 using BookingApp.WPF.Tablet.ViewModels;
 using BookingApp.WPF.Tablet.Views;
 using System.Windows;

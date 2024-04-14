@@ -1,13 +1,4 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
-using BookingApp.Repository;
-using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows;
 
 namespace BookingApp.WPF.Desktop.Views {
     /// <summary>

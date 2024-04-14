@@ -1,15 +1,11 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
+﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
-using System;
-using System.Collections.Generic;
+using BookingApp.WPF.DTO;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TouristReservationWindowViewModel : INotifyPropertyChanged {

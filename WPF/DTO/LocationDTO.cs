@@ -2,16 +2,19 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BookingApp.DTO {
+namespace BookingApp.WPF.DTO {
 
-    public class LocationDTO : INotifyPropertyChanged {
+    public class LocationDTO : INotifyPropertyChanged
+    {
 
         public LocationDTO() { }
-        public LocationDTO(string city, string country) {
+        public LocationDTO(string city, string country)
+        {
             _city = city;
             _country = country;
         }
-        public LocationDTO(Location location) {
+        public LocationDTO(Location location)
+        {
             Id = location.Id;
             City = location.City;
             Country = location.Country;
@@ -20,12 +23,16 @@ namespace BookingApp.DTO {
         public int Id { get; set; } = 0;
 
         private string _city = "";
-        public string City {
-            get {
+        public string City
+        {
+            get
+            {
                 return _city;
             }
-            set {
-                if (value != _city) {
+            set
+            {
+                if (value != _city)
+                {
                     _city = value;
                     OnPropertyChanged();
                 }
@@ -33,12 +40,16 @@ namespace BookingApp.DTO {
         }
 
         private string _country = "";
-        public string Country {
-            get {
+        public string Country
+        {
+            get
+            {
                 return _country;
             }
-            set {
-                if (value != _country) {
+            set
+            {
+                if (value != _country)
+                {
                     _country = value;
                     OnPropertyChanged();
                 }
@@ -49,14 +60,16 @@ namespace BookingApp.DTO {
 
         public string LocationInfoTemplate => Id != 0 ? $"{City}, {Country}" : "";
 
-        public Location ToLocation() {
+        public Location ToLocation()
+        {
             Location loc = new Location(_city, _country);
             loc.Id = Id;
             return loc;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

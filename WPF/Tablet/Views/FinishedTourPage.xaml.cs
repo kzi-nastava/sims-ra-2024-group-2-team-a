@@ -1,9 +1,9 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.WPF.DTO;
 using BookingApp.WPF.Tablet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace BookingApp.WPF.Tablet.Views{
+namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
     /// Interaction logic for FinishedTourPage.xaml
     /// </summary>

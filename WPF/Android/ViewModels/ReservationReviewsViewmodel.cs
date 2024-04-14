@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BookingApp.Model;
 using BookingApp.Services;
-using BookingApp.DTO;
 using System.Collections.ObjectModel;
 using BookingApp.WPF.Android.Views;
 using System.Windows;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using BookingApp.Commands;
+using BookingApp.WPF.DTO;
 
 namespace BookingApp.WPF.Android.ViewModels {
     public class ReservationReviewsViewmodel : INotifyPropertyChanged {

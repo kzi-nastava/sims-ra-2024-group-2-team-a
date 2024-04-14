@@ -1,14 +1,10 @@
-﻿using BookingApp.DTO;
-using BookingApp.Serializer;
+﻿using BookingApp.Serializer;
+using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BookingApp.Model
-{
+namespace BookingApp.Model {
     public class TourReview : ISerializable, IIdentifiable {
         public int Id { get; set; }
         public int KnowledgeGrade {  get; set; }

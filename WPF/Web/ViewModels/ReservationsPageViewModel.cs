@@ -1,17 +1,10 @@
-﻿using BookingApp.DTO;
-using BookingApp.Services;
-using BookingApp.WPF.Web.Views;
-using System;
-using System.Collections.Generic;
+﻿using BookingApp.Services;
+using BookingApp.WPF.DTO;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
-namespace BookingApp.WPF.Web.ViewModels
-{
+namespace BookingApp.WPF.Web.ViewModels {
     public class ReservationsPageViewModel : INotifyPropertyChanged {
 
         private readonly int _guestId;

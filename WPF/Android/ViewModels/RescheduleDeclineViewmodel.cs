@@ -1,12 +1,6 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
+﻿using BookingApp.Model;
 using BookingApp.Services;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BookingApp.WPF.DTO;
 
 namespace BookingApp.WPF.Android.ViewModels {
     public class RescheduleDeclineViewmodel {

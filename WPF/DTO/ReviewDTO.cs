@@ -1,19 +1,16 @@
 ﻿using BookingApp.Model;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BookingApp.DTO
-{
-    public class ReviewDTO: INotifyPropertyChanged {
-        
+namespace BookingApp.WPF.DTO {
+    public class ReviewDTO : INotifyPropertyChanged
+    {
+
         public ReviewDTO() { }
 
-        public ReviewDTO(Review review) {
+        public ReviewDTO(Review review)
+        {
             Id = review.Id;
             ReservationId = review.ReservationId;
             GuestId = review.GuestId;
@@ -36,12 +33,16 @@ namespace BookingApp.DTO
         public int OwnerId { get; set; }
 
         private int _guestCleannessGrade;
-        public int GuestCleannessGrade {
-            get {
+        public int GuestCleannessGrade
+        {
+            get
+            {
                 return _guestCleannessGrade;
             }
-            set {
-                if (value != _guestCleannessGrade) {
+            set
+            {
+                if (value != _guestCleannessGrade)
+                {
                     _guestCleannessGrade = value;
                     OnPropertyChanged();
                 }
@@ -49,12 +50,16 @@ namespace BookingApp.DTO
         }
 
         private int _ruleFollowingGrade;
-        public int RuleFollowingGrade {
-            get {
+        public int RuleFollowingGrade
+        {
+            get
+            {
                 return _ruleFollowingGrade;
             }
-            set {
-                if (value != _ruleFollowingGrade) {
+            set
+            {
+                if (value != _ruleFollowingGrade)
+                {
                     _ruleFollowingGrade = value;
                     OnPropertyChanged();
                 }
@@ -62,12 +67,16 @@ namespace BookingApp.DTO
         }
 
         private string _ownerComment;
-        public string OwnerComment {
-            get {
+        public string OwnerComment
+        {
+            get
+            {
                 return _ownerComment;
             }
-            set {
-                if (value != _ownerComment) {
+            set
+            {
+                if (value != _ownerComment)
+                {
                     _ownerComment = value;
                     OnPropertyChanged();
                 }
@@ -75,12 +84,16 @@ namespace BookingApp.DTO
         }
 
         private int _accommodationCleanness;
-        public int AccommodationCleannessGrade {
-            get {
+        public int AccommodationCleannessGrade
+        {
+            get
+            {
                 return _accommodationCleanness;
             }
-            set {
-                if (value != _accommodationCleanness) {
+            set
+            {
+                if (value != _accommodationCleanness)
+                {
                     _accommodationCleanness = value;
                     OnPropertyChanged();
                 }
@@ -88,12 +101,16 @@ namespace BookingApp.DTO
         }
 
         private int _ownerCorrectness;
-        public int OwnerCorrectnessGrade {
-            get {
+        public int OwnerCorrectnessGrade
+        {
+            get
+            {
                 return _ownerCorrectness;
             }
-            set {
-                if (value != _ownerCorrectness) {
+            set
+            {
+                if (value != _ownerCorrectness)
+                {
                     _ownerCorrectness = value;
                     OnPropertyChanged();
                 }
@@ -101,12 +118,16 @@ namespace BookingApp.DTO
         }
 
         private string _guestComment;
-        public string GuestComment {
-            get {
+        public string GuestComment
+        {
+            get
+            {
                 return _guestComment;
             }
-            set {
-                if (value != _guestComment) {
+            set
+            {
+                if (value != _guestComment)
+                {
                     _guestComment = value;
                     OnPropertyChanged();
                 }
@@ -114,12 +135,16 @@ namespace BookingApp.DTO
         }
 
         private bool _requiresRenovation;
-        public bool RequiresRenovation {
-            get {
+        public bool RequiresRenovation
+        {
+            get
+            {
                 return _requiresRenovation;
             }
-            set {
-                if (value != _requiresRenovation) {
+            set
+            {
+                if (value != _requiresRenovation)
+                {
                     _requiresRenovation = value;
                     OnPropertyChanged();
                 }
@@ -127,12 +152,16 @@ namespace BookingApp.DTO
         }
 
         private ImportanceType _importance;
-        public ImportanceType Importance {
-            get {
+        public ImportanceType Importance
+        {
+            get
+            {
                 return _importance;
             }
-            set {
-                if (value != _importance) {
+            set
+            {
+                if (value != _importance)
+                {
                     _importance = value;
                     OnPropertyChanged();
                 }
@@ -140,12 +169,16 @@ namespace BookingApp.DTO
         }
 
         private string _renovationComment;
-        public string RenovationComment {
-            get {
+        public string RenovationComment
+        {
+            get
+            {
                 return _renovationComment;
             }
-            set {
-                if (value != _renovationComment) {
+            set
+            {
+                if (value != _renovationComment)
+                {
                     _renovationComment = value;
                     OnPropertyChanged();
                 }
@@ -154,14 +187,16 @@ namespace BookingApp.DTO
 
         public List<string> AccommodationPhotos { get; set; } = new List<string>();
 
-        public Review ToReview() {
+        public Review ToReview()
+        {
             var review = new Review(ReservationId, GuestId, OwnerId, GuestCleannessGrade, RuleFollowingGrade, OwnerComment, AccommodationCleannessGrade, OwnerCorrectnessGrade, GuestComment, RequiresRenovation, Importance, RenovationComment, AccommodationPhotos);
             review.Id = Id;
             return review;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

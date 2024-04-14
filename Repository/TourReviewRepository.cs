@@ -1,8 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.RepositoryInterfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BookingApp.Repository {
     public class TourReviewRepository : Repository<TourReview>, ITourReviewRepository{

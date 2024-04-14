@@ -1,5 +1,5 @@
-﻿using BookingApp.DTO;
-using BookingApp.View.TabletView;
+﻿using BookingApp.View.TabletView;
+using BookingApp.WPF.DTO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

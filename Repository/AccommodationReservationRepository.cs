@@ -1,13 +1,7 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
+﻿using BookingApp.Model;
 using BookingApp.RepositoryInterfaces;
-using BookingApp.Serializer;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.Repository {
     class AccommodationReservationRepository : Repository<AccommodationReservation>, IAccommodationReservationRepository {

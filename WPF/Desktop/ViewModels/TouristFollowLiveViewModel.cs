@@ -1,11 +1,6 @@
-﻿using BookingApp.DTO;
-using BookingApp.Services;
-using System;
-using System.Collections.Generic;
+﻿using BookingApp.Services;
+using BookingApp.WPF.DTO;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TouristFollowLiveViewModel {

@@ -1,12 +1,6 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
-using BookingApp.Repository;
+﻿using BookingApp.Model;
 using BookingApp.RepositoryInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BookingApp.WPF.DTO;
 
 namespace BookingApp.Services {
     public class ReviewService {

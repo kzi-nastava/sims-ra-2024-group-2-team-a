@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BookingApp.DTO {
-    public class TourDTO : INotifyPropertyChanged {
-        public TourDTO() {
+namespace BookingApp.WPF.DTO {
+    public class TourDTO : INotifyPropertyChanged
+    {
+        public TourDTO()
+        {
             ProfilePictures = new List<string>();
         }
 
-        public TourDTO(Tour t) {
+        public TourDTO(Tour t)
+        {
             Id = t.Id;
             Name = t.Name;
             LocationId = t.LocationId;
@@ -27,22 +30,29 @@ namespace BookingApp.DTO {
             TourStatus = t.State.ToString();
         }
         private int _id;
-        public int Id {
+        public int Id
+        {
             get { return _id; }
-            set {
-                if (_id != value) {
+            set
+            {
+                if (_id != value)
+                {
                     _id = value; OnPropertyChanged();
                 }
             }
         }
 
         private string _name;
-        public string Name {
-            get {
+        public string Name
+        {
+            get
+            {
                 return _name;
             }
-            set {
-                if (_name != value) {
+            set
+            {
+                if (_name != value)
+                {
                     _name = value;
                     OnPropertyChanged();
                 }
@@ -50,60 +60,78 @@ namespace BookingApp.DTO {
         }
 
         private int _locationId;
-        public int LocationId {
+        public int LocationId
+        {
             get { return _locationId; }
-            set {
-                if (_locationId != value) {
+            set
+            {
+                if (_locationId != value)
+                {
                     _locationId = value; OnPropertyChanged();
                 }
             }
         }
 
         private string _description;
-        public string Description {
+        public string Description
+        {
             get { return _description; }
-            set {
-                if (_description != value) {
+            set
+            {
+                if (_description != value)
+                {
                     _description = value; OnPropertyChanged();
                 }
             }
         }
 
         private int _languageId;
-        public int LanguageId {
+        public int LanguageId
+        {
             get { return _languageId; }
-            set {
-                if (_languageId != value) {
+            set
+            {
+                if (_languageId != value)
+                {
                     _languageId = value; OnPropertyChanged();
                 }
             }
         }
 
         private int _maxTouristNumber;
-        public int MaxTouristNumber {
+        public int MaxTouristNumber
+        {
             get { return _maxTouristNumber; }
-            set {
-                if (value != _maxTouristNumber) {
+            set
+            {
+                if (value != _maxTouristNumber)
+                {
                     _maxTouristNumber = value; OnPropertyChanged();
                 }
             }
         }
 
         private double _duration;
-        public double Duration {
+        public double Duration
+        {
             get { return _duration; }
-            set {
-                if (_duration != value) {
+            set
+            {
+                if (_duration != value)
+                {
                     _duration = value; OnPropertyChanged();
                 }
             }
         }
 
         private int _currentTouristNumber;
-        public int CurrentTouristNumber {
+        public int CurrentTouristNumber
+        {
             get { return _currentTouristNumber; }
-            set {
-                if (_currentTouristNumber != value) {
+            set
+            {
+                if (_currentTouristNumber != value)
+                {
                     _currentTouristNumber = value;
                     OnPropertyChanged();
                 }
@@ -111,20 +139,26 @@ namespace BookingApp.DTO {
         }
 
         private DateOnly _justDate;
-        public DateOnly JustDate {
+        public DateOnly JustDate
+        {
             get { return _justDate; }
-            set {
-                if (_justDate != value) {
+            set
+            {
+                if (_justDate != value)
+                {
                     _justDate = value;
                     OnPropertyChanged();
                 }
             }
         }
         private int _justTime;
-        public int JustTime {
+        public int JustTime
+        {
             get { return _justTime; }
-            set {
-                if (_justTime != value) {
+            set
+            {
+                if (_justTime != value)
+                {
                     _justTime = value;
                     OnPropertyChanged();
                 }
@@ -132,36 +166,48 @@ namespace BookingApp.DTO {
         }
 
         private DateTime _beggining;
-        public DateTime Beggining {
-            get {
+        public DateTime Beggining
+        {
+            get
+            {
                 return _beggining;
             }
-            set {
-                if (_beggining != value) {
+            set
+            {
+                if (_beggining != value)
+                {
                     _beggining = value;
                     OnPropertyChanged();
                 }
             }
         }
         private DateTime _end;
-        public DateTime End {
-            get {
+        public DateTime End
+        {
+            get
+            {
                 return _end;
             }
-            set {
-                if (_end != value) {
+            set
+            {
+                if (_end != value)
+                {
                     _end = value;
                     OnPropertyChanged();
                 }
             }
         }
         private TourState _state;
-        public TourState State {
-            get {
+        public TourState State
+        {
+            get
+            {
                 return _state;
             }
-            set {
-                if (_state != value) {
+            set
+            {
+                if (_state != value)
+                {
                     _state = value;
                     OnPropertyChanged();
                 }
@@ -169,12 +215,16 @@ namespace BookingApp.DTO {
         }
 
         private string _tourStatus;
-        public string TourStatus {
-            get {
+        public string TourStatus
+        {
+            get
+            {
                 return _tourStatus;
             }
-            set {
-                if(_tourStatus != value) { 
+            set
+            {
+                if (_tourStatus != value)
+                {
                     _tourStatus = value;
                     OnPropertyChanged();
                 }
@@ -182,10 +232,13 @@ namespace BookingApp.DTO {
         }
 
         private int _guideId;
-        public int GuideId {
+        public int GuideId
+        {
             get { return _guideId; }
-            set {
-                if (_guideId != value) {
+            set
+            {
+                if (_guideId != value)
+                {
                     _guideId = value;
                     OnPropertyChanged();
                 }
@@ -195,26 +248,32 @@ namespace BookingApp.DTO {
         public string LanguageTemplate { get; set; }
         public string LocationTemplate { get; set; }
 
-        public void setBeggining(DateTime dateTime) {
+        public void setBeggining(DateTime dateTime)
+        {
             _beggining = dateTime;
         }
-        public void setLocationTemplate(string city, string country) {
+        public void setLocationTemplate(string city, string country)
+        {
             LocationTemplate = $"{country}, {city}";
         }
 
-        public void SetLanguageTemplate(string name) {
+        public void SetLanguageTemplate(string name)
+        {
             LanguageTemplate = $"{name}";
         }
 
-        public Tour ToModelNoId() {
+        public Tour ToModelNoId()
+        {
             return new Tour(Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, State, GuideId, ProfilePictures);
         }
-        public Tour ToModel() {
+        public Tour ToModel()
+        {
             return new Tour(Id, Name, LocationId, Description, LanguageId, MaxTouristNumber, Duration, CurrentTouristNumber, Beggining, End, State, GuideId, ProfilePictures);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

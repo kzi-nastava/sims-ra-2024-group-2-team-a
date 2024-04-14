@@ -1,9 +1,6 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
-using BookingApp.Repository;
-using BookingApp.Services;
+﻿using BookingApp.Services;
 using BookingApp.WPF.Android.ViewModels;
-using BookingApp.WPF.Android.Views;
+using BookingApp.WPF.DTO;
 using System.Windows;
 
 namespace BookingApp.WPF.Android.Views {

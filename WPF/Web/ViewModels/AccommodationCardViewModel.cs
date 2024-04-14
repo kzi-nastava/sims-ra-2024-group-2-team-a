@@ -1,10 +1,5 @@
-﻿using BookingApp.DTO;
-using BookingApp.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookingApp.Services;
+using BookingApp.WPF.DTO;
 
 namespace BookingApp.WPF.Web.ViewModels {
     public class AccommodationCardViewModel {

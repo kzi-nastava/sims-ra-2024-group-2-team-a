@@ -1,10 +1,9 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.WPF.DTO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace BookingApp.WPF.Tablet.Views
-{
+namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
     /// Interaction logic for TourCard.xaml
     /// </summary>

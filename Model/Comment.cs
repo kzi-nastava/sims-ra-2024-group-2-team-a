@@ -1,8 +1,7 @@
 ﻿using BookingApp.Serializer;
 using System;
 
-namespace BookingApp.Model
-{
+namespace BookingApp.Model {
     public class Comment : ISerializable, IIdentifiable
     {
         public int Id { get; set; }

@@ -1,14 +1,7 @@
-﻿using BookingApp.DTO;
-using BookingApp.Repository;
-using BookingApp.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookingApp.Services;
+using BookingApp.WPF.DTO;
 
-namespace BookingApp.WPF.Desktop.ViewModels
-{
+namespace BookingApp.WPF.Desktop.ViewModels {
     public class TourRatingWindowViewModel
     {
         private readonly TourReviewService _tourReviewService = new TourReviewService();

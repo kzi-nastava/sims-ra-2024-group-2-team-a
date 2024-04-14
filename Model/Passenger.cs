@@ -1,5 +1,5 @@
-﻿using BookingApp.DTO;
-using BookingApp.Serializer;
+﻿using BookingApp.Serializer;
+using BookingApp.WPF.DTO;
 using System;
 
 namespace BookingApp.Model {

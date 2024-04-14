@@ -1,4 +1,4 @@
-﻿using BookingApp.DTO;
+﻿using BookingApp.WPF.DTO;
 using System.Collections.ObjectModel;
 using System.Windows;
 

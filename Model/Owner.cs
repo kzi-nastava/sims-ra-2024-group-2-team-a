@@ -1,11 +1,5 @@
 ﻿using BookingApp.Serializer;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookingApp.Serializer;
-using System.Runtime.CompilerServices;
 
 namespace BookingApp.Model {
     public class Owner : ISerializable, IIdentifiable {

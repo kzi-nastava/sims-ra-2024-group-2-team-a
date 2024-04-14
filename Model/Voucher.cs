@@ -2,8 +2,7 @@
 using System;
 using System.Globalization;
 
-namespace BookingApp.Model
-{
+namespace BookingApp.Model {
     public class Voucher : ISerializable, IIdentifiable {
         public int Id { get; set; }
         public DateTime ExpireDate { get; set; }

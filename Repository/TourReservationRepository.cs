@@ -1,10 +1,7 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
+﻿using BookingApp.Model;
 using BookingApp.RepositoryInterfaces;
-using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
 
 namespace BookingApp.Repository {
     public class TourReservationRepository : Repository<TourReservation>, ITourReservationRepository {

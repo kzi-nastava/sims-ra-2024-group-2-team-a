@@ -1,7 +1,8 @@
 ﻿using System;
 
-namespace BookingApp.DTO {
-    public class TourFilterDTO {
+namespace BookingApp.WPF.DTO {
+    public class TourFilterDTO
+    {
         public string Name { get; set; } = "";
         public LocationDTO Location { get; set; } = new LocationDTO();
         public LanguageDTO Language { get; set; } = new LanguageDTO();
@@ -10,7 +11,8 @@ namespace BookingApp.DTO {
         public DateTime Beggining { get; set; } = DateTime.MinValue;
 
         public TourFilterDTO() { }
-        public TourFilterDTO(string name, double duration, int touristNumber, LocationDTO location, LanguageDTO language, DateTime beggining) {
+        public TourFilterDTO(string name, double duration, int touristNumber, LocationDTO location, LanguageDTO language, DateTime beggining)
+        {
             Name = name;
             Location = location;
             Duration = duration;
@@ -19,7 +21,8 @@ namespace BookingApp.DTO {
             Beggining = beggining;
         }
 
-        public bool isEmpty() {
+        public bool isEmpty()
+        {
             return Location.Id == 0 && Language.Id == -1 && Duration == 0 && TouristNumber == 0 && Name == "" && Beggining == DateTime.MinValue;
         }
     }

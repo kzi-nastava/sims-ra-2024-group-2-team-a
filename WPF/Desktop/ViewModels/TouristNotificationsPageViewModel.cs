@@ -1,13 +1,7 @@
-﻿using BookingApp.Commands;
-using BookingApp.DTO;
-using BookingApp.Services;
+﻿using BookingApp.Services;
 using BookingApp.WPF.Desktop.Views;
-using System;
-using System.Collections.Generic;
+using BookingApp.WPF.DTO;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BookingApp.WPF.Desktop.ViewModels {

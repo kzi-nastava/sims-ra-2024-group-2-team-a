@@ -1,14 +1,9 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
+﻿using BookingApp.Model;
 using BookingApp.Services;
+using BookingApp.WPF.DTO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BookingApp.WPF.Web.ViewModels
-{
+namespace BookingApp.WPF.Web.ViewModels {
     public class RescheduleReservationModalDialogViewModel
     {
         public AccommodationReservationDTO Reservation { get; set; }

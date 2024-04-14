@@ -1,5 +1,5 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
+﻿using BookingApp.Model;
+using BookingApp.WPF.DTO;
 using BookingApp.WPF.Tablet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace BookingApp.Serializer
-{
+namespace BookingApp.Serializer {
     public class Serializer<T> where T: ISerializable, new()
     {
         private const char Delimiter = '|';

@@ -1,7 +1,7 @@
-﻿using BookingApp.DTO;
-using BookingApp.Model;
+﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Services;
+using BookingApp.WPF.DTO;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

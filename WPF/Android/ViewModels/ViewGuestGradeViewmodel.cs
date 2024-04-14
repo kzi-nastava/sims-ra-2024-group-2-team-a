@@ -1,11 +1,6 @@
-﻿using BookingApp.DTO;
-using BookingApp.Repository;
+﻿using BookingApp.Repository;
 using BookingApp.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BookingApp.WPF.DTO;
 
 namespace BookingApp.WPF.Android.ViewModels {
     public class ViewGuestGradeViewmodel {
