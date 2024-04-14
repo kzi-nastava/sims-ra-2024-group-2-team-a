@@ -34,5 +34,15 @@ namespace BookingApp.WPF.Desktop.Views {
         private void CouponsButton_Click(object sender, RoutedEventArgs e) {
             PageFrame.Navigate(new TouristVouchersPage(UserId));
         }
+
+        private void NotificationsButton_Click(object sender, RoutedEventArgs e) {
+            PageFrame.Navigate(new TouristNotificationsPage(UserId));
+        }
+
+        private void LogOutButton_Click(object sender, RoutedEventArgs e) {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            this.Close();
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace BookingApp.Model {
             UserId = userId;
             CreationDate = creationDate;
             IsRead = isRead;
+            TourId = -1;
         }
 
         public Notification(NotificationCategory category, int userId, int tourId) {
