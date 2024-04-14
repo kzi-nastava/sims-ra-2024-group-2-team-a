@@ -13,6 +13,7 @@ namespace BookingApp.WPF.Web.ViewModels {
         private readonly AccommodationService _accommodationService = new AccommodationService();
         private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
         private readonly RescheduleRequestService _rescheduleRequestService = new RescheduleRequestService();
+        private readonly ReviewService _reviewService = new ReviewService();
 
         private ObservableCollection<LocationDTO> _locationDTOs;
         private ObservableCollection<AccommodationDTO> _accommodationDTOs;
@@ -76,6 +77,7 @@ namespace BookingApp.WPF.Web.ViewModels {
             foreach (var res in Reservations) {
                 var acc = _accommodationDTOs.FirstOrDefault(a => a.Id == res.AccommodationId);
                 res.Accommodation = acc;
+                res.Graded = _reviewService.IsGradedByGuest(res.Id);
             }
         }
 
@@ -97,7 +99,7 @@ namespace BookingApp.WPF.Web.ViewModels {
             UpdateReservationDTOs();
             UpdateRescheduleRequestDTOs();
 
-            FilterBySelection(true);
+            FilterBySelection(ScheduledSelected);
         }
 
         public void FilterBySelection(bool scheduledSelected) {

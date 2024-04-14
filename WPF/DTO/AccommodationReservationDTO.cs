@@ -112,7 +112,6 @@ namespace BookingApp.WPF.DTO {
         public DateOnly CancellationDate => StartDate.AddDays(-Accommodation.LastCancellationDay);
         public bool Graded { get; set; }
         public int ReservationDays { get; set; }
-        public string DateString => $"{StartDate}\n{EndDate}"; // Can be deleted
 
         public bool HasExpired
         {
@@ -128,7 +127,7 @@ namespace BookingApp.WPF.DTO {
             get
             {
                 var dateNow = DateOnly.FromDateTime(DateTime.Now);
-                return dateNow <= EndDate.AddDays(5) && dateNow > EndDate && !Cancelled;
+                return dateNow <= EndDate.AddDays(5) && dateNow > EndDate && !Cancelled && !Graded;
             }
         }
 
@@ -171,5 +170,6 @@ namespace BookingApp.WPF.DTO {
         public AccommodationType AccommodationType { get; set; }
         public string AccommodationLocation { get; set; }
         public int LastCancellationDay { get; set; }
+        public string DateString => $"{StartDate}\n{EndDate}"; // Can be deleted
     }
 }

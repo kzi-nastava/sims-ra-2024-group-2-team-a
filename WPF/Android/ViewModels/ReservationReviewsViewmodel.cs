@@ -96,7 +96,7 @@ namespace BookingApp.WPF.Android.ViewModels {
                     accResDTO.Graded = false;
                     accResDTO.AccommodationName = acc.Name;
 
-                    if (reviewService.IsGuestGraded(accResDTO.Id)) {
+                    if (reviewService.IsGradedByGuest(accResDTO.Id)) {
                         accResDTO.Graded = true;
                     }
 
