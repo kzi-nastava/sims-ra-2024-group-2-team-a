@@ -59,6 +59,10 @@ namespace BookingApp.Services {
             return allTours.Where(t => IsFiltered(t, filter)).ToList();
         }
 
+        public Tour GetById(int tourId) {
+            return _tourRepository.GetById(tourId);
+        }
+
         public int GetAvailableSpace(TourDTO tour) {
             return _tourRepository.GetAvailableSpace(tour);
         }

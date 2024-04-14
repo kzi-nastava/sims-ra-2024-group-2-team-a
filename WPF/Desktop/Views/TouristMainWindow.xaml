@@ -57,6 +57,22 @@
                         <TextBlock Text="Coupons"/>
                     </WrapPanel>
                 </Button>
+                <Button x:Name="NotificationsButton"
+                        Click="NotificationsButton_Click"
+                        Style="{StaticResource ButtonStyle}">
+                    <WrapPanel>
+                        <Image Source="{StaticResource CouponIcon}" Style="{StaticResource IconStyle}"/>
+                        <TextBlock Text="Notifications"/>
+                    </WrapPanel>
+                </Button>
+                <Button x:Name="LogOutButton"
+                        Click="LogOutButton_Click"
+                        Style="{StaticResource ButtonStyle}">
+                    <WrapPanel>
+                        <Image Source="{StaticResource CouponIcon}" Style="{StaticResource IconStyle}"/>
+                        <TextBlock Text="Log Out"/>
+                    </WrapPanel>
+                </Button>
             </StackPanel>
             <Frame Grid.Column="1" 
                x:Name="PageFrame"></Frame>

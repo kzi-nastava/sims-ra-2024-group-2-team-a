@@ -1,7 +1,9 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.DTO;
+using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BookingApp.Services {
     public class PassengerService {
@@ -29,6 +31,10 @@ namespace BookingApp.Services {
         }
         public bool Update(Passenger? passenger) {
             return _passengerRepository.Update(passenger);
+        }
+
+        public List<Passenger> GetPresent(int touristId, TourDTO tour) {
+            return _passengerRepository.GetAll().Where(r => r.TourReservationId == _tourReservationRepository.GetByTourAndTourist(tour.Id, touristId).Id && r.JoinedPointOfInterestId != -1).ToList();
         }
     }
 }

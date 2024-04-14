@@ -19,6 +19,17 @@
             <Setter Property="Height" Value="Auto"/>
             <Setter Property="Margin" Value="5"/>
         </Style>
+        <Style TargetType="DataGrid" 
+               x:Key="DataGridStyle">
+            <Setter Property="AutoGenerateColumns" 
+                    Value="False"/>
+            <Setter Property="IsReadOnly" 
+                    Value="True"/>
+            <Setter Property="CanUserAddRows" 
+                    Value="False"/>
+            <Setter Property="FontSize" 
+                    Value="16"/>
+        </Style>
     </Window.Resources>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
@@ -39,7 +50,8 @@
                                FontWeight="Bold">
                         Points of interest:
                     </TextBlock>
-                    <DataGrid ItemsSource="{Binding PointsOfInterest}">
+                    <DataGrid ItemsSource="{Binding PointsOfInterest}"
+                              Style="{StaticResource DataGridStyle}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Point of interest"
                                                 Binding="{Binding Name}"/>
@@ -53,11 +65,15 @@
                                FontWeight="Bold">
                         Present participants:
                     </TextBlock>
-                    <DataGrid>
+                    <DataGrid ItemsSource="{Binding Passengers}"
+                              Style="{StaticResource DataGridStyle}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name"/>
-                            <DataGridTextColumn Header="Surname"/>
-                            <DataGridTextColumn Header="Age"/>
+                            <DataGridTextColumn Header="Name"
+                                                Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Surname"
+                                                Binding="{Binding Surname}"/>
+                            <DataGridTextColumn Header="Age"
+                                                Binding="{Binding Age}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>

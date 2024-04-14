@@ -11,6 +11,7 @@ namespace BookingApp.WPF.Tablet.ViewModels {
 
         private readonly TourReservationService _tourReservationService = new TourReservationService();
         private readonly PassengerService _passengerService = new PassengerService();
+        private readonly NotificationService _notificationService = new NotificationService();
 
         public ObservableCollection<PassengerDTO> passengerDTOs { get; set; }
         public List<PassengerDTO> joinedPassengerDTOs { get; set; }
@@ -29,8 +30,10 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         }
         public void JoinPassengers() {
             foreach (var passengerDTO in passengerDTOs) {
-                if (passengerDTO.IsJoined)
+                if (passengerDTO.IsJoined) {
                     passengerDTO.JoinedPointOfInterestId = _pointOfInterestId;
+                    _notificationService.SendTouristNotification(NotificationCategory.TourActive, passengerDTO.UserId, _tourId);
+                }
                 _passengerService.Update(passengerDTO.ToModel());
             }
         }

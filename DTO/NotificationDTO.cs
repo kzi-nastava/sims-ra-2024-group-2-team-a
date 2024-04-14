@@ -18,6 +18,7 @@ namespace BookingApp.DTO {
             CreationDate = notification.CreationDate;
             Category = notification.Category;
             IsRead = notification.IsRead;
+            TourId = notification.TourId;
             SetNotificationIcon();
         }
         public int Id { get; set; } 
@@ -37,6 +38,20 @@ namespace BookingApp.DTO {
                 }
             }
         }
+
+        private int _tourId;
+        public int TourId {
+            get {
+                return _tourId;
+            }
+            set {
+                if (value != _tourId) {
+                    _tourId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         private DateTime _creationDate;
         public DateTime CreationDate {
