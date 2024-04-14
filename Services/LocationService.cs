@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace BookingApp.Services
 {
     class LocationService
     {
-        private readonly LocationRepository _locationRepository = new LocationRepository();
+        private readonly ILocationRepository _locationRepository = RepositoryInjector.GetInstance<ILocationRepository>();
 
         public List<Location> GetAll() {
             return _locationRepository.GetAll();
