@@ -25,13 +25,18 @@ namespace BookingApp.Services
         public RescheduleRequest Save(RescheduleRequest request) {
             return _requestRepository.Save(request);
         }
+        
         public bool Update(RescheduleRequest rescheduleRequest) {
             return _requestRepository.Update(rescheduleRequest);
         }
 
-        public bool DeleteByReservationId(int reservationId) {
+        public bool CancelByReservationId(int reservationId) {
             var requests = _requestRepository.GetByReservationId(reservationId);
-            requests.ForEach(r => _requestRepository.Delete(r));
+            if (requests.Count == 0) 
+                return false;
+
+            requests.ForEach(r => r.Status = RescheduleRequestStatus.Cancelled);
+            requests.ForEach(r => _requestRepository.Update(r));
             return true;
         }
 
