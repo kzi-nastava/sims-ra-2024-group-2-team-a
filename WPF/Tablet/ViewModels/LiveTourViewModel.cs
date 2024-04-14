@@ -22,36 +22,36 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         public ObservableCollection<TourDTO> tourDTOs { get; set; }
         public LiveTourViewModel(int userId) {
             _userId = userId;
+
             LoadTours();
         }
         public LiveTourViewModel(TourDTO tDTO, int userId) {
             _userId = userId;
             tourDTO = tDTO;
 
-            _pointOfInterestIndex = 0;
+            if(tDTO.State != TourState.Active){
+                tourDTO.State = Model.TourState.Active;
+                _tourService.Update(tourDTO.ToModel());
+            }
+            _pointOfInterestIndex = -1;
 
             LoadTour();
         }
         private void LoadTour() {
-            tourDTO.State = Model.TourState.Active;
-            _tourService.Update(tourDTO.ToModel());
+            SetLocationLanguage(tourDTO, tourDTO.ToModel());
 
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
 
             foreach (var point in _pointOfInterestService.GetAllByTourId(tourDTO.Id)) {
-                /*if (!point.IsChecked && _pointOfInterestIndex == -1)
-                    _pointOfInterestIndex = pointOfInterestDTOs.Count;            Ovo isto */
+                if (!point.IsChecked && _pointOfInterestIndex == -1)
+                    _pointOfInterestIndex = pointOfInterestDTOs.Count;
                 pointOfInterestDTOs.Add(new PointOfInterestDTO(point));
             }
-            pointOfInterestDTOs[0].IsChecked = true;
-            pointOfInterestDTO = pointOfInterestDTOs[_pointOfInterestIndex++];
-            _pointOfInterestService.Update(pointOfInterestDTO.ToModel());
-            /*if (_pointOfInterestIndex == 0) {
+            if (_pointOfInterestIndex == 0) {
                 pointOfInterestDTOs[0].IsChecked = true;
                 pointOfInterestDTO = pointOfInterestDTOs[_pointOfInterestIndex++];
-                _pointOfInterestRepository.Update(pointOfInterestDTO.ToModel());  Ovo sacuvaj ako vudes omogucio
-                                                                                  Izlazenje tokom startovanja ture
-            }*/
+                _pointOfInterestService.Update(pointOfInterestDTO.ToModel());
+            }
         }
         public void FinishTour() {
             tourDTO.State = Model.TourState.Finished;
