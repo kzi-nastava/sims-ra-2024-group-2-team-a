@@ -15,13 +15,17 @@ namespace BookingApp.Domain.Model {
             Category = UserCategory.Tourist;
         }
 
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
         public string[] ToCSV()
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
         {
             string[] csvValues = { Id.ToString(), Name, Surname, Age.ToString() };
             return csvValues;
         }
 
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
         public void FromCSV(string[] values)
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
         {
             base.FromCSV(values);
             Name = values[0];

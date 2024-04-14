@@ -15,13 +15,17 @@ namespace BookingApp.Domain.Model {
             isSuperGuest = false;
         }
 
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
         public string[] ToCSV()
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
         {
             string[] csvValues = { Id.ToString(), isSuperGuest.ToString() };
             return csvValues;
         }
 
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
         public void FromCSV(string[] values)
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
         {
             base.FromCSV(values);
             isSuperGuest = Convert.ToBoolean(values[^1]);

@@ -55,7 +55,9 @@ namespace BookingApp.WPF.DTO {
         public string LanguageOptionTemplate => $"{Name}";
 
         public event PropertyChangedEventHandler? PropertyChanged;
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

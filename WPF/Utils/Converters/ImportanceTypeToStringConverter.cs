@@ -3,14 +3,17 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace BookingApp.Converters {
-    class ImportanceTypeToStringConverter : IValueConverter {
+namespace BookingApp.WPF.Utils.Converters {
+    class ImportanceTypeToStringConverter : IValueConverter
+    {
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
 
-            value = (ImportanceType) value;
+            value = (ImportanceType)value;
 
-            switch(value) {
+            switch (value)
+            {
                 case ImportanceType.Level_1:
                     return "Level 1 - It would be nice to renovate some small things, but everything works fine without it";
                 case ImportanceType.Level_2:
@@ -26,7 +29,8 @@ namespace BookingApp.Converters {
             }
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             throw new NotImplementedException();
         }
     }
