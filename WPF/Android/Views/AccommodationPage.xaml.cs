@@ -19,6 +19,8 @@ namespace BookingApp.WPF.Android.Views {
         private LocationService locationService = new LocationService();
         public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
 
+        public AccommodationDTO SelectedAccommodation { get; set; }
+
         public AccommodationPage(Frame mFrame, User user) {
             InitializeComponent();
             mainFrame = mFrame;
@@ -43,7 +45,9 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void RenovationsButton_Click(object sender, RoutedEventArgs e) {
-
+            if (SelectedAccommodation == null) {
+                return;
+            }
         }
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e) {
