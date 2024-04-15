@@ -77,7 +77,7 @@ namespace BookingApp.WPF.Web.ViewModels {
             foreach (var res in Reservations) {
                 var acc = _accommodationDTOs.FirstOrDefault(a => a.Id == res.AccommodationId);
                 res.Accommodation = acc;
-                res.Graded = _reviewService.IsGradedByGuest(res.Id);
+                res.IsGradedByGuest = _reviewService.IsGradedByGuest(res.Id);
             }
         }
 

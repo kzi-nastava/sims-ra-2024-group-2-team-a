@@ -18,9 +18,8 @@ namespace BookingApp.WPF.DTO {
             StartDate = accDTO.StartDate;
             EndDate = accDTO.EndDate;
             ReservationDays = accDTO.ReservationDays;
-            Graded = accDTO.Graded;
-            IsGradedByOwner = accDTO.IsGradedByOwner;
             IsGradedByGuest = accDTO.IsGradedByGuest;
+            IsGradedByOwner = accDTO.IsGradedByOwner;
             Cancelled = accDTO.Cancelled;
         }
 
@@ -33,9 +32,6 @@ namespace BookingApp.WPF.DTO {
             StartDate = acc.StartDate;
             EndDate = acc.EndDate;
             ReservationDays = acc.ReservationDays;
-            Graded = false;
-            IsGradedByGuest = false;
-            IsGradedByOwner = false;
             Cancelled = acc.Cancelled;
         }
 
@@ -113,9 +109,8 @@ namespace BookingApp.WPF.DTO {
 
         public AccommodationDTO Accommodation { get; set; }
         public DateOnly CancellationDate => StartDate.AddDays(-Accommodation.LastCancellationDay);
-        public bool Graded { get; set; }
-        public bool IsGradedByOwner { get; set; }
-        public bool IsGradedByGuest { get; set; }
+        public bool IsGradedByGuest { get; set; } = false;
+        public bool IsGradedByOwner { get; set; } = false;
         public int ReservationDays { get; set; }
 
         public bool CanBeGradedByOwner {
@@ -139,7 +134,7 @@ namespace BookingApp.WPF.DTO {
             get
             {
                 var dateNow = DateOnly.FromDateTime(DateTime.Now);
-                return dateNow <= EndDate.AddDays(5) && dateNow > EndDate && !Cancelled && !Graded;
+                return dateNow <= EndDate.AddDays(5) && dateNow > EndDate && !Cancelled && !IsGradedByGuest;
             }
         }
 
@@ -157,7 +152,7 @@ namespace BookingApp.WPF.DTO {
             get
             {
                 var dateNow = DateOnly.FromDateTime(DateTime.Now);
-                return dateNow <= StartDate.AddDays(-LastCancellationDay) && !Cancelled;
+                return dateNow <= StartDate.AddDays(-Accommodation.LastCancellationDay) && !Cancelled;
             }
         }
 
@@ -175,9 +170,5 @@ namespace BookingApp.WPF.DTO {
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
-        // Should be removed from class
-        public int LastCancellationDay { get; set; }
     }
 }
