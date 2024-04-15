@@ -11,14 +11,14 @@ namespace BookingApp.WPF.Android.ViewModels {
 
         private ReviewService reviewService = new ReviewService();
 
-        private readonly UserRepository _userRepository;
+        private readonly UserService _userService;
 
         public ViewGuestGradeViewmodel(AccommodationReservationDTO selectedReservationDTO) {
-            _userRepository = new UserRepository();
+            _userService = new UserService();
 
             AccommodationReservationDTO = selectedReservationDTO;
             ReviewDTO = new ReviewDTO(reviewService.GetByReservationId(selectedReservationDTO.Id));
-            GuestUsername = _userRepository.GetById(selectedReservationDTO.GuestId).Username;
+            GuestUsername = _userService.GetById(selectedReservationDTO.GuestId).Username;
         }
     }
 }
