@@ -30,7 +30,7 @@
                     </Button>
 
                     <Button x:Name="ViewGradeButton" Grid.Row="1" Grid.Column="2" Width="120" Height="40" 
-                            Content="View Guest Grade" Click="ViewGradeButton_Click" IsEnabled="{Binding ViewGuestGradeEnabled}">
+                            Content="View Guest Grade" Click="ViewGradeButton_Click" IsEnabled="{Binding SelectedReservation.IsGradedByGuest}">
                         </Button>
 
                     <ListView ItemsSource="{Binding ReservationCollection, UpdateSourceTrigger=PropertyChanged}"
