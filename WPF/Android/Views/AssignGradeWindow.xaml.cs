@@ -16,6 +16,8 @@ namespace BookingApp.WPF.Android.Views {
         private int _ownerId;
 
         private ReservationReviewsViewmodel _reservationReviewsViewmodel;
+
+        public string GuestUsername { get; set; }
         public AssignGradeWindow(AccommodationReservationDTO accResDTO, int ownerId, ReservationReviewsViewmodel viewmodel) {
             InitializeComponent();
             DataContext = this;
@@ -24,6 +26,9 @@ namespace BookingApp.WPF.Android.Views {
             _ownerId = ownerId;
             ReviewDTO = new ReviewDTO();
             _reservationReviewsViewmodel = viewmodel;
+
+            UserService userService = new UserService();
+            GuestUsername = userService.GetById(accResDTO.GuestId).Username;
         }
 
         private void DoneButton_Click(object sender, RoutedEventArgs e) {

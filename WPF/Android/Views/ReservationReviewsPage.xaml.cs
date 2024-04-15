@@ -16,17 +16,9 @@ namespace BookingApp.WPF.Android.Views {
             
             this.DataContext = ReservationReviewsViewmodel;
         }
-
-        
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            ReservationReviewsViewmodel.ListViewSelectionChanged();
-        }
-
         private void AssignGradeButton_Click(object sender, RoutedEventArgs e) {
             ReservationReviewsViewmodel.AssignGradeButton();
         }
-
         private void ViewGradeButton_Click(object sender, RoutedEventArgs e) {
             ReservationReviewsViewmodel.ViewGradeButton();        }
         private void RequestsList_SelectionChanged(object sender, SelectionChangedEventArgs e) {

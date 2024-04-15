@@ -23,34 +23,20 @@ namespace BookingApp.WPF.Android.ViewModels {
         private User _user;
         public ObservableCollection<AccommodationReservationDTO> ReservationCollection { get; set; }
         public ObservableCollection<RescheduleRequestDTO> RescheduleRequestDTOs { get; set; }
-        public AccommodationReservationDTO SelectedReservation { get; set; }
+
+        public AccommodationReservationDTO _selectedReservation;
+        public AccommodationReservationDTO SelectedReservation {
+            get {
+                return _selectedReservation;
+            }
+            set {
+                if (value != _selectedReservation) {
+                    _selectedReservation = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public RescheduleRequestDTO SelectedRequest { get; set; }
-
-        private bool _assignGradeEnabled;
-        public bool AssignGradeEnabled {
-            get {
-                return _assignGradeEnabled;
-            }
-            set {
-                if (value != _assignGradeEnabled) {
-                    _assignGradeEnabled = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private bool _viewGuestGradeEnabled;
-        public bool ViewGuestGradeEnabled {
-            get {
-                return _viewGuestGradeEnabled;
-            }
-            set {
-                if (value != _viewGuestGradeEnabled) {
-                    _viewGuestGradeEnabled = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         public AndroidCommand AcceptButtonCommand{ get; set;}
         public AndroidCommand DeclineButtonCommand { get; set; }
         public ReservationReviewsViewmodel(User user) {
@@ -60,9 +46,6 @@ namespace BookingApp.WPF.Android.ViewModels {
             RescheduleRequestDTOs = new ObservableCollection<RescheduleRequestDTO>();
 
             Update();
-
-            ViewGuestGradeEnabled = true;
-            AssignGradeEnabled = true;
 
             AcceptButtonCommand = new AndroidCommand(AcceptButton_Executed, AcceptButton_CanExecute);
             DeclineButtonCommand = new AndroidCommand(DeclineButton_Executed , DeclineButton_CanExecute);
@@ -93,40 +76,26 @@ namespace BookingApp.WPF.Android.ViewModels {
                 foreach (var accRes in accReservationService.GetByAccommodationId(acc.Id)) {
                     AccommodationReservationDTO accResDTO = new AccommodationReservationDTO(accRes);
 
-                    accResDTO.Graded = false;
-                    accResDTO.AccommodationName = acc.Name;
+                    AccommodationService accService = new AccommodationService();
+                    accResDTO.Accommodation = new AccommodationDTO(accService.GetById(accResDTO.AccommodationId));
 
                     if (reviewService.IsGradedByGuest(accResDTO.Id)) {
-                        accResDTO.Graded = true;
+                        accResDTO.IsGradedByGuest = true;
+                    }
+                    if (reviewService.IsGradedByOwner(accResDTO.Id)) {
+                        accResDTO.IsGradedByOwner = true;
                     }
 
                     ReservationCollection.Add(accResDTO);
                 }
             }
         }
-
-        public void ListViewSelectionChanged() {
-            if (SelectedReservation == null)
-                return;
-
-            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
-            DateOnly offsetDate = SelectedReservation.EndDate;
-            offsetDate = offsetDate.AddDays(5);
-
-            if (currentDate > SelectedReservation.EndDate && currentDate < offsetDate && !SelectedReservation.Graded)
-                AssignGradeEnabled = true;
-            else
-                AssignGradeEnabled = false;
-
-            ViewGuestGradeEnabled = true;
-        }
-
         public void AssignGradeButton() {
             if (SelectedReservation == null) {
-                AssignGradeEnabled = false;
+                MessageBox.Show("Please select a reservation first!", "Error",MessageBoxButton.OK,MessageBoxImage.Information);
+                return;
             }
-            else {
-                AssignGradeEnabled = true;
+            if(SelectedReservation.CanBeGradedByOwner){
                 AssignGradeWindow assignGradeWindow = new AssignGradeWindow(SelectedReservation, _user.Id, this);
                 assignGradeWindow.ShowDialog();
             }
@@ -134,10 +103,12 @@ namespace BookingApp.WPF.Android.ViewModels {
 
         public void ViewGradeButton() {
             if (SelectedReservation == null) {
-                ViewGuestGradeEnabled = false;
+                MessageBox.Show("Please select a reservation first!", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
-            else if (!reviewService.IsGradedByOwner(SelectedReservation.Id)) {
+            else if (!SelectedReservation.IsGradedByOwner) {
                 MessageBox.Show("You must grade this reservation first!", "View guest grade", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
             else {
                 ViewGuestGradeWindow viewGuestGradeWindow = new ViewGuestGradeWindow(SelectedReservation);

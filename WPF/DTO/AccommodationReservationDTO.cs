@@ -18,8 +18,9 @@ namespace BookingApp.WPF.DTO {
             StartDate = accDTO.StartDate;
             EndDate = accDTO.EndDate;
             ReservationDays = accDTO.ReservationDays;
-            AccommodationName = accDTO.AccommodationName;
             Graded = accDTO.Graded;
+            IsGradedByOwner = accDTO.IsGradedByOwner;
+            IsGradedByGuest = accDTO.IsGradedByGuest;
             Cancelled = accDTO.Cancelled;
         }
 
@@ -33,6 +34,8 @@ namespace BookingApp.WPF.DTO {
             EndDate = acc.EndDate;
             ReservationDays = acc.ReservationDays;
             Graded = false;
+            IsGradedByGuest = false;
+            IsGradedByOwner = false;
             Cancelled = acc.Cancelled;
         }
 
@@ -111,7 +114,16 @@ namespace BookingApp.WPF.DTO {
         public AccommodationDTO Accommodation { get; set; }
         public DateOnly CancellationDate => StartDate.AddDays(-Accommodation.LastCancellationDay);
         public bool Graded { get; set; }
+        public bool IsGradedByOwner { get; set; }
+        public bool IsGradedByGuest { get; set; }
         public int ReservationDays { get; set; }
+
+        public bool CanBeGradedByOwner {
+            get {
+                var dateNow = DateOnly.FromDateTime(DateTime.Now);
+                return dateNow <= EndDate.AddDays(5) && dateNow > EndDate && !Cancelled && !IsGradedByOwner;
+            }
+        }
 
         public bool HasExpired
         {
@@ -166,10 +178,6 @@ namespace BookingApp.WPF.DTO {
 
 
         // Should be removed from class
-        public string AccommodationName { get; set; }
-        public AccommodationType AccommodationType { get; set; }
-        public string AccommodationLocation { get; set; }
         public int LastCancellationDay { get; set; }
-        public string DateString => $"{StartDate}\n{EndDate}"; // Can be deleted
     }
 }

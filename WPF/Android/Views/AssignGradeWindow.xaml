@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
+        xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
         mc:Ignorable="d"
         Title="AssignGradeWindow" Height="460" Width="350"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -23,9 +27,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Content="Reservation info:" FontFamily="Global Sans Serif" FontSize="20" Grid.Row="0" Grid.Column="0" FontWeight="Bold"/>
-        <TextBlock Text="Accomodation name" Grid.Column="0" Grid.Row="1" FontSize="16" HorizontalAlignment="Center"/>
-        <TextBlock Text="start date - end date" Grid.Column="1" Grid.Row="1" FontSize="16" HorizontalAlignment="Center"/>
-        <TextBlock Text="Guest username" Grid.Column="0" Grid.Row="2" FontSize="16" HorizontalAlignment="Center"/>
+        <TextBlock Text="{Binding AccReservationDTO.Accommodation.Name}" Grid.Column="0" Grid.Row="1" FontSize="16"  HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="12" HorizontalAlignment="Center">
+                <Run Text="{Binding AccReservationDTO.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                <Run Text=" - "/>
+                <Run Text="{Binding AccReservationDTO.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+        </TextBlock>
+        <TextBlock Text="{Binding GuestUsername}" Grid.Column="0" Grid.Row="2" FontSize="16" HorizontalAlignment="Center"/>
         <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"/>
 
         <StackPanel  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">

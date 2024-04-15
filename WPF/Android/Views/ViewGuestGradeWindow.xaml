@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
+        xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
         mc:Ignorable="d"
         Title="ViewGuestGradeWindow" Height="330" Width="350"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -21,8 +25,14 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Label Content="Your Grades: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" BorderBrush="Black" BorderThickness="0,0,0,2"/>
-        <Label x:Name="AccommodationLabel" Content="{Binding AccommodationReservationDTO.AccommodationName}" Grid.Row="1" Grid.Column="0" FontSize="16" Padding="5,0,5,5"/>
-        <Label x:Name="DateLabel" Content="{Binding AccommodationReservationDTO.DateString}" Grid.Row="1" Grid.Column="1" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+        <Label x:Name="AccommodationLabel" Content="{Binding AccommodationReservationDTO.Accommodation.Name}" Grid.Row="1" Grid.Column="0" FontSize="16" Padding="5,0,5,5"/>
+        <Label x:Name="DateLabel"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+            <TextBlock FontSize="12">
+                <Run Text="{Binding AccommodationReservationDTO.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                <Run Text=" - "/>
+                <Run Text="{Binding AccommodationReservationDTO.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+            </TextBlock>
+        </Label>
         <Label x:Name="GuestUsernameLabel" Content="{Binding GuestUsername}" Grid.Row="1" Grid.Column="0" FontSize="16" VerticalAlignment="Bottom"/>
         <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
 

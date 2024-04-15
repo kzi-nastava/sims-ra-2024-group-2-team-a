@@ -11,6 +11,9 @@ namespace BookingApp.Services {
             return _userRepository.GetByUsername(username);
         }
 
+        public User GetById(int id) {
+            return _userRepository.GetById(id);
+        }
         public User Save(User user) {
             var savedUser = _userRepository.Save(user);
 
