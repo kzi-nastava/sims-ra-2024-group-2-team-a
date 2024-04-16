@@ -11,8 +11,9 @@
     <Page.Resources>
         <BitmapImage x:Key="SearchIcon" UriSource="../../../Resources/Images/android-search-icon.png"/>
         <converter:SelectedToEnabledConverter x:Key="SelectedConverter"/>
+        <converter:CountToBooleanConverter x:Key="CountToBoolConverter" />
 
-        <Style TargetType="Label" x:Key="Header1">
+            <Style TargetType="Label" x:Key="Header1">
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
@@ -48,17 +49,21 @@
         <Label Content="Start Date:" Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="1"/>
         <DatePicker x:Name="startDatePicker" Height="30" Margin="0,15,0,0" 
                     Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    SelectedDate="{Binding StartDate}" SelectedDateChanged="startDatePicker_SelectedDateChanged"/>
+                    SelectedDate="{Binding StartDate}"/>
 
         <Label Content="End Date:" Style="{StaticResource Labels}" Grid.Column="3" Grid.Row="1"/>
         <DatePicker x:Name="endDatePicker" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
                     Height="30" Margin="0,15,0,0" SelectedDate="{Binding EndDate}" 
-                    IsEnabled="{Binding SelectedDate, ElementName=startDatePicker, Converter={StaticResource SelectedConverter}}"/>
+                    IsEnabled="{Binding SelectedDate, ElementName=startDatePicker, Converter={StaticResource SelectedConverter}}"
+                    DisplayDateStart="{Binding StartDate}"/>
 
         <Label Content="Duration: " Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="2"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Margin="0,15,0,0"/>
+        <TextBox x:Name="textBox" Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedDate, ElementName=endDatePicker, Converter={StaticResource SelectedConverter}}" 
+                 Grid.Column="1" Grid.Row="2" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Margin="0,15,0,0"/>
 
-        <Button Grid.Column="3" Grid.Row="2" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Button Grid.Column="3" Grid.Row="2" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
+                IsEnabled="{Binding Duration , Converter={StaticResource CountToBoolConverter}}"
+                Click="SearchButton_Click">
             <StackPanel Orientation="Horizontal">
                 <Image Source="{StaticResource SearchIcon}" Height="40" Width="40"/>
                 <Label Content="Search" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
@@ -69,8 +74,8 @@
                HorizontalAlignment="Center"  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"/>
         
         <ListView Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="auto" Width="250" Margin="0,40,0,0"
-                  ItemsSource="{Binding ReservationCollection, UpdateSourceTrigger=PropertyChanged}"
-          SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
+                  ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged}"
+          SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
           SelectionMode="Single">
             <ListView.View>
                 <GridView>
@@ -86,7 +91,7 @@
         </ListView>
 
         <Button Grid.Column="3" Grid.Row="5" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
-        Click="AcceptButton_Click">
+        Command="{Binding AcceptCommand}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="{StaticResource SearchIcon}" Height="40" Width="40"/>
                 <Label Content="Accept" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
@@ -94,7 +99,7 @@
         </Button>
 
         <Button Grid.Column="1" Grid.Row="5" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
-                Click="DeclineButton_Click">
+                Command="{Binding DeclineCommand}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="{StaticResource SearchIcon}" Height="40" Width="40"/>
                 <Label Content="Decline" Style="{StaticResource Labels}" VerticalAlignment="Center"/>

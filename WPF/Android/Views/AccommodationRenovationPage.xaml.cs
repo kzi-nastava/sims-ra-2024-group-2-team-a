@@ -22,28 +22,17 @@ namespace BookingApp.WPF.Android.Views {
     /// Interaction logic for AccommodationRenovationPage.xaml
     /// </summary>
     public partial class AccommodationRenovationPage : Page {
-        private readonly Frame _mainFrame;
         public AccommodationRenovationViewmodel AccommodationRenovationViewmodel { get; set; }
         public AccommodationRenovationPage(AccommodationDTO accommodationDTO, Frame mainFrame) {
             InitializeComponent();
 
-            AccommodationRenovationViewmodel = new AccommodationRenovationViewmodel(accommodationDTO);
-            _mainFrame = mainFrame;
+            AccommodationRenovationViewmodel = new AccommodationRenovationViewmodel(accommodationDTO, mainFrame);
 
             DataContext = AccommodationRenovationViewmodel;
             startDatePicker.DisplayDateStart = DateTime.Now;
         }
-
-        private void AcceptButton_Click(object sender, RoutedEventArgs e) {
-
-        }
-
-        private void DeclineButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.GoBack();
-        }
-
-        private void startDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e) {
-
+        private void SearchButton_Click(object sender, RoutedEventArgs e) {
+            AccommodationRenovationViewmodel.SearchButton();
         }
     }
 }
