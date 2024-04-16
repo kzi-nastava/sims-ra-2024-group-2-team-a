@@ -44,18 +44,38 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Label Content="Accommodation name" Style="{StaticResource Header1}" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" Margin="0,5,0,10"/>
+        <Label Content="{Binding AccommodationDTO.Name}" Style="{StaticResource Header1}" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" Margin="0,5,0,10"/>
         <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="2"/>
         <Label Content="Start Date:" Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="1"/>
-        <DatePicker x:Name="startDatePicker" Height="30" Margin="0,15,0,0" 
+        <DatePicker x:Name="startDatePicker" Height="30" Width="120" Margin="0,15,0,0" 
                     Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    SelectedDate="{Binding StartDate}"/>
+                    SelectedDate="{Binding StartDate}">
+            <DatePicker.Resources>
+                <Style TargetType="{x:Type DatePickerTextBox}">
+                    <Setter Property="FontSize" Value="15"/>
+                </Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Width" Value="20"/>
+                    <Setter Property="Height" Value="20"/>
+                </Style>
+            </DatePicker.Resources>
+        </DatePicker>
 
         <Label Content="End Date:" Style="{StaticResource Labels}" Grid.Column="3" Grid.Row="1"/>
         <DatePicker x:Name="endDatePicker" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                    Height="30" Margin="0,15,0,0" SelectedDate="{Binding EndDate}" 
+                    Height="30" Width="120" Margin="0,15,0,0" SelectedDate="{Binding EndDate}" 
                     IsEnabled="{Binding SelectedDate, ElementName=startDatePicker, Converter={StaticResource SelectedConverter}}"
-                    DisplayDateStart="{Binding StartDate}"/>
+                    DisplayDateStart="{Binding StartDate}">
+                        <DatePicker.Resources>
+                            <Style TargetType="{x:Type DatePickerTextBox}">
+                                <Setter Property="FontSize" Value="15"/>
+                            </Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Width" Value="20"/>
+                                <Setter Property="Height" Value="20"/>
+                            </Style>
+            </DatePicker.Resources>
+        </DatePicker>
 
         <Label Content="Duration: " Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="2"/>
         <TextBox x:Name="textBox" Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedDate, ElementName=endDatePicker, Converter={StaticResource SelectedConverter}}" 
@@ -93,7 +113,7 @@
         <Button Grid.Column="3" Grid.Row="5" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
         Command="{Binding AcceptCommand}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="{StaticResource SearchIcon}" Height="40" Width="40"/>
+                <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
                 <Label Content="Accept" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
@@ -101,7 +121,7 @@
         <Button Grid.Column="1" Grid.Row="5" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
                 Command="{Binding DeclineCommand}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="{StaticResource SearchIcon}" Height="40" Width="40"/>
+                <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
                 <Label Content="Decline" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
