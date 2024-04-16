@@ -7,10 +7,24 @@
         mc:Ignorable="d"
         Title="RenovationDescriptionWindow" Height="300" Width="300"
         WindowStartupLocation="CenterScreen">
-    <Grid Background="AntiqueWhite">
-        <Label Content="Enter Renovation Description" FontFamily="Global Sans Serif" FontSize="20" 
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="Labels">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+            </Style.Setters>
+        </Style>
+        </Window.Resources>
+        <Grid Background="AntiqueWhite">
+        <Label Content="Renovation Description" FontFamily="Global Sans Serif" FontSize="22" 
                VerticalAlignment="Top" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="0,0,0,2" Padding="5,5,5,0"/>
-        <TextBox Text="{Binding RenovationDTO.Description}" Height="150" Width="250" VerticalAlignment="Center" Margin="0,-15,0,15"/>
-        <Button Content="Confirm" Height="50" Width="100" VerticalAlignment="Bottom" Margin="15" Command="{Binding ConfirmCommand}"/>
+        <TextBox x:Name="textBox" Text="{Binding RenovationDTO.Description}" IsEnabled="{Binding Editable}"
+                 Height="150" Width="250" VerticalAlignment="Center" Margin="0,-15,0,15"/>
+        <Button Height="50" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="15" Command="{Binding ConfirmCommand}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
+                <Label Content="Confirm" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

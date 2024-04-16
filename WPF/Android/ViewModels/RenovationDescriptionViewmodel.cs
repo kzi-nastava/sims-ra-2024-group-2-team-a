@@ -16,15 +16,18 @@ namespace BookingApp.WPF.Android.ViewModels {
         public AndroidCommand ConfirmCommand { get; set; }
 
         private readonly Window Window;
-        public RenovationDescriptionViewmodel(AccommodationRenovationDTO renovationDTO, Window window) {
+        public bool Editable { get; set; }
+        public RenovationDescriptionViewmodel(AccommodationRenovationDTO renovationDTO, Window window, bool editable) {
             RenovationDTO = renovationDTO;
             _renovationService = new AccommodationRenovationService();
             Window = window;
+            Editable = editable;
             ConfirmCommand = new AndroidCommand(Confirm_Executed,Confirm_CanExecute);
         }
 
         public void Confirm_Executed(object obj) {
-            _renovationService.Save(RenovationDTO.ToAccommodationRenovation());
+            if(Editable)
+                _renovationService.Save(RenovationDTO.ToAccommodationRenovation());
             Window.Close();
         }
 

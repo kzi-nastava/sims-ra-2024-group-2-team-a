@@ -19,12 +19,11 @@ namespace BookingApp.WPF.Android.Views {
     /// Interaction logic for RenovationDescriptionWindow.xaml
     /// </summary>
     public partial class RenovationDescriptionWindow : Window { 
-        public RenovationDescriptionWindow(AccommodationRenovationDTO renovationDTO) {
+        public RenovationDescriptionWindow(AccommodationRenovationDTO renovationDTO, bool editable) {
             InitializeComponent();
-            RenovationDescriptionViewmodel renovationDescriptionViewmodel = new RenovationDescriptionViewmodel(renovationDTO, this);
+            RenovationDescriptionViewmodel renovationDescriptionViewmodel = new RenovationDescriptionViewmodel(renovationDTO, this, editable);
                 
             DataContext = renovationDescriptionViewmodel;
-
         }
     }
 }

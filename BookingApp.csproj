@@ -15,6 +15,7 @@
     <None Remove="Resources\Images\Accommodations\Hut.jpg" />
     <None Remove="Resources\Images\Accommodations\Penthouse.jpeg" />
     <None Remove="Resources\Images\android-search-icon.png" />
+    <None Remove="Resources\Images\android-view-icon.png" />
     <None Remove="Resources\Images\eye.png" />
     <None Remove="Resources\Images\finish.png" />
     <None Remove="Resources\Images\default-coupon.png" />
@@ -105,6 +106,7 @@
     <Resource Include="Resources\Images\Accommodations\Hut.jpg" />
     <Resource Include="Resources\Images\Accommodations\Penthouse.jpeg" />
     <Resource Include="Resources\Images\android-search-icon.png" />
+    <Resource Include="Resources\Images\android-view-icon.png" />
     <Resource Include="Resources\Images\eye.png" />
     <Resource Include="Resources\Images\finish.png" />
     <Resource Include="Resources\Images\Icons\camera-icon.png" />

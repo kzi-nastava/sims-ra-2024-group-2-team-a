@@ -29,8 +29,37 @@ namespace BookingApp.Services {
         public List<AccommodationRenovation> GetByAccommodationId(int accomodationId) {
             return _renovationRepository.GetAll().Where(x => x.AccommodationId == accomodationId).ToList();
         }
+
+        public List<AccommodationRenovation> GetPendingByAccommodationId(int accomodationId) {
+            return _renovationRepository.GetAll().Where(x => x.AccommodationId == accomodationId && x.RenovationState == RenovationState.Pending).ToList();
+        }
+
+        public void CancelRenovation(int renovationId) {
+            if (!CanBeCancelled(renovationId)) {
+                return;
+            }
+
+            AccommodationRenovation accommodationRenovation = this.GetById(renovationId);
+            accommodationRenovation.RenovationState = RenovationState.Cancelled;
+            this.Update(accommodationRenovation);
+        }
+        public bool CanBeCancelled(int renovationId) {
+            AccommodationRenovation renovation = this.GetById(renovationId);
+            return renovation.RenovationState == RenovationState.Pending &&
+                renovation.StartDate > DateOnly.FromDateTime(DateTime.Now).AddDays(5);
+        }
+        public List<AccommodationRenovation> GetByOwnerIdSorted(int ownerId) {
+            List<AccommodationRenovation> renovations = new List<AccommodationRenovation> { };
+            AccommodationService accService = new AccommodationService();
+
+            foreach (var accommodation in accService.GetByOwnerId(ownerId)) {
+                renovations.AddRange(this.GetByAccommodationId(accommodation.Id));
+            }
+
+            return renovations.OrderBy(x => x.RenovationState).ToList();
+        }
         public bool CheckAccommodationAvailability(int accommodationId, DateOnly startDate, DateOnly endDate) {
-            foreach (var r in this.GetByAccommodationId(accommodationId)) {
+            foreach (var r in this.GetPendingByAccommodationId(accommodationId)) {
                 if (!(r.StartDate >= endDate || startDate >= r.EndDate))
                     return false;
             }

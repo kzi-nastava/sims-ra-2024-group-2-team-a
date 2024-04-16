@@ -103,7 +103,7 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         public void AcceptButton_Execute(object obj) {
-            RenovationDescriptionWindow renovationDescriptionWindow = new RenovationDescriptionWindow(SelectedRenovation);
+            RenovationDescriptionWindow renovationDescriptionWindow = new RenovationDescriptionWindow(SelectedRenovation, true);
             renovationDescriptionWindow.ShowDialog();
             _mainFrame.GoBack();
         }
