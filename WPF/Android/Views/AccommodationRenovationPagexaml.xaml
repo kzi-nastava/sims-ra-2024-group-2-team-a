@@ -8,12 +8,20 @@
       d:DesignHeight="624" d:DesignWidth="430"
       Title="AccommodationRenovationPagexaml">
     <Page.Resources>
+        <BitmapImage x:Key="SearchIcon" UriSource="../../../Resources/Images/android-search-icon.png"/>
         <Style TargetType="Label" x:Key="Header1">
             <Style.Setters>
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="22"/>
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
                 <Setter Property="BorderBrush" Value="Black"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            </Style.Setters>
+        </Style>
+        
+        <Style TargetType="Label" x:Key="Labels">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
             </Style.Setters>
         </Style>
     </Page.Resources>
@@ -27,13 +35,60 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="3">
-            <Label Content="Accommodation name" Style="{StaticResource Header1}" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" />
-        </Border>
+        <Label Content="Accommodation name" Style="{StaticResource Header1}" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" Margin="0,5,0,10"/>
+        <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="2"/>
+        <Label Content="Start Date:" Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="1"/>
+        <DatePicker x:Name="startDatePicker" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+
+        <Label Content="End Date:" Style="{StaticResource Labels}" Grid.Column="3" Grid.Row="1"/>
+        <DatePicker x:Name="endDatePicker" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+
+        <Label Content="Duration: " Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="2"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Height="20" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"/>
+
+        <Button Grid.Column="3" Grid.Row="2" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{StaticResource SearchIcon}" Height="40" Width="40"/>
+                <Label Content="Search" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Column="3" Grid.Row="5" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{StaticResource SearchIcon}" Height="40" Width="40"/>
+                <Label Content="Accept" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+        <Label Content="Available Dates: " Style="{StaticResource Header1}" BorderBrush="Transparent"
+               HorizontalAlignment="Center"  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"/>
+        
+        <ListView Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="auto" Width="250" Margin="0,40,0,0"
+                  ItemsSource="{Binding ReservationCollection, UpdateSourceTrigger=PropertyChanged}"
+          SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
+          SelectionMode="Single">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Start Date" Width="125" DisplayMemberBinding="{Binding StartDate}"/>
+                    <GridViewColumn Header="End Date" Width="125" DisplayMemberBinding="{Binding EndDate}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Height" Value="50"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+        <Button Grid.Column="1" Grid.Row="5" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{StaticResource SearchIcon}" Height="40" Width="40"/>
+                <Label Content="Decline" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Page>
