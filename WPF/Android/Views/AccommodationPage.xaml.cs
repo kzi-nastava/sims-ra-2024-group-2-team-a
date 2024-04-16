@@ -48,6 +48,9 @@ namespace BookingApp.WPF.Android.Views {
             if (SelectedAccommodation == null) {
                 return;
             }
+            else {
+                mainFrame.Content = new AccommodationRenovationPage(SelectedAccommodation, mainFrame);
+            }
         }
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e) {
