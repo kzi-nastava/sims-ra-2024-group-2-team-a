@@ -70,8 +70,8 @@ namespace BookingApp.View.WebViews {
             if (!int.TryParse(textBoxReservationDays.Text, out int reservationDays))
                 return false;
 
-            if (reservationDays <= 0)
-                return false;
+            if (reservationDays < _accommodationDTO.MinReservationDays)
+                textBoxReservationDays.Text = _accommodationDTO.MinReservationDays.ToString();
 
             if (datePickerStartDate.SelectedDate == null || datePickerEndDate.SelectedDate == null)
                 return false;
