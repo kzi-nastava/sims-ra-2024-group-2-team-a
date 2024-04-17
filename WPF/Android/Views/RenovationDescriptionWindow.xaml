@@ -1,0 +1,30 @@
+﻿<Window x:Class="BookingApp.WPF.Android.Views.RenovationDescriptionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
+        mc:Ignorable="d"
+        Title="RenovationDescriptionWindow" Height="300" Width="300"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="Labels">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+            </Style.Setters>
+        </Style>
+        </Window.Resources>
+        <Grid Background="AntiqueWhite">
+        <Label Content="Renovation Description" FontFamily="Global Sans Serif" FontSize="22" 
+               VerticalAlignment="Top" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="0,0,0,2" Padding="5,5,5,0"/>
+        <TextBox x:Name="textBox" Text="{Binding RenovationDTO.Description}" IsEnabled="{Binding Editable}"
+                 Height="150" Width="250" VerticalAlignment="Center" Margin="0,-15,0,15"/>
+        <Button Height="50" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="15" Command="{Binding ConfirmCommand}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
+                <Label Content="Confirm" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>
