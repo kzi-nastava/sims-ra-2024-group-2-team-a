@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingApp.Services {
-
     public enum StatisticUpdateAction {Reservation, Cancellation, Postpone, Recommendation };
     public class AccommodationStatisticsService {
         private readonly IAccommodationStatisticsRepository _statisticsRepository =
@@ -18,7 +17,6 @@ namespace BookingApp.Services {
         public bool Update(AccommodationStatistics accommodationStatistics) {
             return _statisticsRepository.Update(accommodationStatistics);
         }
-
         public void Save(AccommodationStatistics accStatistics) {
             _statisticsRepository.Save(accStatistics);
         }
@@ -37,7 +35,7 @@ namespace BookingApp.Services {
             }
             return years;
         }
-        public void UpdateStatistic(int accommodationId, DateOnly startDate, StatisticUpdateAction action) {
+        public void UpdateStatistics(int accommodationId, DateOnly startDate, StatisticUpdateAction action) {
             AccommodationStatistics statistic = this.GetByDateForAccommodation(accommodationId, startDate.Year, startDate.Month);
             if (statistic == null) {
                 statistic = new AccommodationStatistics(accommodationId, startDate.Year, startDate.Month);

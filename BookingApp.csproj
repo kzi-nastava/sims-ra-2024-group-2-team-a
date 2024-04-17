@@ -175,6 +175,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Resources\Data\tourReview.csv">
       <Generator>MSBuild:Compile</Generator>
     </None>

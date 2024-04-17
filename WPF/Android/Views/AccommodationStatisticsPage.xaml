@@ -1,0 +1,217 @@
+﻿<Page x:Class="BookingApp.WPF.Android.Views.AccommodationStatisticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="624" d:DesignWidth="430"
+      Title="AccommodationStatisticsPage">
+    <Page.Resources>
+        <Style TargetType="Label" x:Key="Header1">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="Labels">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+            </Style.Setters>
+        </Style>
+    </Page.Resources>
+    <Grid Background="AntiqueWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="0,0,0,2">
+            <Label Content="Accommodation name" Style="{StaticResource Header1}" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Border>
+
+        <TabControl Grid.Row="1" Height="550" Width="400">
+            <TabItem Header="Yearly" Width="120" Height="40">
+                <StackPanel Orientation="Vertical">
+                    <Border Height="150" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="0,0,0,1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Busiest year: " Style="{StaticResource Labels}" Grid.Row="0" VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"/>
+                            <Label Content="2015" Style="{StaticResource Labels}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                            <Label Content="Reservations: " Style="{StaticResource Labels}" Grid.Row="1" VerticalAlignment="Center" Width="130" HorizontalAlignment="Left"/>
+                            <Label Content="50" Style="{StaticResource Labels}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                            <Label Content="Total reservations: " Style="{StaticResource Labels}" Grid.Row="2" VerticalAlignment="Center" Width="140" HorizontalAlignment="Left"/>
+                            <Label Content="150" Style="{StaticResource Labels}" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                            <lvc:PieChart Name="reservationPieChart" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="15,0,0,0">
+                                <lvc:PieChart.Series>
+                                    <lvc:PieSeries Title="Reservation Status" Values="{Binding Reservations}" DataLabels="True" />
+                                </lvc:PieChart.Series>
+                            </lvc:PieChart>
+                        </Grid>
+                    </Border>
+                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" Margin="0,10,0,0" VerticalScrollBarVisibility="Hidden" Height="350" Width="400">
+                        <StackPanel Orientation="Vertical" Height="850" Width="400">
+                            
+                            <lvc:CartesianChart x:Name="reservationsYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Year" Labels="{Binding Years}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.Series>
+                                    <lvc:ColumnSeries Title="Yearly Reservations" Values="{Binding Reservations}"/>
+                                </lvc:CartesianChart.Series>
+                            </lvc:CartesianChart>
+
+
+                            <lvc:CartesianChart x:Name="reservationsCancelledYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Year" Labels="{Binding Years}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.Series>
+                                    <lvc:ColumnSeries Title="Yearly Reservations" Values="{Binding Reservations}"/>
+                                </lvc:CartesianChart.Series>
+                            </lvc:CartesianChart>
+
+                            <lvc:CartesianChart x:Name="reservationsPostponedYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Year" Labels="{Binding Years}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.Series>
+                                    <lvc:ColumnSeries Title="Yearly Reservations" Values="{Binding Reservations}"/>
+                                </lvc:CartesianChart.Series>
+                            </lvc:CartesianChart>
+
+                            <lvc:CartesianChart x:Name="recommendationsYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Year" Labels="{Binding Years}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.Series>
+                                    <lvc:ColumnSeries Title="Yearly Renovation Recommendations" Values="{Binding Reservations}"/>
+                                </lvc:CartesianChart.Series>
+                            </lvc:CartesianChart>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="Monthly" Width="120" Height="40">
+                <StackPanel Orientation="Vertical">
+                    <Border Height="150" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="0,0,0,1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Year: " Style="{StaticResource Labels}" Grid.Row="0" VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"/>
+                            <ComboBox Grid.Row="0" Width="80" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+                                <Label Content="Busiest month: " Style="{StaticResource Labels}" Grid.Row="1" VerticalAlignment="Center" Width="130" HorizontalAlignment="Left"/>
+                            <Label Content="50" Style="{StaticResource Labels}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                            <Label Content="Yearly reservations: " Style="{StaticResource Labels}" Grid.Row="2" VerticalAlignment="Center" Width="140" HorizontalAlignment="Left"/>
+                            <Label Content="150" Style="{StaticResource Labels}" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+                            <lvc:PieChart Name="reservationMonthlyPieChart" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="15,0,0,0">
+                                <lvc:PieChart.Series>
+                                    <lvc:PieSeries Title="Reservation Status" Values="{Binding Reservations}" DataLabels="True" />
+                                </lvc:PieChart.Series>
+                            </lvc:PieChart>
+                        </Grid>
+                    </Border>
+                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" Margin="0,10,0,0" VerticalScrollBarVisibility="Hidden" Height="350" Width="400">
+                        <StackPanel Orientation="Vertical" Height="850" Width="400">
+
+                            <lvc:CartesianChart x:Name="reservationsMonthlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Year" Labels="{Binding Years}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.Series>
+                                    <lvc:ColumnSeries Title="Monthly Reservations" Values="{Binding Reservations}"/>
+                                </lvc:CartesianChart.Series>
+                            </lvc:CartesianChart>
+
+
+                            <lvc:CartesianChart x:Name="reservationsCancelledMonthlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Year" Labels="{Binding Years}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.Series>
+                                    <lvc:ColumnSeries Title="Monthly Reservations" Values="{Binding Reservations}"/>
+                                </lvc:CartesianChart.Series>
+                            </lvc:CartesianChart>
+
+                            <lvc:CartesianChart x:Name="reservationsPostponedMonthlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Year" Labels="{Binding Years}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.Series>
+                                    <lvc:ColumnSeries Title="Monthly Reservations" Values="{Binding Reservations}"/>
+                                </lvc:CartesianChart.Series>
+                            </lvc:CartesianChart>
+
+                            <lvc:CartesianChart x:Name="recommendationsMonthlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Year" Labels="{Binding Years}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.Series>
+                                    <lvc:ColumnSeries Title="Yearly Renovation Recommendations" Values="{Binding Reservations}"/>
+                                </lvc:CartesianChart.Series>
+                            </lvc:CartesianChart>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>
