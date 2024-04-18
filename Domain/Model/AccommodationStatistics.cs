@@ -16,6 +16,7 @@ namespace BookingApp.Domain.Model {
         public int CancelledReservationsNum { get; set; }
         public int PostponedReservationsNum { get; set; }
         public int RenovationsRecommendedNum { get; set; }
+        public int DaysReserved { get; set; }
         public AccommodationStatistics() {}
         public AccommodationStatistics(int accommodationId, int year, int month) {
             AccommodationId = accommodationId;
@@ -25,6 +26,7 @@ namespace BookingApp.Domain.Model {
             CancelledReservationsNum = 0;
             PostponedReservationsNum = 0;
             RenovationsRecommendedNum = 0;
+            DaysReserved = 0;
         }
         public void FromCSV(string[] values) {
             Id = Convert.ToInt32(values[0]);
@@ -35,6 +37,7 @@ namespace BookingApp.Domain.Model {
             CancelledReservationsNum = Convert.ToInt32(values[5]);
             PostponedReservationsNum = Convert.ToInt32(values[6]);
             RenovationsRecommendedNum = Convert.ToInt32(values[7]);
+            DaysReserved = Convert.ToInt32(values[8]);
         }
 
         public string[] ToCSV() {
@@ -47,6 +50,7 @@ namespace BookingApp.Domain.Model {
                 CancelledReservationsNum.ToString(),
                 PostponedReservationsNum.ToString(),
                 RenovationsRecommendedNum.ToString(),
+                DaysReserved.ToString()
             };
 
             return csvValues;
