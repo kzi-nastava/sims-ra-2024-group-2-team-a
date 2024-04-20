@@ -25,16 +25,54 @@ namespace BookingApp.Services {
         public List<AccommodationStatistics> GetByYearForAccommodation(int accommodationId,int year) {
             return _statisticsRepository.GetAll().Where(x => x.Year == year && x.AccommodationId == accommodationId).ToList();
         }
-        public List<int> GetYearsWithAvailableStatistics() {
+        public List<int> GetYearsWithAvailableStatistics(int accommodationId) {
             List<int> years = new List<int>();
             foreach (var statistic in _statisticsRepository.GetAll()) {
-                if (!years.Contains(statistic.Year)) {
+                if (!years.Contains(statistic.Year) && statistic.AccommodationId == accommodationId) {
                     years.Add(statistic.Year);
                 }
             }
+            years.Sort();
             return years;
         }
+        public AccommodationStatistics GetSumOfStatisticsForYear(int accommodationId, int year) {
+            AccommodationStatistics yearlyStatistic = new AccommodationStatistics(accommodationId, year, -1);
 
+            foreach (var v in this.GetByYearForAccommodation(accommodationId, year)) {
+                yearlyStatistic.DaysReserved += v.DaysReserved;
+                yearlyStatistic.CancelledReservationsNum += v.CancelledReservationsNum;
+                yearlyStatistic.PostponedReservationsNum += v.PostponedReservationsNum;
+                yearlyStatistic.RenovationsRecommendedNum += v.RenovationsRecommendedNum;
+                yearlyStatistic.ReservationsNum += v.ReservationsNum;
+            }
+
+            return yearlyStatistic;
+        }
+
+        public List<AccommodationStatistics> GetYearlyStatistics(int accommodationId) {
+            List<AccommodationStatistics> list = new List<AccommodationStatistics> ();
+            foreach (var year in GetYearsWithAvailableStatistics(accommodationId)) {
+                list.Add(this.GetSumOfStatisticsForYear(accommodationId,year));
+            }
+            return list.OrderBy(x => x.Year).ToList();
+        }
+
+        public AccommodationStatistics GetBusiestYearStatistics(int accommodationId) {
+            return this.GetYearlyStatistics(accommodationId).OrderByDescending(x => x.DaysReserved).FirstOrDefault();
+        }
+
+        public AccommodationStatistics GetBusiestMonthStatistics(int accommodationId, int year) {
+            return this.GetByYearForAccommodation(accommodationId, year).OrderByDescending(x => x.DaysReserved).FirstOrDefault();
+        }
+
+        public int GetDaysFromFirstReservation(int accId) {
+            AccommodationReservationService accResService = new AccommodationReservationService();
+            var reservation = accResService.GetOldestReservation(accId);
+
+            int days = this.CalculateDaysDiffrence(reservation.StartDate, DateOnly.FromDateTime(DateTime.Now));
+
+            return Math.Abs(days);
+        }
         public void UpdatePostponedStatistics(int accId, DateOnly oldStartDate, DateOnly oldEndDate, DateOnly newStartDate, DateOnly newEndDate) {
             AccommodationStatistics oldReservationStatistic = this.GetByDateForAccommodation(accId, oldStartDate.Year, oldStartDate.Month);
             oldReservationStatistic.PostponedReservationsNum++;
@@ -82,7 +120,7 @@ namespace BookingApp.Services {
                 UpdateCancellationStatistics(accommodationId,newStartDate,endDate, false);
             }
         }
-        public void UpdateCancellationStatistics(int accommodationId, DateOnly startDate, DateOnly endDate, bool addCancellations) {
+        private void UpdateCancellationStatistics(int accommodationId, DateOnly startDate, DateOnly endDate, bool addCancellations) {
             AccommodationStatistics statistics = this.GetByDateForAccommodation(accommodationId,startDate.Year,startDate.Month);
             int days = this.CalculateDaysDiffrence(startDate, endDate);
             statistics.DaysReserved -= days;
@@ -121,12 +159,11 @@ namespace BookingApp.Services {
             statistic.DaysReserved += this.CalculateDaysDiffrence(startDate, endDate);
             this.Update(statistic);
         }
-
         private int CalculateDaysDiffrence(DateOnly startDate, DateOnly endDate) {
             DateTime dateTime1 = new DateTime(startDate.Year, startDate.Month, startDate.Day);
             DateTime dateTime2 = new DateTime(endDate.Year, endDate.Month, endDate.Day);
 
-            int differenceInDays = (dateTime1 - dateTime2).Days;
+            int differenceInDays = (dateTime2 - dateTime1).Days;
             return differenceInDays;
         }
     }

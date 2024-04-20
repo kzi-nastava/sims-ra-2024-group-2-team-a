@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.WPF.Android.ViewModels;
+using BookingApp.WPF.DTO;
 using LiveCharts;
 
 namespace BookingApp.WPF.Android.Views {
@@ -19,8 +21,11 @@ namespace BookingApp.WPF.Android.Views {
     /// Interaction logic for AccommodationStatisticsPage.xaml
     /// </summary>
     public partial class AccommodationStatisticsPage : Page {
-        public AccommodationStatisticsPage() {
+        public AccommodationStatisticsPage(AccommodationDTO accDTO) {
             InitializeComponent();
+            AccommodationStatisticsViewmodel accommodationStatisticsViewmodel = new AccommodationStatisticsViewmodel(accDTO);
+
+            DataContext = accommodationStatisticsViewmodel;
         }
     }
 }

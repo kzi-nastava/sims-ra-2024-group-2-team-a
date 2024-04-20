@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BookingApp.Services {
     class AccommodationReservationService
@@ -12,7 +13,7 @@ namespace BookingApp.Services {
         private readonly RescheduleRequestService _rescheduleService = new RescheduleRequestService();
         private readonly AccommodationService _accommodationService = new AccommodationService();
         private readonly ReservationRecommenderService _recommenderService = new ReservationRecommenderService();
-
+        private readonly AccommodationStatisticsService _statisticService = new AccommodationStatisticsService();
         public List<AccommodationReservation> GetByAccommodationId(int id) {
             return _reservationRepository.GetByAccommodationId(id);
         }
@@ -30,7 +31,12 @@ namespace BookingApp.Services {
         }
 
         public AccommodationReservation Save(AccommodationReservation reservation) {
+            _statisticService.UpdateReservationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate);
             return _reservationRepository.Save(reservation);
+        }
+
+        public AccommodationReservation GetOldestReservation(int accommodationId) {
+            return this.GetByAccommodationId(accommodationId).OrderBy(x => x.StartDate).FirstOrDefault();
         }
 
         public void CancelReservation(int id) {
@@ -39,6 +45,8 @@ namespace BookingApp.Services {
             _reservationRepository.Update(reservation);
 
             _rescheduleService.CancelByReservationId(id);
+
+            _statisticService.UpdateCancellationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate);
         }
 
         public bool Update(AccommodationReservation accReservation) {
