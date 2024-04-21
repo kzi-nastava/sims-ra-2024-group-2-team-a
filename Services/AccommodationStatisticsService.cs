@@ -2,7 +2,9 @@
 using BookingApp.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +26,13 @@ namespace BookingApp.Services {
         }
         public List<AccommodationStatistics> GetByYearForAccommodation(int accommodationId,int year) {
             return _statisticsRepository.GetAll().Where(x => x.Year == year && x.AccommodationId == accommodationId).ToList();
+        }
+
+        public List<AccommodationStatistics> GetByAccId(int accId) {
+            return _statisticsRepository.GetAll().Where(x => x.AccommodationId == accId).ToList();
+        }
+        public bool IsStatisticEmpty(int accId) {
+            return this.GetByAccId(accId).Count == 0;
         }
         public List<int> GetYearsWithAvailableStatistics(int accommodationId) {
             List<int> years = new List<int>();

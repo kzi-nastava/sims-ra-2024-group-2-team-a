@@ -16,6 +16,8 @@ namespace BookingApp.WPF.Android.Views {
 
         private AccommodationService accommodationService = new AccommodationService();
 
+        private readonly AccommodationStatisticsService _statisticsService = new AccommodationStatisticsService();  
+
         private LocationService locationService = new LocationService();
         public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
 
@@ -54,8 +56,11 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e) {
-            if (SelectedAccommodation == null) {
+            if (SelectedAccommodation == null ) {
                 return;
+            }
+            else if (_statisticsService.IsStatisticEmpty(SelectedAccommodation.Id)) {
+                MessageBox.Show("Selected accommodation does not have any required statistic", "Selection Error", MessageBoxButton.OK);
             }
             else {
                 mainFrame.Content = new AccommodationStatisticsPage(SelectedAccommodation);
