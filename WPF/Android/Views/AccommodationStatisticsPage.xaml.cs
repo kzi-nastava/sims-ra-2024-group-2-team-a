@@ -21,11 +21,17 @@ namespace BookingApp.WPF.Android.Views {
     /// Interaction logic for AccommodationStatisticsPage.xaml
     /// </summary>
     public partial class AccommodationStatisticsPage : Page {
+
+        public AccommodationStatisticsViewmodel accommodationStatisticsViewmodel { get; set; }
         public AccommodationStatisticsPage(AccommodationDTO accDTO) {
             InitializeComponent();
-            AccommodationStatisticsViewmodel accommodationStatisticsViewmodel = new AccommodationStatisticsViewmodel(accDTO);
+            accommodationStatisticsViewmodel = new AccommodationStatisticsViewmodel(accDTO);
 
             DataContext = accommodationStatisticsViewmodel;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            accommodationStatisticsViewmodel.SelectionChangedExecute();
         }
     }
 }

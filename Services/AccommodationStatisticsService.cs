@@ -76,9 +76,10 @@ namespace BookingApp.Services {
 
         public int GetDaysFromFirstReservation(int accId) {
             AccommodationReservationService accResService = new AccommodationReservationService();
-            var reservation = accResService.GetOldestReservation(accId);
+            var oldestReservation = accResService.GetOldestReservation(accId);
+            var newestReservation = accResService.GetNewestReservation(accId);
 
-            int days = this.CalculateDaysDiffrence(reservation.StartDate, DateOnly.FromDateTime(DateTime.Now));
+            int days = this.CalculateDaysDiffrence(oldestReservation.StartDate, newestReservation.EndDate);
 
             return Math.Abs(days);
         }
@@ -173,7 +174,7 @@ namespace BookingApp.Services {
             DateTime dateTime2 = new DateTime(endDate.Year, endDate.Month, endDate.Day);
 
             int differenceInDays = (dateTime2 - dateTime1).Days;
-            return differenceInDays;
+            return  Math.Abs(differenceInDays);
         }
     }
 }

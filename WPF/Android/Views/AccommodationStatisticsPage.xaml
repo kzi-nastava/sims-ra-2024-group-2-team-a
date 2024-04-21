@@ -132,13 +132,13 @@
                             </Grid.ColumnDefinitions>
                             <Label Content="Year: " Style="{StaticResource Labels}" Grid.Row="0" VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"/>
                             <ComboBox Grid.Row="0" Width="80" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                      ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear}"/>
+                                      ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear}" SelectionChanged="ComboBox_SelectionChanged"/>
 
                                 <Label Content="Busiest month: " Style="{StaticResource Labels}" Grid.Row="1" VerticalAlignment="Center" Width="130" HorizontalAlignment="Left"/>
-                            <Label Content="{Binding BusiestMonth}" Style="{StaticResource Labels}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            <Label Content="{Binding BusiestMonth, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Labels}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
                             <Label Content="Yearly reservations: " Style="{StaticResource Labels}" Grid.Row="2" VerticalAlignment="Center" Width="150" HorizontalAlignment="Left"/>
-                            <Label Content="{Binding ReservationsInSelectedYear}" Style="{StaticResource Labels}" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            <Label Content="{Binding ReservationsInSelectedYear, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Labels}" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
                             <lvc:PieChart x:Name="reservationMonthlyPieChart"   Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="15,0,0,0"  Series="{Binding ChartPieMonthlyList}">
                             </lvc:PieChart>

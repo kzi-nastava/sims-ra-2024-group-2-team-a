@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using BookingApp.WPF.Utils.Commands;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -18,7 +19,17 @@ namespace BookingApp.WPF.Android.ViewModels {
         private readonly AccommodationStatisticsService _statisticsService = new AccommodationStatisticsService();
         public AccommodationDTO AccommodationDTO { get; set; }
         public SeriesCollection ChartPieYearlyList { get; set; }
-        public SeriesCollection ChartPieMonthlyList { get; set; }
+
+        private SeriesCollection _chartpieMonthly;
+        public SeriesCollection ChartPieMonthlyList {
+            get { return _chartpieMonthly; }
+            set {
+                if (value != _chartpieMonthly) {
+                    _chartpieMonthly = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public ChartValues<string> Years { get; set; }
         public ChartValues<string> Months { get; set; }
         public ChartValues<int> ReservationsYearly { get; set; }
@@ -30,7 +41,17 @@ namespace BookingApp.WPF.Android.ViewModels {
         public ChartValues<int> PostponedMonthly { get; set; }
         public ChartValues<int> RecommendationsMonthly { get; set; }
         public AccommodationStatistics BusiestYear { get; set; }
-        public string BusiestMonth { get; set; }
+
+        public string _busiestMonth;
+        public string BusiestMonth {
+            get { return _busiestMonth; }
+            set {
+                if (value != _busiestMonth) {
+                    _busiestMonth = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public int _reservationsInSelectedYear;
         public int ReservationsInSelectedYear {
@@ -83,6 +104,9 @@ namespace BookingApp.WPF.Android.ViewModels {
 
             Update();
         }
+        public void SelectionChangedExecute() {
+            this.UpdateMonthlyStatistics();
+        }
 
         public void Update() {
             UpdateYearlyStatistics();
@@ -90,10 +114,14 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         public void UpdateMonthlyStatistics() {
+            ReservationsMonthly.Clear();
+            CancellationsMonthly.Clear();
+            PostponedMonthly.Clear();
+            RecommendationsMonthly.Clear();
+
             ReservationsInSelectedYear = 0;
             int totalDays = 0;
-
-            SelectedYear = Years[0];
+            
             for (int i=1;i<13;i++) {
                 AccommodationStatistics accommodationStatistics = _statisticsService.GetByDateForAccommodation(AccommodationDTO.Id
                     , int.Parse(SelectedYear), i);
@@ -125,6 +153,7 @@ namespace BookingApp.WPF.Android.ViewModels {
                     DataLabels = true
                 }
             };
+
             BusiestMonth = Months[_statisticsService.GetBusiestMonthStatistics(AccommodationDTO.Id, int.Parse(SelectedYear)).Month - 1];
         }
         public void UpdateYearlyStatistics() {
@@ -133,6 +162,8 @@ namespace BookingApp.WPF.Android.ViewModels {
             foreach (var v in _statisticsService.GetYearsWithAvailableStatistics(AccommodationDTO.Id)) {
                 Years.Add(v.ToString());
             }
+
+            SelectedYear = Years[0];
 
             foreach (var statistic in _statisticsService.GetYearlyStatistics(AccommodationDTO.Id)) {
                 ReservationsYearly.Add(statistic.ReservationsNum);

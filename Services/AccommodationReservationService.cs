@@ -39,6 +39,10 @@ namespace BookingApp.Services {
             return this.GetByAccommodationId(accommodationId).OrderBy(x => x.StartDate).FirstOrDefault();
         }
 
+        public AccommodationReservation GetNewestReservation(int accId) {
+            return this.GetByAccommodationId(accId).OrderByDescending(x => x.StartDate).FirstOrDefault();
+        }
+
         public void CancelReservation(int id) {
             var reservation = _reservationRepository.GetById(id);
             reservation.Cancelled = true;
