@@ -31,7 +31,7 @@ namespace BookingApp.Services {
             { typeof(ITourReviewRepository), new Dictionary<RepositoryType, object>() },
             { typeof(IVoucherRepository), new Dictionary<RepositoryType, object>() },
             { typeof(INotificationRepository), new Dictionary<RepositoryType, object>() },
-            { typeof(INotificationRepository), new Dictionary<RepositoryType, object>() }
+            { typeof(ITourRequestRepository), new Dictionary<RepositoryType, object>() }
         };
 
         static RepositoryInjector() {

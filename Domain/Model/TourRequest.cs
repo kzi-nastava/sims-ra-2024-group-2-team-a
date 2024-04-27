@@ -17,8 +17,8 @@ namespace BookingApp.Domain.Model {
         public int LanguageId { get; set; }
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
-
         public TourRequestStatus Status { get; set; }
+        public int PassengerNumber { get; set; }
 
         public TourRequest() {
 
@@ -33,13 +33,14 @@ namespace BookingApp.Domain.Model {
             Status = TourRequestStatus.OnHold;           
         } */
 
-        public TourRequest(TourRequestDTO tourRequest) {
+        public TourRequest(TourRequestDTO tourRequest, int passengerNumber) {
             LocationId = tourRequest.LocationId;
             Description = tourRequest.Description;
             LanguageId = tourRequest.LanguageId;
             StartDate = tourRequest.StartDate;
             EndDate = tourRequest.EndDate;
             Status = TourRequestStatus.OnHold;
+            PassengerNumber = passengerNumber;
         }
 
         public string[] ToCSV() {
@@ -51,7 +52,8 @@ namespace BookingApp.Domain.Model {
                 LanguageId.ToString(),
                 StartDate.ToString("dd-MM-yyyy"),
                 EndDate.ToString("dd-MM-yyyy"),
-                Status.ToString()
+                Status.ToString(),
+                PassengerNumber.ToString()
             };
 
             return csvValues;
@@ -66,6 +68,7 @@ namespace BookingApp.Domain.Model {
             StartDate = DateOnly.ParseExact(values[5], "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
             EndDate = DateOnly.ParseExact(values[6], "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
             Status = (TourRequestStatus)Enum.Parse(typeof(TourRequestStatus), values[7]);
+            PassengerNumber = Convert.ToInt32(values[8]);
         }
     }
 }

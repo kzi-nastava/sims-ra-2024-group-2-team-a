@@ -26,8 +26,8 @@ namespace BookingApp.Services {
             }
         }
 
-        public void MakeRequest(TourRequestDTO tourRequestDTO) {
-
+        public void CreateRequest(TourRequestDTO tourRequestDTO, int passengerNumber) {
+            _tourRequestRepository.Save(new TourRequest(tourRequestDTO, passengerNumber));
         }
     }
 }
