@@ -4,7 +4,7 @@ namespace BookingApp.Domain.Model {
 
     public class Guest : User {
 
-        public static readonly int SuperGuestReservationsCount = 10;
+        public static readonly int SuperGuestReservationsCount = 5;
         public static readonly int SuperGuestStartPoints = 5;
 
         public bool IsSuperGuest { get; set; } = false;
@@ -19,7 +19,7 @@ namespace BookingApp.Domain.Model {
             Category = UserCategory.Guest;
         }
 
-        public string[] ToCSV() {
+        public override string[] ToCSV() {
             string[] csvValues = { 
                 Id.ToString(), 
                 IsSuperGuest.ToString(),
@@ -29,7 +29,7 @@ namespace BookingApp.Domain.Model {
             return csvValues;
         }
 
-        public void FromCSV(string[] values) {
+        public override void FromCSV(string[] values) {
             Id = Convert.ToInt32(values[0]);
             IsSuperGuest = Convert.ToBoolean(values[1]);
             SuperGuestExpirationDate = DateOnly.Parse(values[2]);

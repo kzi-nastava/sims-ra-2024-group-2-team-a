@@ -31,16 +31,19 @@ namespace BookingApp.Services {
         }
 
         public AccommodationReservation Save(AccommodationReservation reservation) {
-            Guest guest = _guestService.GetById(reservation.GuestId);
+            AccommodationReservation newReservation = _reservationRepository.Save(reservation);
+
+            Guest guest = _guestService.GetById(newReservation.GuestId);
 
             if(guest.IsSuperGuest) {
                 _guestService.DecrementGuestPoints(reservation.GuestId);
             } else {
-                if (_reservationRepository.CountReservationsInLastYear(guest.Id) >= Guest.SuperGuestReservationsCount)
+                int reservationsCount = _reservationRepository.CountReservationsInLastYear(guest.Id);
+                if (reservationsCount >= Guest.SuperGuestReservationsCount)
                     _guestService.PromoteToSuperGuest(guest.Id);
             }
 
-            return _reservationRepository.Save(reservation);
+            return newReservation;
         }
 
         public void CancelReservation(int id) {

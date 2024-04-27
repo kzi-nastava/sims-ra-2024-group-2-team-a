@@ -19,11 +19,6 @@ namespace BookingApp.WPF.Web.Views {
             GuestId = guestId;
             MainFrame = mainFrame;
             MainFrame.Content = new BookingPage();
-
-            //GuestService _guestService = new GuestService();
-            //Guest guest = _guestService.GetById(GuestId);
-            //if(guest == null)
-            //    _guestService.Save(new Guest() { Id = GuestId });
         }
 
         private void SetWindowProperties() {

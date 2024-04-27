@@ -22,7 +22,7 @@ namespace BookingApp.Repository {
         public int CountReservationsInLastYear(int guestId) {
             var reservations = _serializer.FromCSV();
 
-            return reservations.Count(r => r.GuestId == guestId && r.StartDate >= DateOnly.FromDateTime(DateTime.Now));
+            return reservations.Count(r => r.GuestId == guestId && r.StartDate >= DateOnly.FromDateTime(DateTime.Now.AddYears(-1)));
         }
     }
 }

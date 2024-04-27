@@ -26,13 +26,13 @@ namespace BookingApp.Domain.Model {
             Category = user.Category;
         }
 
-        public string[] ToCSV()
+        public virtual string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), Username, Password, Category.ToString() };
             return csvValues;
         }
 
-        public void FromCSV(string[] values)
+        public virtual void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
             Username = values[1];
