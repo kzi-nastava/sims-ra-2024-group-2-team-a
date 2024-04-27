@@ -6,7 +6,6 @@ namespace BookingApp.Domain.Model {
 
     public class User : ISerializable, IIdentifiable
     {
-
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
@@ -18,6 +17,13 @@ namespace BookingApp.Domain.Model {
         {
             Username = username;
             Password = password;
+        }
+
+        public User(User user) {
+            Id = user.Id;
+            Username = user.Username;
+            Password = user.Password;
+            Category = user.Category;
         }
 
         public string[] ToCSV()

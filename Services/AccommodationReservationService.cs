@@ -12,6 +12,7 @@ namespace BookingApp.Services {
         private readonly RescheduleRequestService _rescheduleService = new RescheduleRequestService();
         private readonly AccommodationService _accommodationService = new AccommodationService();
         private readonly ReservationRecommenderService _recommenderService = new ReservationRecommenderService();
+        private readonly GuestService _guestService = new GuestService();
 
         public List<AccommodationReservation> GetByAccommodationId(int id) {
             return _reservationRepository.GetByAccommodationId(id);
@@ -30,6 +31,15 @@ namespace BookingApp.Services {
         }
 
         public AccommodationReservation Save(AccommodationReservation reservation) {
+            Guest guest = _guestService.GetById(reservation.GuestId);
+
+            if(guest.IsSuperGuest) {
+                _guestService.DecrementGuestPoints(reservation.GuestId);
+            } else {
+                if (_reservationRepository.CountReservationsInLastYear(guest.Id) >= Guest.SuperGuestReservationsCount)
+                    _guestService.PromoteToSuperGuest(guest.Id);
+            }
+
             return _reservationRepository.Save(reservation);
         }
 

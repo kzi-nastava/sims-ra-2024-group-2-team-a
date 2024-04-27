@@ -4,21 +4,20 @@ namespace BookingApp.Domain.Model {
 
     public class Guest : User {
 
-        public static readonly int superGuestReservationsCount = 10;
+        public static readonly int SuperGuestReservationsCount = 10;
+        public static readonly int SuperGuestStartPoints = 5;
 
-        public bool IsSuperGuest { get; set; }
+        public bool IsSuperGuest { get; set; } = false;
+        public DateOnly SuperGuestExpirationDate { get; set; } = new DateOnly();
+        public int BonusPoints { get; set; } = 0;
 
-        public DateOnly SuperGuestExpirationDate { get; set; }
-
-        public int BonusPoints { get; set; }
-
-        public Guest() { }
-
-        public Guest(string username, string password) : base(username, password) {
+        public Guest() {
             Category = UserCategory.Guest;
-            IsSuperGuest = false;
         }
 
+        public Guest(User user) : base(user) {
+            Category = UserCategory.Guest;
+        }
 
         public string[] ToCSV() {
             string[] csvValues = { 
@@ -30,12 +29,11 @@ namespace BookingApp.Domain.Model {
             return csvValues;
         }
 
-
         public void FromCSV(string[] values) {
-            base.FromCSV(values);
-            IsSuperGuest = Convert.ToBoolean(values[^3]);
-            SuperGuestExpirationDate = DateOnly.Parse(values[^2]);
-            BonusPoints = Convert.ToInt32(values[^1]);
+            Id = Convert.ToInt32(values[0]);
+            IsSuperGuest = Convert.ToBoolean(values[1]);
+            SuperGuestExpirationDate = DateOnly.Parse(values[2]);
+            BonusPoints = Convert.ToInt32(values[3]);
         }
     }
 }

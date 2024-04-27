@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,16 +9,21 @@ namespace BookingApp.WPF.Web.Views {
     /// </summary>
     public partial class GuestMainWindow : Window {
 
-        public User User { get; set; }
+        public int GuestId { get; }
 
         public Frame MainFrame { get; set; }
 
-        public GuestMainWindow(User user) {
+        public GuestMainWindow(int guestId) {
             InitializeComponent();
             SetWindowProperties();
-            User = user;
+            GuestId = guestId;
             MainFrame = mainFrame;
             MainFrame.Content = new BookingPage();
+
+            //GuestService _guestService = new GuestService();
+            //Guest guest = _guestService.GetById(GuestId);
+            //if(guest == null)
+            //    _guestService.Save(new Guest() { Id = GuestId });
         }
 
         private void SetWindowProperties() {
@@ -29,7 +35,7 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void ButtonReservationsClick(object sender, RoutedEventArgs e) {
-            mainFrame.Content = new ReservationsPage(User.Id);
+            mainFrame.Content = new ReservationsPage(GuestId);
         }
 
         private void ButtonLogoutClick(object sender, RoutedEventArgs e) {
