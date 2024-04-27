@@ -2,33 +2,40 @@
 
 namespace BookingApp.Domain.Model {
 
-    public class Guest : User
-    {
+    public class Guest : User {
 
-        public bool isSuperGuest { get; set; }
+        public static readonly int superGuestReservationsCount = 10;
+
+        public bool IsSuperGuest { get; set; }
+
+        public DateOnly SuperGuestExpirationDate { get; set; }
+
+        public int BonusPoints { get; set; }
 
         public Guest() { }
 
-        public Guest(string username, string password) : base(username, password)
-        {
+        public Guest(string username, string password) : base(username, password) {
             Category = UserCategory.Guest;
-            isSuperGuest = false;
+            IsSuperGuest = false;
         }
 
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-        public string[] ToCSV()
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
-        {
-            string[] csvValues = { Id.ToString(), isSuperGuest.ToString() };
+
+        public string[] ToCSV() {
+            string[] csvValues = { 
+                Id.ToString(), 
+                IsSuperGuest.ToString(),
+                SuperGuestExpirationDate.ToString(),
+                BonusPoints.ToString()
+            };
             return csvValues;
         }
 
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-        public void FromCSV(string[] values)
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
-        {
+
+        public void FromCSV(string[] values) {
             base.FromCSV(values);
-            isSuperGuest = Convert.ToBoolean(values[^1]);
+            IsSuperGuest = Convert.ToBoolean(values[^3]);
+            SuperGuestExpirationDate = DateOnly.Parse(values[^2]);
+            BonusPoints = Convert.ToInt32(values[^1]);
         }
     }
 }
