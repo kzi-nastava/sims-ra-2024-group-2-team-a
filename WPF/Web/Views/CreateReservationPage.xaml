@@ -47,10 +47,10 @@
 
                     </Border>
 
-                    <TextBlock x:Name="textBlockName" TextWrapping="Wrap" FontSize="15" Text="{Binding Name}" Margin="33,10,33,215" Width="150" TextAlignment="Center" Grid.Row="0"/>
+                    <TextBlock x:Name="textBlockName" TextWrapping="Wrap" FontSize="15" Text="{Binding Accommodation.Name}" Margin="33,10,33,215" Width="150" TextAlignment="Center" Grid.Row="0"/>
                     <Border Height="128" Width="128" CornerRadius="10" Grid.Row="0" Margin="44,55,44,82">
                         <Border.Background>
-                            <ImageBrush ImageSource="{Binding ProfilePictures[0]}" Stretch="Fill"/>
+                            <ImageBrush ImageSource="{Binding Accommodation.ProfilePictures[0]}" Stretch="Fill"/>
                         </Border.Background>
                     </Border>
 
@@ -66,28 +66,28 @@
                         <Label Grid.Row="0" HorizontalContentAlignment="Center" Margin="0 0 0 10">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LocationIcon}"/>
-                                <TextBlock x:Name="textBoxLocation" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Location.LocationInfoTemplate}"/>
+                                <TextBlock x:Name="textBoxLocation" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Accommodation.Location.LocationInfoTemplate}"/>
                             </StackPanel>
                         </Label>
 
                         <Label Grid.Row="1" HorizontalAlignment="Center" Margin="0 0 0 10">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource HouseIcon}"/>
-                                <TextBlock x:Name="textBoxType" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Type}"/>
+                                <TextBlock x:Name="textBoxType" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Accommodation.Type}"/>
                             </StackPanel>
                         </Label>
 
                         <Label Grid.Row="2" HorizontalContentAlignment="Center" Margin="0 0 0 10">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource CalendarIcon}"/>
-                                <TextBlock x:Name="textBoxDays" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding MinReservationDays, StringFormat=Minimum days: {0}}"/>
+                                <TextBlock x:Name="textBoxDays" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Accommodation.MinReservationDays, StringFormat=Minimum days: {0}}"/>
                             </StackPanel>
                         </Label>
 
                         <Label Grid.Row="3" HorizontalContentAlignment="Center" Margin="0 0 0 10">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource PeopleIcon}"/>
-                                <TextBlock x:Name="textBoxCapacity" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding MaxGuestNumber, StringFormat=Capacity: {0}}"/>
+                                <TextBlock x:Name="textBoxCapacity" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Accommodation.MaxGuestNumber, StringFormat=Capacity: {0}}"/>
                             </StackPanel>
                         </Label>
 
@@ -133,14 +133,19 @@
                 </Grid.RowDefinitions>
 
                 <Label Content="Suggested dates" Grid.Row="0" FontSize="20" FontWeight="SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <DataGrid x:Name="dataGridSuggestedDates" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid x:Name="dataGridSuggestedDates" ItemsSource="{Binding SuggestedReservations}" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Start date" Binding="{Binding StartDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
                         <DataGridTextColumn Header="End date" Binding="{Binding EndDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Label x:Name="infoLabel" Content="" Grid.Row="2" HorizontalContentAlignment="Center" Margin="44,20,43,70"/>
+                <TextBlock x:Name="infoTextBlock" Grid.Row="2" HorizontalAlignment="Center" Margin="44,20,43,70">
+                    <Run Text="Bonus points: "/>
+                    <Run Text="{Binding GuestUser.BonusPoints}"/>
+                    <Run Text=" / "/>
+                    <Run Text="{Binding MaxBonusPoints}"/>
+                </TextBlock>
                 <Button x:Name="buttonConfirm" Content="Confirm booking" Grid.Row="2" FontWeight="Bold" FontSize="13" Click="ButtonConfirmClick"
                         IsEnabled="{Binding ElementName=dataGridSuggestedDates, Path=SelectedItems.Count, Converter={StaticResource CountToBooleanConverter}}" Margin="54,65,53,20"/>
 
