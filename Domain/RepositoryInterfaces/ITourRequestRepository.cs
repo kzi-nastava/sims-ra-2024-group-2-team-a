@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.RepositoryInterfaces {
     public interface ITourRequestRepository : IRepository<TourRequest> {
-
+        public List<TourRequest> GetByTouristId(int touristId);
     }
 }

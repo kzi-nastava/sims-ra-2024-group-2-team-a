@@ -17,6 +17,10 @@ namespace BookingApp.Services {
             UpdateRequestStatus();
         }
 
+        public List<TourRequest> GetByTouristId(int id) { 
+            return _tourRequestRepository.GetByTouristId(id); 
+        }
+
         private void UpdateRequestStatus() {
             foreach (TourRequest tourRequest in _tourRequestRepository.GetAll()) { 
                 if ((tourRequest.StartDate.ToDateTime(TimeOnly.Parse("00:00 AM")) - DateTime.Now).TotalHours < 48) {

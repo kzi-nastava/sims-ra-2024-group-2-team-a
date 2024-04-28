@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.WPF.Desktop.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,8 +19,9 @@ namespace BookingApp.WPF.Desktop.Views {
     /// Interaction logic for RequestsPage.xaml
     /// </summary>
     public partial class RequestsPage : Page {
-        public RequestsPage() {
+        public RequestsPage(int userId) {
             InitializeComponent();
+            DataContext = new RequestsPageViewModel(userId);
         }
     }
 }

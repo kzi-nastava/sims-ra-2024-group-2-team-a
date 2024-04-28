@@ -4,18 +4,29 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.WPF.Desktop.Views"
+      xmlns:viewmodels="clr-namespace:BookingApp.WPF.Desktop.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RequestsPage">
 
     <TabControl Margin="5">
         <TabItem Header="Simple tours">
-            <Grid>
+            <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button Margin="5">Create Request</Button>
+                <Button Command="{Binding CreateRequestCommand}">Create Request</Button>
+                <ItemsControl>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Black"
+                                    BorderThickness="1">
+                                
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
         </TabItem>
         <TabItem Header="Complex tours"/>

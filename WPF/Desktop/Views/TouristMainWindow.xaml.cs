@@ -42,7 +42,7 @@ namespace BookingApp.WPF.Desktop.Views {
         }
 
         private void RequestsButton_Click(object sender, RoutedEventArgs e) {
-            
+            PageFrame.Navigate(new RequestsPage(UserId));
         }
     }
 }

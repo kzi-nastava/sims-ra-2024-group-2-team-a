@@ -83,7 +83,8 @@
                 </Button>
             </StackPanel>
             <Frame Grid.Column="1" 
-               x:Name="PageFrame"></Frame>
+                   x:Name="PageFrame"
+                   NavigationUIVisibility="Hidden"/>
         </Grid>
     </Border>
 </Window>
