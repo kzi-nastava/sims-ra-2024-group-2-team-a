@@ -9,6 +9,7 @@ namespace BookingApp.WPF.Tablet.Views {
         private int _userId;
         private Frame _menuBarFrame { get; set; }
         private Frame _mainFrame { get; set; }
+
         public GuideMainWindow(int userId) {
             InitializeComponent();
             _mainFrame = mainFrame;

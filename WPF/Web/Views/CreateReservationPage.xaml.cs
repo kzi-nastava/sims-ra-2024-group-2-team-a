@@ -97,9 +97,8 @@ namespace BookingApp.WPF.Web.Views {
 
         private void SaveReservation(AccommodationReservation selectedReservation) {
             GuestMainWindow window = Window.GetWindow(this) as GuestMainWindow;
-            User currentUser = window.User;
 
-            selectedReservation.GuestId = currentUser.Id;
+            selectedReservation.GuestId = window.GuestId;
             selectedReservation.AccommodationId = _accommodationDTO.Id;
             selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
             _reservationService.Save(selectedReservation);
