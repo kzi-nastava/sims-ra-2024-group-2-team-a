@@ -125,7 +125,12 @@ namespace BookingApp.WPF.Android.ViewModels {
             }
         }
         public void AcceptButton_Executed(object obj) {
+            AccommodationStatisticsService statisticsService = new AccommodationStatisticsService();
             AccommodationReservation accommodationReservation = accReservationService.GetById(SelectedRequest.ReservationId);
+
+            statisticsService.UpdatePostponedStatistics(accommodationReservation.AccommodationId, SelectedRequest.OldStartDate, 
+                SelectedRequest.OldStartDate.AddDays(SelectedRequest.Duration) , SelectedRequest.NewStartDate, SelectedRequest.NewEndDate);
+
             accommodationReservation.StartDate = SelectedRequest.NewStartDate;
             accommodationReservation.EndDate = SelectedRequest.NewEndDate;
             accReservationService.Update(accommodationReservation);
@@ -133,6 +138,8 @@ namespace BookingApp.WPF.Android.ViewModels {
             RescheduleRequest rescheduleRequest = SelectedRequest.ToRescheduleRequest();
             rescheduleRequest.Status = RescheduleRequestStatus.Approved;
             requestService.Update(rescheduleRequest);
+
+            
             this.Update();
         }
 
