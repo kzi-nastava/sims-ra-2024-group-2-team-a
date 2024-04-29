@@ -14,6 +14,8 @@ namespace BookingApp.Services {
         private readonly AccommodationService _accommodationService = new AccommodationService();
         private readonly ReservationRecommenderService _recommenderService = new ReservationRecommenderService();
         private readonly AccommodationStatisticsService _statisticService = new AccommodationStatisticsService();
+        private readonly GuestService _guestService = new GuestService();
+      
         public List<AccommodationReservation> GetByAccommodationId(int id) {
             return _reservationRepository.GetByAccommodationId(id);
         }
@@ -32,7 +34,20 @@ namespace BookingApp.Services {
 
         public AccommodationReservation Save(AccommodationReservation reservation) {
             _statisticService.UpdateReservationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate);
-            return _reservationRepository.Save(reservation);
+          
+            AccommodationReservation newReservation = _reservationRepository.Save(reservation);
+
+            Guest guest = _guestService.GetById(newReservation.GuestId);
+
+            if(guest.IsSuperGuest) {
+                _guestService.DecrementGuestPoints(reservation.GuestId);
+            } else {
+                int reservationsCount = _reservationRepository.CountReservationsInLastYear(guest.Id);
+                if (reservationsCount >= Guest.SuperGuestReservationsCount)
+                    _guestService.PromoteToSuperGuest(guest.Id);
+            }
+
+            return newReservation;
         }
 
         public AccommodationReservation GetOldestReservation(int accommodationId) {
