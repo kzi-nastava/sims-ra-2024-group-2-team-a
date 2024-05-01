@@ -1,4 +1,6 @@
-﻿using BookingApp.WPF.DTO;
+﻿using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Services;
+using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +14,7 @@ using System.Windows.Input;
 namespace BookingApp.WPF.Desktop.ViewModels
 {
     public class CreateRequestWindowViewModel : INotifyPropertyChanged {
+        private readonly TourRequestService _tourRequestService = new TourRequestService(RepositoryInjector.GetInstance<ITourRequestRepository>());
         public int UsertId { get; set; }
         public TourRequestDTO TourRequest { get; set; }
         public ObservableCollection<PassengerDTO> Passengers { get; set; }
@@ -173,6 +176,10 @@ namespace BookingApp.WPF.Desktop.ViewModels
         public void AddPassenger(object parameter) {
             Passengers.Add(new PassengerDTO(PassengerName, PassengerSurname, PassengerAge, -1));
             ClearPassengerFields();
+        }
+
+        public void CreateRequest(object parameter) {
+            _tourRequestService.CreateRequest(TourRequest, Passengers.Count());
         }
 
         public void RemovePassenger(object parameter) {

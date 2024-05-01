@@ -26,8 +26,8 @@ namespace BookingApp.WPF.Desktop.Views
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
             double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
 
-            this.Width = screenWidth * 0.5;
-            this.Height = screenHeight * 0.5;
+            this.Width = screenWidth * 0.7;
+            this.Height = screenHeight * 0.7;
 
             this.DataContext = new CreateRequestWindowViewModel(userId);
         }
