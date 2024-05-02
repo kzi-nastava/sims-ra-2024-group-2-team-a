@@ -39,7 +39,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Reservation.Accommodation.Name}" FontSize="18" Margin="40 10 0 10"/>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Reservation.Accommodation.Name}" FontSize="18" Margin="40 10 0 10" FontWeight="DemiBold"/>
 
             <Border Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2"
                     CornerRadius="10" Background="LightGray">

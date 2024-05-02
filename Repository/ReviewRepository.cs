@@ -14,5 +14,9 @@ namespace BookingApp.Repository {
             return _serializer.FromCSV().Where(review => review.OwnerId == ownerId).ToList();
         }
 
+        public List<Review> GetByGuestId(int guestId) {
+            return _serializer.FromCSV().Where(review => review.GuestId == guestId).ToList();
+        }
+
     }
 }
