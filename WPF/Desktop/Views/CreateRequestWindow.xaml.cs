@@ -31,5 +31,9 @@ namespace BookingApp.WPF.Desktop.Views
 
             this.DataContext = new CreateRequestWindowViewModel(userId);
         }
+
+        private void CreateRequestButton_Click(object sender, RoutedEventArgs e) {
+            this.Close();
+        }
     }
 }

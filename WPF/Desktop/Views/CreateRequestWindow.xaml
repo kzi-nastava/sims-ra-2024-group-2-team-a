@@ -69,7 +69,10 @@
                                        VerticalAlignment="Center"
                                        Style="{StaticResource HighlightedText}"/>
                             <ComboBox Grid.Column="1"
-                                      Margin="10"/>
+                                      Margin="10"
+                                      ItemsSource="{Binding Locations}"
+                                      SelectedItem="{Binding TourRequest.Location}"
+                                      DisplayMemberPath="LocationOptionTemplate"/>
                         </Grid>
                     </Border>
                     <Border Grid.Row="1"
@@ -85,7 +88,10 @@
                                        Margin="10"
                                        VerticalAlignment="Center"/>
                             <ComboBox Grid.Column="1"
-                                      Margin="10"/>
+                                      Margin="10"
+                                      ItemsSource="{Binding Languages}"
+                                      SelectedItem="{Binding TourRequest.Language}"
+                                      DisplayMemberPath="LanguageOptionTemplate"/>
                         </Grid>
                     </Border>
                     <Border Grid.Row="2"
@@ -103,7 +109,8 @@
                                        TextWrapping="Wrap"/>
                             <TextBox Grid.Column="1"
                                      Margin="10"
-                                     FontSize="16"/>
+                                     FontSize="16"
+                                     Text="{Binding TourRequest.Description}"/>
                         </Grid>
                     </Border>
                     <Border Grid.Row="3"
@@ -122,7 +129,8 @@
                                         Margin="5">
                                 <TextBlock Text="Start date:"
                                            Style="{StaticResource HighlightedText}"/>
-                                <DatePicker Style="{StaticResource DatePicker}"/>
+                                <DatePicker Style="{StaticResource DatePicker}"
+                                            SelectedDate="{Binding StartDate, Mode=OneWayToSource}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal"
@@ -132,7 +140,8 @@
                                         Margin="5">
                                 <TextBlock Text="End date:"
                                            Style="{StaticResource HighlightedText}"/>
-                                <DatePicker Style="{StaticResource DatePicker}"/>
+                                <DatePicker Style="{StaticResource DatePicker}"
+                                            SelectedDate="{Binding EndDate, Mode=OneWayToSource}"/>
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -291,11 +300,14 @@
             </Border>
         </Grid>
         
-        <Button Grid.Row="1"
+        <Button x:Name="CreateRequestButton"
+                Grid.Row="1"
                 Content="Create Request"
                 Width="240"
                 Height="80"
                 Margin="10, 0, 10, 10"
-                Style="{StaticResource ButtonStyle}"/>
+                Style="{StaticResource ButtonStyle}"
+                Command="{Binding CreateRequestCmd}"
+                Click="CreateRequestButton_Click"/>
     </Grid>
 </Window>

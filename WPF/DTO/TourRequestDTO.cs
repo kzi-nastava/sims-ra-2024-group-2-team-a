@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 namespace BookingApp.WPF.DTO {
     public class TourRequestDTO : INotifyPropertyChanged {
         public TourRequestDTO() { }
+        public TourRequestDTO(int touristId) {
+            TouristId = touristId;
+        }
         public TourRequestDTO(TourRequest tourRequest) {
             Id = tourRequest.Id;
             TouristId = tourRequest.TouristId;
@@ -44,6 +47,32 @@ namespace BookingApp.WPF.DTO {
             set {
                 if (_locationId != value) {
                     _locationId = value; 
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private LocationDTO _locationDTO;
+        public LocationDTO Location {
+            get {
+                return _locationDTO;
+            }
+            set {
+                if (_locationDTO != value) {
+                    _locationDTO = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private LanguageDTO _languageDTO;
+        public LanguageDTO Language {
+            get {
+                return _languageDTO;
+            }
+            set {
+                if (_languageDTO != value) {
+                    _languageDTO = value;
                     OnPropertyChanged();
                 }
             }

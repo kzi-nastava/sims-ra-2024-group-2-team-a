@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.RepositoryInterfaces;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
 using System;
@@ -15,14 +16,44 @@ namespace BookingApp.WPF.Desktop.ViewModels
 {
     public class CreateRequestWindowViewModel : INotifyPropertyChanged {
         private readonly TourRequestService _tourRequestService = new TourRequestService(RepositoryInjector.GetInstance<ITourRequestRepository>());
-        public int UsertId { get; set; }
-        public TourRequestDTO TourRequest { get; set; }
+        private readonly LocationService _locationService = new LocationService();
+        private readonly LanguageService _languageService = new LanguageService();
+        public TourRequestDTO TourRequest { get; set; } 
         public ObservableCollection<PassengerDTO> Passengers { get; set; }
-
+        public ObservableCollection<LocationDTO> Locations { get; set; }
+        public ObservableCollection<LanguageDTO> Languages { get; set; }
         public ICommand AddTouristCmd { get; set; }
         public ICommand AddPassengerCmd { get; set; }
         public ICommand RemovePassengerCmd { get; set; }
         public ICommand CreateRequestCmd { get; set; }
+
+        private DateTime _startDate;
+        public DateTime StartDate {
+            get {
+                return _startDate;
+            }
+            set {
+                if (_startDate != value) {
+                    _startDate = value;
+                    OnPropertyChanged();
+                    TourRequest.StartDate = DateOnly.FromDateTime(value);
+                }
+            }
+        }
+
+        private DateTime _endDate;
+        public DateTime EndDate {
+            get {
+                return _endDate;
+            }
+            set {
+                if (_endDate != value) {
+                    _endDate = value;
+                    OnPropertyChanged();
+                    TourRequest.EndDate = DateOnly.FromDateTime(value);
+                }
+            }
+        }
 
         private string _passengerName;
         public string PassengerName {
@@ -135,16 +166,37 @@ namespace BookingApp.WPF.Desktop.ViewModels
         }
 
         public int UserId { get; set; }
-        public CreateRequestWindowViewModel(int userId) { 
-            UsertId = userId;
+        public CreateRequestWindowViewModel(int userId) {
+            TourRequest = new TourRequestDTO(userId);
             IsTouristButtonEnabled = false;
             IsPassengerButtonEnabled = false;
             Passengers = new ObservableCollection<PassengerDTO>();
+            Locations = new ObservableCollection<LocationDTO>();
+            Languages = new ObservableCollection<LanguageDTO>();
+
 
             Func<bool> alwaysTrue = () => true;
             AddPassengerCmd = new RelayCommand(AddPassenger, alwaysTrue);
             AddTouristCmd = new RelayCommand(AddTourist, alwaysTrue);
             RemovePassengerCmd = new RelayCommand(RemovePassenger, alwaysTrue);
+            CreateRequestCmd = new RelayCommand(CreateRequest, alwaysTrue);
+
+            SetLocations();
+            SetLanguages();
+        }
+
+        private void SetLocations() {
+            Locations.Clear();
+            foreach (Location location in _locationService.GetAll()) {
+                Locations.Add(new LocationDTO(location));
+            }
+        }
+
+        private void SetLanguages() {
+            Languages.Clear();
+            foreach (Language language in _languageService.GetAll()) {
+                Languages.Add(new LanguageDTO(language));
+            }
         }
 
         private void UpdateTouristButtonState() {
