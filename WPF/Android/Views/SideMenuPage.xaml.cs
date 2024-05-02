@@ -57,7 +57,7 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void RenovationsButton_Click(object sender, RoutedEventArgs e) {
-            // MainFrame.Content = new AccommodationPage(MainFrame, _user);
+            MainFrame.Content = new AllRenovationsPage(_user);
             SideFrame.Content = null;
             BlackFrame.Content = null;
         }

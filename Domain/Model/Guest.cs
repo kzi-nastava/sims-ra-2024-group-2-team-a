@@ -2,33 +2,38 @@
 
 namespace BookingApp.Domain.Model {
 
-    public class Guest : User
-    {
+    public class Guest : User {
 
-        public bool isSuperGuest { get; set; }
+        public static readonly int SuperGuestReservationsCount = 5;
+        public static readonly int SuperGuestStartPoints = 5;
 
-        public Guest() { }
+        public bool IsSuperGuest { get; set; } = false;
+        public DateOnly SuperGuestExpirationDate { get; set; } = new DateOnly();
+        public int BonusPoints { get; set; } = 0;
 
-        public Guest(string username, string password) : base(username, password)
-        {
+        public Guest() {
             Category = UserCategory.Guest;
-            isSuperGuest = false;
         }
 
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-        public string[] ToCSV()
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
-        {
-            string[] csvValues = { Id.ToString(), isSuperGuest.ToString() };
+        public Guest(User user) : base(user) {
+            Category = UserCategory.Guest;
+        }
+
+        public override string[] ToCSV() {
+            string[] csvValues = { 
+                Id.ToString(), 
+                IsSuperGuest.ToString(),
+                SuperGuestExpirationDate.ToString(),
+                BonusPoints.ToString()
+            };
             return csvValues;
         }
 
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-        public void FromCSV(string[] values)
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
-        {
-            base.FromCSV(values);
-            isSuperGuest = Convert.ToBoolean(values[^1]);
+        public override void FromCSV(string[] values) {
+            Id = Convert.ToInt32(values[0]);
+            IsSuperGuest = Convert.ToBoolean(values[1]);
+            SuperGuestExpirationDate = DateOnly.Parse(values[2]);
+            BonusPoints = Convert.ToInt32(values[3]);
         }
     }
 }

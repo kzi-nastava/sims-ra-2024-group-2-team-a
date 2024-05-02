@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BookingApp.Services {
     class AccommodationReservationService
@@ -12,7 +13,9 @@ namespace BookingApp.Services {
         private readonly RescheduleRequestService _rescheduleService = new RescheduleRequestService();
         private readonly AccommodationService _accommodationService = new AccommodationService();
         private readonly ReservationRecommenderService _recommenderService = new ReservationRecommenderService();
-
+        private readonly AccommodationStatisticsService _statisticService = new AccommodationStatisticsService();
+        private readonly GuestService _guestService = new GuestService();
+      
         public List<AccommodationReservation> GetByAccommodationId(int id) {
             return _reservationRepository.GetByAccommodationId(id);
         }
@@ -30,7 +33,29 @@ namespace BookingApp.Services {
         }
 
         public AccommodationReservation Save(AccommodationReservation reservation) {
-            return _reservationRepository.Save(reservation);
+            _statisticService.UpdateReservationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate);
+          
+            AccommodationReservation newReservation = _reservationRepository.Save(reservation);
+
+            Guest guest = _guestService.GetById(newReservation.GuestId);
+
+            if(guest.IsSuperGuest) {
+                _guestService.DecrementGuestPoints(reservation.GuestId);
+            } else {
+                int reservationsCount = _reservationRepository.CountReservationsInLastYear(guest.Id);
+                if (reservationsCount >= Guest.SuperGuestReservationsCount)
+                    _guestService.PromoteToSuperGuest(guest.Id);
+            }
+
+            return newReservation;
+        }
+
+        public AccommodationReservation GetOldestReservation(int accommodationId) {
+            return this.GetByAccommodationId(accommodationId).OrderBy(x => x.StartDate).FirstOrDefault();
+        }
+
+        public AccommodationReservation GetNewestReservation(int accId) {
+            return this.GetByAccommodationId(accId).OrderByDescending(x => x.StartDate).FirstOrDefault();
         }
 
         public void CancelReservation(int id) {
@@ -39,6 +64,8 @@ namespace BookingApp.Services {
             _reservationRepository.Update(reservation);
 
             _rescheduleService.CancelByReservationId(id);
+
+            _statisticService.UpdateCancellationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate);
         }
 
         public bool Update(AccommodationReservation accReservation) {

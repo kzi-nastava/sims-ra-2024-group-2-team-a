@@ -61,8 +61,8 @@ namespace BookingApp.WPF {
                 Close();
             }
             else {
-                GuestMainWindow guestMainWindwo = new GuestMainWindow(user);
-                guestMainWindwo.Show();
+                GuestMainWindow guestMainWindow = new GuestMainWindow(user.Id);
+                guestMainWindow.Show();
                 Close();
             }
 

@@ -32,6 +32,9 @@ namespace BookingApp.Services {
             { typeof(IVoucherRepository), new Dictionary<RepositoryType, object>() },
             { typeof(INotificationRepository), new Dictionary<RepositoryType, object>() },
             { typeof(ITourRequestRepository), new Dictionary<RepositoryType, object>() }
+            { typeof(IAccommodationRenovationRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(IAccommodationStatisticsRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(IGuestRepository), new Dictionary<RepositoryType, object>() }
         };
 
         static RepositoryInjector() {
@@ -52,6 +55,9 @@ namespace BookingApp.Services {
             _repositoryInstances[typeof(IVoucherRepository)][RepositoryType.CSV] = new VoucherRepository();
             _repositoryInstances[typeof(INotificationRepository)][RepositoryType.CSV] = new NotificationRepository();
             _repositoryInstances[typeof(ITourRequestRepository)][RepositoryType.CSV] = new TourRequestRepository();
+            _repositoryInstances[typeof(IAccommodationRenovationRepository)][RepositoryType.CSV] = new AccommodationRenovationRepository();
+            _repositoryInstances[typeof(IAccommodationStatisticsRepository)][RepositoryType.CSV] = new AccommodationStatisticsRepository();
+            _repositoryInstances[typeof(IGuestRepository)][RepositoryType.CSV] = new GuestRepository();
 
             // SQL repository registration
             // ...

@@ -41,7 +41,7 @@
             <Button x:Name="RenovationsButton" Click="RenovationsButton_Click" Grid.Column="3" Height="80" Width="100" Background="Transparent">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="{StaticResource RenovationsIcon}" Width="40" Height="40"/>
-                    <TextBlock Text="Renovations" FontSize="16"/>
+                    <TextBlock Text="Renovation" FontSize="16"/>
                 </StackPanel>
             </Button>
 

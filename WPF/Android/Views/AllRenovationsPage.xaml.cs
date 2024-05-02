@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookingApp.Domain.Model;
+using BookingApp.WPF.Android.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +17,16 @@ using System.Windows.Shapes;
 
 namespace BookingApp.WPF.Android.Views {
     /// <summary>
-    /// Interaction logic for AccommodationRenovationPagexaml.xaml
+    /// Interaction logic for AllRenovationsPage.xaml
     /// </summary>
-    public partial class AccommodationRenovationPagexaml : Page {
-        public AccommodationRenovationPagexaml() {
+    public partial class AllRenovationsPage : Page {
+
+        public AllRenovationsViewmodel AllRenovationsViewmodel;
+        public AllRenovationsPage(User user) {
             InitializeComponent();
+            
+            AllRenovationsViewmodel = new AllRenovationsViewmodel(user);
+            DataContext = AllRenovationsViewmodel;
         }
     }
 }

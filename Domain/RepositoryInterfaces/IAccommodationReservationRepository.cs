@@ -6,5 +6,6 @@ namespace BookingApp.Domain.RepositoryInterfaces {
     {
         List<AccommodationReservation> GetByAccommodationId(int id);
         List<AccommodationReservation> GetByGuestId(int id);
+        int CountReservationsInLastYear(int guestId);
     }
 }

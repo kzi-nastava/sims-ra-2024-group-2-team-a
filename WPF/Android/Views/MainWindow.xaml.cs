@@ -14,6 +14,8 @@ namespace BookingApp.WPF.Android.Views {
 
         public NotificationService notificationService = new NotificationService(); 
 
+        public AccommodationRenovationService renovationService = new AccommodationRenovationService();
+
         private readonly User _user;
         public MainWindow(User user) {
             InitializeComponent();
@@ -24,6 +26,7 @@ namespace BookingApp.WPF.Android.Views {
             SideFrame.Content = null;
 
             notificationService.CreateNotifications(_user.Id);
+            renovationService.UpdateAllPendingRenovations();
         }
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
             sideFrame.Content = new SideMenuPage(MainFrame, SideFrame, blackFrame ,_user);

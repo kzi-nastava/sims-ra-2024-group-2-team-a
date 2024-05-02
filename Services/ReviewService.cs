@@ -6,7 +6,9 @@ namespace BookingApp.Services {
     public class ReviewService {
         
         private readonly IReviewRepository _reviewRepository = RepositoryInjector.GetInstance<IReviewRepository>();
+        private readonly IAccommodationReservationRepository _reservationRepository = RepositoryInjector.GetInstance<IAccommodationReservationRepository>();
         private readonly OwnerService _ownerService = new OwnerService();
+        private readonly AccommodationStatisticsService _accommodationStatisticsService = new AccommodationStatisticsService();
         
         public ReviewService() { }
         
@@ -43,6 +45,11 @@ namespace BookingApp.Services {
             review.RenovationComment = reviewDTO.RenovationComment;
             _reviewRepository.Update(review);
             _ownerService.AdjustSuperOwner(review.OwnerId);
+
+            if (reviewDTO.RequiresRenovation) {
+                AccommodationReservation accRes = _reservationRepository.GetById(reviewDTO.ReservationId);
+                _accommodationStatisticsService.UpdateRecommendationStatistics(accRes.AccommodationId, accRes.StartDate);;
+            }
         }
 
         public bool IsGradedByGuest(int reservationId) {

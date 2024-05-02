@@ -11,12 +11,9 @@ namespace BookingApp.WPF.Web.Views {
 
         public ReservationsPageViewModel ViewModel { get; set; }
 
-        private readonly int _guestId;
-
         public ReservationsPage(int guestId) {
             InitializeComponent();
-            _guestId = guestId;
-            ViewModel = new ReservationsPageViewModel(_guestId);
+            ViewModel = new ReservationsPageViewModel(guestId);
             DataContext = ViewModel;
         }
 
