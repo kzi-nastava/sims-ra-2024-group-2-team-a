@@ -106,11 +106,11 @@ namespace BookingApp.WPF.Web.ViewModels {
             ScheduledSelected = scheduledSelected;
 
             if (ScheduledSelected) {
-                var dtos = Reservations.Where(x => !x.HasExpired).OrderByDescending(x => x.Id);
+                var dtos = Reservations.Where(x => !x.HasExpired).OrderByDescending(x => x.StartDate);
                 FilteredReservations = new ObservableCollection<AccommodationReservationDTO>(dtos);
             }
             else {
-                var dtos = Reservations.Where(x => x.HasExpired).OrderByDescending(x => x.Id);
+                var dtos = Reservations.Where(x => x.HasExpired).OrderByDescending(x => x.StartDate);
                 FilteredReservations = new ObservableCollection<AccommodationReservationDTO>(dtos);
             }
         }
