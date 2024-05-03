@@ -6,5 +6,6 @@ namespace BookingApp.Domain.RepositoryInterfaces {
     {
         Review GetByReservationId(int id);
         List<Review> GetByOwnerId(int ownerId);
+        List<Review> GetByGuestId(int guestId);
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Services {
     public class GuestService {
-        
+
         private readonly IGuestRepository _guestRepository = RepositoryInjector.GetInstance<IGuestRepository>();
 
         public Guest GetById(int id) {
@@ -17,6 +17,19 @@ namespace BookingApp.Services {
 
         public Guest Save(Guest guest) {
             return _guestRepository.Save(guest);
+        }
+
+        public void PromoteOrDecreaseBonusPoints(int guestId, int reservationsCount) {
+            Guest guest = this.GetById(guestId);
+
+            if (guest.IsSuperGuest) {
+                this.DecrementGuestPoints(guestId);
+                return;
+            }
+
+            if (reservationsCount >= Guest.SuperGuestReservationsCount) {
+                this.PromoteToSuperGuest(guestId);
+            }
         }
 
         public void PromoteToSuperGuest(int guestId) {

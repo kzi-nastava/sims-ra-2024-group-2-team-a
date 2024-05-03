@@ -1,6 +1,8 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.DTO;
+using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace BookingApp.Services {
     public class ReviewService {
@@ -12,6 +14,10 @@ namespace BookingApp.Services {
         
         public ReviewService() { }
         
+        public List<Review> GetByGuestId(int ownerId) { 
+            return _reviewRepository.GetByGuestId(ownerId);
+        }
+
         public Review GetByReservationId(int reservationId) {
             return _reviewRepository.GetByReservationId(reservationId);
         }

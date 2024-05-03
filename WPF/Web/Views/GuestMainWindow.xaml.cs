@@ -32,6 +32,9 @@ namespace BookingApp.WPF.Web.Views {
         private void ButtonReservationsClick(object sender, RoutedEventArgs e) {
             mainFrame.Content = new ReservationsPage(GuestId);
         }
+        private void ButtonReviewsClick(object sender, RoutedEventArgs e) {
+            mainFrame.Content = new ReviewsPage(GuestId);
+        }
 
         private void ButtonLogoutClick(object sender, RoutedEventArgs e) {
             SignInForm signInForm = new SignInForm();

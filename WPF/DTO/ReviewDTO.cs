@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BookingApp.WPF.DTO {
     public class ReviewDTO : INotifyPropertyChanged
@@ -184,6 +185,10 @@ namespace BookingApp.WPF.DTO {
                 }
             }
         }
+
+        public bool IsGradedByOwner => _guestCleannessGrade > 0 && _ruleFollowingGrade > 0;
+
+        public bool IsGradedByGuest => _accommodationCleanness > 0 && _ownerCorrectness > 0;
 
         public List<string> AccommodationPhotos { get; set; } = new List<string>();
 

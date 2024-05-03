@@ -18,5 +18,6 @@
         <BitmapImage x:Key="CaneclIcon" UriSource="Resources/Images/Icons/cancel-icon.png"/>
         <BitmapImage x:Key="RightArrowIcon" UriSource="Resources/Images/Icons/right-arrow-icon.png"/>
         <BitmapImage x:Key="CameraIcon" UriSource="Resources/Images/Icons/camera-icon.png"/>
+        <BitmapImage x:Key="DocumentIcon" UriSource="Resources/Images/Icons/document-icon.png"/>
     </Application.Resources>
 </Application>
