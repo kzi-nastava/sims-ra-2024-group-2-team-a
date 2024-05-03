@@ -19,9 +19,9 @@ namespace BookingApp.WPF.Desktop.ViewModels
         public int UserId { get; set; }
 
         public RequestsPageViewModel(int userId) {
-            DisplayTourRequests();
             CreateRequestCommand = new RelayCommand(CreateRequest, CreateRequestCanExecute);
             UserId = userId;
+            DisplayTourRequests();
         }
 
         public void DisplayTourRequests() {

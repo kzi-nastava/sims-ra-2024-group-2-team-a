@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace BookingApp.WPF.DTO {
     public class TourRequestDTO : INotifyPropertyChanged {
+        private readonly LocationService _locationService = new LocationService();
+        private readonly LanguageService _languageService = new LanguageService();
         public TourRequestDTO() { }
         public TourRequestDTO(int touristId) {
             TouristId = touristId;
@@ -19,9 +22,12 @@ namespace BookingApp.WPF.DTO {
             LocationId = tourRequest.LocationId;
             Description = tourRequest.Description;
             LanguageId = tourRequest.LanguageId;
+            Location = new LocationDTO(_locationService.GetById(LocationId));
+            Language = new LanguageDTO(_languageService.GetById(LanguageId));
             StartDate = tourRequest.StartDate;
             EndDate = tourRequest.EndDate;
             Status = tourRequest.Status.ToString();
+            PassengerNumber = tourRequest.PassengerNumber;
         }
 
         public int Id { get; set; }
@@ -34,6 +40,19 @@ namespace BookingApp.WPF.DTO {
             set {
                 if (_touristId != value) {
                     _touristId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _passengerNumber;
+        public int PassengerNumber {
+            get {
+                return _passengerNumber;
+            }
+            set {
+                if (_passengerNumber != value) {
+                    _passengerNumber = value;
                     OnPropertyChanged();
                 }
             }
