@@ -43,7 +43,8 @@ namespace BookingApp.Services {
                 GetService<AccommodationService>(),
                 GetService<ReservationRecommenderService>(),
                 GetService<AccommodationStatisticsService>(),
-                GetService<GuestService>()
+                GetService<GuestService>(),
+                GetService<ReviewService>()
                 );
 
             GetService<UserService>().InjectServices(
@@ -69,6 +70,10 @@ namespace BookingApp.Services {
 
             GetService<AccommodationStatisticsService>().InjectServices(
                 GetService<AccommodationReservationService>()
+                );
+
+            GetService<OwnerService>().InjectServices(
+                GetService<ReviewService>()
                 );
         }
 

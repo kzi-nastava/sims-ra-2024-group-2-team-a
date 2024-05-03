@@ -15,18 +15,20 @@ namespace BookingApp.Services {
         private ReservationRecommenderService _recommenderService;
         private AccommodationStatisticsService _statisticService;
         private GuestService _guestService;
+        private ReviewService _reviewService;
       
         public AccommodationReservationService(IAccommodationReservationRepository reservationRepository) {
            _reservationRepository = reservationRepository;
         }
 
         public void InjectServices(RescheduleRequestService rescheduleService, AccommodationService accommodationService, ReservationRecommenderService recommenderService,
-                       AccommodationStatisticsService statisticService, GuestService guestService) {
+                       AccommodationStatisticsService statisticService, GuestService guestService, ReviewService reviewService) {
             _rescheduleService = rescheduleService;
             _accommodationService = accommodationService;
             _recommenderService = recommenderService;
             _statisticService = statisticService;
             _guestService = guestService;
+            _reviewService = reviewService;
         }
 
         public List<AccommodationReservation> GetByAccommodationId(int id) {
@@ -94,16 +96,14 @@ namespace BookingApp.Services {
             return true;
         }
 
-        // TODO: Move to another service
         public int CheckForNotGradedReservations(int ownerId) {
-            ReviewService reviewService = ServicesPool.GetService<ReviewService>();
             int counter = 0;
 
             foreach (var reservation in this.GetAll()) {
                 if (!CheckReservationOwner(reservation.AccommodationId, ownerId))
                     continue;
 
-                if (reviewService.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation))
+                if (_reviewService.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation))
                     counter++;
             }
 

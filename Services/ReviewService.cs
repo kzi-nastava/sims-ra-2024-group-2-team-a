@@ -27,6 +27,10 @@ namespace BookingApp.Services {
             return _reviewRepository.GetByGuestId(ownerId);
         }
 
+        public List<Review> GetByOwnerId(int ownerId) {
+            return _reviewRepository.GetByOwnerId(ownerId);
+        }
+
         public Review GetByReservationId(int reservationId) {
             return _reviewRepository.GetByReservationId(reservationId);
         }

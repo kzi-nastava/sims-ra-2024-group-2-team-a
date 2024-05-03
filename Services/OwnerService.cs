@@ -9,8 +9,14 @@ namespace BookingApp.Services {
 
         private readonly IOwnerRepository _ownerRepository;
 
+        private ReviewService _reviewService;
+
         public OwnerService(IOwnerRepository ownerRepository) {
             _ownerRepository = ownerRepository;
+        }
+
+        public void InjectServices(ReviewService reviewService) {
+            _reviewService = reviewService;
         }
 
         public Owner GetByUserId(int userId) {
@@ -41,10 +47,8 @@ namespace BookingApp.Services {
             _ownerRepository.Update(owner);
         }
 
-        // TODO: Move this to another service
         private int CalculateOwnerAverageGrade(Owner owner) {
-            ReviewRepository reviewRepository = new ReviewRepository();
-            List<Review> reviews = reviewRepository.GetByOwnerId(owner.UserId);
+            List<Review> reviews = _reviewService.GetByOwnerId(owner.UserId);
 
             double sum = 0;
             int numberOfReviews = 0;
