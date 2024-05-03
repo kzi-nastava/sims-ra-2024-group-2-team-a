@@ -34,13 +34,14 @@ namespace BookingApp.Services {
                 owner.IsSuper = false;
 
             if (!oldSuper && owner.IsSuper) {
-                NotificationService notificationService = new NotificationService();
+                NotificationService notificationService = ServicesPool.GetService<NotificationService>();
                 notificationService.CreateSuperNotification(owner.UserId);
             }
 
             _ownerRepository.Update(owner);
         }
 
+        // TODO: Move this to another service
         private int CalculateOwnerAverageGrade(Owner owner) {
             ReviewRepository reviewRepository = new ReviewRepository();
             List<Review> reviews = reviewRepository.GetByOwnerId(owner.UserId);

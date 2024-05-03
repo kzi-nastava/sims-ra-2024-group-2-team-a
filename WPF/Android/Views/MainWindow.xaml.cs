@@ -12,7 +12,7 @@ namespace BookingApp.WPF.Android.Views {
 
         public Frame SideFrame { get; set; }
 
-        public NotificationService notificationService = new NotificationService(); 
+        public NotificationService notificationService = ServicesPool.GetService<NotificationService>(); 
 
         public AccommodationRenovationService renovationService = ServicesPool.GetService<AccommodationRenovationService>();
 

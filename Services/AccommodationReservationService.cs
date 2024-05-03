@@ -93,6 +93,8 @@ namespace BookingApp.Services {
             return true;
         }
 
+
+        // TODO: Move to another service
         public int CheckForNotGradedReservations(int ownerId) {
             ReviewService reviewService = ServicesPool.GetService<ReviewService>();
             int counter = 0;

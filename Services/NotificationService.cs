@@ -5,25 +5,32 @@ using System.Collections.Generic;
 
 namespace BookingApp.Services {
     public class NotificationService {
-        private readonly INotificationRepository _notificationRepository = RepositoryInjector.GetInstance<INotificationRepository>();
-        public NotificationService() { }
+        private readonly INotificationRepository _notificationRepository;
+
+        RescheduleRequestService _rescheduleRequestService = ServicesPool.GetService<RescheduleRequestService>();
+        AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
+
+        public NotificationService(INotificationRepository notificationRepository, RescheduleRequestService rescheduleRequestService, AccommodationReservationService reservationService) {
+            _notificationRepository = notificationRepository;
+            _rescheduleRequestService = rescheduleRequestService;
+            _reservationService = reservationService;
+        }
 
         public void Save(Notification notification) {
             _notificationRepository.Save(notification);
         }
+
         public List<Notification> GetByUserId(int userId) {
             return _notificationRepository.GetAll().FindAll(x => x.UserId == userId);
         }
+
         public void Update(Notification notification) {
             _notificationRepository.Update(notification);
         }
 
         public void CreateNotifications(int ownerId) {
-            RescheduleRequestService rescheduleRequestService = ServicesPool.GetService<RescheduleRequestService>();
-            AccommodationReservationService accResService = ServicesPool.GetService<AccommodationReservationService>();
-
-            int ungradedReservations = accResService.CheckForNotGradedReservations(ownerId);
-            int pendingRescheduleRequests = rescheduleRequestService.GetPendingRequestsByOwnerId(ownerId).Count;
+            int ungradedReservations = _reservationService.CheckForNotGradedReservations(ownerId);
+            int pendingRescheduleRequests = _rescheduleRequestService.GetPendingRequestsByOwnerId(ownerId).Count;
 
             if (ungradedReservations != 0) {
                 string message = $"You have {ungradedReservations} ungraded reservations. Navigate to reservations tab to grade them!";

@@ -11,7 +11,7 @@ namespace BookingApp.WPF.Tablet.ViewModels {
 
         private readonly TourReservationService _tourReservationService = new TourReservationService();
         private readonly PassengerService _passengerService = new PassengerService();
-        private readonly NotificationService _notificationService = new NotificationService();
+        private readonly NotificationService _notificationService = ServicesPool.GetService<NotificationService>();
 
         public ObservableCollection<PassengerDTO> passengerDTOs { get; set; }
         public List<PassengerDTO> joinedPassengerDTOs { get; set; }

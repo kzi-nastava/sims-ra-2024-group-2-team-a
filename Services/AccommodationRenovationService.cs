@@ -13,9 +13,12 @@ namespace BookingApp.Services {
 
         private readonly AccommodationReservationService _accommodationReservationService;
 
-        public AccommodationRenovationService(IAccommodationRenovationRepository renovationRepository, AccommodationReservationService reservationService) { 
+        private readonly AccommodationService _accommodationService;
+
+        public AccommodationRenovationService(IAccommodationRenovationRepository renovationRepository, AccommodationReservationService reservationService, AccommodationService accommodationService) { 
             _renovationRepository = renovationRepository;
             _accommodationReservationService = reservationService;
+            _accommodationService = accommodationService;
         }
 
         public AccommodationRenovation GetById(int id) {
@@ -59,9 +62,8 @@ namespace BookingApp.Services {
         
         public List<AccommodationRenovation> GetByOwnerIdSorted(int ownerId) {
             List<AccommodationRenovation> renovations = new List<AccommodationRenovation> { };
-            AccommodationService accService = ServicesPool.GetService<AccommodationService>();
 
-            foreach (var accommodation in accService.GetByOwnerId(ownerId)) {
+            foreach (var accommodation in _accommodationService.GetByOwnerId(ownerId)) {
                 renovations.AddRange(this.GetByAccommodationId(accommodation.Id));
             }
 
