@@ -19,8 +19,8 @@ namespace BookingApp.Services {
         }
 
         public void CreateNotifications(int ownerId) {
-            RescheduleRequestService rescheduleRequestService = new RescheduleRequestService();
-            AccommodationReservationService accResService = new AccommodationReservationService();
+            RescheduleRequestService rescheduleRequestService = ServicesPool.GetService<RescheduleRequestService>();
+            AccommodationReservationService accResService = ServicesPool.GetService<AccommodationReservationService>();
 
             int ungradedReservations = accResService.CheckForNotGradedReservations(ownerId);
             int pendingRescheduleRequests = rescheduleRequestService.GetPendingRequestsByOwnerId(ownerId).Count;

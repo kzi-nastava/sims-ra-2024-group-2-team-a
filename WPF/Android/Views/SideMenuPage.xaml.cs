@@ -26,7 +26,7 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void SetAverageAndSuperLabels(int userId) {
-            OwnerService ownerService = new OwnerService(); 
+            OwnerService ownerService = ServicesPool.GetService<OwnerService>(); 
             Owner owner = ownerService.GetByUserId(userId);
             AverageGradeLabel.Content = owner.AverageGrade.ToString();
             if (owner.IsSuper) {

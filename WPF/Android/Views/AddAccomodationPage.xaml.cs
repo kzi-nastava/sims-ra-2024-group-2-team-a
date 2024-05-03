@@ -17,8 +17,8 @@ namespace BookingApp.WPF.Android.Views {
 
         private readonly User _user;
 
-        private AccommodationService accommodationService = new AccommodationService();
-        private LocationService locationService = new LocationService();
+        private AccommodationService accommodationService = ServicesPool.GetService<AccommodationService>();
+        private LocationService locationService = ServicesPool.GetService<LocationService>();
         public AccommodationDTO AccommodationDTO { get; set; }
         public LocationDTO SelectedLocationDTO { get; set; }
 
@@ -30,7 +30,7 @@ namespace BookingApp.WPF.Android.Views {
             DataContext = this;
 
             _user = user;
-            AccommodationDTO = new AccommodationDTO();
+            AccommodationDTO = ServicesPool.GetService<AccommodationDTO>();
             AccommodationDTO.OwnerId = _user.Id;
             LocationDTOs = new ObservableCollection<LocationDTO>();
 

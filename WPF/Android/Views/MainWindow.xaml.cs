@@ -14,7 +14,7 @@ namespace BookingApp.WPF.Android.Views {
 
         public NotificationService notificationService = new NotificationService(); 
 
-        public AccommodationRenovationService renovationService = new AccommodationRenovationService();
+        public AccommodationRenovationService renovationService = ServicesPool.GetService<AccommodationRenovationService>();
 
         private readonly User _user;
         public MainWindow(User user) {

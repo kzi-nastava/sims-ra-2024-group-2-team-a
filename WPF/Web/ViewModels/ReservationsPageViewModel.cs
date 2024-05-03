@@ -9,11 +9,11 @@ namespace BookingApp.WPF.Web.ViewModels {
 
         private readonly int _guestId;
 
-        private readonly LocationService _locationService = new LocationService();
-        private readonly AccommodationService _accommodationService = new AccommodationService();
-        private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
-        private readonly RescheduleRequestService _rescheduleRequestService = new RescheduleRequestService();
-        private readonly ReviewService _reviewService = new ReviewService();
+        private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
+        private readonly AccommodationService _accommodationService = ServicesPool.GetService<AccommodationService>();
+        private readonly AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
+        private readonly RescheduleRequestService _rescheduleRequestService = ServicesPool.GetService<RescheduleRequestService>();
+        private readonly ReviewService _reviewService = ServicesPool.GetService<ReviewService>();
 
         private ObservableCollection<LocationDTO> _locationDTOs;
         private ObservableCollection<AccommodationDTO> _accommodationDTOs;

@@ -14,11 +14,11 @@ namespace BookingApp.WPF.Android.Views {
 
         private readonly User _user;
 
-        private AccommodationService accommodationService = new AccommodationService();
+        private AccommodationService accommodationService = ServicesPool.GetService<AccommodationService>();
 
-        private readonly AccommodationStatisticsService _statisticsService = new AccommodationStatisticsService();  
+        private readonly AccommodationStatisticsService _statisticsService = ServicesPool.GetService<AccommodationStatisticsService>();  
 
-        private LocationService locationService = new LocationService();
+        private LocationService locationService = ServicesPool.GetService<LocationService>();
         public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
 
         public AccommodationDTO SelectedAccommodation { get; set; }

@@ -13,9 +13,6 @@ namespace BookingApp.WPF.Web.Views {
         private ReservationsPage _parentPage;
         public AccommodationReservationCardViewModel ViewModel { get; set; }
 
-        private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
-        private readonly RescheduleRequestService _rescheduleService = new RescheduleRequestService();
-
         public AccommodationReservationCard() {
             InitializeComponent();
         }

@@ -75,7 +75,7 @@ namespace BookingApp.Services {
         }
 
         public int GetDaysFromFirstReservation(int accId) {
-            AccommodationReservationService accResService = new AccommodationReservationService();
+            AccommodationReservationService accResService = ServicesPool.GetService<AccommodationReservationService>();
             var oldestReservation = accResService.GetOldestReservation(accId);
             var newestReservation = accResService.GetNewestReservation(accId);
 

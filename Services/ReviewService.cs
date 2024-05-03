@@ -7,12 +7,18 @@ using System.Windows.Documents;
 namespace BookingApp.Services {
     public class ReviewService {
         
-        private readonly IReviewRepository _reviewRepository = RepositoryInjector.GetInstance<IReviewRepository>();
-        private readonly IAccommodationReservationRepository _reservationRepository = RepositoryInjector.GetInstance<IAccommodationReservationRepository>();
-        private readonly OwnerService _ownerService = new OwnerService();
-        private readonly AccommodationStatisticsService _accommodationStatisticsService = new AccommodationStatisticsService();
+        private readonly IReviewRepository _reviewRepository;
+
+        private readonly AccommodationReservationService _reservationService;
+        private readonly OwnerService _ownerService;
+        private readonly AccommodationStatisticsService _accommodationStatisticsService;
         
-        public ReviewService() { }
+        public ReviewService(IReviewRepository reviewRepository, AccommodationReservationService reservationService, OwnerService ownerService, AccommodationStatisticsService accommodationStatisticsService) {
+            _reviewRepository = reviewRepository;
+            _reservationService = reservationService;
+            _ownerService = ownerService;
+            _accommodationStatisticsService = accommodationStatisticsService;
+        }
         
         public List<Review> GetByGuestId(int ownerId) { 
             return _reviewRepository.GetByGuestId(ownerId);
@@ -53,7 +59,7 @@ namespace BookingApp.Services {
             _ownerService.AdjustSuperOwner(review.OwnerId);
 
             if (reviewDTO.RequiresRenovation) {
-                AccommodationReservation accRes = _reservationRepository.GetById(reviewDTO.ReservationId);
+                AccommodationReservation accRes = _reservationService.GetById(reviewDTO.ReservationId);
                 _accommodationStatisticsService.UpdateRecommendationStatistics(accRes.AccommodationId, accRes.StartDate);;
             }
         }

@@ -7,7 +7,11 @@ namespace BookingApp.Services {
 
     public class OwnerService {
 
-        private readonly IOwnerRepository _ownerRepository = RepositoryInjector.GetInstance<IOwnerRepository>();
+        private readonly IOwnerRepository _ownerRepository;
+
+        public OwnerService(IOwnerRepository ownerRepository) {
+            _ownerRepository = ownerRepository;
+        }
 
         public Owner GetByUserId(int userId) {
             return _ownerRepository.GetAll().Find(owner => owner.UserId == userId);

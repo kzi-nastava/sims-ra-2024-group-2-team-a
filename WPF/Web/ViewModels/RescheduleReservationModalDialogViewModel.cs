@@ -9,7 +9,7 @@ namespace BookingApp.WPF.Web.ViewModels {
         public AccommodationReservationDTO Reservation { get; set; }
         public DateTime NewDate { get; set; }
 
-        private readonly RescheduleRequestService _rescheduleRequestService = new RescheduleRequestService();
+        private readonly RescheduleRequestService _rescheduleRequestService = ServicesPool.GetService<RescheduleRequestService>();
 
         public RescheduleReservationModalDialogViewModel(AccommodationReservationDTO reservation) {
             Reservation = reservation;

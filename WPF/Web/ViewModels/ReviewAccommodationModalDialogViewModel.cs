@@ -11,7 +11,7 @@ namespace BookingApp.WPF.Web.ViewModels {
         public ImportanceType[] ImportanceTypes { get; set; } = (ImportanceType[])Enum.GetValues(typeof(ImportanceType));
         public ReviewDTO Review { get; set; } = new ReviewDTO();
 
-        private readonly ReviewService _reviewService = new ReviewService();
+        private readonly ReviewService _reviewService = ServicesPool.GetService<ReviewService>();
 
         public ReviewAccommodationModalDialogViewModel(AccommodationReservationDTO reservation) {
             Reservation = reservation;
