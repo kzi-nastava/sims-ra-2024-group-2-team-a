@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace BookingApp.WPF.Android.ViewModels {
     public class AccommodationStatisticsViewmodel : INotifyPropertyChanged {
 
-        private readonly AccommodationStatisticsService _statisticsService = new AccommodationStatisticsService();
+        private readonly AccommodationStatisticsService _statisticsService = ServicesPool.GetService<AccommodationStatisticsService>();
         public AccommodationDTO AccommodationDTO { get; set; }
         public SeriesCollection ChartPieYearlyList { get; set; }
 

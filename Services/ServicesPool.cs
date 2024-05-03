@@ -22,22 +22,23 @@ namespace BookingApp.Services {
             _services[typeof(TourReservationService)] = new TourReservationService();
             _services[typeof(TourReviewService)] = new TourReviewService();
             _services[typeof(VoucherService)] = new VoucherService();
-            _services[typeof(AccommodationStatisticsService)] = new AccommodationStatisticsService();
+            _services[typeof(AccommodationStatisticsService)] = new AccommodationStatisticsService(RepositoryInjector.GetInstance<IAccommodationStatisticsRepository>());
             _services[typeof(GuestService)] = new GuestService(RepositoryInjector.GetInstance<IGuestRepository>());
             _services[typeof(TourService)] = new TourService();
             _services[typeof(TourReviewService)] = new TourReviewService();
             _services[typeof(ReservationRecommenderService)] = new ReservationRecommenderService(RepositoryInjector.GetInstance<IAccommodationReservationRepository>());
             _services[typeof(TourRequestService)] = new TourRequestService(RepositoryInjector.GetInstance<ITourRequestRepository>());
+            _services[typeof(UserService)] = new UserService(RepositoryInjector.GetInstance<IUserRepository>());
+            _services[typeof(AccommodationReservationService)] = new AccommodationReservationService(RepositoryInjector.GetInstance<IAccommodationReservationRepository>());
+            _services[typeof(AccommodationRenovationService)] = new AccommodationRenovationService(RepositoryInjector.GetInstance<IAccommodationRenovationRepository>());
+            _services[typeof(ReviewService)] = new ReviewService(RepositoryInjector.GetInstance<IReviewRepository>());
+            _services[typeof(NotificationService)] = new NotificationService(RepositoryInjector.GetInstance<INotificationRepository>());
 
+            LinkAllServices();
+        }
 
-            _services[typeof(UserService)] = new UserService(
-                RepositoryInjector.GetInstance<IUserRepository>(),
-                GetService<OwnerService>(),
-                GetService<GuestService>()
-                );
-
-            _services[typeof(AccommodationReservationService)] = new AccommodationReservationService(
-                RepositoryInjector.GetInstance<IAccommodationReservationRepository>(),
+        private static void LinkAllServices() {
+            GetService<AccommodationReservationService>().InjectServices(
                 GetService<RescheduleRequestService>(),
                 GetService<AccommodationService>(),
                 GetService<ReservationRecommenderService>(),
@@ -45,22 +46,28 @@ namespace BookingApp.Services {
                 GetService<GuestService>()
                 );
 
-            _services[typeof(AccommodationRenovationService)] = new AccommodationRenovationService(
-                RepositoryInjector.GetInstance<IAccommodationRenovationRepository>(),
+            GetService<UserService>().InjectServices(
+                GetService<OwnerService>(),
+                GetService<GuestService>()
+                );
+
+            GetService<AccommodationRenovationService>().InjectServices(
                 GetService<AccommodationReservationService>(),
                 GetService<AccommodationService>()
                 );
 
-            _services[typeof(ReviewService)] = new ReviewService(
-                RepositoryInjector.GetInstance<IReviewRepository>(),
+            GetService<ReviewService>().InjectServices(
                 GetService<AccommodationReservationService>(),
                 GetService<OwnerService>(),
                 GetService<AccommodationStatisticsService>()
                 );
 
-            _services[typeof(NotificationService)] = new NotificationService(
-                RepositoryInjector.GetInstance<INotificationRepository>(),
+            GetService<NotificationService>().InjectServices(
                 GetService<RescheduleRequestService>(),
+                GetService<AccommodationReservationService>()
+                );
+
+            GetService<AccommodationStatisticsService>().InjectServices(
                 GetService<AccommodationReservationService>()
                 );
         }

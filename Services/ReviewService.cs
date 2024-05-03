@@ -9,12 +9,15 @@ namespace BookingApp.Services {
         
         private readonly IReviewRepository _reviewRepository;
 
-        private readonly AccommodationReservationService _reservationService;
-        private readonly OwnerService _ownerService;
-        private readonly AccommodationStatisticsService _accommodationStatisticsService;
+        private AccommodationReservationService _reservationService;
+        private OwnerService _ownerService;
+        private AccommodationStatisticsService _accommodationStatisticsService;
         
-        public ReviewService(IReviewRepository reviewRepository, AccommodationReservationService reservationService, OwnerService ownerService, AccommodationStatisticsService accommodationStatisticsService) {
+        public ReviewService(IReviewRepository reviewRepository) {
             _reviewRepository = reviewRepository;
+        }
+
+        public void InjectServices(AccommodationReservationService reservationService, OwnerService ownerService, AccommodationStatisticsService accommodationStatisticsService) {
             _reservationService = reservationService;
             _ownerService = ownerService;
             _accommodationStatisticsService = accommodationStatisticsService;

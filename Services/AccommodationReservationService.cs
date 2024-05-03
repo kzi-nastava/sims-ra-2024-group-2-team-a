@@ -10,17 +10,18 @@ namespace BookingApp.Services {
     {
         private readonly IAccommodationReservationRepository _reservationRepository;
 
-        private readonly RescheduleRequestService _rescheduleService;
-        private readonly AccommodationService _accommodationService;
-        private readonly ReservationRecommenderService _recommenderService;
-        private readonly AccommodationStatisticsService _statisticService;
-        private readonly GuestService _guestService;
+        private RescheduleRequestService _rescheduleService;
+        private AccommodationService _accommodationService;
+        private ReservationRecommenderService _recommenderService;
+        private AccommodationStatisticsService _statisticService;
+        private GuestService _guestService;
       
-        public AccommodationReservationService(IAccommodationReservationRepository reservationRepository,
-            RescheduleRequestService rescheduleService, AccommodationService accommodationService, ReservationRecommenderService recommenderService,
-            AccommodationStatisticsService statisticService, GuestService guestService) {
-            
-            _reservationRepository = reservationRepository;
+        public AccommodationReservationService(IAccommodationReservationRepository reservationRepository) {
+           _reservationRepository = reservationRepository;
+        }
+
+        public void InjectServices(RescheduleRequestService rescheduleService, AccommodationService accommodationService, ReservationRecommenderService recommenderService,
+                       AccommodationStatisticsService statisticService, GuestService guestService) {
             _rescheduleService = rescheduleService;
             _accommodationService = accommodationService;
             _recommenderService = recommenderService;
@@ -92,7 +93,6 @@ namespace BookingApp.Services {
 
             return true;
         }
-
 
         // TODO: Move to another service
         public int CheckForNotGradedReservations(int ownerId) {

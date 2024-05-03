@@ -125,7 +125,7 @@ namespace BookingApp.WPF.Android.ViewModels {
             }
         }
         public void AcceptButton_Executed(object obj) {
-            AccommodationStatisticsService statisticsService = new AccommodationStatisticsService();
+            AccommodationStatisticsService statisticsService = ServicesPool.GetService<AccommodationStatisticsService>();
             AccommodationReservation accommodationReservation = accReservationService.GetById(SelectedRequest.ReservationId);
 
             statisticsService.UpdatePostponedStatistics(accommodationReservation.AccommodationId, SelectedRequest.OldStartDate, 

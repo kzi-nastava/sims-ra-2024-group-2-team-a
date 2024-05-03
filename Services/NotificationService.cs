@@ -7,11 +7,14 @@ namespace BookingApp.Services {
     public class NotificationService {
         private readonly INotificationRepository _notificationRepository;
 
-        RescheduleRequestService _rescheduleRequestService = ServicesPool.GetService<RescheduleRequestService>();
-        AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
+        private RescheduleRequestService _rescheduleRequestService;
+        private AccommodationReservationService _reservationService;
 
-        public NotificationService(INotificationRepository notificationRepository, RescheduleRequestService rescheduleRequestService, AccommodationReservationService reservationService) {
+        public NotificationService(INotificationRepository notificationRepository) {
             _notificationRepository = notificationRepository;
+        }
+
+        public void InjectServices(RescheduleRequestService rescheduleRequestService, AccommodationReservationService reservationService) {
             _rescheduleRequestService = rescheduleRequestService;
             _reservationService = reservationService;
         }
