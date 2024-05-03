@@ -27,7 +27,7 @@ namespace BookingApp.Services {
         }
 
         private bool MatchesLocation(Tour tour, TourFilterDTO filter) {
-            return tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
+            return tour.LocationId == filter.Location.Id || filter.Location.Id == 0;
         }
 
         private bool MatchesDuration(Tour tour, TourFilterDTO filter) {

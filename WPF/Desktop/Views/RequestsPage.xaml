@@ -8,27 +8,129 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RequestsPage">
-
+    <Page.Resources>
+        <Style TargetType="TabItem" x:Key="Tab">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="#88C0D0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Info">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+    </Page.Resources>
     <TabControl Margin="5">
-        <TabItem Header="Simple tours">
-            <Grid Margin="5">
+        
+        <TabItem Header="Simple tours"
+                 Style="{StaticResource Tab}">
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="9*"/>
                 </Grid.RowDefinitions>
-                <Button Command="{Binding CreateRequestCommand}">Create Request</Button>
-                <ItemsControl>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="17*"/>
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="60*"/>
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding CreateRequestCommand}"
+                        Style="{StaticResource ButtonStyle}">Create Request</Button>
+                <Button Grid.Column="1"
+                        Style="{StaticResource ButtonStyle}">Statistics</Button>
+                <Border Grid.Column="2"
+                        Style="{StaticResource BorderStyle}">
+                    
+                </Border>
+                <ItemsControl Grid.Row="1"
+                              Grid.ColumnSpan="3"
+                              ItemsSource="{Binding TourRequests}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black"
-                                    BorderThickness="1">
-                                
+                            <Border Style="{StaticResource BorderStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0"
+                                          Margin="20"
+                                          HorizontalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Style="{StaticResource Info}">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0}, {1}">
+                                                    <Binding Path="Location.City"/>
+                                                    <Binding Path="Location.Country"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock Grid.Row="1"
+                                                   Text="{Binding Language.Name}"
+                                                   Style="{StaticResource Info}"/>
+                                        <TextBlock Grid.Row="2"
+                                                   Style="{StaticResource Info}">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} - {1}">
+                                                    <Binding Path="StartDate"/>
+                                                    <Binding Path="EndDate"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock Grid.Row="3"
+                                                   Text="{Binding PassengerNumber}"
+                                                   Style="{StaticResource Info}"/>
+                                    </Grid>
+                                    <Border Style="{StaticResource BorderStyle}"
+                                            Margin="20"
+                                            Grid.Column="1">
+                                        <TextBlock Style="{StaticResource Info}"
+                                                   Text="{Binding Description}"/>
+                                    </Border>
+                                    <TextBlock Grid.Column="2"                                             
+                                               Style="{StaticResource Info}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Margin="20">
+                                        <TextBlock.Text>
+                                            <Binding StringFormat="• {0}" 
+                                                     Path="Status"/>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </Grid>
         </TabItem>
-        <TabItem Header="Complex tours"/>
+        <TabItem Header="Complex tours"
+                 Style="{StaticResource Tab}"/>
     </TabControl>
 </Page>
