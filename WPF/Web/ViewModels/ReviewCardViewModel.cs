@@ -14,9 +14,9 @@ namespace BookingApp.WPF.Web.ViewModels {
 
         public bool IsReviewHidden { get; set; } = false;
 
-        private LocationService _locationService = new LocationService();
-        private AccommodationService _accommodationService = new AccommodationService();
-        private AccommodationReservationService _reservationService = new AccommodationReservationService();
+        private LocationService _locationService = ServicesPool.GetService<LocationService>();
+        private AccommodationService _accommodationService = ServicesPool.GetService<AccommodationService>();
+        private AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
 
         public ReviewCardViewModel(ReviewDTO review) {
             Review = review;

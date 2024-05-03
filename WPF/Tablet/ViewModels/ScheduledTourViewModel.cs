@@ -10,7 +10,7 @@ namespace BookingApp.WPF.Tablet.ViewModels {
     public class ScheduledTourViewModel {
         private int _userId;
 
-        private readonly LocationService _locationService = new LocationService();
+        private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         private readonly LanguageService _languageService = new LanguageService();
         private readonly TourService _tourService = new TourService();
         private readonly VoucherService _voucherService = new VoucherService();

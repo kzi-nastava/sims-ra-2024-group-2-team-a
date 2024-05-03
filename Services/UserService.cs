@@ -6,8 +6,17 @@ namespace BookingApp.Services {
 
         private readonly IUserRepository _userRepository = RepositoryInjector.GetInstance<IUserRepository>();
 
-        private readonly OwnerService _ownerService = new OwnerService();
-        private readonly GuestService _guestService = new GuestService();
+        private OwnerService _ownerService;
+        private GuestService _guestService;
+
+        public UserService(IUserRepository userRepository) {
+            _userRepository = userRepository;
+        }
+
+        public void InjectServices(OwnerService ownerService, GuestService guestService) {
+            _ownerService = ownerService;
+            _guestService = guestService;
+        }
 
         public User GetByUsername(string username) {
             return _userRepository.GetByUsername(username);

@@ -4,7 +4,8 @@ using BookingApp.WPF.DTO;
 
 namespace BookingApp.WPF.Android.ViewModels {
     public class RescheduleDeclineViewmodel {
-        private RescheduleRequestService rescheduleRequestService = new RescheduleRequestService();
+
+        private RescheduleRequestService rescheduleRequestService = ServicesPool.GetService<RescheduleRequestService>();
 
         public RescheduleRequestDTO RescheduleRequestDTO { get; set; }
         public RescheduleDeclineViewmodel(RescheduleRequestDTO rescheduleRequestDTO) {

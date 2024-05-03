@@ -7,15 +7,28 @@ using System.Windows.Documents;
 namespace BookingApp.Services {
     public class ReviewService {
         
-        private readonly IReviewRepository _reviewRepository = RepositoryInjector.GetInstance<IReviewRepository>();
-        private readonly IAccommodationReservationRepository _reservationRepository = RepositoryInjector.GetInstance<IAccommodationReservationRepository>();
-        private readonly OwnerService _ownerService = new OwnerService();
-        private readonly AccommodationStatisticsService _accommodationStatisticsService = new AccommodationStatisticsService();
+        private readonly IReviewRepository _reviewRepository;
+
+        private AccommodationReservationService _reservationService;
+        private OwnerService _ownerService;
+        private AccommodationStatisticsService _accommodationStatisticsService;
         
-        public ReviewService() { }
+        public ReviewService(IReviewRepository reviewRepository) {
+            _reviewRepository = reviewRepository;
+        }
+
+        public void InjectServices(AccommodationReservationService reservationService, OwnerService ownerService, AccommodationStatisticsService accommodationStatisticsService) {
+            _reservationService = reservationService;
+            _ownerService = ownerService;
+            _accommodationStatisticsService = accommodationStatisticsService;
+        }
         
         public List<Review> GetByGuestId(int ownerId) { 
             return _reviewRepository.GetByGuestId(ownerId);
+        }
+
+        public List<Review> GetByOwnerId(int ownerId) {
+            return _reviewRepository.GetByOwnerId(ownerId);
         }
 
         public Review GetByReservationId(int reservationId) {
@@ -53,7 +66,7 @@ namespace BookingApp.Services {
             _ownerService.AdjustSuperOwner(review.OwnerId);
 
             if (reviewDTO.RequiresRenovation) {
-                AccommodationReservation accRes = _reservationRepository.GetById(reviewDTO.ReservationId);
+                AccommodationReservation accRes = _reservationService.GetById(reviewDTO.ReservationId);
                 _accommodationStatisticsService.UpdateRecommendationStatistics(accRes.AccommodationId, accRes.StartDate);;
             }
         }

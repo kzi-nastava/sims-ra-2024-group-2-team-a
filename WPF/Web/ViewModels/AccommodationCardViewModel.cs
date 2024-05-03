@@ -7,7 +7,7 @@ namespace BookingApp.WPF.Web.ViewModels {
         public AccommodationDTO Accommodation { get; set; }
         public bool BySuperOwner { get; set; }
 
-        private readonly OwnerService _ownerService = new OwnerService();
+        private readonly OwnerService _ownerService = ServicesPool.GetService<OwnerService>();
 
         public AccommodationCardViewModel(AccommodationDTO accommodation) {
             Accommodation = accommodation;

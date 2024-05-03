@@ -12,7 +12,7 @@ namespace BookingApp.WPF.Tablet.ViewModels {
 
         private readonly TourService _tourService = new TourService();
         private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
-        private readonly LocationService _locationService = new LocationService();
+        private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         private readonly LanguageService _languageService = new LanguageService();
 
         public TourDTO tourDTO { get; set; }

@@ -16,9 +16,9 @@ namespace BookingApp.WPF.Android.ViewModels
 {
     public class AllRenovationsViewmodel: INotifyPropertyChanged
     {
-        private readonly AccommodationRenovationService _renovationService = new AccommodationRenovationService();
+        private readonly AccommodationRenovationService _renovationService = ServicesPool.GetService<AccommodationRenovationService>();
 
-        private readonly AccommodationService _accommodationService = new AccommodationService();
+        private readonly AccommodationService _accommodationService = ServicesPool.GetService<AccommodationService>();
 
         private readonly User _user;
         public ObservableCollection<AccommodationRenovationDTO> Renovations { get; set; }

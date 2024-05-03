@@ -7,7 +7,17 @@ namespace BookingApp.Services {
 
     public class OwnerService {
 
-        private readonly IOwnerRepository _ownerRepository = RepositoryInjector.GetInstance<IOwnerRepository>();
+        private readonly IOwnerRepository _ownerRepository;
+
+        private ReviewService _reviewService;
+
+        public OwnerService(IOwnerRepository ownerRepository) {
+            _ownerRepository = ownerRepository;
+        }
+
+        public void InjectServices(ReviewService reviewService) {
+            _reviewService = reviewService;
+        }
 
         public Owner GetByUserId(int userId) {
             return _ownerRepository.GetAll().Find(owner => owner.UserId == userId);
@@ -30,7 +40,7 @@ namespace BookingApp.Services {
                 owner.IsSuper = false;
 
             if (!oldSuper && owner.IsSuper) {
-                NotificationService notificationService = new NotificationService();
+                NotificationService notificationService = ServicesPool.GetService<NotificationService>();
                 notificationService.CreateSuperNotification(owner.UserId);
             }
 
@@ -38,8 +48,7 @@ namespace BookingApp.Services {
         }
 
         private int CalculateOwnerAverageGrade(Owner owner) {
-            ReviewRepository reviewRepository = new ReviewRepository();
-            List<Review> reviews = reviewRepository.GetByOwnerId(owner.UserId);
+            List<Review> reviews = _reviewService.GetByOwnerId(owner.UserId);
 
             double sum = 0;
             int numberOfReviews = 0;

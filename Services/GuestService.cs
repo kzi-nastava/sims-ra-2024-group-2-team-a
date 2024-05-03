@@ -9,7 +9,11 @@ using System.Threading.Tasks;
 namespace BookingApp.Services {
     public class GuestService {
 
-        private readonly IGuestRepository _guestRepository = RepositoryInjector.GetInstance<IGuestRepository>();
+        private readonly IGuestRepository _guestRepository;
+
+        public GuestService(IGuestRepository guestRepository) {
+            _guestRepository = guestRepository;
+        }
 
         public Guest GetById(int id) {
             return _guestRepository.GetById(id);

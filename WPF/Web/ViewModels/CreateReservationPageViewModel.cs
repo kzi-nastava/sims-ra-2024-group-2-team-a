@@ -26,9 +26,9 @@ namespace BookingApp.WPF.Web.ViewModels {
 
         private readonly int maxSuggestedReservationsCount = 20;
 
-        private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
+        private readonly AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
 
-        private readonly GuestService _guestService = new GuestService();
+        private readonly GuestService _guestService = ServicesPool.GetService<GuestService>();
 
         public Guest GuestUser { get; set; }
         public int MaxBonusPoints { get; set; } = Guest.SuperGuestStartPoints;

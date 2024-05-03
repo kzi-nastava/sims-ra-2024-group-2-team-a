@@ -6,16 +6,31 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Services {
-    class AccommodationReservationService
+    public class AccommodationReservationService
     {
-        private readonly IAccommodationReservationRepository _reservationRepository = RepositoryInjector.GetInstance<IAccommodationReservationRepository>();
+        private readonly IAccommodationReservationRepository _reservationRepository;
 
-        private readonly RescheduleRequestService _rescheduleService = new RescheduleRequestService();
-        private readonly AccommodationService _accommodationService = new AccommodationService();
-        private readonly ReservationRecommenderService _recommenderService = new ReservationRecommenderService();
-        private readonly AccommodationStatisticsService _statisticService = new AccommodationStatisticsService();
-        private readonly GuestService _guestService = new GuestService();
+        private RescheduleRequestService _rescheduleService;
+        private AccommodationService _accommodationService;
+        private ReservationRecommenderService _recommenderService;
+        private AccommodationStatisticsService _statisticService;
+        private GuestService _guestService;
+        private ReviewService _reviewService;
       
+        public AccommodationReservationService(IAccommodationReservationRepository reservationRepository) {
+           _reservationRepository = reservationRepository;
+        }
+
+        public void InjectServices(RescheduleRequestService rescheduleService, AccommodationService accommodationService, ReservationRecommenderService recommenderService,
+                       AccommodationStatisticsService statisticService, GuestService guestService, ReviewService reviewService) {
+            _rescheduleService = rescheduleService;
+            _accommodationService = accommodationService;
+            _recommenderService = recommenderService;
+            _statisticService = statisticService;
+            _guestService = guestService;
+            _reviewService = reviewService;
+        }
+
         public List<AccommodationReservation> GetByAccommodationId(int id) {
             return _reservationRepository.GetByAccommodationId(id);
         }
@@ -33,6 +48,8 @@ namespace BookingApp.Services {
         }
 
         public AccommodationReservation Save(AccommodationReservation reservation) {
+
+
             _statisticService.UpdateReservationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate);
           
             AccommodationReservation newReservation = _reservationRepository.Save(reservation);
@@ -52,6 +69,7 @@ namespace BookingApp.Services {
         }
 
         public void CancelReservation(int id) {
+
             var reservation = _reservationRepository.GetById(id);
             reservation.Cancelled = true;
             _reservationRepository.Update(reservation);
@@ -79,14 +97,13 @@ namespace BookingApp.Services {
         }
 
         public int CheckForNotGradedReservations(int ownerId) {
-            ReviewService reviewService = new ReviewService();
             int counter = 0;
 
             foreach (var reservation in this.GetAll()) {
                 if (!CheckReservationOwner(reservation.AccommodationId, ownerId))
                     continue;
 
-                if (reviewService.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation))
+                if (_reviewService.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation))
                     counter++;
             }
 

@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Services {
-    class RescheduleRequestService
+    public class RescheduleRequestService
     {
-        private readonly IRescheduleRequestRepository _requestRepository = RepositoryInjector.GetInstance<IRescheduleRequestRepository>();
+        private readonly IRescheduleRequestRepository _requestRepository;
+
+        public RescheduleRequestService(IRescheduleRequestRepository requestRepository) {
+            _requestRepository = requestRepository;
+        }
 
         public List<RescheduleRequest> GetAll() {
             return _requestRepository.GetAll();
