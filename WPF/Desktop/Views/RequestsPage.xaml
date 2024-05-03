@@ -56,8 +56,10 @@
                 </Grid.ColumnDefinitions>
                 <Button Command="{Binding CreateRequestCommand}"
                         Style="{StaticResource ButtonStyle}">Create Request</Button>
-                <Button Grid.Column="1"
-                        Style="{StaticResource ButtonStyle}">Statistics</Button>
+                <Button x:Name="StatisticsButton"
+                        Grid.Column="1"
+                        Style="{StaticResource ButtonStyle}"
+                        Click="StatisticsButton_Click">Statistics</Button>
                 <Border Grid.Column="2"
                         Style="{StaticResource BorderStyle}">
                     
