@@ -4,8 +4,8 @@ namespace BookingApp.Domain.Model {
 
     public class Guest : User {
 
-        public static readonly int SuperGuestReservationsCount = 5;
-        public static readonly int SuperGuestStartPoints = 10;
+        public static readonly int SuperGuestReservationsCount = 10;
+        public static readonly int SuperGuestStartPoints = 5;
 
         public bool IsSuperGuest { get; set; } = false;
         public DateOnly SuperGuestExpirationDate { get; set; } = new DateOnly();

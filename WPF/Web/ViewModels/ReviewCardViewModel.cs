@@ -12,6 +12,8 @@ namespace BookingApp.WPF.Web.ViewModels {
         public AccommodationReservationDTO Reservation { get; set; }
         public ReviewDTO Review { get; set; }
 
+        public bool IsReviewHidden { get; set; } = false;
+
         private LocationService _locationService = new LocationService();
         private AccommodationService _accommodationService = new AccommodationService();
         private AccommodationReservationService _reservationService = new AccommodationReservationService();
@@ -21,6 +23,8 @@ namespace BookingApp.WPF.Web.ViewModels {
             Reservation = new AccommodationReservationDTO(_reservationService.GetById(review.ReservationId));
             Reservation.Accommodation = new AccommodationDTO(_accommodationService.GetById(Reservation.AccommodationId));
             Reservation.Accommodation.Location = new LocationDTO(_locationService.GetById(Reservation.Accommodation.LocationId));
+
+            IsReviewHidden = !Review.IsGradedByGuest;
         }
     }
 }

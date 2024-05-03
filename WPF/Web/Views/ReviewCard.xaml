@@ -10,6 +10,7 @@
     
     <UserControl.Resources>
         <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
         <Style x:Key="InfoTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="10 5 0 5"/>
@@ -28,6 +29,7 @@
     <Grid>
         <Border Margin="5 5 5 5" Background="White" BorderBrush="Gray" BorderThickness="1" Width="550" CornerRadius="10">
             <Grid>
+                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -72,7 +74,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Cleanliness" Margin="10 5 0 5"/>
                         <Image Style="{StaticResource InfoImage}" Source="{StaticResource ReviewIcon}"/>
-                        <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Review.GuestCleannessGrade}"/>
+                        <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Review.GuestCleannessGrade}" FontSize="14"/>
                     </StackPanel>
                 </Label>
 
@@ -80,12 +82,18 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Behaviour" Margin="10 5 6 5"/>
                         <Image Style="{StaticResource InfoImage}" Source="{StaticResource ReviewIcon}"/>
-                        <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Review.RuleFollowingGrade}"/>
+                        <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Review.RuleFollowingGrade}" FontSize="14"/>
                     </StackPanel>
                 </Label>
 
-                <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Background="LightGray" Margin="10 10 10 10" CornerRadius="10">
-                    <TextBlock Text="{Binding Review.OwnerComment}" Margin="10 10 10 10"/>
+                <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" BorderBrush="Gray" BorderThickness="1" Margin="5 5 5 5" CornerRadius="10">
+                    <TextBlock Text="{Binding Review.OwnerComment}" TextWrapping="Wrap" Margin="10 10 10 10"/>
+                </Border>
+
+                <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4" CornerRadius="10" Background="LightGray" 
+                        Visibility="{Binding IsReviewHidden, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock  Text="Review accommodation in order to see owner's review" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               FontStyle="Italic" FontSize="15" Margin="70 0 70 0"/>
                 </Border>
             </Grid>
         </Border>

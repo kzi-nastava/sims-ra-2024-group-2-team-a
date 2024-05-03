@@ -33,8 +33,13 @@ namespace BookingApp.WPF.Web.Views {
             InitializeComponent();
             _guestId = guestId;
 
-            foreach(var review in _reviewService.GetByGuestId(guestId)) {
-                var reviewDTO = new ReviewDTO(review);
+            var reviews = _reviewService.GetByGuestId(guestId).OrderByDescending(r => r.Id).ToList();
+
+            foreach(var review in reviews) {
+                ReviewDTO reviewDTO = new ReviewDTO(review);
+
+                if (!reviewDTO.IsGradedByOwner && reviewDTO.IsGradedByGuest)
+                    continue;
 
                 ReviewCards.Add(new ReviewCardViewModel(reviewDTO));
             }
