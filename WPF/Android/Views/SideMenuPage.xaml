@@ -8,7 +8,7 @@
       d:DesignHeight="700" d:DesignWidth="260"
       Title="SideMenuPage">
 
-    <Grid Background="LightBlue">
+    <Grid Background="{StaticResource SoftGreen}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
@@ -19,7 +19,7 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Button Click="AccommodationsButton_Click" Grid.Row="0" Background="Transparent">
+        <Button Click="AccommodationsButton_Click" Grid.Row="0" Background="{StaticResource Green}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
@@ -32,7 +32,7 @@
             </Button.Template>
         </Button>
 
-        <Button Click="InboxButton_Click" Grid.Row="1" Background="Transparent">
+        <Button Click="InboxButton_Click" Grid.Row="1" Background="{StaticResource Green}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
@@ -44,7 +44,7 @@
             </Button.Template>
         </Button>
 
-        <Button Click="ReservationsButton_Click" Grid.Row="2" Background="Transparent">
+        <Button Click="ReservationsButton_Click" Grid.Row="2" Background="{StaticResource Green}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
@@ -56,7 +56,7 @@
             </Button.Template>
         </Button>
 
-        <Button Click="RenovationsButton_Click" Grid.Row="3" Background="Transparent">
+        <Button Click="RenovationsButton_Click" Grid.Row="3" Background="{StaticResource Green}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="{TemplateBinding Background}">
@@ -69,7 +69,7 @@
         </Button>
 
         <Border BorderBrush="Black" BorderThickness="2,2,2,0" Grid.Row="6">
-            <Grid Grid.Row="6">
+            <Grid Grid.Row="6" Background="{StaticResource Green}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="*"/>
@@ -89,7 +89,7 @@
             </Grid>
         </Border>
 
-        <Button Click="LogOutButton_Click" Grid.Row="7" Background="Transparent">
+        <Button Click="LogOutButton_Click" Grid.Row="7" Background="{StaticResource Green}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="{TemplateBinding Background}">

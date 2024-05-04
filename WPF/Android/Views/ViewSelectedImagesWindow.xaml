@@ -11,7 +11,7 @@
     <Window.Resources>
         <converters:PathToImageConverter x:Key="Converter"/>
     </Window.Resources>
-    <Grid>
+    <Grid Background="{StaticResource Beige}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="15"/>
             <ColumnDefinition Width="*"/>
@@ -47,6 +47,7 @@
         </ScrollViewer>
         </Border>
 
-                <Button Content="Done" Height="50" Width="120" Grid.Row="2" HorizontalAlignment="Center" Grid.Column="1" Click="Button_Click"/>
+        <Button Content="Done" Height="50" Width="120" Grid.Row="2" HorizontalAlignment="Center" Grid.Column="1" Click="Button_Click"
+                Background="{StaticResource Green}"/>
     </Grid>
 </Window>
