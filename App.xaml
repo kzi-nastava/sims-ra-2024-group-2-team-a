@@ -19,6 +19,16 @@
         <BitmapImage x:Key="RightArrowIcon" UriSource="Resources/Images/Icons/right-arrow-icon.png"/>
         <BitmapImage x:Key="CameraIcon" UriSource="Resources/Images/Icons/camera-icon.png"/>
         <BitmapImage x:Key="DocumentIcon" UriSource="Resources/Images/Icons/document-icon.png"/>
+        <BitmapImage x:Key="Add2Icon" UriSource="Resources/Images/add2.png"/>
+        <BitmapImage x:Key="StatsIcon" UriSource="Resources/Images/stats.png"/>
+        <BitmapImage x:Key="ReviewsIcon" UriSource="Resources/Images/reviews.png"/>
+        <BitmapImage x:Key="HamburgerBarIcon" UriSource="Resources/Images/hamburger.png"/>
+        <BitmapImage x:Key="HomeIcon" UriSource="Resources/Images/normal-home-icon.png"/>
+        <BitmapImage x:Key="LiveIcon" UriSource="Resources/Images/live.png"/>
+        <BitmapImage x:Key="FinishIcon" UriSource="Resources\Images\finish.png"/>
+        <BitmapImage x:Key="RequestIcon" UriSource="Resources/Images/request.png"/>
+        <BitmapImage x:Key="ReportIcon" UriSource="Resources/Images/report.png"/>
+        <BitmapImage x:Key="EyeIcon" UriSource="Resources/Images/eye.png"/>
 
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>

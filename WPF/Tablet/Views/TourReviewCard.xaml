@@ -32,7 +32,7 @@
                 </WrapPanel>
                 <Button x:Name="reportButton" Margin="30,0,0,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="reportButton_Click">
                     <StackPanel Orientation="Vertical">
-                        <Image Source="/Resources/Images/report.png" Width="50" Height="50" />
+                        <Image Source="{StaticResource ReportIcon}" Width="50" Height="50" />
                         <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Report</Label>
                     </StackPanel>
                 </Button>

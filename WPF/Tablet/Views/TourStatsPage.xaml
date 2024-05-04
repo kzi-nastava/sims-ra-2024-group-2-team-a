@@ -26,7 +26,7 @@
             <Button x:Name="showButton" Margin="0,0,40,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="showButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Show</Label>
-                    <Image Source="/Resources/Images/eye.png" Width="50" Height="50" />
+                    <Image Source="{StaticResource EyeIcon}" Width="50" Height="50" />
                 </StackPanel>
             </Button>
         </Grid>

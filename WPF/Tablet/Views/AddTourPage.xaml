@@ -41,7 +41,7 @@
         <Button x:Name="pickPhotosButton" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="pickPhotosButton_Click">
             <StackPanel Orientation="Horizontal" Margin="0,0,30,0">
                 <Label VerticalAlignment="Center" FontSize="20" FontStyle="Italic" FontWeight="Thin" Margin="20,0,20,0">Pick photos from galery</Label>
-                <Image Source="/Resources/Images/add2.png" Width="40" Height="40" />
+                <Image Source="{StaticResource Add2Icon}" Width="40" Height="40" />
             </StackPanel>
         </Button>
 

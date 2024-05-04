@@ -47,14 +47,14 @@
 
             <Button x:Name="statsButton" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="statsButton_Click">
                 <StackPanel Orientation="Vertical" Margin="10">
-                    <Image Source="/Resources/Images/stats.png" Width="50" Height="50" />
+                    <Image Source="{StaticResource StatsIcon}" Width="50" Height="50" />
                     <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Stats</Label>
                 </StackPanel>
             </Button>
             
             <Button x:Name="reviewsButton" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Margin="0,0,10,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="reviewsButton_Click">
                 <StackPanel Orientation="Vertical">
-                    <Image Source="/Resources/Images/reviews.png" Width="50" Height="50" />
+                    <Image Source="{StaticResource ReviewsIcon}" Width="50" Height="50" />
                     <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Reviews</Label>
                 </StackPanel>
             </Button>
