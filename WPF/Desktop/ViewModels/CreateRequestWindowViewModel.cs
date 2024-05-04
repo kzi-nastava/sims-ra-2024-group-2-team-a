@@ -15,9 +15,9 @@ using System.Windows.Input;
 namespace BookingApp.WPF.Desktop.ViewModels
 {
     public class CreateRequestWindowViewModel : INotifyPropertyChanged {
-        private readonly TourRequestService _tourRequestService = new TourRequestService(RepositoryInjector.GetInstance<ITourRequestRepository>());
+        private readonly TourRequestService _tourRequestService = ServicesPool.GetService<TourRequestService>();
         private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
-        private readonly LanguageService _languageService = new LanguageService();
+        private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
         public TourRequestDTO TourRequest { get; set; } 
         public ObservableCollection<PassengerDTO> Passengers { get; set; }
         public ObservableCollection<LocationDTO> Locations { get; set; }

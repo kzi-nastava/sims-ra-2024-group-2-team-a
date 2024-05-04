@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,17 +16,15 @@ namespace BookingApp.Services {
             _services[typeof(LocationService)] = new LocationService(RepositoryInjector.GetInstance<ILocationRepository>());
             _services[typeof(RescheduleRequestService)] = new RescheduleRequestService(RepositoryInjector.GetInstance<IRescheduleRequestRepository>());
             _services[typeof(OwnerService)] = new OwnerService(RepositoryInjector.GetInstance<IOwnerRepository>());
-            _services[typeof(LanguageService)] = new LanguageService();
-            _services[typeof(PassengerService)] = new PassengerService();
-            _services[typeof(PointOfInterestService)] = new PointOfInterestService();
-            _services[typeof(TourService)] = new TourService();
-            _services[typeof(TourReservationService)] = new TourReservationService();
-            _services[typeof(TourReviewService)] = new TourReviewService();
-            _services[typeof(VoucherService)] = new VoucherService();
+            _services[typeof(LanguageService)] = new LanguageService(RepositoryInjector.GetInstance<ILanguageRepository>());
+            _services[typeof(PassengerService)] = new PassengerService(RepositoryInjector.GetInstance<IPassengerRepository>());
+            _services[typeof(PointOfInterestService)] = new PointOfInterestService(RepositoryInjector.GetInstance<IPointOfInterestRepository>());
+            _services[typeof(TourService)] = new TourService(RepositoryInjector.GetInstance<ITourRepository>());
+            _services[typeof(TourReservationService)] = new TourReservationService(RepositoryInjector.GetInstance<ITourReservationRepository>());
+            _services[typeof(TourReviewService)] = new TourReviewService(RepositoryInjector.GetInstance<ITourReviewRepository>());
+            _services[typeof(VoucherService)] = new VoucherService(RepositoryInjector.GetInstance<IVoucherRepository>());
             _services[typeof(AccommodationStatisticsService)] = new AccommodationStatisticsService(RepositoryInjector.GetInstance<IAccommodationStatisticsRepository>());
             _services[typeof(GuestService)] = new GuestService(RepositoryInjector.GetInstance<IGuestRepository>());
-            _services[typeof(TourService)] = new TourService();
-            _services[typeof(TourReviewService)] = new TourReviewService();
             _services[typeof(ReservationRecommenderService)] = new ReservationRecommenderService(RepositoryInjector.GetInstance<IAccommodationReservationRepository>());
             _services[typeof(TourRequestService)] = new TourRequestService(RepositoryInjector.GetInstance<ITourRequestRepository>());
             _services[typeof(UserService)] = new UserService(RepositoryInjector.GetInstance<IUserRepository>());
@@ -38,6 +37,11 @@ namespace BookingApp.Services {
         }
 
         private static void LinkAllServices() {
+            GetService<TourService>().InjectService(
+                GetService<PassengerService>(),
+                GetService<TourReservationService>()
+                );
+
             GetService<AccommodationReservationService>().InjectServices(
                 GetService<RescheduleRequestService>(),
                 GetService<AccommodationService>(),

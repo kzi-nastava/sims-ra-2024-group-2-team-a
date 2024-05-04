@@ -5,10 +5,10 @@ using System.Collections.ObjectModel;
 
 namespace BookingApp.WPF.Tablet.ViewModels {
     public class TourReviewViewModel {
-        private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
-        private readonly TourReviewService _tourReviewService = new TourReviewService();
-        private readonly TourReservationService _tourReservationService = new TourReservationService();
-        private readonly PassengerService _passengerService = new PassengerService();
+        private readonly PointOfInterestService _pointOfInterestService = ServicesPool.GetService<PointOfInterestService>();
+        private readonly TourReviewService _tourReviewService = ServicesPool.GetService<TourReviewService>();
+        private readonly TourReservationService _tourReservationService = ServicesPool.GetService<TourReservationService>();
+        private readonly PassengerService _passengerService = ServicesPool.GetService<PassengerService>();
         public ObservableCollection<TourReviewDTO> tourReviewDTOs { get; set; }
         public TourDTO tourDTO { get; set; }
         public TourReviewDTO tourReviewDTO { get; set; }

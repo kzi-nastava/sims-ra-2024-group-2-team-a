@@ -4,7 +4,7 @@ using BookingApp.WPF.DTO;
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TourRatingWindowViewModel
     {
-        private readonly TourReviewService _tourReviewService = new TourReviewService();
+        private readonly TourReviewService _tourReviewService = ServicesPool.GetService<TourReviewService>();
         public int UserId { get; set; }
         public TourDTO SelectedTour { get; set; }
         public TourReviewDTO TourReview { get; set; }
