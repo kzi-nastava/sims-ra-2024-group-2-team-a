@@ -3,11 +3,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
       xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
       mc:Ignorable="d" 
       d:DesignHeight="726" d:DesignWidth="1024"
       Title="FinishedTourPage">
 
+    <Page.CommandBindings>
+        <CommandBinding x:Name="Cancel" Command="cmd:RoutedCommands.Cancel" CanExecute="Cancel_CanExecute" Executed="Cancel_Executed"/>
+        <CommandBinding x:Name="Stats" Command="cmd:RoutedCommands.Stats" CanExecute="Stats_CanExecute" Executed="Stats_Executed"/>
+        <CommandBinding x:Name="Reviews" Command="cmd:RoutedCommands.Reviews" CanExecute="Reviews_CanExecute" Executed="Reviews_Executed"/>
+    </Page.CommandBindings>
     <Grid Margin="0,10,0,10" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -45,14 +51,14 @@
             <TextBlock Grid.Row="5" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Beggining, StringFormat=Start: {0}}" FontSize="18"/>
             <TextBlock Grid.Row="6" Grid.Column="0" Margin="10" Text="{Binding tourDTO.End, StringFormat=End: {0}}" FontSize="18"/>
 
-            <Button x:Name="statsButton" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="statsButton_Click">
+            <Button x:Name="statsButton" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Command="cmd:RoutedCommands.Stats">
                 <StackPanel Orientation="Vertical" Margin="10">
                     <Image Source="{StaticResource StatsIcon}" Width="50" Height="50" />
                     <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Stats</Label>
                 </StackPanel>
             </Button>
             
-            <Button x:Name="reviewsButton" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Margin="0,0,10,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="reviewsButton_Click">
+            <Button x:Name="reviewsButton" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Margin="0,0,10,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Command="cmd:RoutedCommands.Reviews">
                 <StackPanel Orientation="Vertical">
                     <Image Source="{StaticResource ReviewsIcon}" Width="50" Height="50" />
                     <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Reviews</Label>
@@ -85,6 +91,6 @@
                 </DataGrid>
             </Grid>
         </Grid>
-        <Button Grid.ColumnSpan="2" Grid.Row="2" x:Name="closeButton" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Content="Close" Click="closeButton_Click"/>
+        <Button Grid.ColumnSpan="2" Grid.Row="2" x:Name="closeButton" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Content="Close" Command="cmd:RoutedCommands.Cancel"/>
     </Grid>
 </Page>

@@ -3,11 +3,18 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
       xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
       mc:Ignorable="d" 
       d:DesignHeight="726" d:DesignWidth="1024"
       Title="AddTour">
-
+    <Page.CommandBindings>
+        <CommandBinding x:Name="Reset" Command="cmd:RoutedCommands.Cancel" CanExecute="Reset_CanExecute" Executed="Reset_Executed"/>
+        <CommandBinding x:Name="Confirm" Command="cmd:RoutedCommands.Confirm" CanExecute="Confirm_CanExecute" Executed="Confirm_Executed"/>
+        <CommandBinding x:Name="AddDateTime" Command="cmd:RoutedCommands.AddDateTime" CanExecute="AddDateTime_CanExecute" Executed="AddDateTime_Executed"/>
+        <CommandBinding x:Name="AddPointOfInterest" Command="cmd:RoutedCommands.AddPointOfInterest" CanExecute="AddPointOfInterest_CanExecute" Executed="AddPointOfInterest_Executed"/>
+        <CommandBinding x:Name="AddPictures" Command="cmd:RoutedCommands.AddPictures" CanExecute="AddPictures_CanExecute" Executed="AddPictures_Executed"/>
+    </Page.CommandBindings>
     <Grid Background="#696969">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -38,7 +45,7 @@
         <TextBox Grid.Row="5" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Duration}"/>
 
         <Label Grid.Row="6" Grid.Column="0" Margin="40,0,20,0" Content="Photos:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="22"/>
-        <Button x:Name="pickPhotosButton" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Click="pickPhotosButton_Click">
+        <Button x:Name="pickPhotosButton" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Command="cmd:RoutedCommands.AddPictures">
             <StackPanel Orientation="Horizontal" Margin="0,0,30,0">
                 <Label VerticalAlignment="Center" FontSize="20" FontStyle="Italic" FontWeight="Thin" Margin="20,0,20,0">Pick photos from galery</Label>
                 <Image Source="{StaticResource Add2Icon}" Width="40" Height="40" />
@@ -66,7 +73,7 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button x:Name="addDateTime" Content="Add" Click="addDateTime_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Padding="10,0,10,0"/>
+            <Button x:Name="addDateTime" Content="Add" Command="cmd:RoutedCommands.AddDateTime" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Padding="10,0,10,0"/>
         </Grid>
 
         <Label Grid.Row="4"  Grid.Column="2" Margin="40,10,20,0" Content="Keypoints:" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="22"/>
@@ -85,10 +92,10 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button x:Name="addPointOfInterestButton" Content="Add" Click="addPointOfInterestButton_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Padding="10,0,10,0"/>
+            <Button x:Name="addPointOfInterestButton" Content="Add" Command="cmd:RoutedCommands.AddPointOfInterest" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Padding="10,0,10,0"/>
         </Grid>
 
-        <Button x:Name="resetButton" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Reset" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30,10,30,10" Click="resetButton_Click"/>
-        <Button x:Name="confirmButton" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Content="Confirm" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20,10,20,10" IsEnabled="False" Click="confirmButton_Click"/>
+        <Button x:Name="resetButton" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Reset" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30,10,30,10" Command="cmd:RoutedCommands.Cancel"/>
+        <Button x:Name="confirmButton" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Content="Confirm" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20,10,20,10" Command="cmd:RoutedCommands.Confirm"/>
     </Grid>
 </Page>

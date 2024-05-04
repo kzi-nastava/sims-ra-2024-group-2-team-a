@@ -3,13 +3,16 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
       xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
       mc:Ignorable="d" 
       d:DesignHeight="728" d:DesignWidth="1024"
       Title="MenuBarButtonPage">
-
+    <Page.CommandBindings>
+        <CommandBinding x:Name="MenuBar" Command="cmd:RoutedCommands.Confirm" CanExecute="MenuBar_CanExecute" Executed="MenuBar_Executed"/>
+    </Page.CommandBindings>
     <Grid>
-        <Button  x:Name="menuButton" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40" Margin="0,0,0,0" Click="menuButton_Click" Background="Cyan" BorderBrush="#FF190303" Foreground="{x:Null}">
+        <Button  x:Name="menuButton" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40" Margin="0,0,0,0" Command="cmd:RoutedCommands.Confirm" Background="Cyan" BorderBrush="#FF190303" Foreground="{x:Null}">
             <Image Source="{StaticResource HamburgerBarIcon}" />
         </Button>
 

@@ -35,9 +35,8 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         public void DeleteDateTime(DateTime beggining) {
             begginings.Remove(beggining);
         }
-        public bool DeletePointOfInterest(PointOfInterestDTO pointOfInterestDTO) {
+        public void DeletePointOfInterest(PointOfInterestDTO pointOfInterestDTO) {
             pointOfInterestDTOs.Remove(pointOfInterestDTO);
-            return CheckValidation();
         }
 
         public bool CheckValidation() {

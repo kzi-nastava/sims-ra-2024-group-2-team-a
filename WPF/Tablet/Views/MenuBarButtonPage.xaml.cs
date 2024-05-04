@@ -17,9 +17,12 @@ namespace BookingApp.WPF.Tablet.Views {
             _mainFrame.Opacity = 1;
         }
 
-        private void menuButton_Click(object sender, RoutedEventArgs e) {
-            _menuBarFrame.Content = new MenuBarPage(_menuBarFrame, _mainFrame, _userId);
+        private void MenuBar_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
 
+        private void MenuBar_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+            _menuBarFrame.Content = new MenuBarPage(_menuBarFrame, _mainFrame, _userId);
         }
     }
 }

@@ -3,9 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
         xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
         mc:Ignorable="d"
         Title="AddPointsOfInterestWindow" Height="350" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommands.Cancel" CanExecute="Cancel_CanExecute" Executed="Cancel_Executed"/>
+        <CommandBinding Command="cmd:RoutedCommands.Confirm" CanExecute="Add_CanExecute" Executed="Add_Executed"/>
+    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,7 +28,7 @@
         <Label Grid.Row="1" Grid.ColumnSpan="2" Margin="20,5,20,5" Content="Description:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18"/>
         <TextBox Grid.ColumnSpan="2" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="2" Margin="20,10,20,10" FontSize="16" Text="{Binding pointOfInterestDTO.Description}"/>
 
-        <Button x:Name="addButton" Content="Add" Click="addButton_Click" Margin="20,5,20,5" FontSize="18" Grid.Row="3" Grid.Column="1"/>
-        <Button x:Name="cancelButton" Content="Cancel" Click="cancelButton_Click" Margin="20,5,20,5" FontSize="18" Grid.Row="3" Grid.Column="0"/>
+        <Button x:Name="addButton" Content="Add" Command="cmd:RoutedCommands.Confirm" Margin="20,5,20,5" FontSize="18" Grid.Row="3" Grid.Column="1"/>
+        <Button x:Name="cancelButton" Content="Cancel" Command="cmd:RoutedCommands.Cancel" Margin="20,5,20,5" FontSize="18" Grid.Row="3" Grid.Column="0"/>
     </Grid>
 </Window>
