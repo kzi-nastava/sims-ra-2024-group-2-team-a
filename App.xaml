@@ -19,5 +19,10 @@
         <BitmapImage x:Key="RightArrowIcon" UriSource="Resources/Images/Icons/right-arrow-icon.png"/>
         <BitmapImage x:Key="CameraIcon" UriSource="Resources/Images/Icons/camera-icon.png"/>
         <BitmapImage x:Key="DocumentIcon" UriSource="Resources/Images/Icons/document-icon.png"/>
+
+        <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
+        <SolidColorBrush x:Key="Green" Color="#436850"/>
+        <SolidColorBrush x:Key="SoftGreen" Color="#ADBC9F"/>
+        <SolidColorBrush x:Key="Beige" Color="#EDEEDD"/>
     </Application.Resources>
 </Application>
