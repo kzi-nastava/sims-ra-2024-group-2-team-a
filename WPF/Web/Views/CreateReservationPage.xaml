@@ -26,6 +26,27 @@
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
 
+        <Style x:Key="InputLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="20 0 0 0"/>
+            <Setter Property="Width" Value="100"/>
+        </Style>
+
+        <Style x:Key="ButtonText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+        </Style>
+
+        <Style x:Key="ButtonImage" TargetType="Image">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+
     </Page.Resources>
 
     <Grid Background="White">
@@ -36,23 +57,25 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="0 0 4 0">
-                <Grid>
+            <Border Grid.Column="0" BorderBrush="{StaticResource HardGreen}" BorderThickness="0 0 3 0">
+                <Grid Background="{StaticResource Beige}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Border>
+                    <StackPanel Grid.Row="0" Orientation="Vertical">
+                        <TextBlock x:Name="textBlockName" Text="{Binding Accommodation.Name}" Margin="0 10 0 10"
+                                   FontWeight="DemiBold" FontSize="20" Width="150" TextWrapping="Wrap" 
+                                   HorizontalAlignment="Center" TextAlignment="Center"/>
 
-                    </Border>
-
-                    <TextBlock x:Name="textBlockName" TextWrapping="Wrap" FontSize="15" Text="{Binding Accommodation.Name}" Margin="33,10,33,215" Width="150" TextAlignment="Center" Grid.Row="0"/>
-                    <Border Height="128" Width="128" CornerRadius="10" Grid.Row="0" Margin="44,55,44,82">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding Accommodation.ProfilePictures[0]}" Stretch="Fill"/>
-                        </Border.Background>
-                    </Border>
+                        <Border Height="128" Width="128" CornerRadius="10" Margin="0 10 0 10">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding Accommodation.ProfilePictures[0]}" Stretch="Fill"/>
+                            </Border.Background>
+                        </Border>
+                    </StackPanel>
+                
 
                     <Grid Grid.Row="1" Margin="0 10 0 0">
                         <Grid.RowDefinitions>
@@ -64,92 +87,87 @@
                         </Grid.RowDefinitions>
 
                         <Label Grid.Row="0" HorizontalContentAlignment="Center" Margin="0 0 0 10">
-                            <StackPanel Orientation="Horizontal">
+                            <WrapPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LocationIcon}"/>
                                 <TextBlock x:Name="textBoxLocation" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Accommodation.Location.LocationInfoTemplate}"/>
-                            </StackPanel>
+                            </WrapPanel>
                         </Label>
 
                         <Label Grid.Row="1" HorizontalAlignment="Center" Margin="0 0 0 10">
-                            <StackPanel Orientation="Horizontal">
+                            <WrapPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource HouseIcon}"/>
                                 <TextBlock x:Name="textBoxType" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Accommodation.Type}"/>
-                            </StackPanel>
+                            </WrapPanel>
                         </Label>
 
                         <Label Grid.Row="2" HorizontalContentAlignment="Center" Margin="0 0 0 10">
-                            <StackPanel Orientation="Horizontal">
+                            <WrapPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource CalendarIcon}"/>
                                 <TextBlock x:Name="textBoxDays" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Accommodation.MinReservationDays, StringFormat=Minimum days: {0}}"/>
-                            </StackPanel>
+                            </WrapPanel>
                         </Label>
 
                         <Label Grid.Row="3" HorizontalContentAlignment="Center" Margin="0 0 0 10">
-                            <StackPanel Orientation="Horizontal">
+                            <WrapPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource PeopleIcon}"/>
                                 <TextBlock x:Name="textBoxCapacity" Style="{StaticResource AccommodationInfoStyle}" Text="{Binding Accommodation.MaxGuestNumber, StringFormat=Capacity: {0}}"/>
-                            </StackPanel>
+                            </WrapPanel>
                         </Label>
 
                     </Grid>
                 </Grid>
             </Border>
+      
+            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0 50 0 0">
+                <WrapPanel Margin="0 10 0 10">
+                    <Label Content="Start date" Style="{StaticResource InputLabel}"/>
+                    <DatePicker x:Name="datePickerStartDate" VerticalContentAlignment="Center" Width="150" SelectedDateChanged="UpdateSuggestedReservations"/>
+                </WrapPanel>
 
-            <Grid Grid.Column="1" Margin="0,30,0,210">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <WrapPanel Margin="0 10 0 10">
+                    <Label Content="End date" Style="{StaticResource InputLabel}"/>
+                    <DatePicker x:Name="datePickerEndDate" VerticalContentAlignment="Center" Width="150" SelectedDateChanged="UpdateSuggestedReservations"/>
+                </WrapPanel>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                <WrapPanel Margin="0 10 0 10">
+                    <Label Content="Days" Style="{StaticResource InputLabel}"/>
+                    <TextBox x:Name="textBoxReservationDays" VerticalContentAlignment="Center" Width="50" TextChanged="UpdateSuggestedReservations"/>
+                </WrapPanel>
 
-                <Label Content="Start date" Grid.Column="0" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="13,0,0,0"/>
-                <DatePicker x:Name="datePickerStartDate" Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center" Margin="10,22,10,22" SelectedDateChanged="UpdateSuggestedReservations"/>
+                <WrapPanel Margin="0 10 0 10">
+                    <Label Content="Guests" Style="{StaticResource InputLabel}"/>
+                    <DockPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="150" Height="50" VerticalAlignment="Center">
+                        <TextBox x:Name="textBoxGuests" Text="{Binding ElementName=sliderGuests, Path=Value}" Width="29" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" TextChanged="UpdateSuggestedReservations"/>
+                        <Slider x:Name="sliderGuests" Grid.Row="4" Grid.Column="1" Margin="10 0 0 0" Minimum="1" Maximum="20" Value="{Binding ElementName=textBoxGuests, Path=Text}" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                    </DockPanel>
+                </WrapPanel>
+            </StackPanel>
 
-                <Label Content="End date" Grid.Column="0" Grid.Row="1" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="13,0,0,0"/>
-                <DatePicker x:Name="datePickerEndDate" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" Margin="10,22,10,22" SelectedDateChanged="UpdateSuggestedReservations"/>
+            <StackPanel Orientation="Vertical" Grid.Column="2">
+                <Label Content="Suggested dates" FontSize="18" FontWeight="SemiBold" Margin="0 10 0 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-                <Label Content="Days" Grid.Column="0" Grid.Row="2" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="13,0,0,0"/>
-                <TextBox x:Name="textBoxReservationDays" Grid.Column="1" Grid.Row="2" Margin="10,22,65,22" VerticalContentAlignment="Center" FontSize="15" TextChanged="UpdateSuggestedReservations"/>
-
-                <Label Content="Guests" Grid.Column="0" Grid.Row="3" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="13,0,0,0"/>
-                <DockPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="180" Height="70" VerticalAlignment="Center" Margin="10,0,0,0">
-                    <TextBox x:Name="textBoxGuests" Text="{Binding ElementName=sliderGuests, Path=Value}" Width="29" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" TextChanged="UpdateSuggestedReservations"/>
-                    <Slider x:Name="sliderGuests" Grid.Row="4" Grid.Column="1" Margin="5,16,10,16" Minimum="1" Maximum="20" Value="{Binding ElementName=textBoxGuests, Path=Text}" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
-                </DockPanel>
-
-            </Grid>
-
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="350"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Label Content="Suggested dates" Grid.Row="0" FontSize="20" FontWeight="SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <DataGrid x:Name="dataGridSuggestedDates" ItemsSource="{Binding SuggestedReservations}" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid x:Name="dataGridSuggestedDates" ItemsSource="{Binding SuggestedReservations}" Margin="10 10 10 0" Height="350" IsReadOnly="True" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Start date" Binding="{Binding StartDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
                         <DataGridTextColumn Header="End date" Binding="{Binding EndDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <TextBlock x:Name="infoTextBlock" Grid.Row="2" HorizontalAlignment="Center" Margin="44,20,43,70">
+                <TextBlock x:Name="infoTextBlock" HorizontalAlignment="Center" Margin="0 20 0 0">
                     <Run Text="Bonus points: "/>
                     <Run Text="{Binding GuestUser.BonusPoints}"/>
                     <Run Text=" / "/>
                     <Run Text="{Binding MaxBonusPoints}"/>
                 </TextBlock>
-                <Button x:Name="buttonConfirm" Content="Confirm booking" Grid.Row="2" FontWeight="Bold" FontSize="13" Click="ButtonConfirmClick"
-                        IsEnabled="{Binding ElementName=dataGridSuggestedDates, Path=SelectedItems.Count, Converter={StaticResource CountToBooleanConverter}}" Margin="54,65,53,20"/>
 
-            </Grid>
+                <Button x:Name="buttonConfirm" Click="ButtonConfirmClick" Width="170" Height="50" Margin="0 30 0 0" Background="{StaticResource SoftGreen}"
+                    IsEnabled="{Binding ElementName=dataGridSuggestedDates, Path=SelectedItems.Count, Converter={StaticResource CountToBooleanConverter}}">
+                    <WrapPanel>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource ConfirmIcon}"/>
+                        <TextBlock Style="{StaticResource ButtonText}" Text="Confirm booking"/>
+                    </WrapPanel>
+                </Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>
