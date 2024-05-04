@@ -19,6 +19,7 @@
     <None Remove="Resources\Images\eye.png" />
     <None Remove="Resources\Images\finish.png" />
     <None Remove="Resources\Images\default-coupon.png" />
+    <None Remove="Resources\Images\Icons\bin-icon.png" />
     <None Remove="Resources\Images\Icons\calendar-icon.png" />
     <None Remove="Resources\Images\Icons\camera-icon.png" />
     <None Remove="Resources\Images\Icons\cancel-event-icon.png" />
@@ -26,6 +27,7 @@
     <None Remove="Resources\Images\Icons\confirm-icon.png" />
     <None Remove="Resources\Images\Icons\coupon.png" />
     <None Remove="Resources\Images\Icons\document-icon.png" />
+    <None Remove="Resources\Images\Icons\filter-icon.png" />
     <None Remove="Resources\Images\Icons\house-icon.png" />
     <None Remove="Resources\Images\Icons\location-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
@@ -100,6 +102,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Icons\bin-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation1.jpg" />
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation2.jpg" />
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation3.jpg" />
@@ -116,6 +122,7 @@
     <Resource Include="Resources\Images\Icons\confirm-icon.png" />
     <Resource Include="Resources\Images\Icons\coupon.png" />
     <Resource Include="Resources\Images\Icons\document-icon.png" />
+    <Resource Include="Resources\Images\Icons\filter-icon.png" />
     <Resource Include="Resources\Images\Icons\house-icon.png" />
     <Resource Include="Resources\Images\Icons\calendar-icon.png" />
     <Resource Include="Resources\Images\Icons\cancel-event-icon.png" />
