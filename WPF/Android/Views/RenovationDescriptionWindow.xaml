@@ -14,16 +14,39 @@
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
             </Style.Setters>
         </Style>
-        </Window.Resources>
-        <Grid Background="AntiqueWhite">
+
+        <Style TargetType="Button" x:Key="DisabledButtonStyle">
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5a8c6b"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+        <Grid Background="{StaticResource Beige}">
         <Label Content="Renovation Description" FontFamily="Global Sans Serif" FontSize="22" 
-               VerticalAlignment="Top" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="0,0,0,2" Padding="5,5,5,0"/>
+               VerticalAlignment="Top" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="0,0,0,2" Padding="5,5,5,0" Background="{StaticResource Green}"/>
         <TextBox x:Name="textBox" Text="{Binding RenovationDTO.Description}" IsEnabled="{Binding Editable}"
                  Height="150" Width="250" VerticalAlignment="Center" Margin="0,-15,0,15"/>
-        <Button Height="50" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="15" Command="{Binding ConfirmCommand}">
-            <StackPanel Orientation="Horizontal">
+        <Button Height="50" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="15" Command="{Binding ConfirmCommand}"
+                Style="{StaticResource DisabledButtonStyle}">
+            <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                 <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
-                <Label Content="Confirm" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Label Content="Confirm" Style="{StaticResource Labels}" VerticalAlignment="Center" Margin="5,0,0,0"/>
             </StackPanel>
         </Button>
     </Grid>

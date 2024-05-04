@@ -11,7 +11,7 @@
     <Page.Resources>
         <converters:RadioButtonToAccommodationTypeConverter x:Key="AccTypeConverter"/>
     </Page.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Background="#BABDE2">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Background="{StaticResource Beige}">
         <Grid Height="600" Width="430">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -37,7 +37,9 @@
                      Text="{Binding AccommodationDTO.Name}"/>
 
             <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Location:" FontSize="16"/>
-            <ComboBox Grid.Row="2" Grid.Column="2" Height="40" Text="Choose location" SelectedItem="{Binding SelectedLocationDTO}" ItemsSource="{Binding LocationDTOs}" DisplayMemberPath="LocationOptionTemplate"/>
+            <ComboBox Grid.Row="2" Grid.Column="2" Height="40" Text="Choose location" 
+                      SelectedItem="{Binding SelectedLocationDTO}" ItemsSource="{Binding LocationDTOs}"
+                      DisplayMemberPath="LocationOptionTemplate" Background="{StaticResource Green}"/>
 
 
             <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Type:" FontSize="16"/>
@@ -62,13 +64,17 @@
             <TextBox Grid.Row="6" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
                      Text="{Binding AccommodationDTO.LastCancellationDay}"/>
 
-            <Button Content="Import Images" Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="SelectImages_Click"/>
+            <Button Content="Import Images" Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="SelectImages_Click"
+                    Background="{StaticResource Green}"/>
 
-            <Button Content="View Selected" Grid.Column="2"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="ViewImages_Click"/>
+            <Button Content="View Selected" Grid.Column="2"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="ViewImages_Click"
+                    Background="{StaticResource Green}"/>
 
-            <Button Grid.Row="9" Grid.Column="1" Content="Decline" Height="50" Width="120" Click="Decline_Click"/>
+            <Button Grid.Row="9" Grid.Column="1" Content="Decline" Height="50" Width="120" Click="Decline_Click"
+                    Background="{StaticResource Green}"/>
 
-            <Button Grid.Row="9" Grid.Column="2" Content="Confirm" Height="50" Width="120" Click="Confirm_Click"/>
+            <Button Grid.Row="9" Grid.Column="2" Content="Confirm" Height="50" Width="120" Click="Confirm_Click"
+                    Background="{StaticResource Green}"/>
         </Grid>
     </ScrollViewer>
 </Page>

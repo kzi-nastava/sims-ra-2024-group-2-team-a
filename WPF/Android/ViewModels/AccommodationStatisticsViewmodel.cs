@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace BookingApp.WPF.Android.ViewModels {
     public class AccommodationStatisticsViewmodel : INotifyPropertyChanged {
@@ -145,12 +146,14 @@ namespace BookingApp.WPF.Android.ViewModels {
                 new PieSeries{
                     Title="Days reserved",
                     Values = new ChartValues<ObservableValue>{ new ObservableValue(totalDays) },
-                    DataLabels = true
+                    DataLabels = true,
+                    Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom("#12372A"))
                 },
                 new PieSeries{
                     Title="Days not reserved",
                     Values = new ChartValues<ObservableValue>{ new ObservableValue(365 - totalDays) },
-                    DataLabels = true
+                    DataLabels = true,
+                    Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ADBC9F"))
                 }
             };
 
@@ -178,12 +181,14 @@ namespace BookingApp.WPF.Android.ViewModels {
                 new PieSeries{
                     Title="Days reserved",
                     Values = new ChartValues<ObservableValue>{ new ObservableValue(totalDays) },
-                    DataLabels = true
+                    DataLabels = true,
+                    Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom("#12372A"))
                 },
                 new PieSeries{
                     Title="Days not reserved",
                     Values = new ChartValues<ObservableValue>{ new ObservableValue(_statisticsService.GetDaysFromFirstReservation(AccommodationDTO.Id) - totalDays) },
-                    DataLabels = true
+                    DataLabels = true,
+                    Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ADBC9F"))
                 }
             };
 
