@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
@@ -18,18 +19,27 @@ namespace BookingApp.WPF.Tablet.Views {
 
             begginings = dateTimes;
         }
-
-        private void addButton_Click(object sender, RoutedEventArgs e) {
-            begginings.Add(new DateTime(Date.Year, Date.Month, Date.Day, Time, 0, 0));
-            this.Close();
-        }
-
-        private void cancelButton_Click(object sender, RoutedEventArgs e) {
-            this.Close();
-        }
-
         private void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e) {
             Date = DateOnly.FromDateTime(datePicker.SelectedDate.Value);
+        }
+
+        private void Cancel_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Cancel_Executed(object sender, ExecutedRoutedEventArgs e) {
+            this.Close();
+        }
+
+        private void Add_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            if (Date != null || Time != null)
+                e.CanExecute = true;
+            else
+                e.CanExecute = false;
+        }
+        private void Add_Executed(object sender, ExecutedRoutedEventArgs e) {
+            begginings.Add(new DateTime(Date.Year, Date.Month, Date.Day, Time, 0, 0));
+            this.Close();
         }
     }
 }

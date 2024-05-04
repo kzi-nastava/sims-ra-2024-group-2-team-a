@@ -22,13 +22,20 @@ namespace BookingApp.WPF.Tablet.Views {
             _mainFrame = mainF;
             _menuBarFrame = menuBarF;
         }
+        private void Close_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e) {
+        private void Close_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
             _mainFrame.GoBack();
         }
 
-        private void deletehButton_Click(object sender, RoutedEventArgs e) {
-            if(ViewModel.tourDTO.Beggining < DateTime.Now.AddHours(48)) {
+        private void Delete_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Delete_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+            if (ViewModel.tourDTO.Beggining < DateTime.Now.AddHours(48)) {
                 MessageBox.Show("Tour is scheduled in the next 48 hours. Too late to delete it!", "Unable to delete tour", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
@@ -37,9 +44,8 @@ namespace BookingApp.WPF.Tablet.Views {
 
             ViewModel.DeleteReservations();
             ViewModel.DeleteTour();
-            
+
             _mainFrame.Content = new ScheduledToursPage(_userId);
         }
-       
     }
 }

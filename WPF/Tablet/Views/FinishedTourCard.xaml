@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
-             mc:Ignorable="d" 
-                          d:DesignHeight="300" d:DesignWidth="1000">
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="1000">
     <Border BorderBrush="Black" BorderThickness="1" Margin="5">
         <Grid Background="AliceBlue" MouseLeftButtonDown="TourCardClick" Height="300" Width="1000">
             <Grid.ColumnDefinitions>
