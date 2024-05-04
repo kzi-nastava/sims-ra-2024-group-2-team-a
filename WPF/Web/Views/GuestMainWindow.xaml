@@ -12,6 +12,12 @@
     <Window.Resources>
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
+        <Style x:Key="ButtonImage" TargetType="Image">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+
         <Style x:Key="PrimaryButton" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource HardGreen}"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -19,23 +25,25 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="Height" Value="40"/>
-            <Setter Property="Width" Value="120"/>
+            <Setter Property="Width" Value="150"/>
         </Style>
 
         <Style x:Key="SecondaryButton" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource HardGreen}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Width" Value="75"/>
+            <Setter Property="Width" Value="90"/>
             <Setter Property="Height" Value="30"/>
         </Style>
 
-        <Style TargetType="TextBlock">
+        <Style x:Key="ButtonText" TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
         </Style>
+
     </Window.Resources>
     
     <Grid>
@@ -54,39 +62,45 @@
                     Click="ButtonBackClick"
                     Visibility="{Binding ElementName=mainFrame, Path=CanGoBack, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <WrapPanel>
-                    <TextBlock Text="Back"/>
+                    <Image Style="{StaticResource ButtonImage}" Width="15" Height="15" Source="{StaticResource BackWhiteIcon}"/>
+                    <TextBlock Text="Back" Style="{StaticResource ButtonText}" FontSize="12"/>
                 </WrapPanel>
             </Button>
 
             <Button Name="buttonLogout" Grid.Row="0" HorizontalAlignment="Right" Style="{StaticResource SecondaryButton}"
                     Click="ButtonLogoutClick">
                 <WrapPanel>
-                    <TextBlock Text="Logout"/>
+                    <Image Style="{StaticResource ButtonImage}" Width="15" Height="15" Source="{StaticResource LogoutWhiteIcon}"/>
+                    <TextBlock Text="Logout" Style="{StaticResource ButtonText}" FontSize="12"/>
                 </WrapPanel>
             </Button>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <Button Name="buttonBook" Style="{StaticResource PrimaryButton}" Click="ButtonBookClick">
                     <WrapPanel>
-                        <TextBlock Text="Book"/>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource SearchWhiteIcon}"/>
+                        <TextBlock Text="Book" Style="{StaticResource ButtonText}"/>
                     </WrapPanel>
                 </Button>
 
                 <Button Name="buttonReservations" Style="{StaticResource PrimaryButton}" Click="ButtonReservationsClick">
                     <WrapPanel>
-                        <TextBlock Text="Reservations"/>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource BookWhiteIcon}"/>
+                        <TextBlock Text="Reservations" Style="{StaticResource ButtonText}"/>
                     </WrapPanel>
                 </Button>
 
                 <Button Name="buttonReviews" Style="{StaticResource PrimaryButton}" Click="ButtonReviewsClick">
                     <WrapPanel>
-                        <TextBlock Text="Reviews"/>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource ReviewWhiteIcon}"/>
+                        <TextBlock Text="Reviews" Style="{StaticResource ButtonText}"/>
                     </WrapPanel>
                 </Button>
 
                 <Button Name="buttonForum" Style="{StaticResource PrimaryButton}">
                     <WrapPanel>
-                        <TextBlock Text="Forums"/>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource ChatWhiteIcon}"/>
+                        <TextBlock Text="Forums" Style="{StaticResource ButtonText}"/>
                     </WrapPanel>
                 </Button>
                     

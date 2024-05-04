@@ -21,6 +21,12 @@
         <BitmapImage x:Key="DocumentIcon" UriSource="Resources/Images/Icons/document-icon.png"/>
         <BitmapImage x:Key="FilterIcon" UriSource="Resources/Images/Icons/filter-icon.png"/>
         <BitmapImage x:Key="BinIcon" UriSource="Resources/Images/Icons/bin-icon.png"/>
+        <BitmapImage x:Key="BookWhiteIcon" UriSource="Resources/Images/Icons/book-white-icon.png"/>
+        <BitmapImage x:Key="SearchWhiteIcon" UriSource="Resources/Images/Icons/search-white-icon.png"/>
+        <BitmapImage x:Key="ReviewWhiteIcon" UriSource="Resources/Images/Icons/star-white-icon.png"/>
+        <BitmapImage x:Key="BackWhiteIcon" UriSource="Resources/Images/Icons/back-white-icon.png"/>
+        <BitmapImage x:Key="ChatWhiteIcon" UriSource="Resources/Images/Icons/chat-white-icon.png"/>
+        <BitmapImage x:Key="LogoutWhiteIcon" UriSource="Resources/Images/Icons/logout-white-icon.png"/>
 
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>
