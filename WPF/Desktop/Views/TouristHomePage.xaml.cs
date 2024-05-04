@@ -14,7 +14,7 @@ namespace BookingApp.WPF.Desktop.Views {
     /// Interaction logic for HomePage.xaml
     /// </summary>
     public partial class TouristHomePage : Page {
-        private readonly TourService _tourService = new TourService();
+        private readonly TourService _tourService = ServicesPool.GetService<TourService>();
         private readonly LocationRepository _locationRepository;
         private readonly LanguageRepository _languageRepository;
 

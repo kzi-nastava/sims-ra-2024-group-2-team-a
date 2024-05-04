@@ -5,7 +5,7 @@ using BookingApp.WPF.DTO;
 namespace BookingApp.WPF.Tablet.ViewModels {
     public class MenuBarViewModel {
         private int _userId;
-        private readonly TourService _tourService = new TourService();
+        private readonly TourService _tourService = ServicesPool.GetService<TourService>();
         public TourDTO tourDTO { get; set; }
 
         public MenuBarViewModel(int userId) {

@@ -7,14 +7,21 @@ using System.Linq;
 
 namespace BookingApp.Services {
     public class TourService {
-        private readonly ITourRepository _tourRepository = RepositoryInjector.GetInstance<ITourRepository>();
+        private readonly ITourRepository _tourRepository;
         private readonly IPointOfInterestRepository _pointOfInterestRepository = RepositoryInjector.GetInstance<IPointOfInterestRepository>();
         private readonly IPassengerRepository _passengerRepository = RepositoryInjector.GetInstance<IPassengerRepository>();
         private readonly ITourReviewRepository _tourReviewRepository = RepositoryInjector.GetInstance<ITourReviewRepository>();
-
-        private readonly PassengerService _passengerService = new PassengerService();
-        private readonly TourReservationService _tourReservationService = new TourReservationService();
-
+        //prebaci da se sve radi preko Service
+        private PassengerService _passengerService;
+        private TourReservationService _tourReservationService;
+        public TourService(ITourRepository tourRepository) {
+            _tourRepository = tourRepository;
+        }
+        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService) {
+            _passengerService = passengerService;
+            _tourReservationService = tourReservationService;
+            //Ovde ubacis servise ostale koje koristis umesto ovih repozitorijuma
+        }
         private bool IsFiltered(Tour tour, TourFilterDTO filter) {
             return MatchesLocation(tour, filter) &&
                    MatchesDuration(tour, filter) &&
