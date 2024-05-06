@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
       xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="530" d:DesignWidth="850"
       Title="CreateReservationPage">
@@ -131,15 +132,14 @@
 
                 <WrapPanel Margin="0 10 0 10">
                     <Label Content="Days" Style="{StaticResource InputLabel}"/>
-                    <TextBox x:Name="textBoxReservationDays" VerticalContentAlignment="Center" Width="50" TextChanged="UpdateSuggestedReservations"/>
+                    <xctk:IntegerUpDown x:Name="textBoxReservationDays" VerticalContentAlignment="Center" FontSize="15" TextAlignment="Center" Width="60"
+                                        ClipValueToMinMax="True" ValueChanged="UpdateSuggestedReservations"/>
                 </WrapPanel>
 
                 <WrapPanel Margin="0 10 0 10">
                     <Label Content="Guests" Style="{StaticResource InputLabel}"/>
-                    <DockPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="150" Height="50" VerticalAlignment="Center">
-                        <TextBox x:Name="textBoxGuests" Text="{Binding ElementName=sliderGuests, Path=Value}" Width="29" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" TextChanged="UpdateSuggestedReservations"/>
-                        <Slider x:Name="sliderGuests" Grid.Row="4" Grid.Column="1" Margin="10 0 0 0" Minimum="1" Maximum="20" Value="{Binding ElementName=textBoxGuests, Path=Text}" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True"/>
-                    </DockPanel>
+                    <xctk:IntegerUpDown x:Name="textBoxGuests" VerticalContentAlignment="Center" TextAlignment="Center" FontSize="15" Width="60"
+                                        Minimum="1" ClipValueToMinMax="True" ValueChanged="UpdateSuggestedReservations"/>
                 </WrapPanel>
             </StackPanel>
 

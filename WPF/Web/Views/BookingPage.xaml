@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800">
     
@@ -58,7 +59,7 @@
             <StackPanel Grid.Column="0" Orientation="Vertical" Margin="20 0 0 0">
                 <WrapPanel Margin="0 5 5 5">
                     <Label x:Name="labelLocation" Content="Location" Style="{StaticResource SearchLabel}"/>
-                    <ComboBox x:Name="comboBoxLocation" Width="232" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    <ComboBox x:Name="comboBoxLocation" Width="230" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left"
                       ItemsSource="{Binding Path=_locationDTOs}" DisplayMemberPath="LocationOptionTemplate"/>
                 </WrapPanel>
 
@@ -82,11 +83,11 @@
                     
                     <WrapPanel Grid.Column="0">
                         <Label x:Name="labelDays" Content="Days" Style="{StaticResource SearchLabel}"/>
-                        <TextBox x:Name="textBoxDays" Width="60"/>
+                        <xctk:IntegerUpDown x:Name="textBoxDays" Width="60" FontSize="15" TextAlignment="Center" Minimum="1"/>
                     </WrapPanel>
                     <WrapPanel Grid.Column="1">
                         <Label x:Name="labelGuests" Content="Guests" Style="{StaticResource SearchLabel}"/>
-                        <TextBox x:Name="textBoxGuests" Width="60"/>
+                        <xctk:IntegerUpDown x:Name="textBoxGuests" Width="60" FontSize="15" TextAlignment="Center" Minimum="1"/>
                     </WrapPanel>
                 </Grid>
             </StackPanel>
