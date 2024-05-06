@@ -3,11 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
       xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
       mc:Ignorable="d" 
       d:DesignHeight="726" d:DesignWidth="1024"
       Title="TourStatsPage">
-
+    <Page.CommandBindings>
+        <CommandBinding x:Name="Show" Command="cmd:RoutedCommands.Stats" CanExecute="Show_CanExecute" Executed="Show_Executed"/>
+        <CommandBinding x:Name="Close" Command="cmd:RoutedCommands.Cancel" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
+    </Page.CommandBindings>
     <Grid Background="White" Margin="0,10,0,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,10 +27,10 @@
                 <ComboBoxItem Content="2022" Tag="2022"/>
                 <ComboBoxItem Content="2021" Tag="2021"/>
             </ComboBox>
-            <Button x:Name="showButton" Margin="0,0,40,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="showButton_Click">
+            <Button x:Name="showButton" Margin="0,0,40,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Command="cmd:RoutedCommands.Stats">
                 <StackPanel Orientation="Horizontal">
                     <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Show</Label>
-                    <Image Source="/Resources/Images/eye.png" Width="50" Height="50" />
+                    <Image Source="{StaticResource EyeIcon}" Width="50" Height="50" />
                 </StackPanel>
             </Button>
         </Grid>
@@ -101,7 +105,7 @@
                 <TextBlock Grid.Row="2" FontSize="18" Margin="10" Text="{Binding mid, StringFormat=Between 18 and 50 years:      {0}}"/>
                 <TextBlock Grid.Row="3" FontSize="18" Margin="10" Text="{Binding old, StringFormat=Over 50 years:      {0}}"/>
             </Grid>
-            <Button x:Name="closeButton" Grid.Row="8" Grid.Column="1" Content="Close" VerticalAlignment="Center" HorizontalAlignment="Center"  Padding="10" Click="closeButton_Click"/>
+            <Button x:Name="closeButton" Grid.Row="8" Grid.Column="1" Content="Close" VerticalAlignment="Center" HorizontalAlignment="Center"  Padding="10" Command="cmd:RoutedCommands.Cancel"/>
 
         </Grid>
     </Grid>

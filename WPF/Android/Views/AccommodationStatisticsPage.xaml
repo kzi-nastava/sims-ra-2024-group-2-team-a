@@ -25,13 +25,14 @@
             </Style.Setters>
         </Style>
     </Page.Resources>
-    <Grid Background="AntiqueWhite">
+    <Grid Background="{StaticResource Beige}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border BorderBrush="Black" BorderThickness="0,0,0,2">
-            <Label Content="{Binding AccommodationDTO.Name}" Style="{StaticResource Header1}" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label Content="{Binding AccommodationDTO.Name}" Style="{StaticResource Header1}" BorderBrush="Transparent"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Background="{StaticResource Green}"/>
         </Border>
 
         <TabControl Grid.Row="1" Height="550" Width="400">
@@ -58,6 +59,7 @@
                             <Label Content="{Binding TotalReservations}" Style="{StaticResource Labels}" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
                             <lvc:PieChart x:Name="reservationPieChart"  Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="15,0,0,0"  Series="{Binding ChartPieYearlyList}">
+                                
                             </lvc:PieChart>
                         </Grid>
                     </Border>
@@ -72,7 +74,7 @@
                                     <lvc:Axis Title="Number of Reservations" />
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.Series >
-                                    <lvc:ColumnSeries Title="Yearly Reservations" Values="{Binding ReservationsYearly}" MaxColumnWidth="200" />
+                                    <lvc:ColumnSeries Title="Yearly Reservations" Values="{Binding ReservationsYearly}" MaxColumnWidth="200" Fill="{StaticResource Green}" />
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
@@ -84,7 +86,7 @@
                                     <lvc:Axis Title="Number of Cancelled Reservations" />
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.Series >
-                                    <lvc:ColumnSeries Title="Yearly Cancellations" Values="{Binding CancellationsYearly}" MaxColumnWidth="200" />
+                                    <lvc:ColumnSeries Title="Yearly Cancellations" Values="{Binding CancellationsYearly}" MaxColumnWidth="200" Fill="{StaticResource Green}" />
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
@@ -96,7 +98,7 @@
                                     <lvc:Axis Title="Number of Postponed Reservations" />
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.Series >
-                                    <lvc:ColumnSeries Title="Yearly Postponed Reservations" Values="{Binding PostponedYearly}" MaxColumnWidth="200" />
+                                    <lvc:ColumnSeries Title="Yearly Postponed Reservations" Values="{Binding PostponedYearly}" MaxColumnWidth="200" Fill="{StaticResource Green}" />
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
@@ -108,7 +110,7 @@
                                     <lvc:Axis Title="Number of Recommended Renovations" />
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.Series >
-                                    <lvc:ColumnSeries Title="Yearly Recommended Renovations" Values="{Binding RecommendationsYearly}" MaxColumnWidth="200" />
+                                    <lvc:ColumnSeries Title="Yearly Recommended Renovations" Values="{Binding RecommendationsYearly}" MaxColumnWidth="200" Fill="{StaticResource Green}" />
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
                             
@@ -156,7 +158,7 @@
                                     <lvc:Axis Title="Number of Reservations" />
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.Series >
-                                    <lvc:ColumnSeries Title="Monthly Reservations" Values="{Binding ReservationsMonthly}" MaxColumnWidth="200" />
+                                    <lvc:ColumnSeries Title="Monthly Reservations" Values="{Binding ReservationsMonthly}" MaxColumnWidth="200" Fill="{StaticResource Green}" />
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
@@ -168,7 +170,7 @@
                                     <lvc:Axis Title="Number of Cancelled Reservations" />
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.Series >
-                                    <lvc:ColumnSeries Title="Monthly Cancelled Reservations" Values="{Binding CancellationsMonthly}" MaxColumnWidth="200" />
+                                    <lvc:ColumnSeries Title="Monthly Cancelled Reservations" Values="{Binding CancellationsMonthly}" MaxColumnWidth="200" Fill="{StaticResource Green}" />
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
@@ -180,7 +182,7 @@
                                     <lvc:Axis Title="Number of Postponed Reservations" />
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.Series >
-                                    <lvc:ColumnSeries Title="Monthly Postponed Reservations" Values="{Binding PostponedMonthly}" MaxColumnWidth="200" />
+                                    <lvc:ColumnSeries Title="Monthly Postponed Reservations" Values="{Binding PostponedMonthly}" MaxColumnWidth="200" Fill="{StaticResource Green}" />
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
@@ -192,10 +194,9 @@
                                     <lvc:Axis Title="Number of Recommended Renovations" />
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.Series >
-                                    <lvc:ColumnSeries Title="Monthly Recommended Renovations" Values="{Binding RecommendationsMonthly}" MaxColumnWidth="200" />
+                                    <lvc:ColumnSeries Title="Monthly Recommended Renovations" Values="{Binding RecommendationsMonthly}" MaxColumnWidth="200" Fill="{StaticResource Green}" />
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
-                            
                         </StackPanel>
                     </ScrollViewer>
                 </StackPanel>

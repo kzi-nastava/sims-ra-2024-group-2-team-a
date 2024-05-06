@@ -36,7 +36,7 @@ namespace BookingApp.WPF.DTO {
             }
         }
 
-        private string _name;
+        private string _name = "";
         public string Name
         {
             get { return _name; }
@@ -49,7 +49,7 @@ namespace BookingApp.WPF.DTO {
                 }
             }
         }
-        private string _description;
+        private string _description = "";
         public string Description
         {
             get { return _description; }

@@ -3,10 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
              xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="1000" Loaded="UserControl_Loaded">
-            
+    <UserControl.CommandBindings>
+        <CommandBinding x:Name="Report" Command="cmd:RoutedCommands.Confirm" CanExecute="Report_CanExecute" Executed="Report_Executed"/>
+    </UserControl.CommandBindings>
     <Border BorderBrush="Black" BorderThickness="1" Margin="5">
         <Grid Background="AliceBlue" Height="200" Width="1000">
             <Grid.RowDefinitions>
@@ -30,9 +33,9 @@
                     <Label Content="Posted:" FontSize="18"/>
                     <TextBlock TextWrapping="Wrap" Text="{Binding Posted}" FontSize="18"/>
                 </WrapPanel>
-                <Button x:Name="reportButton" Margin="30,0,0,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="reportButton_Click">
+                <Button x:Name="reportButton" Margin="30,0,0,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Command="cmd:RoutedCommands.Confirm">
                     <StackPanel Orientation="Vertical">
-                        <Image Source="/Resources/Images/report.png" Width="50" Height="50" />
+                        <Image Source="{StaticResource ReportIcon}" Width="50" Height="50" />
                         <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Report</Label>
                     </StackPanel>
                 </Button>

@@ -13,7 +13,7 @@ using System.Windows.Input;
 namespace BookingApp.WPF.Desktop.ViewModels
 {
     public class RequestsPageViewModel {
-        private readonly TourRequestService _tourRequestService = new TourRequestService(RepositoryInjector.GetInstance<ITourRequestRepository>());
+        private readonly TourRequestService _tourRequestService = ServicesPool.GetService<TourRequestService>();
         public ObservableCollection<TourRequestDTO> TourRequests { get; set; } = new ObservableCollection<TourRequestDTO>();
         public ICommand CreateRequestCommand { get; set; } 
         public int UserId { get; set; }

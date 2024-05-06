@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TouristReservationsPageViewModel {
-        private readonly TourReservationService _tourReservationService = new TourReservationService();
-        private readonly TourService _tourService = new TourService();
+        private readonly TourReservationService _tourReservationService = ServicesPool.GetService<TourReservationService>();
+        private readonly TourService _tourService = ServicesPool.GetService<TourService>();
         public int UserId { get; set; }
         public ObservableCollection<TourDTO> ReservedTours { get; set; }
         public TouristReservationsPageViewModel(int userId) { 

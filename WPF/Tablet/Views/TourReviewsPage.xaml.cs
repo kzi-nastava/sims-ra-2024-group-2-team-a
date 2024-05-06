@@ -19,8 +19,12 @@ namespace BookingApp.WPF.Tablet.Views {
             _mainFrame = mFrame;
         }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.GoBack();   
+        private void Close_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Close_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+            _mainFrame.GoBack();
         }
     }
 }

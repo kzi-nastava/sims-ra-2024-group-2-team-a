@@ -7,16 +7,17 @@
         mc:Ignorable="d"
         Title="RescheduleRequestDeclineWindow" Height="300" Width="300"
         WindowStartupLocation="CenterScreen">
-    <Grid Background="LightBlue">
+    <Grid Background="{StaticResource Beige}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Label Content="Additional info:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Content="Additional info:" HorizontalAlignment="Center" VerticalAlignment="Center"  FontFamily="Global Sans Serif" FontSize="22"
+              BorderBrush="Black" BorderThickness="0,0,0,2" Padding="5,5,5,0" Background="{StaticResource Green}"/>
         <Border Height="140" Grid.Row="1" Width="250" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" Margin="0,10,0,0"  HorizontalAlignment="Center">
             <TextBox Text="{Binding RescheduleRequestDTO.OwnerComment}" Margin="0" Background="Transparent"/>
         </Border>
-        <Button Grid.Row="2" Height="50" Width="100" Content="Confirm" FontSize="16" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Grid.Row="2" Height="50" Width="100" Content="Confirm" FontSize="16" VerticalAlignment="Top" Click="Button_Click" Background="{StaticResource Green}"/>
     </Grid>
 </Window>

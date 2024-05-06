@@ -9,9 +9,9 @@ using System.Runtime.CompilerServices;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TouristReservationWindowViewModel : INotifyPropertyChanged {
-        private readonly TourReservationService _tourReservationService = new TourReservationService();
-        private readonly LocationRepository _locationRepository = new LocationRepository();
-        private readonly LanguageRepository _languageRepository = new LanguageRepository();
+        private readonly TourReservationService _tourReservationService = ServicesPool.GetService<TourReservationService>();
+        private readonly LocationRepository _locationRepository = ServicesPool.GetService<LocationRepository>();
+        private readonly LanguageRepository _languageRepository = ServicesPool.GetService<LanguageRepository>();
 
         public ObservableCollection<PassengerDTO> Passengers { get; set; }
 

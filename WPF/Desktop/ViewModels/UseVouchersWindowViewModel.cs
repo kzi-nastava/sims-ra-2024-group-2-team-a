@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class UseVouchersWindowViewModel {
-        private readonly VoucherService _voucherService;
+        private readonly VoucherService _voucherService = ServicesPool.GetService<VoucherService>();
         public ObservableCollection<VoucherDTO> VouchersOnDisplay { get; set; }
         public VoucherDTO SelectedVoucher { get; set; }
         public TouristReservationWindowViewModel reservationViewModel { get; set; }

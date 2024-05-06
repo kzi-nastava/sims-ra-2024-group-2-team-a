@@ -3,6 +3,7 @@ using BookingApp.WPF.Tablet.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
@@ -16,19 +17,26 @@ namespace BookingApp.WPF.Tablet.Views {
             DataContext = ViewModel;
         }
 
-        private void filterButton_Click(object sender, RoutedEventArgs e) {
-            ViewModel.FilterTours(SetFilter());
-            itemsControlLiveTours.ItemsSource = ViewModel.tourDTOs;
+        private void Clear_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
         }
 
-        private void clearButton_Click(object sender, RoutedEventArgs e) {
+        private void Clear_Executed(object sender, ExecutedRoutedEventArgs e) {
             textBoxName.Text = string.Empty;
             textBoxTouristNumber.Text = string.Empty;
             textBoxDuration.Text = string.Empty;
             comboBoxLanguage.SelectedIndex = 0;
             comboBoxLocation.SelectedIndex = 0;
         }
-        
+
+        private void Filter_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Filter_Executed(object sender, ExecutedRoutedEventArgs e) {
+            ViewModel.FilterTours(SetFilter());
+            itemsControlLiveTours.ItemsSource = ViewModel.tourDTOs;
+        }
 
         private TourFilterDTO SetFilter() {
             string name = textBoxName.Text;

@@ -9,9 +9,9 @@ namespace BookingApp.WPF.Tablet.ViewModels {
     public class TourStatsViewModel {
         private int _userId;
 
-        private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
-        private readonly TourService _tourService = new TourService();
-        private readonly LanguageService _languageService = new LanguageService();
+        private readonly PointOfInterestService _pointOfInterestService = ServicesPool.GetService<PointOfInterestService>();
+        private readonly TourService _tourService = ServicesPool.GetService<TourService>();
+        private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
         private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         public TourDTO tourDTO { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
