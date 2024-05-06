@@ -27,7 +27,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <Border Margin="5 5 5 5" Background="White" BorderBrush="Gray" BorderThickness="1" Width="550" CornerRadius="10">
+        <Border Margin="5 5 5 5" Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" Width="550" CornerRadius="10">
             <Grid>
                 
                 <Grid.RowDefinitions>
@@ -86,11 +86,11 @@
                     </StackPanel>
                 </Label>
 
-                <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" BorderBrush="Gray" BorderThickness="1" Margin="5 5 5 5" CornerRadius="10">
+                <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" BorderBrush="{StaticResource Green}" BorderThickness="1" Margin="5 5 5 5" CornerRadius="10">
                     <TextBlock Text="{Binding Review.OwnerComment}" TextWrapping="Wrap" Margin="10 10 10 10"/>
                 </Border>
 
-                <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4" CornerRadius="10" Background="LightGray" 
+                <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4" CornerRadius="10" Background="{StaticResource SoftGreen}" 
                         Visibility="{Binding IsReviewHidden, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <TextBlock  Text="Review accommodation in order to see owner's review" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"
                                FontStyle="Italic" FontSize="15" Margin="70 0 70 0"/>

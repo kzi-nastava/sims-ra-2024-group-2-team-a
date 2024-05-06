@@ -22,7 +22,7 @@ namespace BookingApp.WPF.Web.Views {
 
             DataContext = ViewModel;
 
-            sliderGuests.Maximum = accommodationDTO.MaxGuestNumber;
+            textBoxGuests.Maximum = accommodationDTO.MaxGuestNumber;
             datePickerStartDate.DisplayDateStart = DateTime.Today.AddDays(1);
             datePickerEndDate.IsEnabled = false;
         }
