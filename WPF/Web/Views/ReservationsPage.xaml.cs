@@ -34,6 +34,11 @@ namespace BookingApp.WPF.Web.Views {
             mainGrid.Children.Add(new RescheduleReservationModalDialog(this, reservation));
         }
 
+        public void OpenCancelDialog(AccommodationReservationDTO reservation) {
+            rectBlurBackground.Visibility = Visibility.Visible;
+            mainGrid.Children.Add(new ConfirmReservationCancelModalDialog(this, reservation));
+        }
+
         public void OpenReviewDialog(AccommodationReservationDTO reservation) {
             rectBlurBackground.Visibility = Visibility.Visible;
             mainGrid.Children.Add(new ReviewAccommodationModalDialog(this, reservation));
