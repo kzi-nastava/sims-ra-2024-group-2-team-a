@@ -35,6 +35,7 @@
     <None Remove="Resources\Images\Icons\document-icon.png" />
     <None Remove="Resources\Images\Icons\filter-icon.png" />
     <None Remove="Resources\Images\Icons\house-icon.png" />
+    <None Remove="Resources\Images\Icons\import-images-icon.png" />
     <None Remove="Resources\Images\Icons\location-icon.png" />
     <None Remove="Resources\Images\Icons\logout-white-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
@@ -141,6 +142,7 @@
     <Resource Include="Resources\Images\Icons\house-icon.png" />
     <Resource Include="Resources\Images\Icons\calendar-icon.png" />
     <Resource Include="Resources\Images\Icons\cancel-event-icon.png" />
+    <Resource Include="Resources\Images\Icons\import-images-icon.png" />
     <Resource Include="Resources\Images\Icons\logout-white-icon.png" />
     <Resource Include="Resources\Images\Icons\people-icon.png" />
     <Resource Include="Resources\Images\Icons\location-icon.png" />
