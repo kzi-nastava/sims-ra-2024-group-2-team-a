@@ -19,6 +19,9 @@
     <None Remove="Resources\Images\eye.png" />
     <None Remove="Resources\Images\finish.png" />
     <None Remove="Resources\Images\default-coupon.png" />
+    <None Remove="Resources\Images\Icons\android-house-icon.png" />
+    <None Remove="Resources\Images\Icons\android-inbox-icon.png" />
+    <None Remove="Resources\Images\Icons\android-logout-icon.png" />
     <None Remove="Resources\Images\Icons\back-white-icon.png" />
     <None Remove="Resources\Images\Icons\bin-icon.png" />
     <None Remove="Resources\Images\Icons\book-white-icon.png" />
@@ -108,6 +111,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Icons\android-house-icon.png" />
+    <Resource Include="Resources\Images\Icons\android-inbox-icon.png" />
+    <Resource Include="Resources\Images\Icons\android-logout-icon.png" />
     <Resource Include="Resources\Images\Icons\back-white-icon.png" />
     <Resource Include="Resources\Images\Icons\bin-icon.png" />
   </ItemGroup>

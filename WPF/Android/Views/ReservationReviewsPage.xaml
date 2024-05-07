@@ -35,7 +35,7 @@
     </Page.Resources>
             <Grid Background="{StaticResource Beige}">
         <TabControl Height="600" Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TabItem Header="Reviews" Width="120" Height="40">
+            <TabItem Header="Reviews" Width="120" Height="40" FontSize="12">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
@@ -45,24 +45,30 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="70"/>
                     </Grid.RowDefinitions>
                     <Button x:Name="AssignGradeButton" Grid.Row="1"
-                            Grid.Column="1" Width="120" Height="40" Click="AssignGradeButton_Click" 
+                            Grid.Column="0" Grid.ColumnSpan="2" Width="160" Height="50" Click="AssignGradeButton_Click" 
                             IsEnabled="{Binding SelectedReservation.CanBeGradedByOwner}"
                             Style="{StaticResource DisabledButtonStyle}">
-                        <Label Content="Assign a grade" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
+                            <Image Source="{StaticResource ReviewIcon}" Height="30" Width="30"/>
+                            <Label Content="Assign a grade" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </StackPanel>
                     </Button>
 
-                    <Button x:Name="ViewGradeButton" Grid.Row="1" Grid.Column="2" Width="120" Height="40" 
+                    <Button x:Name="ViewGradeButton" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Width="160" Height="50" 
                             Click="ViewGradeButton_Click" IsEnabled="{Binding SelectedReservation.IsGradedByGuest}"
                             Style="{StaticResource DisabledButtonStyle}">
-                        <Label Content="View guest grade" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Button>
+                        <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
+                            <Image Source="{StaticResource EyeIcon}" Height="30" Width="30"/>
+                            <Label Content="View guest grade" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
 
                     <ListView ItemsSource="{Binding ReservationCollection, UpdateSourceTrigger=PropertyChanged}"
           SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
-          SelectionMode="Single" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0">
+          SelectionMode="Single" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Accommodation" Width="160" DisplayMemberBinding="{Binding Accommodation.Name}"/>
@@ -97,8 +103,8 @@
 
                 </Grid>
             </TabItem>
-            
-            <TabItem Header="Requests"  Width="120" Height="40">
+
+            <TabItem Header="Requests"  Width="120" Height="40" FontSize="12">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
@@ -108,19 +114,26 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="70"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="Decline" Grid.Row="1" Grid.Column="1" Width="120" Height="40" Command="{Binding DeclineButtonCommand}" Style="{StaticResource DisabledButtonStyle}">
-                        <Label Content="Decline" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button x:Name="Decline" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Width="130" Height="50" Command="{Binding DeclineButtonCommand}" Style="{StaticResource DisabledButtonStyle}">
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                            <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
+                            <Label Content="Decline" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </StackPanel>
                     </Button>
 
-                    <Button x:Name="Accept" Grid.Row="1" Grid.Column="2" Width="120" Height="40" Command="{Binding AcceptButtonCommand}" Style="{StaticResource DisabledButtonStyle}">
-                        <Label Content="Accept" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button x:Name="Accept" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Width="130" Height="50" Command="{Binding AcceptButtonCommand}" Style="{StaticResource DisabledButtonStyle}">
+                        <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
+                            <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
+                            <Label Content="Accept" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </StackPanel>
                     </Button>
 
                     <ListView x:Name="RequestsList" ItemsSource="{Binding RescheduleRequestDTOs, UpdateSourceTrigger=PropertyChanged}"
                         SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
-                        SelectionMode="Single" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" SelectionChanged="RequestsList_SelectionChanged">
+                        SelectionMode="Single" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" SelectionChanged="RequestsList_SelectionChanged"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Accommodation" Width="100" DisplayMemberBinding="{Binding AccommodationName}"/>

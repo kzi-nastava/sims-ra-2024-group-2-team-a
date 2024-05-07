@@ -104,7 +104,7 @@
         <TextBox x:Name="textBox" Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedDate, ElementName=endDatePicker, Converter={StaticResource SelectedConverter}}" 
                  Grid.Column="1" Grid.Row="2" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Margin="0,15,0,0"/>
 
-        <Button Grid.Column="3" Grid.Row="2" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
+        <Button Grid.Column="3" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
         IsEnabled="{Binding Duration, Converter={StaticResource CountToBoolConverter}}"
         Click="SearchButton_Click" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal">
@@ -133,7 +133,7 @@
             </ListView.ItemContainerStyle>
         </ListView>
 
-        <Button Grid.Column="3" Grid.Row="5" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
+        <Button Grid.Column="3" Grid.Row="5" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
         Command="{Binding AcceptCommand}" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                 <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
@@ -141,7 +141,7 @@
             </StackPanel>
         </Button>
 
-        <Button Grid.Column="1" Grid.Row="5" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
+        <Button Grid.Column="1" Grid.Row="5" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
                 Command="{Binding DeclineCommand}" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                 <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
