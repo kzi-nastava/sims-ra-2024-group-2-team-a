@@ -23,13 +23,23 @@ namespace BookingApp.WPF.Tablet.Views {
             _userId = userId;
         }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.GoBack();
+        private void Close_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+
         }
 
-        private void showButton_Click(object sender, RoutedEventArgs e) {
-            int year = int.Parse( (string) yearComboBox.SelectedValue);
-            
+        private void Close_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+            _mainFrame.GoBack();
+
+        }
+        private void Show_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+
+        private void Show_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+            int year = int.Parse((string)yearComboBox.SelectedValue);
+
             if (!ViewModel.GetMostViewedByYear(year)) {
                 MessageBox.Show("Nema tura iz te godine", "NEMA", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;

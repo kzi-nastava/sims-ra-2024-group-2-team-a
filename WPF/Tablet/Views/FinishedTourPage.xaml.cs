@@ -2,6 +2,7 @@
 using BookingApp.WPF.Tablet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
@@ -22,16 +23,28 @@ namespace BookingApp.WPF.Tablet.Views {
             _userId = userId;
         }
 
-        private void reviewsButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.Content = new TourReviewsPage(ViewModel.tourDTO, _mainFrame);
+        private void Cancel_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
         }
 
-        private void statsButton_Click(object sender, RoutedEventArgs e) {
+        private void Cancel_Executed(object sender, ExecutedRoutedEventArgs e) {
+            _mainFrame.GoBack();
+        }
+
+        private void Stats_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Stats_Executed(object sender,  ExecutedRoutedEventArgs e) {
             _mainFrame.Content = new TourStatsPage(ViewModel.tourDTO, _mainFrame, _menuBarFrame, _userId);
         }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.GoBack();
+        private void Reviews_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Reviews_Executed(object sender, ExecutedRoutedEventArgs e) {
+            _mainFrame.Content = new TourReviewsPage(ViewModel.tourDTO, _mainFrame);
         }
     }
 }

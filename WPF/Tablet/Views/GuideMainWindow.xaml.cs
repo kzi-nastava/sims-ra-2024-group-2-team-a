@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
@@ -20,11 +21,14 @@ namespace BookingApp.WPF.Tablet.Views {
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
 
-        private void Logout(object sender, RoutedEventArgs e) {
+        private void Profile_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Profile_Executed(object sender, ExecutedRoutedEventArgs e) {
             SignInForm signInForm = new SignInForm();
             signInForm.Show();
             this.Close();
         }
-
     }
 }

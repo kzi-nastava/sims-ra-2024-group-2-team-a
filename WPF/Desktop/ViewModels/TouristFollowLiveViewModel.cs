@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TouristFollowLiveViewModel {
-        private readonly PointOfInterestService _pointOfInterestService = new PointOfInterestService();
-        private readonly PassengerService _passengerService = new PassengerService();
+        private readonly PointOfInterestService _pointOfInterestService = ServicesPool.GetService<PointOfInterestService>();
+        private readonly PassengerService _passengerService = ServicesPool.GetService<PassengerService>();
         public TourDTO SelectedTour { get; set; }
         public int UserId { get; set; }
         public ObservableCollection<PointOfInterestDTO> PointsOfInterest { get; set; }

@@ -8,9 +8,13 @@ using System.Linq;
 namespace BookingApp.Services {
     public class ReservationRecommenderService {
 
-        private readonly IAccommodationReservationRepository _reservationRepository = RepositoryInjector.GetInstance<IAccommodationReservationRepository>();
+        private readonly IAccommodationReservationRepository _reservationRepository;
 
         private readonly int daysSpan = 20;
+
+        public ReservationRecommenderService(IAccommodationReservationRepository reservationRepository) {
+            _reservationRepository = reservationRepository;
+        }
 
         public List<AccommodationReservation> SuggestReservations(AccommodationReservationDTO rDTO) {
             var possibleReservations = GetPossibleReservations(rDTO);

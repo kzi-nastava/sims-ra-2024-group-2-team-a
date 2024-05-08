@@ -5,9 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Services {
-    class AccommodationService
+    public class AccommodationService
     {
-        private readonly IAccommodationRepository _accommodationRepository = RepositoryInjector.GetInstance<IAccommodationRepository>();
+        private readonly IAccommodationRepository _accommodationRepository;
+
+        public AccommodationService(IAccommodationRepository accommodationRepository) { 
+            _accommodationRepository = accommodationRepository;
+        }
 
         public List<Accommodation> GetAll() {
             return _accommodationRepository.GetAll();

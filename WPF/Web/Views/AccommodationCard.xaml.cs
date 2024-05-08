@@ -28,7 +28,7 @@ namespace BookingApp.WPF.Web.Views {
 
             if (ViewModel.BySuperOwner) {
                 borderHeader.Background = new SolidColorBrush(Colors.PaleGoldenrod);
-                borderCorner.BorderBrush = new SolidColorBrush(Colors.PaleGoldenrod);
+                borderCorner.BorderBrush = new SolidColorBrush(Colors.DarkGoldenrod);
             }
         }
 

@@ -19,19 +19,26 @@
     <None Remove="Resources\Images\eye.png" />
     <None Remove="Resources\Images\finish.png" />
     <None Remove="Resources\Images\default-coupon.png" />
+    <None Remove="Resources\Images\Icons\back-white-icon.png" />
+    <None Remove="Resources\Images\Icons\bin-icon.png" />
+    <None Remove="Resources\Images\Icons\book-white-icon.png" />
     <None Remove="Resources\Images\Icons\calendar-icon.png" />
     <None Remove="Resources\Images\Icons\camera-icon.png" />
     <None Remove="Resources\Images\Icons\cancel-event-icon.png" />
     <None Remove="Resources\Images\Icons\cancel-icon.png" />
+    <None Remove="Resources\Images\Icons\chat-white-icon.png" />
     <None Remove="Resources\Images\Icons\confirm-icon.png" />
     <None Remove="Resources\Images\Icons\coupon.png" />
     <None Remove="Resources\Images\Icons\document-icon.png" />
+    <None Remove="Resources\Images\Icons\filter-icon.png" />
     <None Remove="Resources\Images\Icons\house-icon.png" />
     <None Remove="Resources\Images\Icons\location-icon.png" />
+    <None Remove="Resources\Images\Icons\logout-white-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
     <None Remove="Resources\Images\Icons\reschedule-icon.png" />
     <None Remove="Resources\Images\Icons\right-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\scheduled-icon.png" />
+    <None Remove="Resources\Images\Icons\search-white-icon.png" />
     <None Remove="Resources\Images\Icons\star-icon.png" />
     <None Remove="Resources\Images\account.png" />
     <None Remove="Resources\Images\add-icon3.png" />
@@ -46,6 +53,7 @@
     <None Remove="Resources\Images\hamburger.png" />
     <None Remove="Resources\Images\help.png" />
     <None Remove="Resources\Images\home.png" />
+    <None Remove="Resources\Images\Icons\star-white-icon.png" />
     <None Remove="Resources\Images\Icons\time-icon.png" />
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\normal-home-icon.png" />
@@ -100,6 +108,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Icons\back-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\bin-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation1.jpg" />
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation2.jpg" />
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation3.jpg" />
@@ -110,20 +123,25 @@
     <Resource Include="Resources\Images\android-view-icon.png" />
     <Resource Include="Resources\Images\eye.png" />
     <Resource Include="Resources\Images\finish.png" />
+    <Resource Include="Resources\Images\Icons\book-white-icon.png" />
     <Resource Include="Resources\Images\Icons\camera-icon.png" />
     <Resource Include="Resources\Images\default-coupon.png" />
     <Resource Include="Resources\Images\Icons\cancel-icon.png" />
+    <Resource Include="Resources\Images\Icons\chat-white-icon.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon.png" />
     <Resource Include="Resources\Images\Icons\coupon.png" />
     <Resource Include="Resources\Images\Icons\document-icon.png" />
+    <Resource Include="Resources\Images\Icons\filter-icon.png" />
     <Resource Include="Resources\Images\Icons\house-icon.png" />
     <Resource Include="Resources\Images\Icons\calendar-icon.png" />
     <Resource Include="Resources\Images\Icons\cancel-event-icon.png" />
+    <Resource Include="Resources\Images\Icons\logout-white-icon.png" />
     <Resource Include="Resources\Images\Icons\people-icon.png" />
     <Resource Include="Resources\Images\Icons\location-icon.png" />
     <Resource Include="Resources\Images\Icons\reschedule-icon.png" />
     <Resource Include="Resources\Images\Icons\right-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\scheduled-icon.png" />
+    <Resource Include="Resources\Images\Icons\search-white-icon.png" />
     <Resource Include="Resources\Images\Icons\star-icon.png" />
     <Resource Include="Resources\Images\account.png" />
     <Resource Include="Resources\Images\add-icon3.png" />
@@ -135,6 +153,7 @@
     <Resource Include="Resources\Images\hamburger.png" />
     <Resource Include="Resources\Images\help.png" />
     <Resource Include="Resources\Images\home.png" />
+    <Resource Include="Resources\Images\Icons\star-white-icon.png" />
     <Resource Include="Resources\Images\Icons\time-icon.png" />
     <Resource Include="Resources\Images\live.png" />
     <Resource Include="Resources\Images\normal-home-icon.png" />
@@ -173,6 +192,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
     <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
   </ItemGroup>

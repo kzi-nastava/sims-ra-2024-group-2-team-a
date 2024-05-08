@@ -78,7 +78,7 @@ namespace BookingApp.WPF.Android.ViewModels {
         public AndroidCommand AcceptCommand { get; set; }
         public AndroidCommand DeclineCommand { get; set; }
         public AccommodationRenovationViewmodel(AccommodationDTO accommodationDTO, Frame mainFrame) {
-            _renovationService = new AccommodationRenovationService();
+            _renovationService = ServicesPool.GetService<AccommodationRenovationService>();
             StartDate = null;
             EndDate = null;
             SelectedRenovation = null;

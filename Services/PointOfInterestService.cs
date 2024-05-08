@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 namespace BookingApp.Services {
     public class PointOfInterestService {
-        private readonly IPointOfInterestRepository _pointOfInterestRepository = RepositoryInjector.GetInstance<IPointOfInterestRepository>();
+        private readonly IPointOfInterestRepository _pointOfInterestRepository;
+        public PointOfInterestService(IPointOfInterestRepository pointOfInterestRepository) {
+            _pointOfInterestRepository = pointOfInterestRepository;
+        }
         public List<PointOfInterest> GetAllByTourId(int tourId) {
             return _pointOfInterestRepository.GetAllByTourId(tourId);
         }

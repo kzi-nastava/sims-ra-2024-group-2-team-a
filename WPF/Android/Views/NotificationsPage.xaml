@@ -11,7 +11,7 @@
     <Page.Resources>
         <converters:DateTimeToStringConverter x:Key="DateTimeConverter"/>
     </Page.Resources>
-        <Grid Background="LightBlue">
+        <Grid Background="{StaticResource Beige}">
         
         <Border Height="584" Width="390" BorderBrush="Black" BorderThickness="1">
             <Grid>
@@ -20,18 +20,19 @@
                     <RowDefinition/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0">
-                    <Label Content="All messages" BorderBrush="Black" BorderThickness="0,0,0,1" Padding="0" Margin="10,0,0,5" FontSize="26" FontWeight="Bold" VerticalAlignment="Center"/>
-                    <Label Content="(5)" Padding="0" Margin="5,0,0,5" FontSize="26" FontWeight="Bold" VerticalAlignment="Center"/>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0"  Background="{StaticResource Green}" Width="220" HorizontalAlignment="Left">
+                    <Label Content="All messages" BorderBrush="Black" BorderThickness="0,0,0,1" Padding="0" Margin="10,0,0,5" FontSize="26" FontWeight="Bold" VerticalAlignment="Center"
+                           Background="{StaticResource Green}"/>
+                    <Label x:Name="NumOfMessagesLabel" Padding="0" Margin="5,0,0,5" FontSize="26" FontWeight="Bold" VerticalAlignment="Center"  Background="{StaticResource Green}"/>
                 </StackPanel>
-                <Button Grid.Row="3" Width="160" Height="50" Content="Mark all as read" FontSize="20" Click="MarkReadButton_Click"/>
+                <Button Grid.Row="3" Width="160" Height="50" Content="Mark all as read" FontSize="20" Click="MarkReadButton_Click" Background="{StaticResource Green}"/>
 
                 <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
                     <ScrollViewer Width="390" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalScrollBarVisibility="Hidden">
                         <ItemsControl Margin="5" VerticalAlignment="Top" ItemsSource="{Binding NotificationDTOs}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Background="#FFFCF5" BorderBrush="Black" BorderThickness="1" Height="80" CornerRadius="20">
+                                    <Border Background="{StaticResource SoftGreen}" BorderBrush="Black" BorderThickness="1" Height="80" CornerRadius="20">
                                         <Grid Margin="5" VerticalAlignment="Center">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="60"/>

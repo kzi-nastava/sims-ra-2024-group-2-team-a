@@ -19,7 +19,7 @@ namespace BookingApp.WPF.Android.ViewModels {
         public bool Editable { get; set; }
         public RenovationDescriptionViewmodel(AccommodationRenovationDTO renovationDTO, Window window, bool editable) {
             RenovationDTO = renovationDTO;
-            _renovationService = new AccommodationRenovationService();
+            _renovationService = ServicesPool.GetService<AccommodationRenovationService>();
             Window = window;
             Editable = editable;
             ConfirmCommand = new AndroidCommand(Confirm_Executed,Confirm_CanExecute);

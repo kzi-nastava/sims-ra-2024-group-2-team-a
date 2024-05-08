@@ -17,12 +17,10 @@ namespace BookingApp.WPF.Tablet.Views {
             DataContext = ViewModel;
         }
 
-        private void filterButton_Click(object sender, RoutedEventArgs e) {
-            ViewModel.FilterTours(SetFilter());
-            itemsControlScheduledTours.ItemsSource = ViewModel.tourDTOs;
+        private void Clear_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
         }
-
-        private void clearButton_Click(object sender, RoutedEventArgs e) {
+        private void Clear_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
             textBoxName.Text = string.Empty;
             textBoxTouristNumber.Text = string.Empty;
             textBoxDuration.Text = string.Empty;
@@ -31,7 +29,13 @@ namespace BookingApp.WPF.Tablet.Views {
             comboBoxLocation.SelectedIndex = 0;
             datePicker.SelectedDate = DateTime.MinValue;
         }
-
+        private void Filter_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+        private void Filter_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+            ViewModel.FilterTours(SetFilter());
+            itemsControlScheduledTours.ItemsSource = ViewModel.tourDTOs;
+        }
         private TourFilterDTO SetFilter() {
             string name = textBoxName.Text;
             LocationDTO location = (LocationDTO)comboBoxLocation.SelectedItem;
@@ -56,5 +60,6 @@ namespace BookingApp.WPF.Tablet.Views {
 
             return new TourFilterDTO(name, duration, touristsNumber, location, language, beggining);
         }
+
     }
 }

@@ -7,7 +7,10 @@ using System.Linq;
 
 namespace BookingApp.Services {
     public class VoucherService {
-        private readonly IVoucherRepository _voucherRepository = RepositoryInjector.GetInstance<IVoucherRepository>();
+        private readonly IVoucherRepository _voucherRepository;
+        public VoucherService(IVoucherRepository voucherRepository) {
+            _voucherRepository = voucherRepository;
+        }
 
         public VoucherService() {
 

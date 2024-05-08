@@ -12,13 +12,13 @@ using BookingApp.WPF.Utils.Commands;
 namespace BookingApp.WPF.Android.ViewModels {
     public class ReservationReviewsViewmodel : INotifyPropertyChanged {
 
-        private AccommodationService accommodationService = new AccommodationService();
+        private AccommodationService accommodationService = ServicesPool.GetService<AccommodationService>(); 
 
-        private ReviewService reviewService = new ReviewService();
+        private ReviewService reviewService = ServicesPool.GetService<ReviewService>();
 
-        private AccommodationReservationService accReservationService = new AccommodationReservationService();
+        private AccommodationReservationService accReservationService = ServicesPool.GetService<AccommodationReservationService>();
 
-        private RescheduleRequestService requestService = new RescheduleRequestService();
+        private RescheduleRequestService requestService = ServicesPool.GetService<RescheduleRequestService>();
 
         private User _user;
         public ObservableCollection<AccommodationReservationDTO> ReservationCollection { get; set; }
@@ -76,7 +76,7 @@ namespace BookingApp.WPF.Android.ViewModels {
                 foreach (var accRes in accReservationService.GetByAccommodationId(acc.Id)) {
                     AccommodationReservationDTO accResDTO = new AccommodationReservationDTO(accRes);
 
-                    AccommodationService accService = new AccommodationService();
+                    AccommodationService accService = ServicesPool.GetService<AccommodationService>();
                     accResDTO.Accommodation = new AccommodationDTO(accService.GetById(accResDTO.AccommodationId));
 
                     if (reviewService.IsGradedByGuest(accResDTO.Id)) {
@@ -125,7 +125,7 @@ namespace BookingApp.WPF.Android.ViewModels {
             }
         }
         public void AcceptButton_Executed(object obj) {
-            AccommodationStatisticsService statisticsService = new AccommodationStatisticsService();
+            AccommodationStatisticsService statisticsService = ServicesPool.GetService<AccommodationStatisticsService>();
             AccommodationReservation accommodationReservation = accReservationService.GetById(SelectedRequest.ReservationId);
 
             statisticsService.UpdatePostponedStatistics(accommodationReservation.AccommodationId, SelectedRequest.OldStartDate, 

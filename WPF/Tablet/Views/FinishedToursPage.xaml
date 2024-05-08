@@ -4,11 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
       xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
       mc:Ignorable="d" 
       d:DesignHeight="726" d:DesignWidth="1024"
       Title="FinishedToursPage">
-
+    <Page.CommandBindings>
+        <CommandBinding x:Name="Clear" Command="cmd:RoutedCommands.Clear" CanExecute="Clear_CanExecute" Executed="Clear_Executed"/>
+        <CommandBinding x:Name="Filter" Command="cmd:RoutedCommands.Filter" CanExecute="Filter_CanExecute" Executed="Filter_Executed"/>
+    </Page.CommandBindings>
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -48,8 +52,8 @@ ItemsSource="{Binding languageDTOs}" SelectedItem="{Binding selectedLanguageDTO}
                 <Label Grid.Row="2" Grid.Column="2" Margin="40,0,20,0"  Content="Date:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
                 <DatePicker x:Name="datePicker" Grid.Row="2" Grid.Column="3" DisplayDateStart="{x:Static sys:DateTime.Today}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,5,20,5" FontSize="18"/>
 
-                <Button Grid.Column="4" Grid.RowSpan="2" Grid.Row="1" x:Name="clearButton" Content="Clear" Click="clearButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Padding="5" FontSize="20"/>
-                <Button Grid.Column="4" Grid.RowSpan="2" Grid.Row="0"  x:Name="filterButton" Content="Filter" Click="filterButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Padding="5" FontSize="20" IsEnabled="True"/>
+                <Button Grid.Column="4" Grid.RowSpan="2" Grid.Row="1" x:Name="clearButton" Content="Clear" Command="cmd:RoutedCommands.Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Padding="5" FontSize="20"/>
+                <Button Grid.Column="4" Grid.RowSpan="2" Grid.Row="0"  x:Name="filterButton" Content="Filter" Command="cmd:RoutedCommands.Filter" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Padding="5" FontSize="20" IsEnabled="True"/>
             </Grid>
         </Border>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">

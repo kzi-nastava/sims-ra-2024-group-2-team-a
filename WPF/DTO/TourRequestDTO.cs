@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace BookingApp.WPF.DTO {
     public class TourRequestDTO : INotifyPropertyChanged {
-        private readonly LocationService _locationService = new LocationService();
-        private readonly LanguageService _languageService = new LanguageService();
+        private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
+        private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
         public TourRequestDTO() { }
         public TourRequestDTO(int touristId) {
             TouristId = touristId;

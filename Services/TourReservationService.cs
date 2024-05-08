@@ -6,10 +6,14 @@ using System.Linq;
 
 namespace BookingApp.Services {
     public class TourReservationService {
-        private readonly ITourReservationRepository _tourReservationRepository = RepositoryInjector.GetInstance<ITourReservationRepository>();
+        private readonly ITourReservationRepository _tourReservationRepository;
         private readonly ITourRepository _tourRepository = RepositoryInjector.GetInstance<ITourRepository>();
         private readonly IPassengerRepository _passengerRepository = RepositoryInjector.GetInstance<IPassengerRepository>();
         private readonly IVoucherRepository _voucherRepository = RepositoryInjector.GetInstance<IVoucherRepository>();
+
+        public TourReservationService(ITourReservationRepository tourReservationRepository){
+            _tourReservationRepository = tourReservationRepository;
+        }
 
         private void FillTourCapacity(int tourId, int addedPassengersNumber) {
             Tour selectedTour = _tourRepository.GetById(tourId);

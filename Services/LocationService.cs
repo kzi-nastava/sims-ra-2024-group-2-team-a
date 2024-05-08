@@ -5,7 +5,11 @@ using System.Collections.Generic;
 namespace BookingApp.Services {
     class LocationService
     {
-        private readonly ILocationRepository _locationRepository = RepositoryInjector.GetInstance<ILocationRepository>();
+        private readonly ILocationRepository _locationRepository;
+
+        public LocationService(ILocationRepository locationRepository) {
+            _locationRepository = locationRepository;
+        }
 
         public List<Location> GetAll() {
             return _locationRepository.GetAll();

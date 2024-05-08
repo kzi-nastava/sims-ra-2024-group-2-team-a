@@ -3,6 +3,7 @@ using BookingApp.WPF.Tablet.ViewModels;
 using BookingApp.WPF.Tablet.Views;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BookingApp.View.TabletView {
     /// <summary>
@@ -22,11 +23,19 @@ namespace BookingApp.View.TabletView {
                 CheckKeypoint();
             _mainFrame = mainF;
         }
-        private void checkButton_Click(object sender, RoutedEventArgs e) {
+        private void CheckKeypoints_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void CheckKeypoints_Executed(object sender, ExecutedRoutedEventArgs e) {
             CheckKeypoint();
         }
 
-        private void finishButton_Click(object sender, RoutedEventArgs e) {
+        private void Finish_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Finish_Executed(object sender, ExecutedRoutedEventArgs e) {
             FinishTour();
         }
         private void CheckKeypoint() {
@@ -48,6 +57,14 @@ namespace BookingApp.View.TabletView {
             bool isConfirmed = (bool)passengerWindow.ShowDialog();
             return isConfirmed;
         }
+
+        /*private void Cancel_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Cancel_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+
+        }*/
 
     }
 }
