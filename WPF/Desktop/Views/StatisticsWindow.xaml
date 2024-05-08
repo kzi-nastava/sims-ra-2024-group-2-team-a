@@ -21,7 +21,7 @@
             <Setter Property="FontSize" Value="20"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Background="{StaticResource Beige}">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -74,12 +74,11 @@
                             VerticalAlignment="Center"
                             Grid.Row="1"
                             Grid.Column="2">
-                    <TextBlock FontSize="18"
-                               TextWrapping="Wrap">
-                        <TextBlock.Text>
-                            <Binding StringFormat="Average people count in accepted requests: {0}"
-                                     Path="AvgPeopleCount"/>
-                        </TextBlock.Text>
+                    <TextBlock FontSize="18" TextWrapping="Wrap">
+                        <TextBlock.Inlines>
+                            <Run Text="Average people count in accepted requests: " />
+                            <Run FontWeight="Bold" Text="{Binding AvgPeopleCount}" />
+                        </TextBlock.Inlines>
                     </TextBlock>
                 </StackPanel>
             </Grid>
@@ -94,6 +93,17 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Request/Location ratio"
                            Style="{StaticResource Header}"/>
+                <lvc:CartesianChart Series="{Binding LocationCollection}" 
+                                    LegendLocation="Right"
+                                    Grid.Row="1"
+                                    Margin="5">
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Locations"/>
+                    </lvc:CartesianChart.AxisY>
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Requests"/>
+                    </lvc:CartesianChart.AxisX>
+                </lvc:CartesianChart>
             </Grid>
         </Border>
         <Border Grid.Row="1"
@@ -106,6 +116,17 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Request/Language ratio"
                            Style="{StaticResource Header}"/>
+                <lvc:CartesianChart Series="{Binding LanguageCollection}" 
+                                    LegendLocation="Right"
+                                    Grid.Row="1"
+                                    Margin="5">
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Languages"/>
+                    </lvc:CartesianChart.AxisY>
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Requests" />
+                    </lvc:CartesianChart.AxisX>
+                </lvc:CartesianChart>
             </Grid>
         </Border>
     </Grid>
