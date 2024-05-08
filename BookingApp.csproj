@@ -34,10 +34,13 @@
     <None Remove="Resources\Images\Icons\coupon.png" />
     <None Remove="Resources\Images\Icons\document-icon.png" />
     <None Remove="Resources\Images\Icons\filter-icon.png" />
+    <None Remove="Resources\Images\Icons\gold-star-icon.png" />
     <None Remove="Resources\Images\Icons\house-icon.png" />
     <None Remove="Resources\Images\Icons\import-images-icon.png" />
     <None Remove="Resources\Images\Icons\location-icon.png" />
     <None Remove="Resources\Images\Icons\logout-white-icon.png" />
+    <None Remove="Resources\Images\Icons\normal-owner-icon.png" />
+    <None Remove="Resources\Images\Icons\not-super-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
     <None Remove="Resources\Images\Icons\reschedule-icon.png" />
     <None Remove="Resources\Images\Icons\right-arrow-icon.png" />
@@ -58,6 +61,7 @@
     <None Remove="Resources\Images\help.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\Icons\star-white-icon.png" />
+    <None Remove="Resources\Images\Icons\super-icon.png" />
     <None Remove="Resources\Images\Icons\time-icon.png" />
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\normal-home-icon.png" />
@@ -139,11 +143,13 @@
     <Resource Include="Resources\Images\Icons\coupon.png" />
     <Resource Include="Resources\Images\Icons\document-icon.png" />
     <Resource Include="Resources\Images\Icons\filter-icon.png" />
+    <Resource Include="Resources\Images\Icons\gold-star-icon.png" />
     <Resource Include="Resources\Images\Icons\house-icon.png" />
     <Resource Include="Resources\Images\Icons\calendar-icon.png" />
     <Resource Include="Resources\Images\Icons\cancel-event-icon.png" />
     <Resource Include="Resources\Images\Icons\import-images-icon.png" />
     <Resource Include="Resources\Images\Icons\logout-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\normal-owner-icon.png" />
     <Resource Include="Resources\Images\Icons\people-icon.png" />
     <Resource Include="Resources\Images\Icons\location-icon.png" />
     <Resource Include="Resources\Images\Icons\reschedule-icon.png" />
