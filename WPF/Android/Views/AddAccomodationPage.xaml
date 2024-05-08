@@ -10,6 +10,29 @@
       Title="AddAccommodationPage">
     <Page.Resources>
         <converters:RadioButtonToAccommodationTypeConverter x:Key="AccTypeConverter"/>
+
+        <Style TargetType="Button" x:Key="DisabledButtonStyle">
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5a8c6b"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <BitmapImage x:Key="ImagesIcon" UriSource="../../../Resources/Images/Icons/import-images-icon.png"/>
     </Page.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Background="{StaticResource Beige}">
         <Grid Height="600" Width="430">
@@ -17,10 +40,10 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="90"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
@@ -28,7 +51,8 @@
                 <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition  Width="*"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="New Accomodation:" FontWeight="Bold" FontSize="18"/>
 
@@ -42,8 +66,8 @@
                       DisplayMemberPath="LocationOptionTemplate" Background="{StaticResource Green}"/>
 
 
-            <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Type:" FontSize="16"/>
-            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <Label Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Type:" FontSize="16"/>
+            <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <RadioButton x:Name="radioButtonApartment" FontSize="16" Content="Apartment" GroupName="AccomodationType" 
                              IsChecked="{Binding AccommodationDTO.Type, Converter={StaticResource AccTypeConverter}, ConverterParameter=apartment}"/>
                 <RadioButton x:Name="radioButtonHouse" FontSize="16" Content="House" GroupName="AccomodationType" 
@@ -52,29 +76,48 @@
                              IsChecked="{Binding AccommodationDTO.Type, Converter={StaticResource AccTypeConverter}, ConverterParameter=hut}"/>
             </StackPanel>
 
-            <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontSize="16"/>
-            <TextBox Grid.Row="4" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+            <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontSize="16"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
                      Text="{Binding AccommodationDTO.MaxGuestNumber}"/>
 
-            <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Min Reservation Days:" FontSize="16"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+            <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Min Reservation Days:" FontSize="16"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
                      Text="{Binding AccommodationDTO.MinReservationDays}"/>
 
-            <Label Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Last Cancellation Day:" FontSize="16"/>
-            <TextBox Grid.Row="6" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+            <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Last Cancellation Day:" FontSize="16"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
                      Text="{Binding AccommodationDTO.LastCancellationDay}"/>
 
-            <Button Content="Import Images" Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="SelectImages_Click"
-                    Background="{StaticResource Green}"/>
+            <Button Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="150" Click="SelectImages_Click" Style="{StaticResource DisabledButtonStyle}">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource ImagesIcon}" Height="30" Width="30"/>
+                    <Label Content="Import images" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
 
-            <Button Content="View Selected" Grid.Column="2"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="ViewImages_Click"
-                    Background="{StaticResource Green}"/>
+            <Button x:Name="ViewButton" Style="{StaticResource DisabledButtonStyle}" Grid.Column="2" HorizontalAlignment="Center"
+                    Grid.Row="7" Height="50" Width="150" Click="ViewImages_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource EyeIcon}" Height="30" Width="30"/>
+                    <Label Content="View selected" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
 
-            <Button Grid.Row="9" Grid.Column="1" Content="Decline" Height="50" Width="120" Click="Decline_Click"
-                    Background="{StaticResource Green}"/>
-
-            <Button Grid.Row="9" Grid.Column="2" Content="Confirm" Height="50" Width="120" Click="Confirm_Click"
-                    Background="{StaticResource Green}"/>
+            <Button Grid.Row="9" Grid.Column="1" Height="50" Width="130" Click="Decline_Click" Style="{StaticResource DisabledButtonStyle}">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
+                    <Label Content="Decline" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            
+            
+           <Button Grid.Row="9" Grid.Column="2" Height="50" Width="130" Click="Confirm_Click" Style="{StaticResource DisabledButtonStyle}">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
+                    <Label Content="Confirm" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            
         </Grid>
     </ScrollViewer>
 </Page>

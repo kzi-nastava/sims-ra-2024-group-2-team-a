@@ -1,7 +1,10 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
+using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using Xceed.Wpf.AvalonDock.Converters;
 
 namespace BookingApp.WPF.Android.Views {
     /// <summary>
@@ -30,12 +33,12 @@ namespace BookingApp.WPF.Android.Views {
             Owner owner = ownerService.GetByUserId(userId);
             AverageGradeLabel.Content = owner.AverageGrade.ToString();
             if (owner.IsSuper) {
-                SuperLabel.Content = "Super";
+                SuperImage.Source = new BitmapImage(new Uri("pack://application:,,,/BookingApp;component/Resources/Images/Icons/gold-star-icon.png"));
             }
             else {
-                SuperLabel.Content = "Normal";
+                SuperImage.Source = new BitmapImage(new Uri("pack://application:,,,/BookingApp;component/Resources/Images/Icons/normal-owner-icon.png"));
+                //SuperImage.Source = new BitmapImage(new Uri("pack://application:,,,/BookingApp;component/Resources/Images/Icons/gold-star-icon.png"));
             }
-
         }
 
         private void AccommodationsButton_Click(object sender, RoutedEventArgs e) {

@@ -69,6 +69,9 @@ namespace BookingApp.WPF.Android.Views {
                 string relativePath = GetRelativePath(basePath, absolutePath);
                 AccommodationDTO.ProfilePictures.Add(relativePath);
             }
+
+            if (AccommodationDTO.ProfilePictures.Count != 0)
+                ViewButton.IsEnabled = true;
         }
         private string GetRelativePath(string basePath, string fullPath) {
             Uri baseUri = new Uri(basePath + System.IO.Path.DirectorySeparatorChar);
@@ -78,7 +81,7 @@ namespace BookingApp.WPF.Android.Views {
 
         private void ViewImages_Click(object sender, RoutedEventArgs e) {
             if (AccommodationDTO.ProfilePictures.Count == 0) {
-                MessageBox.Show("Please select an image first","",MessageBoxButton.OK);
+                ViewButton.IsEnabled = false;
             }
             else {
                 ViewSelectedImagesWindow viewSelectedImagesWindow = new ViewSelectedImagesWindow(AccommodationDTO);
