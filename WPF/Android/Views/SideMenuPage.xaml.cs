@@ -3,6 +3,7 @@ using BookingApp.Services;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using Xceed.Wpf.AvalonDock.Converters;
 
@@ -43,25 +44,25 @@ namespace BookingApp.WPF.Android.Views {
 
         private void AccommodationsButton_Click(object sender, RoutedEventArgs e) {
             MainFrame.Content = new AccommodationPage(MainFrame, _user);
-            SideFrame.Content = null;
+            HideSideFrame();
             BlackFrame.Content = null;
         }
 
         private void InboxButton_Click(object sender, RoutedEventArgs e) {
             MainFrame.Content = new NotificationsPage(_user);
-            SideFrame.Content = null;
+            HideSideFrame();
             BlackFrame.Content = null;
         }
 
         private void ReservationsButton_Click(object sender, RoutedEventArgs e) {
             MainFrame.Content = new ReservationReviewsPage(_user);
-            SideFrame.Content = null;
+            HideSideFrame();
             BlackFrame.Content = null;
         }
 
         private void RenovationsButton_Click(object sender, RoutedEventArgs e) {
             MainFrame.Content = new AllRenovationsPage(_user);
-            SideFrame.Content = null;
+            HideSideFrame();
             BlackFrame.Content = null;
         }
 
@@ -69,6 +70,17 @@ namespace BookingApp.WPF.Android.Views {
             SignInForm signInForm = new SignInForm();
             Window.GetWindow(this).Close();
             signInForm.ShowDialog();
+        }
+
+        private void HideSideFrame() {
+            ThicknessAnimation animation = new ThicknessAnimation();
+            animation.From = new Thickness(0);
+            animation.To = new Thickness(-SideFrame.ActualWidth, 0, SideFrame.ActualWidth, 0);
+            animation.Duration = TimeSpan.FromSeconds(0.4);
+            animation.Completed += (s, e) => {
+                SideFrame.Content = null;
+            };
+            SideFrame.BeginAnimation(Frame.MarginProperty, animation);
         }
     }
 }
