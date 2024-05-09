@@ -55,12 +55,12 @@
                                    FontSize="18"
                                    VerticalAlignment="Center"
                                    Margin="5"/>
-                        <ComboBox VerticalAlignment="Center"
+                        <ComboBox x:Name="comboBox"
+                                  VerticalAlignment="Center"
                                   Margin="5"
                                   FontSize="18"
-                                  ItemsSource="{Binding StatisticsPeriodValues, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedItem="{Binding Period, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="0"/>
+                                  ItemsSource="{Binding Periods, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding Period, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </Border>
                 <Border Grid.Row="1"
