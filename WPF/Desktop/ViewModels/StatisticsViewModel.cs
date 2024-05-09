@@ -31,14 +31,10 @@ namespace BookingApp.WPF.Desktop.ViewModels
 
         public int UserId { get; set; }
 
-        public IEnumerable<StatisticsPeriod> StatisticsPeriodValues {
-            get { 
-                return Enum.GetValues(typeof(StatisticsPeriod)) as StatisticsPeriod[]; 
-            }
-        }
+        public List<string> Periods { get; set; } = new List<string>(); 
 
-        private StatisticsPeriod _period;
-        public StatisticsPeriod Period { 
+        private string _period;
+        public string Period { 
             get {
                 return _period;
             }
@@ -98,15 +94,21 @@ namespace BookingApp.WPF.Desktop.ViewModels
             UserId = userId;
 
             SolidColorBrushes = new List<SolidColorBrush>();
-
-            // Retrieve SolidColorBrushes from the application resources
             SolidColorBrushes.Add(Application.Current.Resources["HardGreen"] as SolidColorBrush);
             SolidColorBrushes.Add(Application.Current.Resources["Green"] as SolidColorBrush);
             SolidColorBrushes.Add(Application.Current.Resources["SoftGreen"] as SolidColorBrush);
 
-            LoadStatistics();
+            LoadPeriods();
+            Period = Periods[0];
             LoadLocationStatistics();
             LoadLanguageStatistics();
+        }
+
+        private void LoadPeriods() {
+            Periods.Add("All-time");
+            foreach (var period in _tourRequestService.GetRequestYears(UserId)) {
+                Periods.Add(period.ToString());
+            }
         }
 
         private void LoadLocationStatistics() {
@@ -142,13 +144,11 @@ namespace BookingApp.WPF.Desktop.ViewModels
             SeriesCollection = new SeriesCollection();
 
             switch (Period) {
-                case StatisticsPeriod.AllTime:
+                case "All-time":
                     LoadAllTime(SeriesCollection);
                     break;
-                case StatisticsPeriod.ThisYear:
-                    LoadThisYear(SeriesCollection);
-                    break;
                 default:
+                    LoadThisYear(SeriesCollection);
                     break;
             }
         }
@@ -172,15 +172,15 @@ namespace BookingApp.WPF.Desktop.ViewModels
             collection.Clear();
             collection.Add(new PieSeries {
                 Title = "Accepted",
-                Values = new ChartValues<double> { _tourRequestService.GetThisYearAcceptedPercentage(UserId) },
+                Values = new ChartValues<double> { _tourRequestService.GetAcceptedPercentageForYear(UserId, int.Parse(Period)) },
                 Fill = SolidColorBrushes[0]
             });
             collection.Add(new PieSeries {
                 Title = "Not accepted",
-                Values = new ChartValues<double> { _tourRequestService.GetThisYearNotAcceptedPercentage(UserId) },
+                Values = new ChartValues<double> { _tourRequestService.GetNotAcceptedPercentageForYear(UserId, int.Parse(Period)) },
                 Fill = SolidColorBrushes[2]
             });
-            AvgPeopleCount = _tourRequestService.GetThisYearAveragePassengerNumber(UserId);
+            AvgPeopleCount = _tourRequestService.GetAveragePassengerNumberForYear(UserId, int.Parse(Period));
         }
     }
 }
