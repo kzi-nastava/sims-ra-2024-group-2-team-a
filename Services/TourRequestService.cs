@@ -64,11 +64,11 @@ namespace BookingApp.Services {
             return StatisticsCalculator.CalculateTouristStatistics(GetAcceptedForYear(userId, int.Parse(year)), GetByTouristIdForYear(userId, int.Parse(year)));
         }
 
-        public int GetRequestNumberByLocation(Location location, int userId) {
+        private int GetRequestNumberByLocation(Location location, int userId) {
             return GetByTouristId(userId).Where(r => r.LocationId == location.Id).Count();
         }
 
-        public int GetRequestNumberByLanguage(Language language, int userId) {
+        private int GetRequestNumberByLanguage(Language language, int userId) {
             return GetByTouristId(userId).Where(r => r.LanguageId == language.Id).Count();
         }
 
