@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.RepositoryInterfaces;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Services;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -18,7 +19,6 @@ using System.Windows.Media;
 
 namespace BookingApp.WPF.Desktop.ViewModels
 {
-    public enum StatisticsPeriod { AllTime, ThisYear }
     public class StatisticsViewModel : INotifyPropertyChanged
     {
         private readonly TourRequestService _tourRequestService = ServicesPool.GetService<TourRequestService>();
@@ -115,7 +115,6 @@ namespace BookingApp.WPF.Desktop.ViewModels
             int brushIndex = 0;
 
             foreach (var pair in _tourRequestService.GetRequestsByLocations(UserId)) {
-                //LocationLabels.Add(pair.Key.City + " - " + pair.Key.Country);
                 LocationCollection.Add(new RowSeries {
                     Title = pair.Key.City + " - " + pair.Key.Country,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(pair.Value) },
@@ -143,44 +142,20 @@ namespace BookingApp.WPF.Desktop.ViewModels
         private void LoadStatistics() {
             SeriesCollection = new SeriesCollection();
 
-            switch (Period) {
-                case "All-time":
-                    LoadAllTime(SeriesCollection);
-                    break;
-                default:
-                    LoadThisYear(SeriesCollection);
-                    break;
-            }
-        }
+            TouristStatistics statistics = _tourRequestService.GetStatistics(UserId, Period);
 
-        private void LoadAllTime(SeriesCollection collection) {
-            collection.Clear();
-            collection.Add(new PieSeries {
+            SeriesCollection.Clear();
+            SeriesCollection.Add(new PieSeries {
                 Title = "Accepted",
-                Values = new ChartValues<double> { _tourRequestService.GetAllTimeAcceptedPercentage(UserId) },
+                Values = new ChartValues<double> { statistics.AcceptedPercentage },
                 Fill = SolidColorBrushes[0]
             });
-            collection.Add(new PieSeries {
+            SeriesCollection.Add(new PieSeries {
                 Title = "Not accepted",
-                Values = new ChartValues<double> { _tourRequestService.GetAllTimeNotAcceptedPercentage(UserId) },
+                Values = new ChartValues<double> { statistics.NotAcceptedPercentage },
                 Fill = SolidColorBrushes[2]
             });
-            AvgPeopleCount = _tourRequestService.GetAllTimeAveragePassengerNumber(UserId);
-        }
-
-        private void LoadThisYear(SeriesCollection collection) {
-            collection.Clear();
-            collection.Add(new PieSeries {
-                Title = "Accepted",
-                Values = new ChartValues<double> { _tourRequestService.GetAcceptedPercentageForYear(UserId, int.Parse(Period)) },
-                Fill = SolidColorBrushes[0]
-            });
-            collection.Add(new PieSeries {
-                Title = "Not accepted",
-                Values = new ChartValues<double> { _tourRequestService.GetNotAcceptedPercentageForYear(UserId, int.Parse(Period)) },
-                Fill = SolidColorBrushes[2]
-            });
-            AvgPeopleCount = _tourRequestService.GetAveragePassengerNumberForYear(UserId, int.Parse(Period));
+            AvgPeopleCount = statistics.AveragePassengerNumber;
         }
     }
 }

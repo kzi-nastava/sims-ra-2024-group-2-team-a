@@ -86,6 +86,12 @@ namespace BookingApp.Services {
             return accepted.Sum(a => a.PassengerNumber) / (double)accepted.Count();
         }
 
+        public TouristStatistics GetStatistics(int userId, string year) {
+            if (year == "All-time")
+                return StatisticsCalculator.CalculateTouristStatistics(GetAccepted(userId), GetByTouristId(userId));
+            return StatisticsCalculator.CalculateTouristStatistics(GetAcceptedForYear(userId, int.Parse(year)), GetByTouristIdForYear(userId, int.Parse(year)));
+        }
+
         public int GetRequestNumberByLocation(Location location, int userId) {
             return GetByTouristId(userId).Where(r => r.LocationId == location.Id).Count();
         }
