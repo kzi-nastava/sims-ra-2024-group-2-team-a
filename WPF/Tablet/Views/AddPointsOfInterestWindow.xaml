@@ -11,7 +11,12 @@
         <CommandBinding Command="cmd:RoutedCommands.Cancel" CanExecute="Cancel_CanExecute" Executed="Cancel_Executed"/>
         <CommandBinding Command="cmd:RoutedCommands.Confirm" CanExecute="Add_CanExecute" Executed="Add_Executed"/>
     </Window.CommandBindings>
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+            
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Style="{StaticResource GridBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -22,13 +27,13 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.ColumnSpan="2" Margin="20,5,20,5" Content="Name:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18"/>
+        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Name:" Style="{StaticResource WindowLabel}"/>
         <TextBox Grid.Row="0" Grid.ColumnSpan="2" Margin="100,5,20,5" FontSize="16" VerticalAlignment="Center" Text="{Binding pointOfInterestDTO.Name}"/>
 
-        <Label Grid.Row="1" Grid.ColumnSpan="2" Margin="20,5,20,5" Content="Description:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18"/>
+        <Label Grid.Row="1" Grid.ColumnSpan="2" Content="Description:" Style="{StaticResource WindowLabel}"/>
         <TextBox Grid.ColumnSpan="2" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="2" Margin="20,10,20,10" FontSize="16" Text="{Binding pointOfInterestDTO.Description}"/>
 
-        <Button x:Name="addButton" Content="Add" Command="cmd:RoutedCommands.Confirm" Margin="20,5,20,5" FontSize="18" Grid.Row="3" Grid.Column="1"/>
-        <Button x:Name="cancelButton" Content="Cancel" Command="cmd:RoutedCommands.Cancel" Margin="20,5,20,5" FontSize="18" Grid.Row="3" Grid.Column="0"/>
+        <Button x:Name="addButton" Content="Add" Command="cmd:RoutedCommands.Confirm" Style="{StaticResource WindowButton}" Grid.Row="3" Grid.Column="1"/>
+        <Button x:Name="cancelButton" Content="Cancel" Command="cmd:RoutedCommands.Cancel" Style="{StaticResource WindowButton}" Grid.Row="3" Grid.Column="0"/>
     </Grid>
 </Window>

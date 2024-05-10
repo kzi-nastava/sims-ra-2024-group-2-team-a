@@ -3,6 +3,7 @@ using BookingApp.WPF.Tablet.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
@@ -22,19 +23,20 @@ namespace BookingApp.WPF.Tablet.Views {
             _mainFrame = mainF;
             _menuBarFrame = menuBarF;
         }
-        private void Close_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+        private void Close_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
             e.CanExecute = true;
         }
 
-        private void Close_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+        private void Close_Executed(object sender, ExecutedRoutedEventArgs e) {
+            MessageBox.Show("Brateee");
             _mainFrame.GoBack();
         }
 
-        private void Delete_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+        private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
             e.CanExecute = true;
         }
 
-        private void Delete_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+        private void Delete_Executed(object sender, ExecutedRoutedEventArgs e) {
             if (ViewModel.tourDTO.Beggining < DateTime.Now.AddHours(48)) {
                 MessageBox.Show("Tour is scheduled in the next 48 hours. Too late to delete it!", "Unable to delete tour", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;

@@ -50,6 +50,7 @@
         
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>
+        <SolidColorBrush x:Key="Green2" Color="#5a8c6a"/>
         <SolidColorBrush x:Key="SoftGreen" Color="#ADBC9F"/>
         <SolidColorBrush x:Key="Beige" Color="#EDEEDD"/>
     </Application.Resources>

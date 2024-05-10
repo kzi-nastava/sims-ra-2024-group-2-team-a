@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
       mc:Ignorable="d" 
       d:DesignHeight="726" d:DesignWidth="1024"
@@ -12,7 +13,12 @@
         <CommandBinding x:Name="Show" Command="cmd:RoutedCommands.Stats" CanExecute="Show_CanExecute" Executed="Show_Executed"/>
         <CommandBinding x:Name="Close" Command="cmd:RoutedCommands.Cancel" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
     </Page.CommandBindings>
-    <Grid Background="White" Margin="0,10,0,10">
+    <Page.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+            
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Margin="0,10,0,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
@@ -27,9 +33,33 @@
                 <ComboBoxItem Content="2022" Tag="2022"/>
                 <ComboBoxItem Content="2021" Tag="2021"/>
             </ComboBox>
-            <Button x:Name="showButton" Margin="0,0,40,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Command="cmd:RoutedCommands.Stats">
+            <Button x:Name="showButton"  HorizontalAlignment="Right" Command="cmd:RoutedCommands.Stats">
+                <Button.Style>
+                    <Style>
+                        <Setter Property="Button.Background" Value="{StaticResource Green}"/>
+                        <Setter Property="Button.HorizontalAlignment" Value="Right"/>
+                        <Setter Property="Button.VerticalAlignment" Value="Center"/>
+                        <Setter Property="Button.Padding" Value="0,0,0,0"/>
+                        <Setter Property="Button.Margin" Value="0,5,10,0"/>
+                        <Setter Property="Button.Width" Value="150"/>
+                        <Setter Property="Button.Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0">
+                                        <ContentPresenter Margin="{TemplateBinding Button.Padding}"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{StaticResource Beige}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
                 <StackPanel Orientation="Horizontal">
-                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold">Show</Label>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Margin="40,10,0,10" FontWeight="Bold">Show</Label>
                     <Image Source="{StaticResource EyeIcon}" Width="50" Height="50" />
                 </StackPanel>
             </Button>
@@ -49,7 +79,7 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="1.2*"/>
             </Grid.RowDefinitions>
 
             <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Margin="10" BorderBrush="Black" BorderThickness="1">
@@ -68,8 +98,8 @@
             <TextBlock Grid.Row="1" Grid.Column="2" Margin="10" Text="{Binding tourDTO.End, StringFormat=End: {0}}" FontSize="18"/>
 
             <DockPanel Grid.Row="2" Grid.Column="2" Grid.RowSpan="4">
-                <Label DockPanel.Dock="Top" Content="Description:" Margin="5" FontSize="18"/>
-                <Border BorderBrush="Black" BorderThickness="1"  Margin="10">
+                <Label DockPanel.Dock="Top" Content="Description:" HorizontalAlignment="Left" Margin="5" FontSize="18"/>
+                <Border BorderBrush="Black" BorderThickness="1" Background="{StaticResource Beige}" Padding="5" Margin="10">
                     <ScrollViewer>
                         <TextBlock TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" Text="{Binding tourDTO.Description}" FontSize="18"/>
                     </ScrollViewer>
@@ -80,7 +110,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Keypoints:" Margin="5" FontSize="18"/>
+                <Label Grid.Row="0" Content="Keypoints:" HorizontalAlignment="Left" Margin="5" FontSize="18"/>
                 <Grid Grid.Row="1" Background="White">
                     <DataGrid x:Name="dataGrid" ItemsSource="{Binding pointOfInterestDTOs}" IsReadOnly="True" 
   SelectionMode="Single" AutoGenerateColumns="False">
@@ -92,21 +122,31 @@
                     </DataGrid>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="250" Width="500">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Border Grid.RowSpan="4" BorderBrush="Black" BorderThickness="1"/>
-                <Label Grid.Row="0" FontSize="20" FontWeight="Bold" Content="Stats:"/>
-                <TextBlock Grid.Row="1" FontSize="18" Margin="10" Text="{Binding teen, StringFormat=Bellow 18 years:      {0}}"/>
-                <TextBlock Grid.Row="2" FontSize="18" Margin="10" Text="{Binding mid, StringFormat=Between 18 and 50 years:      {0}}"/>
-                <TextBlock Grid.Row="3" FontSize="18" Margin="10" Text="{Binding old, StringFormat=Over 50 years:      {0}}"/>
-            </Grid>
-            <Button x:Name="closeButton" Grid.Row="8" Grid.Column="1" Content="Close" VerticalAlignment="Center" HorizontalAlignment="Center"  Padding="10" Command="cmd:RoutedCommands.Cancel"/>
-
+            <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3"  Orientation="Horizontal">
+                <TextBlock Margin="20,0,0,0"  Foreground="Black" FontSize="25" VerticalAlignment="Center" TextWrapping="Wrap" Width="130">Number of visitors by their age:</TextBlock>
+                <Grid Margin="5,0,0,0" VerticalAlignment="Center" Height="250" Width="400">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.RowSpan="4" BorderBrush="Black" BorderThickness="1" Background="{StaticResource Beige}"/>
+                    <Label Grid.Row="0" FontSize="20" Style="{StaticResource PageLabel}" FontWeight="Bold" Content="Stats:"/>
+                    <!--<TextBlock Grid.Row="1" FontSize="18" Margin="10" Text="{Binding teen, StringFormat=Bellow 18 years:      {0}}"/>
+                    <TextBlock Grid.Row="2" FontSize="18" Margin="10" Text="{Binding mid, StringFormat=Between 18 and 50 years:      {0}}"/>
+                    <TextBlock Grid.Row="3" FontSize="18" Margin="10" Text="{Binding old, StringFormat=Over 50 years:      {0}}"/>-->
+                    <lvc:CartesianChart Series="{Binding SeriesCollection}" Grid.Row="1" Grid.RowSpan="3" Margin="10">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Age" Foreground="{StaticResource HardGreen}" FontSize="12" Labels="{Binding Labels}"></lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Visited" Foreground="{StaticResource HardGreen}" FontSize="12" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Grid>
+            </StackPanel>
+            <Button x:Name="closeButton" Grid.Row="8" Grid.Column="1" Content="Close" Style="{StaticResource BigButtons}" Command="cmd:RoutedCommands.Cancel"/>
         </Grid>
     </Grid>
 </Page>
