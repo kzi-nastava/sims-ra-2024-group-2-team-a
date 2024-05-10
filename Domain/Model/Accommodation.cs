@@ -17,12 +17,12 @@ namespace BookingApp.Domain.Model {
         public int MinReservationDays { get; set; } = 0;
         public int LastCancellationDay { get; set; } = 0;
         public int OwnerId { get; set; } = 0;
-        public List<string> ProfilePictures { get; set; } = new List<string>();
+        public List<string> Pictures { get; set; } = new List<string>();
 
         public Accommodation() { }
 
         public Accommodation(string name, int locationId, AccommodationType accomodationType,
-            int maxGuestNumber, int minReservationDays, int cancellationDate, int ownerId, List<string> profilePictures)
+            int maxGuestNumber, int minReservationDays, int cancellationDate, int ownerId, List<string> pictures)
         {
             Name = name;
             LocationId = locationId;
@@ -31,7 +31,7 @@ namespace BookingApp.Domain.Model {
             MinReservationDays = minReservationDays;
             LastCancellationDay = cancellationDate;
             OwnerId = ownerId;
-            ProfilePictures = profilePictures;
+            Pictures = pictures;
         }
 
         public string[] ToCSV()
@@ -47,12 +47,12 @@ namespace BookingApp.Domain.Model {
                 OwnerId.ToString()
                 };
 
-            if (ProfilePictures != null)
+            if (Pictures != null)
             {
-                foreach (string profilePicture in ProfilePictures)
+                foreach (string pictures in Pictures)
                 {
                     Array.Resize(ref csvValues, csvValues.Length + 1);
-                    csvValues[csvValues.Length - 1] = profilePicture;
+                    csvValues[csvValues.Length - 1] = pictures;
                 }
             }
 
@@ -69,7 +69,7 @@ namespace BookingApp.Domain.Model {
             MinReservationDays = Convert.ToInt32(values[5]);
             LastCancellationDay = Convert.ToInt32(values[6]);
             OwnerId = Convert.ToInt32(values[7]);
-            ProfilePictures.AddRange(values[8..]);
+            Pictures.AddRange(values[8..]);
         }
     }
 }
