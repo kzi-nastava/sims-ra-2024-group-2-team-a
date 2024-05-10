@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
       xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="624" d:DesignWidth="430"
       Title="AccommodationRenovationPagexaml">
@@ -101,8 +102,10 @@
         </DatePicker>
 
         <Label Content="Duration: " Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="2"/>
-        <TextBox x:Name="textBox" Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedDate, ElementName=endDatePicker, Converter={StaticResource SelectedConverter}}" 
-                 Grid.Column="1" Grid.Row="2" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Margin="0,15,0,0"/>
+        <xctk:IntegerUpDown  x:Name="textBox" Value="{Binding Duration}" 
+                             IsEnabled="{Binding SelectedDate, ElementName=endDatePicker, Converter={StaticResource SelectedConverter}}" 
+                             Grid.Column="1" Grid.Row="2" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30"
+                             Minimum="1" ClipValueToMinMax="True" HorizontalContentAlignment="Center" Margin="0,15,0,0"/>
 
         <Button Grid.Column="3" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
         IsEnabled="{Binding Duration, Converter={StaticResource CountToBoolConverter}}"
@@ -137,7 +140,7 @@
         Command="{Binding AcceptCommand}" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                 <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
-                <Label Content="Accept" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Label Content="Confirm" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
 
@@ -145,7 +148,7 @@
                 Command="{Binding DeclineCommand}" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                 <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
-                <Label Content="Decline" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Label Content="Cancel" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
     </Grid>
