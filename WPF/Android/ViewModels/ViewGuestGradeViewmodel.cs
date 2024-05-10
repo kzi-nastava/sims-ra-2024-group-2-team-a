@@ -6,7 +6,7 @@ namespace BookingApp.WPF.Android.ViewModels {
     public class ViewGuestGradeViewmodel {
 
         public AccommodationReservationDTO AccommodationReservationDTO { get; set; }
-        public ReviewDTO ReviewDTO { get; set; }
+        public AccommodationReviewDTO ReviewDTO { get; set; }
         public string GuestUsername { get; set; }
 
         private ReviewService reviewService = ServicesPool.GetService<ReviewService>();
@@ -17,7 +17,7 @@ namespace BookingApp.WPF.Android.ViewModels {
             _userService = ServicesPool.GetService<UserService>();
 
             AccommodationReservationDTO = selectedReservationDTO;
-            ReviewDTO = new ReviewDTO(reviewService.GetByReservationId(selectedReservationDTO.Id));
+            ReviewDTO = new AccommodationReviewDTO(reviewService.GetByReservationId(selectedReservationDTO.Id));
             GuestUsername = _userService.GetById(selectedReservationDTO.GuestId).Username;
         }
     }

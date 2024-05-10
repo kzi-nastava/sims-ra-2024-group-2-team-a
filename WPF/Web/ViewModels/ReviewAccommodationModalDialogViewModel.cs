@@ -9,7 +9,7 @@ namespace BookingApp.WPF.Web.ViewModels {
 
         public AccommodationReservationDTO Reservation { get; set; }
         public ImportanceType[] ImportanceTypes { get; set; } = (ImportanceType[])Enum.GetValues(typeof(ImportanceType));
-        public ReviewDTO Review { get; set; } = new ReviewDTO();
+        public AccommodationReviewDTO Review { get; set; } = new AccommodationReviewDTO();
 
         private readonly ReviewService _reviewService = ServicesPool.GetService<ReviewService>();
 

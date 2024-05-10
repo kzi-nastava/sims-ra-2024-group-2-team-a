@@ -5,12 +5,12 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 namespace BookingApp.WPF.DTO {
-    public class ReviewDTO : INotifyPropertyChanged
+    public class AccommodationReviewDTO : INotifyPropertyChanged
     {
 
-        public ReviewDTO() { }
+        public AccommodationReviewDTO() { }
 
-        public ReviewDTO(AccommodationReview review)
+        public AccommodationReviewDTO(AccommodationReview review)
         {
             Id = review.Id;
             ReservationId = review.ReservationId;

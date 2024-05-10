@@ -35,7 +35,7 @@ namespace BookingApp.Services {
             return _reviewRepository.GetByReservationId(reservationId);
         }
         
-        public void GradeGuest(ReviewDTO reviewDTO) {
+        public void GradeGuest(AccommodationReviewDTO reviewDTO) {
             AccommodationReview review = this.GetByReservationId(reviewDTO.ReservationId);
             if (review == null) {
                 _reviewRepository.Save(reviewDTO.ToReview());
@@ -48,7 +48,7 @@ namespace BookingApp.Services {
             _reviewRepository.Update(review);
         }
 
-        public void GradeOwner(ReviewDTO reviewDTO) {
+        public void GradeOwner(AccommodationReviewDTO reviewDTO) {
             AccommodationReview review = this.GetByReservationId(reviewDTO.ReservationId);
             if (review == null) {
                 _reviewRepository.Save(reviewDTO.ToReview());

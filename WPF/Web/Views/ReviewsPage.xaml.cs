@@ -36,7 +36,7 @@ namespace BookingApp.WPF.Web.Views {
             var reviews = _reviewService.GetByGuestId(guestId).OrderByDescending(r => r.Id).ToList();
 
             foreach(var review in reviews) {
-                ReviewDTO reviewDTO = new ReviewDTO(review);
+                AccommodationReviewDTO reviewDTO = new AccommodationReviewDTO(review);
 
                 if (!reviewDTO.IsGradedByOwner && reviewDTO.IsGradedByGuest)
                     continue;
