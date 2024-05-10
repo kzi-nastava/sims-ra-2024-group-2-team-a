@@ -23,20 +23,20 @@ namespace BookingApp.Services {
             _accommodationStatisticsService = accommodationStatisticsService;
         }
         
-        public List<Review> GetByGuestId(int ownerId) { 
+        public List<AccommodationReview> GetByGuestId(int ownerId) { 
             return _reviewRepository.GetByGuestId(ownerId);
         }
 
-        public List<Review> GetByOwnerId(int ownerId) {
+        public List<AccommodationReview> GetByOwnerId(int ownerId) {
             return _reviewRepository.GetByOwnerId(ownerId);
         }
 
-        public Review GetByReservationId(int reservationId) {
+        public AccommodationReview GetByReservationId(int reservationId) {
             return _reviewRepository.GetByReservationId(reservationId);
         }
         
         public void GradeGuest(ReviewDTO reviewDTO) {
-            Review review = this.GetByReservationId(reviewDTO.ReservationId);
+            AccommodationReview review = this.GetByReservationId(reviewDTO.ReservationId);
             if (review == null) {
                 _reviewRepository.Save(reviewDTO.ToReview());
                 return;
@@ -49,7 +49,7 @@ namespace BookingApp.Services {
         }
 
         public void GradeOwner(ReviewDTO reviewDTO) {
-            Review review = this.GetByReservationId(reviewDTO.ReservationId);
+            AccommodationReview review = this.GetByReservationId(reviewDTO.ReservationId);
             if (review == null) {
                 _reviewRepository.Save(reviewDTO.ToReview());
                 _ownerService.AdjustSuperOwner(reviewDTO.OwnerId);
@@ -72,7 +72,7 @@ namespace BookingApp.Services {
         }
 
         public bool IsGradedByGuest(int reservationId) {
-            Review review = this.GetByReservationId(reservationId);
+            AccommodationReview review = this.GetByReservationId(reservationId);
             if (review == null) {
                 return false;
             }
@@ -83,7 +83,7 @@ namespace BookingApp.Services {
         }
         
         public bool IsGradedByOwner(int reservationId) {
-            Review review = this.GetByReservationId(reservationId);
+            AccommodationReview review = this.GetByReservationId(reservationId);
             if (review == null) {
                 return false;
             }

@@ -5,16 +5,16 @@ using System.Linq;
 
 namespace BookingApp.Repository {
 
-    public class ReviewRepository : Repository<Review>, IReviewRepository {
-        public Review GetByReservationId(int id) {
+    public class ReviewRepository : Repository<AccommodationReview>, IReviewRepository {
+        public AccommodationReview GetByReservationId(int id) {
             return _serializer.FromCSV().Find(x => x.ReservationId == id);
         }
 
-        public List<Review> GetByOwnerId(int ownerId) {
+        public List<AccommodationReview> GetByOwnerId(int ownerId) {
             return _serializer.FromCSV().Where(review => review.OwnerId == ownerId).ToList();
         }
 
-        public List<Review> GetByGuestId(int guestId) {
+        public List<AccommodationReview> GetByGuestId(int guestId) {
             return _serializer.FromCSV().Where(review => review.GuestId == guestId).ToList();
         }
 

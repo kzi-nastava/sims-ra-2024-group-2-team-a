@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 
 namespace BookingApp.Domain.RepositoryInterfaces {
-    public interface IReviewRepository : IRepository<Review>
+    public interface IReviewRepository : IRepository<AccommodationReview>
     {
-        Review GetByReservationId(int id);
-        List<Review> GetByOwnerId(int ownerId);
-        List<Review> GetByGuestId(int guestId);
+        AccommodationReview GetByReservationId(int id);
+        List<AccommodationReview> GetByOwnerId(int ownerId);
+        List<AccommodationReview> GetByGuestId(int guestId);
     }
 }
