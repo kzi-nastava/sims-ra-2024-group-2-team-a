@@ -10,6 +10,27 @@
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
+        <Style TargetType="Button" x:Key="DisabledButtonStyle">
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5a8c6b"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Window.Resources>
     <Grid Background="{StaticResource Beige}">
         <Grid.ColumnDefinitions>
@@ -60,8 +81,17 @@
         <Label Grid.Row="5" Content="Additional Comments: " FontSize="14" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontFamily="Global Sans Serif"/>
         <TextBox Grid.Row="6" Text="{Binding ReviewDTO.OwnerComment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="13" Grid.Column="0" Grid.ColumnSpan="2" Width="250" Height="50"  HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Global Sans Serif"/>
 
-        <Button x:Name="CancelButton" Grid.Row="7" Height="50" Width="100" Content="Cancel" Click="CancelButton_Click" Background="{StaticResource Green}"/>
-        <Button x:Name="DoneButton" Grid.Row="7" Grid.Column="1" Height="50" Width="100" Content="Done" Click="DoneButton_Click" Background="{StaticResource Green}"/>
-        
+        <Button x:Name="CancelButton" Grid.Row="7" Height="50" Width="130" Click="CancelButton_Click" Style="{StaticResource DisabledButtonStyle}">
+            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
+                <Label Content="Cancel" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="DoneButton" Grid.Row="7" Grid.Column="1" Height="50" Width="130" Click="DoneButton_Click" Style="{StaticResource DisabledButtonStyle}">
+            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
+                <Label Content="Confirm" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

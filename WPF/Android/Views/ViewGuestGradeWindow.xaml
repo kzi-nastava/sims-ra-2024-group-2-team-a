@@ -51,8 +51,13 @@
                    Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
                    FontWeight="Medium" Width="220.5" Height="75" Margin="5,0,0,0"/>
-        
-        <Button Content="Done" Grid.Column="1" Grid.Row="5" Height="80" Width="80" VerticalAlignment="Top" Margin="50,0,0,0" Click="Button_Click"
-                Background="{StaticResource Green}"/>
+
+        <Button Grid.Column="1" Grid.Row="5" Height="80" Width="80" VerticalAlignment="Top" Margin="50,0,0,0" Click="Button_Click"
+                Background="{StaticResource Green}">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="{StaticResource ConfirmIcon}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Confirm" FontSize="16"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

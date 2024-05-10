@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using BookingApp.WPF.Utils.Validation;
 using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
@@ -31,12 +32,17 @@ namespace BookingApp.WPF.Android.Views {
 
             _user = user;
             AccommodationDTO = new AccommodationDTO();
+            AccommodationDTO.MinReservationDays = 1;
+            AccommodationDTO.MaxGuestNumber = 1;
+            AccommodationDTO.LastCancellationDay = 1;
             AccommodationDTO.OwnerId = _user.Id;
             LocationDTOs = new ObservableCollection<LocationDTO>();
 
             foreach (var loc in locationService.GetAll()) {
                 LocationDTOs.Add(new LocationDTO(loc));
             }
+
+            nameTextbox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
         }
 
         private void Decline_Click(object sender, RoutedEventArgs e) {
