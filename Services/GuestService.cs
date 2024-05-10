@@ -26,7 +26,7 @@ namespace BookingApp.Services {
         public void PromoteOrDecreaseBonusPoints(int guestId, int reservationsCount) {
             Guest guest = this.GetById(guestId);
 
-            if (guest.IsSuperGuest) {
+            if (guest.IsSuper) {
                 this.DecrementGuestPoints(guestId);
                 return;
             }
@@ -38,7 +38,7 @@ namespace BookingApp.Services {
 
         public void PromoteToSuperGuest(int guestId) {
             Guest guest = _guestRepository.GetById(guestId);
-            guest.IsSuperGuest = true;
+            guest.IsSuper = true;
             guest.SuperGuestExpirationDate = DateOnly.FromDateTime(DateTime.Now.AddYears(1));
             guest.BonusPoints = Guest.SuperGuestStartPoints;
             _guestRepository.Update(guest);

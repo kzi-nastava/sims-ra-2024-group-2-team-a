@@ -9,13 +9,13 @@ namespace BookingApp.Services {
 
         private readonly IOwnerRepository _ownerRepository;
 
-        private ReviewService _reviewService;
+        private AccommodationReviewService _reviewService;
 
         public OwnerService(IOwnerRepository ownerRepository) {
             _ownerRepository = ownerRepository;
         }
 
-        public void InjectServices(ReviewService reviewService) {
+        public void InjectServices(AccommodationReviewService reviewService) {
             _reviewService = reviewService;
         }
 
@@ -48,11 +48,11 @@ namespace BookingApp.Services {
         }
 
         private int CalculateOwnerAverageGrade(Owner owner) {
-            List<Review> reviews = _reviewService.GetByOwnerId(owner.UserId);
+            List<AccommodationReview> reviews = _reviewService.GetByOwnerId(owner.UserId);
 
             double sum = 0;
             int numberOfReviews = 0;
-            foreach (Review review in reviews) {
+            foreach (AccommodationReview review in reviews) {
                 if (!IsOwnerGraded(review)) {
                     continue;
                 }
@@ -67,7 +67,7 @@ namespace BookingApp.Services {
             return numberOfReviews;
         }
 
-        private bool IsOwnerGraded(Review review) {
+        private bool IsOwnerGraded(AccommodationReview review) {
             if (review.OwnerCorrectnessGrade != 0 && review.AccommodationCleannessGrade != 0) {
                 return true;
             }

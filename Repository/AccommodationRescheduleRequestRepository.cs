@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 namespace BookingApp.Repository {
 
-    public class RescheduleRequestRepository : Repository<RescheduleRequest>, IRescheduleRequestRepository {
+    public class AccommodationRescheduleRequestRepository : Repository<AccommodationRescheduleRequest>, IAccommodationRescheduleRequestRepository {
 
-        public List<RescheduleRequest> GetPendingRequestsByOwnerId(int ownerId) {
+        public List<AccommodationRescheduleRequest> GetPendingRequestsByOwnerId(int ownerId) {
             return this.GetAll().FindAll(x => x.OwnerId == ownerId && x.Status == RescheduleRequestStatus.Pending);
         }
 
-        public List<RescheduleRequest> GetByReservationId(int reservationId) {
+        public List<AccommodationRescheduleRequest> GetByReservationId(int reservationId) {
             return this.GetAll().FindAll(x => x.ReservationId == reservationId);
         }
 
-        public List<RescheduleRequest> GetByGuestId(int guestId) {
+        public List<AccommodationRescheduleRequest> GetByGuestId(int guestId) {
             return this.GetAll().FindAll(x => x.GuestId == guestId);
         }
     }

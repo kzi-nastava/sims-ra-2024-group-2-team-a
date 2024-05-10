@@ -33,7 +33,7 @@ namespace BookingApp.WPF.DTO {
             MinReservationDays = acc.MinReservationDays;
             LastCancellationDay = acc.LastCancellationDay;
             OwnerId = acc.OwnerId;
-            ProfilePictures = acc.ProfilePictures;
+            ProfilePictures = acc.Pictures;
         }
 
         public int Id { get; set; } = 0;

@@ -5,12 +5,12 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 namespace BookingApp.WPF.DTO {
-    public class ReviewDTO : INotifyPropertyChanged
+    public class AccommodationReviewDTO : INotifyPropertyChanged
     {
 
-        public ReviewDTO() { }
+        public AccommodationReviewDTO() { }
 
-        public ReviewDTO(Review review)
+        public AccommodationReviewDTO(AccommodationReview review)
         {
             Id = review.Id;
             ReservationId = review.ReservationId;
@@ -192,9 +192,9 @@ namespace BookingApp.WPF.DTO {
 
         public List<string> AccommodationPhotos { get; set; } = new List<string>();
 
-        public Review ToReview()
+        public AccommodationReview ToReview()
         {
-            var review = new Review(ReservationId, GuestId, OwnerId, GuestCleannessGrade, RuleFollowingGrade, OwnerComment, AccommodationCleannessGrade, OwnerCorrectnessGrade, GuestComment, RequiresRenovation, Importance, RenovationComment, AccommodationPhotos);
+            var review = new AccommodationReview(ReservationId, GuestId, OwnerId, GuestCleannessGrade, RuleFollowingGrade, OwnerComment, AccommodationCleannessGrade, OwnerCorrectnessGrade, GuestComment, RequiresRenovation, Importance, RenovationComment, AccommodationPhotos);
             review.Id = Id;
             return review;
         }

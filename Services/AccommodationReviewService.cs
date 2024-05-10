@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Windows.Documents;
 
 namespace BookingApp.Services {
-    public class ReviewService {
+    public class AccommodationReviewService {
         
-        private readonly IReviewRepository _reviewRepository;
+        private readonly IAccommodationReviewRepository _reviewRepository;
 
         private AccommodationReservationService _reservationService;
         private OwnerService _ownerService;
         private AccommodationStatisticsService _accommodationStatisticsService;
         
-        public ReviewService(IReviewRepository reviewRepository) {
+        public AccommodationReviewService(IAccommodationReviewRepository reviewRepository) {
             _reviewRepository = reviewRepository;
         }
 
@@ -23,20 +23,20 @@ namespace BookingApp.Services {
             _accommodationStatisticsService = accommodationStatisticsService;
         }
         
-        public List<Review> GetByGuestId(int ownerId) { 
+        public List<AccommodationReview> GetByGuestId(int ownerId) { 
             return _reviewRepository.GetByGuestId(ownerId);
         }
 
-        public List<Review> GetByOwnerId(int ownerId) {
+        public List<AccommodationReview> GetByOwnerId(int ownerId) {
             return _reviewRepository.GetByOwnerId(ownerId);
         }
 
-        public Review GetByReservationId(int reservationId) {
+        public AccommodationReview GetByReservationId(int reservationId) {
             return _reviewRepository.GetByReservationId(reservationId);
         }
         
-        public void GradeGuest(ReviewDTO reviewDTO) {
-            Review review = this.GetByReservationId(reviewDTO.ReservationId);
+        public void GradeGuest(AccommodationReviewDTO reviewDTO) {
+            AccommodationReview review = this.GetByReservationId(reviewDTO.ReservationId);
             if (review == null) {
                 _reviewRepository.Save(reviewDTO.ToReview());
                 return;
@@ -48,8 +48,8 @@ namespace BookingApp.Services {
             _reviewRepository.Update(review);
         }
 
-        public void GradeOwner(ReviewDTO reviewDTO) {
-            Review review = this.GetByReservationId(reviewDTO.ReservationId);
+        public void GradeOwner(AccommodationReviewDTO reviewDTO) {
+            AccommodationReview review = this.GetByReservationId(reviewDTO.ReservationId);
             if (review == null) {
                 _reviewRepository.Save(reviewDTO.ToReview());
                 _ownerService.AdjustSuperOwner(reviewDTO.OwnerId);
@@ -72,7 +72,7 @@ namespace BookingApp.Services {
         }
 
         public bool IsGradedByGuest(int reservationId) {
-            Review review = this.GetByReservationId(reservationId);
+            AccommodationReview review = this.GetByReservationId(reservationId);
             if (review == null) {
                 return false;
             }
@@ -83,7 +83,7 @@ namespace BookingApp.Services {
         }
         
         public bool IsGradedByOwner(int reservationId) {
-            Review review = this.GetByReservationId(reservationId);
+            AccommodationReview review = this.GetByReservationId(reservationId);
             if (review == null) {
                 return false;
             }

@@ -9,7 +9,7 @@ namespace BookingApp.Domain.Model {
         Level_1, Level_2, Level_3, Level_4, Level_5
     }
 
-    public class Review : ISerializable, IIdentifiable
+    public class AccommodationReview : ISerializable, IIdentifiable
     {
 
         public int Id { get; set; } = 0;
@@ -27,16 +27,16 @@ namespace BookingApp.Domain.Model {
         public string RenovationComment { get; set; } = "";
         public List<string> AccommodationPhotos { get; set; } = new List<string>();
 
-        public Review() { }
+        public AccommodationReview() { }
 
-        public Review(int resId, int guestId, int ownerId)
+        public AccommodationReview(int resId, int guestId, int ownerId)
         {
             ReservationId = resId;
             GuestId = guestId;
             OwnerId = ownerId;
         }
 
-        public Review(int resId, int guestId, int ownerId, int guestCleannessGrade, int ruleFollowingGrade,
+        public AccommodationReview(int resId, int guestId, int ownerId, int guestCleannessGrade, int ruleFollowingGrade,
             string ownerComment, int accommodationCleannessGrade, int ownerCorrectnessGrade, string guestComment,
             bool requiresRenovation, ImportanceType importance, string renovationComment, List<string> accommodationPhotos)
         {

@@ -9,9 +9,9 @@ namespace BookingApp.WPF.Android.Views {
     /// </summary>
     public partial class AssignGradeWindow : Window {
         public AccommodationReservationDTO AccReservationDTO { get; set; }
-        public ReviewDTO ReviewDTO { get; set; }
+        public AccommodationReviewDTO ReviewDTO { get; set; }
 
-        private ReviewService reviewService = ServicesPool.GetService<ReviewService>();
+        private AccommodationReviewService reviewService = ServicesPool.GetService<AccommodationReviewService>();
 
         private int _ownerId;
 
@@ -24,7 +24,7 @@ namespace BookingApp.WPF.Android.Views {
 
             AccReservationDTO = accResDTO;
             _ownerId = ownerId;
-            ReviewDTO = new ReviewDTO();
+            ReviewDTO = new AccommodationReviewDTO();
             _reservationReviewsViewmodel = viewmodel;
 
             UserService userService = ServicesPool.GetService<UserService>();

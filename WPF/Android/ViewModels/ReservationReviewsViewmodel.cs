@@ -14,15 +14,15 @@ namespace BookingApp.WPF.Android.ViewModels {
 
         private AccommodationService accommodationService = ServicesPool.GetService<AccommodationService>(); 
 
-        private ReviewService reviewService = ServicesPool.GetService<ReviewService>();
+        private AccommodationReviewService reviewService = ServicesPool.GetService<AccommodationReviewService>();
 
         private AccommodationReservationService accReservationService = ServicesPool.GetService<AccommodationReservationService>();
 
-        private RescheduleRequestService requestService = ServicesPool.GetService<RescheduleRequestService>();
+        private AccommodationRescheduleRequestService requestService = ServicesPool.GetService<AccommodationRescheduleRequestService>();
 
         private User _user;
         public ObservableCollection<AccommodationReservationDTO> ReservationCollection { get; set; }
-        public ObservableCollection<RescheduleRequestDTO> RescheduleRequestDTOs { get; set; }
+        public ObservableCollection<AccommodationRescheduleRequestDTO> RescheduleRequestDTOs { get; set; }
 
         public AccommodationReservationDTO _selectedReservation;
         public AccommodationReservationDTO SelectedReservation {
@@ -36,14 +36,14 @@ namespace BookingApp.WPF.Android.ViewModels {
                 }
             }
         }
-        public RescheduleRequestDTO SelectedRequest { get; set; }
+        public AccommodationRescheduleRequestDTO SelectedRequest { get; set; }
         public AndroidCommand AcceptButtonCommand{ get; set;}
         public AndroidCommand DeclineButtonCommand { get; set; }
         public ReservationReviewsViewmodel(User user) {
             _user = user;
 
             ReservationCollection = new ObservableCollection<AccommodationReservationDTO>();
-            RescheduleRequestDTOs = new ObservableCollection<RescheduleRequestDTO>();
+            RescheduleRequestDTOs = new ObservableCollection<AccommodationRescheduleRequestDTO>();
 
             Update();
 
@@ -58,8 +58,8 @@ namespace BookingApp.WPF.Android.ViewModels {
 
         private void FillRescheduleRequestCollection() {
             RescheduleRequestDTOs.Clear();
-            foreach (RescheduleRequest request in requestService.GetSortedRequestsByOwnerId(_user.Id)) {
-                RescheduleRequestDTO rescheduleRequestDTO = new RescheduleRequestDTO(request);
+            foreach (AccommodationRescheduleRequest request in requestService.GetSortedRequestsByOwnerId(_user.Id)) {
+                AccommodationRescheduleRequestDTO rescheduleRequestDTO = new AccommodationRescheduleRequestDTO(request);
                 AccommodationReservation accommodationReservation = accReservationService.GetById(request.ReservationId);
 
                 rescheduleRequestDTO.SetDates();
@@ -135,7 +135,7 @@ namespace BookingApp.WPF.Android.ViewModels {
             accommodationReservation.EndDate = SelectedRequest.NewEndDate;
             accReservationService.Update(accommodationReservation);
 
-            RescheduleRequest rescheduleRequest = SelectedRequest.ToRescheduleRequest();
+            AccommodationRescheduleRequest rescheduleRequest = SelectedRequest.ToRescheduleRequest();
             rescheduleRequest.Status = RescheduleRequestStatus.Approved;
             requestService.Update(rescheduleRequest);
 

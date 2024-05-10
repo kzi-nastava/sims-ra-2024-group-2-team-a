@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace BookingApp.WPF.DTO {
-    public class RescheduleRequestDTO : INotifyPropertyChanged
+    public class AccommodationRescheduleRequestDTO : INotifyPropertyChanged
     {
 
-        public RescheduleRequestDTO() { }
+        public AccommodationRescheduleRequestDTO() { }
 
-        public RescheduleRequestDTO(RescheduleRequest request)
+        public AccommodationRescheduleRequestDTO(AccommodationRescheduleRequest request)
         {
             Id = request.Id;
             Status = request.Status;
@@ -22,7 +22,7 @@ namespace BookingApp.WPF.DTO {
             Duration = request.ReservationDuration;
         }
 
-        public RescheduleRequestDTO(RescheduleRequestStatus status, int reservationId, int guestId, int ownerId, DateOnly oldStartDate, DateOnly newStartDate, int duration, string ownerComment)
+        public AccommodationRescheduleRequestDTO(RescheduleRequestStatus status, int reservationId, int guestId, int ownerId, DateOnly oldStartDate, DateOnly newStartDate, int duration, string ownerComment)
         {
             Status = status;
             ReservationId = reservationId;
@@ -287,9 +287,9 @@ namespace BookingApp.WPF.DTO {
             NewDates = NewStartDate.ToString("dd-MM-yyyy") + "\n" + NewEndDate.ToString("dd-MM-yyyy");
         }
 
-        public RescheduleRequest ToRescheduleRequest()
+        public AccommodationRescheduleRequest ToRescheduleRequest()
         {
-            RescheduleRequest rescheduleRequest = new RescheduleRequest(Status, ReservationId, GuestId, OwnerId, OldStartDate, NewStartDate, Duration, OwnerComment);
+            AccommodationRescheduleRequest rescheduleRequest = new AccommodationRescheduleRequest(Status, ReservationId, GuestId, OwnerId, OldStartDate, NewStartDate, Duration, OwnerComment);
             rescheduleRequest.Id = Id;
             return rescheduleRequest;
         }
