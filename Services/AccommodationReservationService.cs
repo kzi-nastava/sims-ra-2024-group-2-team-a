@@ -48,13 +48,13 @@ namespace BookingApp.Services {
         }
 
         public AccommodationReservation Save(AccommodationReservation reservation) {
-
-            _statisticService.UpdateReservationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate);
           
             AccommodationReservation newReservation = _reservationRepository.Save(reservation);
 
             int reservationsCount = _reservationRepository.CountReservationsInLastYear(newReservation.GuestId);
             _guestService.ManageGuestStatus(newReservation.GuestId, reservationsCount);
+
+            _statisticService.UpdateReservationStatisticsAndCheckDates(newReservation.AccommodationId, reservation.StartDate, reservation.EndDate);
 
             return newReservation;
         }

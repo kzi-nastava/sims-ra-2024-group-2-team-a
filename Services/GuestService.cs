@@ -16,7 +16,15 @@ namespace BookingApp.Services {
         }
 
         public Guest GetById(int id) {
-            return _guestRepository.GetById(id);
+            Guest guest = _guestRepository.GetById(id);
+
+            DateOnly nowDate = DateOnly.FromDateTime(DateTime.Now);
+
+            if(nowDate > guest.SuperGuestExpirationDate) {
+                DemoteSuperGuest(guest);
+            }
+
+            return guest;
         }
 
         public Guest Save(Guest guest) {
@@ -24,29 +32,34 @@ namespace BookingApp.Services {
         }
 
         public void ManageGuestStatus(int guestId, int reservationsCount) {
-            Guest guest = this.GetById(guestId);
+            Guest guest = _guestRepository.GetById(guestId);
 
             if (guest.IsSuper) {
-                this.DecrementGuestPoints(guestId);
+                this.DecrementGuestPoints(guest);
                 return;
             }
 
             if (reservationsCount >= Guest.SuperGuestReservationsCount) {
-                this.PromoteToSuperGuest(guestId);
+                this.PromoteToSuperGuest(guest);
                 return;
             }
         }
 
-        public void PromoteToSuperGuest(int guestId) {
-            Guest guest = _guestRepository.GetById(guestId);
+        public void PromoteToSuperGuest(Guest guest) {
             guest.IsSuper = true;
             guest.SuperGuestExpirationDate = DateOnly.FromDateTime(DateTime.Now.AddYears(1));
             guest.BonusPoints = Guest.SuperGuestStartPoints;
             _guestRepository.Update(guest);
         }
 
-        public void DecrementGuestPoints(int guestId) {
-            Guest guest = _guestRepository.GetById(guestId);
+        public void DemoteSuperGuest(Guest guest) {
+            guest.IsSuper = false;
+            guest.SuperGuestExpirationDate = new DateOnly();
+            guest.BonusPoints = 0;
+            _guestRepository.Update(guest);
+        }
+
+        public void DecrementGuestPoints(Guest guest) {
             guest.BonusPoints = Math.Max(0, guest.BonusPoints - 1);
             _guestRepository.Update(guest);
         }
