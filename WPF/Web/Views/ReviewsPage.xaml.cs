@@ -27,7 +27,7 @@ namespace BookingApp.WPF.Web.Views {
 
         private int _guestId;
 
-        private readonly ReviewService _reviewService = ServicesPool.GetService<ReviewService>();
+        private readonly AccommodationReviewService _reviewService = ServicesPool.GetService<AccommodationReviewService>();
 
         public ReviewsPage(int guestId) {
             InitializeComponent();

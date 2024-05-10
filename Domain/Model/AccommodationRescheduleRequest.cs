@@ -11,7 +11,7 @@ namespace BookingApp.Domain.Model {
         Cancelled
     }
 
-    public class RescheduleRequest : ISerializable, IIdentifiable
+    public class AccommodationRescheduleRequest : ISerializable, IIdentifiable
     {
 
         public int Id { get; set; } = 0;
@@ -24,9 +24,9 @@ namespace BookingApp.Domain.Model {
         public int ReservationDuration { get; set; } = 0;
         public string OwnerComment { get; set; } = "";
 
-        public RescheduleRequest() { }
+        public AccommodationRescheduleRequest() { }
 
-        public RescheduleRequest(RescheduleRequestStatus status, int resId, int guestId, int ownerId, DateOnly oldStartDate, DateOnly newStartDate, int duration, string ownerComment)
+        public AccommodationRescheduleRequest(RescheduleRequestStatus status, int resId, int guestId, int ownerId, DateOnly oldStartDate, DateOnly newStartDate, int duration, string ownerComment)
         {
             Status = status;
             ReservationId = resId;

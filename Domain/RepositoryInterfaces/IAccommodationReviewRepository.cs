@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace BookingApp.Domain.RepositoryInterfaces {
-    public interface IReviewRepository : IRepository<AccommodationReview>
+    public interface IAccommodationReviewRepository : IRepository<AccommodationReview>
     {
         AccommodationReview GetByReservationId(int id);
         List<AccommodationReview> GetByOwnerId(int ownerId);

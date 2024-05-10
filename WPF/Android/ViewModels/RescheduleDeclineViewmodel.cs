@@ -5,15 +5,15 @@ using BookingApp.WPF.DTO;
 namespace BookingApp.WPF.Android.ViewModels {
     public class RescheduleDeclineViewmodel {
 
-        private RescheduleRequestService rescheduleRequestService = ServicesPool.GetService<RescheduleRequestService>();
+        private AccommodationRescheduleRequestService rescheduleRequestService = ServicesPool.GetService<AccommodationRescheduleRequestService>();
 
-        public RescheduleRequestDTO RescheduleRequestDTO { get; set; }
-        public RescheduleDeclineViewmodel(RescheduleRequestDTO rescheduleRequestDTO) {
+        public AccommodationRescheduleRequestDTO RescheduleRequestDTO { get; set; }
+        public RescheduleDeclineViewmodel(AccommodationRescheduleRequestDTO rescheduleRequestDTO) {
             RescheduleRequestDTO = rescheduleRequestDTO;
         }
 
         public void DeclineRequest() {
-            RescheduleRequest rescheduleRequest = RescheduleRequestDTO.ToRescheduleRequest();
+            AccommodationRescheduleRequest rescheduleRequest = RescheduleRequestDTO.ToRescheduleRequest();
             rescheduleRequest.Status = RescheduleRequestStatus.Rejected;
             rescheduleRequestService.Update(rescheduleRequest);
         }

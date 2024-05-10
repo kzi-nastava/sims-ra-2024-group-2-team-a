@@ -9,7 +9,7 @@ namespace BookingApp.WPF.Android.ViewModels {
         public AccommodationReviewDTO ReviewDTO { get; set; }
         public string GuestUsername { get; set; }
 
-        private ReviewService reviewService = ServicesPool.GetService<ReviewService>();
+        private AccommodationReviewService reviewService = ServicesPool.GetService<AccommodationReviewService>();
 
         private readonly UserService _userService;
 

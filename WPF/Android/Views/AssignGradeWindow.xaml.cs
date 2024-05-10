@@ -11,7 +11,7 @@ namespace BookingApp.WPF.Android.Views {
         public AccommodationReservationDTO AccReservationDTO { get; set; }
         public AccommodationReviewDTO ReviewDTO { get; set; }
 
-        private ReviewService reviewService = ServicesPool.GetService<ReviewService>();
+        private AccommodationReviewService reviewService = ServicesPool.GetService<AccommodationReviewService>();
 
         private int _ownerId;
 

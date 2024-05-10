@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BookingApp.Repository {
 
-    public class ReviewRepository : Repository<AccommodationReview>, IReviewRepository {
+    public class AccommodationReviewRepository : Repository<AccommodationReview>, IAccommodationReviewRepository {
         public AccommodationReview GetByReservationId(int id) {
             return _serializer.FromCSV().Find(x => x.ReservationId == id);
         }

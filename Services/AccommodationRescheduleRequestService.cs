@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Services {
-    public class RescheduleRequestService
+    public class AccommodationRescheduleRequestService
     {
-        private readonly IRescheduleRequestRepository _requestRepository;
+        private readonly IAccommodationRescheduleRequestRepository _requestRepository;
 
-        public RescheduleRequestService(IRescheduleRequestRepository requestRepository) {
+        public AccommodationRescheduleRequestService(IAccommodationRescheduleRequestRepository requestRepository) {
             _requestRepository = requestRepository;
         }
 
-        public List<RescheduleRequest> GetAll() {
+        public List<AccommodationRescheduleRequest> GetAll() {
             return _requestRepository.GetAll();
         }
 
@@ -21,11 +21,11 @@ namespace BookingApp.Services {
             return _requestRepository.Delete(request);
         }
 
-        public RescheduleRequest Save(RescheduleRequest request) {
+        public AccommodationRescheduleRequest Save(AccommodationRescheduleRequest request) {
             return _requestRepository.Save(request);
         }
         
-        public bool Update(RescheduleRequest rescheduleRequest) {
+        public bool Update(AccommodationRescheduleRequest rescheduleRequest) {
             return _requestRepository.Update(rescheduleRequest);
         }
 
@@ -39,20 +39,20 @@ namespace BookingApp.Services {
             return true;
         }
 
-        public List<RescheduleRequest> GetPendingRequestsByOwnerId(int ownerId) {
+        public List<AccommodationRescheduleRequest> GetPendingRequestsByOwnerId(int ownerId) {
             return _requestRepository.GetPendingRequestsByOwnerId(ownerId);
         }
 
-        public List<RescheduleRequest> GetByReservationId(int reservationId) {
+        public List<AccommodationRescheduleRequest> GetByReservationId(int reservationId) {
             return _requestRepository.GetByReservationId(reservationId);
         }
 
-        public List<RescheduleRequest> GetByGuestId(int guestId) {
+        public List<AccommodationRescheduleRequest> GetByGuestId(int guestId) {
             return _requestRepository.GetByGuestId(guestId);
         }
 
-        public List<RescheduleRequest> GetSortedRequestsByOwnerId(int ownerId) {
-            List<RescheduleRequest> requests = this.GetAll().FindAll(x => x.OwnerId == ownerId);
+        public List<AccommodationRescheduleRequest> GetSortedRequestsByOwnerId(int ownerId) {
+            List<AccommodationRescheduleRequest> requests = this.GetAll().FindAll(x => x.OwnerId == ownerId);
             return requests.OrderBy(x => x.Status).ToList();
         }
     }

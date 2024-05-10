@@ -9,13 +9,13 @@ namespace BookingApp.Services {
 
         private readonly IOwnerRepository _ownerRepository;
 
-        private ReviewService _reviewService;
+        private AccommodationReviewService _reviewService;
 
         public OwnerService(IOwnerRepository ownerRepository) {
             _ownerRepository = ownerRepository;
         }
 
-        public void InjectServices(ReviewService reviewService) {
+        public void InjectServices(AccommodationReviewService reviewService) {
             _reviewService = reviewService;
         }
 

@@ -12,8 +12,8 @@ namespace BookingApp.WPF.Web.ViewModels {
         private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         private readonly AccommodationService _accommodationService = ServicesPool.GetService<AccommodationService>();
         private readonly AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
-        private readonly RescheduleRequestService _rescheduleRequestService = ServicesPool.GetService<RescheduleRequestService>();
-        private readonly ReviewService _reviewService = ServicesPool.GetService<ReviewService>();
+        private readonly AccommodationRescheduleRequestService _rescheduleRequestService = ServicesPool.GetService<AccommodationRescheduleRequestService>();
+        private readonly AccommodationReviewService _reviewService = ServicesPool.GetService<AccommodationReviewService>();
 
         private ObservableCollection<LocationDTO> _locationDTOs;
         private ObservableCollection<AccommodationDTO> _accommodationDTOs;
@@ -36,8 +36,8 @@ namespace BookingApp.WPF.Web.ViewModels {
             }
         }
 
-        private ObservableCollection<RescheduleRequestDTO> _rescheduleRequestDTOs;
-        public ObservableCollection<RescheduleRequestDTO> RescheduleRequests {
+        private ObservableCollection<AccommodationRescheduleRequestDTO> _rescheduleRequestDTOs;
+        public ObservableCollection<AccommodationRescheduleRequestDTO> RescheduleRequests {
             get { return _rescheduleRequestDTOs; }
             set {
                 _rescheduleRequestDTOs = value;
@@ -84,8 +84,8 @@ namespace BookingApp.WPF.Web.ViewModels {
         public void UpdateRescheduleRequestDTOs() {
 
             var rescheduleRequests = _rescheduleRequestService.GetByGuestId(_guestId);
-            var dtos = rescheduleRequests.Select(r => new RescheduleRequestDTO(r)).OrderByDescending(r => r.Id);
-            RescheduleRequests = new ObservableCollection<RescheduleRequestDTO>(dtos);
+            var dtos = rescheduleRequests.Select(r => new AccommodationRescheduleRequestDTO(r)).OrderByDescending(r => r.Id);
+            RescheduleRequests = new ObservableCollection<AccommodationRescheduleRequestDTO>(dtos);
 
             foreach (var req in RescheduleRequests) {
                 var res = Reservations.FirstOrDefault(res => res.Id == req.ReservationId);

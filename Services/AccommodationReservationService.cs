@@ -10,19 +10,19 @@ namespace BookingApp.Services {
     {
         private readonly IAccommodationReservationRepository _reservationRepository;
 
-        private RescheduleRequestService _rescheduleService;
+        private AccommodationRescheduleRequestService _rescheduleService;
         private AccommodationService _accommodationService;
         private ReservationRecommenderService _recommenderService;
         private AccommodationStatisticsService _statisticService;
         private GuestService _guestService;
-        private ReviewService _reviewService;
+        private AccommodationReviewService _reviewService;
       
         public AccommodationReservationService(IAccommodationReservationRepository reservationRepository) {
            _reservationRepository = reservationRepository;
         }
 
-        public void InjectServices(RescheduleRequestService rescheduleService, AccommodationService accommodationService, ReservationRecommenderService recommenderService,
-                       AccommodationStatisticsService statisticService, GuestService guestService, ReviewService reviewService) {
+        public void InjectServices(AccommodationRescheduleRequestService rescheduleService, AccommodationService accommodationService, ReservationRecommenderService recommenderService,
+                       AccommodationStatisticsService statisticService, GuestService guestService, AccommodationReviewService reviewService) {
             _rescheduleService = rescheduleService;
             _accommodationService = accommodationService;
             _recommenderService = recommenderService;

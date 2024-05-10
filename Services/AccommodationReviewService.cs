@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Windows.Documents;
 
 namespace BookingApp.Services {
-    public class ReviewService {
+    public class AccommodationReviewService {
         
-        private readonly IReviewRepository _reviewRepository;
+        private readonly IAccommodationReviewRepository _reviewRepository;
 
         private AccommodationReservationService _reservationService;
         private OwnerService _ownerService;
         private AccommodationStatisticsService _accommodationStatisticsService;
         
-        public ReviewService(IReviewRepository reviewRepository) {
+        public AccommodationReviewService(IAccommodationReviewRepository reviewRepository) {
             _reviewRepository = reviewRepository;
         }
 

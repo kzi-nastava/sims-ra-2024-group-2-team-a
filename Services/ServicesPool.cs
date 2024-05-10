@@ -14,7 +14,7 @@ namespace BookingApp.Services {
         static ServicesPool() {
             _services[typeof(AccommodationService)] = new AccommodationService(RepositoryInjector.GetInstance<IAccommodationRepository>());
             _services[typeof(LocationService)] = new LocationService(RepositoryInjector.GetInstance<ILocationRepository>());
-            _services[typeof(RescheduleRequestService)] = new RescheduleRequestService(RepositoryInjector.GetInstance<IRescheduleRequestRepository>());
+            _services[typeof(AccommodationRescheduleRequestService)] = new AccommodationRescheduleRequestService(RepositoryInjector.GetInstance<IAccommodationRescheduleRequestRepository>());
             _services[typeof(OwnerService)] = new OwnerService(RepositoryInjector.GetInstance<IOwnerRepository>());
             _services[typeof(LanguageService)] = new LanguageService(RepositoryInjector.GetInstance<ILanguageRepository>());
             _services[typeof(PassengerService)] = new PassengerService(RepositoryInjector.GetInstance<IPassengerRepository>());
@@ -30,7 +30,7 @@ namespace BookingApp.Services {
             _services[typeof(UserService)] = new UserService(RepositoryInjector.GetInstance<IUserRepository>());
             _services[typeof(AccommodationReservationService)] = new AccommodationReservationService(RepositoryInjector.GetInstance<IAccommodationReservationRepository>());
             _services[typeof(AccommodationRenovationService)] = new AccommodationRenovationService(RepositoryInjector.GetInstance<IAccommodationRenovationRepository>());
-            _services[typeof(ReviewService)] = new ReviewService(RepositoryInjector.GetInstance<IReviewRepository>());
+            _services[typeof(AccommodationReviewService)] = new AccommodationReviewService(RepositoryInjector.GetInstance<IAccommodationReviewRepository>());
             _services[typeof(NotificationService)] = new NotificationService(RepositoryInjector.GetInstance<INotificationRepository>());
 
             LinkAllServices();
@@ -43,12 +43,12 @@ namespace BookingApp.Services {
                 );
 
             GetService<AccommodationReservationService>().InjectServices(
-                GetService<RescheduleRequestService>(),
+                GetService<AccommodationRescheduleRequestService>(),
                 GetService<AccommodationService>(),
                 GetService<ReservationRecommenderService>(),
                 GetService<AccommodationStatisticsService>(),
                 GetService<GuestService>(),
-                GetService<ReviewService>()
+                GetService<AccommodationReviewService>()
                 );
 
             GetService<UserService>().InjectServices(
@@ -61,14 +61,14 @@ namespace BookingApp.Services {
                 GetService<AccommodationService>()
                 );
 
-            GetService<ReviewService>().InjectServices(
+            GetService<AccommodationReviewService>().InjectServices(
                 GetService<AccommodationReservationService>(),
                 GetService<OwnerService>(),
                 GetService<AccommodationStatisticsService>()
                 );
 
             GetService<NotificationService>().InjectServices(
-                GetService<RescheduleRequestService>(),
+                GetService<AccommodationRescheduleRequestService>(),
                 GetService<AccommodationReservationService>()
                 );
 
@@ -77,7 +77,7 @@ namespace BookingApp.Services {
                 );
 
             GetService<OwnerService>().InjectServices(
-                GetService<ReviewService>()
+                GetService<AccommodationReviewService>()
                 );
 
             GetService<TourRequestService>().InjectServices(
