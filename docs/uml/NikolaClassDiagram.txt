@@ -2,7 +2,7 @@
 skinparam classAttributeIconSize 0
 
 interface IIdentifiable {
-  -id: int
+  +Id: int
 }
 
 note left of IIdentifiable
@@ -33,73 +33,69 @@ enum AccommodationType {
  hut
 }
 
-enum RescheduleRequestStatus {
- Pending
- Approved
- Rejected
- Cancelled
-}
-
 class User {
- -username: String
- -password: String
- -category: UserCategory
+ +Username: string
+ +Password: string
+ +Category: UserCategory
 }
 
 class Location {
-    - city: String
-    - country: String
+    +City: string
+    +Country: string
 }
 
 class Guest {
- -isSuperGuest: bool
- -superGuestExpirationDate: DateOnly
- -bonusPoints: int
+{static} +SuperGuestReservationsCount: int
+{static} +SuperGuestStartPoints: int
+
+ +IsSuper: bool
+ +SuperGuestExpirationDate: DateOnly
+ +BonusPoints: int
 }
 
 class Owner {
-    - isSuper: bool
-    - averageGrade: double
+    + IsSuper: bool
+    + AverageGrade: double
 }
 
 class Accommodation {
- -name: String
- -type: AccommodationType
- -maxGuestNumber: int
- -minReservationDays: int
- -lastCancellationDay: int
- -profilePictures: List<string>
+ +Name: string
+ +Type: AccommodationType
+ +MaxGuestNumber: int
+ +MinReservationDays: int
+ +LastCancellationDay: int
+ +Pictures: List<string>
 }
 
 class AccommodationReservation {
-    - guestsNumber: int
-    - startDate: DateOnly
-    - endDate: DateOnly
-    - cancelled: bool
+    + GuestsNumber: int
+    + StartDate: DateOnly
+    + EndDate: DateOnly
+    + Cancelled: bool
 }
 
 class AccommodationReview {
- -guestCleannessGrade: int
- -ruleFollowingGrade: int
- -ownerComment: String
+ +GuestCleannessGrade: int
+ +RuleFollowingGrade: int
+ +OwnerComment: string
 
- -accommodationCleannessGrade: int
- -ownerCorrectnessGrade: int
- -guestComment: String
+ +AccommodationCleannessGrade: int
+ +OwnerCorrectnessGrade: int
+ +GuestComment: string
 
- -requiresRenovation: bool
- -importance: ImportanceType
- -renovationComment: String
- -accommodationPhotos: List<String>
+ +RequiresRenovation: bool
+ +Importance: ImportanceType
+ +RenovationComment: string
+ +AccommodationPhotos: List<string>
 }
 
 User <|-- Guest
 User <|-- Owner
-Location "1..1" -- "0..*" Accommodation
-Owner "1..1" -- "0..*" Accommodation
-Accommodation "1..1" -- "0..*" AccommodationReservation
-Guest "1..1" -- "0..*" AccommodationReservation
-AccommodationReservation "1..1" -- "0..*" AccommodationReview
-Owner "1..1" -- "0..*" AccommodationReview
-Guest "1..1" -- "0..*" AccommodationReview
+Location "1..1" <-- "0..*" Accommodation
+Owner "1..1" <-- "0..*" Accommodation
+Accommodation "1..1" <-- "0..*" AccommodationReservation
+Guest "1..1" <-- "0..*" AccommodationReservation
+AccommodationReservation "1..1" <-- "0..*" AccommodationReview
+Owner "1..1" <-- "0..*" AccommodationReview
+Guest "1..1" <-- "0..*" AccommodationReview
 @enduml

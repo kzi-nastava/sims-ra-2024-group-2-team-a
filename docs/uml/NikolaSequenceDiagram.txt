@@ -1,0 +1,45 @@
+@startuml
+participant "CreateReservationPage\nViewModel" as VM
+participant "AccommodationReservation\nService" as RService
+participant "AccommodationReservation\nRepository" as RRepo
+participant "Guest\nService" as GService
+participant "Guest\nRepository" as GRepo
+participant "AccommodationStatistics\nService" as SService
+
+activate VM
+
+VM -> RService ++: Save(reservation)
+
+RService -> RRepo ++: Save(reservation)
+RRepo --> RService --: newReservation
+
+RService -> RRepo ++: CountReservationsInLastYear(guestId)
+RRepo --> RService --: reservationsCount
+
+RService -> GService ++: ManageGuestStatus(guestId, reservationsCount)
+
+GService -> GRepo ++: GetById(guestId)
+GRepo --> GService --: guest
+
+opt guest.IsSuper
+  GService -> GService ++: DecrementGuestPoints(guest)
+  GService -> GRepo ++: Update(guest)
+  GRepo --> GService --
+  GService --> GService
+GService --> RService --
+end
+
+opt reservationsCount >= Guest.SuperGuestReservationsCount
+  GService -> GService ++: PromoteToSuperGuest(guest)
+  GService -> GRepo ++: Update(guest)
+  GRepo --> GService --
+  GService --> GService --
+GService --> RService --
+end
+
+RService -> SService ++: UpdateReservationStatisticsAndCheckDates(accommodationId, startDate, endDate)
+SService --> RService --
+
+RService --> VM --: newReservation
+deactivate VM
+@enduml
