@@ -10,7 +10,7 @@
         <Style TargetType="Button" x:Key="ButtonStyle">
             <Setter Property="Background" Value="{StaticResource HardGreen}"/>
             <Setter Property="Foreground" Value="{StaticResource Beige}"/>
-            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontSize" Value="24"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -21,7 +21,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
             <Grid Background="{StaticResource HardGreen}"
                   Grid.Column="0">
@@ -35,6 +35,9 @@
                             Click="HomeButton_Click"
                             Style="{StaticResource ButtonStyle}">
                         <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeHome}"
+                                   Height="35"
+                                   Margin="5"/>
                             <TextBlock Text="Home"
                                        Margin="5"/>
                         </StackPanel>
@@ -43,6 +46,9 @@
                             Click="ReservationsButton_Click"
                             Style="{StaticResource ButtonStyle}">
                         <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeBook}"
+                                   Height="35"
+                                   Margin="5"/>
                             <TextBlock Text="Reservations"
                                        Margin="5"/>
                         </StackPanel>
@@ -51,6 +57,9 @@
                             Click="RequestsButton_Click"
                             Style="{StaticResource ButtonStyle}">
                         <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeRequest}"
+                                   Height="35"
+                                   Margin="5"/>
                             <TextBlock Text="Requests"
                                        Margin="5"/>
                         </StackPanel>
@@ -59,6 +68,9 @@
                             Click="CouponsButton_Click"
                             Style="{StaticResource ButtonStyle}">
                         <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeCoupon}"
+                                   Height="35"
+                                   Margin="5"/>
                             <TextBlock Text="Coupons"
                                        Margin="5"/>
                         </StackPanel>
@@ -69,6 +81,9 @@
                             Click="NotificationsButton_Click"
                             Style="{StaticResource ButtonStyle}">
                         <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeBell}"
+                                   Height="35"
+                                   Margin="5"/>
                             <TextBlock Text="Notifications"
                                        Margin="5"/>
                         </StackPanel>
@@ -76,6 +91,9 @@
                     <Button x:Name="SettingsButton"
                             Style="{StaticResource ButtonStyle}">
                         <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeWheel}"
+                                   Height="35"
+                                   Margin="5"/>
                             <TextBlock Text="Settings"
                                        Margin="5"/>
                         </StackPanel>
@@ -83,6 +101,9 @@
                     <Button x:Name="TutorialButton"
                             Style="{StaticResource ButtonStyle}">
                         <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeHelp}"
+                                   Height="35"
+                                   Margin="5"/>
                             <TextBlock Text="Tutorial"
                                        Margin="5"/>
                         </StackPanel>

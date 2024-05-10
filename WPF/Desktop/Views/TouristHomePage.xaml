@@ -7,16 +7,6 @@
       d:DesignHeight="450" d:DesignWidth="1594"
       Title="TouristHomePage">
     <Page.Resources>
-        <BitmapImage x:Key="AccountIcon" UriSource="../../Resources/Images/account.png"/>
-        <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
-            <Setter Property="Width" Value="250"/>
-            <Setter Property="Height" Value="71"/>
-        </Style>
-        <Style TargetType="TextBox" x:Key="TextBoxStyle">
-            <Setter Property="Width" Value="250"/>
-            <Setter Property="Height" Value="71"/>
-            <Setter Property="Margin" Value="5"/>
-        </Style>
         <Style TargetType="Border" x:Key="BorderStyle">
             <Setter Property="Margin" Value="10"/>
             <Setter Property="BorderBrush" Value="Black"/>
@@ -27,89 +17,85 @@
             <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontSize" Value="24"/>
         </Style>
         <Style TargetType="TextBlock" x:Key="Info">
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
     </Page.Resources>
-    <Border BorderBrush="Black" BorderThickness="1">
+    <Grid Background="{StaticResource Beige}">
+    <Border Style="{StaticResource BorderStyle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" 
-                BorderBrush="Black" 
-                BorderThickness="1" 
-                Background="#2E3440"
-                Grid.ColumnSpan="3"
-                Margin="10"
-                Height="140">
-            <Grid Margin="5, 25, 5, 5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <WrapPanel Grid.Column="0" Margin="5" HorizontalAlignment="Left">
-                        <StackPanel Margin="5">
-                            <Label Foreground="White" FontSize="28">
-                                Location
-                            </Label>
+        <Border Style="{StaticResource BorderStyle}"
+                Background="{StaticResource SoftGreen}">
+                <Grid Margin="0, 10, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Location:"
+                                   FontSize="14"/>
                             <ComboBox x:Name="LocationComboBox"
                                       ItemsSource="{Binding LocationOptions}"
                                       DisplayMemberPath="LocationOptionTemplate"
                                       SelectionChanged="LocationComboBox_SelectionChanged"
                                       SelectedIndex="0"
-                                      Style="{StaticResource ComboBoxStyle}"/>
+                                      FontSize="24"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Margin="5">
+                        <TextBlock Text="Language:"
+                                   FontSize="14"/>
+                        <ComboBox FontSize="24"
+                                  x:Name="LanguageComboBox"
+                                  ItemsSource="{Binding LanguageOptions}"
+                                  DisplayMemberPath="LanguageOptionTemplate"
+                                  SelectionChanged="LanguageComboBox_SelectionChanged_1"
+                                  SelectedIndex="0"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2"
+                                Margin="5">
+                        <TextBlock Text="Number of people:"
+                                   FontSize="14"/>
+                        <TextBox FontSize="24"
+                                 x:Name="TouristNumberTextBox"
+                                 Text="{Binding Filter.TouristNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3"
+                                Margin="5">
+                        <TextBlock Text="Duration:"
+                                   FontSize="14"/>
+                        <TextBox FontSize="24"
+                                 Text="{Binding Filter.Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 x:Name="DurationTextBox"/>
+                    </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="4"
+                                    Margin="5"
+                                    HorizontalAlignment="Right">
+                            <Button Style="{StaticResource ButtonStyle}"
+                                    Content="Filter"
+                                    Margin="0, 0, 5, 0"
+                                    Padding="15, 0"/>
+                            <Button Style="{StaticResource ButtonStyle}"
+                                    Content="Clear"
+                                    Margin="0"
+                                    Padding="15, 0"/>
                         </StackPanel>
-                        <StackPanel Margin="5">
-                            <Label Foreground="White" FontSize="28">
-                                Language
-                            </Label>
-                            <ComboBox x:Name="LanguageComboBox"
-      ItemsSource="{Binding LanguageOptions}"
-      DisplayMemberPath="LanguageOptionTemplate"
-      SelectionChanged="LanguageComboBox_SelectionChanged_1"
-      SelectedIndex="0"
-      Style="{StaticResource ComboBoxStyle}"/>
-                        </StackPanel>
-                        <StackPanel Margin="5">
-                            <Label Foreground="White" FontSize="28">
-                                Number of people
-                            </Label>
-                            <TextBox x:Name="TouristNumberTextBox"
-         Text="{Binding Filter.TouristNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-         Style="{StaticResource TextBoxStyle}"/>
-                        </StackPanel>
-                        <StackPanel Margin="5">
-                            <Label Foreground="White" FontSize="28">
-                                Duration
-                            </Label>
-                            <TextBox x:Name="DurationTextBox" 
-     Text="{Binding Filter.Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-     Style="{StaticResource TextBoxStyle}"/>
-                        </StackPanel>
-                    </WrapPanel>
-                <WrapPanel Grid.Column="1" HorizontalAlignment="Right" Margin="5">
-                    <Button x:Name="FilterButton" 
-                            Click="FilterButton_Click"
-                            Style="{StaticResource ButtonStyle}">
-                        Filter
-                    </Button>
-                    <Button x:Name="ClearButton" 
-                            Click="ClearButton_Click"
-                            Style="{StaticResource ButtonStyle}">
-                        Clear
-                    </Button>
-                </WrapPanel>
-            </Grid>
+                </Grid>
         </Border>
 
-        <ScrollViewer Grid.Row="1"
-                      Margin="5">
+        <ScrollViewer Grid.Row="1">
             <ItemsControl ItemsSource="{Binding ToursOnDisplay}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -123,18 +109,23 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="5*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.ColumnSpan="2"
+                                        <Image Grid.RowSpan="2"
+                                               Source="{Binding ProfilePictures[0]}"
+                                               Stretch="UniformToFill"/>
+                                        <TextBlock Grid.ColumnSpan="2"
                                                Text="{Binding Name}"
                                                HorizontalAlignment="Center"
-                                               FontSize="18"
-                                               FontWeight="Bold"/>
+                                               FontSize="24"
+                                               FontWeight="Bold"
+                                               Margin="10, 5, 10, 10"/>
                                     <Grid Grid.Column="1"
                                           Grid.Row="1"
-                                          VerticalAlignment="Bottom">
+                                          VerticalAlignment="Bottom"
+                                          Margin="10, 0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0"
                                               HorizontalAlignment="Center">
@@ -144,45 +135,75 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Style="{StaticResource Info}">
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}{0}, {1}">
-                                                        <Binding Path="Location.City"/>
-                                                        <Binding Path="Location.Country"/>
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                            <TextBlock Grid.Row="1"
-                                                       Style="{StaticResource Info}">
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}{0} - {1}">
-                                                        <Binding Path="Beggining"/>
-                                                        <Binding Path="End"/>
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                            <TextBlock Grid.Row="2"
-                                                       Text="{Binding Language.Name}"
-                                                       Style="{StaticResource Info}"/>
-                                            <TextBlock Grid.Row="3"
-                                                       Text="{Binding Duration}"
-                                                       Style="{StaticResource Info}"/>
-                                        </Grid>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="{StaticResource LocationIcon}"
+                                                           Height="20"/>
+                                                    <TextBlock Style="{StaticResource Info}">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0}, {1}">
+                                                                <Binding Path="Location.City"/>
+                                                                <Binding Path="Location.Country"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
+                                                            Grid.Row="1">
+                                                    <Image Source="{StaticResource ScheduledIcon}"
+                                                           Height="20"/>
+                                                    <TextBlock Grid.Row="1"
+                                                               Style="{StaticResource Info}">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0} - {1}">
+                                                                <Binding Path="Beggining"/>
+                                                                <Binding Path="End"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
+                                                            Grid.Row="2">
+                                                    <Image Source="{StaticResource LanguageIcon}"
+                                                           Height="20"/>
+                                                    <TextBlock Grid.Row="2"
+                                                               Text="{Binding Language.Name}"
+                                                               Style="{StaticResource Info}"/>
+
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
+                                                            Grid.Row="3">
+                                                    <Image Source="{StaticResource Stopwatch}"
+                                                           Height="20"/>
+                                                    <TextBlock Grid.Row="3"
+                                                               Text="{Binding Duration}"
+                                                               Style="{StaticResource Info}"/>
+
+                                                </StackPanel>
+                                            </Grid>
                                         <Border Style="{StaticResource BorderStyle}"
+                                                Margin="0"
                                                 Grid.Column="1">
                                             <TextBlock Text="{Binding Description}"
-                                                       TextWrapping="Wrap"
-                                                       Margin="5"/>
+                                                       Style="{StaticResource Info}"
+                                                       FontWeight="Normal"
+                                                       TextWrapping="Wrap"/>
                                         </Border>
                                         <StackPanel Grid.Column="3"
-                                                    VerticalAlignment="Bottom">
+                                                    VerticalAlignment="Bottom"
+                                                    HorizontalAlignment="Right"
+                                                    Margin="5, 0, 0, 0">
                                             <Border Background="{StaticResource SoftGreen}"
-                                                    Style="{StaticResource BorderStyle}">
+                                                    Style="{StaticResource BorderStyle}"
+                                                    Margin="35, 0, 35, 5">
                                                 <StackPanel>
-                                                    <TextBlock Grid.Row="1"
-                                                               FontSize="18"
+                                                        <Image Source="{StaticResource BlackAccount}"
+                                                               Margin="5"
+                                                               Height="30"/>
+                                                        <TextBlock Grid.Row="1"
                                                                HorizontalAlignment="Center"
-                                                               Style="{StaticResource Info}">
+                                                               Style="{StaticResource Info}"
+                                                               FontSize="24"
+                                                               FontWeight="Normal">
                                                         <TextBlock.Text>
                                                             <MultiBinding StringFormat="{}{0}/{1}">
                                                                 <Binding Path="CurrentTouristNumber"/>
@@ -195,7 +216,9 @@
                                             <Button x:Name="ReservationButton"
                                                     Click="ReservationButton_Click"
                                                     Style="{StaticResource ButtonStyle}"
-                                                    Content="Book now"/>
+                                                    Margin="0"
+                                                    Content="Book now"
+                                                    Padding="15, 5"/>
                                         </StackPanel>
                                     </Grid>
                                 </Grid>
@@ -206,4 +229,5 @@
         </ScrollViewer>
     </Grid>
     </Border>
+    </Grid>
 </Page>
