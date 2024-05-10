@@ -23,7 +23,15 @@
     <None Remove="Resources\Images\Icons\android-inbox-icon.png" />
     <None Remove="Resources\Images\Icons\android-logout-icon.png" />
     <None Remove="Resources\Images\Icons\back-white-icon.png" />
+    <None Remove="Resources\Images\Icons\beige-bell.png" />
+    <None Remove="Resources\Images\Icons\beige-book.png" />
+    <None Remove="Resources\Images\Icons\beige-coupon.png" />
+    <None Remove="Resources\Images\Icons\beige-help.png" />
+    <None Remove="Resources\Images\Icons\beige-home.png" />
+    <None Remove="Resources\Images\Icons\beige-request.png" />
+    <None Remove="Resources\Images\Icons\beige-wheel.png" />
     <None Remove="Resources\Images\Icons\bin-icon.png" />
+    <None Remove="Resources\Images\Icons\black-account.png" />
     <None Remove="Resources\Images\Icons\book-white-icon.png" />
     <None Remove="Resources\Images\Icons\calendar-icon.png" />
     <None Remove="Resources\Images\Icons\camera-icon.png" />
@@ -37,6 +45,7 @@
     <None Remove="Resources\Images\Icons\gold-star-icon.png" />
     <None Remove="Resources\Images\Icons\house-icon.png" />
     <None Remove="Resources\Images\Icons\import-images-icon.png" />
+    <None Remove="Resources\Images\Icons\language.png" />
     <None Remove="Resources\Images\Icons\location-icon.png" />
     <None Remove="Resources\Images\Icons\logout-white-icon.png" />
     <None Remove="Resources\Images\Icons\normal-owner-icon.png" />
@@ -61,6 +70,7 @@
     <None Remove="Resources\Images\help.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\Icons\star-white-icon.png" />
+    <None Remove="Resources\Images\Icons\stopwatch.png" />
     <None Remove="Resources\Images\Icons\super-icon.png" />
     <None Remove="Resources\Images\Icons\time-icon.png" />
     <None Remove="Resources\Images\live.png" />
@@ -120,6 +130,13 @@
     <Resource Include="Resources\Images\Icons\android-inbox-icon.png" />
     <Resource Include="Resources\Images\Icons\android-logout-icon.png" />
     <Resource Include="Resources\Images\Icons\back-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\beige-bell.png" />
+    <Resource Include="Resources\Images\Icons\beige-book.png" />
+    <Resource Include="Resources\Images\Icons\beige-coupon.png" />
+    <Resource Include="Resources\Images\Icons\beige-help.png" />
+    <Resource Include="Resources\Images\Icons\beige-home.png" />
+    <Resource Include="Resources\Images\Icons\beige-request.png" />
+    <Resource Include="Resources\Images\Icons\beige-wheel.png" />
     <Resource Include="Resources\Images\Icons\bin-icon.png" />
   </ItemGroup>
 
@@ -134,6 +151,7 @@
     <Resource Include="Resources\Images\android-view-icon.png" />
     <Resource Include="Resources\Images\eye.png" />
     <Resource Include="Resources\Images\finish.png" />
+    <Resource Include="Resources\Images\Icons\black-account.png" />
     <Resource Include="Resources\Images\Icons\book-white-icon.png" />
     <Resource Include="Resources\Images\Icons\camera-icon.png" />
     <Resource Include="Resources\Images\default-coupon.png" />
@@ -148,6 +166,7 @@
     <Resource Include="Resources\Images\Icons\calendar-icon.png" />
     <Resource Include="Resources\Images\Icons\cancel-event-icon.png" />
     <Resource Include="Resources\Images\Icons\import-images-icon.png" />
+    <Resource Include="Resources\Images\Icons\language.png" />
     <Resource Include="Resources\Images\Icons\logout-white-icon.png" />
     <Resource Include="Resources\Images\Icons\normal-owner-icon.png" />
     <Resource Include="Resources\Images\Icons\people-icon.png" />
@@ -168,6 +187,7 @@
     <Resource Include="Resources\Images\help.png" />
     <Resource Include="Resources\Images\home.png" />
     <Resource Include="Resources\Images\Icons\star-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\stopwatch.png" />
     <Resource Include="Resources\Images\Icons\time-icon.png" />
     <Resource Include="Resources\Images\live.png" />
     <Resource Include="Resources\Images\normal-home-icon.png" />

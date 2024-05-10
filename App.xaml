@@ -37,7 +37,17 @@
         <BitmapImage x:Key="RequestIcon" UriSource="Resources/Images/request.png"/>
         <BitmapImage x:Key="ReportIcon" UriSource="Resources/Images/report.png"/>
         <BitmapImage x:Key="EyeIcon" UriSource="Resources/Images/eye.png"/>
-
+        <BitmapImage x:Key="BeigeHome" UriSource="Resources/Images/Icons/beige-home.png"/>
+        <BitmapImage x:Key="BeigeBook" UriSource="Resources/Images/Icons/beige-book.png"/>
+        <BitmapImage x:Key="BeigeBell" UriSource="Resources/Images/Icons/beige-bell.png"/>
+        <BitmapImage x:Key="BeigeRequest" UriSource="Resources/Images/Icons/beige-request.png"/>
+        <BitmapImage x:Key="BeigeCoupon" UriSource="Resources/Images/Icons/beige-coupon.png"/>
+        <BitmapImage x:Key="BeigeHelp" UriSource="Resources/Images/Icons/beige-help.png"/>
+        <BitmapImage x:Key="BeigeWheel" UriSource="Resources/Images/Icons/beige-wheel.png"/>
+        <BitmapImage x:Key="BlackAccount" UriSource="Resources/Images/Icons/black-account.png"/>
+        <BitmapImage x:Key="LanguageIcon" UriSource="Resources/Images/Icons/language.png"/>
+        <BitmapImage x:Key="Stopwatch" UriSource="Resources/Images/Icons/stopwatch.png"/>
+        
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>
         <SolidColorBrush x:Key="SoftGreen" Color="#ADBC9F"/>
