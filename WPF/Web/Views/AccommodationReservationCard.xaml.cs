@@ -30,8 +30,7 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void ButtonCancelClick(object sender, RoutedEventArgs e) {
-            ViewModel.CancelReservation();
-            _parentPage.Update();
+            _parentPage.OpenCancelDialog(ViewModel.Reservation);
         }
 
         private void ButtonRescheduleDateClick(object sender, RoutedEventArgs e) {

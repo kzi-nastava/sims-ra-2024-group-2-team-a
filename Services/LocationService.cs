@@ -3,7 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using System.Collections.Generic;
 
 namespace BookingApp.Services {
-    class LocationService
+    public class LocationService
     {
         private readonly ILocationRepository _locationRepository;
 

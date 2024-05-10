@@ -7,14 +7,8 @@ namespace BookingApp.WPF.Web.ViewModels {
 
         public AccommodationReservationDTO Reservation { get; set; }
 
-        private readonly AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
-
         public AccommodationReservationCardViewModel(AccommodationReservationDTO reservation) {
             Reservation = reservation;
-        }
-
-        public void CancelReservation() {
-            _reservationService.CancelReservation(Reservation.Id);
         }
     }
 }

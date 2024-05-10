@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using BookingApp.WPF.Utils.Validation;
 using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
@@ -31,12 +32,17 @@ namespace BookingApp.WPF.Android.Views {
 
             _user = user;
             AccommodationDTO = new AccommodationDTO();
+            AccommodationDTO.MinReservationDays = 1;
+            AccommodationDTO.MaxGuestNumber = 1;
+            AccommodationDTO.LastCancellationDay = 1;
             AccommodationDTO.OwnerId = _user.Id;
             LocationDTOs = new ObservableCollection<LocationDTO>();
 
             foreach (var loc in locationService.GetAll()) {
                 LocationDTOs.Add(new LocationDTO(loc));
             }
+
+            nameTextbox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();
         }
 
         private void Decline_Click(object sender, RoutedEventArgs e) {
@@ -69,6 +75,9 @@ namespace BookingApp.WPF.Android.Views {
                 string relativePath = GetRelativePath(basePath, absolutePath);
                 AccommodationDTO.ProfilePictures.Add(relativePath);
             }
+
+            if (AccommodationDTO.ProfilePictures.Count != 0)
+                ViewButton.IsEnabled = true;
         }
         private string GetRelativePath(string basePath, string fullPath) {
             Uri baseUri = new Uri(basePath + System.IO.Path.DirectorySeparatorChar);
@@ -78,7 +87,7 @@ namespace BookingApp.WPF.Android.Views {
 
         private void ViewImages_Click(object sender, RoutedEventArgs e) {
             if (AccommodationDTO.ProfilePictures.Count == 0) {
-                MessageBox.Show("Please select an image first","",MessageBoxButton.OK);
+                ViewButton.IsEnabled = false;
             }
             else {
                 ViewSelectedImagesWindow viewSelectedImagesWindow = new ViewSelectedImagesWindow(AccommodationDTO);

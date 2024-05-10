@@ -19,9 +19,16 @@ namespace BookingApp.WPF.Desktop.Views {
     /// Interaction logic for RequestsPage.xaml
     /// </summary>
     public partial class RequestsPage : Page {
+        public int UserId { get; set; }
         public RequestsPage(int userId) {
             InitializeComponent();
             DataContext = new RequestsPageViewModel(userId);
+            UserId = userId;
+        }
+
+        private void StatisticsButton_Click(object sender, RoutedEventArgs e) {
+            StatisticsWindow statisticsWindow = new StatisticsWindow(UserId);
+            statisticsWindow.Show();
         }
     }
 }

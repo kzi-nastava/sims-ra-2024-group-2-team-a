@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingApp.Domain.Model {
-    public enum TourRequestStatus { OnHold, Expired, Confirmed };
+    public enum TourRequestStatus { OnHold, Expired, Accepted };
     public class TourRequest : ISerializable, IIdentifiable {
         public int Id { get; set; }
         public int TouristId { get; set; }

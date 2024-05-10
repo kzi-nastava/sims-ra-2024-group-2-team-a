@@ -20,7 +20,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0"  Background="{StaticResource Green}" Width="220" HorizontalAlignment="Left">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0"  Background="{StaticResource Green}" Width="240" HorizontalAlignment="Left">
                     <Label Content="All messages" BorderBrush="Black" BorderThickness="0,0,0,1" Padding="0" Margin="10,0,0,5" FontSize="26" FontWeight="Bold" VerticalAlignment="Center"
                            Background="{StaticResource Green}"/>
                     <Label x:Name="NumOfMessagesLabel" Padding="0" Margin="5,0,0,5" FontSize="26" FontWeight="Bold" VerticalAlignment="Center"  Background="{StaticResource Green}"/>

@@ -12,6 +12,15 @@
         <BitmapImage x:Key="RenovationsIcon" UriSource="../../../Resources/Images/renovation-icon.png"/>
         <BitmapImage x:Key="GuidanceIcon" UriSource="../../../Resources/Images/guidance-icon.png"/>
         <BitmapImage x:Key="StatisticsIcon" UriSource="../../../Resources/Images/statistics-icon.png"/>
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Background" Value="{StaticResource Green}"/>
+            </Style.Setters>
+        </Style>
     </Page.Resources>
     <Grid Background="{StaticResource Beige}">
         <Grid.RowDefinitions>
@@ -62,10 +71,17 @@
                 </StackPanel>
             </Button>
         </Grid>
+        <StackPanel Grid.Row="0" Height="50" VerticalAlignment="Top" Orientation="Horizontal">
+            <Label Content="Registered Accomodations: " Style="{StaticResource Header}" Width="280" HorizontalAlignment="Left"  Margin="10,0,0,0" Height="40"/>
+            <Button Margin="75,5,0,5" Width="40" Height="40" Click="GeneratePdfButton_Click" Background="{StaticResource Green}">
+                <Image Source="{StaticResource DocumentIcon}" Width="30" Height="30"/>
+            </Button>
+        </StackPanel>
+
         <Border Grid.Row="0" BorderBrush="Black" BorderThickness="0,0,0,2">
-            <ListBox Height="500" Width="400" ItemsSource="{Binding AccommodationDTOs}" SelectedItem="{Binding SelectedAccommodation}" 
+            <ListBox Height="450" Width="400" ItemsSource="{Binding AccommodationDTOs}" SelectedItem="{Binding SelectedAccommodation}" 
              ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"
-             HorizontalContentAlignment="Stretch" Background="{StaticResource Beige}">
+             HorizontalContentAlignment="Stretch" Background="{StaticResource Beige}" VerticalAlignment="Bottom" Margin="0,0,0,10">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border Background="{StaticResource Beige}" BorderBrush="Black" BorderThickness="1" Height="110" CornerRadius="20" Width="380">

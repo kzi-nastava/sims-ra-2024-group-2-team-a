@@ -34,13 +34,13 @@
                 <Button Width="40" Height="40" Click="HamburgerButton_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="{StaticResource HamburgerIcon}"/>
                 </Button>
-                <Label x:Name="HeaderLabel" Content="My accommodations and statistics" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="18" FontFamily="Global Sans Serif" Margin="0,0,0,0" />
+                <Label x:Name="HeaderLabel" Content="My accommodations and statistics" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" FontFamily="Global Sans Serif" Margin="0,0,0,0" />
             </StackPanel>
             <Button Grid.Column="1" Height="40" Width="40" Background="Transparent" BorderBrush="Transparent">
                 <Image Source="{StaticResource HelpIcon}"/>
             </Button>
         </Grid>
-        <Frame x:Name="mainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2" Navigated="mainFrame_Navigated"/>
+        <Frame x:Name="mainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2" Navigated="mainFrame_Navigated" Background="{StaticResource Beige}"/>
         <Frame x:Name="sideFrame"  Grid.Row="0"  Grid.Column="0" Grid.RowSpan="2" NavigationUIVisibility="Hidden" Panel.ZIndex="1000"/>
         <Frame x:Name="blackFrame" Grid.Row="1" Grid.Column="1" NavigationUIVisibility="Hidden" Panel.ZIndex="1000"/>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource SoftGreen}">
@@ -55,7 +55,7 @@
             <Button Grid.Column="1" Width="50" Background="Transparent" BorderBrush="Transparent" Click="HomeButton_Click">
                 <Image Source="{StaticResource HomeIcon}" Stretch="UniformToFill" Height="35" Width="35"/>
             </Button>
-            <Button Grid.Column="2" Width="50" Background="Transparent" BorderBrush="Transparent" Click="HamburgerButton_Click">
+            <Button Grid.Column="2" Width="50" Background="Transparent" BorderBrush="Transparent" Click="MenuButton_Click">
                 <Image Source="{StaticResource MenuIcon}" Height="35" Width="35" Stretch="UniformToFill"/>
             </Button>
         </Grid>

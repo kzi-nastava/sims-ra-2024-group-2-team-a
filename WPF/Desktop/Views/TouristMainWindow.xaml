@@ -7,81 +7,109 @@
         Title="TouristMainWindow"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <BitmapImage x:Key="HomeIcon" UriSource="../../../Resources/Images/home.png"/>
-        <BitmapImage x:Key="CouponIcon" UriSource="../../../Resources/Images/Icons/coupon.png"/>
-        <BitmapImage x:Key="ReservationsIcon" UriSource="../../../Resources/Images/reservations.png"/>
-        <Style TargetType="Image" x:Key="IconStyle">
-            <Setter Property="Width" Value="50"/>
-            <Setter Property="Margin" Value="30, 0"/>
-        </Style>
         <Style TargetType="Button" x:Key="ButtonStyle">
-            <Setter Property="Background" Value="#88C0D0"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Height" Value="80"/>
-            <Setter Property="Width" Value="384"/>
-            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="Background" Value="{StaticResource HardGreen}"/>
+            <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            <Setter Property="FontSize" Value="24"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
         </Style>
     </Window.Resources>
-    <Border BorderBrush="Black" BorderThickness="1">
+    <Border BorderBrush="Black" 
+            BorderThickness="0.5">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Background="#88C0D0"
-                    Grid.Column="0">
-                <Button x:Name="HomeButton"
-                    Click="HomeButton_Click"
-                    Style="{StaticResource ButtonStyle}">
-                    <WrapPanel>
-                        <Image Source="{StaticResource HomeIcon}" Style="{StaticResource IconStyle}"/>
-                        <TextBlock Text="Home"/>
-                    </WrapPanel>
-                </Button>
-                <Button x:Name="ReservationsButton"
-                    Click="ReservationsButton_Click"
-                    Style="{StaticResource ButtonStyle}">
-                    <WrapPanel>
-                        <Image Source="{StaticResource ReservationsIcon}" Style="{StaticResource IconStyle}"/>
-                        <TextBlock Text="Reservations"/>
-                    </WrapPanel>
-                </Button>
-                <Button x:Name="CouponsButton"
-                        Click="CouponsButton_Click"
-                        Style="{StaticResource ButtonStyle}">
-                    <WrapPanel>
-                        <Image Source="{StaticResource CouponIcon}" Style="{StaticResource IconStyle}"/>
-                        <TextBlock Text="Coupons"/>
-                    </WrapPanel>
-                </Button>
-                <Button x:Name="RequestsButton"
-                        Click="RequestsButton_Click"
-                        Style="{StaticResource ButtonStyle}">
-                    <WrapPanel>
-                        <Image Source="{StaticResource ReservationsIcon}" Style="{StaticResource IconStyle}"/>
-                        <TextBlock Text="Requests"/>
-                    </WrapPanel>
-                </Button>
-                <Button x:Name="NotificationsButton"
-                        Click="NotificationsButton_Click"
-                        Style="{StaticResource ButtonStyle}">
-                    <WrapPanel>
-                        <Image Source="{StaticResource CouponIcon}" Style="{StaticResource IconStyle}"/>
-                        <TextBlock Text="Notifications"/>
-                    </WrapPanel>
-                </Button>
-                <Button x:Name="LogOutButton"
-                        Click="LogOutButton_Click"
-                        Style="{StaticResource ButtonStyle}">
-                    <WrapPanel>
-                        <Image Source="{StaticResource CouponIcon}" Style="{StaticResource IconStyle}"/>
-                        <TextBlock Text="Log Out"/>
-                    </WrapPanel>
-                </Button>
-            </StackPanel>
+            <Grid Background="{StaticResource HardGreen}"
+                  Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <Button x:Name="HomeButton"
+                            Click="HomeButton_Click"
+                            Style="{StaticResource ButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeHome}"
+                                   Height="35"
+                                   Margin="5"/>
+                            <TextBlock Text="Home"
+                                       Margin="5"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="ReservationsButton"
+                            Click="ReservationsButton_Click"
+                            Style="{StaticResource ButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeBook}"
+                                   Height="35"
+                                   Margin="5"/>
+                            <TextBlock Text="Reservations"
+                                       Margin="5"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="RequestsButton"
+                            Click="RequestsButton_Click"
+                            Style="{StaticResource ButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeRequest}"
+                                   Height="35"
+                                   Margin="5"/>
+                            <TextBlock Text="Requests"
+                                       Margin="5"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="CouponsButton"
+                            Click="CouponsButton_Click"
+                            Style="{StaticResource ButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeCoupon}"
+                                   Height="35"
+                                   Margin="5"/>
+                            <TextBlock Text="Coupons"
+                                       Margin="5"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Row="2">
+                    <Button x:Name="NotificationsButton"
+                            Click="NotificationsButton_Click"
+                            Style="{StaticResource ButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeBell}"
+                                   Height="35"
+                                   Margin="5"/>
+                            <TextBlock Text="Notifications"
+                                       Margin="5"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="SettingsButton"
+                            Style="{StaticResource ButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeWheel}"
+                                   Height="35"
+                                   Margin="5"/>
+                            <TextBlock Text="Settings"
+                                       Margin="5"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="TutorialButton"
+                            Style="{StaticResource ButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource BeigeHelp}"
+                                   Height="35"
+                                   Margin="5"/>
+                            <TextBlock Text="Tutorial"
+                                       Margin="5"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
             <Frame Grid.Column="1" 
                    x:Name="PageFrame"
                    NavigationUIVisibility="Hidden"/>
