@@ -70,5 +70,9 @@ namespace BookingApp.WPF.Android.Views {
         private void GuidanceButton_Click(object sender, RoutedEventArgs e) {
 
         }
+
+        private void GeneratePdfButton_Click(object sender, RoutedEventArgs e) {
+
+        }
     }
 }
