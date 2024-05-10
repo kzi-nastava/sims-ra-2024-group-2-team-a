@@ -23,7 +23,7 @@ namespace BookingApp.Services {
             return _guestRepository.Save(guest);
         }
 
-        public void PromoteOrDecreaseBonusPoints(int guestId, int reservationsCount) {
+        public void ManageGuestStatus(int guestId, int reservationsCount) {
             Guest guest = this.GetById(guestId);
 
             if (guest.IsSuper) {
@@ -33,6 +33,7 @@ namespace BookingApp.Services {
 
             if (reservationsCount >= Guest.SuperGuestReservationsCount) {
                 this.PromoteToSuperGuest(guestId);
+                return;
             }
         }
 
