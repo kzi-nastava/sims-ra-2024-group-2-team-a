@@ -17,12 +17,17 @@
         <CommandBinding x:Name="Stats" Command="cmd:RoutedCommands.Stats" CanExecute="Stats_CanExecute" Executed="Stats_Executed"/>
         <CommandBinding x:Name="Requests" Command="cmd:RoutedCommands.Requests" CanExecute="Requests_CanExecute" Executed="Requests_Executed"/>
     </Page.CommandBindings>
+    <Page.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+            
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="menuBarGrid" Background="Aqua">
+        <Grid x:Name="menuBarGrid" Background="{StaticResource HardGreen}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -32,46 +37,46 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" HorizontalAlignment="Right" Content="Tour Menu" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Margin="0,5,10,1"/>
+            <Label Grid.Row="0" HorizontalAlignment="Right" Content="Tour Menu" Foreground="White" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Margin="0,5,10,1"/>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0"/>
-            <Button x:Name="homeButton" Grid.Row="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,20,0,5" Command="cmd:RoutedCommands.Home">
+            <Button x:Name="homeButton" Grid.Row="1" Style="{StaticResource MenuBarButton}" Command="cmd:RoutedCommands.Home">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="{StaticResource HomeIcon}" Width="40" Height="40" />
-                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Home Page</Label>
+                    <Label Style="{StaticResource MenuBarLabel}">Home Page</Label>
                 </StackPanel>
             </Button>
-            <Button x:Name="addButton" Grid.Row="2" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5"  Command="cmd:RoutedCommands.Add">
+            <Button x:Name="addButton" Grid.Row="2" Style="{StaticResource MenuBarButton}" Command="cmd:RoutedCommands.Add">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="{StaticResource Add2Icon}" Width="40" Height="40" />
-                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Add Tour</Label>
+                    <Label Style="{StaticResource MenuBarLabel}">Add Tour</Label>
                 </StackPanel>
             </Button>
-            <Button x:Name="followLiveButton" Grid.Row="3" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Command="cmd:RoutedCommands.Live">
+            <Button x:Name="followLiveButton" Grid.Row="3" Style="{StaticResource MenuBarButton}" Command="cmd:RoutedCommands.Live">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="{StaticResource LiveIcon}" Width="40" Height="40" />
-                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Follow Live</Label>
+                    <Label Style="{StaticResource MenuBarLabel}">Follow Live</Label>
                 </StackPanel>
             </Button>
-            <Button x:Name="finishedToursButton" Grid.Row="4" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Command="cmd:RoutedCommands.Finished">
+            <Button x:Name="finishedToursButton" Grid.Row="4" Style="{StaticResource MenuBarButton}" Command="cmd:RoutedCommands.Finished">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="{StaticResource FinishIcon}" Width="40" Height="40" />
-                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Finished Tours</Label>
+                    <Label Style="{StaticResource MenuBarLabel}">Finished Tours</Label>
                 </StackPanel>
             </Button>
-            <Button x:Name="statsButton" Grid.Row="5" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Command="cmd:RoutedCommands.Stats">
+            <Button x:Name="statsButton" Grid.Row="5" Style="{StaticResource MenuBarButton}" Command="cmd:RoutedCommands.Stats">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="{StaticResource StatsIcon}" Width="40" Height="40" />
-                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Tour Stats</Label>
+                    <Label Style="{StaticResource MenuBarLabel}">Tour Stats</Label>
                 </StackPanel>
             </Button>
-            <Button x:Name="requestsButton" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5,5,0,5" Command="cmd:RoutedCommands.Requests">
+            <Button x:Name="requestsButton" Grid.Row="6" Style="{StaticResource MenuBarButton}" Command="cmd:RoutedCommands.Requests">
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
                     <Image Source="{StaticResource RequestIcon}" Width="40" Height="40" />
-                    <Label VerticalAlignment="Center" FontSize="14" FontWeight="Bold">Tourist Requests</Label>
+                    <Label Style="{StaticResource MenuBarLabel}">Tourist Requests</Label>
                 </StackPanel>
             </Button>
         </Grid>
-        <Button x:Name="menuButton" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="40" Command="cmd:RoutedCommands.HamburgerBar" Background="Cyan" BorderBrush="Black" Foreground="{x:Null}">
+        <Button x:Name="menuButton" Grid.Column="1" Height="40" Width="40" Command="cmd:RoutedCommands.HamburgerBar" Style="{StaticResource HamburgerButton}" Padding="0" BorderBrush="Black" Foreground="{x:Null}">
             <Image Source="{StaticResource HamburgerBarIcon}" />
         </Button>
     </Grid>

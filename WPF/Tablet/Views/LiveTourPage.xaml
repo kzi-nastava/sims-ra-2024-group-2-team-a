@@ -12,7 +12,12 @@
         <CommandBinding x:Name="Finish" Command="cmd:RoutedCommands.Confirm" CanExecute="Finish_CanExecute" Executed="Finish_Executed"/>
         <CommandBinding x:Name="CheckKeypoints" Command="cmd:RoutedCommands.AddPointOfInterest" CanExecute="CheckKeypoints_CanExecute" Executed="CheckKeypoints_Executed"/>
     </Page.CommandBindings>
-    <Grid Margin="0,10,0,10" Background="White">
+    <Page.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+            
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Margin="0,10,0,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -42,8 +47,8 @@
             <TextBlock Grid.Row="4" Grid.Column="1" Margin="10" Text="{Binding tourDTO.Duration, StringFormat=Duration: {0} hours}" FontSize="18"/>
         </Grid>
         <DockPanel Grid.Row="1" Grid.Column="0">
-            <Label DockPanel.Dock="Top" Content="Description:" Margin="5" FontSize="18"/>
-            <Border BorderBrush="Black" BorderThickness="1"  Margin="10">
+            <Label DockPanel.Dock="Top" Content="Description:" Style="{StaticResource PageLabel}"/>
+            <Border BorderBrush="Black" BorderThickness="1" Background="{StaticResource Beige}" Padding="5" Margin="10,0,10,10">
                 <ScrollViewer>
                     <TextBlock TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" Text="{Binding tourDTO.Description}" FontSize="18"/>
                 </ScrollViewer>
@@ -55,7 +60,7 @@
                 <RowDefinition />
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Keypoints:" Margin="5" FontSize="18"/>
+            <Label Grid.Row="0" Content="Keypoints:" Style="{StaticResource PageLabel}"/>
             <Grid Grid.Row="1" Background="White">
                 <DataGrid x:Name="dataGrid" ItemsSource="{Binding pointOfInterestDTOs}" IsReadOnly="True" 
           SelectionMode="Single" AutoGenerateColumns="False">
@@ -66,8 +71,8 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
-            <Button x:Name="checkButton" Grid.Row="2" Content="Check Next Keypoint" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="20" Command="cmd:RoutedCommands.AddPointOfInterest"/>
+            <Button x:Name="checkButton" Grid.Row="2" Content="Check Next Keypoint" Style="{StaticResource FilterButton}" Command="cmd:RoutedCommands.AddPointOfInterest"/>
         </Grid>
-        <Button Grid.ColumnSpan="2" Grid.Row="2" x:Name="finishButton" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Content="Finish" Command="cmd:RoutedCommands.Confirm"/>
+        <Button Grid.ColumnSpan="2" Grid.Row="2" x:Name="finishButton" Content="Finish" Style="{StaticResource BigButtons}" Command="cmd:RoutedCommands.Confirm"/>
     </Grid>
 </Page>

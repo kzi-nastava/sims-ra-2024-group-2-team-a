@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -175,6 +175,8 @@
   <ItemGroup>
     <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Plugin.StoreReview" Version="6.2.0" />
+    <PackageReference Include="Syncfusion.SfInput.WPF" Version="25.2.3" />
   </ItemGroup>
 
   <ItemGroup>

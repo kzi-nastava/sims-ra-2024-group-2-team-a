@@ -4,6 +4,9 @@ using BookingApp.WPF.DTO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 
 namespace BookingApp.WPF.Tablet.ViewModels {
     public class TourStatsViewModel {
@@ -15,10 +18,11 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         public TourDTO tourDTO { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
-        public int teen { get; set; }
-        public int mid { get; set; }
-        public int old { get; set; }
-        
+        public List<int> stats { get; set; }
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<int, string> Formatter { get; set; }
+
         public TourStatsViewModel(TourDTO tDTO, int userId) {
             if (tDTO == null) {
                 if (!GetMostViewedByYear(-1)) {
@@ -38,10 +42,15 @@ namespace BookingApp.WPF.Tablet.ViewModels {
                 pointOfInterestDTOs.Add(new PointOfInterestDTO(point));
             }
 
-            List<int> stats = _tourService.GetTourStats(tourDTO.Id);
-            teen = stats[0];
-            mid = stats[1];
-            old = stats[2];
+            stats = _tourService.GetTourStats(tourDTO.Id);
+            SeriesCollection = new SeriesCollection {
+                new ColumnSeries {
+                    Values = new ChartValues<int>{stats[0], stats[1], stats[2]}
+                }
+            };
+            Labels = new[] {"Teen", "Mid", "Old" };
+            Formatter = value => value.ToString("N");
+            
         }
         public bool GetMostViewedByYear(int year) {
             Tour tour = _tourService.GetMostViewedByYear(year);

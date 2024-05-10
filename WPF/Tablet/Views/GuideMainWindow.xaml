@@ -11,13 +11,11 @@
         <CommandBinding Command="cmd:RoutedCommands.Profile" CanExecute="Profile_CanExecute" Executed="Profile_Executed"/>
     </Window.CommandBindings>
     <DockPanel>
-        <Grid DockPanel.Dock="Top" Background="Aqua">
-            <Label Content="Booking App"/>
-            <Button HorizontalAlignment="Right" Content="Profile" VerticalAlignment="Center" Padding="10 0 10 0" Margin="0,0,20,0" Command="cmd:RoutedCommands.Profile"/>
+        <Grid DockPanel.Dock="Top" Background="{StaticResource HardGreen}">
+            <Label Content="Booking App" Foreground="White" FontWeight="Bold" Margin="5"/>
+            <Button HorizontalAlignment="Right" Content="Profile" VerticalAlignment="Center" Padding="10 0 10 0" Margin="0,5,20,5" Command="cmd:RoutedCommands.Profile"/>
         </Grid>
-        <Grid DockPanel.Dock="Bottom" Background="#696969">
-
-
+        <Grid DockPanel.Dock="Bottom" Background="{StaticResource SoftGreen}">
             <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" VerticalAlignment="Center" Height="726"/>
             <Frame x:Name="menuBarFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="674" Width="300"/>
         </Grid>
