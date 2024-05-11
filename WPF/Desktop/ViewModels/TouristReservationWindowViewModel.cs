@@ -10,8 +10,8 @@ using System.Runtime.CompilerServices;
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TouristReservationWindowViewModel : INotifyPropertyChanged {
         private readonly TourReservationService _tourReservationService = ServicesPool.GetService<TourReservationService>();
-        private readonly LocationRepository _locationRepository = ServicesPool.GetService<LocationRepository>();
-        private readonly LanguageRepository _languageRepository = ServicesPool.GetService<LanguageRepository>();
+        private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
+        private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
 
         public ObservableCollection<PassengerDTO> Passengers { get; set; }
 
@@ -171,8 +171,8 @@ namespace BookingApp.WPF.Desktop.ViewModels {
         }
 
         private void GetPresentableTour() {
-            Location location = _locationRepository.GetById(SelectedTour.LocationId);
-            Language language = _languageRepository.GetById(SelectedTour.LanguageId);
+            Location location = _locationService.GetById(SelectedTour.LocationId);
+            Language language = _languageService.GetById(SelectedTour.LanguageId);
             SelectedTour.setLocationTemplate(location.City, location.Country);
             SelectedTour.SetLanguageTemplate(language.Name);
         }

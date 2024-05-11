@@ -5,10 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.WPF.Desktop.Views"
       xmlns:viewmodels="clr-namespace:BookingApp.WPF.Desktop.ViewModels"
+      xmlns:converters="clr-namespace:BookingApp.WPF.Utils.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RequestsPage">
     <Page.Resources>
+        <converters:RadioButtonToStringConverter x:Key="RadioConverter"/>
         <Style TargetType="TabItem" x:Key="Tab">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="MinWidth" Value="120"/>
@@ -29,16 +31,16 @@
         </Style>
         <Style TargetType="Button" x:Key="ButtonStyle">
             <Setter Property="Background" Value="{StaticResource Green}"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontSize" Value="24"/>
         </Style>
         <Style TargetType="TextBlock" x:Key="Info">
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
     </Page.Resources>
     <Grid Background="{StaticResource Beige}">
@@ -66,7 +68,53 @@
                             Click="StatisticsButton_Click">Statistics</Button>
                     <Border Style="{StaticResource BorderStyle}"
                             Background="{StaticResource SoftGreen}">
-
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="All"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="Filter"
+                                             IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=All}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="On hold"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="Filter"
+                                             IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=OnHold}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="2"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="Expired"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="Filter"
+                                             IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Expired}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="3"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="Accepted"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="Filter"
+                                             IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Accepted}"/>
+                            </StackPanel>
+                        </Grid>
                     </Border>
                     <ScrollViewer Grid.Row="1"
                                   Grid.ColumnSpan="3"
@@ -74,7 +122,8 @@
                     <ItemsControl ItemsSource="{Binding TourRequests}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Style="{StaticResource BorderStyle}">
+                                <Border Style="{StaticResource BorderStyle}"
+                                        Margin="0, 5, 5, 5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>

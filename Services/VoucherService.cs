@@ -16,6 +16,14 @@ namespace BookingApp.Services {
 
         }
 
+        public void Update(Voucher voucher) {
+            _voucherRepository.Update(voucher);
+        }
+
+        public Voucher GetById(int id) {
+            return _voucherRepository.GetById(id);
+        }
+
         public List<Voucher> GetByTouristId(int userId) {
                 return _voucherRepository.GetAll().Where(v => v.TouristId == userId).ToList();
         }

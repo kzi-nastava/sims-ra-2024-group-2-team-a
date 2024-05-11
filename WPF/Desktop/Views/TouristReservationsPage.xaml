@@ -10,7 +10,7 @@
       Title="TouristReservationsPage">
     <Page.Resources>
         <converters:TourStateToButtonVisibilityConverter x:Key="ButtonConverter"/>
-
+        <converters:RadioButtonToStringConverter x:Key="RadioConverter"/>
         <Style TargetType="Border" x:Key="BorderStyle">
             <Setter Property="Margin" Value="10"/>
             <Setter Property="BorderBrush" Value="Black"/>
@@ -32,8 +32,62 @@
     <Grid Background="Beige">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
+        <Border Style="{StaticResource BorderStyle}"
+        Background="{StaticResource SoftGreen}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="All"
+                               VerticalAlignment="Center"
+                               Margin="5"
+                               FontSize="24"/>
+                    <RadioButton VerticalAlignment="Center"
+                                 GroupName="Filter"
+                                 IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=All}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="Scheduled"
+                               VerticalAlignment="Center"
+                               Margin="5"
+                               FontSize="24"/>
+                    <RadioButton VerticalAlignment="Center"
+                                 GroupName="Filter"
+                                 IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Scheduled}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="2"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="Active"
+                               VerticalAlignment="Center"
+                               Margin="5"
+                               FontSize="24"/>
+                    <RadioButton VerticalAlignment="Center"
+                                 GroupName="Filter"
+                                 IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Active}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="3"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="Finished"
+                               VerticalAlignment="Center"
+                               Margin="5"
+                               FontSize="24"/>
+                    <RadioButton VerticalAlignment="Center"
+                                 GroupName="Filter"
+                                 IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Finished}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
         <ScrollViewer Grid.Row="1"
                       Margin="0, 0, 5, 0">
             <ItemsControl ItemsSource="{Binding ReservedTours}">

@@ -84,6 +84,12 @@ namespace BookingApp.Services {
                 GetService<LocationService>(),
                 GetService<LanguageService>()
                 );
+
+            GetService<TourReservationService>().InjectServices(
+                GetService<TourService>(),
+                GetService<PassengerService>(),
+                GetService<VoucherService>()
+                );
         }
 
         public static T GetService<T>() {
