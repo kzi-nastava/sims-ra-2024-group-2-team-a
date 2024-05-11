@@ -28,10 +28,10 @@
     <Border Margin="5 5 5 5" Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" Width="350" CornerRadius="10">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>

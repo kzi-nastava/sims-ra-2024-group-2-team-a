@@ -52,6 +52,7 @@
     <None Remove="Resources\Images\Icons\normal-owner-icon.png" />
     <None Remove="Resources\Images\Icons\not-super-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
+    <None Remove="Resources\Images\Icons\pointing-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\reschedule-icon.png" />
     <None Remove="Resources\Images\Icons\right-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\scheduled-icon.png" />
@@ -173,6 +174,7 @@
     <Resource Include="Resources\Images\Icons\normal-owner-icon.png" />
     <Resource Include="Resources\Images\Icons\people-icon.png" />
     <Resource Include="Resources\Images\Icons\location-icon.png" />
+    <Resource Include="Resources\Images\Icons\pointing-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\reschedule-icon.png" />
     <Resource Include="Resources\Images\Icons\right-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\scheduled-icon.png" />

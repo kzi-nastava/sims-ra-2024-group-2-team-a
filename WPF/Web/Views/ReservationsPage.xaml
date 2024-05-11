@@ -60,7 +60,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Content="Reservations" Style="{StaticResource MainLabel}"/>
+                    <Label Grid.Column="0" Content="Reservations" Margin="30 0 0 0" Style="{StaticResource MainLabel}"/>
 
                     <Button x:Name="buttonScheduled" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="ButtonScheduledClick">
                         <WrapPanel>
@@ -100,7 +100,7 @@
                 </Grid.RowDefinitions>
 
                 <Border Background="{StaticResource Green}" Height="80" Grid.Row="0" BorderThickness="5 0 0 0">
-                    <Label Grid.Column="0" Content="Reschedule date requests" Style="{StaticResource MainLabel}"/>
+                    <Label Grid.Column="0" Margin="30 0 0 0" Content="Reschedule date requests" Style="{StaticResource MainLabel}"/>
                 </Border>
 
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Height="500">

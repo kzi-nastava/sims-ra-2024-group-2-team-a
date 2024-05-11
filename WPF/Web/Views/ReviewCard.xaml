@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
              xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Margin="5 5 5 5">
     
     <UserControl.Resources>
         <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
@@ -27,9 +28,9 @@
     </UserControl.Resources>
 
     <Grid>
-        <Border Margin="5 5 5 5" Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" Width="550" CornerRadius="10">
+        <Border Margin="5 5 5 5" Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" CornerRadius="10">
             <Grid>
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -38,7 +39,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="130"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -62,11 +63,7 @@
                 <Label Grid.Row="3" Grid.Column="0">
                     <StackPanel Orientation="Horizontal">
                         <Image Style="{StaticResource InfoImage}" Source="{StaticResource CalendarIcon}"/>
-                        <TextBlock Style="{StaticResource InfoTextBlock}">
-                            <Run Text="{Binding Reservation.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
-                            <Run Text=" "/>
-                            <Run Text="{Binding Reservation.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
-                        </TextBlock>
+                        <TextBlock Style="{StaticResource InfoTextBlock}"><Run Text="{Binding Reservation.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/><Run Text=" "/><Run Text=" "/><Run Text=" "/><Run Text="{Binding Reservation.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/></TextBlock>
                     </StackPanel>
                 </Label>
 
@@ -93,7 +90,7 @@
                 <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4" CornerRadius="10" Background="{StaticResource SoftGreen}" 
                         Visibility="{Binding IsReviewHidden, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <TextBlock  Text="Review accommodation in order to see owner's review" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"
-                               FontStyle="Italic" FontSize="15" Margin="70 0 70 0"/>
+                               FontStyle="Italic" FontSize="18" Margin="70 0 70 0"/>
                 </Border>
             </Grid>
         </Border>

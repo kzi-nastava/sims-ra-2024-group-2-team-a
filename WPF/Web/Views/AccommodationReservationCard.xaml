@@ -17,6 +17,7 @@
         <Style x:Key="InfoTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="10 5 0 5"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
 
         <Style x:Key="InfoImage" TargetType="Image">
@@ -40,13 +41,13 @@
     </UserControl.Resources>
 
     <Grid>
-        <Border Margin="5 5 5 5" Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" Width="320" CornerRadius="10">
+        <Border Margin="5 5 5 5" Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" Width="350" CornerRadius="10">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
 
@@ -82,7 +83,7 @@
                 <Label Grid.Row="2" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <Image Style="{StaticResource InfoImage}" Source="{StaticResource CalendarIcon}"/>
-                        <TextBlock Style="{StaticResource InfoTextBlock}" FontSize="9">
+                        <TextBlock Style="{StaticResource InfoTextBlock}" FontSize="11">
                             <Run Text="{Binding Reservation.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
                             <LineBreak/>
                             <Run Text="{Binding Reservation.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
@@ -121,6 +122,6 @@
             </Grid>
         </Border>
 
-        <Border Margin="5 5 5 5" Background="LightGray" Opacity="0.5" BorderBrush="Gray" BorderThickness="1" Width="320" CornerRadius="10" Visibility="{Binding Reservation.Cancelled, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Border Margin="5 5 5 5" Background="LightGray" Opacity="0.5" BorderBrush="Gray" BorderThickness="1" Width="350" CornerRadius="10" Visibility="{Binding Reservation.Cancelled, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </UserControl>
