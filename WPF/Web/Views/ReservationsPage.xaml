@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="800"
+             d:DesignHeight="620" d:DesignWidth="1000"
              x:Name="reservationsPage">
 
     <Page.Resources>
@@ -77,7 +77,7 @@
                     </Button>
                 </Grid>
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0 0 0 25">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Height="500">
                     <ItemsControl x:Name="itemsControlReservations" ItemsSource="{Binding FilteredReservations}" Margin="10 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center" >
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -103,7 +103,7 @@
                     <Label Grid.Column="0" Content="Reschedule date requests" Style="{StaticResource MainLabel}"/>
                 </Border>
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,25">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Height="500">
                     <ItemsControl x:Name="itemsControlRescheduleRequests" ItemsSource="{Binding RescheduleRequests}" Margin="10 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center" >
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -121,7 +121,5 @@
         </Grid>
 
         <Rectangle x:Name="rectBlurBackground" Fill="Gray" Opacity="0.5" Visibility="Hidden"/>
-
-        
     </Grid>
 </Page>

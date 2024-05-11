@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="800">
+             d:DesignHeight="620" d:DesignWidth="1000">
     
     <Page.Resources>
         <Style x:Key="SearchLabel" TargetType="Label">
@@ -50,14 +50,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <Grid Background="{StaticResource Green}" Height="80" VerticalAlignment="Top" HorizontalAlignment="Center" Width="800" Grid.RowSpan="2">
+        <Grid Background="{StaticResource Green}" Height="80" VerticalAlignment="Top" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="120"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="20 0 0 0">
+            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="20 0 0 0">
                 <WrapPanel Margin="0 5 5 5">
                     <Label x:Name="labelLocation" Content="Location" Style="{StaticResource SearchLabel}"/>
                     <ComboBox x:Name="comboBoxLocation" Width="230" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -70,10 +71,10 @@
                 </WrapPanel>
             </StackPanel>
 
-            <StackPanel Grid.Column="1" Orientation="Vertical">
+            <StackPanel Grid.Column="2" Orientation="Vertical">
                 <WrapPanel Margin="0 5 5 5">
                     <Label x:Name="labelName" Content="Name" Style="{StaticResource SearchLabel}"/>
-                    <TextBox x:Name="textBoxName"/>
+                    <TextBox x:Name="textBoxName" Width="250"/>
                 </WrapPanel>
 
                 <Grid Margin="0 5 5 5">
@@ -93,14 +94,14 @@
                 </Grid>
             </StackPanel>
 
-            <Button x:Name="buttonClear" Grid.Column="2" Margin="10 5 10 5" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonClearClick">
+            <Button x:Name="buttonClear" Grid.Column="3" Margin="10 5 10 5" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonClearClick">
                 <WrapPanel>
                     <Image Style="{StaticResource ButtonImage}" Source="{StaticResource BinIcon}"/>
                     <TextBlock Text="Clear" Style="{StaticResource ButtonText}"/>
                 </WrapPanel>
             </Button>
 
-            <Button x:Name="buttonFilter" Grid.Column="2" Margin="10 5 10 5" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="ButtonFilterClick">
+            <Button x:Name="buttonFilter" Grid.Column="3" Margin="10 5 10 5" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="ButtonFilterClick">
                 <WrapPanel>
                     <Image Style="{StaticResource ButtonImage}" Source="{StaticResource FilterIcon}"/>
                     <TextBlock Text="Filter" Style="{StaticResource ButtonText}"/>
@@ -108,8 +109,8 @@
             </Button>
         </Grid>
         
-        <ScrollViewer Margin="0 0 0 20" VerticalScrollBarVisibility="Auto" Grid.Row="1" Background="{StaticResource Beige}">
-            <ItemsControl x:Name="itemsControlAccommodations" ItemsSource="{Binding _accommodationDTOs}" Margin="10 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center" >
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Background="{StaticResource Beige}">
+            <ItemsControl x:Name="itemsControlAccommodations" ItemsSource="{Binding _accommodationDTOs}" Margin="10 10 10 10" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:AccommodationCard/>

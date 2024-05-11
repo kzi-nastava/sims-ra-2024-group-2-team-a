@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
              xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Margin="5 5 5 5">
 
     <UserControl.Resources>
         <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
