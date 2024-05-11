@@ -33,6 +33,30 @@ namespace BookingApp.Services {
             return GetByTouristId(id).Where(a => a.EndDate.Year == year).ToList();
         }
 
+        private List<TourRequest> GetOnHold(int userId) {
+            return GetByTouristId(userId).Where(r => r.Status == TourRequestStatus.OnHold).ToList();
+        }
+
+        private List<TourRequest> GetExpired(int userId) {
+            return GetByTouristId(userId).Where(r => r.Status == TourRequestStatus.Expired).ToList();
+        }
+
+        public List<TourRequest> GetFiltered(int userId, string filter) {
+            if(Enum.TryParse<TourRequestStatus>(filter, out TourRequestStatus status)) {
+                switch (status) {
+                    case TourRequestStatus.Accepted:
+                        return GetAccepted(userId);
+                    case TourRequestStatus.OnHold:
+                        return GetOnHold(userId);
+                    default:
+                        return GetExpired(userId);
+                }
+            }
+            else {
+                return GetByTouristId(userId);
+            }
+        }
+
         private void UpdateRequestStatus() {
             foreach (TourRequest tourRequest in _tourRequestRepository.GetAll()) { 
                 if ((tourRequest.StartDate.ToDateTime(TimeOnly.Parse("00:00 AM")) - DateTime.Now).TotalHours < 48 && tourRequest.Status == TourRequestStatus.OnHold) {
@@ -56,34 +80,6 @@ namespace BookingApp.Services {
 
         public List<TourRequest> GetAcceptedForYear(int userId, int year) {
             return GetByTouristIdForYear(userId, year).Where(r => r.Status == TourRequestStatus.Accepted).ToList();
-        }
-
-        public double GetAllTimeAcceptedPercentage(int userId) {
-            return ((double)GetAccepted(userId).Count() / (double)GetByTouristId(userId).Count());
-        }
-
-        public double GetAllTimeNotAcceptedPercentage(int userId) {
-            List<TourRequest> all = GetByTouristId(userId);
-            return (((double)all.Count() - (double)GetAccepted(userId).Count()) / (double)all.Count());
-        }
-
-        public double GetAllTimeAveragePassengerNumber(int userId) {
-            List<TourRequest> accepted = GetAccepted(userId);
-            return accepted.Sum(a => a.PassengerNumber) / (double)accepted.Count();
-        }
-
-        public double GetAcceptedPercentageForYear(int userId, int year) {
-            return ((double)GetAcceptedForYear(userId, year).Count() / (double)GetByTouristIdForYear(userId, year).Count());
-        }
-
-        public double GetNotAcceptedPercentageForYear(int userId, int year) {
-            List<TourRequest> all = GetByTouristIdForYear(userId, year);
-            return (((double)all.Count() - (double)GetAcceptedForYear(userId, year).Count()) / (double)all.Count());
-        }
-
-        public double GetAveragePassengerNumberForYear(int userId, int year) {
-            List<TourRequest> accepted = GetAcceptedForYear(userId, year);
-            return accepted.Sum(a => a.PassengerNumber) / (double)accepted.Count();
         }
 
         public TouristStatistics GetStatistics(int userId, string year) {

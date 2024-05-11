@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
 using System.Collections.ObjectModel;
@@ -16,7 +17,7 @@ namespace BookingApp.WPF.Desktop.Views {
             InitializeComponent();
             DataContext = this;
             UserId = userId;
-            _voucherService = new VoucherService();
+            _voucherService = new VoucherService(RepositoryInjector.GetInstance<IVoucherRepository>());
             VouchersOnDisplay = new ObservableCollection<VoucherDTO>();
             LoadVouchers();
         }

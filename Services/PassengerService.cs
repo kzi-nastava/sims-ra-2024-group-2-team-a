@@ -14,6 +14,10 @@ namespace BookingApp.Services {
             _passengerRepository = passengerRepository;
         }
 
+        public void Save(Passenger passenger) {
+            _passengerRepository.Save(passenger);   
+        }
+
         public List<int> GetAttendance(List<TourReservation> reservations) {
             List<Passenger> passengers = GetByReservations(reservations);
             List<int> attendances = new List<int>();
