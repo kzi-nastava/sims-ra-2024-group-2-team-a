@@ -31,7 +31,7 @@ namespace BookingApp.WPF.Desktop.ViewModels
 
         public int UserId { get; set; }
 
-        public List<string> Periods { get; set; } = new List<string>(); 
+        public List<string> Periods { get; set; } = new List<string>();
 
         private string _period;
         public string Period { 
@@ -97,6 +97,9 @@ namespace BookingApp.WPF.Desktop.ViewModels
             SolidColorBrushes.Add(Application.Current.Resources["HardGreen"] as SolidColorBrush);
             SolidColorBrushes.Add(Application.Current.Resources["Green"] as SolidColorBrush);
             SolidColorBrushes.Add(Application.Current.Resources["SoftGreen"] as SolidColorBrush);
+            SolidColorBrushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#98C379")));
+            SolidColorBrushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#73825E")));
+            SolidColorBrushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8E9B79")));
 
             LoadPeriods();
             Period = Periods[0];
@@ -118,8 +121,8 @@ namespace BookingApp.WPF.Desktop.ViewModels
                 LocationCollection.Add(new RowSeries {
                     Title = pair.Key.City + " - " + pair.Key.Country,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(pair.Value) },
-                    Fill = SolidColorBrushes[brushIndex %  SolidColorBrushes.Count]
-                });  
+                    Fill = SolidColorBrushes[brushIndex]
+                });
 
                 brushIndex++;
             }
@@ -132,7 +135,7 @@ namespace BookingApp.WPF.Desktop.ViewModels
                 LanguageCollection.Add(new RowSeries {
                     Title = pair.Key.Name,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(pair.Value) },
-                    Fill = SolidColorBrushes[brushIndex % SolidColorBrushes.Count]
+                    Fill = SolidColorBrushes[brushIndex]
                 });
 
                 brushIndex++;
