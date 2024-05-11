@@ -231,9 +231,9 @@
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="Jon.Wpf.CustomControls" Version="2.33.0" />
     <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
-    <PackageReference Include="Plugin.StoreReview" Version="6.2.0" />
     <PackageReference Include="Syncfusion.SfInput.WPF" Version="25.2.3" />
   </ItemGroup>
 

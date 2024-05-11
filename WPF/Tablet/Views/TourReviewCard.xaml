@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
-             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             
              xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="1000" Loaded="UserControl_Loaded">
@@ -28,7 +28,8 @@
                 <TextBlock Margin="50,0,0,0" Text="{Binding PointOfInterestName, StringFormat=Joined: {0}}" FontSize="20"/>
                 <TextBlock Margin="50,0,0,0" Text="{Binding IsValid, StringFormat=Valid: {0}}" FontSize="20"/>
                 <TextBlock Margin="200,0,0,0" Text="{Binding AvrageGrade}" FontSize="20" FontWeight="Bold"/>
-                <syncfusion:SfRating Margin="5,0,0,0" ItemsCount="5" Precision="Exact" VerticalAlignment="Top" IsReadOnly="True" Value="{Binding AvrageGrade}"></syncfusion:SfRating>
+                <!--<syncfusion:SfRating Margin="5,0,0,0" ItemsCount="5" Precision="Exact" VerticalAlignment="Top" ToolTip="String" IsReadOnly="True" Value="{Binding AvrageGrade}"></syncfusion:SfRating>-->
+                
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <Border BorderBrush="Black" BorderThickness="1" Width="700" Margin="20,0,0,20">
