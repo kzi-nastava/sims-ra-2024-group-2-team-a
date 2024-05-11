@@ -16,6 +16,7 @@
         <Style x:Key="InfoTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="10 5 0 5"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
 
         <Style x:Key="InfoImage" TargetType="Image">
@@ -39,8 +40,8 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition Width="140"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -69,7 +70,7 @@
 
                 <Label Grid.Row="2" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Cleanliness" Margin="10 5 0 5"/>
+                        <TextBlock Text="Cleanliness" Margin="10 5 0 5" Style="{StaticResource InfoTextBlock}"/>
                         <Image Style="{StaticResource InfoImage}" Source="{StaticResource ReviewIcon}"/>
                         <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Review.GuestCleannessGrade}" FontSize="14"/>
                     </StackPanel>
@@ -77,7 +78,7 @@
 
                 <Label Grid.Row="3" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Behaviour" Margin="10 5 6 5"/>
+                        <TextBlock Text="Behaviour" Margin="10 5 6 5" Style="{StaticResource InfoTextBlock}"/>
                         <Image Style="{StaticResource InfoImage}" Source="{StaticResource ReviewIcon}"/>
                         <TextBlock Style="{StaticResource InfoTextBlock}" Text="{Binding Review.RuleFollowingGrade}" FontSize="14"/>
                     </StackPanel>

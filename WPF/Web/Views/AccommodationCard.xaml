@@ -49,6 +49,7 @@
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="10 10 0 0"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
         
     </UserControl.Resources>
