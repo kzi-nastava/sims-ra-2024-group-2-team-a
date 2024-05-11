@@ -52,6 +52,7 @@ namespace BookingApp.WPF.Tablet.ViewModels {
             foreach (var tour in _tourService.GetFinished(_userId)) {
                 TourDTO tempTourDTO = new TourDTO(tour);
                 SetLocationLanguage(tempTourDTO, tour);
+                tempTourDTO.Grade = _tourService.GetTourGrade(tour.Id);
                 tourDTOs.Add(tempTourDTO);
             }
         }

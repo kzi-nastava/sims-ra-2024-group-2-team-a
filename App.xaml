@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:BookingApp"
              StartupUri="WPF/SignInForm.xaml">
     <Application.Resources>
+
         <BitmapImage x:Key="TimeIcon" UriSource="Resources/Images/Icons/time-icon.png"/>
         <BitmapImage x:Key="ScheduledIcon" UriSource="Resources/Images/Icons/scheduled-icon.png"/>
         <BitmapImage x:Key="CancelIcon" UriSource="Resources/Images/Icons/cancel-icon.png"/>
@@ -53,5 +54,6 @@
         <SolidColorBrush x:Key="Green2" Color="#5a8c6a"/>
         <SolidColorBrush x:Key="SoftGreen" Color="#ADBC9F"/>
         <SolidColorBrush x:Key="Beige" Color="#EDEEDD"/>
+        
     </Application.Resources>
 </Application>

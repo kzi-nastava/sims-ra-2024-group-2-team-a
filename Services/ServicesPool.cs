@@ -39,8 +39,9 @@ namespace BookingApp.Services {
         private static void LinkAllServices() {
             GetService<TourService>().InjectService(
                 GetService<PassengerService>(),
-                GetService<TourReservationService>()
-                );
+                GetService<TourReservationService>(),
+                GetService<TourReviewService>()
+                ); 
 
             GetService<AccommodationReservationService>().InjectServices(
                 GetService<AccommodationRescheduleRequestService>(),

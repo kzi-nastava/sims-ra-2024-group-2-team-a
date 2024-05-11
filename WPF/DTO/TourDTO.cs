@@ -276,6 +276,16 @@ namespace BookingApp.WPF.DTO {
                 }
             }
         }
+        private double _grade;
+        public double Grade {
+            get { return _grade; }
+            set {
+                if(_grade != value) {
+                    _grade = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public List<string> ProfilePictures { get; set; }
         public string LanguageTemplate { get; set; }
         public string LocationTemplate { get; set; }

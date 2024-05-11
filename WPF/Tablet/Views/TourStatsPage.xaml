@@ -87,7 +87,8 @@
                     <ImageBrush ImageSource="{Binding tourDTO.ProfilePictures[0]}"/>
                 </Border.Background>
             </Border>
-            <TextBlock Grid.Row="4" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Name, StringFormat=OCENA: {0}}" FontSize="20"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Grade}" FontSize="20" FontWeight="Bold"/>
+            <!--<syncfusion:SfRating Grid.Row="4" Grid.Column="0" Margin="30,10,10,10" ItemsCount="5" Precision="Exact" VerticalAlignment="Center" ToolTip="String" IsReadOnly="True" Value="{Binding tourDTO.Grade}"></syncfusion:SfRating>-->
 
             <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="{Binding tourDTO.Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>
             <TextBlock Grid.Row="2" Grid.Column="1" Margin="10" Text="{Binding tourDTO.CurrentTouristNumber, StringFormat=Tourists: {0}}" FontSize="18"/>
@@ -133,9 +134,6 @@
                     </Grid.RowDefinitions>
                     <Border Grid.RowSpan="4" BorderBrush="Black" BorderThickness="1" Background="{StaticResource Beige}"/>
                     <Label Grid.Row="0" FontSize="20" Style="{StaticResource PageLabel}" FontWeight="Bold" Content="Stats:"/>
-                    <!--<TextBlock Grid.Row="1" FontSize="18" Margin="10" Text="{Binding teen, StringFormat=Bellow 18 years:      {0}}"/>
-                    <TextBlock Grid.Row="2" FontSize="18" Margin="10" Text="{Binding mid, StringFormat=Between 18 and 50 years:      {0}}"/>
-                    <TextBlock Grid.Row="3" FontSize="18" Margin="10" Text="{Binding old, StringFormat=Over 50 years:      {0}}"/>-->
                     <lvc:CartesianChart Series="{Binding SeriesCollection}" Grid.Row="1" Grid.RowSpan="3" Margin="10">
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Age" Foreground="{StaticResource HardGreen}" FontSize="12" Labels="{Binding Labels}"></lvc:Axis>
