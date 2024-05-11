@@ -26,6 +26,9 @@ namespace BookingApp.WPF.Web.Views {
             datePickerStartDate.DisplayDateStart = DateTime.Today.AddDays(1);
             datePickerEndDate.IsEnabled = false;
 
+            textBoxReservationDays.Value = ViewModel.Accommodation.MinReservationDays;
+            textBoxGuests.Value = 1;
+
             buttonLeft.IsEnabled = false;
             if(ViewModel.Accommodation.ProfilePictures.Count == 1)
                 buttonRight.IsEnabled = false;

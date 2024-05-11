@@ -36,6 +36,7 @@
 
         <Style TargetType="Button">
             <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
     </UserControl.Resources>
 
