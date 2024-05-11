@@ -25,6 +25,10 @@ namespace BookingApp.WPF.Web.Views {
             textBoxGuests.Maximum = accommodationDTO.MaxGuestNumber;
             datePickerStartDate.DisplayDateStart = DateTime.Today.AddDays(1);
             datePickerEndDate.IsEnabled = false;
+
+            buttonLeft.IsEnabled = false;
+            if(ViewModel.Accommodation.ProfilePictures.Count == 1)
+                buttonRight.IsEnabled = false;
         }
 
         private void GoBack(object sender, RoutedEventArgs e) {
@@ -85,6 +89,24 @@ namespace BookingApp.WPF.Web.Views {
             ViewModel.SaveReservation(selectedReservation);
 
             GoBack(sender, e);
+        }
+
+        private void ButtonLeftClick(object sender, RoutedEventArgs e) {
+            ViewModel.ChangePictureLeft();
+
+            if(ViewModel.PicturesIndex == 0) {
+                buttonLeft.IsEnabled = false;
+                buttonRight.IsEnabled = true;
+            }
+        }
+
+        private void ButtonRightClick(object sender, RoutedEventArgs e) {
+            ViewModel.ChangePictureRight();
+
+            if (ViewModel.PicturesIndex == ViewModel.MaxPictureIndex) {
+                buttonRight.IsEnabled = false;
+                buttonLeft.IsEnabled = true;
+            }
         }
     }
 }
