@@ -13,6 +13,20 @@ namespace BookingApp.WPF.Web.ViewModels {
     public class CreateReservationPageViewModel : INotifyPropertyChanged {
 
         public AccommodationDTO Accommodation { get; set; }
+
+        public string _selectedAccommodationPicture;
+        public string SelectedAccommodationPicture {
+            get { return _selectedAccommodationPicture; }
+            set {
+                _selectedAccommodationPicture = value;
+                OnPropertyChanged(nameof(SelectedAccommodationPicture));
+            }
+        }
+
+        public int PicturesIndex { get; set; } = 0;
+
+        public int MaxPictureIndex => Accommodation.ProfilePictures.Count - 1;
+
         public AccommodationReservationDTO ReservationDTO { get; set; } = new AccommodationReservationDTO();
 
         private List<AccommodationReservation> _suggestedReservations;
@@ -38,6 +52,7 @@ namespace BookingApp.WPF.Web.ViewModels {
             ReservationDTO.AccommodationId = Accommodation.Id;
 
             GuestUser = _guestService.GetById(guestId);
+            SelectedAccommodationPicture = Accommodation.ProfilePictures[PicturesIndex];
         }
 
         public void UpdateSuggestedReservations() {
@@ -53,6 +68,21 @@ namespace BookingApp.WPF.Web.ViewModels {
             selectedReservation.GuestId = GuestUser.Id;
             _reservationService.Save(selectedReservation);
         }
+
+        public void ChangePictureRight() {
+            PicturesIndex++;
+            PicturesIndex = Math.Min(PicturesIndex, Accommodation.ProfilePictures.Count - 1);
+
+            SelectedAccommodationPicture = Accommodation.ProfilePictures[PicturesIndex];
+        }
+
+        public void ChangePictureLeft() {
+            PicturesIndex--;
+            PicturesIndex = Math.Max(PicturesIndex, 0);
+
+            SelectedAccommodationPicture = Accommodation.ProfilePictures[PicturesIndex];
+        }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName) {

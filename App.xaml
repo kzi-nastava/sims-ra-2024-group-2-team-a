@@ -47,7 +47,9 @@
         <BitmapImage x:Key="BlackAccount" UriSource="Resources/Images/Icons/black-account.png"/>
         <BitmapImage x:Key="LanguageIcon" UriSource="Resources/Images/Icons/language.png"/>
         <BitmapImage x:Key="Stopwatch" UriSource="Resources/Images/Icons/stopwatch.png"/>
-        
+        <BitmapImage x:Key="LeftArrowIcon" UriSource="Resources/Images/Icons/left-arrow-icon.png"/>
+        <BitmapImage x:Key="PointingArrowIcon" UriSource="Resources/Images/Icons/pointing-arrow-icon.png"/>
+
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>
         <SolidColorBrush x:Key="Green2" Color="#5a8c6a"/>
