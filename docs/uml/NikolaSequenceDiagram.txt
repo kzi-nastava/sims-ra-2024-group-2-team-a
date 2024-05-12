@@ -25,8 +25,8 @@ opt guest.IsSuper
   GService -> GService ++: DecrementGuestPoints(guest)
   GService -> GRepo ++: Update(guest)
   GRepo --> GService --
-  GService --> GService
-GService --> RService --
+  GService --> GService --
+  GService --> RService
 end
 
 opt reservationsCount >= Guest.SuperGuestReservationsCount
