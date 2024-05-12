@@ -83,7 +83,8 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void Requests_Executed(object sender, ExecutedRoutedEventArgs e) {
-            MessageBox.Show("Pay 5$ to Unlock", "Attention!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+            _mainFrame.Content = new TourRequestsMainPage(_userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
         }
     }
 }

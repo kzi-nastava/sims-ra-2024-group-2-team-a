@@ -108,6 +108,7 @@
     <None Remove="Resources\Images\Tours\Vienna4.jpg" />
     <None Remove="Resources\Images\Tours\Vienna5.jpg" />
     <None Remove="Resources\Images\Tours\Vienna6.jpg" />
+    <None Remove="Resources\Images\tour_request_icon.png" />
     <None Remove="Resources\Images\trash.png" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
@@ -226,6 +227,7 @@
     <Resource Include="Resources\Images\Tours\Vienna4.jpg" />
     <Resource Include="Resources\Images\Tours\Vienna5.jpg" />
     <Resource Include="Resources\Images\Tours\Vienna6.jpg" />
+    <Resource Include="Resources\Images\tour_request_icon.png" />
     <Resource Include="Resources\Images\trash.png" />
   </ItemGroup>
 

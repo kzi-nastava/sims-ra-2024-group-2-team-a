@@ -35,6 +35,7 @@
         <BitmapImage x:Key="HomeIcon" UriSource="Resources/Images/normal-home-icon.png"/>
         <BitmapImage x:Key="LiveIcon" UriSource="Resources/Images/live.png"/>
         <BitmapImage x:Key="FinishIcon" UriSource="Resources\Images\finish.png"/>
+        <BitmapImage x:Key="TourRequestIcon" UriSource="Resources/Images/tour_request_icon.png" />
         <BitmapImage x:Key="RequestIcon" UriSource="Resources/Images/request.png"/>
         <BitmapImage x:Key="ReportIcon" UriSource="Resources/Images/report.png"/>
         <BitmapImage x:Key="EyeIcon" UriSource="Resources/Images/eye.png"/>

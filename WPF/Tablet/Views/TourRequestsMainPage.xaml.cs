@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BookingApp.WPF.DTO;
+using BookingApp.WPF.Tablet.ViewModels;
+using Syncfusion.Windows.Controls.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,65 @@ namespace BookingApp.WPF.Tablet.Views
     /// </summary>
     public partial class TourRequestsMainPage : Page
     {
-        public TourRequestsMainPage()
-        {
+        public TourRequestViewModel ViewModel { get; set; }
+        public TourRequestsMainPage(int userId){
             InitializeComponent();
+            ViewModel = new TourRequestViewModel(userId);
+            DataContext = ViewModel;
+        }
+
+        private void Clear_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Clear_Executed(object sender, ExecutedRoutedEventArgs e) {
+            textBoxTourists.Text = string.Empty;
+            comboBoxLanguage.SelectedIndex = 0;
+            comboBoxLocation.SelectedIndex = 0;
+            datePickerFrom.SelectedDate = null;
+            datePickerTo.SelectedDate = null;
+        }
+
+        private void Filter_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Filter_Executed(object sender, ExecutedRoutedEventArgs e) {
+            ViewModel.FilterRequests(SetFilter());
+            itemsControlTourRequests.ItemsSource = ViewModel.tourRequestDTOs;
+        }
+        private TourRequestFilterDTO SetFilter() {
+            LocationDTO location = (LocationDTO)comboBoxLocation.SelectedItem;
+            if (location == null)
+                location = new LocationDTO();
+
+            LanguageDTO language = (LanguageDTO)comboBoxLanguage.SelectedItem;
+            if (language == null)
+                language = new LanguageDTO();
+
+            if (!int.TryParse(textBoxTourists.Text, out int touristsNumber))
+                textBoxTourists.Text = string.Empty;
+
+            DateOnly start;
+            if (datePickerFrom.SelectedDate.HasValue)
+                start = DateOnly.FromDateTime(datePickerFrom.SelectedDate.Value);
+            else
+                start = DateOnly.MinValue;
+
+            DateOnly end;
+            if (datePickerTo.SelectedDate.HasValue)
+                end = DateOnly.FromDateTime(datePickerTo.SelectedDate.Value);
+            else
+                end = DateOnly.MaxValue;
+
+            return new TourRequestFilterDTO(touristsNumber, location, language, start, end);
+        }
+        private void menuTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
+        }
+
+        private void textBoxTourists_TextChanged(object sender, TextChangedEventArgs e) {
+
         }
     }
 }
