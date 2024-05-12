@@ -25,8 +25,11 @@ namespace BookingApp.Services {
             _languageService = languageService;
         }
 
+        public List<TourRequest> GetAll() {
+            return _tourRequestRepository.GetAll();
+        }
         public List<TourRequest> GetAllOnHold() {
-            return _tourRequestRepository.GetAll().Where(r => r.Status == TourRequestStatus.OnHold).ToList();
+            return GetAll().Where(r => r.Status == TourRequestStatus.OnHold).ToList();
         }
       
         public List<TourRequest> GetFilteredByGuide(TourRequestFilterDTO filter) {
@@ -64,12 +67,6 @@ namespace BookingApp.Services {
         public void CreateRequest(TourRequestDTO tourRequestDTO, int passengerNumber) {
             _tourRequestRepository.Save(new TourRequest(tourRequestDTO, passengerNumber));
         }      
-
-       /* public List<int> GetStats(int year, bool isLocation, int locationLanguageId) {
-            if(year == -1) {
-                return GetAll().Co;
-            }
-        }*/
         public TouristStatistics GetStatistics(int userId, string year) {
             if (year == "All-time")
                 return StatisticsCalculator.CalculateTouristStatistics(_tourRequestRepository.GetAccepted(userId), _tourRequestRepository.GetByTouristId(userId));
