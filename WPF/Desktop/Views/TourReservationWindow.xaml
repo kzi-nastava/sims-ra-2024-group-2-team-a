@@ -59,9 +59,10 @@
             <TextBlock Grid.ColumnSpan="2"
                        Text="{Binding SelectedTour.Name}"
                        HorizontalAlignment="Center"
-                       FontSize="32"
+                       FontSize="24"
                        FontWeight="Bold"
-                       Margin="10, 5, 10, 10"/>
+                       Margin="10, 5, 10, 10"
+                       TextWrapping="Wrap"/>
             <Grid Grid.Row="1"
                   HorizontalAlignment="Left"
                   Margin="10, 0">
