@@ -18,8 +18,8 @@ loop startBorderDate.AddDays(duration) <= endBorderDate
     activate ARS #DarkSalmon
     ARS -> ARS: GetPendingByAccommodationId(accommodationId)
     activate ARS #Green
-    ARS -> ARR: GetAll()
-    ARR --> ARS: accommodationRenovations
+    ARS -> ARR ++: GetAll()
+    ARR --> ARS --: accommodationRenovations
     loop for each var ren in accomodationRenovations
        opt ren.AccommodationId == accomodationId && ren.RenovationState == RenovationState.Pending
           ARS -> ARS : pendingAccommodationRenovations.Add(ren)
@@ -87,6 +87,7 @@ RDVM -> ARS: Save(Renovation)
 activate ARS
 ARS -> ARR: Save(Renovation)
 activate ARR
+ARR --> ARS
 deactivate ARR
 ARS --> RDVM: Confirmation
 deactivate ARS
