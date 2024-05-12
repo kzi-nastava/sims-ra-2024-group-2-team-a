@@ -158,7 +158,8 @@
                                                     <Image Source="{StaticResource ScheduledIcon}"
                                                            Height="20"/>
                                                     <TextBlock Grid.Row="1"
-                                                               Style="{StaticResource Info}">
+                                                               Style="{StaticResource Info}"
+                                                               TextWrapping="Wrap">
                                                         <TextBlock.Text>
                                                             <MultiBinding StringFormat="{}{0} - {1}">
                                                                 <Binding Path="Beggining"/>

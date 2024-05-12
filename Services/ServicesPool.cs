@@ -40,7 +40,8 @@ namespace BookingApp.Services {
             GetService<TourService>().InjectService(
                 GetService<PassengerService>(),
                 GetService<TourReservationService>(),
-                GetService<TourReviewService>()
+                GetService<TourReviewService>(),
+                GetService<PointOfInterestService>()
                 ); 
 
             GetService<AccommodationReservationService>().InjectServices(
@@ -90,6 +91,10 @@ namespace BookingApp.Services {
                 GetService<TourService>(),
                 GetService<PassengerService>(),
                 GetService<VoucherService>()
+                );
+
+            GetService<PassengerService>().InjectServices(
+                GetService<TourReservationService>()
                 );
         }
 

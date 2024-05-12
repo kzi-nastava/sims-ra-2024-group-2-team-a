@@ -8,21 +8,19 @@ using System.Linq;
 namespace BookingApp.Services {
     public class TourService {
         private readonly ITourRepository _tourRepository;
-        private readonly IPointOfInterestRepository _pointOfInterestRepository = RepositoryInjector.GetInstance<IPointOfInterestRepository>();
-        private readonly IPassengerRepository _passengerRepository = RepositoryInjector.GetInstance<IPassengerRepository>();
-        private readonly ITourReviewRepository _tourReviewRepository = RepositoryInjector.GetInstance<ITourReviewRepository>();
-        //prebaci da se sve radi preko Service
+        
         private PassengerService _passengerService;
         private TourReservationService _tourReservationService;
         private TourReviewService _tourReviewService;
+        private PointOfInterestService _pointOfInterestService;
         public TourService(ITourRepository tourRepository) {
             _tourRepository = tourRepository;
         }
-        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService, TourReviewService tourReviewService) {
+        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService, TourReviewService tourReviewService, PointOfInterestService pointOfInterestService) {
             _passengerService = passengerService;
             _tourReservationService = tourReservationService;
             _tourReviewService = tourReviewService;
-            //Ovde ubacis servise ostale koje koristis umesto ovih repozitorijuma
+            _pointOfInterestService = pointOfInterestService;
         }
         public double GetTourGrade(int Id) {
             List<TourReview> reviews = _tourReviewService.GetByTourId(Id);
@@ -82,11 +80,11 @@ namespace BookingApp.Services {
         }
 
         public List<Passenger> GetTouristEntries(int touristId) {
-            return _passengerRepository.GetAll().Where(p => p.UserId == touristId).ToList();
+            return _passengerService.GetAll().Where(p => p.UserId == touristId).ToList();
         }
 
         public bool WasTouristPresent(int touristId, TourDTO tour) {
-            List<PointOfInterest> checkpoints = _pointOfInterestRepository.GetAllByTourId(tour.Id);
+            List<PointOfInterest> checkpoints = _pointOfInterestService.GetAllByTourId(tour.Id);
 
             foreach (var tourist in GetTouristEntries(touristId)) {
                 if (checkpoints.Any(c => c.Id == tourist.JoinedPointOfInterestId))
@@ -97,7 +95,7 @@ namespace BookingApp.Services {
         }
 
         public bool IsTourReviewedForUser(int userId, TourDTO tour) {
-            return _tourReviewRepository.GetAll().Find(t => t.TourId == tour.Id && t.TouristId == userId) != null;
+            return _tourReviewService.GetAll().Find(t => t.TourId == tour.Id && t.TouristId == userId) != null;
         }
 
         public List<int> GetTourStats(int tourId) {

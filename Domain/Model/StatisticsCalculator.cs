@@ -26,10 +26,10 @@ namespace BookingApp.Domain.Model
 
         private static double CalculateAverage<T>(IEnumerable<T> source, Func<T, double> selector) {
             if (source == null || !source.Any())
-                throw new ArgumentException("Source collection cannot be null or empty");
+                return 0;
 
             if (selector == null)
-                throw new ArgumentException("Selector function cannot be null");
+                return 0;
 
             return source.Select(selector).Average();
         }

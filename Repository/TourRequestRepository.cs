@@ -31,5 +31,13 @@ namespace BookingApp.Repository {
         public List<TourRequest> GetAcceptedForYear(int userId, int year) {
             return GetByTouristIdForYear(userId, year).Where(r => r.Status == TourRequestStatus.Accepted).ToList();
         }
+
+        public int GetRequestNumberByLocation(Location location, int userId) {
+            return GetByTouristId(userId).Where(r => r.LocationId == location.Id).Count();
+        }
+
+        public int GetRequestNumberByLanguage(Language language, int userId) {
+            return GetByTouristId(userId).Where(r => r.LanguageId == language.Id).Count();
+        }
     }
 }

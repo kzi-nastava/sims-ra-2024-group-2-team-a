@@ -25,12 +25,8 @@ namespace BookingApp.Services {
             _languageService = languageService;
         }
 
-        public List<TourRequest> GetAll() {
-            return _tourRequestRepository.GetAll();
-        }
-      
         public List<TourRequest> GetAllOnHold() {
-            return GetAll().Where(r => r.Status == TourRequestStatus.OnHold).ToList();
+            return _tourRequestRepository.GetAll().Where(r => r.Status == TourRequestStatus.OnHold).ToList();
         }
       
         public List<TourRequest> GetFilteredByGuide(TourRequestFilterDTO filter) {
@@ -77,21 +73,13 @@ namespace BookingApp.Services {
 
         public IEnumerable<int> GetRequestYears(int userId) {
             return _tourRequestRepository.GetByTouristId(userId).Select(r => r.StartDate.Year).Distinct();
-        }
-
-        public int GetRequestNumberByLocation(Location location, int userId) {
-            return _tourRequestRepository.GetByTouristId(userId).Where(r => r.LocationId == location.Id).Count();
-        }
-
-        public int GetRequestNumberByLanguage(Language language, int userId) {
-            return _tourRequestRepository.GetByTouristId(userId).Where(r => r.LanguageId == language.Id).Count();
-        }
+        } 
 
         public Dictionary<Location, int> GetRequestsByLocations(int userId) {
             Dictionary<Location, int> pairs = new Dictionary<Location, int>();
 
             foreach(Location location in _locationService.GetAll()) 
-                pairs.Add(location, GetRequestNumberByLocation(location, userId));
+                pairs.Add(location, _tourRequestRepository.GetRequestNumberByLocation(location, userId));
             
             return pairs;
         }
@@ -100,7 +88,7 @@ namespace BookingApp.Services {
             Dictionary<Language, int> pairs = new Dictionary<Language, int>();
 
             foreach (Language language in _languageService.GetAll())
-                pairs.Add(language, GetRequestNumberByLanguage(language, userId));
+                pairs.Add(language, _tourRequestRepository.GetRequestNumberByLanguage(language, userId));
 
             return pairs;
         }

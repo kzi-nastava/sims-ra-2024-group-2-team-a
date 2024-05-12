@@ -10,6 +10,10 @@ namespace BookingApp.Services {
             _tourReviewRepository = tourReviewRepository;
         }
 
+        public List<TourReview> GetAll() {
+            return _tourReviewRepository.GetAll();
+        }
+
         public void SendReview(TourDTO tour, int touristId, TourReviewDTO tourReviewDTO) {
             tourReviewDTO.TourId = tour.Id;
             tourReviewDTO.TouristId = touristId;
