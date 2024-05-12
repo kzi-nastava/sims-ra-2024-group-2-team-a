@@ -170,7 +170,8 @@ namespace BookingApp.Services {
             int mostWantedId = -1;
             int mostRequests = 0;
             foreach (var locId in locationIds) {
-                int temp = GetAll().Count(x => x.LocationId == locId);
+                DateOnly today = new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
+                int temp = GetAll().Count(x => x.LocationId == locId && x.StartDate.AddYears(1) > today);
                 if (mostRequests <= temp) {
                     mostRequests = temp;
                     mostWantedId = locId;
@@ -183,7 +184,8 @@ namespace BookingApp.Services {
             int mostWantedId = -1;
             int mostRequests = 0;
             foreach (var lanId in languageIds) {
-                int temp = GetAll().Count(x => x.LanguageId == lanId);
+                DateOnly today = new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
+                int temp = GetAll().Count(x => x.LanguageId == lanId && x.StartDate.AddYears(1) > today);
                 if (mostRequests <= temp) {
                     mostRequests = temp;
                     mostWantedId = lanId;
