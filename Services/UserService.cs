@@ -1,5 +1,8 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BookingApp.Services {
     public class UserService {
@@ -24,6 +27,10 @@ namespace BookingApp.Services {
 
         public User GetById(int id) {
             return _userRepository.GetById(id);
+        }
+
+        public IEnumerable<User> GetTourists() {
+            return _userRepository.GetAll().Where(u => u.Category == UserCategory.Tourist);
         }
 
         public User Save(User user) {
