@@ -22,13 +22,13 @@ namespace BookingApp.WPF.Tablet.Views
     /// </summary>
     public partial class AcceptTourRequestWindow : Window
     {
-        private Frame _mainFrame;
+        private Frame _additionalFrame;
         public TourRequestViewModel ViewModel {  get; set; }
-        public AcceptTourRequestWindow(TourRequestDTO trDTO, Frame mFrame)
+        public AcceptTourRequestWindow(TourRequestDTO trDTO, Frame aFrame)
         {
             InitializeComponent();
             ViewModel = new TourRequestViewModel(trDTO);
-            _mainFrame = mFrame;
+            _additionalFrame = aFrame;
             DataContext = ViewModel;
         }
 
@@ -49,7 +49,7 @@ namespace BookingApp.WPF.Tablet.Views
                 ViewModel.AcceptTourRequest();
                 MessageBox.Show("Tour request accepted.", "Succecfull", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
-                _mainFrame.Content = new TourRequestsMainPage(ViewModel.GetUserId());
+                _additionalFrame.Content = new TourRequestsPage(_additionalFrame, ViewModel.GetUserId());
             }
             else {
                 MessageBox.Show("You are not Available at that time span", "UNAVAILABLE", MessageBoxButton.OK, MessageBoxImage.Exclamation);

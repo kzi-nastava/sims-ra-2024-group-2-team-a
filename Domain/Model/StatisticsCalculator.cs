@@ -33,5 +33,65 @@ namespace BookingApp.Domain.Model
 
             return source.Select(selector).Average();
         }
+
+        public static void CalculateRequestStats(int yearMonth, List<int> stats) {
+            switch (yearMonth) {
+                case 2021:
+                case 1:
+                    stats[0]++;
+                    break;
+
+                case 2022:
+                case 2:
+                    stats[1]++;
+                    break;
+
+                case 2023:
+                case 3:
+                    stats[2]++;
+                    break;
+
+                case 2024:
+                case 4:
+                    stats[3]++;
+                    break;
+                case 2025:
+                case 5:
+                    stats[4]++;
+                    break;
+
+                case 6:
+                    stats[5]++;
+                    break;
+
+                case 7:
+                    stats[6]++;
+                    break;
+
+                case 8:
+                    stats[7]++;
+                    break;
+
+                case 9:
+                    stats[8]++;
+                    break;
+
+                case 10:
+                    stats[9]++;
+                    break;
+
+                case 11:
+                    stats[10]++;
+                    break;
+
+                case 12:
+                    stats[11]++;
+                    break;
+
+                default:
+                    break;
+
+            }
+        }
     }
 }

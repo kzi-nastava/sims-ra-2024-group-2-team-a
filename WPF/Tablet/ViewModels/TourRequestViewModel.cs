@@ -1,6 +1,8 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using LiveCharts;
+using LiveCharts.Wpf;
 using Syncfusion.Windows.Controls;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,7 @@ namespace BookingApp.WPF.Tablet.ViewModels
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public TourRequestDTO tourRequestDTO { get; set; }
+
         public TourRequestViewModel(int userId) {
             _userId = userId;
             Load();

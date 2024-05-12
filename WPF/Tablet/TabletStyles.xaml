@@ -23,6 +23,12 @@
         <Setter Property="Margin" Value="40,20,20,0"/>
         <Setter Property="FontSize" Value="22" />
     </Style>
+    <Style x:Key="TitleLabel" TargetType="Label">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="FontSize" Value="30" />
+    </Style>
     <Style x:Key="FilterLabel" TargetType="Label">
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -62,7 +68,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                    <Border Background="{TemplateBinding Background}">
                         <ContentPresenter Margin="{TemplateBinding Padding}"/>
                     </Border>
                     <ControlTemplate.Triggers>

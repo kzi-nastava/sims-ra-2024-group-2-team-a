@@ -46,7 +46,7 @@ namespace BookingApp.WPF.Tablet.Views {
                 return;
             }
             _mainFrame.Content = new TourStatsPage(ViewModel.tourDTO, _mainFrame, _menuBarFrame, _userId);
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            
         }
     }
 }
