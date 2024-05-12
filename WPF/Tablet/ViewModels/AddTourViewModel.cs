@@ -23,18 +23,8 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
 
         public TourDTO tourDTO { get; set; }
-        private LocationDTO _selectedLocationDTO;
-        public LocationDTO selectedLocationDTO {
-            get {
-                return _selectedLocationDTO;
-            }
-            set {
-                if(value != _selectedLocationDTO) {
-                    _selectedLocationDTO = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+
+        public LocationDTO selectedLocationDTO { get; set; }
         public LanguageDTO selectedLanguageDTO { get; set; }
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }

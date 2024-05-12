@@ -21,7 +21,7 @@ namespace BookingApp.WPF.Tablet.ViewModels
         }
         public TourDTO MostWantedLanguage() {
             TourDTO tDTO = new TourDTO();
-            tDTO.LocationId = _tourRequestService.GetMostWantedLanguage();
+            tDTO.LanguageId = _tourRequestService.GetMostWantedLanguage();
             return tDTO;
         }
     }

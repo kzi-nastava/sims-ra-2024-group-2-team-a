@@ -23,6 +23,8 @@ namespace BookingApp.WPF.Tablet.Views {
             _mainFrame = mainF;
             _userId = userId;
             DataContext = ViewModel;
+            comboBoxLocation.SelectedIndex = ViewModel.tourDTO.LocationId - 1;
+            comboBoxLanguage.SelectedIndex = ViewModel.tourDTO.LanguageId - 1;
         }
 
         private void Reset_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
