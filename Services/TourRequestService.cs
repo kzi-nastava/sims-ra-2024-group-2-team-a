@@ -25,6 +25,21 @@ namespace BookingApp.Services {
             _languageService = languageService;
         }
 
+        public List<TourRequest> GetAll() {
+            return _tourRequestRepository.GetAll();
+        }
+      
+        public List<TourRequest> GetAllOnHold() {
+            return GetAll().Where(r => r.Status == TourRequestStatus.OnHold).ToList();
+        }
+      
+        public List<TourRequest> GetFilteredByGuide(TourRequestFilterDTO filter) {
+            if(filter.IsEmpty())
+                return GetAllOnHold();
+
+            return GetAllOnHold().Where(x => IsFiltered(x, filter)).ToList();
+        }
+
         public List<TourRequest> GetFiltered(int userId, string filter) {
             if(Enum.TryParse<TourRequestStatus>(filter, out TourRequestStatus status)) {
                 switch (status) {
@@ -88,6 +103,33 @@ namespace BookingApp.Services {
                 pairs.Add(language, GetRequestNumberByLanguage(language, userId));
 
             return pairs;
+        }
+        public void Update(TourRequest tRequest) {
+            _tourRequestRepository.Update(tRequest);
+        }
+        private bool IsFiltered(TourRequest tRequest, TourRequestFilterDTO filter) {
+            return MatchesTouristNumber(tRequest, filter) &&
+                    MatchesLocation(tRequest, filter) &&
+                    MatchesLanguage(tRequest, filter) &&
+                    MatchesDateStart(tRequest, filter) &&
+                    MatchesDateEnd(tRequest, filter);
+        }
+        private bool MatchesLocation(TourRequest tRequest, TourRequestFilterDTO filter) {
+            return tRequest.LocationId == filter.Location.Id || filter.Location.Id == 0;
+        }
+
+        private bool MatchesLanguage(TourRequest tRequest, TourRequestFilterDTO filter) {
+            return tRequest.LanguageId == filter.Language.Id || filter.Language.Id == -1;
+        }
+
+        private bool MatchesTouristNumber(TourRequest tRequest, TourRequestFilterDTO filter) {
+            return tRequest.PassengerNumber >= filter.TouristNumber || filter.TouristNumber == 0;
+        }
+        private bool MatchesDateStart(TourRequest tRequest, TourRequestFilterDTO filter) {
+            return tRequest.StartDate >= filter.Start || filter.Start == DateOnly.MinValue;
+        }
+        private bool MatchesDateEnd(TourRequest tRequest, TourRequestFilterDTO filter) {
+            return tRequest.EndDate <= filter.End || filter.End == DateOnly.MaxValue;
         }
     }
 }

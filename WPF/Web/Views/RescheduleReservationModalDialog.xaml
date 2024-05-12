@@ -36,6 +36,7 @@
 
         <Style TargetType="Button">
             <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
     </UserControl.Resources>
 
@@ -75,7 +76,7 @@
                     </WrapPanel>
                 </Label>
 
-                <Image Grid.Column="1" Style="{StaticResource ImageStyle}" Source="{StaticResource RightArrowIcon}" Width="32" Height="32"
+                <Image Grid.Column="1" Style="{StaticResource ImageStyle}" Source="{StaticResource PointingArrowIcon}" Width="32" Height="32"
                        VerticalAlignment="Top" Margin="10 5 10 0"/>
 
                 <DatePicker x:Name="dataPickerNewDate" SelectedDate="{Binding NewDate, Mode=OneWayToSource}" Grid.Column="3" Margin="10 10 10 30" VerticalContentAlignment="Center"/>

@@ -47,13 +47,17 @@
                 <ColumnDefinition Width="1.8*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Text="{Binding tourDTO.Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>
             <TextBlock Grid.Row="1" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Duration, StringFormat=Duration: {0} hours}" FontSize="18"/>
             <TextBlock Grid.Row="2" Grid.Column="0" Margin="10" Text="{Binding tourDTO.CurrentTouristNumber, StringFormat=Tourists: {0}}" FontSize="18"/>
             <TextBlock Grid.Row="3" Grid.Column="0" Margin="10" Text="{Binding tourDTO.LocationTemplate, StringFormat=Location: {0}}" FontSize="18"/>
             <TextBlock Grid.Row="4" Grid.Column="0" Margin="10" Text="{Binding tourDTO.LanguageTemplate, StringFormat=Language: {0}}" FontSize="18"/>
             <TextBlock Grid.Row="5" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Beggining, StringFormat=Start: {0}}" FontSize="18"/>
             <TextBlock Grid.Row="6" Grid.Column="0" Margin="10" Text="{Binding tourDTO.End, StringFormat=End: {0}}" FontSize="18"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="10" Text="{Binding tourDTO.Grade}" FontSize="20" FontWeight="Bold"/>
+            <!--<syncfusion:SfRating Grid.Row="4" Grid.Column="1" Margin="30,10,0,10" ItemsCount="5" Precision="Exact" VerticalAlignment="Center" ToolTip="String" IsReadOnly="True" Value="{Binding tourDTO.Grade}"></syncfusion:SfRating>-->
+
 
             <Button x:Name="statsButton" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Command="cmd:RoutedCommands.Stats">
                 <Button.Style>

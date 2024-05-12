@@ -46,11 +46,13 @@
     <None Remove="Resources\Images\Icons\house-icon.png" />
     <None Remove="Resources\Images\Icons\import-images-icon.png" />
     <None Remove="Resources\Images\Icons\language.png" />
+    <None Remove="Resources\Images\Icons\left-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\location-icon.png" />
     <None Remove="Resources\Images\Icons\logout-white-icon.png" />
     <None Remove="Resources\Images\Icons\normal-owner-icon.png" />
     <None Remove="Resources\Images\Icons\not-super-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
+    <None Remove="Resources\Images\Icons\pointing-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\reschedule-icon.png" />
     <None Remove="Resources\Images\Icons\right-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\scheduled-icon.png" />
@@ -106,6 +108,7 @@
     <None Remove="Resources\Images\Tours\Vienna4.jpg" />
     <None Remove="Resources\Images\Tours\Vienna5.jpg" />
     <None Remove="Resources\Images\Tours\Vienna6.jpg" />
+    <None Remove="Resources\Images\tour_request_icon.png" />
     <None Remove="Resources\Images\trash.png" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
@@ -167,10 +170,12 @@
     <Resource Include="Resources\Images\Icons\cancel-event-icon.png" />
     <Resource Include="Resources\Images\Icons\import-images-icon.png" />
     <Resource Include="Resources\Images\Icons\language.png" />
+    <Resource Include="Resources\Images\Icons\left-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\logout-white-icon.png" />
     <Resource Include="Resources\Images\Icons\normal-owner-icon.png" />
     <Resource Include="Resources\Images\Icons\people-icon.png" />
     <Resource Include="Resources\Images\Icons\location-icon.png" />
+    <Resource Include="Resources\Images\Icons\pointing-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\reschedule-icon.png" />
     <Resource Include="Resources\Images\Icons\right-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\scheduled-icon.png" />
@@ -222,14 +227,15 @@
     <Resource Include="Resources\Images\Tours\Vienna4.jpg" />
     <Resource Include="Resources\Images\Tours\Vienna5.jpg" />
     <Resource Include="Resources\Images\Tours\Vienna6.jpg" />
+    <Resource Include="Resources\Images\tour_request_icon.png" />
     <Resource Include="Resources\Images\trash.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="Jon.Wpf.CustomControls" Version="2.33.0" />
     <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
-    <PackageReference Include="Plugin.StoreReview" Version="6.2.0" />
     <PackageReference Include="Syncfusion.SfInput.WPF" Version="25.2.3" />
   </ItemGroup>
 

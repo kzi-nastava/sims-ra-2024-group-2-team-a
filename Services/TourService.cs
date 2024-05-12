@@ -14,13 +14,21 @@ namespace BookingApp.Services {
         //prebaci da se sve radi preko Service
         private PassengerService _passengerService;
         private TourReservationService _tourReservationService;
+        private TourReviewService _tourReviewService;
         public TourService(ITourRepository tourRepository) {
             _tourRepository = tourRepository;
         }
-        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService) {
+        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService, TourReviewService tourReviewService) {
             _passengerService = passengerService;
             _tourReservationService = tourReservationService;
+            _tourReviewService = tourReviewService;
             //Ovde ubacis servise ostale koje koristis umesto ovih repozitorijuma
+        }
+        public double GetTourGrade(int Id) {
+            List<TourReview> reviews = _tourReviewService.GetByTourId(Id);
+            if (reviews.Count == 0)
+                return 0;
+            return reviews.Average(x => x.AvrageGrade);
         }
         private bool IsFiltered(Tour tour, TourFilterDTO filter) {
             return MatchesLocation(tour, filter) &&
@@ -30,7 +38,7 @@ namespace BookingApp.Services {
         }
 
         private bool MatchesName(Tour tour, TourFilterDTO filter) {
-            return tour.Name.Contains(filter.Name) || filter.Name == "";
+            return tour.Name.ToLower().Contains(filter.Name.ToLower()) || filter.Name == "";
         }
 
         private bool MatchesLocation(Tour tour, TourFilterDTO filter) {
@@ -158,6 +166,13 @@ namespace BookingApp.Services {
 
         public List<Tour> GetSameLocationTours(TourDTO tour) {
             return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
+        }
+        public bool IsGuideAvailable(int userId, DateTime from, DateTime to) {
+            List<Tour> tours = GetScheduled(userId);
+            if(tours.All(x => x.Beggining.Date > to.Date || x.End.Date < from.Date)) {
+                return true;
+            }
+            return false;
         }
     }
 }

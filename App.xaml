@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:BookingApp"
              StartupUri="WPF/SignInForm.xaml">
     <Application.Resources>
+
         <BitmapImage x:Key="TimeIcon" UriSource="Resources/Images/Icons/time-icon.png"/>
         <BitmapImage x:Key="ScheduledIcon" UriSource="Resources/Images/Icons/scheduled-icon.png"/>
         <BitmapImage x:Key="CancelIcon" UriSource="Resources/Images/Icons/cancel-icon.png"/>
@@ -34,6 +35,7 @@
         <BitmapImage x:Key="HomeIcon" UriSource="Resources/Images/normal-home-icon.png"/>
         <BitmapImage x:Key="LiveIcon" UriSource="Resources/Images/live.png"/>
         <BitmapImage x:Key="FinishIcon" UriSource="Resources\Images\finish.png"/>
+        <BitmapImage x:Key="TourRequestIcon" UriSource="Resources/Images/tour_request_icon.png" />
         <BitmapImage x:Key="RequestIcon" UriSource="Resources/Images/request.png"/>
         <BitmapImage x:Key="ReportIcon" UriSource="Resources/Images/report.png"/>
         <BitmapImage x:Key="EyeIcon" UriSource="Resources/Images/eye.png"/>
@@ -47,11 +49,14 @@
         <BitmapImage x:Key="BlackAccount" UriSource="Resources/Images/Icons/black-account.png"/>
         <BitmapImage x:Key="LanguageIcon" UriSource="Resources/Images/Icons/language.png"/>
         <BitmapImage x:Key="Stopwatch" UriSource="Resources/Images/Icons/stopwatch.png"/>
-        
+        <BitmapImage x:Key="LeftArrowIcon" UriSource="Resources/Images/Icons/left-arrow-icon.png"/>
+        <BitmapImage x:Key="PointingArrowIcon" UriSource="Resources/Images/Icons/pointing-arrow-icon.png"/>
+
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>
         <SolidColorBrush x:Key="Green2" Color="#5a8c6a"/>
         <SolidColorBrush x:Key="SoftGreen" Color="#ADBC9F"/>
         <SolidColorBrush x:Key="Beige" Color="#EDEEDD"/>
+        
     </Application.Resources>
 </Application>
