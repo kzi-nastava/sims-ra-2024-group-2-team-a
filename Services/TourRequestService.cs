@@ -24,46 +24,35 @@ namespace BookingApp.Services {
             _locationService = locationService;
             _languageService = languageService;
         }
+
         public List<TourRequest> GetAll() {
             return _tourRequestRepository.GetAll();
         }
-        public List<TourRequest> GetByTouristId(int id) { 
-            return _tourRequestRepository.GetByTouristId(id); 
-        }
-
-        public List<TourRequest> GetByTouristIdForYear(int id, int year) {
-            return GetByTouristId(id).Where(a => a.EndDate.Year == year).ToList();
-        }
-
-        public List<TourRequest> GetOnHold(int userId) {
-            return GetByTouristId(userId).Where(r => r.Status == TourRequestStatus.OnHold).ToList();
-        }
+      
         public List<TourRequest> GetAllOnHold() {
             return GetAll().Where(r => r.Status == TourRequestStatus.OnHold).ToList();
         }
-
-        private List<TourRequest> GetExpired(int userId) {
-            return GetByTouristId(userId).Where(r => r.Status == TourRequestStatus.Expired).ToList();
-        }
+      
         public List<TourRequest> GetFilteredByGuide(TourRequestFilterDTO filter) {
             if(filter.IsEmpty())
                 return GetAllOnHold();
 
             return GetAllOnHold().Where(x => IsFiltered(x, filter)).ToList();
         }
+
         public List<TourRequest> GetFiltered(int userId, string filter) {
             if(Enum.TryParse<TourRequestStatus>(filter, out TourRequestStatus status)) {
                 switch (status) {
                     case TourRequestStatus.Accepted:
-                        return GetAccepted(userId);
+                        return _tourRequestRepository.GetAccepted(userId);
                     case TourRequestStatus.OnHold:
-                        return GetOnHold(userId);
+                        return _tourRequestRepository.GetOnHold(userId);
                     default:
-                        return GetExpired(userId);
+                        return _tourRequestRepository.GetExpired(userId);
                 }
             }
             else {
-                return GetByTouristId(userId);
+                return _tourRequestRepository.GetByTouristId(userId);
             }
         }
 
@@ -78,32 +67,24 @@ namespace BookingApp.Services {
 
         public void CreateRequest(TourRequestDTO tourRequestDTO, int passengerNumber) {
             _tourRequestRepository.Save(new TourRequest(tourRequestDTO, passengerNumber));
-        }
-
-        public IEnumerable<int> GetRequestYears (int userId) {
-            return GetByTouristId(userId).Select(r => r.StartDate.Year).Distinct();
-        }
-
-        private List<TourRequest> GetAccepted(int userId) {
-            return GetByTouristId(userId).Where(r => r.Status == TourRequestStatus.Accepted).ToList();
-        }
-
-        public List<TourRequest> GetAcceptedForYear(int userId, int year) {
-            return GetByTouristIdForYear(userId, year).Where(r => r.Status == TourRequestStatus.Accepted).ToList();
-        }
+        }      
 
         public TouristStatistics GetStatistics(int userId, string year) {
             if (year == "All-time")
-                return StatisticsCalculator.CalculateTouristStatistics(GetAccepted(userId), GetByTouristId(userId));
-            return StatisticsCalculator.CalculateTouristStatistics(GetAcceptedForYear(userId, int.Parse(year)), GetByTouristIdForYear(userId, int.Parse(year)));
+                return StatisticsCalculator.CalculateTouristStatistics(_tourRequestRepository.GetAccepted(userId), _tourRequestRepository.GetByTouristId(userId));
+            return StatisticsCalculator.CalculateTouristStatistics(_tourRequestRepository.GetAcceptedForYear(userId, int.Parse(year)), _tourRequestRepository.GetByTouristIdForYear(userId, int.Parse(year)));
+        }
+
+        public IEnumerable<int> GetRequestYears(int userId) {
+            return _tourRequestRepository.GetByTouristId(userId).Select(r => r.StartDate.Year).Distinct();
         }
 
         public int GetRequestNumberByLocation(Location location, int userId) {
-            return GetByTouristId(userId).Where(r => r.LocationId == location.Id).Count();
+            return _tourRequestRepository.GetByTouristId(userId).Where(r => r.LocationId == location.Id).Count();
         }
 
         public int GetRequestNumberByLanguage(Language language, int userId) {
-            return GetByTouristId(userId).Where(r => r.LanguageId == language.Id).Count();
+            return _tourRequestRepository.GetByTouristId(userId).Where(r => r.LanguageId == language.Id).Count();
         }
 
         public Dictionary<Location, int> GetRequestsByLocations(int userId) {

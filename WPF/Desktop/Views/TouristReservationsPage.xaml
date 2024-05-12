@@ -16,12 +16,25 @@
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="0.5"/>
         </Style>
+        <ControlTemplate x:Key="ButtonControlTemplate" TargetType="Button">
+            <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource Green2}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
         <Style TargetType="Button" x:Key="ButtonStyle">
             <Setter Property="Background" Value="{StaticResource Green}"/>
             <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Template" Value="{StaticResource ButtonControlTemplate}"/>
         </Style>
         <Style TargetType="TextBlock" x:Key="Info">
             <Setter Property="FontWeight" Value="Bold"/>

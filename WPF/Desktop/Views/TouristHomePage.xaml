@@ -188,7 +188,8 @@
                                             </Grid>
                                         <Border Style="{StaticResource BorderStyle}"
                                                 Margin="0"
-                                                Grid.Column="1">
+                                                Grid.Column="1"
+                                                Background="{StaticResource SoftGreen}">
                                             <TextBlock Text="{Binding Description}"
                                                        Style="{StaticResource Info}"
                                                        FontWeight="Normal"

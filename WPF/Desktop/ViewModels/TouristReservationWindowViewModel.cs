@@ -2,10 +2,12 @@
 using BookingApp.Repository;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TouristReservationWindowViewModel : INotifyPropertyChanged {
@@ -14,6 +16,10 @@ namespace BookingApp.WPF.Desktop.ViewModels {
         private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
 
         public ObservableCollection<PassengerDTO> Passengers { get; set; }
+
+        public ICommand AddTouristCmd { get; set; }
+        public ICommand AddPassengerCmd { get; set; }
+        public ICommand RemovePassengerCmd { get; set; }
 
         private string _passengerName;
         public string PassengerName {
@@ -167,7 +173,30 @@ namespace BookingApp.WPF.Desktop.ViewModels {
 
             Passengers = new ObservableCollection<PassengerDTO>();
 
+            Func<bool> alwaysTrue = () => true;
+            AddPassengerCmd = new RelayCommand(AddPassenger, alwaysTrue);
+            AddTouristCmd = new RelayCommand(AddTourist, alwaysTrue);
+            RemovePassengerCmd = new RelayCommand(RemovePassenger, alwaysTrue);
+
             GetPresentableTour();
+        }
+
+        public void AddTourist(object parameter) {
+            Passengers.Add(new PassengerDTO(TouristName, TouristSurname, TouristAge, UserId));
+            ClearTouristFields();
+            IsConfirmationButtonEnabled = true;
+        }
+
+        public void AddPassenger(object parameter) {
+            Passengers.Add(new PassengerDTO(PassengerName, PassengerSurname, PassengerAge, -1));
+            ClearPassengerFields();
+        }
+
+        public void RemovePassenger(object parameter) {
+            PassengerDTO passenger = (PassengerDTO)parameter; 
+            Passengers.Remove(passenger);
+            if (passenger.UserId != -1)
+                IsConfirmationButtonEnabled = false;
         }
 
         private void GetPresentableTour() {
@@ -197,18 +226,6 @@ namespace BookingApp.WPF.Desktop.ViewModels {
             PassengerAge = 0;
         }
 
-        public void AddPassenger() {
-            Passengers.Add(new PassengerDTO(PassengerName, PassengerSurname, PassengerAge, -1));
-            ClearPassengerFields();
-        }
-
-        public void RemovePassenger(PassengerDTO passenger) {
-            Passengers.Remove(passenger);
-
-            if (passenger.UserId != -1) 
-                IsConfirmationButtonEnabled = false;
-        }
-
         public void RemoveVoucher() {
             IsVoucherSelected = false;
         }
@@ -217,12 +234,6 @@ namespace BookingApp.WPF.Desktop.ViewModels {
             if(SelectedVoucher != null)
                 SelectedVoucher.Used = IsVoucherSelected;
             return _tourReservationService.MakeReservation(this.UserId, SelectedTour, Passengers.ToList(), SelectedVoucher);
-        }
-
-        public void AddTourist() {
-            Passengers.Add(new PassengerDTO(TouristName, TouristSurname, TouristAge, UserId));
-            IsConfirmationButtonEnabled = true;
-            ClearTouristFields();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
