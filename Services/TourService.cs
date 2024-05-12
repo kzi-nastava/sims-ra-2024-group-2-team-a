@@ -38,7 +38,7 @@ namespace BookingApp.Services {
         }
 
         private bool MatchesName(Tour tour, TourFilterDTO filter) {
-            return tour.Name.Contains(filter.Name) || filter.Name == "";
+            return tour.Name.ToLower().Contains(filter.Name.ToLower()) || filter.Name == "";
         }
 
         private bool MatchesLocation(Tour tour, TourFilterDTO filter) {
@@ -166,6 +166,13 @@ namespace BookingApp.Services {
 
         public List<Tour> GetSameLocationTours(TourDTO tour) {
             return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
+        }
+        public bool IsGuideAvailable(int userId, DateTime from, DateTime to) {
+            List<Tour> tours = GetScheduled(userId);
+            if(tours.All(x => x.Beggining.Date > to.Date || x.End.Date < from.Date)) {
+                return true;
+            }
+            return false;
         }
     }
 }

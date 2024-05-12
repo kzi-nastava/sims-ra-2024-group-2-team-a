@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
+using Syncfusion.Windows.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,8 +27,12 @@ namespace BookingApp.WPF.DTO {
             Language = new LanguageDTO(_languageService.GetById(LanguageId));
             StartDate = tourRequest.StartDate;
             EndDate = tourRequest.EndDate;
+            StatusReal = tourRequest.Status;
             Status = tourRequest.Status.ToString();
             PassengerNumber = tourRequest.PassengerNumber;
+            CastToDateTime();
+            SetLocationTemplate(Location.City, Location.Country);
+            SetLanguageTemplate(Language.Name);
         }
 
         public int Id { get; set; }
@@ -157,6 +162,39 @@ namespace BookingApp.WPF.DTO {
                     OnPropertyChanged();
                 }
             }
+        }
+
+        private TourRequestStatus _statusReal;
+        public TourRequestStatus StatusReal {
+            get {
+                return _statusReal;
+            }
+            set {
+                if(_statusReal != value) {
+                    _statusReal = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int GuideId { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
+        public string LanguageTemplate { get; set; }
+        public string LocationTemplate { get; set; }
+        public void CastToDateTime() {
+            StartDateTime = StartDate.ToDateTime();
+            EndDateTime = EndDate.ToDateTime();
+        }
+        public void SetLocationTemplate(string city, string country) {
+            LocationTemplate = $"{country}, {city}";
+        }
+
+        public void SetLanguageTemplate(string name) {
+            LanguageTemplate = $"{name}";
+        }
+
+        public TourRequest ToModel() {
+            return new TourRequest(Id, TouristId, LocationId, Description, LanguageId, StartDate, EndDate, StatusReal, PassengerNumber);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

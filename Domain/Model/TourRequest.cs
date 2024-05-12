@@ -24,14 +24,17 @@ namespace BookingApp.Domain.Model {
 
         }
 
-        /* public TourRequest(int locationId, string description, int languageId, DateOnly startDate, DateOnly endDate) {
+        public TourRequest(int id, int touristId, int locationId, string description, int languageId, DateOnly startDate, DateOnly endDate, TourRequestStatus status, int passengerNumber) {
+            Id = id;
+            TouristId = touristId;
             LocationId = locationId;
             Description = description;
             LanguageId = languageId;
             StartDate = startDate;
             EndDate = endDate;
-            Status = TourRequestStatus.OnHold;           
-        } */
+            Status = status;
+            PassengerNumber = passengerNumber;
+        }
 
         public TourRequest(TourRequestDTO tourRequest, int passengerNumber) {
             TouristId = tourRequest.TouristId;
