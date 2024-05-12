@@ -34,8 +34,10 @@ opt reservationsCount >= Guest.SuperGuestReservationsCount
   GService -> GRepo ++: Update(guest)
   GRepo --> GService --
   GService --> GService --
-GService --> RService --
+  GService --> RService
 end
+
+GService --> RService --
 
 RService -> SService ++: UpdateReservationStatisticsAndCheckDates(accommodationId, startDate, endDate)
 SService --> RService --
