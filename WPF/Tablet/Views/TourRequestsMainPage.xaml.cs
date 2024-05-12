@@ -24,11 +24,12 @@ namespace BookingApp.WPF.Tablet.Views
     /// </summary>
     public partial class TourRequestsMainPage : Page
     {
-        private Frame _additionalFrame { get; set; }
+        private Frame _additionalFrame, _mainFrame;
         private int _userId;
-        public TourRequestsMainPage(Frame aFrame, int userId){
+        public TourRequestsMainPage(Frame mFrame, Frame aFrame, int userId){
             InitializeComponent();
             _additionalFrame = aFrame;
+            _mainFrame = mFrame;
             _userId = userId;
         }
 
@@ -48,6 +49,7 @@ namespace BookingApp.WPF.Tablet.Views
                     break;
 
                 case "Suggestions":
+                    _additionalFrame.Content = new TourRequestSuggestionPage(_mainFrame, _additionalFrame, _userId);
                     break;
 
                 default: break;

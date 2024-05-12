@@ -4,10 +4,17 @@ using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace BookingApp.WPF.Tablet.ViewModels {
-    public class AddTourViewModel {
+    public class AddTourViewModel : INotifyPropertyChanged {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         private int _userId;
 
         private readonly TourService _tourService = ServicesPool.GetService<TourService>();
@@ -16,15 +23,33 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
 
         public TourDTO tourDTO { get; set; }
-        public LocationDTO selectedLocationDTO { get; set; }
+        private LocationDTO _selectedLocationDTO;
+        public LocationDTO selectedLocationDTO {
+            get {
+                return _selectedLocationDTO;
+            }
+            set {
+                if(value != _selectedLocationDTO) {
+                    _selectedLocationDTO = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public LanguageDTO selectedLanguageDTO { get; set; }
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
         public ObservableCollection<DateTime> begginings { get; set; }
-        public AddTourViewModel(int userId) {
+        public AddTourViewModel(TourDTO tDTO, int userId) {
             _userId = userId;
             Load();
+            if (tDTO == null)
+                tourDTO = new TourDTO();
+            else {
+                tourDTO = tDTO;
+                LoadSelectedLanuageLocation();
+            }
+
         }
         public void AddTour() {
             foreach (var beggining in begginings) {
@@ -47,7 +72,6 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         }
 
         private void Load() {
-            tourDTO = new TourDTO();
             locationDTOs = new ObservableCollection<LocationDTO>();
             languageDTOs = new ObservableCollection<LanguageDTO>();
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
@@ -90,6 +114,14 @@ namespace BookingApp.WPF.Tablet.ViewModels {
             Uri baseUri = new Uri(basePath + System.IO.Path.DirectorySeparatorChar);
             Uri fullUri = new Uri(fullPath);
             return baseUri.MakeRelativeUri(fullUri).ToString();
+        }
+        private void LoadSelectedLanuageLocation() {
+            if(tourDTO.LanguageId == 0) {
+                selectedLocationDTO = new LocationDTO(_locationService.GetById(tourDTO.LocationId));
+            }
+            else {
+                selectedLanguageDTO = new LanguageDTO(_languageService.GetById(tourDTO.LanguageId));
+            }
         }
     }
 }

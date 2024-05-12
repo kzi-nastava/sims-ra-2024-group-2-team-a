@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -148,6 +149,32 @@ namespace BookingApp.Services {
                 }
             }
             return stats;
+        }
+        public int GetMostWantedLocation() {
+            var locationIds = GetAll().Select(x => x.LocationId).Distinct().ToList();
+            int mostWantedId = -1;
+            int mostRequests = 0;
+            foreach (var locId in locationIds) {
+                int temp = GetAll().Count(x => x.LocationId == locId);
+                if (mostRequests <= temp) {
+                    mostRequests = temp;
+                    mostWantedId = locId;
+                }
+            }
+            return mostWantedId;
+        }
+        public int GetMostWantedLanguage() {
+            var languageIds = GetAll().Select(x => x.LanguageId).Distinct().ToList();
+            int mostWantedId = -1;
+            int mostRequests = 0;
+            foreach (var lanId in languageIds) {
+                int temp = GetAll().Count(x => x.LanguageId == lanId);
+                if (mostRequests <= temp) {
+                    mostRequests = temp;
+                    mostWantedId = lanId;
+                }
+            }
+            return mostWantedId;
         }
     }
 }
