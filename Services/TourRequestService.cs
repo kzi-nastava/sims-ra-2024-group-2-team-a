@@ -22,9 +22,10 @@ namespace BookingApp.Services {
             UpdateRequestStatus();
         }
 
-        public void InjectServices(LocationService locationService, LanguageService languageService) {
+        public void InjectServices(LocationService locationService, LanguageService languageService, UserService userService) {
             _locationService = locationService;
             _languageService = languageService;
+            _userService = userService;
         }
 
         public List<TourRequest> GetAll() {
@@ -38,8 +39,10 @@ namespace BookingApp.Services {
             List<User> users = new List<User>();
             foreach(User tourist in _userService.GetTourists()) {
                 foreach(TourRequest request in  _tourRequestRepository.GetNotAccepted(tourist.Id)) {
-                    if (request.LocationId == tour.LocationId || request.LanguageId == tour.LanguageId)
+                    if (request.LocationId == tour.LocationId || request.LanguageId == tour.LanguageId) {
                         users.Add(tourist);
+                        break;
+                    }
                 }
             }
             return users;
