@@ -28,6 +28,10 @@ namespace BookingApp.Repository {
             return GetByTouristId(userId).Where(r => r.Status == TourRequestStatus.Accepted).ToList();
         }
 
+        public List<TourRequest> GetNotAccepted(int userId) {
+            return GetByTouristId(userId).Where(r => r.Status != TourRequestStatus.Accepted).ToList();
+        }
+
         public List<TourRequest> GetAcceptedForYear(int userId, int year) {
             return GetByTouristIdForYear(userId, year).Where(r => r.Status == TourRequestStatus.Accepted).ToList();
         }

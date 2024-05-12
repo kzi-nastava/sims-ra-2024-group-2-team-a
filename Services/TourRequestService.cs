@@ -15,6 +15,7 @@ namespace BookingApp.Services {
         private readonly ITourRequestRepository _tourRequestRepository;
         private LocationService _locationService;
         private LanguageService _languageService;
+        private UserService _userService;
 
         public TourRequestService(ITourRequestRepository tourRequestRepository) {
             _tourRequestRepository = tourRequestRepository;
@@ -31,6 +32,17 @@ namespace BookingApp.Services {
         }
         public List<TourRequest> GetAllOnHold() {
             return GetAll().Where(r => r.Status == TourRequestStatus.OnHold).ToList();
+        }
+
+        public IEnumerable<User> GetTouristsForNotification(Tour tour) {
+            List<User> users = new List<User>();
+            foreach(User tourist in _userService.GetTourists()) {
+                foreach(TourRequest request in  _tourRequestRepository.GetNotAccepted(tourist.Id)) {
+                    if (request.LocationId == tour.LocationId || request.LanguageId == tour.LanguageId)
+                        users.Add(tourist);
+                }
+            }
+            return users;
         }
       
         public List<TourRequest> GetFilteredByGuide(TourRequestFilterDTO filter) {

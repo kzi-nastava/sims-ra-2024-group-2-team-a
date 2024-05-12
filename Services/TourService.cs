@@ -13,14 +13,19 @@ namespace BookingApp.Services {
         private TourReservationService _tourReservationService;
         private TourReviewService _tourReviewService;
         private PointOfInterestService _pointOfInterestService;
+        private TourRequestService _tourRequestService;
+        private NotificationService _notificationService;
         public TourService(ITourRepository tourRepository) {
             _tourRepository = tourRepository;
         }
-        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService, TourReviewService tourReviewService, PointOfInterestService pointOfInterestService) {
+        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService, TourReviewService tourReviewService, PointOfInterestService pointOfInterestService, TourRequestService tourRequestService, NotificationService notificationService) {
             _passengerService = passengerService;
             _tourReservationService = tourReservationService;
             _tourReviewService = tourReviewService;
             _pointOfInterestService = pointOfInterestService;
+            _tourRequestService = tourRequestService;
+            _notificationService = notificationService;
+
         }
         public double GetTourGrade(int Id) {
             List<TourReview> reviews = _tourReviewService.GetByTourId(Id);
@@ -150,9 +155,17 @@ namespace BookingApp.Services {
                    MatchesLanguage(tour, filter) &&
                    MatchesCurrentTouristNumber(tour, filter);
         }
-        public Tour Save(Tour tour) {
-            return _tourRepository.Save(tour);
+        public Tour Save(Tour tour) {           
+            Tour savedTour = _tourRepository.Save(tour);
+            foreach (User tourist in _tourRequestService.GetTouristsForNotification(tour))
+                _notificationService.SendTouristNotification(NotificationCategory.TourRequest, tourist.Id, savedTour.Id);
+            return savedTour;
         }
+
+        public void SendTouristsTourNotifications(Tour tour) {
+
+        }
+
         public bool Delete(Tour tour) => _tourRepository.Delete(tour);
         public bool Update(Tour tour) {
             return _tourRepository.Update(tour);
