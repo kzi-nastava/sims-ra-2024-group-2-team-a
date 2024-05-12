@@ -44,7 +44,7 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void AddTour_Executed(object sender, ExecutedRoutedEventArgs e) {
-            _mainFrame.Content = new AddTourPage(_mainFrame, _userId);
+            _mainFrame.Content = new AddTourPage(null, _mainFrame, _userId);
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _additionalFrame, _userId);
             _additionalFrame.Content = null;
         }
@@ -89,7 +89,7 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void Requests_Executed(object sender, ExecutedRoutedEventArgs e) {
-            _mainFrame.Content = new TourRequestsMainPage(_additionalFrame, _userId);
+            _mainFrame.Content = new TourRequestsMainPage(_mainFrame, _additionalFrame, _userId);
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _additionalFrame, _userId);
         }
     }
