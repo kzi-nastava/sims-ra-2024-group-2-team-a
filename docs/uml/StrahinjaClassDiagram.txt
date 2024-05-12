@@ -1,0 +1,76 @@
+@startuml
+skinparam classAttributeIconSize 0
+class AccommodationRenovation{
++Id: int
++StartDate: DateOnly
++EndDate: DateOnly
++State: RenovationState
++Description: string
++CancelRenovation(): void
++CanBeCancelled(): bool
+}
+
+enum RenovationState<<enum>>{
+Pending
+Finished
+Cancelled
+}
+
+class AccommodationStatistics{
++Id: int
++Year: int
++Month: int
++ReservationsNum: int
++CancelledReservationsNum: int
++PostponedReservationsNum: int
++RenovationsRecommendedNum: int
++DaysReserved: int
++IncReservation(): void
++IncCancelled(): void
++IncPostponed(): void
++IncRecommended(): void
++AddDays(days: int): void
++ReduceDays(days: int): void
+}
+
+class Accommodation {
+ +Name: String
+ +Type: AccommodationType
+ +MaxGuestNumber: int
+ +MinReservationDays: int
+ +LastCancellationDay: int
+ +ProfilePictures: List<string>
+}
+
+class User {
+ +Username: String
+ +Password: String
+ +Category: UserCategory
+}
+
+class Owner {
+    +isSuper: bool
+    +averageGrade: double
+}
+
+class Location {
+    +Id: int
+    +City: String
+    +Country: String
+}
+
+
+enum AccommodationType<<enum>>{
+any
+apartment
+house
+hut
+}
+
+AccommodationStatistics "0..*" --> "1..1" Accommodation
+AccommodationRenovation "0..*" --> "1..1" Accommodation
+User <|-- Owner
+Location "1..1" -- "0..*" Accommodation
+Owner "1..1" -- "0..*" Accommodation
+
+@enduml

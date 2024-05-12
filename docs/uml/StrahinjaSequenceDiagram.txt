@@ -1,0 +1,75 @@
+@startuml
+actor User
+participant "AccommodationRenovationViewmodel" as ARVM
+participant "AccommodationRenovationService" as ARS
+participant "AccommodationRenovationRepository" as ARR
+participant "RenovationDescriptionViewmodel" as RDVM
+participant "RenovationDescriptionWindow" as RDW
+participant "AccommodationReservationService" as ARRS
+participant "AccommodationReservationRepository" as ARRR
+
+User -> ARVM: SearchButton()
+activate ARVM
+ARVM -> ARS: GetAvailableRenovationDates(accommodationId,startBorderDate,endBorderDate,duration)
+
+activate ARS #FFBBBB
+loop startBorderDate.AddDays(duration) <= endBorderDate
+    ARS -> ARS : CheckAccommodationAvailabilty(accommodationId,startDate,endDate)
+    activate ARS #DarkSalmon
+    ARS -> ARS: GetPendingByAccommodationId(accommodationId)
+    activate ARS #Green
+    ARS -> ARR: GetAll()
+    ARR --> ARS: List<AccommodationRenovation>
+    ARS --> ARS: PendingAccommodationRenovations
+    deactivate ARS #Green
+    ARS --> ARS --: isRenovationAvailable
+    ARS -> ARRS: CheckAccommodationAvailabilty(accommodationId,startDate,endDate)
+    activate ARRS
+    ARRS -> ARRS : GetByAccommodationId(accommodationId)
+    activate ARRS #Blue
+    ARRS -> ARRR: GetByAccommodationId(accomodationId)
+    activate ARRR
+    ARRR --> ARRS: List<AccommodationReservation>
+    deactivate ARRR
+    ARRS --> ARRS : List<AccommodationReservation>
+    deactivate ARRS
+    ARRS --> ARS : isReservationAvailable
+    deactivate ARRS
+    
+    opt isRenovationAvailable && isReservationAvailable 
+       ARS -> ARS : CreatePossibleReservation    
+    end
+end
+
+ARS --> ARVM: availableDates
+deactivate ARS
+
+
+ARVM -> ARVM: Add Renovations to ObservableCollection
+ARVM -> ARVM: Display Renovations
+deactivate ARVM
+
+User -> ARVM: Click Accept Button
+activate ARVM
+ARVM -> RDW **: <<create>>
+activate RDW
+
+RDW -> RDVM **: <<create>>
+
+
+User -> RDW: Click Confirm
+RDW -> RDVM: Confirm_Executed()
+activate RDVM
+RDVM -> ARS: Save(Renovation)
+activate ARS
+ARS -> ARR: Save(Renovation)
+activate ARR
+deactivate ARR
+ARS --> RDVM: Confirmation
+deactivate ARS
+RDVM -> RDW: Close
+deactivate RDVM
+RDW --> ARVM: Close
+deactivate RDW
+deactivate ARVM
+@enduml
