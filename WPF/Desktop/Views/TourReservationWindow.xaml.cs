@@ -12,6 +12,13 @@ namespace BookingApp.WPF.Desktop.Views {
         public TourReservationWindow(TourDTO selectedTour, int userId)
         {
             InitializeComponent();
+
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+
+            this.Width = screenWidth * 0.7;
+            this.Height = screenHeight * 0.7;
+
             TourReservationViewModel = new TouristReservationWindowViewModel(selectedTour, userId);
             DataContext = TourReservationViewModel;
         }
@@ -37,21 +44,6 @@ namespace BookingApp.WPF.Desktop.Views {
 
         private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {
             HandleReservationRequest(TourReservationViewModel.MakeReservation());
-        }
-
-        private void AddPassengerButton_Click(object sender, RoutedEventArgs e) {
-            TourReservationViewModel.AddPassenger();
-        }
-
-        private void AddTouristButton_Click(object sender, RoutedEventArgs e) {
-            TourReservationViewModel.AddTourist();
-        }
-
-        private void RemovePassengerButton_Click(object sender, RoutedEventArgs e) {
-            var button = (Button)sender;
-            var passenger = (PassengerDTO)button.DataContext;
-
-            TourReservationViewModel.RemovePassenger(passenger);
         }
 
         private void UseCouponsLink_Click(object sender, RoutedEventArgs e) {

@@ -11,5 +11,25 @@ namespace BookingApp.Repository {
         public List<TourRequest> GetByTouristId(int id) {
             return GetAll().Where(r => r.TouristId == id).ToList();
         }
+
+        public List<TourRequest> GetByTouristIdForYear(int id, int year) {
+            return GetByTouristId(id).Where(a => a.EndDate.Year == year).ToList();
+        }
+
+        public List<TourRequest> GetOnHold(int userId) {
+            return GetByTouristId(userId).Where(r => r.Status == TourRequestStatus.OnHold).ToList();
+        }
+
+        public List<TourRequest> GetExpired(int userId) {
+            return GetByTouristId(userId).Where(r => r.Status == TourRequestStatus.Expired).ToList();
+        }  
+
+        public List<TourRequest> GetAccepted(int userId) {
+            return GetByTouristId(userId).Where(r => r.Status == TourRequestStatus.Accepted).ToList();
+        }
+
+        public List<TourRequest> GetAcceptedForYear(int userId, int year) {
+            return GetByTouristIdForYear(userId, year).Where(r => r.Status == TourRequestStatus.Accepted).ToList();
+        }
     }
 }
