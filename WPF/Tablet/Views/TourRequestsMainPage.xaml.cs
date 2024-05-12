@@ -4,6 +4,7 @@ using Syncfusion.Windows.Controls.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,65 +24,34 @@ namespace BookingApp.WPF.Tablet.Views
     /// </summary>
     public partial class TourRequestsMainPage : Page
     {
-        public TourRequestViewModel ViewModel { get; set; }
-        public TourRequestsMainPage(int userId){
+        private Frame _additionalFrame { get; set; }
+        private int _userId;
+        public TourRequestsMainPage(Frame aFrame, int userId){
             InitializeComponent();
-            ViewModel = new TourRequestViewModel(userId);
-            DataContext = ViewModel;
+            _additionalFrame = aFrame;
+            _userId = userId;
         }
 
-        private void Clear_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
-            e.CanExecute = true;
-        }
-
-        private void Clear_Executed(object sender, ExecutedRoutedEventArgs e) {
-            textBoxTourists.Text = string.Empty;
-            comboBoxLanguage.SelectedIndex = 0;
-            comboBoxLocation.SelectedIndex = 0;
-            datePickerFrom.SelectedDate = null;
-            datePickerTo.SelectedDate = null;
-        }
-
-        private void Filter_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
-            e.CanExecute = true;
-        }
-
-        private void Filter_Executed(object sender, ExecutedRoutedEventArgs e) {
-            ViewModel.FilterRequests(SetFilter());
-            itemsControlTourRequests.ItemsSource = ViewModel.tourRequestDTOs;
-        }
-        private TourRequestFilterDTO SetFilter() {
-            LocationDTO location = (LocationDTO)comboBoxLocation.SelectedItem;
-            if (location == null)
-                location = new LocationDTO();
-
-            LanguageDTO language = (LanguageDTO)comboBoxLanguage.SelectedItem;
-            if (language == null)
-                language = new LanguageDTO();
-
-            if (!int.TryParse(textBoxTourists.Text, out int touristsNumber))
-                textBoxTourists.Text = string.Empty;
-
-            DateOnly start;
-            if (datePickerFrom.SelectedDate.HasValue)
-                start = DateOnly.FromDateTime(datePickerFrom.SelectedDate.Value);
-            else
-                start = DateOnly.MinValue;
-
-            DateOnly end;
-            if (datePickerTo.SelectedDate.HasValue)
-                end = DateOnly.FromDateTime(datePickerTo.SelectedDate.Value);
-            else
-                end = DateOnly.MaxValue;
-
-            return new TourRequestFilterDTO(touristsNumber, location, language, start, end);
-        }
+       
         private void menuTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            var selectedTab = (sender as TabControl)?.SelectedItem as TabItem;
+            switch (selectedTab.Header.ToString()) {
+                case "Regular Tour Requests":
+                    _additionalFrame.Content = new TourRequestsPage(_additionalFrame, _userId); 
+                    break;
 
-        }
+                case "Complex Tour Requests":
+                    break;
 
-        private void textBoxTourists_TextChanged(object sender, TextChangedEventArgs e) {
+                case "Stats for Requests":
+                    _additionalFrame.Content = new TourRequestStatsPage();
+                    break;
 
+                case "Suggestions":
+                    break;
+
+                default: break;
+            }
         }
     }
 }

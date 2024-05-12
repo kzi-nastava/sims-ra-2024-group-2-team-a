@@ -92,6 +92,11 @@ namespace BookingApp.Services {
             return GetByTouristIdForYear(userId, year).Where(r => r.Status == TourRequestStatus.Accepted).ToList();
         }
 
+       /* public List<int> GetStats(int year, bool isLocation, int locationLanguageId) {
+            if(year == -1) {
+                return GetAll().Co;
+            }
+        }*/
         public TouristStatistics GetStatistics(int userId, string year) {
             if (year == "All-time")
                 return StatisticsCalculator.CalculateTouristStatistics(GetAccepted(userId), GetByTouristId(userId));
@@ -149,6 +154,34 @@ namespace BookingApp.Services {
         }
         private bool MatchesDateEnd(TourRequest tRequest, TourRequestFilterDTO filter) {
             return tRequest.EndDate <= filter.End || filter.End == DateOnly.MaxValue;
+        }
+        public List<int> GetStatsByLocation(int locationId, int year) {
+            List<int> stats = new List<int>() {0,0,0,0,0,0,0,0,0,0,0,0 };
+            if(year == -1) {
+                foreach (var request in GetAll().Where(x => x.LocationId == locationId)) {
+                    StatisticsCalculator.CalculateRequestStats(request.StartDate.Year, stats);
+                }
+            }
+            else {
+                foreach(var request in GetAll().Where(x => x.LocationId == locationId && x.StartDate.Year == year)) {
+                    StatisticsCalculator.CalculateRequestStats(request.StartDate.Month, stats);
+                }
+            }
+            return stats;
+        }
+        public List<int> GetStatsByLanguage(int languageId, int year) {
+            List<int> stats = new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            if (year == -1) {
+                foreach (var request in GetAll().Where(x => x.LanguageId == languageId)) {
+                    StatisticsCalculator.CalculateRequestStats(request.StartDate.Year, stats);
+                }
+            }
+            else {
+                foreach (var request in GetAll().Where(x => x.LanguageId == languageId && x.StartDate.Year == year)) {
+                    StatisticsCalculator.CalculateRequestStats(request.StartDate.Month, stats);
+                }
+            }
+            return stats;
         }
     }
 }

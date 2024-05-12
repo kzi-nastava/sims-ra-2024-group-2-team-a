@@ -9,13 +9,14 @@ namespace BookingApp.WPF.Tablet.Views {
     /// Interaction logic for MenuBar.xaml
     /// </summary>
     public partial class MenuBarPage : Page {
-        private Frame _menuBarFrame, _mainFrame;
+        private Frame _menuBarFrame, _mainFrame, _additionalFrame;
         private int _userId;
 
-        public MenuBarPage(Frame menuBarF, Frame mainF, int userId) {
+        public MenuBarPage(Frame menuBarF, Frame mainF, Frame aFrame, int userId) {
             InitializeComponent();
             _mainFrame = mainF;
             _menuBarFrame = menuBarF;
+            _additionalFrame = aFrame;
             _userId = userId;
             _mainFrame.IsHitTestVisible = false;
             _mainFrame.Opacity = 0.6;
@@ -25,7 +26,7 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void HamburgerBar_Executed(object sender, ExecutedRoutedEventArgs e) {
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _additionalFrame, _userId);
         }
 
         private void Home_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -34,7 +35,8 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void Home_Executed(object sender, ExecutedRoutedEventArgs e) {
             _mainFrame.Content = new ScheduledToursPage(_userId);
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _additionalFrame, _userId);
+            _additionalFrame.Content = null;
         }
 
         private void AddTour_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -43,7 +45,8 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void AddTour_Executed(object sender, ExecutedRoutedEventArgs e) {
             _mainFrame.Content = new AddTourPage(_mainFrame, _userId);
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _additionalFrame, _userId);
+            _additionalFrame.Content = null;
         }
 
         private void FollowLive_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -57,7 +60,8 @@ namespace BookingApp.WPF.Tablet.Views {
             else
                 _mainFrame.Content = new FollowLiveTourPage(_userId);
 
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _additionalFrame, _userId);
+            _additionalFrame.Content = null;
         }
 
         private void FinishedTours_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -66,7 +70,8 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void FinishedTours_Executed(object sender, ExecutedRoutedEventArgs e) {
             _mainFrame.Content = new FinishedToursPage(_userId);
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _additionalFrame, _userId);
+            _additionalFrame.Content = null;
         }
 
         private void Stats_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -75,7 +80,8 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void Stats_Executed(object sender, ExecutedRoutedEventArgs e) {
             _mainFrame.Content = new TourStatsPage(null, _mainFrame, _menuBarFrame, _userId);
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _additionalFrame, _userId);
+            _additionalFrame.Content = null;
         }
 
         private void Requests_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -83,8 +89,8 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void Requests_Executed(object sender, ExecutedRoutedEventArgs e) {
-            _mainFrame.Content = new TourRequestsMainPage(_userId);
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            _mainFrame.Content = new TourRequestsMainPage(_additionalFrame, _userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _additionalFrame, _userId);
         }
     }
 }

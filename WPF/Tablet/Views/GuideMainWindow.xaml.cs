@@ -18,7 +18,7 @@ namespace BookingApp.WPF.Tablet.Views {
             _userId = userId;
 
             _mainFrame.Content = new ScheduledToursPage(_userId);
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, additionalFrame, _userId);
         }
 
         private void Profile_CanExecute(object sender, CanExecuteRoutedEventArgs e) {

@@ -11,8 +11,10 @@ namespace BookingApp.WPF.Utils.Commands
         public static readonly RoutedUICommand Profile = new RoutedUICommand("Profile", "Profile", typeof(RoutedCommand));
         public static readonly RoutedUICommand Cancel = new RoutedUICommand("Cancel", "Cancel", typeof(RoutedCommand));
         public static readonly RoutedUICommand Confirm = new RoutedUICommand("Confirm", "Confirm", typeof(RoutedCommand));
-        public static readonly RoutedUICommand Clear = new RoutedUICommand("Clear", "Clear", typeof (RoutedCommand));
-        public static readonly RoutedUICommand Filter = new RoutedUICommand("Filter", "Filter", typeof (RoutedCommand));
+        public static readonly RoutedUICommand Clear = new RoutedUICommand("Clear", "Clear", typeof(RoutedCommand));
+        public static readonly RoutedUICommand Filter = new RoutedUICommand("Filter", "Filter", typeof(RoutedCommand));
+        public static readonly RoutedUICommand Clear1 = new RoutedUICommand("Clear1", "Clear1", typeof(RoutedCommand));
+        public static readonly RoutedUICommand Filter1 = new RoutedUICommand("Filter11", "Filter", typeof(RoutedCommand));
         public static readonly RoutedUICommand AddDateTime = new RoutedUICommand("Add Date & Time", "AddDateTime", typeof(RoutedCommand));
         public static readonly RoutedUICommand AddPointOfInterest = new RoutedUICommand("Add Point of Interest", "AddPointOfInterest", typeof(RoutedCommand));
         public static readonly RoutedUICommand AddPictures = new RoutedUICommand("Add Pictures", "AddPictures", typeof(RoutedCommand));
@@ -27,6 +29,6 @@ namespace BookingApp.WPF.Utils.Commands
         public static readonly RoutedUICommand Live = new RoutedUICommand("Live", "Live", typeof(RoutedCommand));
         public static readonly RoutedUICommand Finished = new RoutedUICommand("Finished", "Finished", typeof(RoutedCommand));
         public static readonly RoutedUICommand Requests = new RoutedUICommand("Requests", "Requests", typeof(RoutedCommand));
-
+        public static readonly RoutedUICommand RequestsTabMenu = new RoutedUICommand("RequestsTabMenu", "RequestsTabMenu", typeof(RoutedCommand));
     }
 }

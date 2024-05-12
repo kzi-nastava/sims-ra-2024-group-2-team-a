@@ -27,9 +27,9 @@ namespace BookingApp.WPF.Tablet.Views
         }
 
         private void TourRequestClick(object sender, MouseButtonEventArgs e) {
-            Frame mainFrame = (Frame)Window.GetWindow(this).FindName("mainFrame");
+            Frame additionalFrame = (Frame)Window.GetWindow(this).FindName("additionalFrame");
             TourRequestDTO tourRequestDTO = (TourRequestDTO)DataContext;
-            AcceptTourRequestWindow window = new AcceptTourRequestWindow(tourRequestDTO, mainFrame);
+            AcceptTourRequestWindow window = new AcceptTourRequestWindow(tourRequestDTO, additionalFrame);
             window.ShowDialog();
         }
     }
