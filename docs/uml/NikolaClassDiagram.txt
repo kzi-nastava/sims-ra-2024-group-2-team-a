@@ -1,0 +1,101 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+interface IIdentifiable {
+  +Id: int
+}
+
+note left of IIdentifiable
+  This interface is extended by every class.
+  It is intended to be used for dependency
+  injection in the generic repository class
+end note
+
+enum UserCategory {
+ Owner
+ Guest
+ Guide
+ Tourist
+}
+
+enum ImportanceType {
+ Level 1
+ Level 2
+ Level 3
+ Level 4
+ Level 5
+}
+
+enum AccommodationType {
+ any
+ apartment
+ house
+ hut
+}
+
+class User {
+ +Username: string
+ +Password: string
+ +Category: UserCategory
+}
+
+class Location {
+    +City: string
+    +Country: string
+}
+
+class Guest {
+{static} +SuperGuestReservationsCount: int
+{static} +SuperGuestStartPoints: int
+
+ +IsSuper: bool
+ +SuperGuestExpirationDate: DateOnly
+ +BonusPoints: int
+}
+
+class Owner {
+    + IsSuper: bool
+    + AverageGrade: double
+}
+
+class Accommodation {
+ +Name: string
+ +Type: AccommodationType
+ +MaxGuestNumber: int
+ +MinReservationDays: int
+ +LastCancellationDay: int
+ +Pictures: List<string>
+}
+
+class AccommodationReservation {
+    + GuestsNumber: int
+    + StartDate: DateOnly
+    + EndDate: DateOnly
+    + Cancelled: bool
+}
+
+class AccommodationReview {
+ +GuestCleannessGrade: int
+ +RuleFollowingGrade: int
+ +OwnerComment: string
+
+ +AccommodationCleannessGrade: int
+ +OwnerCorrectnessGrade: int
+ +GuestComment: string
+
+ +RequiresRenovation: bool
+ +Importance: ImportanceType
+ +RenovationComment: string
+ +AccommodationPhotos: List<string>
+}
+
+User <|-- Guest
+User <|-- Owner
+Location "1..1" <-- "0..*" Accommodation
+Owner "1..1" <-- "0..*" Accommodation
+Accommodation "1..1" <-- "0..*" AccommodationReservation
+Guest "1..1" <-- "0..*" AccommodationReservation
+AccommodationReservation "1..1" <-- "0..*" AccommodationReview
+Owner "1..1" <-- "0..*" AccommodationReview
+Guest "1..1" <-- "0..*" AccommodationReview
+@enduml

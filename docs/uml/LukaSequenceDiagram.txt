@@ -1,0 +1,98 @@
+@startuml
+actor User
+collections Periods
+
+User -> StatisticsViewModel++: LoadPeriods()
+
+create Periods
+StatisticsViewModel -> Periods++: <<create>>
+Periods -> Periods++: Add("All-time")
+Periods -> Periods--
+StatisticsViewModel -> TourRequestService++: GetRequestYears(UserId)
+TourRequestService -> StatisticsViewModel--: distinctYears
+loop foreach year in distinctYears
+  Periods -> Periods++: Add(year)
+  Periods -> Periods--
+  end
+Periods -> StatisticsViewModel--: Periods
+
+StatisticsViewModel -> User--: display
+
+User -> StatisticsViewModel++: LoadStatistics()
+
+StatisticsViewModel -> TourRequestService++: GetStatistics(UserId, Period)
+alt year == "All-time"
+  TourRequestService -> TourRequestRepository++: GetAccepted(userId)
+  TourRequestRepository -> TourRequestService--: acceptedRequests
+  TourRequestService -> TourRequestRepository++: GetByTouristId(userId)
+  TourRequestRepository -> TourRequestService--: allRequests
+  TourRequestService -> StatisticsCalculator++: CalculateTouristStatistics(acceptedRequests, allRequests)
+  StatisticsCalculator -> StatisticsCalculator++: CalculatePercentage(acceptedRequests, allRequests)
+  StatisticsCalculator -> StatisticsCalculator--: acceptedPercentage
+  StatisticsCalculator -> StatisticsCalculator++: CalculateAverage(acceptedRequests, r => r.PassengerNumber)
+  StatisticsCalculator -> StatisticsCalculator--: averageNumber
+  participant TourStatistics
+  create TourStatistics
+  StatisticsCalculator -> TourStatistics++: TourStatistics(acceptedRequests, 1 - acceptedRequests, averageNumber)
+  TourStatistics-> StatisticsCalculator--: statistics
+  StatisticsCalculator -> TourRequestService--: statistics
+else
+  TourRequestService -> TourRequestRepository++: GetAcceptedForYear(userId, year)
+  TourRequestRepository -> TourRequestService--: acceptedRequests
+  TourRequestService -> TourRequestRepository++: GetByTouristIdForYear(userId, year)
+  TourRequestRepository -> TourRequestService--: allRequests
+  TourRequestService -> StatisticsCalculator++: CalculateTouristStatistics(acceptedRequests, allRequests)
+  StatisticsCalculator -> StatisticsCalculator++: CalculatePercentage(acceptedRequests, allRequests)
+  StatisticsCalculator -> StatisticsCalculator--: acceptedPercentage
+  StatisticsCalculator -> StatisticsCalculator++: CalculateAverage(acceptedRequests, r => r.PassengerNumber)
+  StatisticsCalculator -> StatisticsCalculator--: averageNumber
+  participant TourStatistics
+  create TourStatistics
+  StatisticsCalculator -> TourStatistics++: TourStatistics(acceptedRequests, 1 - acceptedRequests, averageNumber)
+  TourStatistics-> StatisticsCalculator--: statistics
+  StatisticsCalculator -> TourRequestService--: statistics
+  end
+TourRequestService -> StatisticsViewModel--: statistics
+
+StatisticsViewModel -> User--: display
+
+User -> StatisticsViewModel++: LoadLocationStatistics()
+
+StatisticsViewModel -> TourRequestService++: GetRequestsByLocation(UserId)
+TourRequestService -> LocationService++: GetAll() 
+LocationService -> LocationRepository++: GetAll()
+LocationRepository -> LocationService--: allLocations
+LocationService -> TourRequestService--: allLocations
+create Dictionary
+TourRequestService -> Dictionary++: <<create>>
+loop foreach location in allLocations
+  TourRequestService -> TourRequestRepository++: GetRequestNumberByLocation(location, userId)
+  TourRequestRepository -> TourRequestService--: requestNumber
+  Dictionary -> Dictionary++: Add(location, requestNumber)
+  Dictionary -> Dictionary--:
+  end
+Dictionary -> TourRequestService--: pairs
+TourRequestService -> StatisticsViewModel--: pairs
+
+StatisticsViewModel -> User--: display
+
+User -> StatisticsViewModel++: LoadLanguageStatistics()
+
+StatisticsViewModel -> TourRequestService++: GetRequestsByLanguage(UserId)
+TourRequestService -> LanguageService++: GetAll() 
+LanguageService -> LanguageRepository++: GetAll()
+LanguageRepository -> LanguageService--: allLanguages
+LanguageService -> TourRequestService--: allLanguages
+create Dictionary
+TourRequestService -> Dictionary++: <<create>>
+loop foreach language in allLanguages
+  TourRequestService -> TourRequestRepository++: GetRequestNumberByLanguage(language, userId)
+  TourRequestRepository -> TourRequestService--: requestNumber
+  Dictionary-> Dictionary++: Add(language, requestNumber)
+  Dictionary-> Dictionary--:
+  end
+Dictionary -> TourRequestService--: pairs
+TourRequestService -> StatisticsViewModel--: pairs
+
+StatisticsViewModel -> User--: display
+@enduml

@@ -1,0 +1,45 @@
+@startuml
+actor User
+participant "TourRequestSuggestionViewModel" as VM
+participant "TourRequestService" as SR
+participant "TourRequestRepository" as RP
+
+User -> VM ++: ClickMostWantedLocation()
+VM -> VM ++: MostWantedLocation()
+VM -> SR ++: GetMostWantedLocation()
+
+SR -> SR ++: GetAllLocationIds()
+SR -> RP ++: GetAll()
+RP --> SR --: tourRequests
+SR --> SR --: locationIds
+loop var locId in locationIds
+ SR -> RP ++: CountRequestsByLocation()
+ RP --> SR --: requestCount
+
+end
+SR --> VM --: locationId
+VM --> VM --: tourDTO
+deactivate VM
+
+User -> VM ++: ClickMostWantedLanguage()
+VM -> VM ++: MostWantedLanguage()
+VM -> SR ++: GetMostWantedLanguage()
+
+SR -> SR ++: GetAllLanguageIds()
+SR -> RP ++: GetAll()
+RP --> SR --: tourRequests
+SR --> SR --: languageIds
+loop var locId in languageIds
+ SR -> RP ++: CountRequestsByLanguage()
+ RP --> SR --: requestCount
+
+end
+SR --> VM --: languageId
+VM --> VM --: tourDTO
+
+deactivate VM
+
+
+VM -> AddTourViewModel **: AddTourViewModel(tourDTO)
+activate AddTourViewModel 
+@enduml

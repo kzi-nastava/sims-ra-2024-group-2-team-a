@@ -1,0 +1,74 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class TourRequest{
+  +Id: int
+  +Description: string
+  +StartDate: DateOnly
+  +EndDate: DateOnly
+  +PassengerNumber: int
+  +Status: TourRequestStatus
+
+  +SendNotification(Tourist tourist): void
+  +AcceptTourRequest(): void
+}
+
+class Tour{
+  +Id: int
+  +Name: string
+  +Description: string
+  +MaxTouristNumber: int
+  +CurrentTouristNumber: int
+  +Duration: double
+  +Beggining: DateTime
+  +End: DateTime
+  +State: TourState
+  +ProfilePictures: List<string>
+
+  +IsAvailableRequest(TourRequest tourRequest): bool
+  +CreateBySuggestion(Language language, Location location): void
+}
+class User{
+  +Id: int
+  +Username: string
+  +Password: string
+  +Category: UserCategory
+}
+
+class Location{
+  +Id: int
+  +City: string
+  +Country: string
+}
+
+class Language{
+  +Id: int
+  +Name: string
+}
+
+enum TourRequestStatus <<enum>>{
+  OnHold
+  Expired
+  Accepted
+}
+
+enum TourState <<enum>>{
+  Scheduled
+  Active
+  Finished
+}
+
+enum UserCategory <<enum>>{
+  Owner 
+  Guest
+  Guide
+  Tourist
+}
+
+Location "1..1" <-- "0..*" TourRequest
+Language "1..1" <-- "0..*" TourRequest
+User "1..1" <-- "0..*" TourRequest
+Location "1..1" <-- "0..*" Tour
+Language "1..1" <- "0..*" Tour
+User "1..1" <-- "0..*" Tour
+@enduml
