@@ -32,6 +32,34 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Background" Value="{StaticResource Green}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
     </Page.Resources>
             <Grid Background="{StaticResource Beige}">
         <TabControl Height="600" Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -52,8 +80,8 @@
                             IsEnabled="{Binding SelectedReservation.CanBeGradedByOwner}"
                             Style="{StaticResource DisabledButtonStyle}">
                         <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
-                            <Image Source="{StaticResource ReviewIcon}" Height="30" Width="30"/>
-                            <Label Content="Assign a grade" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Image Source="{StaticResource ReviewIconBeige}" Height="30" Width="30"/>
+                            <Label Content="Assign a grade" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
@@ -61,8 +89,8 @@
                             Click="ViewGradeButton_Click" IsEnabled="{Binding SelectedReservation.IsGradedByGuest}"
                             Style="{StaticResource DisabledButtonStyle}">
                         <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
-                            <Image Source="{StaticResource EyeIcon}" Height="30" Width="30"/>
-                            <Label Content="View guest grade" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Image Source="{StaticResource EyeIconBeige}" Height="30" Width="30"/>
+                            <Label Content="View grade" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
@@ -118,15 +146,15 @@
                     </Grid.RowDefinitions>
                     <Button x:Name="Decline" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Width="130" Height="50" Command="{Binding DeclineButtonCommand}" Style="{StaticResource DisabledButtonStyle}">
                         <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                            <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
-                            <Label Content="Decline" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
+                            <Label Content="Decline" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
                         </StackPanel>
                     </Button>
 
                     <Button x:Name="Accept" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Width="130" Height="50" Command="{Binding AcceptButtonCommand}" Style="{StaticResource DisabledButtonStyle}">
                         <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
-                            <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
-                            <Label Content="Accept" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
+                            <Label Content="Accept" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
                         </StackPanel>
                     </Button>
 

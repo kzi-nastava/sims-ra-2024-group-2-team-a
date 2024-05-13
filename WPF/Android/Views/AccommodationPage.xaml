@@ -8,19 +8,39 @@
       d:DesignHeight="624" d:DesignWidth="430"
       Title="AccommodationPage">
     <Page.Resources>
-        <BitmapImage x:Key="AddIcon" UriSource="../../../Resources/Images/add-icon3.png"/>
-        <BitmapImage x:Key="RenovationsIcon" UriSource="../../../Resources/Images/renovation-icon.png"/>
-        <BitmapImage x:Key="GuidanceIcon" UriSource="../../../Resources/Images/guidance-icon.png"/>
-        <BitmapImage x:Key="StatisticsIcon" UriSource="../../../Resources/Images/statistics-icon.png"/>
+        <BitmapImage x:Key="AddIcon" UriSource="../../../Resources/Images/Icons/add-icon3-b.png"/>
+        <BitmapImage x:Key="RenovationsIcon" UriSource="../../../Resources/Images/Icons/renovation-icon-beige.png"/>
+        <BitmapImage x:Key="GuidanceIcon" UriSource="../../../Resources/Images/Icons/guidance-icon-beige.png"/>
+        <BitmapImage x:Key="StatisticsIcon" UriSource="../../../Resources/Images/Icons/statistics-icon-beige.png"/>
+        <BitmapImage x:Key="DocumentBeigeIcon" UriSource="../../../Resources/Images/Icons/document-icon-beige.png"/>
         <Style TargetType="Label" x:Key="Header">
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
-                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
                 <Setter Property="Background" Value="{StaticResource Green}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+
     </Page.Resources>
     <Grid Background="{StaticResource Beige}">
         <Grid.RowDefinitions>
@@ -45,36 +65,36 @@
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="{StaticResource AddIcon}" Width="40" Height="40"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Text="Add" FontSize="16"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="Add"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonLabelTextBlock}"/>
                         </StackPanel>
             </Button>
 
             <Button x:Name="RenovationsButton" Click="RenovationsButton_Click" Grid.Column="3" Height="80" Width="90" Background="{StaticResource Green}">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="{StaticResource RenovationsIcon}" Width="40" Height="40"/>
-                    <TextBlock Text="Renovation" FontSize="16"/>
+                    <TextBlock Text="Renovation" Style="{StaticResource ButtonLabelTextBlock}"/>
                 </StackPanel>
             </Button>
 
             <Button x:Name="StatisticsButton" Click="StatisticsButton_Click" Grid.Column="5" Height="80" Width="90" Background="{StaticResource Green}">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="{StaticResource StatisticsIcon}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Statistics" FontSize="16"/>
+                    <TextBlock Text="Statistics" FontSize="16" Style="{StaticResource ButtonLabelTextBlock}"/>
                 </StackPanel>
             </Button>
 
             <Button x:Name="GuidanceButton" Click="GuidanceButton_Click" Grid.Column="7" Height="80" Width="90" Background="{StaticResource Green}">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Source="{StaticResource GuidanceIcon}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Guidance" FontSize="16"/>
+                    <TextBlock Text="Guidance" FontSize="16" Style="{StaticResource ButtonLabelTextBlock}"/>
                 </StackPanel>
             </Button>
         </Grid>
         <StackPanel Grid.Row="0" Height="50" VerticalAlignment="Top" Orientation="Horizontal">
             <Label Content="Registered Accomodations: " Style="{StaticResource Header}" Width="280" HorizontalAlignment="Left"  Margin="10,0,0,0" Height="40"/>
             <Button Margin="75,5,0,5" Width="40" Height="40" Click="GeneratePdfButton_Click" Background="{StaticResource Green}">
-                <Image Source="{StaticResource DocumentIcon}" Width="30" Height="30"/>
+                <Image Source="{StaticResource DocumentBeigeIcon}" Width="30" Height="30"/>
             </Button>
         </StackPanel>
 

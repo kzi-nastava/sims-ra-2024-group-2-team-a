@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -19,14 +20,25 @@ namespace BookingApp.WPF.Android.Views {
         public Frame BlackFrame { get; set; }
 
         private User _user;
+        public string MessagesNumLabel { get; set; }
         public SideMenuPage(Frame mainFrame, Frame sideFrame, Frame blackFrame, User user) {
             InitializeComponent();
+            DataContext = this;
+
             MainFrame = mainFrame;
             SideFrame = sideFrame;
             _user = user;
             UsernameLabel.Content = user.Username;
             SetAverageAndSuperLabels(user.Id);
             BlackFrame = blackFrame;
+            SetMessagesNumber();
+        }
+
+        private void SetMessagesNumber() {
+            NotificationService notificationService = ServicesPool.GetService<NotificationService>();
+            MessagesNumLabel += "(";
+            MessagesNumLabel += notificationService.GetByUserId(_user.Id).Where(x=> !x.IsRead).ToList().Count;
+            MessagesNumLabel += ")";
         }
 
         private void SetAverageAndSuperLabels(int userId) {

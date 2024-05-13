@@ -31,6 +31,33 @@
             </Setter>
         </Style>
 
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Background" Value="{StaticResource Green}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
     </Window.Resources>
     <Grid Background="{StaticResource Beige}">
         <Grid.ColumnDefinitions>
@@ -47,7 +74,7 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Content="Reservation info:" FontFamily="Global Sans Serif" FontSize="20" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+        <Label Content="Reservation info:" Style="{StaticResource Header}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                HorizontalAlignment="Center" FontWeight="Bold" Background="{StaticResource Green}" Padding="3" VerticalAlignment="Center"/>
         <TextBlock Text="{Binding AccReservationDTO.Accommodation.Name}" Grid.Column="0" Grid.Row="1" FontSize="16"  HorizontalAlignment="Center"/>
         <TextBlock Grid.Column="1" Grid.Row="1" FontSize="12" HorizontalAlignment="Center">
@@ -83,14 +110,14 @@
 
         <Button x:Name="CancelButton" Grid.Row="7" Height="50" Width="130" Click="CancelButton_Click" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
-                <Label Content="Cancel" VerticalAlignment="Center"/>
+                <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
+                <Label Content="Cancel" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
             </StackPanel>
         </Button>
         <Button x:Name="DoneButton" Grid.Row="7" Grid.Column="1" Height="50" Width="130" Click="DoneButton_Click" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
-                <Label Content="Confirm" VerticalAlignment="Center"/>
+                <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
+                <Label Content="Confirm" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
             </StackPanel>
         </Button>
     </Grid>
