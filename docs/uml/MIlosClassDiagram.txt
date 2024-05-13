@@ -1,0 +1,77 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class TourRequest{
+  +Id: int
+  +Description: string
+  +StartDate: DateOnly
+  +EndDate: DateOnly
+  +PassengerNumber: int
+  +Status: TourRequestStatus
+
+  +FilterRequests(Filter filter): void
+  +SendNotification(Tourist tourist): void
+  +AcceptTourRequest(): void
+  +GetStatsByLocation(int locationId, Time period): stats
+  +GetStatsByLanguage(int languageId, Time period): stats
+  +GetMostWantedLocation(): Location
+  +GetMostWantedLanguage(): Language
+}
+
+class Tour{
+  +Id: int
+  +Name: string
+  +Description: string
+  +MaxTouristNumber: int
+  +CurrentTouristNumber: int
+  +Duration: double
+  +Beggining: DateTime
+  +End: DateTime
+  +State: TourState
+  +ProfilePictures: List<string>
+
+  +IsAvailableRequest(TourRequest tourRequest): bool
+  +CreateBySuggestion(Language language, Location location): void
+}
+class User{
+  +Id: int
+  +Username: string
+  +Password: string
+  +Category: UserCategory
+}
+
+class Location{
+  +Id: int
+  +City: string
+  +Country: string
+}
+
+class Language{
+  +Id: int
+  +Name: string
+}
+
+enum TourRequestStatus <<enum>>{
+  OnHold
+  Expired
+  Accepted
+}
+
+enum TourState <<enum>>{
+  Scheduled
+  Active
+  Finished
+}
+
+enum UserCategory <<enum>>{
+  Owner 
+  Guest
+  Guide
+  Tourist
+}
+
+Tour "1..1" <|-- "1..1" TourRequest 
+Location "1..1" -- "0..*" TourRequest
+Language "1..1" -- "0..*" TourRequest
+User "1..1" -- "0..*" TourRequest
+@enduml
