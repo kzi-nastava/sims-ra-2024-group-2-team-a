@@ -9,13 +9,8 @@ class TourRequest{
   +PassengerNumber: int
   +Status: TourRequestStatus
 
-  +FilterRequests(Filter filter): void
   +SendNotification(Tourist tourist): void
   +AcceptTourRequest(): void
-  +GetStatsByLocation(int locationId, Time period): stats
-  +GetStatsByLanguage(int languageId, Time period): stats
-  +GetMostWantedLocation(): Location
-  +GetMostWantedLanguage(): Language
 }
 
 class Tour{
@@ -70,8 +65,10 @@ enum UserCategory <<enum>>{
   Tourist
 }
 
-Tour "1..1" <|-- "1..1" TourRequest 
-Location "1..1" -- "0..*" TourRequest
-Language "1..1" -- "0..*" TourRequest
-User "1..1" -- "0..*" TourRequest
+Location "1..1" <-- "0..*" TourRequest
+Language "1..1" <-- "0..*" TourRequest
+User "1..1" <-- "0..*" TourRequest
+Location "1..1" <-- "0..*" Tour
+Language "1..1" <- "0..*" Tour
+User "1..1" <-- "0..*" Tour
 @enduml
