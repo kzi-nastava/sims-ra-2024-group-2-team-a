@@ -43,7 +43,7 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void AddAccomodation_Click(object sender, RoutedEventArgs e) {
-            mainFrame.Content = new AddAccommodationPage(mainFrame, _user);
+            mainFrame.Content = new AddAccommodationPage(mainFrame, _user, null);
         }
 
         private void RenovationsButton_Click(object sender, RoutedEventArgs e) {
@@ -68,7 +68,11 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void GuidanceButton_Click(object sender, RoutedEventArgs e) {
+            if (_statisticsService.GetHottestAndColdestLocations(_user.Id).Count == 1) {
+                return;
+            }
 
+            mainFrame.NavigationService.Navigate(new AccommodationGuidancePage(_user,mainFrame));
         }
 
         private void GeneratePdfButton_Click(object sender, RoutedEventArgs e) {

@@ -63,6 +63,7 @@
     <None Remove="Resources\Images\Icons\language.png" />
     <None Remove="Resources\Images\Icons\left-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\location-icon.png" />
+    <None Remove="Resources\Images\Icons\locked-building-icon.png" />
     <None Remove="Resources\Images\Icons\logout-white-icon.png" />
     <None Remove="Resources\Images\Icons\normal-owner-icon.png" />
     <None Remove="Resources\Images\Icons\not-super-icon.png" />
@@ -203,6 +204,7 @@
     <Resource Include="Resources\Images\Icons\import-images-icon.png" />
     <Resource Include="Resources\Images\Icons\language.png" />
     <Resource Include="Resources\Images\Icons\left-arrow-icon.png" />
+    <Resource Include="Resources\Images\Icons\locked-building-icon.png" />
     <Resource Include="Resources\Images\Icons\logout-white-icon.png" />
     <Resource Include="Resources\Images\Icons\normal-owner-icon.png" />
     <Resource Include="Resources\Images\Icons\people-icon.png" />

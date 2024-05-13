@@ -22,10 +22,9 @@ namespace BookingApp.WPF.Android.Views {
         private LocationService locationService = ServicesPool.GetService<LocationService>();
         public AccommodationDTO AccommodationDTO { get; set; }
         public LocationDTO SelectedLocationDTO { get; set; }
-
         public ObservableCollection<LocationDTO> LocationDTOs { get; set; }
 
-        public AddAccommodationPage(Frame mainFrame, User user) {
+        public AddAccommodationPage(Frame mainFrame, User user, LocationDTO presetLocation) {
             InitializeComponent();
             this.mainFrame = mainFrame;
             DataContext = this;
@@ -39,7 +38,11 @@ namespace BookingApp.WPF.Android.Views {
             LocationDTOs = new ObservableCollection<LocationDTO>();
 
             foreach (var loc in locationService.GetAll()) {
-                LocationDTOs.Add(new LocationDTO(loc));
+                LocationDTO locDTO = new LocationDTO(loc);
+                LocationDTOs.Add(locDTO);
+                if (presetLocation != null && presetLocation.Id == loc.Id)
+                    SelectedLocationDTO = locDTO;
+                    
             }
 
             nameTextbox.GetBindingExpression(TextBox.TextProperty)?.UpdateSource();

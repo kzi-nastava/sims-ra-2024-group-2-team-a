@@ -43,5 +43,10 @@ namespace BookingApp.Services {
                 && filter.MatchesGuestNumber(accommodation.MaxGuestNumber)
                 && filter.MatchesReservationDays(accommodation.MinReservationDays);
         }
+
+        public List<Accommodation> GetByLocationId(int locationId) {
+            return this.GetAll().Where(x => x.LocationId == locationId).ToList();
+        }
+
     }
 }
