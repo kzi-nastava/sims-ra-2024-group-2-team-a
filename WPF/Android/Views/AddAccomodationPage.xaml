@@ -34,7 +34,35 @@
             </Setter>
         </Style>
 
-        <BitmapImage x:Key="ImagesIcon" UriSource="../../../Resources/Images/Icons/import-images-icon.png"/>
+        <BitmapImage x:Key="ImagesIcon" UriSource="../../../Resources/Images/Icons/import-images-icon-beige.png"/>
+
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Background" Value="{StaticResource Green}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+        
     </Page.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Background="{StaticResource Beige}">
         <Grid Height="600" Width="430">
@@ -56,7 +84,7 @@
                 <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="New Accomodation:" FontWeight="Bold" FontSize="18"/>
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Grid.ColumnSpan="2" HorizontalAlignment="Left" Content="New Accomodation:" Style="{StaticResource Header}"/>
 
             <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Name:" FontSize="16"/>
             <TextBox x:Name="nameTextbox" Grid.Row="1" Grid.Column="1" Width="250" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40">
@@ -123,29 +151,29 @@
             <Button Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="150" Click="SelectImages_Click" Style="{StaticResource DisabledButtonStyle}">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                     <Image Source="{StaticResource ImagesIcon}" Height="30" Width="30"/>
-                    <Label Content="Import images" VerticalAlignment="Center"/>
+                    <Label Content="Import images" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
                 </StackPanel>
             </Button>
 
             <Button x:Name="ViewButton" Style="{StaticResource DisabledButtonStyle}" Grid.Column="2" HorizontalAlignment="Center"
                     Grid.Row="7" Height="50" Width="150" Click="ViewImages_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                    <Image Source="{StaticResource EyeIcon}" Height="30" Width="30"/>
-                    <Label Content="View selected" VerticalAlignment="Center"/>
+                    <Image Source="{StaticResource EyeIconBeige}" Height="30" Width="30"/>
+                    <Label Content="View images" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
                 </StackPanel>
             </Button>
 
             <Button Grid.Row="9" Grid.Column="1" Height="50" Width="130" Click="Decline_Click" Style="{StaticResource DisabledButtonStyle}">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                    <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
-                    <Label Content="Cancel" VerticalAlignment="Center"/>
+                    <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
+                    <Label Content="Cancel" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
                 </StackPanel>
             </Button>
 
             <Button Grid.Row="9" Grid.Column="2" Height="50" Width="130" Click="Confirm_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                    <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
-                    <Label Content="Confirm" VerticalAlignment="Center"/>
+                    <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
+                    <Label Content="Confirm" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
                 </StackPanel>
                 <Button.Style>
                     <Style TargetType="Button">

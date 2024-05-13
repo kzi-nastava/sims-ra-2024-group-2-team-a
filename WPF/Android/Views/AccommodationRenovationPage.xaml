@@ -10,7 +10,7 @@
       d:DesignHeight="624" d:DesignWidth="430"
       Title="AccommodationRenovationPagexaml">
     <Page.Resources>
-        <BitmapImage x:Key="SearchIcon" UriSource="../../../Resources/Images/android-search-icon.png"/>
+        <BitmapImage x:Key="SearchIcon" UriSource="../../../Resources/Images/Icons/android-search-icon-beige.png"/>
         <converter:SelectedToEnabledConverter x:Key="SelectedConverter"/>
         <converter:CountToBooleanConverter x:Key="CountToBoolConverter" />
 
@@ -27,6 +27,15 @@
             <Style.Setters>
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabels">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Bold"/>
             </Style.Setters>
         </Style>
 
@@ -112,7 +121,7 @@
         Click="SearchButton_Click" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="{StaticResource SearchIcon}" Height="40" Width="40"/>
-                <Label Content="Search" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Label Content="Search" Style="{StaticResource ButtonLabels}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
 
@@ -139,16 +148,16 @@
         <Button Grid.Column="3" Grid.Row="5" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
         Command="{Binding AcceptCommand}" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
-                <Label Content="Confirm" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
+                <Label Content="Confirm" Style="{StaticResource ButtonLabels}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
 
         <Button Grid.Column="1" Grid.Row="5" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
                 Command="{Binding DeclineCommand}" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
-                <Label Content="Cancel" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
+                <Label Content="Cancel" Style="{StaticResource ButtonLabels}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
     </Grid>

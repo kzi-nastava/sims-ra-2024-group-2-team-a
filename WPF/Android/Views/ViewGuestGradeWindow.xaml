@@ -10,6 +10,34 @@
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
+
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Background" Value="{StaticResource Green}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
     </Window.Resources>
     <Grid Background="{StaticResource Beige}">
         <Grid.ColumnDefinitions>
@@ -24,7 +52,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Label Content="Your Grades: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" BorderBrush="Black" BorderThickness="0,0,0,2"
+        <Label Content="Your Grades: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" Foreground="{StaticResource Beige}"
                Background="{StaticResource Green}" Width="130" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Center" Margin="5,0,0,5"/>
         <Label x:Name="AccommodationLabel" Content="{Binding AccommodationReservationDTO.Accommodation.Name}" Grid.Row="1" Grid.Column="0" FontSize="16" Padding="5,0,5,5"/>
         <Label x:Name="DateLabel"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
@@ -55,8 +83,8 @@
         <Button Grid.Column="1" Grid.Row="5" Height="80" Width="80" VerticalAlignment="Top" Margin="50,0,0,0" Click="Button_Click"
                 Background="{StaticResource Green}">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Source="{StaticResource ConfirmIcon}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBlock Text="Confirm" FontSize="16"/>
+                <Image Source="{StaticResource ConfirmIconBeige}" Width="40" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Confirm" FontSize="16" Style="{StaticResource ButtonLabelTextBlock}"/>
             </StackPanel>
         </Button>
     </Grid>

@@ -12,18 +12,30 @@
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
-                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
                 <Setter Property="Background" Value="{StaticResource Green}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
-        <Style TargetType="Label" x:Key="Labels">
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
             <Style.Setters>
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
-        <BitmapImage x:Key="ViewIcon" UriSource="../../../Resources/Images/android-view-icon.png"/>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+        
+        <BitmapImage x:Key="ViewIcon" UriSource="../../../Resources/Images/Icons/android-view-icon-beige.png"/>
 
         <Style TargetType="Button" x:Key="DisabledButtonStyle">
             <Setter Property="Background" Value="{StaticResource Green}"/>
@@ -98,15 +110,15 @@
             Command="{Binding ViewCommand}" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                 <Image Source="{StaticResource ViewIcon}" Height="30" Width="30"/>
-                <Label Content="View" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Label Content="View" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
 
         <Button Grid.Column="1" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
         Command="{Binding CancelCommand}" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
-                <Label Content="Cancel" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
+                <Label Content="Cancel" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
         
