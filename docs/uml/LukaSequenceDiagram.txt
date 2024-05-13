@@ -14,7 +14,7 @@ loop foreach year in distinctYears
   Periods -> Periods++: Add(year)
   Periods -> Periods--
   end
-Periods -> StatisticsViewModel--: periods
+Periods -> StatisticsViewModel--: Periods
 
 StatisticsViewModel -> User--: display
 
