@@ -1,0 +1,100 @@
+@startuml
+class TourRequest{
+  +Id: int
+  +Description: string
+  +StartDate: DateOnly
+  +EndDate: DateOnly
+  +PassengerNumber: int
+  +Status: TourRequestStatus
+  -UpdateStatus(): void
+}
+
+class Location{
+  +Id: int
+  +City: string
+  +Country: string
+}
+
+class Language{
+  +Id: int
+  +Name: string
+}
+
+class User{
+  +Id: int
+  +Username: string
+  +Password: string
+  +Category: UserCategory
+}
+
+class Notification{
+  +Id: int
+  +Message: string
+  +CreationDate: DateTime
+  +Category: NotificationCategory
+  -SetMessageByCategory(): void
+}
+
+class TouristStatistics{
+  +AcceptedPercentage: double
+  +NotAcceptedPercentage: double
+  +AveragePassengerNumber: double
+}
+
+class StatisticsCalculator{
+  {static} +CalculateTouristStatistics(accepted: IEnumerable<TourRequest>, all: IEnumerable<TourRequest>): TouristStatistics
+  {static} -CalculatePercentage<T>(subset: IEnumerable<T>, total: IEnumerable<T>): double
+  {static} -CalculateAverage<T>(source: IEnumerable<T>, selector: Func<T, double>): double
+}
+
+class Tour{
+  +Id: int
+  +Name: string
+  +Description: string
+  +State: TourState
+  +MaxTouristNumber: int
+  +CurrentTouristNumber: int
+  +Beggining: DateTime
+  +End: DateTime
+  +ProfilePictures: List<string>
+  +Duration: double
+}
+
+enum UserCategory{
+  Owner
+  Guest
+  Guide
+  Tourist
+}
+
+enum TourRequestStatus{
+  OnHold
+  Expired
+  Accepted
+}
+
+enum NotificationCategory{
+  Review
+  Request
+  SuperOwner
+  Forum
+  TourActive
+  TourRequest
+}
+
+enum TourState{
+  Scheduled
+  Active
+  Finished
+}
+
+TourRequest "0..*" --> "1..1" Location
+TourRequest "0..*" --> "1..1" Language
+TourRequest "0..*" --> "1..1" User
+Notification "0..*" --> "1..1" User
+Notification "0..*" --> "0..1" Tour
+Tour "0..*" --> "1..1" Location
+Tour "0..*" --> "1..1" Language
+Tour "0..*" --> "1..1" User
+
+@enduml
