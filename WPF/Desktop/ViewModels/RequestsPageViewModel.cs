@@ -23,7 +23,6 @@ namespace BookingApp.WPF.Desktop.ViewModels
 
         private readonly TourRequestService _tourRequestService = ServicesPool.GetService<TourRequestService>();
         public ObservableCollection<TourRequestDTO> TourRequests { get; set; } = new ObservableCollection<TourRequestDTO>();
-        public ICommand CreateRequestCommand { get; set; } 
         public int UserId { get; set; }
 
         private string _filter;
@@ -41,7 +40,6 @@ namespace BookingApp.WPF.Desktop.ViewModels
         }
 
         public RequestsPageViewModel(int userId) {
-            CreateRequestCommand = new RelayCommand(CreateRequest, CreateRequestCanExecute);
             UserId = userId;
             Filter = "All";
         }
@@ -51,15 +49,6 @@ namespace BookingApp.WPF.Desktop.ViewModels
             foreach (var tourRequest in _tourRequestService.GetFiltered(UserId, Filter)) {
                 TourRequests.Add(new TourRequestDTO(tourRequest));
             }
-        }
-
-        private void CreateRequest(object parameter) {
-            CreateRequestWindow window = new CreateRequestWindow(UserId);
-            window.ShowDialog();
-        }
-
-        private bool CreateRequestCanExecute() {
-            return true;
         }
     }
 }

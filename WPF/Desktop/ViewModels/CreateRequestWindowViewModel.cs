@@ -166,14 +166,15 @@ namespace BookingApp.WPF.Desktop.ViewModels
         }
 
         public int UserId { get; set; }
-        public CreateRequestWindowViewModel(int userId) {
+
+        CreateComplexRequestWindowViewModel? ComplexViewModel { get; set; }
+        public CreateRequestWindowViewModel(int userId, CreateComplexRequestWindowViewModel? complexViewModel) {
             TourRequest = new TourRequestDTO(userId);
             IsTouristButtonEnabled = false;
             IsPassengerButtonEnabled = false;
             Passengers = new ObservableCollection<PassengerDTO>();
             Locations = new ObservableCollection<LocationDTO>();
             Languages = new ObservableCollection<LanguageDTO>();
-
 
             Func<bool> alwaysTrue = () => true;
             AddPassengerCmd = new RelayCommand(AddPassenger, alwaysTrue);
@@ -183,6 +184,7 @@ namespace BookingApp.WPF.Desktop.ViewModels
 
             SetLocations();
             SetLanguages();
+            ComplexViewModel = complexViewModel;
         }
 
         private void SetLocations() {
@@ -231,7 +233,11 @@ namespace BookingApp.WPF.Desktop.ViewModels
         }
 
         public void CreateRequest(object parameter) {
-            _tourRequestService.CreateRequest(TourRequest, Passengers.Count());
+            TourRequest.PassengerNumber = Passengers.Count();
+            if(ComplexViewModel == null)
+                _tourRequestService.CreateRequest(TourRequest, 0);
+            else
+                ComplexViewModel.SimpleTourRequests.Add(TourRequest);
         }
 
         public void RemovePassenger(object parameter) {
