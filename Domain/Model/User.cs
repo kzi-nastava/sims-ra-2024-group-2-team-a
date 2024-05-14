@@ -6,7 +6,6 @@ namespace BookingApp.Domain.Model {
 
     public class User : ISerializable, IIdentifiable
     {
-
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
@@ -20,13 +19,20 @@ namespace BookingApp.Domain.Model {
             Password = password;
         }
 
-        public string[] ToCSV()
+        public User(User user) {
+            Id = user.Id;
+            Username = user.Username;
+            Password = user.Password;
+            Category = user.Category;
+        }
+
+        public virtual string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), Username, Password, Category.ToString() };
             return csvValues;
         }
 
-        public void FromCSV(string[] values)
+        public virtual void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
             Username = values[1];

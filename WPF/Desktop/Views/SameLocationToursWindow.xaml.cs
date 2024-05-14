@@ -9,7 +9,7 @@ namespace BookingApp.WPF.Desktop.Views {
     /// Interaction logic for SameLocationToursWindow.xaml
     /// </summary>
     public partial class SameLocationToursWindow : Window {
-        private TourService _tourService = new TourService();
+        private TourService _tourService = ServicesPool.GetService<TourService>();
         private TourReservationWindow _parentWindow;
         public TourDTO CurrentTour { get; set; }
         public ObservableCollection<TourDTO> SameLocationTours { get; set; }

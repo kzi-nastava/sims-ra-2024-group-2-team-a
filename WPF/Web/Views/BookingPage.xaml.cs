@@ -15,9 +15,9 @@ namespace BookingApp.WPF.Web.Views {
         private List<AccommodationDTO> _accommodationDTOs = new List<AccommodationDTO>();
         private List<LocationDTO> _locationDTOs = new List<LocationDTO>();
 
-        private readonly AccommodationService _accommodationService = new AccommodationService();
-        private readonly LocationService _locationService = new LocationService();
-        private readonly OwnerService _ownerService = new OwnerService();
+        private readonly AccommodationService _accommodationService = ServicesPool.GetService<AccommodationService>();
+        private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
+        private readonly OwnerService _ownerService = ServicesPool.GetService<OwnerService>();
 
         public BookingPage() {
             InitializeComponent();

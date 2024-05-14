@@ -14,9 +14,11 @@ namespace BookingApp.WPF.Android.Views {
 
         private readonly User _user;
 
-        private AccommodationService accommodationService = new AccommodationService();
+        private AccommodationService accommodationService = ServicesPool.GetService<AccommodationService>();
 
-        private LocationService locationService = new LocationService();
+        private readonly AccommodationStatisticsService _statisticsService = ServicesPool.GetService<AccommodationStatisticsService>();  
+
+        private LocationService locationService = ServicesPool.GetService<LocationService>();
         public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
 
         public AccommodationDTO SelectedAccommodation { get; set; }
@@ -48,13 +50,28 @@ namespace BookingApp.WPF.Android.Views {
             if (SelectedAccommodation == null) {
                 return;
             }
+            else {
+                mainFrame.Content = new AccommodationRenovationPage(SelectedAccommodation, mainFrame);
+            }
         }
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e) {
-
+            if (SelectedAccommodation == null ) {
+                return;
+            }
+            else if (_statisticsService.IsStatisticEmpty(SelectedAccommodation.Id)) {
+                MessageBox.Show("Selected accommodation does not have any required statistic", "Selection Error", MessageBoxButton.OK);
+            }
+            else {
+                mainFrame.Content = new AccommodationStatisticsPage(SelectedAccommodation);
+            }
         }
 
         private void GuidanceButton_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void GeneratePdfButton_Click(object sender, RoutedEventArgs e) {
 
         }
     }

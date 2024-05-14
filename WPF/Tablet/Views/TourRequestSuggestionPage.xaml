@@ -1,0 +1,39 @@
+﻿<Page x:Class="BookingApp.WPF.Tablet.Views.TourRequestSuggestionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
+      mc:Ignorable="d" 
+      d:DesignHeight="690" d:DesignWidth="1024"
+      Title="TourRequestSuggestionPage">
+
+    <Page.CommandBindings>
+        <CommandBinding x:Name="Loaction" Command="cmd:RoutedCommands.Clear" CanExecute="Loaction_CanExecute" Executed="Loaction_Executed"/>
+        <CommandBinding x:Name="Language" Command="cmd:RoutedCommands.Filter" CanExecute="Language_CanExecute" Executed="Language_Executed"/>
+
+    </Page.CommandBindings>
+    <Page.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Most wanted tour request in last year" Style="{StaticResource TitleLabel}" Grid.Row="0" Grid.ColumnSpan="5"/>
+
+        <Button Grid.Column="0" Grid.Row="1" x:Name="mostWantedLocation" Content="Location" Command="cmd:RoutedCommands.Clear" Style="{StaticResource FilterButton}" HorizontalAlignment="Left" Margin="342,0,0,0"/>
+        <Button Grid.Column="1" Grid.Row="1"  x:Name="mostWantedLanguage" Content="Language" Command="cmd:RoutedCommands.Filter" Style="{StaticResource FilterButton}"/>
+
+    </Grid>
+</Page>

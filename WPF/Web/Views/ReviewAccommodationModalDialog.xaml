@@ -29,9 +29,28 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="0 10 0 10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ButtonText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+        </Style>
+
+        <Style x:Key="MainButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
     </UserControl.Resources>
 
-    <Border BorderBrush="Gray" BorderThickness="1" Width="550" CornerRadius="10" Background="White">
+    <Border BorderBrush="{StaticResource Green}" BorderThickness="2" Width="550" CornerRadius="10" Background="White">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -42,9 +61,8 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Border Background="LightGray" Grid.Row="0" BorderThickness="2" Width="550" CornerRadius="10"/>
-            <TextBlock Grid.Row="0" FontSize="20" HorizontalAlignment="Center" Margin="0 10 0 10"
-                           Text="Review accommodation"/>
+            <Border Background="{StaticResource Green}" Grid.Row="0" BorderThickness="2" Width="550" CornerRadius="10" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Text="Review accommodation" Style="{StaticResource Title}"/>
 
             <Grid Grid.Row="1">
 
@@ -94,7 +112,7 @@
 
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Accommodation photos" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="buttonUpload" Margin="10" HorizontalAlignment="Left" Click="ButtonUploadClick">
+                            <Button x:Name="buttonUpload" Margin="10" HorizontalAlignment="Left" Cursor="Hand" Click="ButtonUploadClick">
                                 <WrapPanel Margin="5">
                                     <Image Style="{StaticResource ImageStyle}" Source="{StaticResource CameraIcon}"/>
                                     <TextBlock Text="Upload"/>
@@ -127,17 +145,17 @@
                 </ScrollViewer>
             </Grid>
 
-            <Button x:Name="buttonCancel" Grid.Row="3" Margin="10" HorizontalAlignment="Left" Click="ButtonCancelClick">
+            <Button x:Name="buttonCancel" Grid.Row="3" Margin="10" HorizontalAlignment="Left" Click="ButtonCancelClick" Style="{StaticResource MainButton}">
                 <WrapPanel Margin="10">
                     <Image Style="{StaticResource ImageStyle}" Source="{StaticResource CaneclIcon}"/>
-                    <TextBlock Text="Cancel"/>
+                    <TextBlock Text="Cancel" Style="{StaticResource ButtonText}"/>
                 </WrapPanel>
             </Button>
 
-            <Button Grid.Row="3" Margin="10" HorizontalAlignment="Right" Click="ButtonConfirmClick">
+            <Button Grid.Row="3" Margin="10" HorizontalAlignment="Right" Click="ButtonConfirmClick" Style="{StaticResource MainButton}">
                 <WrapPanel Margin="10">
                     <Image Style="{StaticResource ImageStyle}" Source="{StaticResource ConfirmIcon}"/>
-                    <TextBlock Text="Confirm"/>
+                    <TextBlock Text="Confirm" Style="{StaticResource ButtonText}"/>
                 </WrapPanel>
             </Button>
         </Grid>

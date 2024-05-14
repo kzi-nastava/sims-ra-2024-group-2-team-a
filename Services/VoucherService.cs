@@ -7,14 +7,25 @@ using System.Linq;
 
 namespace BookingApp.Services {
     public class VoucherService {
-        private readonly IVoucherRepository _voucherRepository = RepositoryInjector.GetInstance<IVoucherRepository>();
+        private readonly IVoucherRepository _voucherRepository;
+        public VoucherService(IVoucherRepository voucherRepository) {
+            _voucherRepository = voucherRepository;
+        }
 
         public VoucherService() {
 
         }
 
+        public void Update(Voucher voucher) {
+            _voucherRepository.Update(voucher);
+        }
+
+        public Voucher GetById(int id) {
+            return _voucherRepository.GetById(id);
+        }
+
         public List<Voucher> GetByTouristId(int userId) {
-            return _voucherRepository.GetAll().Where(v => v.TouristId == userId).ToList();
+                return _voucherRepository.GetAll().Where(v => v.TouristId == userId).ToList();
         }
 
         public List<Voucher> GetAvailableVouchers(int userId) {

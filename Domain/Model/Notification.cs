@@ -3,7 +3,7 @@ using System;
 
 namespace BookingApp.Domain.Model {
 
-    public enum NotificationCategory { Review, Request, SuperOwner, Forum, TourActive }
+    public enum NotificationCategory { Review, Request, SuperOwner, Forum, TourActive, TourRequest }
     public class Notification : ISerializable, IIdentifiable
     {
 
@@ -29,7 +29,14 @@ namespace BookingApp.Domain.Model {
 
         public Notification(NotificationCategory category, int userId, int tourId)
         {
-            Message = "You have been added to one of your active tours.";
+            switch (category) {
+                case NotificationCategory.TourActive:
+                    Message = "You have been added to one of your active tours.";
+                    break;
+                case NotificationCategory.TourRequest:
+                    Message = "A tour based on your requests has been added.";
+                    break;
+            }       
             Category = category;
             UserId = userId;
             CreationDate = DateTime.Now;

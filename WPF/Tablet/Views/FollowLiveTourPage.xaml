@@ -3,18 +3,28 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
       xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
       mc:Ignorable="d" 
             d:DesignHeight="726" d:DesignWidth="1024"
       Title="FollowLiveTour">
 
-    
-    <Grid Background="White">
+
+    <Page.CommandBindings>
+        <CommandBinding x:Name="Clear" Command="cmd:RoutedCommands.Clear" CanExecute="Clear_CanExecute" Executed="Clear_Executed"/>
+        <CommandBinding x:Name="Filter" Command="cmd:RoutedCommands.Filter" CanExecute="Filter_CanExecute" Executed="Filter_Executed"/>
+    </Page.CommandBindings>
+    <Page.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+            
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Height="180" BorderBrush="DarkBlue" BorderThickness="1" Margin="5,20,5,5">
+        <Border Grid.Row="0" Height="180" BorderBrush="Black" BorderThickness="1" Margin="5,20,5,5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -27,25 +37,25 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Margin="40,0,20,0" Content="Name:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource FilterLabel}" Content="Name:" />
                 <TextBox x:Name="textBoxName" Grid.Row="0" Grid.Column="1" Margin="20,0,20,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Margin="40,0,20,0" Content="Number of tourists:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource FilterLabel}" Content="Number of tourists:"/>
                 <TextBox x:Name="textBoxTouristNumber" Grid.Row="1" Grid.Column="1" Margin="20,0,20,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Margin="40,0,20,0" Content="Duration:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource FilterLabel}" Content="Duration:"/>
                 <TextBox x:Name="textBoxDuration" Grid.Row="2" Grid.Column="1" Margin="20,0,20,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
 
-                <Label Grid.Row="0" Grid.Column="2" Margin="40,0,20,0" Content="Location:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+                <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource FilterLabel}"  Content="Location:" />
                 <ComboBox x:Name="comboBoxLocation" Grid.Column="3" Grid.Row="0" Margin="20,0,20,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"
            ItemsSource="{Binding locationDTOs}" SelectedItem="{Binding selectedLocationDTO}" DisplayMemberPath="LocationOptionTemplate"/>
 
-                <Label Grid.Row="1" Grid.Column="2" Margin="40,0,20,0" Content="Language:" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+                <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource FilterLabel}" Content="Language:" />
                 <ComboBox x:Name="comboBoxLanguage" Grid.Column="3" Grid.Row="1" Margin="20,0,20,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"
           ItemsSource="{Binding languageDTOs}" SelectedItem="{Binding selectedLanguageDTO}" DisplayMemberPath="LanguageOptionTemplate"/>
 
-                <Button Grid.Column="2" Grid.Row="2" x:Name="clearButton" Content="Clear" Click="clearButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Padding="5" FontSize="20"/>
-                <Button Grid.Column="3" Grid.Row="2"  x:Name="filterButton" Content="Filter" Click="filterButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Padding="5" FontSize="20" IsEnabled="True"/>
+                <Button Grid.Column="2" Grid.Row="2" x:Name="clearButton" Content="Clear" Command="cmd:RoutedCommands.Clear" Style="{StaticResource FilterButton}"/>
+                <Button Grid.Column="3" Grid.Row="2"  x:Name="filterButton" Content="Filter" Command="cmd:RoutedCommands.Filter" Style="{StaticResource FilterButton}"/>
             </Grid>
         </Border>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">

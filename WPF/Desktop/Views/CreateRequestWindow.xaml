@@ -1,0 +1,319 @@
+﻿<Window x:Class="BookingApp.WPF.Desktop.Views.CreateRequestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Desktop.Views"
+        mc:Ignorable="d"
+        Title="CreateRequestWindow" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="DatePicker" x:Key="DatePicker">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5, 0, 0, 0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="HighlightedText">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="SmallText">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Info">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="#436850"/>
+            <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#edeedd">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="1.25*"/>
+            </Grid.ColumnDefinitions>
+            <Border Style="{StaticResource BorderStyle}"
+                    Background="#edeedd">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2.5*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0"
+                            Style="{StaticResource BorderStyle}"
+                            Background="#ADBC9F">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Location:"
+                                       Margin="10"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource HighlightedText}"/>
+                            <ComboBox Grid.Column="1"
+                                      Margin="10"
+                                      ItemsSource="{Binding Locations}"
+                                      SelectedItem="{Binding TourRequest.Location}"
+                                      DisplayMemberPath="LocationOptionTemplate"/>
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="1"
+                            Style="{StaticResource BorderStyle}"
+                            Background="#ADBC9F">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Language:"
+                                       Style="{StaticResource HighlightedText}"
+                                       Margin="10"
+                                       VerticalAlignment="Center"/>
+                            <ComboBox Grid.Column="1"
+                                      Margin="10"
+                                      ItemsSource="{Binding Languages}"
+                                      SelectedItem="{Binding TourRequest.Language}"
+                                      DisplayMemberPath="LanguageOptionTemplate"/>
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="2"
+                            Style="{StaticResource BorderStyle}"
+                            Background="#ADBC9F">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Description:"
+                                       Style="{StaticResource HighlightedText}"
+                                       Margin="10"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"/>
+                            <TextBox Grid.Column="1"
+                                     Margin="10"
+                                     FontSize="16"
+                                     Text="{Binding TourRequest.Description}"/>
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="3"
+                            Style="{StaticResource BorderStyle}"
+                            Background="#ADBC9F">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Margin="5">
+                                <TextBlock Text="Start date:"
+                                           Style="{StaticResource HighlightedText}"/>
+                                <DatePicker Style="{StaticResource DatePicker}"
+                                            SelectedDate="{Binding StartDate, Mode=OneWayToSource}"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Margin="5">
+                                <TextBlock Text="End date:"
+                                           Style="{StaticResource HighlightedText}"/>
+                                <DatePicker Style="{StaticResource DatePicker}"
+                                            SelectedDate="{Binding EndDate, Mode=OneWayToSource}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1"
+                    Style="{StaticResource BorderStyle}"
+                    Margin="0, 10, 10, 10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" 
+                            Style="{StaticResource BorderStyle}" 
+                            Background="#ADBC9F">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource HighlightedText}"
+                                       Grid.Row="0"
+                                       Grid.ColumnSpan="3"
+                                       Margin="10"
+                               >Personal information</TextBlock>
+                            <StackPanel Grid.Row="1"
+                                        Margin="10">
+                                <TextBlock Style="{StaticResource SmallText}">Name</TextBlock>
+                                <TextBox Text="{Binding TouristName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             FontSize="16"></TextBox>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="10">
+                                <TextBlock Style="{StaticResource SmallText}">Surame</TextBlock>
+                                <TextBox Text="{Binding TouristSurname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         FontSize="16"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1"
+                                        Grid.Column="2"
+                                        Margin="10">
+                                <TextBlock Style="{StaticResource SmallText}">Age</TextBlock>
+                                <TextBox Text="{Binding TouristAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         FontSize="16"></TextBox>
+                            </StackPanel>
+
+
+                            <Button x:Name="AddTouristButton"
+                                    Style="{StaticResource ButtonStyle}"
+                                    IsEnabled="{Binding IsTouristButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
+                                    Command="{Binding AddTouristCmd}"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="3"
+                            >Add</Button>
+                        </Grid>
+
+                    </Border>
+                    <Border Grid.Row="1"
+                            Style="{StaticResource BorderStyle}"
+                            Background="#ADBC9F"
+                            Margin="10, 0, 10, 10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource HighlightedText}"
+                                       Grid.Row="0"
+                                       Grid.ColumnSpan="3"
+                                       Margin="10">Passenger information</TextBlock>
+                            <StackPanel Grid.Row="1"
+                                        Margin="10">
+                                <TextBlock Style="{StaticResource SmallText}">Name</TextBlock>
+                                <TextBox Text="{Binding PassengerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         FontSize="16"></TextBox>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="10">
+                                <TextBlock Style="{StaticResource SmallText}">Surame</TextBlock>
+                                <TextBox Text="{Binding PassengerSurname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         FontSize="16"></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1"
+                                        Grid.Column="2"
+                                        Margin="10">
+                                <TextBlock Style="{StaticResource SmallText}">Age</TextBlock>
+                                <TextBox Text="{Binding PassengerAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         FontSize="16"></TextBox>
+                            </StackPanel>
+
+
+                            <Button Style="{StaticResource ButtonStyle}"
+                                    IsEnabled="{Binding IsPassengerButtonEnabled}"
+                                    Command="{Binding AddPassengerCmd}"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="3">Add</Button>
+                        </Grid>
+                    </Border>
+
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <DataGrid ItemsSource="{Binding Passengers, UpdateSourceTrigger=PropertyChanged}"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  Grid.Column="0"
+                                  Margin="10, 0, 10, 10"
+                                  FontSize="16">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" 
+                                                    Width="*"
+                                                    Binding="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Surname"
+                                                    Width="*"
+                                                    Binding="{Binding Surname, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Age"
+                                                    Width="0.5*"
+                                                    Binding="{Binding Age, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="RemovePassengerButton"
+                                                    Content="Remove"
+                                                    Style="{StaticResource ButtonStyle}"
+                                                    Command="{Binding DataContext.RemovePassengerCmd, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                    CommandParameter="{Binding}"
+                                                    Margin="0"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+        
+        <Button x:Name="CreateRequestButton"
+                Grid.Row="1"
+                Content="Create Request"
+                Width="240"
+                Height="80"
+                Margin="10, 0, 10, 10"
+                Style="{StaticResource ButtonStyle}"
+                Command="{Binding CreateRequestCmd}"
+                Click="CreateRequestButton_Click"/>
+    </Grid>
+</Window>

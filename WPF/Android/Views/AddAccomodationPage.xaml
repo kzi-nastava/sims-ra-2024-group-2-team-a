@@ -5,22 +5,75 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
       xmlns:converters="clr-namespace:BookingApp.WPF.Utils.Converters"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:val="clr-namespace:BookingApp.WPF.Utils.Validation"
       mc:Ignorable="d" 
       d:DesignHeight="624" d:DesignWidth="430"
       Title="AddAccommodationPage">
     <Page.Resources>
         <converters:RadioButtonToAccommodationTypeConverter x:Key="AccTypeConverter"/>
+
+        <Style TargetType="Button" x:Key="DisabledButtonStyle">
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5a8c6b"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <BitmapImage x:Key="ImagesIcon" UriSource="../../../Resources/Images/Icons/import-images-icon-beige.png"/>
+
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Background" Value="{StaticResource Green}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+        
     </Page.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Background="#BABDE2">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Background="{StaticResource Beige}">
         <Grid Height="600" Width="430">
             <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="90"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
@@ -28,20 +81,53 @@
                 <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition  Width="*"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="New Accomodation:" FontWeight="Bold" FontSize="18"/>
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Grid.ColumnSpan="2" HorizontalAlignment="Left" Content="New Accomodation:" Style="{StaticResource Header}"/>
 
             <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Name:" FontSize="16"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Width="250" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.Name}"/>
+            <TextBox x:Name="nameTextbox" Grid.Row="1" Grid.Column="1" Width="250" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40">
+                <TextBox.Text>
+                    <Binding Path="AccommodationDTO.Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
+                             ValidatesOnDataErrors="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <val:EmptyStringValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <AdornedElementPlaceholder x:Name="textBox"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
-            <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Location:" FontSize="16"/>
-            <ComboBox Grid.Row="2" Grid.Column="2" Height="40" Text="Choose location" SelectedItem="{Binding SelectedLocationDTO}" ItemsSource="{Binding LocationDTOs}" DisplayMemberPath="LocationOptionTemplate"/>
+                <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Location:" FontSize="16"/>
 
+            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center">
+                <ComboBox x:Name="comboBox"  Height="40" Text="Choose location" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                      SelectedItem="{Binding SelectedLocationDTO}" ItemsSource="{Binding LocationDTOs}"
+                      DisplayMemberPath="LocationOptionTemplate" Background="{StaticResource Green}"/>
+                <Label Foreground="Red" Padding="0">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedIndex, ElementName=comboBox}" Value="-1">
+                                    <Setter Property="Content" Value="Please select a location"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+            </StackPanel>
 
-            <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Type:" FontSize="16"/>
-            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <Label Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Type:" FontSize="16"/>
+            <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <RadioButton x:Name="radioButtonApartment" FontSize="16" Content="Apartment" GroupName="AccomodationType" 
                              IsChecked="{Binding AccommodationDTO.Type, Converter={StaticResource AccTypeConverter}, ConverterParameter=apartment}"/>
                 <RadioButton x:Name="radioButtonHouse" FontSize="16" Content="House" GroupName="AccomodationType" 
@@ -50,25 +136,83 @@
                              IsChecked="{Binding AccommodationDTO.Type, Converter={StaticResource AccTypeConverter}, ConverterParameter=hut}"/>
             </StackPanel>
 
-            <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontSize="16"/>
-            <TextBox Grid.Row="4" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.MaxGuestNumber}"/>
+            <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontSize="16"/>
+            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="1" Width="80" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+                                Value="{Binding AccommodationDTO.MaxGuestNumber}" Minimum="1" ClipValueToMinMax="True" HorizontalContentAlignment="Center"/>
 
-            <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Min Reservation Days:" FontSize="16"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.MinReservationDays}"/>
+            <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Min Reservation Days:" FontSize="16"/>
+            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Width="80" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+                     Text="{Binding AccommodationDTO.MinReservationDays}" Minimum="1" ClipValueToMinMax="True" HorizontalContentAlignment="Center"/>
 
-            <Label Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Last Cancellation Day:" FontSize="16"/>
-            <TextBox Grid.Row="6" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.LastCancellationDay}"/>
+            <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Last Cancellation Day:" FontSize="16"/>
+            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Width="80" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+                     Text="{Binding AccommodationDTO.LastCancellationDay}" Minimum="1" ClipValueToMinMax="True" HorizontalContentAlignment="Center"/>
 
-            <Button Content="Import Images" Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="SelectImages_Click"/>
+            <Button Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="150" Click="SelectImages_Click" Style="{StaticResource DisabledButtonStyle}">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource ImagesIcon}" Height="30" Width="30"/>
+                    <Label Content="Import images" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
+                </StackPanel>
+            </Button>
 
-            <Button Content="View Selected" Grid.Column="2"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="ViewImages_Click"/>
+            <Button x:Name="ViewButton" Style="{StaticResource DisabledButtonStyle}" Grid.Column="2" HorizontalAlignment="Center"
+                    Grid.Row="7" Height="50" Width="150" Click="ViewImages_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource EyeIconBeige}" Height="30" Width="30"/>
+                    <Label Content="View images" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
+                </StackPanel>
+            </Button>
 
-            <Button Grid.Row="9" Grid.Column="1" Content="Decline" Height="50" Width="120" Click="Decline_Click"/>
+            <Button Grid.Row="9" Grid.Column="1" Height="50" Width="130" Click="Decline_Click" Style="{StaticResource DisabledButtonStyle}">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
+                    <Label Content="Cancel" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
+                </StackPanel>
+            </Button>
 
-            <Button Grid.Row="9" Grid.Column="2" Content="Confirm" Height="50" Width="120" Click="Confirm_Click"/>
+            <Button Grid.Row="9" Grid.Column="2" Height="50" Width="130" Click="Confirm_Click">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
+                    <Label Content="Confirm" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
+                </StackPanel>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="{StaticResource Green}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#5a8c6b"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=nameTextbox, Path=(Validation.HasError)}" Value="True"/>
+                                </MultiDataTrigger.Conditions>
+
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                            <DataTrigger Binding="{Binding SelectedIndex, ElementName=comboBox}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Text, ElementName=nameTextbox}" Value="">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </ScrollViewer>
 </Page>

@@ -7,7 +7,17 @@ namespace BookingApp.Services {
 
     public class OwnerService {
 
-        private readonly IOwnerRepository _ownerRepository = RepositoryInjector.GetInstance<IOwnerRepository>();
+        private readonly IOwnerRepository _ownerRepository;
+
+        private AccommodationReviewService _reviewService;
+
+        public OwnerService(IOwnerRepository ownerRepository) {
+            _ownerRepository = ownerRepository;
+        }
+
+        public void InjectServices(AccommodationReviewService reviewService) {
+            _reviewService = reviewService;
+        }
 
         public Owner GetByUserId(int userId) {
             return _ownerRepository.GetAll().Find(owner => owner.UserId == userId);
@@ -30,7 +40,7 @@ namespace BookingApp.Services {
                 owner.IsSuper = false;
 
             if (!oldSuper && owner.IsSuper) {
-                NotificationService notificationService = new NotificationService();
+                NotificationService notificationService = ServicesPool.GetService<NotificationService>();
                 notificationService.CreateSuperNotification(owner.UserId);
             }
 
@@ -38,12 +48,11 @@ namespace BookingApp.Services {
         }
 
         private int CalculateOwnerAverageGrade(Owner owner) {
-            ReviewRepository reviewRepository = new ReviewRepository();
-            List<Review> reviews = reviewRepository.GetByOwnerId(owner.UserId);
+            List<AccommodationReview> reviews = _reviewService.GetByOwnerId(owner.UserId);
 
             double sum = 0;
             int numberOfReviews = 0;
-            foreach (Review review in reviews) {
+            foreach (AccommodationReview review in reviews) {
                 if (!IsOwnerGraded(review)) {
                     continue;
                 }
@@ -58,7 +67,7 @@ namespace BookingApp.Services {
             return numberOfReviews;
         }
 
-        private bool IsOwnerGraded(Review review) {
+        private bool IsOwnerGraded(AccommodationReview review) {
             if (review.OwnerCorrectnessGrade != 0 && review.AccommodationCleannessGrade != 0) {
                 return true;
             }

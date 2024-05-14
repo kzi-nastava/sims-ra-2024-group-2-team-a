@@ -14,7 +14,7 @@ namespace BookingApp.WPF {
     /// </summary>
     public partial class SignInForm : Window {
 
-        private readonly UserService _userService = new UserService();
+        private readonly UserService _userService = ServicesPool.GetService<UserService>();
 
         private string _username;
         public string Username {
@@ -61,8 +61,8 @@ namespace BookingApp.WPF {
                 Close();
             }
             else {
-                GuestMainWindow guestMainWindwo = new GuestMainWindow(user);
-                guestMainWindwo.Show();
+                GuestMainWindow guestMainWindow = new GuestMainWindow(user.Id);
+                guestMainWindow.Show();
                 Close();
             }
 

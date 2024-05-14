@@ -13,9 +13,6 @@ namespace BookingApp.WPF.Web.Views {
         private ReservationsPage _parentPage;
         public AccommodationReservationCardViewModel ViewModel { get; set; }
 
-        private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
-        private readonly RescheduleRequestService _rescheduleService = new RescheduleRequestService();
-
         public AccommodationReservationCard() {
             InitializeComponent();
         }
@@ -33,8 +30,7 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void ButtonCancelClick(object sender, RoutedEventArgs e) {
-            ViewModel.CancelReservation();
-            _parentPage.Update();
+            _parentPage.OpenCancelDialog(ViewModel.Reservation);
         }
 
         private void ButtonRescheduleDateClick(object sender, RoutedEventArgs e) {

@@ -3,6 +3,7 @@ using BookingApp.WPF.DTO;
 using BookingApp.WPF.Tablet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
@@ -23,19 +24,29 @@ namespace BookingApp.WPF.Tablet.Views {
             _userId = userId;
         }
 
-        private void closeButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.GoBack();
+        private void Close_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+
         }
 
-        private void showButton_Click(object sender, RoutedEventArgs e) {
-            int year = int.Parse( (string) yearComboBox.SelectedValue);
-            
+        private void Close_Executed(object sender, ExecutedRoutedEventArgs e) {
+            _mainFrame.GoBack();
+
+        }
+        private void Show_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+
+        private void Show_Executed(object sender, ExecutedRoutedEventArgs e) {
+            int year = int.Parse((string)yearComboBox.SelectedValue);
+
             if (!ViewModel.GetMostViewedByYear(year)) {
                 MessageBox.Show("Nema tura iz te godine", "NEMA", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             _mainFrame.Content = new TourStatsPage(ViewModel.tourDTO, _mainFrame, _menuBarFrame, _userId);
-            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, _userId);
+            
         }
     }
 }

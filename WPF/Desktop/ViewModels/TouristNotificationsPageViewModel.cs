@@ -7,8 +7,8 @@ using System.Windows.Input;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class TouristNotificationsPageViewModel {
-        private readonly NotificationService _notificationService = new NotificationService();
-        private readonly TourService _tourService = new TourService();
+        private readonly NotificationService _notificationService = ServicesPool.GetService<NotificationService>();
+        private readonly TourService _tourService = ServicesPool.GetService<TourService>();
         public ObservableCollection<NotificationDTO> Notifications { get; set; }
         public int UserId { get; set; }
         public ICommand NotificationCommand { get; set; }
@@ -28,12 +28,17 @@ namespace BookingApp.WPF.Desktop.ViewModels {
 
         public void NotificationClick(object parameter) {
             NotificationDTO notification = (NotificationDTO)parameter;
+            TourDTO notifiedTour = new TourDTO(_tourService.GetById(notification.TourId));
 
             if (notification != null) {
                 switch (notification.Category) {
                     case NotificationCategory.TourActive:
-                        TouristFollowLiveWindow window = new TouristFollowLiveWindow(new TourDTO(_tourService.GetById(notification.TourId)), UserId);
+                        TouristFollowLiveWindow window = new TouristFollowLiveWindow(notifiedTour, UserId);
                         window.ShowDialog();
+                        break;
+                    case NotificationCategory.TourRequest:
+                        TourReservationWindow reservationWindow = new TourReservationWindow(notifiedTour, UserId);
+                        reservationWindow.ShowDialog();
                         break;
                     default:
                         break;

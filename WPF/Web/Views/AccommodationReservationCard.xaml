@@ -7,7 +7,8 @@
              xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Loaded="UserControlLoaded">
+             Loaded="UserControlLoaded"
+             Margin="5 5 5 5">
 
     <UserControl.Resources>
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -16,6 +17,7 @@
         <Style x:Key="InfoTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="10 5 0 5"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
 
         <Style x:Key="InfoImage" TargetType="Image">
@@ -31,16 +33,21 @@
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
         </Style>
 
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        
     </UserControl.Resources>
 
     <Grid>
-        <Border Margin="5 5 5 5" Background="White" BorderBrush="Gray" BorderThickness="1" Width="320" CornerRadius="10">
+        <Border Margin="5 5 5 5" Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" Width="350" CornerRadius="10">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
 
@@ -50,7 +57,7 @@
                     <ColumnDefinition Width="80"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Reservation.Accommodation.Name}" FontSize="18" Margin="40 10 0 10"/>
+                <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Reservation.Accommodation.Name}" FontSize="18" Margin="40 10 0 10" FontWeight="DemiBold"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <StackPanel Orientation="Horizontal">
@@ -76,7 +83,7 @@
                 <Label Grid.Row="2" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <Image Style="{StaticResource InfoImage}" Source="{StaticResource CalendarIcon}"/>
-                        <TextBlock Style="{StaticResource InfoTextBlock}" FontSize="9">
+                        <TextBlock Style="{StaticResource InfoTextBlock}" FontSize="11">
                             <Run Text="{Binding Reservation.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
                             <LineBreak/>
                             <Run Text="{Binding Reservation.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
@@ -115,6 +122,6 @@
             </Grid>
         </Border>
 
-        <Border Margin="5 5 5 5" Background="LightGray" Opacity="0.5" BorderBrush="Gray" BorderThickness="1" Width="320" CornerRadius="10" Visibility="{Binding Reservation.Cancelled, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Border Margin="5 5 5 5" Background="LightGray" Opacity="0.5" BorderBrush="Gray" BorderThickness="1" Width="350" CornerRadius="10" Visibility="{Binding Reservation.Cancelled, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </UserControl>

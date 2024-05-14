@@ -4,20 +4,151 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
+        xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
         mc:Ignorable="d"
-        Title="GuestMainWindow" Height="650" Width="800"
+        Title="GuestMainWindow" Height="700" Width="1000"
         ResizeMode="NoResize">
-    <Grid>
-        <Grid Background="LightBlue" Height="80" VerticalAlignment="Top">
-            <Button Name="buttonBook" Content="Book" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="120" Click="ButtonBookClick"/>
-            <Button Name="buttonReservations" Content="Reservations" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Bottom" Height="40" Width="120" Click="ButtonReservationsClick"/>
-            <Button Name="buttonReviews" Content="Reviews" HorizontalAlignment="Left" Margin="240,0,0,0" VerticalAlignment="Bottom" Height="40" Width="120"/>
-            <Button Name="buttonForum" Content="Forums" HorizontalAlignment="Left" Margin="360,0,0,0" VerticalAlignment="Bottom" Height="40" Width="120"/>
-            <Button Name="buttonBack" Content="Back" VerticalAlignment="Bottom" Height="25" Width="75" Margin="0,0,0,55" HorizontalAlignment="Left" Click="ButtonBackClick"
-                    IsEnabled="{Binding ElementName=mainFrame, Path=CanGoBack}"/>
-            <Button Name="buttonLogout" Content="Logout" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="25" Width="75" Margin="0,0,0,55" Click="ButtonLogoutClick"/>
+
+    <Window.Resources>
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+        <Style TargetType="Button">
+            
+        </Style>
+        
+        <Style x:Key="ButtonImage" TargetType="Image">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource HardGreen}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                BorderBrush="White"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SecondaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource HardGreen}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ButtonText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
+        </Style>
+        
+        
+
+    </Window.Resources>
+    
+    <Grid Background="{StaticResource Beige}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Background="{StaticResource HardGreen}" Grid.Row="0" Height="80">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Name="buttonBack" Grid.Row="0" HorizontalAlignment="Left" Style="{StaticResource SecondaryButton}"
+                    Click="ButtonBackClick"
+                    Visibility="{Binding ElementName=mainFrame, Path=CanGoBack, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <WrapPanel>
+                    <Image Style="{StaticResource ButtonImage}" Width="15" Height="15" Source="{StaticResource BackWhiteIcon}"/>
+                    <TextBlock Text="Back" Style="{StaticResource ButtonText}" FontSize="12"/>
+                </WrapPanel>
+            </Button>
+
+            <Button Name="buttonLogout" Grid.Row="0" HorizontalAlignment="Right" Style="{StaticResource SecondaryButton}"
+                    Click="ButtonLogoutClick">
+                <WrapPanel>
+                    <Image Style="{StaticResource ButtonImage}" Width="15" Height="15" Source="{StaticResource LogoutWhiteIcon}"/>
+                    <TextBlock Text="Logout" Style="{StaticResource ButtonText}" FontSize="12"/>
+                </WrapPanel>
+            </Button>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Button Name="buttonBook" Style="{StaticResource PrimaryButton}" Click="ButtonBookClick">
+                    <WrapPanel>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource SearchWhiteIcon}"/>
+                        <TextBlock Text="Book" Style="{StaticResource ButtonText}"/>
+                    </WrapPanel>
+                </Button>
+
+                <Button Name="buttonReservations" Style="{StaticResource PrimaryButton}" Click="ButtonReservationsClick">
+                    <WrapPanel>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource BookWhiteIcon}"/>
+                        <TextBlock Text="Reservations" Style="{StaticResource ButtonText}"/>
+                    </WrapPanel>
+                </Button>
+
+                <Button Name="buttonReviews" Style="{StaticResource PrimaryButton}" Click="ButtonReviewsClick">
+                    <WrapPanel>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource ReviewWhiteIcon}"/>
+                        <TextBlock Text="Reviews" Style="{StaticResource ButtonText}"/>
+                    </WrapPanel>
+                </Button>
+
+                <Button Name="buttonForum" Style="{StaticResource PrimaryButton}">
+                    <WrapPanel>
+                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource ChatWhiteIcon}"/>
+                        <TextBlock Text="Forums" Style="{StaticResource ButtonText}"/>
+                    </WrapPanel>
+                </Button>
+                    
+            </StackPanel>
         </Grid>
-        <Grid x:Name="gridPages" Margin="0,80,0,0" Height="544" VerticalAlignment="Top">
+            
+        <Grid x:Name="gridPages" VerticalAlignment="Top" Grid.Row="1">
             <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>

@@ -3,6 +3,7 @@ using BookingApp.WPF.Tablet.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
@@ -17,21 +18,25 @@ namespace BookingApp.WPF.Tablet.Views {
             DataContext = ViewModel;
         }
 
-        private void filterButton_Click(object sender, RoutedEventArgs e) {
-            ViewModel.FilterTours(SetFilter());
-            itemsControlScheduledTours.ItemsSource = ViewModel.tourDTOs;
+        private void Clear_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
         }
-
-        private void clearButton_Click(object sender, RoutedEventArgs e) {
+        private void Clear_Executed(object sender, ExecutedRoutedEventArgs e) {
             textBoxName.Text = string.Empty;
             textBoxTouristNumber.Text = string.Empty;
             textBoxDuration.Text = string.Empty;
             textBoxTime.Text = string.Empty;
             comboBoxLanguage.SelectedIndex = 0;
             comboBoxLocation.SelectedIndex = 0;
-            datePicker.SelectedDate = DateTime.MinValue;
+            datePicker.SelectedDate = null;
         }
-
+        private void Filter_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+        private void Filter_Executed(object sender, ExecutedRoutedEventArgs e) {
+            ViewModel.FilterTours(SetFilter());
+            itemsControlScheduledTours.ItemsSource = ViewModel.tourDTOs;
+        }
         private TourFilterDTO SetFilter() {
             string name = textBoxName.Text;
             LocationDTO location = (LocationDTO)comboBoxLocation.SelectedItem;
@@ -47,14 +52,18 @@ namespace BookingApp.WPF.Tablet.Views {
             
             if (!int.TryParse(textBoxDuration.Text, out int duration)) 
                 textBoxDuration.Text = string.Empty;
-            
 
-            DateOnly date = DateOnly.FromDateTime(datePicker.SelectedDate.Value);
+            DateOnly date;
+            if (datePicker.SelectedDate.HasValue)
+                date = DateOnly.FromDateTime(datePicker.SelectedDate.Value);
+            else
+                date = DateOnly.MinValue;
             int time;
             int.TryParse(textBoxTime.Text, out time);
             DateTime beggining = new DateTime(date.Year, date.Month, date.Day, time, 0, 0);
 
             return new TourFilterDTO(name, duration, touristsNumber, location, language, beggining);
         }
+
     }
 }

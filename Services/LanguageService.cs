@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 namespace BookingApp.Services {
     public class LanguageService {
-        private readonly ILanguageRepository _languageRepository = RepositoryInjector.GetInstance<ILanguageRepository>();
+        private readonly ILanguageRepository _languageRepository;
+        public LanguageService(ILanguageRepository languageRepository) {
+            _languageRepository = languageRepository;
+        }
 
         public List<Language> GetAll() {
             return _languageRepository.GetAll();

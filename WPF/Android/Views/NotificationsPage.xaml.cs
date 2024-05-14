@@ -12,7 +12,7 @@ namespace BookingApp.WPF.Android.Views {
     /// </summary>
     public partial class NotificationsPage : Page {
 
-        private NotificationService notificationService = new NotificationService();
+        private NotificationService notificationService = ServicesPool.GetService<NotificationService>();
 
         private readonly User _user;
         public List<NotificationDTO> NotificationDTOs { get; set; }
@@ -32,6 +32,7 @@ namespace BookingApp.WPF.Android.Views {
             }
 
             NotificationDTOs = NotificationDTOs.OrderByDescending(notification => notification.CreationDate).ToList();
+            NumOfMessagesLabel.Content = "(" + NotificationDTOs.Count + ")";
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e) {

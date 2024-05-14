@@ -4,41 +4,113 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="800">
+             d:DesignHeight="620" d:DesignWidth="1000">
+    
+    <Page.Resources>
+        <Style x:Key="SearchLabel" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="230"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="ButtonText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+        </Style>
+
+        <Style x:Key="ButtonImage" TargetType="Image">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+
+    </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="47*"/>
-            <RowDefinition Height="453*"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Background="LightGray" Height="80" VerticalAlignment="Top" HorizontalAlignment="Center" Width="800" Grid.RowSpan="2">
+        
+        <Grid Background="{StaticResource Green}" Height="80" VerticalAlignment="Top" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="337*"/>
-                <ColumnDefinition Width="317*"/>
-                <ColumnDefinition Width="146*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="labelLocation" Content="Location" FontSize="15" Width="80" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
-            <ComboBox x:Name="comboBoxLocation" Width="232" Height="25" Margin="95,12,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
+            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="20 0 0 0">
+                <WrapPanel Margin="0 5 5 5">
+                    <Label x:Name="labelLocation" Content="Location" Style="{StaticResource SearchLabel}"/>
+                    <ComboBox x:Name="comboBoxLocation" Width="230" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left"
                       ItemsSource="{Binding Path=_locationDTOs}" DisplayMemberPath="LocationOptionTemplate"/>
+                </WrapPanel>
 
-            <Label x:Name="labelType" Content="Type" FontSize="15" Width="80" Height="30" Margin="10,45,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Right"/>
-            <ComboBox x:Name="comboBoxType" Margin="95,48,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140"/>
+                <WrapPanel Margin="0 5 5 5">
+                    <Label x:Name="labelType" Content="Type" Style="{StaticResource SearchLabel}"/>
+                    <ComboBox x:Name="comboBoxType" Height="24" VerticalAlignment="Center" HorizontalAlignment="Left" Width="140"/>
+                </WrapPanel>
+            </StackPanel>
 
-            <Label x:Name="labelName" Content="Name" FontSize="15" Width="60" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Grid.Column="1"/>
-            <TextBox x:Name="textBoxName" Grid.Column="1" Margin="75,15,0,0" HorizontalAlignment="Left" Width="232" Height="20" VerticalAlignment="Top"/>
+            <StackPanel Grid.Column="2" Orientation="Vertical">
+                <WrapPanel Margin="0 5 5 5">
+                    <Label x:Name="labelName" Content="Name" Style="{StaticResource SearchLabel}"/>
+                    <TextBox x:Name="textBoxName" Width="250"/>
+                </WrapPanel>
 
-            <Label x:Name="labelDays" Content="Days" FontSize="15" Width="60" Height="30" Margin="10,45,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Grid.Column="1"/>
-            <TextBox x:Name="textBoxDays" Grid.Column="1" Margin="75,50,0,0" HorizontalAlignment="Left" Width="60" Height="20" VerticalAlignment="Top"/>
+                <Grid Margin="0 5 5 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <WrapPanel Grid.Column="0">
+                        <Label x:Name="labelDays" Content="Days" Style="{StaticResource SearchLabel}"/>
+                        <xctk:IntegerUpDown x:Name="textBoxDays" Width="60" FontSize="15" TextAlignment="Center" Minimum="1"/>
+                    </WrapPanel>
+                    <WrapPanel Grid.Column="1">
+                        <Label x:Name="labelGuests" Content="Guests" Style="{StaticResource SearchLabel}"/>
+                        <xctk:IntegerUpDown x:Name="textBoxGuests" Width="60" FontSize="15" TextAlignment="Center" Minimum="1"/>
+                    </WrapPanel>
+                </Grid>
+            </StackPanel>
 
-            <Label x:Name="labelGuests" Content="Guests" FontSize="15" Width="60" Height="30" Margin="140,45,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Grid.Column="1"/>
-            <TextBox x:Name="textBoxGuests" Grid.Column="1" Margin="205,50,0,0" HorizontalAlignment="Left" Width="60" Height="20" VerticalAlignment="Top"/>
+            <Button x:Name="buttonClear" Grid.Column="3" Margin="10 5 10 5" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonClearClick">
+                <WrapPanel>
+                    <Image Style="{StaticResource ButtonImage}" Source="{StaticResource BinIcon}"/>
+                    <TextBlock Text="Clear" Style="{StaticResource ButtonText}"/>
+                </WrapPanel>
+            </Button>
 
-            <Button x:Name="buttonFilter" Content="Filter" Margin="48,40,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88" Grid.Column="2" Click="ButtonFilterClick"/>
-            <Button x:Name="buttonClear" Content="Clear" Margin="90,10,0,0" Height="20" VerticalAlignment="Top" Grid.Column="2" HorizontalAlignment="Left" Width="46" Click="ButtonClearClick"/>
+            <Button x:Name="buttonFilter" Grid.Column="3" Margin="10 5 10 5" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="ButtonFilterClick">
+                <WrapPanel>
+                    <Image Style="{StaticResource ButtonImage}" Source="{StaticResource FilterIcon}"/>
+                    <TextBlock Text="Filter" Style="{StaticResource ButtonText}"/>
+                </WrapPanel>
+            </Button>
         </Grid>
-        <ScrollViewer Margin="0,33,0,25" VerticalScrollBarVisibility="Auto" Grid.Row="1">
-            <ItemsControl x:Name="itemsControlAccommodations" ItemsSource="{Binding _accommodationDTOs}" Margin="10 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center" >
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Background="{StaticResource Beige}">
+            <ItemsControl x:Name="itemsControlAccommodations" ItemsSource="{Binding _accommodationDTOs}" Margin="10 10 10 10" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:AccommodationCard/>

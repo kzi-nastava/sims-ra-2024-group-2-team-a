@@ -5,7 +5,14 @@ using System.Collections.Generic;
 
 namespace BookingApp.Services {
     public class TourReviewService {
-        private readonly ITourReviewRepository _tourReviewRepository = RepositoryInjector.GetInstance<ITourReviewRepository>();
+        private readonly ITourReviewRepository _tourReviewRepository;
+        public TourReviewService(ITourReviewRepository tourReviewRepository) {
+            _tourReviewRepository = tourReviewRepository;
+        }
+
+        public List<TourReview> GetAll() {
+            return _tourReviewRepository.GetAll();
+        }
 
         public void SendReview(TourDTO tour, int touristId, TourReviewDTO tourReviewDTO) {
             tourReviewDTO.TourId = tour.Id;

@@ -55,7 +55,7 @@ namespace BookingApp.Domain.Model {
             Duration = duration;
             CurrentTouristNumber = currentTouristNumber;
             Beggining = beggining;
-            End = DateTime.MinValue;
+            End = beggining.AddHours(duration);
             State = state;
             GuideId = guideId;
             ProfilePictures = profilePictures;

@@ -24,16 +24,23 @@ namespace BookingApp.WPF.Tablet.Views {
                 passenger.IsJoined = false;
 
         }
-        private void cancelButton_Click(object sender, RoutedEventArgs e) {
+        private void Cancel_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Cancel_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
             this.DialogResult = false;
             this.Close();
         }
 
-        private void confirmButton_Click(object sender, RoutedEventArgs e) {
+        private void Confirm_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Confirm_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
             ViewModel.JoinPassengers();
             this.DialogResult = true;
             this.Close();
         }
-
     }
 }

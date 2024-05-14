@@ -13,13 +13,16 @@ namespace BookingApp.WPF.Tablet.Views {
         public TourReviewCard() {
             InitializeComponent();
         }
-
-        private void reportButton_Click(object sender, RoutedEventArgs e) {
-            ViewModel.Report();
-        }
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e) {
             ViewModel = new TourReviewViewModel((TourReviewDTO)DataContext);
+        }
+
+        private void Report_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Report_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {
+            ViewModel.Report();
         }
     }
 }

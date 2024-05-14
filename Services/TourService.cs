@@ -7,14 +7,32 @@ using System.Linq;
 
 namespace BookingApp.Services {
     public class TourService {
-        private readonly ITourRepository _tourRepository = RepositoryInjector.GetInstance<ITourRepository>();
-        private readonly IPointOfInterestRepository _pointOfInterestRepository = RepositoryInjector.GetInstance<IPointOfInterestRepository>();
-        private readonly IPassengerRepository _passengerRepository = RepositoryInjector.GetInstance<IPassengerRepository>();
-        private readonly ITourReviewRepository _tourReviewRepository = RepositoryInjector.GetInstance<ITourReviewRepository>();
+        private readonly ITourRepository _tourRepository;
+        
+        private PassengerService _passengerService;
+        private TourReservationService _tourReservationService;
+        private TourReviewService _tourReviewService;
+        private PointOfInterestService _pointOfInterestService;
+        private TourRequestService _tourRequestService;
+        private NotificationService _notificationService;
+        public TourService(ITourRepository tourRepository) {
+            _tourRepository = tourRepository;
+        }
+        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService, TourReviewService tourReviewService, PointOfInterestService pointOfInterestService, TourRequestService tourRequestService, NotificationService notificationService) {
+            _passengerService = passengerService;
+            _tourReservationService = tourReservationService;
+            _tourReviewService = tourReviewService;
+            _pointOfInterestService = pointOfInterestService;
+            _tourRequestService = tourRequestService;
+            _notificationService = notificationService;
 
-        private readonly PassengerService _passengerService = new PassengerService();
-        private readonly TourReservationService _tourReservationService = new TourReservationService();
-
+        }
+        public double GetTourGrade(int Id) {
+            List<TourReview> reviews = _tourReviewService.GetByTourId(Id);
+            if (reviews.Count == 0)
+                return 0;
+            return reviews.Average(x => x.AvrageGrade);
+        }
         private bool IsFiltered(Tour tour, TourFilterDTO filter) {
             return MatchesLocation(tour, filter) &&
                    MatchesDuration(tour, filter) &&
@@ -23,11 +41,11 @@ namespace BookingApp.Services {
         }
 
         private bool MatchesName(Tour tour, TourFilterDTO filter) {
-            return tour.Name.Contains(filter.Name) || filter.Name == "";
+            return tour.Name.ToLower().Contains(filter.Name.ToLower()) || filter.Name == "";
         }
 
         private bool MatchesLocation(Tour tour, TourFilterDTO filter) {
-            return tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
+            return tour.LocationId == filter.Location.Id || filter.Location.Id == 0;
         }
 
         private bool MatchesDuration(Tour tour, TourFilterDTO filter) {
@@ -67,11 +85,11 @@ namespace BookingApp.Services {
         }
 
         public List<Passenger> GetTouristEntries(int touristId) {
-            return _passengerRepository.GetAll().Where(p => p.UserId == touristId).ToList();
+            return _passengerService.GetAll().Where(p => p.UserId == touristId).ToList();
         }
 
         public bool WasTouristPresent(int touristId, TourDTO tour) {
-            List<PointOfInterest> checkpoints = _pointOfInterestRepository.GetAllByTourId(tour.Id);
+            List<PointOfInterest> checkpoints = _pointOfInterestService.GetAllByTourId(tour.Id);
 
             foreach (var tourist in GetTouristEntries(touristId)) {
                 if (checkpoints.Any(c => c.Id == tourist.JoinedPointOfInterestId))
@@ -82,7 +100,7 @@ namespace BookingApp.Services {
         }
 
         public bool IsTourReviewedForUser(int userId, TourDTO tour) {
-            return _tourReviewRepository.GetAll().Find(t => t.TourId == tour.Id && t.TouristId == userId) != null;
+            return _tourReviewService.GetAll().Find(t => t.TourId == tour.Id && t.TouristId == userId) != null;
         }
 
         public List<int> GetTourStats(int tourId) {
@@ -137,9 +155,17 @@ namespace BookingApp.Services {
                    MatchesLanguage(tour, filter) &&
                    MatchesCurrentTouristNumber(tour, filter);
         }
-        public Tour Save(Tour tour) {
-            return _tourRepository.Save(tour);
+        public Tour Save(Tour tour) {           
+            Tour savedTour = _tourRepository.Save(tour);
+            foreach (User tourist in _tourRequestService.GetTouristsForNotification(tour))
+                _notificationService.SendTouristNotification(NotificationCategory.TourRequest, tourist.Id, savedTour.Id);
+            return savedTour;
         }
+
+        public void SendTouristsTourNotifications(Tour tour) {
+
+        }
+
         public bool Delete(Tour tour) => _tourRepository.Delete(tour);
         public bool Update(Tour tour) {
             return _tourRepository.Update(tour);
@@ -151,6 +177,13 @@ namespace BookingApp.Services {
 
         public List<Tour> GetSameLocationTours(TourDTO tour) {
             return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
+        }
+        public bool IsGuideAvailable(int userId, DateTime from, DateTime to) {
+            List<Tour> tours = GetScheduled(userId);
+            if(tours.All(x => x.Beggining.Date > to.Date || x.End.Date < from.Date)) {
+                return true;
+            }
+            return false;
         }
     }
 }

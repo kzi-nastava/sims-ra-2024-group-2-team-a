@@ -11,12 +11,9 @@ namespace BookingApp.WPF.Web.Views {
 
         public ReservationsPageViewModel ViewModel { get; set; }
 
-        private readonly int _guestId;
-
         public ReservationsPage(int guestId) {
             InitializeComponent();
-            _guestId = guestId;
-            ViewModel = new ReservationsPageViewModel(_guestId);
+            ViewModel = new ReservationsPageViewModel(guestId);
             DataContext = ViewModel;
         }
 
@@ -35,6 +32,11 @@ namespace BookingApp.WPF.Web.Views {
         public void OpenRescheduleDialog(AccommodationReservationDTO reservation) {
             rectBlurBackground.Visibility = Visibility.Visible;
             mainGrid.Children.Add(new RescheduleReservationModalDialog(this, reservation));
+        }
+
+        public void OpenCancelDialog(AccommodationReservationDTO reservation) {
+            rectBlurBackground.Visibility = Visibility.Visible;
+            mainGrid.Children.Add(new ConfirmReservationCancelModalDialog(this, reservation));
         }
 
         public void OpenReviewDialog(AccommodationReservationDTO reservation) {

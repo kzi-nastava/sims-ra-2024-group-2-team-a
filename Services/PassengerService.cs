@@ -6,8 +6,25 @@ using System.Linq;
 
 namespace BookingApp.Services {
     public class PassengerService {
-        private readonly IPassengerRepository _passengerRepository = RepositoryInjector.GetInstance<IPassengerRepository>();
-        private readonly ITourReservationRepository _tourReservationRepository = RepositoryInjector.GetInstance<ITourReservationRepository>();
+        private readonly IPassengerRepository _passengerRepository;
+
+        private TourReservationService _tourReservationService;
+
+        public PassengerService(IPassengerRepository passengerRepository) {
+            _passengerRepository = passengerRepository;
+        }
+
+        public void InjectServices(TourReservationService tourReservationService) {
+            _tourReservationService = tourReservationService;
+        }
+
+        public void Save(Passenger passenger) {
+            _passengerRepository.Save(passenger);   
+        }
+
+        public List<Passenger> GetAll() {
+            return _passengerRepository.GetAll();
+        }
 
         public List<int> GetAttendance(List<TourReservation> reservations) {
             List<Passenger> passengers = GetByReservations(reservations);
@@ -34,7 +51,7 @@ namespace BookingApp.Services {
         }
 
         public List<Passenger> GetPresent(int touristId, TourDTO tour) {
-            return _passengerRepository.GetAll().Where(r => r.TourReservationId == _tourReservationRepository.GetByTourAndTourist(tour.Id, touristId).Id && r.JoinedPointOfInterestId != -1).ToList();
+            return _passengerRepository.GetAll().Where(r => r.TourReservationId == _tourReservationService.GetByTourAndTourist(tour.Id, touristId).Id && r.JoinedPointOfInterestId != -1).ToList();
         }
 
         public bool IsTouristPresent(int touristId, TourDTO tour) {

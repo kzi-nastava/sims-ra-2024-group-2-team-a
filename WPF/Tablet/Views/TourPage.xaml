@@ -3,12 +3,21 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
       xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
       mc:Ignorable="d"      
       d:DesignHeight="726" d:DesignWidth="1024"
       Title="TourPage">
-
-    <Grid Margin="0,10,0,10" Background="White">
+    <Page.CommandBindings>
+        <CommandBinding x:Name="Close" Command="cmd:RoutedCommands.Cancel" CanExecute="Close_CanExecute" Executed="Close_Executed"/>
+        <CommandBinding x:Name="Delete" Command="cmd:RoutedCommands.Confirm" CanExecute="Delete_CanExecute" Executed="Delete_Executed"/>
+    </Page.CommandBindings>
+    <Page.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+            
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Margin="0,10,0,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -40,8 +49,8 @@
             <TextBlock Grid.Row="5" Grid.Column="1" Margin="10" Text="{Binding tourDTO.Beggining, StringFormat=Beggining: {0}}" FontSize="18"/>
         </Grid>
         <DockPanel Grid.Row="1" Grid.Column="0">
-            <Label DockPanel.Dock="Top" Content="Description:" Margin="5" FontSize="18"/>
-            <Border BorderBrush="Black" BorderThickness="1"  Margin="10">
+            <Label DockPanel.Dock="Top" Content="Description:" Style="{StaticResource PageLabel}"/>
+            <Border BorderBrush="Black" BorderThickness="1" Background="{StaticResource Beige}" Padding="5" Margin="10,0,10,10">
                 <ScrollViewer>
                     <TextBlock TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" Text="{Binding tourDTO.Description}" FontSize="18"/>
                 </ScrollViewer>
@@ -53,7 +62,7 @@
                 <RowDefinition />
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Keypoints:" Margin="5" FontSize="18"/>
+            <Label Grid.Row="0" Content="Keypoints:" Style="{StaticResource PageLabel}"/>
             <Grid Grid.Row="1" Background="White">
                 <DataGrid x:Name="dataGrid" ItemsSource="{Binding pointOfInterestDTOs}" IsReadOnly="True" 
           SelectionMode="Single" AutoGenerateColumns="False">
@@ -65,7 +74,7 @@
                 </DataGrid>
             </Grid>
         </Grid>
-        <Button Grid.Column="0" Grid.Row="2" x:Name="closeButton" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Content="Close" Click="closeButton_Click"/>
-        <Button Grid.Column="1" Grid.Row="2" x:Name="deletehButton" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Content="Delete" Click="deletehButton_Click"/>
+        <Button Grid.Column="0" Grid.Row="2" x:Name="closeButton" Style="{StaticResource BigButtons}" Content="Close" Command="cmd:RoutedCommands.Cancel"/>
+        <Button Grid.Column="1" Grid.Row="2" x:Name="deletehButton" Style="{StaticResource BigButtons}" Content="Delete" Command="cmd:RoutedCommands.Confirm"/>
     </Grid>
 </Page>

@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
 using BookingApp.Domain.Model;
+using BookingApp.WPF.Web.ViewModels;
 
 namespace BookingApp.WPF.Web.Views {
     /// <summary>
@@ -12,20 +13,26 @@ namespace BookingApp.WPF.Web.Views {
     /// </summary>
     public partial class CreateReservationPage : Page {
 
-        private AccommodationDTO _accommodationDTO;
+        public CreateReservationPageViewModel ViewModel { get; set; }
 
-        private readonly int maxSuggestedReservationsCount = 20;
-
-        private readonly AccommodationReservationService _reservationService = new AccommodationReservationService();
-
-        public CreateReservationPage(AccommodationDTO accommodationDTO) {
+        public CreateReservationPage(AccommodationDTO accommodationDTO, int guestId) {
             InitializeComponent();
-            _accommodationDTO = accommodationDTO;
-            DataContext = _accommodationDTO;
-            
-            sliderGuests.Maximum = _accommodationDTO.MaxGuestNumber;
+
+            ViewModel = new CreateReservationPageViewModel(accommodationDTO, guestId);
+
+            DataContext = ViewModel;
+
+            textBoxGuests.Maximum = accommodationDTO.MaxGuestNumber;
             datePickerStartDate.DisplayDateStart = DateTime.Today.AddDays(1);
             datePickerEndDate.IsEnabled = false;
+
+            textBoxReservationDays.Minimum = ViewModel.Accommodation.MinReservationDays;
+            textBoxReservationDays.Value = textBoxReservationDays.Minimum;
+            textBoxGuests.Value = 1;
+
+            buttonLeft.IsEnabled = false;
+            if(ViewModel.Accommodation.ProfilePictures.Count == 1)
+                buttonRight.IsEnabled = false;
         }
 
         private void GoBack(object sender, RoutedEventArgs e) {
@@ -37,31 +44,23 @@ namespace BookingApp.WPF.Web.Views {
             SetDatePickerEndDate();
 
             if(!IsReservationInputValid()) {
-                dataGridSuggestedDates.ItemsSource = null;
+                ViewModel.SuggestedReservations = null;
                 return;
             }
 
-            AccommodationReservationDTO rDTO = new AccommodationReservationDTO();
-            rDTO.AccommodationId = _accommodationDTO.Id;
-            rDTO.ReservationDays = int.Parse(textBoxReservationDays.Text);
-            rDTO.StartDate = DateOnly.FromDateTime(datePickerStartDate.SelectedDate.Value);
-            rDTO.EndDate = DateOnly.FromDateTime(datePickerEndDate.SelectedDate.Value);
+            ViewModel.ReservationDTO.ReservationDays = int.Parse(textBoxReservationDays.Text);
+            ViewModel.ReservationDTO.StartDate = DateOnly.FromDateTime(datePickerStartDate.SelectedDate.Value);
+            ViewModel.ReservationDTO.EndDate = DateOnly.FromDateTime(datePickerEndDate.SelectedDate.Value);
 
-            var reservations = _reservationService.SuggestReservations(rDTO);
-
-            if(reservations.Count > maxSuggestedReservationsCount)
-                reservations = reservations.GetRange(0, maxSuggestedReservationsCount);
-
-            reservations = reservations.OrderBy(r => r.StartDate).ToList();
-            dataGridSuggestedDates.ItemsSource = reservations;
+            ViewModel.UpdateSuggestedReservations();
         }
 
         private bool IsReservationInputValid() {
             if (!int.TryParse(textBoxReservationDays.Text, out int reservationDays))
                 return false;
 
-            if (reservationDays < _accommodationDTO.MinReservationDays)
-                textBoxReservationDays.Text = _accommodationDTO.MinReservationDays.ToString();
+            if (reservationDays < ViewModel.Accommodation.MinReservationDays)
+                textBoxReservationDays.Text = ViewModel.Accommodation.MinReservationDays.ToString();
 
             if (datePickerStartDate.SelectedDate == null || datePickerEndDate.SelectedDate == null)
                 return false;
@@ -89,20 +88,29 @@ namespace BookingApp.WPF.Web.Views {
 
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
             AccommodationReservation selectedReservation = (AccommodationReservation) dataGridSuggestedDates.SelectedItem;
+            selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
 
-            SaveReservation(selectedReservation);
+            ViewModel.SaveReservation(selectedReservation);
 
             GoBack(sender, e);
         }
 
-        private void SaveReservation(AccommodationReservation selectedReservation) {
-            GuestMainWindow window = Window.GetWindow(this) as GuestMainWindow;
-            User currentUser = window.User;
+        private void ButtonLeftClick(object sender, RoutedEventArgs e) {
+            ViewModel.ChangePictureLeft();
 
-            selectedReservation.GuestId = currentUser.Id;
-            selectedReservation.AccommodationId = _accommodationDTO.Id;
-            selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
-            _reservationService.Save(selectedReservation);
+            if(ViewModel.PicturesIndex == 0) {
+                buttonLeft.IsEnabled = false;
+                buttonRight.IsEnabled = true;
+            }
+        }
+
+        private void ButtonRightClick(object sender, RoutedEventArgs e) {
+            ViewModel.ChangePictureRight();
+
+            if (ViewModel.PicturesIndex == ViewModel.MaxPictureIndex) {
+                buttonRight.IsEnabled = false;
+                buttonLeft.IsEnabled = true;
+            }
         }
     }
 }
