@@ -80,8 +80,8 @@ namespace BookingApp.Services {
             }
         }
 
-        public void CreateRequest(TourRequestDTO tourRequestDTO, int passengerNumber) {
-            _tourRequestRepository.Save(new TourRequest(tourRequestDTO, passengerNumber));
+        public void CreateRequest(TourRequestDTO tourRequestDTO, int complexRequestId) {           
+            _tourRequestRepository.Save(new TourRequest(tourRequestDTO, complexRequestId));
         }      
         public TouristStatistics GetStatistics(int userId, string year) {
             if (year == "All-time")

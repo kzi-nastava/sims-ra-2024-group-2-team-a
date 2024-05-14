@@ -59,7 +59,8 @@
                         <ColumnDefinition Width="17*"/>
                         <ColumnDefinition Width="13*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Command="{Binding CreateRequestCommand}"
+                    <Button x:Name="CreateRequestButton"
+                            Click="CreateRequestButton_Click"
                             Style="{StaticResource ButtonStyle}"
                             Grid.Column="1">Create Request</Button>
                     <Button x:Name="StatisticsButton"
@@ -188,7 +189,72 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Complex tours"
-                     Style="{StaticResource Tab}"/>
+                     Style="{StaticResource Tab}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="CreateComplexRequestButton"
+                            Click="CreateComplexRequestButton_Click"
+                            Style="{StaticResource ButtonStyle}"
+                            Grid.Column="1">Create Request</Button>
+                    <Border Style="{StaticResource BorderStyle}"
+                            Background="{StaticResource SoftGreen}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="All"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="ComplexFilter"
+                                             IsChecked="{Binding ComplexFilter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=All}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="On hold"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="ComplexFilter"
+                                             IsChecked="{Binding ComplexFilter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=OnHold}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="2"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="Expired"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="ComplexFilter"
+                                             IsChecked="{Binding ComplexFilter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Expired}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="3"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="Accepted"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="ComplexFilter"
+                                             IsChecked="{Binding ComplexFilter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Accepted}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Page>

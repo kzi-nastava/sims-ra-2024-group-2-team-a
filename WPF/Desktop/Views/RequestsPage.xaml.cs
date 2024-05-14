@@ -30,5 +30,15 @@ namespace BookingApp.WPF.Desktop.Views {
             StatisticsWindow statisticsWindow = new StatisticsWindow(UserId);
             statisticsWindow.Show();
         }
+
+        private void CreateRequestButton_Click(object sender, RoutedEventArgs e) {
+            CreateRequestWindow window = new CreateRequestWindow(UserId, null);
+            window.ShowDialog();
+        }
+
+        private void CreateComplexRequestButton_Click(object sender, RoutedEventArgs e) {
+            CreateComplexRequestWindow window = new CreateComplexRequestWindow(UserId);
+            window.ShowDialog();
+        }
     }
 }

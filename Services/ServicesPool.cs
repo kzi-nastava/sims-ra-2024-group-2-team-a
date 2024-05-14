@@ -32,6 +32,7 @@ namespace BookingApp.Services {
             _services[typeof(AccommodationRenovationService)] = new AccommodationRenovationService(RepositoryInjector.GetInstance<IAccommodationRenovationRepository>());
             _services[typeof(AccommodationReviewService)] = new AccommodationReviewService(RepositoryInjector.GetInstance<IAccommodationReviewRepository>());
             _services[typeof(NotificationService)] = new NotificationService(RepositoryInjector.GetInstance<INotificationRepository>());
+            _services[typeof(ComplexTourRequestService)] = new ComplexTourRequestService(RepositoryInjector.GetInstance<IComplexTourRequestRepository>());
 
             LinkAllServices();
         }
@@ -98,6 +99,10 @@ namespace BookingApp.Services {
 
             GetService<PassengerService>().InjectServices(
                 GetService<TourReservationService>()
+                );
+
+            GetService<ComplexTourRequestService>().InjectServices(
+                GetService<TourRequestService>()
                 );
         }
 
