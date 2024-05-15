@@ -224,6 +224,7 @@ namespace BookingApp.Services {
         /// on a simple scoring system, that takes into account two things:
         /// guest fullness precentage and number of reservations.
         /// If there are less than 5 locations, method returns one element with -1 id!
+        /// If there are no statistics ,method returns one element with -2 id!
         /// </returns>
         public List<int> GetHottestAndColdestLocations(int ownerId) {
             List<int> locationIds = new List<int>();
@@ -231,6 +232,11 @@ namespace BookingApp.Services {
 
             if (locationScores.Count < 5) {
                 locationIds.Add(-1);
+                return locationIds;
+            }
+
+            if (!CheckForSufficentStatistics(locationScores)) {
+                locationIds.Add(-2);
                 return locationIds;
             }
 
@@ -249,6 +255,22 @@ namespace BookingApp.Services {
             locationIds.Add(key3);
 
             return locationIds;
+        }
+
+        public bool CheckForSufficentStatistics(Dictionary<int, double> locationsScores) {
+            int zeroCounter = 0;
+
+            foreach (var v in locationsScores) {
+                if (v.Value == 0) {
+                    zeroCounter++;
+                }
+            }
+
+            if (zeroCounter > 3) {
+                return false;
+            }
+
+            return true;
         }
 
         public Dictionary<int, double> GetScoresForLocations(int ownerId) {
