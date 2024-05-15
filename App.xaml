@@ -55,6 +55,8 @@
         <BitmapImage x:Key="Stopwatch" UriSource="Resources/Images/Icons/stopwatch.png"/>
         <BitmapImage x:Key="LeftArrowIcon" UriSource="Resources/Images/Icons/left-arrow-icon.png"/>
         <BitmapImage x:Key="PointingArrowIcon" UriSource="Resources/Images/Icons/pointing-arrow-icon.png"/>
+        <BitmapImage x:Key="ClearIconBeige" UriSource="Resources/Images/Icons/clear-icon-beige.png"/>
+        <BitmapImage x:Key="FilterIconBeige" UriSource="Resources/Images/Icons/filter-icon-beige.png"/>
 
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>

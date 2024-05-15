@@ -1,0 +1,155 @@
+﻿<Page x:Class="BookingApp.WPF.Android.Views.ForumsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
+      xmlns:converters="clr-namespace:BookingApp.WPF.Utils.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="624" d:DesignWidth="430"
+      Title="ForumsPage">
+    <Page.Resources>
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Background" Value="{StaticResource Green}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Button" x:Key="DisabledButtonStyle">
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5a8c6b"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <BitmapImage x:Key="StarIcon" UriSource="../../../Resources/Images/Icons/gold-star-icon.png"/>
+        <converters:BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
+    </Page.Resources>
+    
+    <Grid Background="{StaticResource Beige}" Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="{StaticResource HardGreen}" BorderThickness="1" Margin="0,0,0,10">
+            <ListBox ItemsSource="{Binding ForumDTOs}" SelectedItem="{Binding SelectedForum}" SelectionChanged="ListBox_SelectionChanged"
+      ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+      HorizontalContentAlignment="Stretch" Background="{StaticResource Beige}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="Beige" BorderBrush="Black" BorderThickness="1" Height="80" CornerRadius="20" Width="380">
+                            <Grid Margin="10,0,10,0" VerticalAlignment="Center" Background="{StaticResource Beige}" Height="70" Width="370">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="180"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Margin="10,0,0,0">
+                                        <Image Source="{StaticResource PeopleIcon}" Height="15" Width="15" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Username}" 
+                                            FontSize="14" FontFamily="Global Sans Serif" Foreground="Black" Margin="5,0,0,0"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="10,5,0,0">
+                                        <Image Source="{StaticResource LocationIcon}" Height="15" Width="15" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Location.LocationInfoTemplate}" 
+                                            FontSize="14" FontFamily="Global Sans Serif" Foreground="Black" Margin="5,0,0,0"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Margin="10,0,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0"
+                                            FontFamily="Global sans serif" Background="{StaticResource SoftGreen}" FontSize="20" />
+
+                                    <TextBlock Text="{Binding CommentNum}"  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1"
+                                            FontSize="14" FontFamily="Global Sans Serif" Foreground="Black" Margin="0,5,0,0"/>
+                                </Grid>
+
+                                <Image Source="{StaticResource StarIcon}" Height="40" Width="40" Grid.Column="2"
+                                       VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="{Binding IsUsefull, Converter={StaticResource VisibilityConverter}}"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{StaticResource Green}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </Border>
+
+
+        <Button x:Name="FilterButton" Grid.Row="1" Grid.Column="0" Width="140" Height="60"
+                VerticalAlignment="Top" HorizontalAlignment="Center" Click="FilterButton_Click"
+        Style="{StaticResource DisabledButtonStyle}">
+            <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
+                <Image Source="{StaticResource FilterIconBeige}" Height="30" Width="30"/>
+                <Label Content="Filter" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="ClearButton" Grid.Row="1" Grid.Column="1" Width="140" Height="60"
+                VerticalAlignment="Top" HorizontalAlignment="Center"
+        Style="{StaticResource DisabledButtonStyle}">
+            <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
+                <Image Source="{StaticResource ClearIconBeige}" Height="30" Width="30"/>
+                <Label Content="Clear filters" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Page>

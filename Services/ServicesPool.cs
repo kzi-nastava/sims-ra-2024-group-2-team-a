@@ -106,6 +106,11 @@ namespace BookingApp.Services {
             GetService<ComplexTourRequestService>().InjectServices(
                 GetService<TourRequestService>()
                 );
+
+            GetService<ForumService>().InjectServices(
+                GetService<AccommodationService>(),
+                GetService<NotificationService>()
+                );
         }
 
         public static T GetService<T>() {

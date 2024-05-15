@@ -56,6 +56,7 @@ namespace BookingApp.WPF.Android.ViewModels {
             ThirdLocation = new LocationDTO(_locationService.GetById(locationIds[2]));
             FourthLocation = new LocationDTO(_locationService.GetById(locationIds[3]));
 
+            AccommodationDTOs.Clear();
             foreach (var acc in _accommodationService.GetByLocationId(ThirdLocation.Id)) {
                 AccommodationDTO accDTO = new AccommodationDTO(acc);
                 accDTO.Location = ThirdLocation;
