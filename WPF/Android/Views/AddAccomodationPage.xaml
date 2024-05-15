@@ -111,7 +111,7 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center">
                 <ComboBox x:Name="comboBox"  Height="40" Text="Choose location" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                      SelectedItem="{Binding SelectedLocationDTO}" ItemsSource="{Binding LocationDTOs}"
+                      SelectedItem="{Binding SelectedLocationDTO, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding LocationDTOs}"
                       DisplayMemberPath="LocationOptionTemplate" Background="{StaticResource Green}"/>
                 <Label Foreground="Red" Padding="0">
                     <Label.Style>

@@ -25,6 +25,7 @@
     <None Remove="Resources\Images\default-coupon.png" />
     <None Remove="Resources\Images\guidance-icon-beige.png" />
     <None Remove="Resources\Images\Icons\add-icon3-b.png" />
+    <None Remove="Resources\Images\Icons\android-alert.png" />
     <None Remove="Resources\Images\Icons\android-house-icon.png" />
     <None Remove="Resources\Images\Icons\android-inbox-icon.png" />
     <None Remove="Resources\Images\Icons\android-logout-icon.png" />
@@ -63,6 +64,7 @@
     <None Remove="Resources\Images\Icons\language.png" />
     <None Remove="Resources\Images\Icons\left-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\location-icon.png" />
+    <None Remove="Resources\Images\Icons\locked-building-icon.png" />
     <None Remove="Resources\Images\Icons\logout-white-icon.png" />
     <None Remove="Resources\Images\Icons\normal-owner-icon.png" />
     <None Remove="Resources\Images\Icons\not-super-icon.png" />
@@ -152,6 +154,7 @@
   <ItemGroup>
     <Resource Include="Resources\Images\eye-beige.png" />
     <Resource Include="Resources\Images\Icons\add-icon3-b.png" />
+    <Resource Include="Resources\Images\Icons\android-alert.png" />
     <Resource Include="Resources\Images\Icons\android-house-icon.png" />
     <Resource Include="Resources\Images\Icons\android-inbox-icon.png" />
     <Resource Include="Resources\Images\Icons\android-logout-icon.png" />
@@ -203,6 +206,7 @@
     <Resource Include="Resources\Images\Icons\import-images-icon.png" />
     <Resource Include="Resources\Images\Icons\language.png" />
     <Resource Include="Resources\Images\Icons\left-arrow-icon.png" />
+    <Resource Include="Resources\Images\Icons\locked-building-icon.png" />
     <Resource Include="Resources\Images\Icons\logout-white-icon.png" />
     <Resource Include="Resources\Images\Icons\normal-owner-icon.png" />
     <Resource Include="Resources\Images\Icons\people-icon.png" />

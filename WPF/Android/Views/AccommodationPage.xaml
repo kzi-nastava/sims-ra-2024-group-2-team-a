@@ -104,7 +104,7 @@
              HorizontalContentAlignment="Stretch" Background="{StaticResource Beige}" VerticalAlignment="Bottom" Margin="0,0,0,10">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="{StaticResource Beige}" BorderBrush="Black" BorderThickness="1" Height="110" CornerRadius="20" Width="380">
+                        <Border Background="Beige" BorderBrush="Black" BorderThickness="1" Height="110" CornerRadius="20" Width="380">
                             <Grid Margin="20,10,10,10" VerticalAlignment="Center" Background="{StaticResource Beige}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100"/>
