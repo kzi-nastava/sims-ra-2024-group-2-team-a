@@ -60,7 +60,8 @@ namespace BookingApp.WPF.Android.Views {
                 return;
             }
             else if (_statisticsService.IsStatisticEmpty(SelectedAccommodation.Id)) {
-                MessageBox.Show("Selected accommodation does not have any required statistic", "Selection Error", MessageBoxButton.OK);
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Selected accommodation does not have any required statistic!");
+                dialogWindow.ShowDialog();
             }
             else {
                 mainFrame.Content = new AccommodationStatisticsPage(SelectedAccommodation);
@@ -69,6 +70,8 @@ namespace BookingApp.WPF.Android.Views {
 
         private void GuidanceButton_Click(object sender, RoutedEventArgs e) {
             if (_statisticsService.GetHottestAndColdestLocations(_user.Id).Count == 1) {
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Insufficent accommodations registered on various for this feature!");
+                dialogWindow.ShowDialog();
                 return;
             }
 

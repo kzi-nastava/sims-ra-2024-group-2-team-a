@@ -52,5 +52,11 @@ namespace BookingApp.WPF.Android.Views {
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             accommodationGuidanceViewmodel.SelectionChanged();
         }
+
+        private void CloseAccomodationButton_Click(object sender, RoutedEventArgs e) {
+            if (!accommodationGuidanceViewmodel.CloseButton()) {
+                mainFrame.NavigationService.Navigate(new AccommodationPage(mainFrame, _user));
+            }
+        }
     }
 }

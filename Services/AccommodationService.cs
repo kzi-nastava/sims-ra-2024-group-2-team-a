@@ -14,7 +14,7 @@ namespace BookingApp.Services {
         }
 
         public List<Accommodation> GetAll() {
-            return _accommodationRepository.GetAll();
+            return _accommodationRepository.GetAll().Where(x => !x.IsClosed).ToList();
         }
 
         public Accommodation GetById(int id) {
@@ -26,11 +26,11 @@ namespace BookingApp.Services {
         }
 
         public List<Accommodation> GetByOwnerId(int ownerId) {
-            return _accommodationRepository.GetByOwnerId(ownerId);
+            return _accommodationRepository.GetByOwnerId(ownerId).Where(x => !x.IsClosed).ToList();
         }
 
         public List<Accommodation> GetFilteredAccommodations(AccommodationFilterDTO filter) {
-            var accommodations = _accommodationRepository.GetAll();
+            var accommodations = this.GetAll();
 
             return accommodations.Where(a => SatisfiesFilter(a, filter)).ToList();
         }
@@ -48,5 +48,12 @@ namespace BookingApp.Services {
             return this.GetAll().Where(x => x.LocationId == locationId).ToList();
         }
 
+        public void CloseAccommodation(int accommodationId) {
+            Accommodation accommodation = this.GetById(accommodationId);
+
+            accommodation.IsClosed = true;
+
+            _accommodationRepository.Update(accommodation);
+        }
     }
 }

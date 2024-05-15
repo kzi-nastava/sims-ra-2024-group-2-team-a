@@ -25,6 +25,7 @@
     <None Remove="Resources\Images\default-coupon.png" />
     <None Remove="Resources\Images\guidance-icon-beige.png" />
     <None Remove="Resources\Images\Icons\add-icon3-b.png" />
+    <None Remove="Resources\Images\Icons\android-alert.png" />
     <None Remove="Resources\Images\Icons\android-house-icon.png" />
     <None Remove="Resources\Images\Icons\android-inbox-icon.png" />
     <None Remove="Resources\Images\Icons\android-logout-icon.png" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <Resource Include="Resources\Images\eye-beige.png" />
     <Resource Include="Resources\Images\Icons\add-icon3-b.png" />
+    <Resource Include="Resources\Images\Icons\android-alert.png" />
     <Resource Include="Resources\Images\Icons\android-house-icon.png" />
     <Resource Include="Resources\Images\Icons\android-inbox-icon.png" />
     <Resource Include="Resources\Images\Icons\android-logout-icon.png" />

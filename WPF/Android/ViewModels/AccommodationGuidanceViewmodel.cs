@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +27,8 @@ namespace BookingApp.WPF.Android.ViewModels {
         public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
         public AccommodationDTO SelectedAccommodation { get; set; }
         public AndroidCommand CloseCommand { get; set; }
+
+        public bool IsNotValid;
         public AccommodationGuidanceViewmodel(int userId) {
             _userId = userId;
 
@@ -36,14 +39,17 @@ namespace BookingApp.WPF.Android.ViewModels {
             AccommodationDTOs = new ObservableCollection<AccommodationDTO>();
 
             CloseCommand = new AndroidCommand(Execute, CanBeExecuted);
+            IsNotValid = false;
 
             Update();
         }
         private void Update() {
             List<int> locationIds = _accommodationStatisticsService.GetHottestAndColdestLocations(_userId);
 
-            if (locationIds.Count == 1)
+            if (locationIds.Count == 1) {
+                IsNotValid = true;
                 return;
+            }
 
             FirstLocation = new LocationDTO(_locationService.GetById(locationIds[0]));
             SecondLocation = new LocationDTO(_locationService.GetById(locationIds[1]));
@@ -63,7 +69,17 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         private void Execute(object obj) {
+        }
+        public bool CloseButton() {
+            _accommodationService.CloseAccommodation(SelectedAccommodation.Id);
 
+            this.Update();
+
+            if (IsNotValid) {
+                return false;
+            }
+
+            return true;
         }
 
         private bool CanBeExecuted(object obj) {

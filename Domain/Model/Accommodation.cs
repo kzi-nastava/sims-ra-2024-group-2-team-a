@@ -17,6 +17,7 @@ namespace BookingApp.Domain.Model {
         public int MinReservationDays { get; set; } = 0;
         public int LastCancellationDay { get; set; } = 0;
         public int OwnerId { get; set; } = 0;
+        public bool IsClosed { get; set; }
         public List<string> Pictures { get; set; } = new List<string>();
 
         public Accommodation() { }
@@ -32,6 +33,7 @@ namespace BookingApp.Domain.Model {
             LastCancellationDay = cancellationDate;
             OwnerId = ownerId;
             Pictures = pictures;
+            IsClosed = false;
         }
 
         public string[] ToCSV()
@@ -44,7 +46,8 @@ namespace BookingApp.Domain.Model {
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 LastCancellationDay.ToString(),
-                OwnerId.ToString()
+                OwnerId.ToString(),
+                IsClosed.ToString()
                 };
 
             if (Pictures != null)
@@ -69,7 +72,8 @@ namespace BookingApp.Domain.Model {
             MinReservationDays = Convert.ToInt32(values[5]);
             LastCancellationDay = Convert.ToInt32(values[6]);
             OwnerId = Convert.ToInt32(values[7]);
-            Pictures.AddRange(values[8..]);
+            IsClosed = Boolean.Parse(values[8]);
+            Pictures.AddRange(values[9..]);
         }
     }
 }
