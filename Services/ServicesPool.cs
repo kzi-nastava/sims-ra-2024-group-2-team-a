@@ -33,6 +33,7 @@ namespace BookingApp.Services {
             _services[typeof(AccommodationReviewService)] = new AccommodationReviewService(RepositoryInjector.GetInstance<IAccommodationReviewRepository>());
             _services[typeof(NotificationService)] = new NotificationService(RepositoryInjector.GetInstance<INotificationRepository>());
             _services[typeof(ComplexTourRequestService)] = new ComplexTourRequestService(RepositoryInjector.GetInstance<IComplexTourRequestRepository>());
+            _services[typeof(ForumService)] = new ForumService(RepositoryInjector.GetInstance<IForumRepository>());
 
             LinkAllServices();
         }
