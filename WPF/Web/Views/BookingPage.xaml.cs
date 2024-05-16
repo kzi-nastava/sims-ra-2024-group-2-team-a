@@ -60,9 +60,28 @@ namespace BookingApp.WPF.Web.Views {
 
             comboBoxType.ItemsSource = Enum.GetValues(typeof(AccommodationType));
             comboBoxType.SelectedIndex = 0;
+
+            quickDatePickerStartDate.DisplayDateStart = DateTime.Today.AddDays(1);
+            quickDatePickerEndDate.IsEnabled = false;
+        }
+
+        private void UpdateDatePicker(object sender, SelectionChangedEventArgs e) {
+            if (quickDatePickerStartDate.SelectedDate != null) {
+                quickDatePickerEndDate.IsEnabled = true;
+                quickDatePickerEndDate.DisplayDateStart = quickDatePickerStartDate.SelectedDate.Value.AddDays(1);
+                return;
+            }
         }
 
         private void ButtonFilterClick(object sender, RoutedEventArgs e) {
+            if (toggleSwitch.IsChecked) {
+                ApplyQuickFilter();
+            } else {
+                ApplyRegularFilter();
+            }
+        }
+
+        private void ApplyRegularFilter() {
             string name = textBoxName.Text;
             LocationDTO location = (LocationDTO)comboBoxLocation.SelectedItem;
             AccommodationType type = (AccommodationType)comboBoxType.SelectedItem;
@@ -81,12 +100,22 @@ namespace BookingApp.WPF.Web.Views {
             UpdateAccommodationDTOs(accommodations);
         }
 
+        private void ApplyQuickFilter() {
+
+        }
+
         private void ButtonClearClick(object sender, RoutedEventArgs e) {
             comboBoxLocation.SelectedIndex = 0;
             comboBoxType.SelectedIndex = 0;
             textBoxDays.Text = "";
             textBoxGuests.Text = "";
             textBoxName.Text = "";
+
+            quickDatePickerStartDate.SelectedDate = null;
+            quickDatePickerEndDate.SelectedDate = null;
+            quickDatePickerEndDate.IsEnabled = false;
+            quickTextBoxDays.Text = "";
+            quickTextBoxGuests.Text = "";
         }
     }
 }
