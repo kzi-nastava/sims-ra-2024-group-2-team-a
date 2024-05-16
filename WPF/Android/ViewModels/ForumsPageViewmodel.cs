@@ -43,6 +43,10 @@ namespace BookingApp.WPF.Android.ViewModels
                 ForumDTOs.Add(forumDTO);
             }
         }
+
+        public void ResetSelectedForum() {
+            SelectedForum = null;
+        }
         public void ClearExecuted(object obj) {
             this.Update();
         }

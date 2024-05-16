@@ -20,7 +20,21 @@ namespace BookingApp.WPF.DTO
             OwnerCommentNum = forum.OwnerCommentNum;
             IsUsefull = forum.IsUsefull;
             IsClosed = forum.IsClosed;
-            CommentNum = "Comments: " + (GuestCommentNum + OwnerCommentNum).ToString();
+            CommentNum = GuestCommentNum + OwnerCommentNum;
+        }
+
+        public ForumDTO(ForumDTO forum) {
+            Id = forum.Id;
+            Title = forum.Title;
+            LocationId = forum.LocationId;
+            CreatorId = forum.CreatorId;
+            GuestCommentNum = forum.GuestCommentNum;
+            OwnerCommentNum = forum.OwnerCommentNum;
+            IsUsefull = forum.IsUsefull;
+            IsClosed = forum.IsClosed;
+            CommentNum = GuestCommentNum + OwnerCommentNum;
+            Username = forum.Username;
+            Location = forum.Location;
         }
         public int Id { get; set; } = 0;
 
@@ -92,7 +106,19 @@ namespace BookingApp.WPF.DTO
                 }
             }
         }
-        public String CommentNum { get; set; }
+
+        private int _commentNum;
+        public int CommentNum {
+            get {
+                return _commentNum;
+            }
+            set {
+                if (value != _commentNum) {
+                    _commentNum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {

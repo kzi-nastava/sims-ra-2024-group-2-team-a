@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.WPF.Android.ViewModels;
+using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,20 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (ForumsPageViewmodel.SelectedForum == null) {
+                return;
+            }
 
+            ForumDTO forumDTO = new ForumDTO(ForumsPageViewmodel.SelectedForum);
+
+            ForumsPageViewmodel.SelectedForum = null;
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                listBox.SelectedItem = ForumsPageViewmodel.SelectedForum;
+            }), System.Windows.Threading.DispatcherPriority.Background);
+
+            mainFrame.NavigationService.Navigate(new ForumCommentsPage(forumDTO));
+            
         }
 
         private void FilterButton_Click(object sender, RoutedEventArgs e) {

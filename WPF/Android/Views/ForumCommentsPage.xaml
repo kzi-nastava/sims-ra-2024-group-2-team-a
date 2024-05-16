@@ -1,0 +1,102 @@
+﻿<Page x:Class="BookingApp.WPF.Android.Views.ForumCommentsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="624" d:DesignWidth="430"
+      Title="ForumCommentsPage">
+    <Page.Resources>
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Background" Value="{StaticResource Green}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+    </Page.Resources>
+    <Grid Background="{StaticResource Beige}">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <Grid>
+                        <StackPanel Orientation="Vertical" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <Label Content="{Binding ForumDTO.Title}" Style="{StaticResource Header}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource LocationIcon}" Height="25" Width="25"/>
+                                <Label Content="{Binding ForumDTO.Location.LocationInfoTemplate}" FontFamily="Global sans serif" FontSize="14"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource PeopleIcon}" Height="25" Width="25"/>
+                                <Label Content="{Binding ForumDTO.Username}" FontFamily="Global sans serif" FontSize="14"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Comments: " FontSize="14" FontFamily="Global Sans Serif" Foreground="Black" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding ForumDTO.CommentNum}" FontSize="14" FontFamily="Global Sans Serif" Foreground="Black" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+
+                <ItemsControl Grid.Row="1" Margin="10">
+                    
+                </ItemsControl>
+
+                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="0,1,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="28"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Header}" VerticalContentAlignment="Center"
+                               Padding="0" FontSize="18" Content="Express your opinion:" Width="180" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                            
+                        <TextBox Grid.Row="1" Margin="10,5,10,5" Text="Enter comment here"/>
+                        
+                        <Button x:Name="PostButton" Grid.Column="1" Grid.Row="1" Height="60" Width="60" Background="{StaticResource Green}">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2">
+                                <Image Source="{StaticResource SendIconBeige}" Width="25" Height="25"/>
+                                <TextBlock Text="Post !" FontSize="16" Style="{StaticResource ButtonLabelTextBlock}" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

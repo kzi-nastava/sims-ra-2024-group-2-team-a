@@ -79,6 +79,7 @@
     <None Remove="Resources\Images\Icons\right-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\scheduled-icon.png" />
     <None Remove="Resources\Images\Icons\search-white-icon.png" />
+    <None Remove="Resources\Images\Icons\send-icon-beige.png" />
     <None Remove="Resources\Images\Icons\star-icon-beige.png" />
     <None Remove="Resources\Images\Icons\star-icon.png" />
     <None Remove="Resources\Images\account.png" />
@@ -224,6 +225,7 @@
     <Resource Include="Resources\Images\Icons\right-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\scheduled-icon.png" />
     <Resource Include="Resources\Images\Icons\search-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\send-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\star-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\star-icon.png" />
     <Resource Include="Resources\Images\account.png" />
