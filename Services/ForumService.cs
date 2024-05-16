@@ -32,9 +32,15 @@ namespace BookingApp.Services {
         }
         public List<Forum> GetAllByOwnerId(int ownerId) {
             List<Forum> forums = new List<Forum>();
+            List<int> locationIds = new List<int>();
+            foreach (var acc in _accommodationService.GetByOwnerId(ownerId)) {
+                if (!locationIds.Contains(acc.LocationId)) {
+                    locationIds.Add(acc.LocationId);
+                }
+            }
 
-            foreach (Accommodation acc in _accommodationService.GetByOwnerId(ownerId)) {
-                forums.AddRange(this.GetByLocationId(acc.LocationId));
+            foreach (var locationId in locationIds) {
+                forums.AddRange(this.GetByLocationId(locationId));
             }
 
             return forums.OrderByDescending(x => (x.OwnerCommentNum + x.GuestCommentNum)).ToList();  
@@ -68,7 +74,7 @@ namespace BookingApp.Services {
         }
 
         private bool CheckUsefullness(bool isUsefull, Forum forum) {
-            if (isUsefull == forum.IsUsefull) {
+            if (!isUsefull || forum.IsUsefull) {
                 return true;
             }
             return false;

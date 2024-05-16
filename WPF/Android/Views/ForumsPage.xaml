@@ -145,7 +145,7 @@
 
         <Button x:Name="ClearButton" Grid.Row="1" Grid.Column="1" Width="140" Height="60"
                 VerticalAlignment="Top" HorizontalAlignment="Center"
-        Style="{StaticResource DisabledButtonStyle}">
+        Style="{StaticResource DisabledButtonStyle}" Command="{Binding ClearCommand}">
             <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
                 <Image Source="{StaticResource ClearIconBeige}" Height="30" Width="30"/>
                 <Label Content="Clear filters" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"/>

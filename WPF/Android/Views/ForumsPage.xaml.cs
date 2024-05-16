@@ -36,7 +36,8 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void FilterButton_Click(object sender, RoutedEventArgs e) {
-
+            FilterForumsWindow filterForumsWindow = new FilterForumsWindow(ForumsPageViewmodel);
+            filterForumsWindow.ShowDialog();
         }
     }
 }

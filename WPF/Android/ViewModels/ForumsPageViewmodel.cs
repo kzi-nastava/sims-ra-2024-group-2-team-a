@@ -21,11 +21,11 @@ namespace BookingApp.WPF.Android.ViewModels
         public ObservableCollection<ForumDTO> ForumDTOs { get; set; }
         public ForumDTO SelectedForum { get; set; }
 
-        private User _user;
+        public User Owner;
 
         public AndroidCommand ClearCommand { get; set; }
         public ForumsPageViewmodel(User user) {
-            _user = user;
+            Owner = user;
             ForumDTOs = new ObservableCollection<ForumDTO> { };
 
             ClearCommand = new AndroidCommand(ClearExecuted, ClearCanBeExecuted);
@@ -35,7 +35,7 @@ namespace BookingApp.WPF.Android.ViewModels
         private void Update() {
             ForumDTOs.Clear();
 
-            foreach (var forum in _forumService.GetAllByOwnerId(_user.Id)) {
+            foreach (var forum in _forumService.GetAllByOwnerId(Owner.Id)) {
                 ForumDTO forumDTO = new ForumDTO(forum);
                 forumDTO.Location = new LocationDTO(_locationService.GetById(forum.LocationId));
                 forumDTO.Username = new User(_userService.GetById(forum.CreatorId)).Username;
