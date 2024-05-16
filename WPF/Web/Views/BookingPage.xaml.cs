@@ -16,6 +16,7 @@ namespace BookingApp.WPF.Web.Views {
         private List<LocationDTO> _locationDTOs = new List<LocationDTO>();
 
         private readonly AccommodationService _accommodationService = ServicesPool.GetService<AccommodationService>();
+        private readonly AccommodationReservationService _accommodationReservationService = ServicesPool.GetService<AccommodationReservationService>();
         private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         private readonly OwnerService _ownerService = ServicesPool.GetService<OwnerService>();
 
@@ -101,7 +102,31 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void ApplyQuickFilter() {
+            DateOnly startDate = new DateOnly();
+            DateOnly endDate = new DateOnly();
 
+            if (!int.TryParse(quickTextBoxGuests.Text, out int guestNumber)) {
+                textBoxGuests.Text = "";
+            }
+
+            if (!int.TryParse(quickTextBoxDays.Text, out int reservationDays)) {
+                textBoxDays.Text = "";
+            }
+
+            if(quickDatePickerStartDate.SelectedDate != null) {
+                startDate = DateOnly.FromDateTime(quickDatePickerStartDate.SelectedDate.Value);
+            }
+
+            if (quickDatePickerEndDate.SelectedDate != null) {
+                endDate = DateOnly.FromDateTime(quickDatePickerEndDate.SelectedDate.Value);
+            }
+
+
+            AccommodationFilterDTO accFilter = new AccommodationFilterDTO("", new LocationDTO(), AccommodationType.any, guestNumber, reservationDays);
+            AccommodationReservationFilterDTO resFilter = new AccommodationReservationFilterDTO(0, reservationDays, guestNumber, startDate, endDate);
+
+            var accommodations = _accommodationService.GetAvailableAccommodationsInDateRange(accFilter, resFilter);
+            UpdateAccommodationDTOs(accommodations);
         }
 
         private void ButtonClearClick(object sender, RoutedEventArgs e) {

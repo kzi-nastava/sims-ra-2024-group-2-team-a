@@ -82,7 +82,7 @@ namespace BookingApp.Services {
             return _reservationRepository.Update(accReservation);  
         }
 
-        public List<AccommodationReservation> SuggestReservations(AccommodationReservationDTO rDTO) {
+        public List<AccommodationReservation> SuggestReservations(AccommodationReservationFilterDTO rDTO) {
             return _recommenderService.SuggestReservations(rDTO);
         }
 

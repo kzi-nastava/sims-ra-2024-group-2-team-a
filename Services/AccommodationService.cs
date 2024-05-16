@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,8 +10,14 @@ namespace BookingApp.Services {
     {
         private readonly IAccommodationRepository _accommodationRepository;
 
+        private ReservationRecommenderService _reservationRecommenderService;
+
         public AccommodationService(IAccommodationRepository accommodationRepository) { 
             _accommodationRepository = accommodationRepository;
+        }
+
+        public void InjectServices(ReservationRecommenderService reservationRecommenderService) {
+            _reservationRecommenderService = reservationRecommenderService;
         }
 
         public List<Accommodation> GetAll() {
@@ -33,6 +40,26 @@ namespace BookingApp.Services {
             var accommodations = this.GetAll();
 
             return accommodations.Where(a => SatisfiesFilter(a, filter)).ToList();
+        }
+
+        public List<Accommodation> GetAvailableAccommodationsInDateRange(AccommodationFilterDTO accFilter, AccommodationReservationFilterDTO resFilter) {
+            var accommodations = this.GetFilteredAccommodations(accFilter);
+
+            DateOnly emptyDate = new DateOnly();
+
+            if(resFilter.StartDate == emptyDate || resFilter.EndDate == emptyDate)
+                return accommodations;
+
+            List<Accommodation> filteredAccomodations = new List<Accommodation>();
+
+            foreach(var acc in accommodations) {
+                resFilter.AccommodationId = acc.Id;
+                int count = _reservationRecommenderService.SuggestReservations(resFilter, false).Count;
+                if (count > 0)
+                    filteredAccomodations.Add(acc);
+            }
+
+            return filteredAccomodations;
         }
 
         private bool SatisfiesFilter(Accommodation accommodation, AccommodationFilterDTO filter) {
