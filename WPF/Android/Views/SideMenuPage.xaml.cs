@@ -94,5 +94,11 @@ namespace BookingApp.WPF.Android.Views {
             };
             SideFrame.BeginAnimation(Frame.MarginProperty, animation);
         }
+
+        private void ForumsButton_Click(object sender, RoutedEventArgs e) {
+            MainFrame.NavigationService.Navigate(new ForumsPage(_user, MainFrame));
+            HideSideFrame();
+            BlackFrame.Content = null;
+        }
     }
 }

@@ -48,12 +48,15 @@
     <None Remove="Resources\Images\Icons\cancel-icon-beige.png" />
     <None Remove="Resources\Images\Icons\cancel-icon.png" />
     <None Remove="Resources\Images\Icons\chat-white-icon.png" />
+    <None Remove="Resources\Images\Icons\clear-icon-beige.png" />
     <None Remove="Resources\Images\Icons\confirm-icon-beige.png" />
     <None Remove="Resources\Images\Icons\confirm-icon.png" />
     <None Remove="Resources\Images\Icons\coupon.png" />
     <None Remove="Resources\Images\Icons\document-icon-beige.png" />
     <None Remove="Resources\Images\Icons\document-icon.png" />
+    <None Remove="Resources\Images\Icons\filter-icon-beige.png" />
     <None Remove="Resources\Images\Icons\filter-icon.png" />
+    <None Remove="Resources\Images\Icons\forums-icon.png" />
     <None Remove="Resources\Images\Icons\gold-star-icon.png" />
     <None Remove="Resources\Images\Icons\guidance-icon-beige.png" />
     <None Remove="Resources\Images\Icons\hamburger-icon-beige.png" />
@@ -76,6 +79,7 @@
     <None Remove="Resources\Images\Icons\right-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\scheduled-icon.png" />
     <None Remove="Resources\Images\Icons\search-white-icon.png" />
+    <None Remove="Resources\Images\Icons\send-icon-beige.png" />
     <None Remove="Resources\Images\Icons\star-icon-beige.png" />
     <None Remove="Resources\Images\Icons\star-icon.png" />
     <None Remove="Resources\Images\account.png" />
@@ -189,12 +193,15 @@
     <Resource Include="Resources\Images\Icons\cancel-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\cancel-icon.png" />
     <Resource Include="Resources\Images\Icons\chat-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\clear-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon.png" />
     <Resource Include="Resources\Images\Icons\coupon.png" />
     <Resource Include="Resources\Images\Icons\document-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\document-icon.png" />
+    <Resource Include="Resources\Images\Icons\filter-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\filter-icon.png" />
+    <Resource Include="Resources\Images\Icons\forums-icon.png" />
     <Resource Include="Resources\Images\Icons\gold-star-icon.png" />
     <Resource Include="Resources\Images\Icons\guidance-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\hamburger-icon-beige.png" />
@@ -218,6 +225,7 @@
     <Resource Include="Resources\Images\Icons\right-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\scheduled-icon.png" />
     <Resource Include="Resources\Images\Icons\search-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\send-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\star-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\star-icon.png" />
     <Resource Include="Resources\Images\account.png" />

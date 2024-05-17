@@ -13,6 +13,7 @@
         <BitmapImage x:Key="InboxIcon" UriSource="../../../Resources/Images/Icons/android-inbox-icon.png"/>
         <BitmapImage x:Key="HouseIcon" UriSource="../../../Resources/Images/Icons/android-house-icon.png"/>
         <BitmapImage x:Key="LogoutIcon" UriSource="../../../Resources/Images/Icons/android-logout-icon.png"/>
+        <BitmapImage x:Key="ForumsIcon" UriSource="../../../Resources/Images/Icons/forums-icon.png"/>
     </Page.Resources>
 
             <Grid Background="{StaticResource SoftGreen}">
@@ -72,7 +73,7 @@
         <Button Click="RenovationsButton_Click" Grid.Row="3" Background="{StaticResource Green}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="{TemplateBinding Background}">
+                    <Border BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="{StaticResource RenovationIcon}"  Height="40" Width="40" Margin="10,0,0,0"/>
                             <TextBlock Text="Renovations" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" FontFamily="Global Sans Serif"/>
@@ -81,6 +82,20 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+
+        <Button x:Name="ForumsButton"  Click="ForumsButton_Click" Grid.Row="4" Background="{StaticResource Green}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="{TemplateBinding Background}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="{StaticResource ForumsIcon}"  Height="40" Width="40" Margin="10,0,0,0"/>
+                            <TextBlock Text="Forums" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" FontFamily="Global Sans Serif"/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
 
         <Border BorderBrush="Black" BorderThickness="2,2,2,0" Grid.Row="6">
             <Grid Grid.Row="6" Background="{StaticResource Green}">
