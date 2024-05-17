@@ -28,6 +28,10 @@ namespace BookingApp.Services {
             _userService = userService;
         }
 
+        public IEnumerable<TourRequest> GetForComplexRequest(int id) {
+            return GetAll().Where(r => r.ComplexTourId == id);
+        }
+
         public List<TourRequest> GetAll() {
             return _tourRequestRepository.GetAll();
         }

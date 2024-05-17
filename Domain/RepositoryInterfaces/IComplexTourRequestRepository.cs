@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.RepositoryInterfaces {
     public interface IComplexTourRequestRepository : IRepository<ComplexTourRequest> {
-
+        public IEnumerable<ComplexTourRequest> GetByTouristId(int touristId);
     }
 }
