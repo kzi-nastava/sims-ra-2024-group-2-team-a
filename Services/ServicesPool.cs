@@ -113,6 +113,10 @@ namespace BookingApp.Services {
                 GetService<AccommodationService>(),
                 GetService<NotificationService>()
                 );
+
+            GetService<CommentService>().InjectServices(
+                GetService<AccommodationReservationService>()
+                );
         }
 
         public static T GetService<T>() {

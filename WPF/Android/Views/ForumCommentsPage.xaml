@@ -68,9 +68,20 @@
                     </Grid>
                 </Border>
 
-                <ItemsControl Grid.Row="1" Margin="10">
-                    
-                </ItemsControl>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" Grid.Row="1" Margin="10" Background="{StaticResource Beige}">
+                    <ItemsControl x:Name="itemsControlAccommodations" ItemsSource="{Binding CommentDTOs}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:ForumCommentCard Height="80"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
 
                 <Border Grid.Row="2" BorderBrush="Black" BorderThickness="0,1,0,0">
                     <Grid>
@@ -85,10 +96,11 @@
 
                         <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Header}" VerticalContentAlignment="Center"
                                Padding="0" FontSize="18" Content="Express your opinion:" Width="180" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                            
-                        <TextBox Grid.Row="1" Margin="10,5,10,5" Text="Enter comment here"/>
-                        
-                        <Button x:Name="PostButton" Grid.Column="1" Grid.Row="1" Height="60" Width="60" Background="{StaticResource Green}">
+
+                        <TextBox Grid.Row="1" Margin="10,5,10,5" Text="{Binding CommentDTO.Text}"/>
+
+                        <Button x:Name="PostButton" Grid.Column="1" Grid.Row="1" Height="60" Width="60" 
+                                Background="{StaticResource Green}" Click="PostButton_Click">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2">
                                 <Image Source="{StaticResource SendIconBeige}" Width="25" Height="25"/>
                                 <TextBlock Text="Post !" FontSize="16" Style="{StaticResource ButtonLabelTextBlock}" Margin="0,5,0,0"/>

@@ -121,5 +121,22 @@ namespace BookingApp.Services {
             return _accommodationService.GetById(accommodationId).OwnerId == ownerId;
         }
 
+        public bool WasVisitedByGuest(int guestId, DateTime dateTime, int locationId) {
+            foreach (var res in this.GetByGuestId(guestId)) {
+                Accommodation acc = _accommodationService.GetById(res.AccommodationId);
+
+                if (res.Cancelled == false && 
+                    res.StartDate <= DateOnly.FromDateTime(dateTime) && 
+                    acc.LocationId == locationId) {
+
+                        return true;
+                }
+
+            }
+
+            return false;
+        }
+
+
     }
 }
