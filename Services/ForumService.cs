@@ -27,6 +27,10 @@ namespace BookingApp.Services {
         public List<Forum> GetAll() {
             return _forumRepository.GetAll();
         }
+
+        public Forum GetById(int id) {
+            return _forumRepository.GetById(id);
+        }
         public List<Forum> GetByLocationId(int locationId) {
             return this.GetAll().Where(x => x.LocationId == locationId).ToList();
         }

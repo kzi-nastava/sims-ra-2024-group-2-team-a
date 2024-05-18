@@ -25,10 +25,13 @@ namespace BookingApp.WPF.Android.Views {
         public ForumsPageViewmodel ForumsPageViewmodel { get; set; }
 
         private Frame mainFrame;
+
+        private User _user;
         public ForumsPage(User user , Frame mainFrame) {
             InitializeComponent();
             ForumsPageViewmodel = new ForumsPageViewmodel(user);
             DataContext = ForumsPageViewmodel;
+            _user = user;
             this.mainFrame = mainFrame;
         }
 
@@ -45,7 +48,7 @@ namespace BookingApp.WPF.Android.Views {
                 listBox.SelectedItem = ForumsPageViewmodel.SelectedForum;
             }), System.Windows.Threading.DispatcherPriority.Background);
 
-            mainFrame.NavigationService.Navigate(new ForumCommentsPage(forumDTO));
+            mainFrame.NavigationService.Navigate(new ForumCommentsPage(forumDTO, _user));
             
         }
 

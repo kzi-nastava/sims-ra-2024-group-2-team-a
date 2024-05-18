@@ -1,4 +1,5 @@
-﻿using BookingApp.WPF.Android.ViewModels;
+﻿using BookingApp.Domain.Model;
+using BookingApp.WPF.Android.ViewModels;
 using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,15 @@ namespace BookingApp.WPF.Android.Views {
     public partial class ForumCommentsPage : Page {
 
         ForumCommentsViewmodel ForumCommentsViewmodel { get; set; }
-        public ForumCommentsPage(ForumDTO forumDTO) {
+        public ForumCommentsPage(ForumDTO forumDTO, User user) {
             InitializeComponent();
 
-            ForumCommentsViewmodel = new ForumCommentsViewmodel(forumDTO);
+            ForumCommentsViewmodel = new ForumCommentsViewmodel(forumDTO, user);
             DataContext = ForumCommentsViewmodel;
+        }
+
+        private void PostButton_Click(object sender, RoutedEventArgs e) {
+            ForumCommentsViewmodel.PostClick();
         }
     }
 }
