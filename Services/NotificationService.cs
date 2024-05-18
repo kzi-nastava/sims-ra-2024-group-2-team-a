@@ -10,15 +10,19 @@ namespace BookingApp.Services {
         private AccommodationRescheduleRequestService _rescheduleRequestService;
         private AccommodationReservationService _reservationService;
         private LocationService _locationService;
+        private AccommodationService _accommodationService;
 
         public NotificationService(INotificationRepository notificationRepository) {
             _notificationRepository = notificationRepository;
         }
 
-        public void InjectServices(AccommodationRescheduleRequestService rescheduleRequestService, AccommodationReservationService reservationService, LocationService locationService) {
+        public void InjectServices(AccommodationRescheduleRequestService rescheduleRequestService, 
+                AccommodationReservationService reservationService, 
+                LocationService locationService, AccommodationService accService) {
             _rescheduleRequestService = rescheduleRequestService;
             _reservationService = reservationService;
             _locationService = locationService;
+            _accommodationService = accService;
         }
 
         public void Save(Notification notification) {
@@ -60,12 +64,22 @@ namespace BookingApp.Services {
                 this.Save(new Notification(category, touristId, tourId));
         }
 
-        public void CreateNewForumNotification(int userId, int locationId) {
+        //pozvati ovu metodu kad se napravi novi forum
+        public void CreateNewForumNotification(int locationId) {
             Location loc = _locationService.GetById(locationId);
+            List<int> ownerIds = new List<int>();
 
-            string message = $"New forum opened in {loc.Country}, {loc.City}!";
-            Notification notification = new Notification(message, NotificationCategory.Forum, userId, DateTime.Now, false);
-            this.Save(notification);
+            foreach (var acc in _accommodationService.GetByLocationId(locationId)) {
+                if (!ownerIds.Contains(acc.OwnerId)) {
+                    ownerIds.Add(acc.OwnerId);
+                }
+            }
+
+            foreach (var ownerId in ownerIds) {
+                string message = $"New forum opened in {loc.Country}, {loc.City}!";
+                Notification notification = new Notification(message, NotificationCategory.Forum, ownerId, DateTime.Now, false);
+                this.Save(notification);
+            }
         }
     }
 }

@@ -48,7 +48,7 @@ namespace BookingApp.WPF.Android.Views {
                 listBox.SelectedItem = ForumsPageViewmodel.SelectedForum;
             }), System.Windows.Threading.DispatcherPriority.Background);
 
-            mainFrame.NavigationService.Navigate(new ForumCommentsPage(forumDTO, _user));
+            mainFrame.NavigationService.Navigate(new ForumCommentsPage(forumDTO, _user, ForumsPageViewmodel));
             
         }
 
