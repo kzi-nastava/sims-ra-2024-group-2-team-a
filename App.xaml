@@ -8,14 +8,17 @@
         <BitmapImage x:Key="TimeIcon" UriSource="Resources/Images/Icons/time-icon.png"/>
         <BitmapImage x:Key="ScheduledIcon" UriSource="Resources/Images/Icons/scheduled-icon.png"/>
         <BitmapImage x:Key="CancelIcon" UriSource="Resources/Images/Icons/cancel-icon.png"/>
+        <BitmapImage x:Key="CancelIconBeige" UriSource="Resources/Images/Icons/cancel-icon-beige.png"/>
         <BitmapImage x:Key="LocationIcon" UriSource="Resources/Images/Icons/location-icon.png"/>
         <BitmapImage x:Key="HouseIcon" UriSource="Resources/Images/Icons/house-icon.png"/>
         <BitmapImage x:Key="CalendarIcon" UriSource="Resources/Images/Icons/calendar-icon.png"/>
         <BitmapImage x:Key="PeopleIcon" UriSource="Resources/Images/Icons/people-icon.png"/>
         <BitmapImage x:Key="CancelEventIcon" UriSource="Resources/Images/Icons/cancel-event-icon.png"/>
         <BitmapImage x:Key="ReviewIcon" UriSource="Resources/Images/Icons/star-icon.png"/>
+        <BitmapImage x:Key="ReviewIconBeige" UriSource="Resources/Images/Icons/star-icon-beige.png"/>
         <BitmapImage x:Key="RescheduleIcon" UriSource="Resources/Images/Icons/reschedule-icon.png"/>
         <BitmapImage x:Key="ConfirmIcon" UriSource="Resources/Images/Icons/confirm-icon.png"/>
+        <BitmapImage x:Key="ConfirmIconBeige" UriSource="Resources/Images/Icons/confirm-icon-beige.png"/>
         <BitmapImage x:Key="CaneclIcon" UriSource="Resources/Images/Icons/cancel-icon.png"/>
         <BitmapImage x:Key="RightArrowIcon" UriSource="Resources/Images/Icons/right-arrow-icon.png"/>
         <BitmapImage x:Key="CameraIcon" UriSource="Resources/Images/Icons/camera-icon.png"/>
@@ -39,6 +42,7 @@
         <BitmapImage x:Key="RequestIcon" UriSource="Resources/Images/request.png"/>
         <BitmapImage x:Key="ReportIcon" UriSource="Resources/Images/report.png"/>
         <BitmapImage x:Key="EyeIcon" UriSource="Resources/Images/eye.png"/>
+        <BitmapImage x:Key="EyeIconBeige" UriSource="Resources/Images/eye-beige.png"/>
         <BitmapImage x:Key="BeigeHome" UriSource="Resources/Images/Icons/beige-home.png"/>
         <BitmapImage x:Key="BeigeBook" UriSource="Resources/Images/Icons/beige-book.png"/>
         <BitmapImage x:Key="BeigeBell" UriSource="Resources/Images/Icons/beige-bell.png"/>
@@ -51,6 +55,9 @@
         <BitmapImage x:Key="Stopwatch" UriSource="Resources/Images/Icons/stopwatch.png"/>
         <BitmapImage x:Key="LeftArrowIcon" UriSource="Resources/Images/Icons/left-arrow-icon.png"/>
         <BitmapImage x:Key="PointingArrowIcon" UriSource="Resources/Images/Icons/pointing-arrow-icon.png"/>
+        <BitmapImage x:Key="ClearIconBeige" UriSource="Resources/Images/Icons/clear-icon-beige.png"/>
+        <BitmapImage x:Key="FilterIconBeige" UriSource="Resources/Images/Icons/filter-icon-beige.png"/>
+        <BitmapImage x:Key="SendIconBeige" UriSource="Resources/Images/Icons/send-icon-beige.png"/>
 
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>

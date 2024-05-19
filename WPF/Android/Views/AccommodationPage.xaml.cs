@@ -43,7 +43,7 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void AddAccomodation_Click(object sender, RoutedEventArgs e) {
-            mainFrame.Content = new AddAccommodationPage(mainFrame, _user);
+            mainFrame.Content = new AddAccommodationPage(mainFrame, _user, null);
         }
 
         private void RenovationsButton_Click(object sender, RoutedEventArgs e) {
@@ -60,7 +60,8 @@ namespace BookingApp.WPF.Android.Views {
                 return;
             }
             else if (_statisticsService.IsStatisticEmpty(SelectedAccommodation.Id)) {
-                MessageBox.Show("Selected accommodation does not have any required statistic", "Selection Error", MessageBoxButton.OK);
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Selected accommodation does not have any required statistic!");
+                dialogWindow.ShowDialog();
             }
             else {
                 mainFrame.Content = new AccommodationStatisticsPage(SelectedAccommodation);
@@ -68,7 +69,18 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void GuidanceButton_Click(object sender, RoutedEventArgs e) {
+            if (_statisticsService.GetHottestAndColdestLocations(_user.Id)[0] == -1) {
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Insufficent accommodations registered on various locations to enable this feature!");
+                dialogWindow.ShowDialog();
+                return;
+            }
+            else if (_statisticsService.GetHottestAndColdestLocations(_user.Id)[0] == -2) {
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Insufficent statistics recorded to enable this feature!");
+                dialogWindow.ShowDialog();
+                return;
+            }
 
+            mainFrame.NavigationService.Navigate(new AccommodationGuidancePage(_user,mainFrame));
         }
 
         private void GeneratePdfButton_Click(object sender, RoutedEventArgs e) {

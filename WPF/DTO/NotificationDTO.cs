@@ -132,6 +132,9 @@ namespace BookingApp.WPF.DTO {
             {
                 NotificationIcon += "notification-super-icon.png";
             }
+            if (Category == NotificationCategory.Forum) {
+                NotificationIcon += "notification-super-icon.png";
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

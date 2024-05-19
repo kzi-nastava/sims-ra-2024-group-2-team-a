@@ -129,7 +129,7 @@ namespace BookingApp.WPF.Android.ViewModels {
             AccommodationReservation accommodationReservation = accReservationService.GetById(SelectedRequest.ReservationId);
 
             statisticsService.UpdatePostponedStatistics(accommodationReservation.AccommodationId, SelectedRequest.OldStartDate, 
-                SelectedRequest.OldStartDate.AddDays(SelectedRequest.Duration) , SelectedRequest.NewStartDate, SelectedRequest.NewEndDate);
+                SelectedRequest.OldStartDate.AddDays(SelectedRequest.Duration) , SelectedRequest.NewStartDate, SelectedRequest.NewEndDate, accommodationReservation.GuestsNumber);
 
             accommodationReservation.StartDate = SelectedRequest.NewStartDate;
             accommodationReservation.EndDate = SelectedRequest.NewEndDate;

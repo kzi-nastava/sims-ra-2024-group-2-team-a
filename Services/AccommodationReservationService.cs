@@ -54,7 +54,7 @@ namespace BookingApp.Services {
             int reservationsCount = _reservationRepository.CountReservationsInLastYear(newReservation.GuestId);
             _guestService.ManageGuestStatus(newReservation.GuestId, reservationsCount);
 
-            _statisticService.UpdateReservationStatisticsAndCheckDates(newReservation.AccommodationId, reservation.StartDate, reservation.EndDate);
+            _statisticService.UpdateReservationStatisticsAndCheckDates(newReservation.AccommodationId, reservation.StartDate, reservation.EndDate, reservation.GuestsNumber);
 
             return newReservation;
         }
@@ -75,7 +75,7 @@ namespace BookingApp.Services {
 
             _rescheduleService.CancelByReservationId(id);
 
-            _statisticService.UpdateCancellationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate);
+            _statisticService.UpdateCancellationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate, reservation.GuestsNumber);
         }
 
         public bool Update(AccommodationReservation accReservation) {
@@ -120,6 +120,23 @@ namespace BookingApp.Services {
         private bool CheckReservationOwner(int accommodationId, int ownerId) {
             return _accommodationService.GetById(accommodationId).OwnerId == ownerId;
         }
+
+        public bool WasVisitedByGuest(int guestId, DateTime dateTime, int locationId) {
+            foreach (var res in this.GetByGuestId(guestId)) {
+                Accommodation acc = _accommodationService.GetById(res.AccommodationId);
+
+                if (res.Cancelled == false && 
+                    res.StartDate <= DateOnly.FromDateTime(dateTime) && 
+                    acc.LocationId == locationId) {
+
+                        return true;
+                }
+
+            }
+
+            return false;
+        }
+
 
     }
 }

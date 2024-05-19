@@ -33,6 +33,8 @@ namespace BookingApp.Services {
             _services[typeof(AccommodationReviewService)] = new AccommodationReviewService(RepositoryInjector.GetInstance<IAccommodationReviewRepository>());
             _services[typeof(NotificationService)] = new NotificationService(RepositoryInjector.GetInstance<INotificationRepository>());
             _services[typeof(ComplexTourRequestService)] = new ComplexTourRequestService(RepositoryInjector.GetInstance<IComplexTourRequestRepository>());
+            _services[typeof(ForumService)] = new ForumService(RepositoryInjector.GetInstance<IForumRepository>());
+            _services[typeof(CommentService)] = new CommentService(RepositoryInjector.GetInstance<ICommentRepository>());
 
             LinkAllServices();
         }
@@ -74,11 +76,13 @@ namespace BookingApp.Services {
 
             GetService<NotificationService>().InjectServices(
                 GetService<AccommodationRescheduleRequestService>(),
-                GetService<AccommodationReservationService>()
+                GetService<AccommodationReservationService>(),
+                GetService<LocationService>()
                 );
 
             GetService<AccommodationStatisticsService>().InjectServices(
-                GetService<AccommodationReservationService>()
+                GetService<AccommodationReservationService>(),
+                GetService<AccommodationService>()
                 );
 
             GetService<OwnerService>().InjectServices(
@@ -103,6 +107,15 @@ namespace BookingApp.Services {
 
             GetService<ComplexTourRequestService>().InjectServices(
                 GetService<TourRequestService>()
+                );
+
+            GetService<ForumService>().InjectServices(
+                GetService<AccommodationService>(),
+                GetService<NotificationService>()
+                );
+
+            GetService<CommentService>().InjectServices(
+                GetService<AccommodationReservationService>()
                 );
         }
 

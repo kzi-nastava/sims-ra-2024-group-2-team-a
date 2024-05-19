@@ -2,6 +2,7 @@
 using BookingApp.Services;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -20,6 +21,8 @@ namespace BookingApp.WPF.Android.Views {
 
         public AccommodationRenovationService renovationService = ServicesPool.GetService<AccommodationRenovationService>();
 
+        public int RedIconVisibility { get; set; }
+
         private readonly User _user;
         public MainWindow(User user) {
             InitializeComponent();
@@ -31,6 +34,11 @@ namespace BookingApp.WPF.Android.Views {
 
             notificationService.CreateNotifications(_user.Id);
             renovationService.UpdateAllPendingRenovations();
+
+            if (notificationService.GetByUserId(_user.Id).Where(x => !x.IsRead).ToList().Count > 0)
+                redIcon.Visibility = Visibility.Visible;
+            else
+                redIcon.Visibility = Visibility.Hidden;
         }
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
             sideFrame.Content = new SideMenuPage(MainFrame, SideFrame, blackFrame ,_user);

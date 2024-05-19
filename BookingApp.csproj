@@ -14,14 +14,23 @@
     <None Remove="Resources\Images\Accommodations\House.jpeg" />
     <None Remove="Resources\Images\Accommodations\Hut.jpg" />
     <None Remove="Resources\Images\Accommodations\Penthouse.jpeg" />
+    <None Remove="Resources\Images\add-icon3-b.png" />
+    <None Remove="Resources\Images\android-search-icon-beige.png" />
     <None Remove="Resources\Images\android-search-icon.png" />
     <None Remove="Resources\Images\android-view-icon.png" />
+    <None Remove="Resources\Images\document-icon-beige.png" />
+    <None Remove="Resources\Images\eye-beige.png" />
     <None Remove="Resources\Images\eye.png" />
     <None Remove="Resources\Images\finish.png" />
     <None Remove="Resources\Images\default-coupon.png" />
+    <None Remove="Resources\Images\guidance-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\add-icon3-b.png" />
+    <None Remove="Resources\Images\Icons\android-alert.png" />
     <None Remove="Resources\Images\Icons\android-house-icon.png" />
     <None Remove="Resources\Images\Icons\android-inbox-icon.png" />
     <None Remove="Resources\Images\Icons\android-logout-icon.png" />
+    <None Remove="Resources\Images\Icons\android-search-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\android-view-icon-beige.png" />
     <None Remove="Resources\Images\Icons\back-white-icon.png" />
     <None Remove="Resources\Images\Icons\beige-bell.png" />
     <None Remove="Resources\Images\Icons\beige-book.png" />
@@ -36,27 +45,42 @@
     <None Remove="Resources\Images\Icons\calendar-icon.png" />
     <None Remove="Resources\Images\Icons\camera-icon.png" />
     <None Remove="Resources\Images\Icons\cancel-event-icon.png" />
+    <None Remove="Resources\Images\Icons\cancel-icon-beige.png" />
     <None Remove="Resources\Images\Icons\cancel-icon.png" />
     <None Remove="Resources\Images\Icons\chat-white-icon.png" />
+    <None Remove="Resources\Images\Icons\clear-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\confirm-icon-beige.png" />
     <None Remove="Resources\Images\Icons\confirm-icon.png" />
     <None Remove="Resources\Images\Icons\coupon.png" />
+    <None Remove="Resources\Images\Icons\document-icon-beige.png" />
     <None Remove="Resources\Images\Icons\document-icon.png" />
+    <None Remove="Resources\Images\Icons\filter-icon-beige.png" />
     <None Remove="Resources\Images\Icons\filter-icon.png" />
+    <None Remove="Resources\Images\Icons\forums-icon.png" />
     <None Remove="Resources\Images\Icons\gold-star-icon.png" />
+    <None Remove="Resources\Images\Icons\guidance-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\hamburger-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\help-beige.png" />
     <None Remove="Resources\Images\Icons\house-icon.png" />
+    <None Remove="Resources\Images\Icons\import-images-icon-beige.png" />
     <None Remove="Resources\Images\Icons\import-images-icon.png" />
     <None Remove="Resources\Images\Icons\language.png" />
     <None Remove="Resources\Images\Icons\left-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\location-icon.png" />
+    <None Remove="Resources\Images\Icons\locked-building-icon.png" />
     <None Remove="Resources\Images\Icons\logout-white-icon.png" />
     <None Remove="Resources\Images\Icons\normal-owner-icon.png" />
     <None Remove="Resources\Images\Icons\not-super-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
     <None Remove="Resources\Images\Icons\pointing-arrow-icon.png" />
+    <None Remove="Resources\Images\Icons\red-circle-icon.png" />
+    <None Remove="Resources\Images\Icons\renovation-icon-beige.png" />
     <None Remove="Resources\Images\Icons\reschedule-icon.png" />
     <None Remove="Resources\Images\Icons\right-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\scheduled-icon.png" />
     <None Remove="Resources\Images\Icons\search-white-icon.png" />
+    <None Remove="Resources\Images\Icons\send-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\star-icon-beige.png" />
     <None Remove="Resources\Images\Icons\star-icon.png" />
     <None Remove="Resources\Images\account.png" />
     <None Remove="Resources\Images\add-icon3.png" />
@@ -72,6 +96,7 @@
     <None Remove="Resources\Images\help.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\Icons\star-white-icon.png" />
+    <None Remove="Resources\Images\Icons\statistics-icon-beige.png" />
     <None Remove="Resources\Images\Icons\stopwatch.png" />
     <None Remove="Resources\Images\Icons\super-icon.png" />
     <None Remove="Resources\Images\Icons\time-icon.png" />
@@ -80,12 +105,14 @@
     <None Remove="Resources\Images\notification-request-icon.png" />
     <None Remove="Resources\Images\notification-review-icon.png" />
     <None Remove="Resources\Images\owner-icon.png" />
+    <None Remove="Resources\Images\renovation-icon-beige.png" />
     <None Remove="Resources\Images\renovation-icon.png" />
     <None Remove="Resources\Images\report.png" />
     <None Remove="Resources\Images\request.png" />
     <None Remove="Resources\Images\reservations.png" />
     <None Remove="Resources\Images\reviews.png" />
     <None Remove="Resources\Images\sheraton.jpg" />
+    <None Remove="Resources\Images\statistics-icon-beige.png" />
     <None Remove="Resources\Images\statistics-icon.png" />
     <None Remove="Resources\Images\stats.png" />
     <None Remove="Resources\Images\Tours\Buda1.jpg" />
@@ -110,6 +137,7 @@
     <None Remove="Resources\Images\Tours\Vienna6.jpg" />
     <None Remove="Resources\Images\tour_request_icon.png" />
     <None Remove="Resources\Images\trash.png" />
+    <None Remove="Resources\Images\user-icon.png" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
 
@@ -129,9 +157,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\eye-beige.png" />
+    <Resource Include="Resources\Images\Icons\add-icon3-b.png" />
+    <Resource Include="Resources\Images\Icons\android-alert.png" />
     <Resource Include="Resources\Images\Icons\android-house-icon.png" />
     <Resource Include="Resources\Images\Icons\android-inbox-icon.png" />
     <Resource Include="Resources\Images\Icons\android-logout-icon.png" />
+    <Resource Include="Resources\Images\Icons\android-search-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\android-view-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\back-white-icon.png" />
     <Resource Include="Resources\Images\Icons\beige-bell.png" />
     <Resource Include="Resources\Images\Icons\beige-book.png" />
@@ -158,28 +191,43 @@
     <Resource Include="Resources\Images\Icons\book-white-icon.png" />
     <Resource Include="Resources\Images\Icons\camera-icon.png" />
     <Resource Include="Resources\Images\default-coupon.png" />
+    <Resource Include="Resources\Images\Icons\cancel-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\cancel-icon.png" />
     <Resource Include="Resources\Images\Icons\chat-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\clear-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\confirm-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon.png" />
     <Resource Include="Resources\Images\Icons\coupon.png" />
+    <Resource Include="Resources\Images\Icons\document-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\document-icon.png" />
+    <Resource Include="Resources\Images\Icons\filter-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\filter-icon.png" />
+    <Resource Include="Resources\Images\Icons\forums-icon.png" />
     <Resource Include="Resources\Images\Icons\gold-star-icon.png" />
+    <Resource Include="Resources\Images\Icons\guidance-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\hamburger-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\help-beige.png" />
     <Resource Include="Resources\Images\Icons\house-icon.png" />
     <Resource Include="Resources\Images\Icons\calendar-icon.png" />
     <Resource Include="Resources\Images\Icons\cancel-event-icon.png" />
+    <Resource Include="Resources\Images\Icons\import-images-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\import-images-icon.png" />
     <Resource Include="Resources\Images\Icons\language.png" />
     <Resource Include="Resources\Images\Icons\left-arrow-icon.png" />
+    <Resource Include="Resources\Images\Icons\locked-building-icon.png" />
     <Resource Include="Resources\Images\Icons\logout-white-icon.png" />
     <Resource Include="Resources\Images\Icons\normal-owner-icon.png" />
     <Resource Include="Resources\Images\Icons\people-icon.png" />
     <Resource Include="Resources\Images\Icons\location-icon.png" />
     <Resource Include="Resources\Images\Icons\pointing-arrow-icon.png" />
+    <Resource Include="Resources\Images\Icons\red-circle-icon.png" />
+    <Resource Include="Resources\Images\Icons\renovation-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\reschedule-icon.png" />
     <Resource Include="Resources\Images\Icons\right-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\scheduled-icon.png" />
     <Resource Include="Resources\Images\Icons\search-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\send-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\star-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\star-icon.png" />
     <Resource Include="Resources\Images\account.png" />
     <Resource Include="Resources\Images\add-icon3.png" />
@@ -192,6 +240,7 @@
     <Resource Include="Resources\Images\help.png" />
     <Resource Include="Resources\Images\home.png" />
     <Resource Include="Resources\Images\Icons\star-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\statistics-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\stopwatch.png" />
     <Resource Include="Resources\Images\Icons\time-icon.png" />
     <Resource Include="Resources\Images\live.png" />
@@ -229,6 +278,7 @@
     <Resource Include="Resources\Images\Tours\Vienna6.jpg" />
     <Resource Include="Resources\Images\tour_request_icon.png" />
     <Resource Include="Resources\Images\trash.png" />
+    <Resource Include="Resources\Images\user-icon.png" />
   </ItemGroup>
 
   <ItemGroup>

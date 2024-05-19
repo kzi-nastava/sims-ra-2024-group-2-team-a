@@ -9,14 +9,16 @@ namespace BookingApp.Services {
 
         private AccommodationRescheduleRequestService _rescheduleRequestService;
         private AccommodationReservationService _reservationService;
+        private LocationService _locationService;
 
         public NotificationService(INotificationRepository notificationRepository) {
             _notificationRepository = notificationRepository;
         }
 
-        public void InjectServices(AccommodationRescheduleRequestService rescheduleRequestService, AccommodationReservationService reservationService) {
+        public void InjectServices(AccommodationRescheduleRequestService rescheduleRequestService, AccommodationReservationService reservationService, LocationService locationService) {
             _rescheduleRequestService = rescheduleRequestService;
             _reservationService = reservationService;
+            _locationService = locationService;
         }
 
         public void Save(Notification notification) {
@@ -56,6 +58,14 @@ namespace BookingApp.Services {
         public void SendTouristNotification(NotificationCategory category, int touristId, int tourId) {
             if(touristId != -1)
                 this.Save(new Notification(category, touristId, tourId));
+        }
+
+        public void CreateNewForumNotification(int userId, int locationId) {
+            Location loc = _locationService.GetById(locationId);
+
+            string message = $"New forum opened in {loc.Country}, {loc.City}!";
+            Notification notification = new Notification(message, NotificationCategory.Forum, userId, DateTime.Now, false);
+            this.Save(notification);
         }
     }
 }
