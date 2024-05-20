@@ -48,6 +48,14 @@ class User {
  +Category: UserCategory
 }
 
+
+enum UserCategory<<enum>>{
+Owner
+Guest
+Guide
+Tourist
+}
+
 class Owner {
     +isSuper: bool
     +averageGrade: double
@@ -72,5 +80,4 @@ AccommodationRenovation "0..*" --> "1..1" Accommodation
 User <|-- Owner
 Location "1..1" -- "0..*" Accommodation
 Owner "1..1" -- "0..*" Accommodation
-
 @enduml
