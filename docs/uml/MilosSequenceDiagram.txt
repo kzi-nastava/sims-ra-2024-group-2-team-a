@@ -13,7 +13,7 @@ SR -> RP ++: GetAll()
 RP --> SR --: tourRequests
 SR --> SR --: locationIds
 loop var locId in locationIds
- SR -> RP ++: CountRequestsByLocation()
+ SR -> RP ++: CountRequestsByLocation(locId)
  RP --> SR --: requestCount
 
 end
@@ -29,8 +29,8 @@ SR -> SR ++: GetAllLanguageIds()
 SR -> RP ++: GetAll()
 RP --> SR --: tourRequests
 SR --> SR --: languageIds
-loop var locId in languageIds
- SR -> RP ++: CountRequestsByLanguage()
+loop var lanId in languageIds
+ SR -> RP ++: CountRequestsByLanguage(lanId)
  RP --> SR --: requestCount
 
 end
