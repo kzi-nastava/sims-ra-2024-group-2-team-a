@@ -30,13 +30,7 @@ namespace BookingApp.Services {
         }
 
         public IEnumerable<ComplexTourRequest> GetByTouristId(int touristId) {
-            List<ComplexTourRequest> complexTourRequests = _complexTourRequestRepository.GetByTouristId(touristId).ToList();
-            
-            foreach (var complexRequest in complexTourRequests) {
-                complexRequest.SimpleTourRequests = _tourRequestService.GetForComplexRequest(complexRequest.Id).ToList();
-            }
-
-            return complexTourRequests;
+            return _complexTourRequestRepository.GetByTouristId(touristId);
         }
         
         private void UpdateRequestStatus() {

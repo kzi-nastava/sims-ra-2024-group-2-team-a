@@ -67,5 +67,11 @@ namespace BookingApp.Services {
             Notification notification = new Notification(message, NotificationCategory.Forum, userId, DateTime.Now, false);
             this.Save(notification);
         }
+
+        public void UpdateNotificationStatus(int notificationId) {
+            Notification notification = _notificationRepository.GetById(notificationId);
+            notification.IsRead = true;
+            _notificationRepository.Update(notification);
+        }
     }
 }
