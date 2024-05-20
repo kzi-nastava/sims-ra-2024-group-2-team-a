@@ -14,17 +14,33 @@ namespace BookingApp.Services {
         private TourRequestService _tourRequestService;
 
         public ComplexTourRequestService(IComplexTourRequestRepository complexTourRequestRepository) {
-            _complexTourRequestRepository = complexTourRequestRepository;
+            _complexTourRequestRepository = complexTourRequestRepository;         
         }
 
         public void InjectServices(TourRequestService tourRequestService) {
             _tourRequestService = tourRequestService;
+            UpdateRequestStatus();
         }
 
         public void CreateRequest(int touristId, List<TourRequestDTO> simpleRequests) {
             ComplexTourRequest complexRequest = _complexTourRequestRepository.Save(new ComplexTourRequest(touristId));
             foreach (TourRequestDTO simpleRequest in simpleRequests) {
                 _tourRequestService.CreateRequest(simpleRequest, complexRequest.Id);
+            }
+        }
+
+        public IEnumerable<ComplexTourRequest> GetByTouristId(int touristId) {
+            return _complexTourRequestRepository.GetByTouristId(touristId);
+        }
+        
+        private void UpdateRequestStatus() {
+            foreach (var complexRequestPart in _tourRequestService.GetAll().Where(r => r.ComplexTourId != 0).GroupBy(r => r.ComplexTourId)) {
+                TourRequest firstPart = complexRequestPart.First();
+                ComplexTourRequest complexTourRequest = _complexTourRequestRepository.GetById(firstPart.ComplexTourId);
+                if (firstPart.Status == TourRequestStatus.Expired) {
+                    complexTourRequest.Status = TourRequestStatus.Expired;
+                    _complexTourRequestRepository.Update(complexTourRequest);
+                }
             }
         }
     }

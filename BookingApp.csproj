@@ -41,6 +41,9 @@
     <None Remove="Resources\Images\Icons\beige-wheel.png" />
     <None Remove="Resources\Images\Icons\bin-icon.png" />
     <None Remove="Resources\Images\Icons\black-account.png" />
+    <None Remove="Resources\Images\Icons\black-book.png" />
+    <None Remove="Resources\Images\Icons\black-coupon.png" />
+    <None Remove="Resources\Images\Icons\black-request.png" />
     <None Remove="Resources\Images\Icons\book-white-icon.png" />
     <None Remove="Resources\Images\Icons\calendar-icon.png" />
     <None Remove="Resources\Images\Icons\camera-icon.png" />
@@ -188,6 +191,9 @@
     <Resource Include="Resources\Images\eye.png" />
     <Resource Include="Resources\Images\finish.png" />
     <Resource Include="Resources\Images\Icons\black-account.png" />
+    <Resource Include="Resources\Images\Icons\black-book.png" />
+    <Resource Include="Resources\Images\Icons\black-coupon.png" />
+    <Resource Include="Resources\Images\Icons\black-request.png" />
     <Resource Include="Resources\Images\Icons\book-white-icon.png" />
     <Resource Include="Resources\Images\Icons\camera-icon.png" />
     <Resource Include="Resources\Images\default-coupon.png" />
@@ -286,7 +292,10 @@
     <PackageReference Include="Jon.Wpf.CustomControls" Version="2.33.0" />
     <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
     <PackageReference Include="Syncfusion.SfInput.WPF" Version="25.2.3" />
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
   </ItemGroup>
 
   <ItemGroup>

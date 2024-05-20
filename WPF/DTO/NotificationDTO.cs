@@ -18,11 +18,38 @@ namespace BookingApp.WPF.DTO {
             IsRead = notification.IsRead;
             TourId = notification.TourId;
             SetNotificationIcon();
+            SetNotificationTitles();
         }
         public int Id { get; set; }
         public int UserId { get; set; }
 
         public NotificationCategory Category { get; set; }
+
+        private string _title;
+        public string Title {
+            get {
+                return _title;
+            }
+            set {
+                if(_title != value) {
+                    _title = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _messageHeader;
+        public string MessageHeader {
+            get {
+                return _messageHeader;
+            }
+            set {
+                if(_messageHeader != value) {
+                    _messageHeader = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public string _message;
         public string Message
@@ -117,6 +144,23 @@ namespace BookingApp.WPF.DTO {
             return notification;
         }
 
+        public void SetNotificationTitles() {
+            switch (Category) { 
+                case NotificationCategory.TourActive:
+                    Title = "Reservation";
+                    MessageHeader = "Welcome to the tour!";
+                    break;
+                case NotificationCategory.TourRequest:
+                    Title = "Request";
+                    MessageHeader = "There is a new tour that might interest you!";
+                    break;
+                default:
+                    Title = "";
+                    MessageHeader = "";
+                    break;
+            }
+        }
+
         public void SetNotificationIcon()
         {
             NotificationIcon = "../../../Resources/Images/";
@@ -134,6 +178,9 @@ namespace BookingApp.WPF.DTO {
             }
             if (Category == NotificationCategory.Forum) {
                 NotificationIcon += "notification-super-icon.png";
+            }
+            if (Category == NotificationCategory.TourActive) {
+                NotificationIcon += "Icons/black-book.png";
             }
         }
 

@@ -35,6 +35,42 @@ namespace BookingApp.WPF.DTO {
             SetLanguageTemplate(Language.Name);
         }
 
+        public TourRequestDTO(TourRequest tourRequest, int serialNumber, TourRequestStatus complexStatus) {
+            Id = tourRequest.Id;
+            TouristId = tourRequest.TouristId;
+            LocationId = tourRequest.LocationId;
+            Description = tourRequest.Description;
+            LanguageId = tourRequest.LanguageId;
+            Location = new LocationDTO(_locationService.GetById(LocationId));
+            Language = new LanguageDTO(_languageService.GetById(LanguageId));
+            StartDate = tourRequest.StartDate;
+            EndDate = tourRequest.EndDate;
+            if(complexStatus == TourRequestStatus.Expired)
+                StatusVisible = false;
+            else
+                StatusVisible = true;
+            StatusReal = tourRequest.Status;
+            Status = tourRequest.Status.ToString();
+            PassengerNumber = tourRequest.PassengerNumber;
+            CastToDateTime();
+            SetLocationTemplate(Location.City, Location.Country);
+            SetLanguageTemplate(Language.Name);
+            Title = "Destination " + serialNumber;
+        }
+
+        private bool _statusVisible;
+        public bool StatusVisible {
+            get {
+                return _statusVisible;
+            }
+            set {
+                if (_statusVisible != value) {
+                    _statusVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public int Id { get; set; }
 
         private int _touristId;
@@ -45,6 +81,19 @@ namespace BookingApp.WPF.DTO {
             set {
                 if (_touristId != value) {
                     _touristId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _title;
+        public string Title {
+            get {
+                return _title;
+            }
+            set {
+                if (_title != value) {
+                    _title = value;
                     OnPropertyChanged();
                 }
             }

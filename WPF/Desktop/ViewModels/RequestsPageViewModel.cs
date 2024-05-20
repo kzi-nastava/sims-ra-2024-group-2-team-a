@@ -22,7 +22,9 @@ namespace BookingApp.WPF.Desktop.ViewModels
         }
 
         private readonly TourRequestService _tourRequestService = ServicesPool.GetService<TourRequestService>();
+        private readonly ComplexTourRequestService _complexTourRequestService = ServicesPool.GetService<ComplexTourRequestService>();
         public ObservableCollection<TourRequestDTO> TourRequests { get; set; } = new ObservableCollection<TourRequestDTO>();
+        public ObservableCollection<ComplexTourRequestDTO> ComplexTourRequests { get; set; } = new ObservableCollection<ComplexTourRequestDTO>();
         public int UserId { get; set; }
 
         private string _filter;
@@ -42,12 +44,25 @@ namespace BookingApp.WPF.Desktop.ViewModels
         public RequestsPageViewModel(int userId) {
             UserId = userId;
             Filter = "All";
+            DisplayComplexTourRequests();
         }
 
-        public void DisplayTourRequests() {
+        private void DisplayTourRequests() {
             TourRequests.Clear();
             foreach (var tourRequest in _tourRequestService.GetFiltered(UserId, Filter)) {
                 TourRequests.Add(new TourRequestDTO(tourRequest));
+            }
+        }
+
+        private void DisplayComplexTourRequests() {
+            ComplexTourRequests.Clear();
+            int complexCounter = 0;
+            foreach(var complexRequest in _complexTourRequestService.GetByTouristId(UserId)) {
+                ComplexTourRequestDTO complexTourRequestDTO = new ComplexTourRequestDTO(complexRequest, ++complexCounter);
+                int simpleCounter = 0;
+                foreach (var simpleRequest in _tourRequestService.GetForComplexRequest(complexRequest.Id))
+                    complexTourRequestDTO.TourRequests.Add(new TourRequestDTO(simpleRequest, ++simpleCounter, complexRequest.Status));
+                ComplexTourRequests.Add(complexTourRequestDTO);
             }
         }
     }

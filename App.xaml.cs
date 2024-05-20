@@ -6,5 +6,16 @@ namespace BookingApp {
     /// </summary>
     public partial class App : Application
     {
+        public static ToastNotificationService NotificationService { get; private set; }
+
+        protected override void OnStartup(StartupEventArgs e) {
+            base.OnStartup(e);
+            NotificationService = new ToastNotificationService();
+        }
+
+        protected override void OnExit(ExitEventArgs e) {
+            NotificationService.Dispose();
+            base.OnExit(e);
+        }
     }
 }

@@ -28,18 +28,15 @@ namespace BookingApp.WPF.Desktop.Views {
             sameLocationToursWindow.ShowDialog();
         }
 
-        private void ShowNotEnoughSpaceMessage(int availableSpace) {
-            string messageBoxOutput = "There is not enought space for all!\nAvailable space: " + availableSpace.ToString();
-            MessageBox.Show(messageBoxOutput, "Title of the MessageBox", MessageBoxButton.OK);
-        }
-
         private void HandleReservationRequest(int successIndicator) {
             if (successIndicator > 0)
-                ShowNotEnoughSpaceMessage(successIndicator);
+                App.NotificationService.ShowError("There is not enought space for all!\nAvailable space: " + successIndicator.ToString());
             else if (successIndicator == -1)
                 OpenSameLocationsWindow();
-            else
+            else {
+                App.NotificationService.ShowSuccess("Reservation successful!");
                 this.Close();
+            }              
         }
 
         private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {

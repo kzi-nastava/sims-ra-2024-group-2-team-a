@@ -13,7 +13,6 @@ namespace BookingApp.Domain.Model {
         public int Id { get; set; }
         public int TouristId { get; set; }
         public TourRequestStatus Status { get; set; } = TourRequestStatus.OnHold;
-        public List<TourRequest> SimpleTourRequests { get; set; }
         public ComplexTourRequest() { }
         public ComplexTourRequest(int touristId) { 
             TouristId = touristId;

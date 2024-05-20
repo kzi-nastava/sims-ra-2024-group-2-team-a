@@ -36,11 +36,12 @@ namespace BookingApp.WPF.Desktop.Views {
         }
 
         private void AddSimpleRequestButton_Click(object sender, RoutedEventArgs e) {
-            CreateRequestWindow window = new CreateRequestWindow(UserId, ViewModel);
+            CreateRequestWindow window = new CreateRequestWindow(UserId, ViewModel);          
             window.ShowDialog();
         }
 
         private void CreateRequestButton_Click(object sender, RoutedEventArgs e) {
+            App.NotificationService.ShowSuccess("Complex tour request created successfully!");
             this.Close();
         }
     }
