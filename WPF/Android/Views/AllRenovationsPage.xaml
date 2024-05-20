@@ -70,12 +70,12 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource Header}"
                Content="All renovations: " VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="auto" Width="400" Margin="0,10,0,10"
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="auto" Width="400" Margin="0,10,0,0"
           ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
             SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -106,7 +106,7 @@
             </ListView.ItemContainerStyle>
         </ListView>
 
-        <Button Grid.Column="2" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
+        <Button Grid.Column="2" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"
             Command="{Binding ViewCommand}" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                 <Image Source="{StaticResource ViewIcon}" Height="30" Width="30"/>
@@ -114,7 +114,26 @@
             </StackPanel>
         </Button>
 
-        <Button Grid.Column="1" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
+        <Label  Grid.Row="2"
+            Grid.Column="1" Foreground="red"
+                VerticalAlignment="Top" Margin="0,0,0,0" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Content" Value=""/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=CancelButton, Path=IsEnabled}" Value="False" />
+                                <Condition Binding="{Binding SelectedRenovation.RenovationState}" Value="Pending"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Content" Value="Cancellation period expired" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        
+        <Button x:Name="CancelButton" Grid.Column="1" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"
         Command="{Binding CancelCommand}" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                 <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
