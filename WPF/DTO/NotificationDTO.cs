@@ -177,7 +177,7 @@ namespace BookingApp.WPF.DTO {
                 NotificationIcon += "notification-super-icon.png";
             }
             if (Category == NotificationCategory.Forum) {
-                NotificationIcon += "notification-super-icon.png";
+                NotificationIcon += "forums-icon.png";
             }
             if (Category == NotificationCategory.TourActive) {
                 NotificationIcon += "Icons/black-book.png";

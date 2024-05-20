@@ -12,12 +12,15 @@ namespace BookingApp.Services {
         private readonly ICommentRepository _commentRepository;
 
         private AccommodationReservationService _reservationService;
+
+        private ForumService _forumService;
         public CommentService(ICommentRepository commentRepo) {
             _commentRepository = commentRepo;
         }
 
-        public void InjectServices(AccommodationReservationService reservationService) {
+        public void InjectServices(AccommodationReservationService reservationService, ForumService forumService) {
             _reservationService = reservationService;
+            _forumService = forumService;
         }
 
         public void Save(Comment comment) {
@@ -44,13 +47,17 @@ namespace BookingApp.Services {
 
             return true;
         }
-
         public void ReportComment(int commentId) {
             Comment comment = this.GetById(commentId);
 
             comment.ReportsNum++;
 
             this.Update(comment);
+        }
+        public void SaveOwnerComment(Comment comment) {
+            _forumService.IncreaseOwnerComment(comment.ForumId);
+
+            this.Save(comment);
         }
 
     }

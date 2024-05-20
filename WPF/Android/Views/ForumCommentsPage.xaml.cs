@@ -22,16 +22,20 @@ namespace BookingApp.WPF.Android.Views {
     /// </summary>
     public partial class ForumCommentsPage : Page {
 
-        ForumCommentsViewmodel ForumCommentsViewmodel { get; set; }
-        public ForumCommentsPage(ForumDTO forumDTO, User user) {
+        public ForumCommentsViewmodel ForumCommentsViewmodel { get; set; }
+
+        private ForumsPageViewmodel _forumsPageViewmodel;
+        public ForumCommentsPage(ForumDTO forumDTO, User user, ForumsPageViewmodel forumsPageViewmodel) {
             InitializeComponent();
 
             ForumCommentsViewmodel = new ForumCommentsViewmodel(forumDTO, user);
             DataContext = ForumCommentsViewmodel;
+            _forumsPageViewmodel = forumsPageViewmodel;
         }
 
         private void PostButton_Click(object sender, RoutedEventArgs e) {
             ForumCommentsViewmodel.PostClick();
+            _forumsPageViewmodel.Update();
         }
     }
 }

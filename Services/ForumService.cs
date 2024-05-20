@@ -34,6 +34,10 @@ namespace BookingApp.Services {
         public List<Forum> GetByLocationId(int locationId) {
             return this.GetAll().Where(x => x.LocationId == locationId).ToList();
         }
+
+        public void Update(Forum forum) {
+            _forumRepository.Update(forum);
+        }
         public List<Forum> GetAllByOwnerId(int ownerId) {
             List<Forum> forums = new List<Forum>();
             List<int> locationIds = new List<int>();
@@ -82,6 +86,14 @@ namespace BookingApp.Services {
                 return true;
             }
             return false;
+        }
+        public void IncreaseOwnerComment(int forumId) {
+            Forum forum = this.GetById(forumId);
+
+            forum.OwnerCommentNum++;
+            forum.UpgradeToUsefull();
+
+            this.Update(forum);
         }
 
     }

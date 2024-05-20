@@ -23,6 +23,7 @@
     <None Remove="Resources\Images\eye.png" />
     <None Remove="Resources\Images\finish.png" />
     <None Remove="Resources\Images\default-coupon.png" />
+    <None Remove="Resources\Images\forums-icon.png" />
     <None Remove="Resources\Images\guidance-icon-beige.png" />
     <None Remove="Resources\Images\Icons\add-icon3-b.png" />
     <None Remove="Resources\Images\Icons\android-alert.png" />
@@ -161,6 +162,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\eye-beige.png" />
+    <Resource Include="Resources\Images\forums-icon.png" />
     <Resource Include="Resources\Images\Icons\add-icon3-b.png" />
     <Resource Include="Resources\Images\Icons\android-alert.png" />
     <Resource Include="Resources\Images\Icons\android-house-icon.png" />

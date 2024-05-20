@@ -39,7 +39,8 @@ namespace BookingApp.WPF.Android.ViewModels {
             CommentDTO.CreationDate = DateTime.Now;
             CommentDTO.ForumId = ForumDTO.Id;
 
-            _commentService.Save(CommentDTO.ToComment());
+            _commentService.SaveOwnerComment(CommentDTO.ToComment());
+            ForumDTO.CommentNum++;
             this.Update();
         }
     }

@@ -32,7 +32,7 @@ namespace BookingApp.WPF.Android.ViewModels
             Update();
         }
 
-        private void Update() {
+        public void Update() {
             ForumDTOs.Clear();
 
             foreach (var forum in _forumService.GetAllByOwnerId(Owner.Id)) {
