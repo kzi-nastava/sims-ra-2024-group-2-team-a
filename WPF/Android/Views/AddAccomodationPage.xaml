@@ -155,6 +155,7 @@
                 </StackPanel>
             </Button>
 
+            <Label x:Name="importLabel" Content="" Grid.Row="7" Grid.Column="2" Foreground="red" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Button x:Name="ViewButton" Style="{StaticResource DisabledButtonStyle}" Grid.Column="2" HorizontalAlignment="Center"
                     Grid.Row="7" Height="50" Width="150" Click="ViewImages_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">

@@ -73,11 +73,36 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="90"/>
                     </Grid.RowDefinitions>
+
+                    <Label  Grid.Row="1"
+                            Grid.Column="0" Grid.ColumnSpan="2" Foreground="red"
+                            VerticalAlignment="Top" Margin="0,0,0,0" HorizontalAlignment="Center">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Content" Value=""/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedReservation.IsGradedByOwner}" Value="True">
+                                        <Setter Property="Content" Value="Reservation already graded"/>
+                                    </DataTrigger>
+
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=AssignGradeButton, Path=IsEnabled}" Value="False" />
+                                            <Condition Binding="{Binding SelectedReservation.IsGradedByOwner}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Content" Value="Grade time window expired" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+
                     <Button x:Name="AssignGradeButton" Grid.Row="1"
                             Grid.Column="0" Grid.ColumnSpan="2" Width="160" Height="50" Click="AssignGradeButton_Click" 
-                            IsEnabled="{Binding SelectedReservation.CanBeGradedByOwner}"
+                            IsEnabled="{Binding SelectedReservation.CanBeGradedByOwner}" 
+                            VerticalAlignment="Bottom" Margin="0,0,0,10"
                             Style="{StaticResource DisabledButtonStyle}">
                         <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
                             <Image Source="{StaticResource ReviewIconBeige}" Height="30" Width="30"/>
@@ -85,8 +110,24 @@
                         </StackPanel>
                     </Button>
 
+                    <Label  Grid.Row="1"
+                    Grid.Column="2" Grid.ColumnSpan="2" Foreground="red"
+                    VerticalAlignment="Top" Margin="0,0,0,0" HorizontalAlignment="Center">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Content" Value=""/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedReservation.IsGradedByOwner}" Value="False">
+                                        <Setter Property="Content" Value="Grade this reservation first"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+
                     <Button x:Name="ViewGradeButton" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Width="160" Height="50" 
                             Click="ViewGradeButton_Click" IsEnabled="{Binding SelectedReservation.IsGradedByGuest}"
+                            VerticalAlignment="Bottom" Margin="0,0,0,10"
                             Style="{StaticResource DisabledButtonStyle}">
                         <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
                             <Image Source="{StaticResource EyeIconBeige}" Height="30" Width="30"/>
