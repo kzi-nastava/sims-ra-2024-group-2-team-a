@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 
@@ -41,34 +42,27 @@ namespace BookingApp.WPF.Android.Views {
                 redIcon.Visibility = Visibility.Hidden;
         }
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
-            sideFrame.Content = new SideMenuPage(MainFrame, SideFrame, blackFrame ,_user);
+            SideFrame.Content = new SideMenuPage(MainFrame, SideFrame, blackFrame ,_user);
             ShowSideFrame();
         }
         private void ShowSideFrame() {
             ThicknessAnimation animation = new ThicknessAnimation();
-            animation.From = new Thickness(-sideFrame.ActualWidth, 0, sideFrame.ActualWidth, 0);
+            animation.From = new Thickness(-SideFrame.ActualWidth, 0, SideFrame.ActualWidth, 0);
             animation.To = new Thickness(0);
             animation.Duration = TimeSpan.FromSeconds(0.4);
             animation.Completed += (s, e) => {
                 blackFrame.Content = new BlackPage();
             };
-            sideFrame.BeginAnimation(Frame.MarginProperty, animation);
+            SideFrame.BeginAnimation(Frame.MarginProperty, animation);
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e) {
-            Page currentPage = MainFrame.Content as Page;
-            if (currentPage == null)
-                return;
-
-            DoubleAnimation currentAnimation = new DoubleAnimation();
-            currentAnimation.From = 1.0;
-            currentAnimation.To = 0.0;
-            currentAnimation.Duration = TimeSpan.FromSeconds(0.3);
-            currentPage.BeginAnimation(UIElement.OpacityProperty, currentAnimation);
-
             AccommodationPage newPage = new AccommodationPage(MainFrame, _user);
             MainFrame.Content = newPage;
-            HideSideFrame();
+            if(SideFrame.Content != null)
+                HideSideFrame();
+
+            ClearNavigationHistory();
 
             DoubleAnimation newAnimation = new DoubleAnimation();
             newAnimation.From = 0.0;
@@ -77,15 +71,21 @@ namespace BookingApp.WPF.Android.Views {
             newPage.BeginAnimation(UIElement.OpacityProperty, newAnimation);
         }
 
+        private void ClearNavigationHistory() {
+            if (MainFrame.NavigationService.CanGoBack) {
+                while (MainFrame.NavigationService.RemoveBackEntry() != null) { }
+            }
+        }
+
         private void BackButton_Click(object sender, RoutedEventArgs e) {
-            Page currentPage = mainFrame.Content as Page;
+            Page currentPage = MainFrame.Content as Page;
             if (MainFrame.CanGoBack && currentPage != null) {
                 ThicknessAnimation animation = new ThicknessAnimation();
                 animation.From = new Thickness(0, 0, 0, 0);
                 animation.To = new Thickness(currentPage.ActualWidth, 0, -currentPage.ActualWidth, 0);
                 animation.Duration = TimeSpan.FromSeconds(0.15);
                 animation.Completed += (s, e) => {
-                    mainFrame.GoBack();
+                    MainFrame.GoBack();
                 };
                 currentPage.BeginAnimation(Page.MarginProperty, animation);
             }
@@ -94,22 +94,42 @@ namespace BookingApp.WPF.Android.Views {
         private void mainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e) {
             switch (e.Content as Page) {
                 case AccommodationPage: {
-                        HeaderLabel.Content = "My accommodations and statistics";
+                        AnimateLabelContentChange("My accommodations and statistics");
                         break;
                     }
                 case ReservationReviewsPage: {
-                        HeaderLabel.Content = "Reservations";
+                        AnimateLabelContentChange("Reservations and reviews");
                         break;
                     }
                 case NotificationsPage: {
-                        HeaderLabel.Content = "Inbox";
+                        AnimateLabelContentChange("Inbox");
+                        break;
+                    }
+                case AllRenovationsPage: {
+                        AnimateLabelContentChange("Renovations");
+                        break;
+                    }
+                case ForumsPage: {
+                        AnimateLabelContentChange("Forums");
                         break;
                     }
             }
         }
+        private void AnimateLabelContentChange(string newContent) {
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.From = -20;
+            animation.To = 0;
+            animation.Duration = TimeSpan.FromSeconds(0.4);
+
+            TranslateTransform transform = new TranslateTransform();
+            HeaderLabel.RenderTransform = transform;
+            HeaderLabel.RenderTransform.BeginAnimation(TranslateTransform.XProperty, animation);
+
+            HeaderLabel.Content = newContent;
+        }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e) {
-            if (sideFrame.Content == null) {
+            if (SideFrame.Content == null) {
                 HamburgerButton_Click(sender, e);
             }
             else {
@@ -127,7 +147,5 @@ namespace BookingApp.WPF.Android.Views {
             SideFrame.BeginAnimation(Frame.MarginProperty, animation);
             blackFrame.Content = null;
         }
-
-
     }
 }
