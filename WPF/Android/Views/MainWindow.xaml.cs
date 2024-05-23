@@ -15,8 +15,9 @@ namespace BookingApp.WPF.Android.Views {
     /// </summary>
     public partial class MainWindow : Window {
         public Frame MainFrame { get; set; }
-
         public Frame SideFrame { get; set; }
+
+        public Frame DemoFrame { get; set; }
 
         public NotificationService notificationService = ServicesPool.GetService<NotificationService>(); 
 
@@ -29,9 +30,11 @@ namespace BookingApp.WPF.Android.Views {
             InitializeComponent();
             MainFrame = mainFrame;
             SideFrame = sideFrame;
+            DemoFrame = demoFrame;
             _user = user;
             MainFrame.Content = new AccommodationPage(MainFrame, _user);
             SideFrame.Content = null;
+            DemoFrame.Content = null;
 
             notificationService.CreateNotifications(_user.Id);
             renovationService.UpdateAllPendingRenovations();
@@ -146,6 +149,22 @@ namespace BookingApp.WPF.Android.Views {
             };
             SideFrame.BeginAnimation(Frame.MarginProperty, animation);
             blackFrame.Content = null;
+        }
+        private void DemoButton_Click(object sender, RoutedEventArgs e) {
+            if (MainFrame.Content is IDemo && MainFrame.Content != null) {
+                DemoFrame.Content = new DemoPage(DemoFrame);
+
+                IDemo demoPage = MainFrame.Content as IDemo;
+                demoPage.StartDemo();
+            }
+        }
+
+        private void demoFrame_Navigated(object sender, NavigationEventArgs e) {
+            if (DemoFrame.Content == null) {
+                IDemo demoPage = MainFrame.Content as IDemo;
+                if(demoPage != null)
+                    demoPage.StopDemo();
+            }
         }
     }
 }

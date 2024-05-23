@@ -13,7 +13,7 @@ namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for AddAccomodationPage.xaml
     /// </summary>
-    public partial class AddAccommodationPage : Page {
+    public partial class AddAccommodationPage : Page, IDemo {
         public Frame mainFrame;
 
         private readonly User _user;
@@ -98,6 +98,13 @@ namespace BookingApp.WPF.Android.Views {
                 ViewSelectedImagesWindow viewSelectedImagesWindow = new ViewSelectedImagesWindow(AccommodationDTO);
                 viewSelectedImagesWindow.ShowDialog();
             }
+        }
+        public void StartDemo() {
+            int id;
+        }
+
+        public void StopDemo() {
+            int id;
         }
     }
 }
