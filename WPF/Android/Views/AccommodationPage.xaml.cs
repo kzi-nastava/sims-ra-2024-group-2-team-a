@@ -4,6 +4,10 @@ using BookingApp.WPF.DTO;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections.Generic;
+using System.Linq;
+using System.ComponentModel;
+
 
 namespace BookingApp.WPF.Android.Views {
     /// <summary>
@@ -19,8 +23,9 @@ namespace BookingApp.WPF.Android.Views {
         private readonly AccommodationStatisticsService _statisticsService = ServicesPool.GetService<AccommodationStatisticsService>();  
 
         private LocationService locationService = ServicesPool.GetService<LocationService>();
-        public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
 
+        private AccommodationReviewService _reviewService = ServicesPool.GetService<AccommodationReviewService>();
+        public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
         public AccommodationDTO SelectedAccommodation { get; set; }
 
         public AccommodationPage(Frame mFrame, User user) {
@@ -84,7 +89,8 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void GeneratePdfButton_Click(object sender, RoutedEventArgs e) {
-
+            PdfGenerationWindow pdfGenerationWindow = new PdfGenerationWindow(_user);
+            pdfGenerationWindow.ShowDialog();
         }
     }
 }
