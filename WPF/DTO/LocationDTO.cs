@@ -20,6 +20,12 @@ namespace BookingApp.WPF.DTO {
             Country = location.Country;
         }
 
+        public LocationDTO(LocationDTO location) {
+            Id = location.Id;
+            City = location.City;
+            Country = location.Country;
+        }
+
         public int Id { get; set; } = 0;
 
         private string _city = "";
