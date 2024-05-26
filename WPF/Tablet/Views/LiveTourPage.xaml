@@ -1,0 +1,78 @@
+﻿<Page x:Class="BookingApp.View.TabletView.LiveTourPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
+      xmlns:local="clr-namespace:BookingApp.View.TabletView"
+      mc:Ignorable="d" 
+      d:DesignHeight="726" d:DesignWidth="1024"
+      Title="LiveTourPage">
+    <Page.CommandBindings>
+        <CommandBinding x:Name="Finish" Command="cmd:RoutedCommands.Confirm" CanExecute="Finish_CanExecute" Executed="Finish_Executed"/>
+        <CommandBinding x:Name="CheckKeypoints" Command="cmd:RoutedCommands.AddPointOfInterest" CanExecute="CheckKeypoints_CanExecute" Executed="CheckKeypoints_Executed"/>
+    </Page.CommandBindings>
+    <Page.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+            
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Margin="0,10,0,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" Margin="20" BorderBrush="Black" BorderThickness="1">
+            <Border.Background>
+                <ImageBrush ImageSource="{Binding tourDTO.ProfilePictures[0]}"/>
+            </Border.Background>
+        </Border>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="{Binding tourDTO.Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="10" Text="{Binding tourDTO.LocationTemplate, StringFormat=Location: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="10" Text="{Binding tourDTO.LanguageTemplate, StringFormat=Language: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Margin="10" Text="{Binding tourDTO.CurrentTouristNumber, StringFormat=Tourists: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="10" Text="{Binding tourDTO.Duration, StringFormat=Duration: {0} hours}" FontSize="18"/>
+        </Grid>
+        <DockPanel Grid.Row="1" Grid.Column="0">
+            <Label DockPanel.Dock="Top" Content="Description:" Style="{StaticResource PageLabel}"/>
+            <Border BorderBrush="Black" BorderThickness="1" Background="{StaticResource Beige}" Padding="5" Margin="10,0,10,10">
+                <ScrollViewer>
+                    <TextBlock TextWrapping="Wrap" ScrollViewer.CanContentScroll="True" Text="{Binding tourDTO.Description}" FontSize="18"/>
+                </ScrollViewer>
+            </Border>
+        </DockPanel>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Keypoints:" Style="{StaticResource PageLabel}"/>
+            <Grid Grid.Row="1" Background="White">
+                <DataGrid x:Name="dataGrid" ItemsSource="{Binding pointOfInterestDTOs}" IsReadOnly="True" 
+          SelectionMode="Single" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="100"/>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="250"/>
+                        <DataGridCheckBoxColumn x:Name="checkPointOfInterest" Header="Checkpoint" Binding="{Binding IsChecked}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <Button x:Name="checkButton" Grid.Row="2" Content="Check Next Keypoint" Style="{StaticResource FilterButton}" Command="cmd:RoutedCommands.AddPointOfInterest"/>
+        </Grid>
+        <Button Grid.ColumnSpan="2" Grid.Row="2" x:Name="finishButton" Content="Finish" Style="{StaticResource BigButtons}" Command="cmd:RoutedCommands.Confirm"/>
+    </Grid>
+</Page>

@@ -1,0 +1,34 @@
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+
+namespace BookingApp.WPF.Tablet.Views {
+    /// <summary>
+    /// Interaction logic for GuideMainWindow.xaml
+    /// </summary>
+    public partial class GuideMainWindow : Window {
+        private int _userId;
+        private Frame _menuBarFrame { get; set; }
+        private Frame _mainFrame { get; set; }
+
+        public GuideMainWindow(int userId) {
+            InitializeComponent();
+            _mainFrame = mainFrame;
+            _menuBarFrame = menuBarFrame;
+            _userId = userId;
+
+            _mainFrame.Content = new ScheduledToursPage(_userId);
+            _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, additionalFrame, _userId);
+        }
+
+        private void Profile_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Profile_Executed(object sender, ExecutedRoutedEventArgs e) {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            this.Close();
+        }
+    }
+}

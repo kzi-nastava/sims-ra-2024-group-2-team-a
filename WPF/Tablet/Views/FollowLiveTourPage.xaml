@@ -1,0 +1,76 @@
+﻿<Page x:Class="BookingApp.WPF.Tablet.Views.FollowLiveTourPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
+      xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
+      mc:Ignorable="d" 
+            d:DesignHeight="726" d:DesignWidth="1024"
+      Title="FollowLiveTour">
+
+
+    <Page.CommandBindings>
+        <CommandBinding x:Name="Clear" Command="cmd:RoutedCommands.Clear" CanExecute="Clear_CanExecute" Executed="Clear_Executed"/>
+        <CommandBinding x:Name="Filter" Command="cmd:RoutedCommands.Filter" CanExecute="Filter_CanExecute" Executed="Filter_Executed"/>
+    </Page.CommandBindings>
+    <Page.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+            
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Height="180" BorderBrush="Black" BorderThickness="1" Margin="5,20,5,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource FilterLabel}" Content="Name:" />
+                <TextBox x:Name="textBoxName" Grid.Row="0" Grid.Column="1" Margin="20,0,20,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource FilterLabel}" Content="Number of tourists:"/>
+                <TextBox x:Name="textBoxTouristNumber" Grid.Row="1" Grid.Column="1" Margin="20,0,20,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource FilterLabel}" Content="Duration:"/>
+                <TextBox x:Name="textBoxDuration" Grid.Row="2" Grid.Column="1" Margin="20,0,20,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+
+                <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource FilterLabel}"  Content="Location:" />
+                <ComboBox x:Name="comboBoxLocation" Grid.Column="3" Grid.Row="0" Margin="20,0,20,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"
+           ItemsSource="{Binding locationDTOs}" SelectedItem="{Binding selectedLocationDTO}" DisplayMemberPath="LocationOptionTemplate"/>
+
+                <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource FilterLabel}" Content="Language:" />
+                <ComboBox x:Name="comboBoxLanguage" Grid.Column="3" Grid.Row="1" Margin="20,0,20,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"
+          ItemsSource="{Binding languageDTOs}" SelectedItem="{Binding selectedLanguageDTO}" DisplayMemberPath="LanguageOptionTemplate"/>
+
+                <Button Grid.Column="2" Grid.Row="2" x:Name="clearButton" Content="Clear" Command="cmd:RoutedCommands.Clear" Style="{StaticResource FilterButton}"/>
+                <Button Grid.Column="3" Grid.Row="2"  x:Name="filterButton" Content="Filter" Command="cmd:RoutedCommands.Filter" Style="{StaticResource FilterButton}"/>
+            </Grid>
+        </Border>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="itemsControlLiveTours" ItemsSource="{Binding tourDTOs}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:LiveTourCard/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Page>

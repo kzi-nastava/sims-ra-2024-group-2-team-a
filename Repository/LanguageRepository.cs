@@ -1,7 +1,8 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repository {
-    public class LanguageRepository : Repository<Language> {
+    public class LanguageRepository : Repository<Language>, ILanguageRepository {
 
     }
 }

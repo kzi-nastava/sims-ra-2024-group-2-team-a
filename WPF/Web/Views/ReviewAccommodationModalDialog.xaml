@@ -1,0 +1,163 @@
+﻿<UserControl x:Class="BookingApp.WPF.Web.Views.ReviewAccommodationModalDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="800"
+             HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 30 0 30">
+    
+    <UserControl.Resources>
+        <converter:ImportanceTypeToStringConverter x:Key="ImportanceTypeToStringConverter"/>
+        <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
+
+        <DataTemplate x:Key="ComboBoxItemTemplate">
+            <TextBlock Text="{Binding Converter={StaticResource ImportanceTypeToStringConverter}}"/>
+        </DataTemplate>
+
+        <Style x:Key="ImageStyle" TargetType="Image">
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        </Style>
+
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="Margin" Value="10 0 0 0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="0 10 0 10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ButtonText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+        </Style>
+
+        <Style x:Key="MainButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Border BorderBrush="{StaticResource Green}" BorderThickness="2" Width="550" CornerRadius="10" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                
+                
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="{StaticResource Green}" Grid.Row="0" BorderThickness="2" Width="550" CornerRadius="10" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Text="Review accommodation" Style="{StaticResource Title}"/>
+
+            <Grid Grid.Row="1">
+
+                <Label Grid.Row="1" FontSize="18" Content="{Binding Reservation.Accommodation.Name}" HorizontalAlignment="Left" Margin="10 10 0 10"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label HorizontalAlignment="Right" Margin="10 10 0 0">
+                        <WrapPanel>
+                            <Image Style="{StaticResource ImageStyle}" Height="20" Width="20" Source="{StaticResource CalendarIcon}"/>
+                            <TextBlock Text="{Binding Reservation.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                        </WrapPanel>
+                    </Label>
+
+                    <Label HorizontalAlignment="Right" Margin="0 10 10 10">
+                        <WrapPanel>
+                            <Image Style="{StaticResource ImageStyle}" Source="{StaticResource LocationIcon}"/>
+                            <TextBlock Text="{Binding Reservation.Accommodation.Location.LocationInfoTemplate}"/>
+                        </WrapPanel>
+                    </Label>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <ScrollViewer>
+                    <StackPanel Margin="10 0 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Owner correctness:" Style="{StaticResource LabelStyle}"/>
+                            <Label Style="{StaticResource LabelStyle}" Content="{Binding ElementName=sliderOwnerCorrectness, Path=Value}"/>
+                            <Slider  x:Name="sliderOwnerCorrectness" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True"
+                                Width="200" VerticalAlignment="Center" Margin="10 10 0 0" HorizontalAlignment="Center"
+                                Value="{Binding Review.OwnerCorrectnessGrade,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Accommodation cleanliness:" Style="{StaticResource LabelStyle}"/>
+                            <Label Style="{StaticResource LabelStyle}" Content="{Binding ElementName=sliderCleanliness, Path=Value}"/>
+                            <Slider  x:Name="sliderCleanliness" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True"
+                                Width="200" VerticalAlignment="Center" Margin="10 10 0 0" HorizontalAlignment="Center"
+                                Value="{Binding Review.AccommodationCleannessGrade,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="Your comment" Style="{StaticResource LabelStyle}"/>
+                            <TextBox TextWrapping="Wrap" Width="400" Height="100" Margin="10 0 0 0" HorizontalAlignment="Left"
+                            Text="{Binding Review.GuestComment,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Accommodation photos" Style="{StaticResource LabelStyle}"/>
+                            <Button x:Name="buttonUpload" Margin="10" HorizontalAlignment="Left" Cursor="Hand" Click="ButtonUploadClick">
+                                <WrapPanel Margin="5">
+                                    <Image Style="{StaticResource ImageStyle}" Source="{StaticResource CameraIcon}"/>
+                                    <TextBlock Text="Upload"/>
+                                </WrapPanel>
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox x:Name="checkBoxRequiresRenovation" Margin="10 0 0 0" VerticalAlignment="Center"
+                                      IsChecked="{Binding Review.RequiresRenovation, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                      Unchecked="CheckBoxRequiresRenovationUnchecked"/>
+                            <Label Content="Requires renovation" Style="{StaticResource LabelStyle}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0 10 0 0" Orientation="Horizontal" IsEnabled="{Binding ElementName=checkBoxRequiresRenovation, Path=IsChecked}">
+                            <Label Content="Renovation importance" Style="{StaticResource LabelStyle}"/>
+                            <ComboBox x:Name="comboBoxRenovationImportance" SelectedIndex="0" Width="200" Margin="10 0 0 0"
+                                      ItemsSource="{Binding ImportanceTypes}"
+                                      SelectedValue="{Binding Review.Importance, Mode=OneWayToSource}"
+                                      ItemTemplate="{StaticResource ComboBoxItemTemplate}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" IsEnabled="{Binding ElementName=checkBoxRequiresRenovation, Path=IsChecked}">
+                            <Label Content="Renovation comment" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="textBoxRenovationComment" TextWrapping="Wrap" Width="400" Height="100" Margin="10 0 0 0" HorizontalAlignment="Left"
+                                     Text="{Binding Review.RenovationComment, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <Button x:Name="buttonCancel" Grid.Row="3" Margin="10" HorizontalAlignment="Left" Click="ButtonCancelClick" Style="{StaticResource MainButton}">
+                <WrapPanel Margin="10">
+                    <Image Style="{StaticResource ImageStyle}" Source="{StaticResource CaneclIcon}"/>
+                    <TextBlock Text="Cancel" Style="{StaticResource ButtonText}"/>
+                </WrapPanel>
+            </Button>
+
+            <Button Grid.Row="3" Margin="10" HorizontalAlignment="Right" Click="ButtonConfirmClick" Style="{StaticResource MainButton}">
+                <WrapPanel Margin="10">
+                    <Image Style="{StaticResource ImageStyle}" Source="{StaticResource ConfirmIcon}"/>
+                    <TextBlock Text="Confirm" Style="{StaticResource ButtonText}"/>
+                </WrapPanel>
+            </Button>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,124 @@
+﻿<Window x:Class="BookingApp.WPF.Android.Views.AssignGradeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
+        xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
+        mc:Ignorable="d"
+        Title="AssignGradeWindow" Height="460" Width="350"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
+        <Style TargetType="Button" x:Key="DisabledButtonStyle">
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5a8c6b"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Background" Value="{StaticResource Green}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+    </Window.Resources>
+    <Grid Background="{StaticResource Beige}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Reservation info:" Style="{StaticResource Header}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               HorizontalAlignment="Center" FontWeight="Bold" Background="{StaticResource Green}" Padding="3" VerticalAlignment="Center"/>
+        <TextBlock Text="{Binding AccReservationDTO.Accommodation.Name}" Grid.Column="0" Grid.Row="1" FontSize="16"  HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="12" HorizontalAlignment="Center">
+                <Run Text="{Binding AccReservationDTO.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                <Run Text=" - "/>
+                <Run Text="{Binding AccReservationDTO.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+        </TextBlock>
+        <TextBlock Text="{Binding GuestUsername}" Grid.Column="0" Grid.Row="2" FontSize="16" HorizontalAlignment="Center"/>
+        <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"/>
+
+        <StackPanel  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Cleanness Grade: " FontSize="14" FontFamily="Global Sans Serif" HorizontalAlignment="Center" />
+            <Label Content="{Binding ElementName=SliderCleanness, Path=Value}" HorizontalAlignment="Center" />
+        </StackPanel>
+
+        <Slider x:Name="SliderCleanness" Grid.Row="3" Value="{Binding ReviewDTO.GuestCleannessGrade,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True"
+                Width="200" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="14" Grid.Column="0" 
+                Grid.ColumnSpan="2" HorizontalAlignment="Center" FontFamily="Global Sans Serif"/>
+
+        <StackPanel  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Rule Following Grade: " FontSize="14" HorizontalAlignment="Center" FontFamily="Global Sans Serif"/>
+            <Label Content="{Binding ElementName=SliderRuleFollowing, Path=Value}" HorizontalAlignment="Center" />
+        </StackPanel>
+
+        <Slider  x:Name="SliderRuleFollowing" Grid.Row="4" Value="{Binding ReviewDTO.RuleFollowingGrade,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True"
+                Width="200" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="14" Grid.Column="0" Grid.ColumnSpan="2"
+                HorizontalAlignment="Center" FontFamily="Global Sans Serif"/>
+
+        <Label Grid.Row="5" Content="Additional Comments: " FontSize="14" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontFamily="Global Sans Serif"/>
+        <TextBox Grid.Row="6" Text="{Binding ReviewDTO.OwnerComment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="13" Grid.Column="0" Grid.ColumnSpan="2" Width="250" Height="50"  HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Global Sans Serif"/>
+
+        <Button x:Name="CancelButton" Grid.Row="7" Height="50" Width="130" Click="CancelButton_Click" Style="{StaticResource DisabledButtonStyle}">
+            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
+                <Label Content="Cancel" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="DoneButton" Grid.Row="7" Grid.Column="1" Height="50" Width="130" Click="DoneButton_Click" Style="{StaticResource DisabledButtonStyle}">
+            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
+                <Label Content="Confirm" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>

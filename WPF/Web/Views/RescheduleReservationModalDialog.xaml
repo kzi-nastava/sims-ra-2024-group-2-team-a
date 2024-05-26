@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="BookingApp.WPF.Web.Views.RescheduleReservationModalDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
+             xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="230" d:DesignWidth="800"
+             HorizontalAlignment="Center" VerticalAlignment="Center">
+
+    <UserControl.Resources>
+        <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
+
+        <Style x:Key="ImageStyle" TargetType="Image">
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        </Style>
+
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="0 10 0 10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ButtonText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Border BorderBrush="{StaticResource Green}" BorderThickness="2" Width="350" CornerRadius="10" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="{StaticResource Green}" Grid.Row="0" BorderThickness="2" Width="350" CornerRadius="10" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Text="Reschedule reservation date" Style="{StaticResource Title}"/>
+
+
+            <Label Grid.Row="1" FontSize="18" Content="{Binding Reservation.Accommodation.Name}" HorizontalAlignment="Left" Margin="10 10 0 10"/>
+
+            <Label Grid.Row="1" HorizontalAlignment="Right" Margin="0 10 10 10">
+                <WrapPanel>
+                    <Image Style="{StaticResource ImageStyle}" Source="{StaticResource LocationIcon}"/>
+                    <TextBlock Text="{Binding Reservation.Accommodation.Location.LocationInfoTemplate}"/>
+                </WrapPanel>
+            </Label>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Margin="10 5 0 0">
+                    <WrapPanel>
+                        <Image Style="{StaticResource ImageStyle}" Height="20" Width="20" Source="{StaticResource CalendarIcon}"/>
+                        <TextBlock FontSize="15" Text="{Binding Reservation.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                    </WrapPanel>
+                </Label>
+
+                <Image Grid.Column="1" Style="{StaticResource ImageStyle}" Source="{StaticResource PointingArrowIcon}" Width="32" Height="32"
+                       VerticalAlignment="Top" Margin="10 5 10 0"/>
+
+                <DatePicker x:Name="dataPickerNewDate" SelectedDate="{Binding NewDate, Mode=OneWayToSource}" Grid.Column="3" Margin="10 10 10 30" VerticalContentAlignment="Center"/>
+
+            </Grid>
+
+            <Button x:Name="buttonCancel" Grid.Row="3" Margin="10" HorizontalAlignment="Left" Click="ButtonCancelClick">
+                <WrapPanel Margin="10">
+                    <Image Style="{StaticResource ImageStyle}" Source="{StaticResource CaneclIcon}"/>
+                    <TextBlock Text="Cancel" Style="{StaticResource ButtonText}"/>
+                </WrapPanel>
+            </Button>
+
+            <Button Grid.Row="3" Margin="10" HorizontalAlignment="Right" Click="ButtonConfirmClick">
+                <WrapPanel Margin="10">
+                    <Image Style="{StaticResource ImageStyle}" Source="{StaticResource ConfirmIcon}"/>
+                    <TextBlock Text="Confirm" Style="{StaticResource ButtonText}"/>
+                </WrapPanel>
+            </Button>
+
+        </Grid>
+    </Border>
+</UserControl>

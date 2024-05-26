@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="BookingApp.WPF.Web.Views.AccommodationCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="UserControlLoaded"
+             Cursor="Hand"
+             Margin="5 5 5 5">
+
+    <UserControl.Resources>
+
+        <Style TargetType="local:AccommodationCard">
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.1" Duration="0:0:0.15"/>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.1" Duration="0:0:0.15"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1" Duration="0:0:0.15"/>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1" Duration="0:0:0.15"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Image">
+            <Setter Property="Height" Value="16" />
+            <Setter Property="Width" Value="16" />
+            <Setter Property="Margin" Value="0 10 0 0"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="10 10 0 0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        
+    </UserControl.Resources>
+    
+    <Border x:Name="borderCorner" Margin="5 5 5 5" Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" Width="350" CornerRadius="10">
+        <Grid MouseLeftButtonDown="AccommodationCardClick">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="138"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border x:Name="borderHeader" Background="{StaticResource SoftGreen}" Grid.ColumnSpan="2" Grid.Row="0" BorderThickness="2" Width="350" CornerRadius="10" HorizontalAlignment="Center">
+                <TextBlock Grid.Row="0" FontSize="18" Foreground="Black" Margin="0 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Accommodation.Name}" FontWeight="DemiBold"/>
+            </Border>
+
+            <Border Grid.Column="0" Grid.Row="1" Height="128" Width="128" CornerRadius="10" Margin="10 0 0 0">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding Accommodation.ProfilePictures[0]}" Stretch="Fill"/>
+                </Border.Background>
+            </Border>
+
+            <Grid Grid.Column="1" Grid.Row="1" Margin="10 0 0 10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource LocationIcon}"/>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding Accommodation.Location.LocationInfoTemplate}"/>
+                    </StackPanel>
+                </Label>
+
+                <Label Grid.Row="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource HouseIcon}"/>
+                        <TextBlock Text="{Binding Accommodation.Type}"/>
+                    </StackPanel>
+                </Label>
+
+                <Label Grid.Row="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource CalendarIcon}"/>
+                        <TextBlock Text="{Binding Accommodation.MinReservationDays, StringFormat=Minimum days: {0}}"/>
+                    </StackPanel>
+                </Label>
+
+                <Label Grid.Row="3">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource PeopleIcon}"/>
+                        <TextBlock Text="{Binding Accommodation.MaxGuestNumber, StringFormat=Capacity: {0}}"/>
+                    </StackPanel>
+                </Label>
+                
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

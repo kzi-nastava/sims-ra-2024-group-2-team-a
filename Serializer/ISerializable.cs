@@ -1,5 +1,4 @@
-﻿namespace BookingApp.Serializer
-{
+﻿namespace BookingApp.Serializer {
     public interface ISerializable
     {
         string[] ToCSV();

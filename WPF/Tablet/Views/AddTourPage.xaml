@@ -1,0 +1,106 @@
+﻿<Page x:Class="BookingApp.WPF.Tablet.Views.AddTourPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
+      xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="726" d:DesignWidth="1024"
+      Title="AddTour">
+    <Page.CommandBindings>
+        <CommandBinding x:Name="Reset" Command="cmd:RoutedCommands.Cancel" CanExecute="Reset_CanExecute" Executed="Reset_Executed"/>
+        <CommandBinding x:Name="Confirm" Command="cmd:RoutedCommands.Confirm" CanExecute="Confirm_CanExecute" Executed="Confirm_Executed"/>
+        <CommandBinding x:Name="AddDateTime" Command="cmd:RoutedCommands.AddDateTime" CanExecute="AddDateTime_CanExecute" Executed="AddDateTime_Executed"/>
+        <CommandBinding x:Name="AddPointOfInterest" Command="cmd:RoutedCommands.AddPointOfInterest" CanExecute="AddPointOfInterest_CanExecute" Executed="AddPointOfInterest_Executed"/>
+        <CommandBinding x:Name="AddPictures" Command="cmd:RoutedCommands.AddPictures" CanExecute="AddPictures_CanExecute" Executed="AddPictures_Executed"/>
+    </Page.CommandBindings>
+    <Page.Resources>
+        <ResourceDictionary Source="../tabletstyles.xaml">
+            
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Name:" />
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="20,0,20,0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Name}"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Description:" />
+        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="1" Grid.Column="1" Margin="20,0,20,0" Height="50" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Description}"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Max Tourists:"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.MaxTouristNumber}"/>
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Duration:" />
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Duration}"/>
+
+        <Label Grid.Row="6" Grid.Column="0" Content="Photos:"/>
+        <Button x:Name="pickPhotosButton" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Command="cmd:RoutedCommands.AddPictures">
+            <StackPanel Orientation="Horizontal" Margin="0,0,30,0">
+                <Label VerticalAlignment="Center" FontSize="20" FontStyle="Italic" FontWeight="Thin" Margin="20,0,20,0">Pick photos from galery</Label>
+                <Image Source="{StaticResource Add2Icon}" Width="40" Height="40" />
+            </StackPanel>
+        </Button>
+
+        <Label Grid.Row="0" Grid.Column="2" Content="Location:"/>
+        <ComboBox x:Name="comboBoxLocation" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,30,0,0" Width="200" ItemsSource="{Binding locationDTOs}" SelectedItem="{Binding selectedLocationDTO, Mode=OneWayToSource}" DisplayMemberPath="LocationOptionTemplate"/>
+
+        <Label Grid.Row="2" Grid.Column="2" Content="Language:"/>
+        <ComboBox x:Name="comboBoxLanguage" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,30,0,0" Width="100" ItemsSource="{Binding languageDTOs}" SelectedItem="{Binding selectedLanguageDTO, Mode=OneWayToSource}"  DisplayMemberPath="LanguageOptionTemplate"/>
+
+        <Label Grid.Row="3"  Grid.Column="0" Content="Dates and Time:"/>
+        <Grid Background="White" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1"  Margin="20">
+            <DataGrid x:Name="dataGridDate" ItemsSource="{Binding begginings}" IsReadOnly="True" 
+      SelectionMode="Single" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Date and Time" Binding="{Binding }" Width="200"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="deleteDateTime" Style="{StaticResource SmallButtons}" Content="Delete" Click="deleteDateTime_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="addDateTime" Style="{StaticResource SmallButtons}" Content="Add" Command="cmd:RoutedCommands.AddDateTime"/>
+        </Grid>
+
+        <Label Grid.Row="4"  Grid.Column="2" Margin="0,0,20,20" Content="Keypoints:"/>
+        <Grid Background="White" Grid.Row="4" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="2"  Margin="10,50,10,10">
+            <DataGrid x:Name="dataGrid" ItemsSource="{Binding pointOfInterestDTOs}" IsReadOnly="True" 
+              SelectionMode="Single" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="100"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="250"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="deletePointOfInterestButton" Style="{StaticResource SmallButtons}" Content="Delete" Click="deletePointOfInterestButton_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="addPointOfInterestButton" Style="{StaticResource SmallButtons}" Content="Add" Command="cmd:RoutedCommands.AddPointOfInterest" />
+        </Grid>
+
+        <Button x:Name="resetButton" Style="{StaticResource BigButtons}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Reset" Command="cmd:RoutedCommands.Cancel"/>
+        <Button x:Name="confirmButton" Style="{StaticResource BigButtons}" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Content="Confirm" Command="cmd:RoutedCommands.Confirm"/>
+    </Grid>
+</Page>
