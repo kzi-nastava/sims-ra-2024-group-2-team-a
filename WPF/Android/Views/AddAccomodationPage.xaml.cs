@@ -8,12 +8,14 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for AddAccomodationPage.xaml
     /// </summary>
-    public partial class AddAccommodationPage : Page {
+    public partial class AddAccommodationPage : Page, IDemo {
         public Frame mainFrame;
 
         private readonly User _user;
@@ -98,6 +100,101 @@ namespace BookingApp.WPF.Android.Views {
                 ViewSelectedImagesWindow viewSelectedImagesWindow = new ViewSelectedImagesWindow(AccommodationDTO);
                 viewSelectedImagesWindow.ShowDialog();
             }
+        }
+
+        private DispatcherTimer _timer;
+        private int _currentFieldIndex;
+        private AccommodationDTO tempAccommodationDTO;
+        private LocationDTO tempSelectedLocation;
+        public void StartDemo() {
+            _currentFieldIndex = 0;
+
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += Timer_Tick;
+            _timer.Start();
+
+            tempAccommodationDTO = new AccommodationDTO(AccommodationDTO);
+            if(SelectedLocationDTO != null)
+                tempSelectedLocation = new LocationDTO(SelectedLocationDTO);
+        }
+        private void Timer_Tick(object sender, EventArgs e) {
+            switch (_currentFieldIndex) {
+                case 0:
+                    AccommodationDTO.Name = "Villa Kamenica";
+                    break;
+                case 1:
+                    SelectedLocationDTO = LocationDTOs[0];
+                    comboBox.SelectedItem = SelectedLocationDTO;
+                    break;
+                case 2:
+                    AccommodationDTO.MaxGuestNumber = 2;
+                    break;
+                case 3:
+                    AccommodationDTO.MinReservationDays = 5;
+                    break;
+                case 4:
+                    AccommodationDTO.LastCancellationDay = 2;
+                    break;
+                case 5:
+                    AccommodationDTO.Type = AccommodationType.house;
+                    break;
+                case 6:
+                    SimulateButtonClickAppearance(ImportButton);
+                    ConfirmButton.IsEnabled = true;
+                    break;
+                case 7:
+                    SimulateButtonClickAppearance(ConfirmButton);
+                    ConfirmButton.IsEnabled = false;
+                    break;
+                case 8:
+                    DemoReset();
+                    break;
+            }
+
+            _currentFieldIndex++;
+            if (_currentFieldIndex > 8) 
+            {
+                _currentFieldIndex = 0;
+            }
+        }
+        private void DemoReset() {
+            AccommodationDTO.Name = "";
+            AccommodationDTO.MaxGuestNumber = 1;
+            AccommodationDTO.MinReservationDays = 1;
+            AccommodationDTO.LastCancellationDay = 1;
+            AccommodationDTO.Type = AccommodationType.apartment;
+
+            SelectedLocationDTO = null;
+            comboBox.SelectedItem = SelectedLocationDTO;
+        }
+        private void SimulateButtonClickAppearance(Button button) {
+            var brushConverter = new BrushConverter();
+            button.Background = (Brush)brushConverter.ConvertFromString("#5a8c6b");
+            button.BorderBrush = Brushes.DarkGray; 
+
+            DispatcherTimer revertTimer = new DispatcherTimer {
+                Interval = TimeSpan.FromMilliseconds(200)
+            };
+            revertTimer.Tick += (s, e) => {
+                button.ClearValue(Button.BackgroundProperty);
+                button.ClearValue(Button.BorderBrushProperty); 
+                revertTimer.Stop();
+            };
+            revertTimer.Start();
+        }
+
+        public void StopDemo() {
+            AccommodationDTO.Name = tempAccommodationDTO.Name;
+            AccommodationDTO.MaxGuestNumber = tempAccommodationDTO.MaxGuestNumber;
+            AccommodationDTO.MinReservationDays = tempAccommodationDTO.MinReservationDays;
+            AccommodationDTO.LastCancellationDay = tempAccommodationDTO.LastCancellationDay;
+            AccommodationDTO.Type = tempAccommodationDTO.Type;
+
+            SelectedLocationDTO = tempSelectedLocation;
+            comboBox.SelectedItem = SelectedLocationDTO;
+
+            _timer.Stop();
         }
     }
 }

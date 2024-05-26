@@ -45,9 +45,9 @@
                 </Grid.RowDefinitions>
 
                 <Border Grid.Row="0" BorderBrush="Black" BorderThickness="0,0,0,1">
-                    <Grid>
+                    <Grid Background="{StaticResource SoftGreen}">
                         <StackPanel Orientation="Vertical" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <Label Content="{Binding ForumDTO.Title}" Style="{StaticResource Header}"/>
+                            <Label Content="{Binding ForumDTO.Title}" Style="{StaticResource Header}" BorderBrush="Transparent"/>
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource LocationIcon}" Height="25" Width="25"/>
                                 <Label Content="{Binding ForumDTO.Location.LocationInfoTemplate}" FontFamily="Global sans serif" FontSize="14"/>
@@ -83,7 +83,7 @@
                     </ItemsControl>
                 </ScrollViewer>
 
-                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="0,1,0,0">
+                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="0,1,0,0" Background="{StaticResource SoftGreen}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -94,7 +94,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Header}" VerticalContentAlignment="Center"
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Header}" VerticalContentAlignment="Center" BorderBrush="Transparent"
                                Padding="0" FontSize="18" Content="Express your opinion:" Width="180" HorizontalAlignment="Left" Margin="10,0,0,0"/>
 
                         <TextBox Grid.Row="1" Margin="10,5,10,5" Text="{Binding CommentDTO.Text}"/>

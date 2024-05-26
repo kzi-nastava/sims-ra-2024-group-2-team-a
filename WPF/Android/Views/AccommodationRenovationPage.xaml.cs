@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -21,7 +22,7 @@ namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for AccommodationRenovationPage.xaml
     /// </summary>
-    public partial class AccommodationRenovationPage : Page {
+    public partial class AccommodationRenovationPage : Page, IDemo {
         public AccommodationRenovationViewmodel AccommodationRenovationViewmodel { get; set; }
         public AccommodationRenovationPage(AccommodationDTO accommodationDTO, Frame mainFrame) {
             InitializeComponent();
@@ -33,6 +34,14 @@ namespace BookingApp.WPF.Android.Views {
         }
         private void SearchButton_Click(object sender, RoutedEventArgs e) {
             AccommodationRenovationViewmodel.SearchButton();
+        }
+
+        public void StartDemo() {
+            AccommodationRenovationViewmodel.StartDemo();
+        }
+
+        public void StopDemo() {
+            AccommodationRenovationViewmodel.StopDemo();
         }
     }
 }
