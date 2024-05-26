@@ -1,0 +1,23 @@
+@startuml
+skinparam packageStyle rectangle
+
+actor Owner as o
+actor Guest as g
+
+rectangle BookingApp {
+  usecase "Forum closing" as FClosing
+  usecase "New forum notification" as N
+  usecase "Forum creation" as FCreation
+  usecase "Commenting" as C
+  usecase "Reporting comment" as RC
+
+  FCreation .> N : includes
+  FCreation .> C: includes
+}
+
+g -- FClosing
+g -- FCreation
+g -- C
+o -- C
+o -- RC
+@enduml

@@ -1,0 +1,27 @@
+Forum creation
+	Precondition: None
+	Postcondition: Comment is visible to other guests and owners
+
+	1. The guest selects the location to which the new forum should be related to
+	2. The guest types subject of the forum
+	3. The guest types the first comment on that forum
+	4. The guest submits inputted data and the forum gets created
+	5. All owners that have at least one accommodation on that location get notified
+
+
+Forum closing
+	Precondition: Forum must be open by the guest
+	Postcondition: Nobody can comment on closed forum, but it is still visible
+
+	1. The guest searches forums that he/she has created
+	2. The guest chooses forum that he/she wants to close
+	2. The guest closes the forum
+
+
+Reporting comment
+	Precondition: Owner must have at least one accommodation on a location that the forum is related to
+	Postcondition: Comment is marked as reported (report counter is incremented)
+
+	1. The owner searches forum comments
+	2. The owner sees that some comments can be reported
+	3. The owner reports comments from guest that he/she thinks are misleading or false
