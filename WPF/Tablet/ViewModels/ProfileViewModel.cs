@@ -26,13 +26,45 @@ namespace BookingApp.WPF.Tablet.ViewModels
         private readonly TourReservationService _tourReservationService = ServicesPool.GetService<TourReservationService>();
         private readonly GuideService _guideService = ServicesPool.GetService<GuideService>();
         private readonly UserService _userSerService = ServicesPool.GetService<UserService>();
+        private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
+        private readonly TourReviewService _tourReviewService = ServicesPool.GetService<TourReviewService>();
         public GuideProfileDTO guideProfileDTO { get; set; }
-        public ProfileViewModel() {
-
-        }
         public ProfileViewModel(int guideId) {
             _guideId = guideId;
             guideProfileDTO = new GuideProfileDTO(_guideService.GetById(_guideId));
+        }
+        public void Update() {
+            /*if (DateTime.Now.Year == DateTime.Now.AddDays(-1).Year)
+                        return;                                                             NEKI USLOV
+        */
+            if (guideProfileDTO.IsSuper)
+                return;
+
+
+            double maxScore = 0;
+            foreach (var lan in _languageService.GetAll()) {
+                List<Tour> tours = _tourService.GetFinishedByLanguage(_guideId, lan);
+                if (tours.Count < 20)
+                    continue;
+
+                double avgScore = _tourReviewService.GetAvrageScore(tours);
+
+                if (maxScore < avgScore)
+                    maxScore = avgScore;
+
+                if (avgScore > 4.0 && maxScore <= avgScore) {
+                    guideProfileDTO.IsSuper = true;
+                    guideProfileDTO.Score = maxScore;
+                    guideProfileDTO.LanguageId = lan.Id;
+                    _guideService.Update(guideProfileDTO.ToModel());
+                }
+            }
+            if (maxScore <= 4.0) {
+                guideProfileDTO.LanguageId = -1;
+                guideProfileDTO.IsSuper = false;
+                guideProfileDTO.Score = maxScore;
+                _guideService.Update(guideProfileDTO.ToModel());
+            }
         }
 
         public void Quit() {

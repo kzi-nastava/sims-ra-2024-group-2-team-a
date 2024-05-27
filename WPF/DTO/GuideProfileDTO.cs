@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,10 +12,13 @@ namespace BookingApp.WPF.DTO
 {
     public class GuideProfileDTO : INotifyPropertyChanged
     {
+
+        private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
         public GuideProfileDTO() { }
-        public GuideProfileDTO(string name, string surname, double score, bool isSuper) {
+        public GuideProfileDTO(string name, string surname, int languageId, double score, bool isSuper) {
             Name = name;
             Surname = surname;
+            LanguageId = languageId;
             Score = score;
             IsSuper = isSuper;
         }
@@ -22,6 +26,8 @@ namespace BookingApp.WPF.DTO
             Id=g.Id;
             Name = g.Name;
             Surname = g.Surname;
+            LanguageId = g.LanguageId;
+            SetLanguageTemplate();
             Score = g.Score;
             IsSuper = g.IsSuper;
         }
@@ -64,6 +70,28 @@ namespace BookingApp.WPF.DTO
                 }
             }
         }
+        public void SetLanguageTemplate() {
+            if (_languageId == -1) {
+                LanguageTemplate = "Not enough tours";
+                return;
+            }
+            LanguageTemplate = _languageService.GetById(_languageId).Name;
+        }
+        public String LanguageTemplate { get; set; }
+
+        private int _languageId;
+        public int LanguageId {
+            get {
+                return _languageId;
+            }
+            set {
+                if (_languageId != value) {
+                    _languageId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private double _score;
         public double Score {
             get {
@@ -87,6 +115,10 @@ namespace BookingApp.WPF.DTO
                     OnPropertyChanged();
                 }
             }
+        }
+
+        public Guide ToModel() {
+            return new Guide(Id, Name, Surname, LanguageId, Score, IsSuper);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

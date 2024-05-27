@@ -9,11 +9,20 @@ namespace BookingApp.Domain.Model
     public class Guide : User{
         public string Name { get; set; }
         public string Surname { get ; set; }
+        public int LanguageId { get; set; }
         public double Score { get; set; } = 0.0;
         public bool IsSuper { get; set; } = false;
 
         public Guide() {
             Category = UserCategory.Guide;
+        }
+        public Guide(int id, string name, string surname, int languageId, double score, bool isSuper) {
+            Id = id;
+            Name = name;
+            Surname = surname;
+            LanguageId = languageId;
+            Score = score;
+            IsSuper = isSuper;
         }
 
         public override string[] ToCSV() {
@@ -21,6 +30,7 @@ namespace BookingApp.Domain.Model
                 Id.ToString(),
                 Name,
                 Surname,
+                LanguageId.ToString(),
                 Score.ToString(),
                 IsSuper.ToString()
             };
@@ -31,8 +41,9 @@ namespace BookingApp.Domain.Model
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
             Surname = values[2];
-            Score = Convert.ToDouble(values[3]);
-            IsSuper = Convert.ToBoolean(values[4]);
+            LanguageId = Convert.ToInt32(values[3]);         
+            Score = Convert.ToDouble(values[4]);
+            IsSuper = Convert.ToBoolean(values[5]);
         }
     }
 }
