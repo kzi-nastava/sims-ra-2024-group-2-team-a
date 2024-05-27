@@ -15,13 +15,20 @@ Forum closing
 
 	1. The guest searches forums that he/she has created
 	2. The guest chooses forum that he/she wants to close
-	2. The guest closes the forum
+	3. The guest closes the forum
 
 
 Reporting comment
-	Precondition: Owner must have at least one accommodation on a location that the forum is related to
+	Precondition: Owner must have at least one accommodation on a location that the forum is related to, forum must be selected
 	Postcondition: Comment is marked as reported (report counter is incremented)
 
-	1. The owner searches forum comments
-	2. The owner sees that some comments can be reported
-	3. The owner reports comments from guest that he/she thinks are misleading or false
+	1. The owner sees that some comments can be reported
+	2. The owner reports comments from guest that he/she thinks are misleading or false
+
+(Un)popular locatons:
+	Precondition: owner must have enough accommodations on various locations
+	Postcondition: owner can add or close accommodations
+
+	...
+
+	
