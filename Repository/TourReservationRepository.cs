@@ -21,5 +21,10 @@ namespace BookingApp.Repository {
             _serializer.ToCSV(_items);
             return true;
         }
+        public List<TourReservation> GetByTours(List<Tour> tours) {
+            _items = _serializer.FromCSV();
+            return _items.FindAll(x => tours.Select(y => y.Id).Contains(x.TourId));
+        }
+
     }
 }

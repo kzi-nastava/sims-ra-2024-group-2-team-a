@@ -90,6 +90,10 @@ namespace BookingApp.Services {
             return _tourReservationRepository.GetByTourId(tourId).ToList();
         }
 
+        public List<TourReservation> GetByTours(List<Tour> tours) {
+            return _tourReservationRepository.GetByTours(tours).ToList();
+        }
+
         public TourReservation GetByTourAndTourist(int tourId, int touristId) {
             return _tourReservationRepository.GetByTourAndTourist(tourId, touristId);
         }

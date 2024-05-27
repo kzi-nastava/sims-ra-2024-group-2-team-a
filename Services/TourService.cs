@@ -165,7 +165,12 @@ namespace BookingApp.Services {
         public void SendTouristsTourNotifications(Tour tour) {
 
         }
-
+        public bool DeleteMultiple(List<Tour> tours) {
+            foreach (Tour tour in tours) {
+                if(!Delete(tour)) return false;
+            }
+            return true;
+        }
         public bool Delete(Tour tour) => _tourRepository.Delete(tour);
         public bool Update(Tour tour) {
             return _tourRepository.Update(tour);
