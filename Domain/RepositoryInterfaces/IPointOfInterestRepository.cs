@@ -7,5 +7,7 @@ namespace BookingApp.Domain.RepositoryInterfaces {
         public List<PointOfInterest> GetAllByTourId(int tourId);
         public bool DeleteMultiple(List<PointOfInterest> points);
 
+        public bool DeleteByTours(List<Tour> tours);
+
     }
 }

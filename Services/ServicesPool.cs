@@ -35,11 +35,13 @@ namespace BookingApp.Services {
             _services[typeof(ComplexTourRequestService)] = new ComplexTourRequestService(RepositoryInjector.GetInstance<IComplexTourRequestRepository>());
             _services[typeof(ForumService)] = new ForumService(RepositoryInjector.GetInstance<IForumRepository>());
             _services[typeof(CommentService)] = new CommentService(RepositoryInjector.GetInstance<ICommentRepository>());
+            _services[typeof(GuideService)] = new GuideService(RepositoryInjector.GetInstance<IGuideRepository>());
 
             LinkAllServices();
         }
 
         private static void LinkAllServices() {
+
             GetService<TourService>().InjectService(
                 GetService<PassengerService>(),
                 GetService<TourReservationService>(),
