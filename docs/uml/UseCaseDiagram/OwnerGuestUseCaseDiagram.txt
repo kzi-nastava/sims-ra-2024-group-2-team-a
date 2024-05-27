@@ -3,6 +3,7 @@ skinparam packageStyle rectangle
 
 actor Owner as o
 actor Guest as g
+actor "System clock" as sys
 
 rectangle BookingApp {
   usecase "Forum closing" as FClosing
@@ -10,14 +11,27 @@ rectangle BookingApp {
   usecase "Forum creation" as FCreation
   usecase "Commenting" as C
   usecase "Reporting comment" as RC
+  usecase "Forum view" as FS
+  usecase "(Un)popular locations view" as L
+  usecase "Add new accommodation" as AL
+  usecase "Close accommodation" as CA
+  usecase "Accommodation quick search" as AQ
+  usecase "Booking accommodation" as BA
 
   FCreation .> N : includes
   FCreation .> C: includes
+  FS <. C: excludes
+  L <. AL: excludes
+  L <. CA: excludes
+  AQ <. BA: excludes
 }
 
 g -- FClosing
 g -- FCreation
-g -- C
-o -- C
+g -- FS
+g -- AQ
+o -- FS
 o -- RC
+o -- L
+sys -- N
 @enduml
