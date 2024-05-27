@@ -115,6 +115,9 @@ namespace BookingApp.Services {
         public List<Tour> GetFinished(int userId) {
             return _tourRepository.GetFinished(userId);
         }
+        public List<Tour> GetFinishedByLanguage(int userId, Language lang) {
+            return GetFinished(userId).FindAll(x => x.LanguageId == lang.Id);
+        }
         public List<Tour> GetLive(int userId) {
             return _tourRepository.GetLive(userId);
         }

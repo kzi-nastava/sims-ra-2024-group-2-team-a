@@ -22,9 +22,8 @@ namespace BookingApp.Services
         public bool Delete(int id) {
             return _guideRepository.Delete(GetById(id));
         }
-
-        /*public void UpdateStatus(int id) {
-            _guideRepository
-        }*/
+        public bool Update(Guide guide) {
+            return _guideRepository.Update(guide);
+        }
     }
 }

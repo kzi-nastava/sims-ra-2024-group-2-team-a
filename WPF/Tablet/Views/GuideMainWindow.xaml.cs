@@ -14,7 +14,8 @@ namespace BookingApp.WPF.Tablet.Views {
         ProfileViewModel ViewModel { get; set; }
         public GuideMainWindow(int userId) {
             InitializeComponent();
-            ViewModel = new ProfileViewModel();
+            ViewModel = new ProfileViewModel(userId);
+            ViewModel.Update();
             _mainFrame = mainFrame;
             _menuBarFrame = menuBarFrame;
             _userId = userId;
