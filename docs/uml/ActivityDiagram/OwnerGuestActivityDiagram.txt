@@ -1,0 +1,34 @@
+@startuml
+|Guest|
+start
+partition Forum creation {
+:Location choosing;
+:Subject typing;
+:Commenting;
+}
+:Notification generated; <<output>>
+|System|
+:Forum stored in database;
+|Owner|
+:Notified about forum<
+:Viewing comments;
+|System|
+repeat ;
+fork
+|Guest|
+:Commenting;
+|Owner|
+fork again
+fork
+  :Reporting comments;
+fork again
+  :Commenting;
+end fork
+|System|
+end fork
+:Comments stored in database;
+|Guest|
+repeat while (Close forum?) is (No) not (Yes)
+:Forum closing;
+stop
+@enduml

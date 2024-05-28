@@ -18,12 +18,12 @@ rectangle BookingApp {
   usecase "Accommodation quick search" as AQ
   usecase "Booking accommodation" as BA
 
-  FCreation .> N : includes
-  FCreation .> C: includes
-  FS <. C: excludes
-  L <. AL: excludes
-  L <. CA: excludes
-  AQ <. BA: excludes
+  FCreation ..> N : <<includes>>
+  FCreation ..> C: <<includes>>
+  FS <.. C: <<extends>>
+  L <.. AL: <<extends>>
+  L <.. CA: <<extends>>
+  AQ <.. BA: <<extends>>
 }
 
 g -- FClosing
