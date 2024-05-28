@@ -14,8 +14,6 @@
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
-                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
 
@@ -59,7 +57,7 @@
     </Window.Resources>
         <Grid Background="{StaticResource Beige}">
         <Label Content="Renovation Description" FontFamily="Global Sans Serif" FontSize="22" 
-               VerticalAlignment="Top" HorizontalAlignment="Center" Padding="5,5,5,0" Background="{StaticResource Green}"
+               VerticalAlignment="Top" HorizontalAlignment="Center" Padding="5,5,5,0"
                Style="{StaticResource Header}"/>
         <TextBox x:Name="textBox" Text="{Binding RenovationDTO.Description}" IsEnabled="{Binding Editable}"
                  Height="150" Width="250" VerticalAlignment="Center" Margin="0,-15,0,15"/>

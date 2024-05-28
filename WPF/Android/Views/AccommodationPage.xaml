@@ -19,8 +19,6 @@
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
-                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
 

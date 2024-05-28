@@ -17,8 +17,6 @@
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
-                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
 
@@ -48,10 +46,9 @@
                     <RowDefinition/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0"  Background="{StaticResource Green}" Width="200" HorizontalAlignment="Center">
-                    <Label Content="All messages" Padding="0" Margin="10,0,0,5"  VerticalAlignment="Center"
-                           Background="{StaticResource Green}" Foreground="{StaticResource Beige}" Style="{StaticResource Header}"/>
-                    <Label x:Name="NumOfMessagesLabel" Padding="0" Margin="5,0,0,5" Style="{StaticResource Header}" VerticalAlignment="Center"  Background="{StaticResource Green}" Foreground="{StaticResource Beige}"/>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0" Width="200" HorizontalAlignment="Center">
+                    <Label Content="All messages" Padding="0" Margin="10,0,0,5"  VerticalAlignment="Center" Style="{StaticResource Header}"/>
+                    <Label x:Name="NumOfMessagesLabel" Padding="0" Margin="5,0,0,5" Style="{StaticResource Header}" VerticalAlignment="Center"/>
                 </StackPanel>
                 <Button Grid.Row="3" Width="160" Height="50" Content="Mark all as read" FontSize="20" Click="MarkReadButton_Click" Background="{StaticResource Green}"
                         Foreground="{StaticResource Beige}"/>

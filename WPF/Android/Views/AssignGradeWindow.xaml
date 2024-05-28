@@ -37,8 +37,6 @@
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
-                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
 
@@ -75,7 +73,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Content="Reservation info:" Style="{StaticResource Header}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               HorizontalAlignment="Center" FontWeight="Bold" Background="{StaticResource Green}" Padding="3" VerticalAlignment="Center"/>
+               HorizontalAlignment="Center" FontWeight="Bold" Padding="3" VerticalAlignment="Center"/>
         <TextBlock Text="{Binding AccReservationDTO.Accommodation.Name}" Grid.Column="0" Grid.Row="1" FontSize="16"  HorizontalAlignment="Center"/>
         <TextBlock Grid.Column="1" Grid.Row="1" FontSize="12" HorizontalAlignment="Center">
                 <Run Text="{Binding AccReservationDTO.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>

@@ -42,8 +42,6 @@
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
-                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
 
@@ -110,9 +108,9 @@
                 <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Location:" FontSize="16"/>
 
             <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center">
-                <ComboBox x:Name="comboBox"  Height="40" Text="Choose location" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                <ComboBox x:Name="comboBox"  Height="40" Text="Choose location" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
                       SelectedItem="{Binding SelectedLocationDTO, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding LocationDTOs}"
-                      DisplayMemberPath="LocationOptionTemplate" Background="{StaticResource Green}"/>
+                      DisplayMemberPath="LocationOptionTemplate" Background="{StaticResource Green}" IsEditable="True" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False"/>
                 <Label Foreground="Red" Padding="0">
                     <Label.Style>
                         <Style TargetType="Label">
@@ -137,16 +135,16 @@
             </StackPanel>
 
             <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontSize="16"/>
-            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="1" Width="80" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                                Value="{Binding AccommodationDTO.MaxGuestNumber}" Minimum="1" ClipValueToMinMax="True" HorizontalContentAlignment="Center"/>
+            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="1" Width="70" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+                                Value="{Binding AccommodationDTO.MaxGuestNumber}" Minimum="1" ClipValueToMinMax="True" TextAlignment="Left"/>
 
             <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Min Reservation Days:" FontSize="16"/>
-            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Width="80" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.MinReservationDays}" Minimum="1" ClipValueToMinMax="True" HorizontalContentAlignment="Center"/>
+            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Width="70" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+                     Text="{Binding AccommodationDTO.MinReservationDays}" Minimum="1" ClipValueToMinMax="True" TextAlignment="Left"/>
 
             <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Last Cancellation Day:" FontSize="16"/>
-            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Width="80" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.LastCancellationDay}" Minimum="1" ClipValueToMinMax="True" HorizontalContentAlignment="Center"/>
+            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Width="70" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+                     Text="{Binding AccommodationDTO.LastCancellationDay}" Minimum="1" ClipValueToMinMax="True" TextAlignment="Left"/>
 
             <Button x:Name="ImportButton" Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="150" Click="SelectImages_Click" Style="{StaticResource DisabledButtonStyle}">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">

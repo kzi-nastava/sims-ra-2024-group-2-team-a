@@ -82,6 +82,10 @@ namespace BookingApp.WPF.Android.Views {
 
         private void BackButton_Click(object sender, RoutedEventArgs e) {
             Page currentPage = MainFrame.Content as Page;
+
+            if (SideFrame.Content != null)
+                HideSideFrame();
+
             if (MainFrame.CanGoBack && currentPage != null) {
                 ThicknessAnimation animation = new ThicknessAnimation();
                 animation.From = new Thickness(0, 0, 0, 0);

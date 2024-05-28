@@ -16,10 +16,11 @@
 
             <Style TargetType="Label" x:Key="Header1">
             <Style.Setters>
-                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontSize" Value="20"/>
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
                 <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                <Setter Property="Padding" Value="0"/>
             </Style.Setters>
         </Style>
         
@@ -92,10 +93,12 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Label Content="{Binding AccommodationDTO.Name}" Style="{StaticResource Header1}" Grid.Row="0" Grid.ColumnSpan="5"
-               Background="{StaticResource Green}" HorizontalAlignment="Center" Margin="0,5,0,10"/>
+        <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" Margin="0,5,0,10" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+            <Label Content="Add renovation: " Style="{StaticResource Header1}"/>
+            <Label Content="{Binding AccommodationDTO.Name}" Style="{StaticResource Header1}"/>
+        </StackPanel>
         <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="2"/>
-        <Label Content="Start Date:" Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="1"/>
+            <Label Content="Start Date:" Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="1"/>
         <DatePicker x:Name="startDatePicker" Height="30" Width="120" Margin="0,15,0,0" 
                     Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
                     SelectedDate="{Binding StartDate}">

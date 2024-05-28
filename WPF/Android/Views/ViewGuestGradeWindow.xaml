@@ -17,8 +17,6 @@
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
-                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
 
@@ -52,8 +50,8 @@
             <RowDefinition Height="30"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Label Content="Your Grades: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" Foreground="{StaticResource Beige}"
-               Background="{StaticResource Green}" Width="130" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Center" Margin="5,0,0,5"/>
+        <Label Content="Your Grades: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="20"
+               Style="{StaticResource Header}" Width="130" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Center" Margin="5,0,0,5"/>
         <Label x:Name="AccommodationLabel" Content="{Binding AccommodationReservationDTO.Accommodation.Name}" Grid.Row="1" Grid.Column="0" FontSize="16" Padding="5,0,5,5"/>
         <Label x:Name="DateLabel"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
             <TextBlock FontSize="12">

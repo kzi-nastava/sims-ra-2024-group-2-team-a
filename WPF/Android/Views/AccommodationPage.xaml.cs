@@ -53,6 +53,8 @@ namespace BookingApp.WPF.Android.Views {
 
         private void RenovationsButton_Click(object sender, RoutedEventArgs e) {
             if (SelectedAccommodation == null) {
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Please select accommodation first!");
+                dialogWindow.ShowDialog();
                 return;
             }
             else {
@@ -62,6 +64,8 @@ namespace BookingApp.WPF.Android.Views {
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e) {
             if (SelectedAccommodation == null ) {
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Please select accommodation first!");
+                dialogWindow.ShowDialog();
                 return;
             }
             else if (_statisticsService.IsStatisticEmpty(SelectedAccommodation.Id)) {

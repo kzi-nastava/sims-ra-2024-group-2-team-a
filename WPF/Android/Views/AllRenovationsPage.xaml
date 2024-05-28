@@ -14,8 +14,6 @@
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
-                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
 
@@ -91,16 +89,16 @@
         <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource Header}"
                Content="All renovations: " VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="auto" Width="400" Margin="0,10,0,0"
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="auto" Width="380" Margin="0,0,0,0"
           ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
-            SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Accommodation" Width="150" DisplayMemberBinding="{Binding Accommodation.Name}"/>
                     <GridViewColumn Header="Start Date" Width="75" DisplayMemberBinding="{Binding StartDate}"/>
                     <GridViewColumn Header="End Date" Width="75" DisplayMemberBinding="{Binding EndDate}"/>
-                    <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding RenovationState}"/>
+                    <GridViewColumn Header="Status" Width="80" DisplayMemberBinding="{Binding RenovationState}"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>
