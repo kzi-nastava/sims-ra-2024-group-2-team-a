@@ -15,19 +15,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.WPF.Tablet.Views
-{
+namespace BookingApp.WPF.Tablet.Views {
     /// <summary>
-    /// Interaction logic for TourRequestsPage.xaml
+    /// Interaction logic for ComplexTourRequestPage.xaml
     /// </summary>
-    public partial class TourRequestsPage : Page {
+    public partial class ComplexTourRequestPage : Page {
         private Frame _additionalFrame;
-        public TourRequestViewModel ViewModel { get; set; }
-        public TourRequestsPage(Frame aFrame, int userId)
-        {
+        public TourRequestViewModel ViewModel;
+        public ComplexTourRequestPage(Frame aFrame, int userId) {
             InitializeComponent();
             _additionalFrame = aFrame;
-            ViewModel = new TourRequestViewModel(userId, false);
+            ViewModel = new TourRequestViewModel(userId, true);
             DataContext = ViewModel;
         }
         private void Clear_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -44,8 +42,9 @@ namespace BookingApp.WPF.Tablet.Views
 
         private void Filter_Executed(object sender, ExecutedRoutedEventArgs e) {
             ViewModel.FilterRequests(SetFilter());
-            itemsControlTourRequests.ItemsSource = ViewModel.tourRequestDTOs;
+            //itemsControlTourRequests.ItemsSource = ViewModel.tourRequestDTOs;
         }
+
         private TourRequestFilterDTO SetFilter() {
             LocationDTO location = (LocationDTO)comboBoxLocation.SelectedItem;
             if (location == null)

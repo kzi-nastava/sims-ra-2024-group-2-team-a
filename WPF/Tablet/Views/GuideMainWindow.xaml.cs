@@ -1,4 +1,4 @@
-﻿using BookingApp.WPF.Tablet.ViewModels;
+﻿    using BookingApp.WPF.Tablet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -29,6 +29,7 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void Profile_Executed(object sender, ExecutedRoutedEventArgs e) {
             ProfilePage profilePage = new ProfilePage(_userId, this, _mainFrame);
+            additionalFrame.Content = null;
             _mainFrame.Content = profilePage; 
             _menuBarFrame.Content = new MenuBarButtonPage(_menuBarFrame, _mainFrame, additionalFrame, _userId);
         }

@@ -5,16 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="1000">
+             d:DesignHeight="200" d:DesignWidth="900">
     <UserControl.Resources>
         <ResourceDictionary Source="../TabletStyles.xaml">
 
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border BorderBrush="Black" BorderThickness="1" Margin="10">
-        <Grid Style="{StaticResource GridButton}" MouseLeftButtonDown="TourRequestClick" Height="100" Width="1000">
+    <Border BorderBrush="Black" BorderThickness="1" Margin="45 8 45 8">
+        <Grid Style="{StaticResource GridButton}" MouseLeftButtonDown="TourRequestClick" Height="100" Width="900">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
