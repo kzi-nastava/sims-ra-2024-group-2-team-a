@@ -15,12 +15,13 @@ namespace BookingApp.WPF.DTO
 
         private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
         public GuideProfileDTO() { }
-        public GuideProfileDTO(string name, string surname, int languageId, double score, bool isSuper) {
+        public GuideProfileDTO(string name, string surname, int languageId, double score, bool isSuper, DateTime superUntil) {
             Name = name;
             Surname = surname;
             LanguageId = languageId;
             Score = score;
             IsSuper = isSuper;
+            SuperUntil = superUntil;
         }
         public GuideProfileDTO(Guide g) {
             Id=g.Id;
@@ -30,6 +31,7 @@ namespace BookingApp.WPF.DTO
             SetLanguageTemplate();
             Score = g.Score;
             IsSuper = g.IsSuper;
+            SuperUntil = g.SuperUntil;
         }
 
         private int _id;
@@ -116,9 +118,20 @@ namespace BookingApp.WPF.DTO
                 }
             }
         }
-
+        private DateTime _superUntil;
+        public DateTime SuperUntil {
+            get {
+                return _superUntil;
+            }
+            set {
+                if ( _superUntil != value) {
+                    _superUntil = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Guide ToModel() {
-            return new Guide(Id, Name, Surname, LanguageId, Score, IsSuper);
+            return new Guide(Id, Name, Surname, LanguageId, Score, IsSuper, SuperUntil);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
