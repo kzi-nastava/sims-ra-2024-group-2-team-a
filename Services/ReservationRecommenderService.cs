@@ -16,19 +16,22 @@ namespace BookingApp.Services {
             _reservationRepository = reservationRepository;
         }
 
-        public List<AccommodationReservation> SuggestReservations(AccommodationReservationDTO rDTO) {
+        public List<AccommodationReservation> SuggestReservations(AccommodationReservationFilterDTO rDTO, bool suggestBeforeAfter = true) {
             var possibleReservations = GetPossibleReservations(rDTO);
 
             if (possibleReservations.Count > 0)
                 return possibleReservations;
 
+            if (!suggestBeforeAfter)
+                return new List<AccommodationReservation>();
+
             // Suggest other reservations that are not in given data range
-            var rBeforeDTO = new AccommodationReservationDTO(rDTO);
+            var rBeforeDTO = new AccommodationReservationFilterDTO(rDTO);
             rBeforeDTO.StartDate = rDTO.StartDate.AddDays(-daysSpan);
             rBeforeDTO.EndDate = rDTO.StartDate;
             var reservationsBefore = GetPossibleReservations(rBeforeDTO);
 
-            var rAfterDTO = new AccommodationReservationDTO(rDTO);
+            var rAfterDTO = new AccommodationReservationFilterDTO(rDTO);
             rAfterDTO.StartDate = rDTO.EndDate;
             rAfterDTO.EndDate = rDTO.EndDate.AddDays(daysSpan);
             var reservationsAfter = GetPossibleReservations(rAfterDTO);
@@ -39,7 +42,7 @@ namespace BookingApp.Services {
             return possibleReservations;
         }
 
-        private List<AccommodationReservation> GetPossibleReservations(AccommodationReservationDTO rDTO) {
+        private List<AccommodationReservation> GetPossibleReservations(AccommodationReservationFilterDTO rDTO) {
 
             List<AccommodationReservation> exisitingReservations = _reservationRepository.GetByAccommodationId(rDTO.AccommodationId);
             var reservationPool = exisitingReservations.Where(r => IsReservationInDateRange(r, rDTO.StartDate, rDTO.EndDate)).ToList();
@@ -64,7 +67,7 @@ namespace BookingApp.Services {
         }
 
         // Returns true if it found slot for reservation and adds it to reservations list
-        private bool GeneratePossibleReservationFirstFit(List<AccommodationReservation> reservations, AccommodationReservationDTO rDTO) {
+        private bool GeneratePossibleReservationFirstFit(List<AccommodationReservation> reservations, AccommodationReservationFilterDTO rDTO) {
 
             List<DateOnly> endDates = reservations.Select(r => r.EndDate).ToList();
             endDates.Add(rDTO.StartDate);
