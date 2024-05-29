@@ -18,23 +18,31 @@ namespace BookingApp.WPF.Tablet.ViewModels
         private int _userId;
 
         private readonly TourRequestService _tourRequestService = ServicesPool.GetService<TourRequestService>();
+        private readonly ComplexTourRequestService _complexTourRequestService = ServicesPool.GetService<ComplexTourRequestService>();
         private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
         private readonly TourService _tourService = ServicesPool.GetService<TourService>();
         public ObservableCollection<TourRequestDTO> tourRequestDTOs { get; set; }
+        public ObservableCollection<ComplexTourRequestDTO> complexTourRequestDTOs { get; set; }
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public TourRequestDTO tourRequestDTO { get; set; }
 
-        public TourRequestViewModel(int userId) {
+        public TourRequestViewModel(int userId, bool isComplex) {
             _userId = userId;
-            Load();
+                LoadLanguageLocations();
+            if (isComplex) {
+                LoadComplexRequests();
+            }
+            else {
+                LoadRegularRequests();
+            }
         }
         public TourRequestViewModel(TourRequestDTO trDTO) {
             tourRequestDTO = trDTO;
             _userId = trDTO.GuideId;
         }
-        private void Load() {
+        private void LoadLanguageLocations() {
             locationDTOs = new ObservableCollection<LocationDTO>();
             languageDTOs = new ObservableCollection<LanguageDTO>();
 
@@ -47,14 +55,24 @@ namespace BookingApp.WPF.Tablet.ViewModels
             foreach (var loc in _locationService.GetAll()) {
                 locationDTOs.Add(new LocationDTO(loc));
             }
-            LoadRequested();
         }
-        private void LoadRequested() {
+        private void LoadRegularRequests() {
             tourRequestDTOs = new ObservableCollection<TourRequestDTO>();
             foreach (var request in _tourRequestService.GetAllOnHold()) {
                 TourRequestDTO tempDTO = new TourRequestDTO(request);
                 tempDTO.GuideId = _userId;
                 tourRequestDTOs.Add(tempDTO);
+            }
+        }
+        private void LoadComplexRequests() {
+            complexTourRequestDTOs = new ObservableCollection<ComplexTourRequestDTO>();
+            foreach(var complexRequest in _complexTourRequestService.GetAllOnHold()) {
+                ComplexTourRequestDTO tempDTO = new ComplexTourRequestDTO(complexRequest, complexRequest.Id);
+
+                foreach(TourRequest request in _tourRequestService.GetComplexForGuide(complexRequest.Id)) {
+                    tempDTO.TourRequests.Add(new TourRequestDTO(request));
+                }
+                complexTourRequestDTOs.Add(tempDTO);
             }
         }
         public void SetFromDate(DateTime date) {

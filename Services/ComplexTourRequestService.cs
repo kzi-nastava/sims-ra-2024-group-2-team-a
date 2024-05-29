@@ -32,6 +32,9 @@ namespace BookingApp.Services {
         public IEnumerable<ComplexTourRequest> GetByTouristId(int touristId) {
             return _complexTourRequestRepository.GetByTouristId(touristId);
         }
+        public List<ComplexTourRequest> GetAllOnHold() {
+            return _complexTourRequestRepository.GetAll().FindAll(x => x.Status == TourRequestStatus.OnHold); 
+        }
         
         private void UpdateRequestStatus() {
             foreach (var complexRequestPart in _tourRequestService.GetAll().Where(r => r.ComplexTourId != 0).GroupBy(r => r.ComplexTourId)) {

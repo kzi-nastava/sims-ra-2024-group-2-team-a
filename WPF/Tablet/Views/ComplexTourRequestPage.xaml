@@ -1,4 +1,4 @@
-﻿<Page x:Class="BookingApp.WPF.Tablet.Views.TourRequestsPage"
+﻿<Page x:Class="BookingApp.WPF.Tablet.Views.ComplexTourRequestPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,7 +9,7 @@
       xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
       mc:Ignorable="d" 
       d:DesignHeight="690" d:DesignWidth="1024"
-      Title="TourRequestsPage">
+      Title="ComplexTourRequestPage">
 
     <Page.CommandBindings>
         <CommandBinding x:Name="Clear" Command="cmd:RoutedCommands.Clear" CanExecute="Clear_CanExecute" Executed="Clear_Executed"/>
@@ -20,7 +20,7 @@
 
         </ResourceDictionary>
     </Page.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -65,17 +65,27 @@ ItemsSource="{Binding languageDTOs}" SelectedItem="{Binding selectedLanguageDTO}
             </Grid>
         </Border>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="itemsControlTourRequests" ItemsSource="{Binding tourRequestDTOs}">
+            <ItemsControl ItemsSource="{Binding complexTourRequestDTOs}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:TourRequestCard/>
+                        <GroupBox Header="{Binding Title}" Style="{StaticResource GroupBoxStyle}">
+                            <StackPanel>
+                                <ItemsControl x:Name="itemsControlTourRequests" ItemsSource="{Binding TourRequests}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <local:TourRequestCard/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </StackPanel>
+                        </GroupBox>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
     </Grid>

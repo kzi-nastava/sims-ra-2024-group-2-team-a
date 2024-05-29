@@ -16,10 +16,12 @@ namespace BookingApp.WPF.DTO {
         public TourRequestDTO() { }
         public TourRequestDTO(int touristId) {
             TouristId = touristId;
+            GuideId = -1;
         }
         public TourRequestDTO(TourRequest tourRequest) {
             Id = tourRequest.Id;
             TouristId = tourRequest.TouristId;
+            GuideId = tourRequest.GuideId;
             LocationId = tourRequest.LocationId;
             Description = tourRequest.Description;
             LanguageId = tourRequest.LanguageId;
@@ -38,6 +40,7 @@ namespace BookingApp.WPF.DTO {
         public TourRequestDTO(TourRequest tourRequest, int serialNumber, TourRequestStatus complexStatus) {
             Id = tourRequest.Id;
             TouristId = tourRequest.TouristId;
+            GuideId = tourRequest.GuideId;
             LocationId = tourRequest.LocationId;
             Description = tourRequest.Description;
             LanguageId = tourRequest.LanguageId;
@@ -81,6 +84,18 @@ namespace BookingApp.WPF.DTO {
             set {
                 if (_touristId != value) {
                     _touristId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _guideId;
+        public int GuideId {
+            get {
+                return _guideId;
+            }
+            set {
+                if (_guideId != value) {
+                    _guideId = value;
                     OnPropertyChanged();
                 }
             }
@@ -225,7 +240,6 @@ namespace BookingApp.WPF.DTO {
                 }
             }
         }
-        public int GuideId { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
         public string LanguageTemplate { get; set; }
@@ -243,7 +257,7 @@ namespace BookingApp.WPF.DTO {
         }
 
         public TourRequest ToModel() {
-            return new TourRequest(Id, TouristId, LocationId, Description, LanguageId, StartDate, EndDate, StatusReal, PassengerNumber);
+            return new TourRequest(Id, TouristId, GuideId, LocationId, Description, LanguageId, StartDate, EndDate, StatusReal, PassengerNumber);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

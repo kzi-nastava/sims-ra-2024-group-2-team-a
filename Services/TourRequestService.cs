@@ -31,6 +31,9 @@ namespace BookingApp.Services {
         public IEnumerable<TourRequest> GetForComplexRequest(int id) {
             return GetAll().Where(r => r.ComplexTourId == id);
         }
+        public List<TourRequest> GetComplexForGuide(int complexId) {
+            return GetAll().FindAll(x => x.ComplexTourId == complexId);
+        }
 
         public List<TourRequest> GetAll() {
             return _tourRequestRepository.GetAll();
