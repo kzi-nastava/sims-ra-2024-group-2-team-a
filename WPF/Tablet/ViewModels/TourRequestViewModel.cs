@@ -3,7 +3,6 @@ using BookingApp.Services;
 using BookingApp.WPF.DTO;
 using LiveCharts;
 using LiveCharts.Wpf;
-using Syncfusion.Windows.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,9 +37,16 @@ namespace BookingApp.WPF.Tablet.ViewModels
                 LoadRegularRequests();
             }
         }
-        public TourRequestViewModel(TourRequestDTO trDTO) {
+        public TourRequestViewModel(TourRequestDTO trDTO, bool isComplex  ) {
             tourRequestDTO = trDTO;
             _userId = trDTO.GuideId;
+            if (isComplex) {
+                Calendar calendar = _tourService.GetUnavailableDates(_userId, tourRequestDTO.ComplexTourId, tourRequestDTO.StartDateTime, tourRequestDTO.EndDateTime);
+                calendar.DisplayDateStart = tourRequestDTO.StartDateTime;
+                calendar.DisplayDateEnd = tourRequestDTO.EndDateTime;
+                tourRequestDTO.CalendarFrom = calendar;
+                tourRequestDTO.CalendarTo = calendar;
+            }
         }
         private void LoadLanguageLocations() {
             locationDTOs = new ObservableCollection<LocationDTO>();
@@ -70,9 +76,27 @@ namespace BookingApp.WPF.Tablet.ViewModels
                 ComplexTourRequestDTO tempDTO = new ComplexTourRequestDTO(complexRequest, complexRequest.Id);
 
                 foreach(TourRequest request in _tourRequestService.GetComplexForGuide(complexRequest.Id)) {
-                    tempDTO.TourRequests.Add(new TourRequestDTO(request));
+                    TourRequestDTO tempRequestDTO = new TourRequestDTO(request);
+
+                    if (request.GuideId == _userId) {
+                        tempDTO.TourRequests.Clear();
+                        break;
+                    }
+                    if(!_tourService.IsGuideAvailableComplex(_userId, complexRequest.Id, tempRequestDTO.StartDateTime, tempRequestDTO.EndDateTime)) {
+                        continue;
+                    }
+
+                    tempRequestDTO.GuideId = _userId;
+                    tempDTO.TourRequests.Add(tempRequestDTO);
                 }
-                complexTourRequestDTOs.Add(tempDTO);
+                if(tempDTO.TourRequests.Count >= 1)
+                    complexTourRequestDTOs.Add(tempDTO);
+            }
+        }
+        public void SetBlackoutDates() {
+            foreach(var dateRange in tourRequestDTO.CalendarFrom.BlackoutDates) {
+                tourRequestDTO.BlackoutDatesStart.Add(dateRange);
+                tourRequestDTO.BlackoutDatesEnd.Add(dateRange);
             }
         }
         public void SetFromDate(DateTime date) {
@@ -84,7 +108,7 @@ namespace BookingApp.WPF.Tablet.ViewModels
             
         }
         public bool IsAvailable() {
-           return _tourService.IsGuideAvailable(_userId, tourRequestDTO.StartDate.ToDateTime(), tourRequestDTO.EndDate.ToDateTime()); 
+           return _tourService.IsGuideAvailable(_userId, tourRequestDTO.StartDateTime, tourRequestDTO.EndDateTime); 
            
         }
         public void AcceptTourRequest() {

@@ -27,6 +27,12 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+        <!--<Label Grid.Row="0" Grid.ColumnSpan="2"  Content="From:" Style="{StaticResource WindowLabel}"/>
+        <DatePicker x:Name="datePickerFrom" Grid.Row="0" Grid.Column="2" DisplayDateStart="{Binding tourRequestDTO.StartDateTime, Mode=OneWay}" DisplayDateEnd="{Binding tourRequestDTO.EndDateTime, Mode=OneWay}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePickerFrom_SelectedDateChanged"/>
+
+        <Label Grid.Row="1" Grid.ColumnSpan="2" Content="To:" Style="{StaticResource WindowLabel}"/>
+        <DatePicker x:Name="datePickerTo" Grid.Row="1" Grid.Column="2" DisplayDateStart="{Binding tourRequestDTO.StartDateTime, Mode=OneWay}"  DisplayDateEnd="{Binding tourRequestDTO.EndDateTime, Mode=OneWay}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePickerTo_SelectedDateChanged"/>-->
+
         <Label Grid.Row="0" Grid.ColumnSpan="2"  Content="From:" Style="{StaticResource WindowLabel}"/>
         <DatePicker x:Name="datePickerFrom" Grid.Row="0" Grid.Column="2" DisplayDateStart="{Binding tourRequestDTO.StartDateTime, Mode=OneWay}" DisplayDateEnd="{Binding tourRequestDTO.EndDateTime, Mode=OneWay}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePickerFrom_SelectedDateChanged"/>
 

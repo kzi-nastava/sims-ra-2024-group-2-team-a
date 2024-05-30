@@ -9,6 +9,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace BookingApp.Services {
     public class TourRequestService {
@@ -32,14 +33,20 @@ namespace BookingApp.Services {
             return GetAll().Where(r => r.ComplexTourId == id);
         }
         public List<TourRequest> GetComplexForGuide(int complexId) {
-            return GetAll().FindAll(x => x.ComplexTourId == complexId);
+            return GetAll().FindAll(x => x.ComplexTourId == complexId && x.Status == TourRequestStatus.OnHold);
         }
-
+        public Calendar GetBusyDates(int complexId) {
+            Calendar calendar = new Calendar();
+            foreach (TourRequest tr in GetAll().FindAll(x => x.ComplexTourId == complexId && x.Status == TourRequestStatus.Accepted)){
+                calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(tr.StartDate.Year, tr.StartDate.Month, tr.StartDate.Day), new DateTime(tr.EndDate.Year, tr.EndDate.Month, tr.EndDate.Day)));
+            }
+            return calendar;
+        }
         public List<TourRequest> GetAll() {
             return _tourRequestRepository.GetAll();
         }
         public List<TourRequest> GetAllOnHold() {
-            return GetAll().Where(r => r.Status == TourRequestStatus.OnHold).ToList();
+            return GetAll().Where(r => r.Status == TourRequestStatus.OnHold && r.ComplexTourId < 1).ToList();
         }
 
         public IEnumerable<User> GetTouristsForNotification(Tour tour) {

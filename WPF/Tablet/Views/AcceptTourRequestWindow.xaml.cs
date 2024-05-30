@@ -24,10 +24,13 @@ namespace BookingApp.WPF.Tablet.Views
     {
         private Frame _additionalFrame;
         public TourRequestViewModel ViewModel {  get; set; }
-        public AcceptTourRequestWindow(TourRequestDTO trDTO, Frame aFrame)
+        public AcceptTourRequestWindow(TourRequestDTO trDTO, Frame aFrame, bool isComplex)
         {
             InitializeComponent();
-            ViewModel = new TourRequestViewModel(trDTO);
+            ViewModel = new TourRequestViewModel(trDTO, isComplex);
+            ViewModel.tourRequestDTO.BlackoutDatesStart = datePickerFrom.BlackoutDates;
+            ViewModel.tourRequestDTO.BlackoutDatesEnd = datePickerTo.BlackoutDates;
+            ViewModel.SetBlackoutDates();
             _additionalFrame = aFrame;
             DataContext = ViewModel;
         }
