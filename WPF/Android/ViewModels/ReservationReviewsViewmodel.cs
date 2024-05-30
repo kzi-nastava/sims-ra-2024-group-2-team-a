@@ -90,29 +90,28 @@ namespace BookingApp.WPF.Android.ViewModels {
                 }
             }
         }
-        public void AssignGradeButton() {
+        public bool AssignGradeButton() {
             if (SelectedReservation == null) {
-                MessageBox.Show("Please select a reservation first!", "Error",MessageBoxButton.OK,MessageBoxImage.Information);
-                return;
+                return false;
             }
             if(SelectedReservation.CanBeGradedByOwner){
                 AssignGradeWindow assignGradeWindow = new AssignGradeWindow(SelectedReservation, _user.Id, this);
                 assignGradeWindow.ShowDialog();
             }
+            return true;
         }
 
-        public void ViewGradeButton() {
+        public string ViewGradeButton() {
             if (SelectedReservation == null) {
-                MessageBox.Show("Please select a reservation first!", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return "Please select a reservation first!";
             }
-            else if (!SelectedReservation.IsGradedByOwner) {
-                MessageBox.Show("You must grade this reservation first!", "View guest grade", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+            else if (!SelectedReservation.IsGradedByOwner) { 
+                return "You must grade this reservation first!";
             }
             else {
                 ViewGuestGradeWindow viewGuestGradeWindow = new ViewGuestGradeWindow(SelectedReservation);
                 viewGuestGradeWindow.ShowDialog();
+                return null;
             }
         }
 

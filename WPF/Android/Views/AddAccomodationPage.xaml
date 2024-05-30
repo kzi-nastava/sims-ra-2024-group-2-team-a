@@ -111,7 +111,7 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center">
                 <ComboBox x:Name="comboBox"  Height="40" Text="Choose location" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                      SelectedItem="{Binding SelectedLocationDTO, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding LocationDTOs}"
+                      SelectedItem="{Binding SelectedLocationDTO, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding LocationDTOs}"
                       DisplayMemberPath="LocationOptionTemplate" Background="{StaticResource Green}"/>
                 <Label Foreground="Red" Padding="0">
                     <Label.Style>
@@ -148,13 +148,14 @@
             <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Width="80" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
                      Text="{Binding AccommodationDTO.LastCancellationDay}" Minimum="1" ClipValueToMinMax="True" HorizontalContentAlignment="Center"/>
 
-            <Button Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="150" Click="SelectImages_Click" Style="{StaticResource DisabledButtonStyle}">
+            <Button x:Name="ImportButton" Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="150" Click="SelectImages_Click" Style="{StaticResource DisabledButtonStyle}">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                     <Image Source="{StaticResource ImagesIcon}" Height="30" Width="30"/>
                     <Label Content="Import images" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
                 </StackPanel>
             </Button>
 
+            <Label x:Name="importLabel" Content="" Grid.Row="7" Grid.Column="2" Foreground="red" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Button x:Name="ViewButton" Style="{StaticResource DisabledButtonStyle}" Grid.Column="2" HorizontalAlignment="Center"
                     Grid.Row="7" Height="50" Width="150" Click="ViewImages_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
@@ -170,7 +171,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Grid.Row="9" Grid.Column="2" Height="50" Width="130" Click="Confirm_Click">
+            <Button x:Name="ConfirmButton" Grid.Row="9" Grid.Column="2" Height="50" Width="130" Click="Confirm_Click">
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                     <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
                     <Label Content="Confirm" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>

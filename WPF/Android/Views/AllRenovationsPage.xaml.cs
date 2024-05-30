@@ -19,7 +19,7 @@ namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for AllRenovationsPage.xaml
     /// </summary>
-    public partial class AllRenovationsPage : Page {
+    public partial class AllRenovationsPage : Page, IDemo {
 
         public AllRenovationsViewmodel AllRenovationsViewmodel;
         public AllRenovationsPage(User user) {
@@ -27,6 +27,14 @@ namespace BookingApp.WPF.Android.Views {
             
             AllRenovationsViewmodel = new AllRenovationsViewmodel(user);
             DataContext = AllRenovationsViewmodel;
+        }
+
+        public void StartDemo() {
+            AllRenovationsViewmodel.StartDemo();
+        }
+
+        public void StopDemo() {
+            AllRenovationsViewmodel.StopDemo();
         }
     }
 }

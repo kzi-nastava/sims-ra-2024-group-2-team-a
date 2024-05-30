@@ -10,7 +10,7 @@
              d:DesignHeight="80" d:DesignWidth="350">
     <UserControl.Style>
         <Style TargetType="UserControl">
-            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="Margin" Value="0 10 0 10" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsOwner}" Value="True">

@@ -7,8 +7,9 @@ using System.Windows.Input;
 
 namespace BookingApp.WPF.Utils.Commands
 {
-    public static class RoutedCommands{
+    public static class RoutedCommands {
         public static readonly RoutedUICommand Profile = new RoutedUICommand("Profile", "Profile", typeof(RoutedCommand));
+        public static readonly RoutedUICommand Help = new RoutedUICommand("Help", "Help", typeof(RoutedCommand));
         public static readonly RoutedUICommand Cancel = new RoutedUICommand("Cancel", "Cancel", typeof(RoutedCommand));
         public static readonly RoutedUICommand Confirm = new RoutedUICommand("Confirm", "Confirm", typeof(RoutedCommand));
         public static readonly RoutedUICommand Clear = new RoutedUICommand("Clear", "Clear", typeof(RoutedCommand));

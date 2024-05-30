@@ -9,11 +9,45 @@
         Title="Guide" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommands.Profile" CanExecute="Profile_CanExecute" Executed="Profile_Executed"/>
+        <CommandBinding x:Name="Help" Command="cmd:RoutedCommands.Help" CanExecute="Help_CanExecute" Executed="Help_Executed"/>
     </Window.CommandBindings>
+    <Window.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+            
+        </ResourceDictionary>
+    </Window.Resources>
     <DockPanel>
-        <Grid DockPanel.Dock="Top" Background="{StaticResource HardGreen}">
-            <Label Content="Booking App" Foreground="White" FontWeight="Bold" Margin="5"/>
-            <Button HorizontalAlignment="Right" Content="Profile" VerticalAlignment="Center" Padding="10 0 10 0" Margin="0,5,20,5" Command="cmd:RoutedCommands.Profile"/>
+        <Grid DockPanel.Dock="Top" Background="{StaticResource HardGreen}" Height="36">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0">
+                <Label.Style>
+                    <Style>
+                        <Setter Property="Label.Foreground" Value="{StaticResource Beige}"/>
+                        <Setter Property="Label.FontSize" Value="14"/>
+                        <Setter Property="Label.FontWeight" Value="Bold"/>
+                        <Setter Property="Label.HorizontalAlignment" Value="Left"/>
+                        <Setter Property="Label.VerticalAlignment" Value="Center"/>
+                        <Setter Property="Label.Margin" Value="5 0 5 0"/>
+                        <Setter Property="Label.Content" Value="Booking App"/>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <Button Grid.Column="1" Style="{StaticResource MainPageButton}" Command="cmd:RoutedCommands.Profile">
+                <StackPanel Orientation="Horizontal" Margin="0">
+                    <Label Style="{StaticResource MainPageLabel}">Profile</Label>
+                    <Image Source="{StaticResource BlackAccount}" Width="20" Height="20" />
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="2" Style="{StaticResource MainPageButton}" Command="cmd:RoutedCommands.Help">
+                <StackPanel Orientation="Horizontal" Margin="0">
+                    <Label Style="{StaticResource MainPageLabel}">Help</Label>
+                    <Image Source="{StaticResource HelpIcon}" Width="20" Height="20" Margin="10 0 0 0"/>
+                </StackPanel>
+            </Button>
         </Grid>
         <Grid DockPanel.Dock="Bottom" Background="{StaticResource SoftGreen}">
             <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" VerticalAlignment="Center" Height="726"/>

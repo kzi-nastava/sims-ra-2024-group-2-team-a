@@ -63,7 +63,7 @@
                Style="{StaticResource Header}"/>
         <TextBox x:Name="textBox" Text="{Binding RenovationDTO.Description}" IsEnabled="{Binding Editable}"
                  Height="150" Width="250" VerticalAlignment="Center" Margin="0,-15,0,15"/>
-        <Button Height="50" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="15" Command="{Binding ConfirmCommand}"
+        <Button x:Name="ConfirmButton" Height="50" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="15" Command="{Binding ConfirmCommand}"
                 Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                 <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>

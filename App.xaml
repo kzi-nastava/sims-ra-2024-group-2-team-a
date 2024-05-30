@@ -58,7 +58,8 @@
         <BitmapImage x:Key="ClearIconBeige" UriSource="Resources/Images/Icons/clear-icon-beige.png"/>
         <BitmapImage x:Key="FilterIconBeige" UriSource="Resources/Images/Icons/filter-icon-beige.png"/>
         <BitmapImage x:Key="SendIconBeige" UriSource="Resources/Images/Icons/send-icon-beige.png"/>
-
+        <BitmapImage x:Key="HelpIcon" UriSource="/Resources/Images/help.png"/>
+            
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>
         <SolidColorBrush x:Key="Green2" Color="#5a8c6a"/>
