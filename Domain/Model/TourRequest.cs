@@ -26,7 +26,7 @@ namespace BookingApp.Domain.Model {
 
         }
 
-        public TourRequest(int id, int touristId, int guideId, int locationId, string description, int languageId, DateOnly startDate, DateOnly endDate, TourRequestStatus status, int passengerNumber) {
+        public TourRequest(int id, int touristId, int guideId, int locationId, string description, int languageId, DateOnly startDate, DateOnly endDate, TourRequestStatus status, int passengerNumber, int complexTourId) {
             Id = id;
             TouristId = touristId;
             GuideId = guideId;
@@ -37,6 +37,7 @@ namespace BookingApp.Domain.Model {
             EndDate = endDate;
             Status = status;
             PassengerNumber = passengerNumber;
+            ComplexTourId = complexTourId;
         }
 
         public TourRequest(TourRequestDTO tourRequest, int complexTourId) {

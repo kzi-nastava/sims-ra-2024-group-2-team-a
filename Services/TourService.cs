@@ -4,6 +4,7 @@ using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace BookingApp.Services {
     public class TourService {
@@ -192,6 +193,34 @@ namespace BookingApp.Services {
                 return true;
             }
             return false;
+        }
+        public Calendar GetUnavailableDates(int userId, int complexId, DateTime from, DateTime to) {
+            Calendar calendar = _tourRequestService.GetBusyDates(complexId);
+
+            calendar.DisplayDateStart = from;
+            calendar.DisplayDateEnd = to;
+            foreach (Tour tour in  GetScheduled(userId)) {
+                if(tour.Beggining.Date <= to.Date && tour.End.Date >= from.Date) {
+                    calendar.BlackoutDates.Add(new CalendarDateRange(tour.Beggining.Date, tour.End.Date));
+                }
+            }
+            
+            return calendar;
+        }
+        public bool IsGuideAvailableComplex(int userId, int complexId, DateTime from, DateTime to) {
+            Calendar calendar = GetUnavailableDates(userId, complexId, from, to);
+            for(var date = from.Date; date <= to.Date; date = date.AddDays(1)) {
+                if (IsDateAvailable(calendar, date.Date))
+                    return true;
+            }
+            return false;
+        }
+        private bool IsDateAvailable(Calendar calendar, DateTime date) {
+            foreach(var calendarRange in calendar.BlackoutDates) {
+                if (date.Date >= calendarRange.Start.Date && date.Date <= calendarRange.End.Date)
+                    return false;
+            }
+            return true;
         }
     }
 }
