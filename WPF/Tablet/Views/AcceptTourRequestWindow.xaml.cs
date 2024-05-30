@@ -49,10 +49,13 @@ namespace BookingApp.WPF.Tablet.Views
 
         private void Accept_Executed(object sender, ExecutedRoutedEventArgs e) {
             if (ViewModel.IsAvailable()) {
-                ViewModel.AcceptTourRequest();
                 MessageBox.Show("Tour request accepted.", "Succecfull", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
-                _additionalFrame.Content = new TourRequestsPage(_additionalFrame, ViewModel.GetUserId());
+                if(ViewModel.AcceptTourRequest()) 
+                    _additionalFrame.Content = new ComplexTourRequestPage(_additionalFrame, ViewModel.GetUserId());
+                else
+                    _additionalFrame.Content = new TourRequestsPage(_additionalFrame, ViewModel.GetUserId());
+                
             }
             else {
                 MessageBox.Show("You are not Available at that time span", "UNAVAILABLE", MessageBoxButton.OK, MessageBoxImage.Exclamation);

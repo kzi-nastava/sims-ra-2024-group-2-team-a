@@ -32,6 +32,12 @@ namespace BookingApp.Services {
         public IEnumerable<TourRequest> GetForComplexRequest(int id) {
             return GetAll().Where(r => r.ComplexTourId == id);
         }
+        public bool IsAccepted(int guideId, int complexId) {
+            if(GetAll().FindAll(x => x.Status == TourRequestStatus.Accepted && x.ComplexTourId == complexId).Any(y => y.GuideId == guideId)) {
+                return true;
+            }
+            return false;
+        }
         public List<TourRequest> GetComplexForGuide(int complexId) {
             return GetAll().FindAll(x => x.ComplexTourId == complexId && x.Status == TourRequestStatus.OnHold);
         }
