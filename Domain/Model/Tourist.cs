@@ -10,7 +10,7 @@ namespace BookingApp.Domain.Model {
 
         public Tourist() { }
 
-        public Tourist(string username, string password) : base(username, password)
+        public Tourist(User user) : base(user)
         {
             Category = UserCategory.Tourist;
         }
