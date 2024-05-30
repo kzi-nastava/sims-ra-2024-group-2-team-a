@@ -60,8 +60,7 @@ namespace BookingApp.Services {
         }
 
         public void SendTouristNotification(NotificationCategory category, int touristId, int tourId) {
-            if(touristId != -1)
-                this.Save(new Notification(category, touristId, tourId));
+            this.Save(new Notification(category, touristId, tourId));
         }
 
         //pozvati ovu metodu kad se napravi novi forum
