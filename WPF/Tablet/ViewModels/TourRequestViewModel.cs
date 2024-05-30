@@ -72,17 +72,13 @@ namespace BookingApp.WPF.Tablet.ViewModels
         }
         private void LoadComplexRequests() {
             complexTourRequestDTOs = new ObservableCollection<ComplexTourRequestDTO>();
-            foreach(var complexRequest in _complexTourRequestService.GetAllOnHold()) {
+            foreach(var complexRequest in _complexTourRequestService.GetAllOnHold(_userId)) {
                 ComplexTourRequestDTO tempDTO = new ComplexTourRequestDTO(complexRequest, complexRequest.Id);
 
                 foreach(TourRequest request in _tourRequestService.GetComplexForGuide(complexRequest.Id)) {
                     TourRequestDTO tempRequestDTO = new TourRequestDTO(request);
 
-                    if (request.GuideId == _userId) {
-                        tempDTO.TourRequests.Clear();
-                        break;
-                    }
-                    if(!_tourService.IsGuideAvailableComplex(_userId, complexRequest.Id, tempRequestDTO.StartDateTime, tempRequestDTO.EndDateTime)) {
+                    if(!_tourService.IsAvailableToShow(_userId, complexRequest.Id, tempRequestDTO.StartDateTime, tempRequestDTO.EndDateTime)) {
                         continue;
                     }
 
@@ -101,19 +97,31 @@ namespace BookingApp.WPF.Tablet.ViewModels
         }
         public void SetFromDate(DateTime date) {
             tourRequestDTO.StartDate = new DateOnly(date.Year, date.Month, date.Day);
-            
+            tourRequestDTO.CastToDateTime();
         }
         public void SetToDate(DateTime date) {
             tourRequestDTO.EndDate = new DateOnly(date.Year, date.Month, date.Day);
-            
+            tourRequestDTO.CastToDateTime();
+
         }
         public bool IsAvailable() {
-           return _tourService.IsGuideAvailable(_userId, tourRequestDTO.StartDateTime, tourRequestDTO.EndDateTime); 
+           return _tourService.IsGuideAvailable(_userId, tourRequestDTO.ComplexTourId, tourRequestDTO.StartDateTime, tourRequestDTO.EndDateTime); 
            
         }
-        public void AcceptTourRequest() {
+        public bool AcceptTourRequest() {
             tourRequestDTO.StatusReal = TourRequestStatus.Accepted;
             _tourRequestService.Update(tourRequestDTO.ToModel());
+            ComplexTourRequest complexTourRequest = _complexTourRequestService.GetById(tourRequestDTO.ComplexTourId);
+
+            if (complexTourRequest == null)
+                return false;
+
+            if(_tourRequestService.GetComplexForGuide(complexTourRequest.Id).Count <= 0) {
+                complexTourRequest.Status = TourRequestStatus.Accepted;
+                _complexTourRequestService.Update(complexTourRequest);
+            }
+            return true;
+
         }
         public int GetUserId() {
             return _userId;

@@ -187,15 +187,17 @@ namespace BookingApp.Services {
         public List<Tour> GetSameLocationTours(TourDTO tour) {
             return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
         }
-        public bool IsGuideAvailable(int userId, DateTime from, DateTime to) {
-            List<Tour> tours = GetScheduled(userId);
-            if(tours.All(x => x.Beggining.Date > to.Date || x.End.Date < from.Date)) {
+        public bool IsGuideAvailable(int userId, int complexId, DateTime from, DateTime to) {
+            Calendar calendar = GetUnavailableDates(userId, complexId, from, to);
+            if (calendar.BlackoutDates.All(x => x.Start.Date > to.Date || x.End.Date < from.Date))
                 return true;
-            }
             return false;
+
         }
         public Calendar GetUnavailableDates(int userId, int complexId, DateTime from, DateTime to) {
-            Calendar calendar = _tourRequestService.GetBusyDates(complexId);
+            Calendar calendar = new Calendar();
+            if (complexId >= 1)
+                calendar = _tourRequestService.GetBusyDates(complexId);
 
             calendar.DisplayDateStart = from;
             calendar.DisplayDateEnd = to;
@@ -207,7 +209,7 @@ namespace BookingApp.Services {
             
             return calendar;
         }
-        public bool IsGuideAvailableComplex(int userId, int complexId, DateTime from, DateTime to) {
+        public bool IsAvailableToShow(int userId, int complexId, DateTime from, DateTime to) {
             Calendar calendar = GetUnavailableDates(userId, complexId, from, to);
             for(var date = from.Date; date <= to.Date; date = date.AddDays(1)) {
                 if (IsDateAvailable(calendar, date.Date))
