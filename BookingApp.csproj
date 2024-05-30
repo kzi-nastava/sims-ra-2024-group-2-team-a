@@ -27,6 +27,7 @@
     <None Remove="Resources\Images\forums-icon.png" />
     <None Remove="Resources\Images\guidance-icon-beige.png" />
     <None Remove="Resources\Images\Icons\add-icon3-b.png" />
+    <None Remove="Resources\Images\Icons\add-new-icon.png" />
     <None Remove="Resources\Images\Icons\android-alert.png" />
     <None Remove="Resources\Images\Icons\android-house-icon.png" />
     <None Remove="Resources\Images\Icons\android-inbox-icon.png" />
@@ -54,6 +55,7 @@
     <None Remove="Resources\Images\Icons\cancel-icon.png" />
     <None Remove="Resources\Images\Icons\chat-white-icon.png" />
     <None Remove="Resources\Images\Icons\clear-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\comment-icon.png" />
     <None Remove="Resources\Images\Icons\confirm-icon-beige.png" />
     <None Remove="Resources\Images\Icons\confirm-icon.png" />
     <None Remove="Resources\Images\Icons\coupon.png" />
@@ -105,6 +107,7 @@
     <None Remove="Resources\Images\Icons\stopwatch.png" />
     <None Remove="Resources\Images\Icons\super-icon.png" />
     <None Remove="Resources\Images\Icons\time-icon.png" />
+    <None Remove="Resources\Images\Icons\user-icon.png" />
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\normal-home-icon.png" />
     <None Remove="Resources\Images\notification-request-icon.png" />
@@ -174,6 +177,7 @@
     <Resource Include="Resources\Images\eye-beige.png" />
     <Resource Include="Resources\Images\forums-icon.png" />
     <Resource Include="Resources\Images\Icons\add-icon3-b.png" />
+    <Resource Include="Resources\Images\Icons\add-new-icon.png" />
     <Resource Include="Resources\Images\Icons\android-alert.png" />
     <Resource Include="Resources\Images\Icons\android-house-icon.png" />
     <Resource Include="Resources\Images\Icons\android-inbox-icon.png" />
@@ -213,6 +217,7 @@
     <Resource Include="Resources\Images\Icons\cancel-icon.png" />
     <Resource Include="Resources\Images\Icons\chat-white-icon.png" />
     <Resource Include="Resources\Images\Icons\clear-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\comment-icon.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon.png" />
     <Resource Include="Resources\Images\Icons\coupon.png" />
@@ -261,6 +266,7 @@
     <Resource Include="Resources\Images\Icons\statistics-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\stopwatch.png" />
     <Resource Include="Resources\Images\Icons\time-icon.png" />
+    <Resource Include="Resources\Images\Icons\user-icon.png" />
     <Resource Include="Resources\Images\live.png" />
     <Resource Include="Resources\Images\normal-home-icon.png" />
     <Resource Include="Resources\Images\notification-request-icon.png" />
