@@ -22,15 +22,25 @@ namespace BookingApp.Services {
             UpdateRequestStatus();
         }
 
+        public ComplexTourRequest GetById(int id) {
+            return _complexTourRequestRepository.GetById(id);
+        }
+
+        public IEnumerable<ComplexTourRequest> GetByTouristId(int touristId) {
+            return _complexTourRequestRepository.GetByTouristId(touristId);
+        }
+        public List<ComplexTourRequest> GetAllOnHold(int guideId) {
+            return _complexTourRequestRepository.GetAll().FindAll(x => x.Status == TourRequestStatus.OnHold && !_tourRequestService.IsAccepted(guideId, x.Id)); 
+            
+        }
+        public bool Update(ComplexTourRequest complexTourRequest) {
+            return _complexTourRequestRepository.Update(complexTourRequest);
+        }
         public void CreateRequest(int touristId, List<TourRequestDTO> simpleRequests) {
             ComplexTourRequest complexRequest = _complexTourRequestRepository.Save(new ComplexTourRequest(touristId));
             foreach (TourRequestDTO simpleRequest in simpleRequests) {
                 _tourRequestService.CreateRequest(simpleRequest, complexRequest.Id);
             }
-        }
-
-        public IEnumerable<ComplexTourRequest> GetByTouristId(int touristId) {
-            return _complexTourRequestRepository.GetByTouristId(touristId);
         }
         
         private void UpdateRequestStatus() {

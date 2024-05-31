@@ -314,6 +314,8 @@
     <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
+    <PackageReference Include="ToggleSwitch" Version="1.2.0" />
+
   </ItemGroup>
 
   <ItemGroup>

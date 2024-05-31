@@ -4,6 +4,7 @@ using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace BookingApp.Services {
     public class TourService {
@@ -186,12 +187,42 @@ namespace BookingApp.Services {
         public List<Tour> GetSameLocationTours(TourDTO tour) {
             return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
         }
-        public bool IsGuideAvailable(int userId, DateTime from, DateTime to) {
-            List<Tour> tours = GetScheduled(userId);
-            if(tours.All(x => x.Beggining.Date > to.Date || x.End.Date < from.Date)) {
+        public bool IsGuideAvailable(int userId, int complexId, DateTime from, DateTime to) {
+            Calendar calendar = GetUnavailableDates(userId, complexId, from, to);
+            if (calendar.BlackoutDates.All(x => x.Start.Date > to.Date || x.End.Date < from.Date))
                 return true;
+            return false;
+
+        }
+        public Calendar GetUnavailableDates(int userId, int complexId, DateTime from, DateTime to) {
+            Calendar calendar = new Calendar();
+            if (complexId >= 1)
+                calendar = _tourRequestService.GetBusyDates(complexId);
+
+            calendar.DisplayDateStart = from;
+            calendar.DisplayDateEnd = to;
+            foreach (Tour tour in  GetScheduled(userId)) {
+                if(tour.Beggining.Date <= to.Date && tour.End.Date >= from.Date) {
+                    calendar.BlackoutDates.Add(new CalendarDateRange(tour.Beggining.Date, tour.End.Date));
+                }
+            }
+            
+            return calendar;
+        }
+        public bool IsAvailableToShow(int userId, int complexId, DateTime from, DateTime to) {
+            Calendar calendar = GetUnavailableDates(userId, complexId, from, to);
+            for(var date = from.Date; date <= to.Date; date = date.AddDays(1)) {
+                if (IsDateAvailable(calendar, date.Date))
+                    return true;
             }
             return false;
+        }
+        private bool IsDateAvailable(Calendar calendar, DateTime date) {
+            foreach(var calendarRange in calendar.BlackoutDates) {
+                if (date.Date >= calendarRange.Start.Date && date.Date <= calendarRange.End.Date)
+                    return false;
+            }
+            return true;
         }
     }
 }

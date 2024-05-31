@@ -8,6 +8,7 @@ using System.Linq;
 namespace BookingApp.Services {
     public class VoucherService {
         private readonly IVoucherRepository _voucherRepository;
+
         public VoucherService(IVoucherRepository voucherRepository) {
             _voucherRepository = voucherRepository;
         }
@@ -38,6 +39,10 @@ namespace BookingApp.Services {
         }
         public bool AddMultiple(List<int> TouristIds, DateTime expireDate) {
             return _voucherRepository.AddMultiple(TouristIds, expireDate);  
+        }
+
+        public void AwardVoucher(int touristId) {
+            _voucherRepository.Save(new Voucher(DateTime.Now.AddMonths(6), touristId));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +14,19 @@ namespace BookingApp.Domain.Model
         public double Score { get; set; } = 0.0;
         public bool IsSuper { get; set; } = false;
 
+        public DateTime SuperUntil { get; set; } = DateTime.MinValue;
+
         public Guide() {
             Category = UserCategory.Guide;
         }
-        public Guide(int id, string name, string surname, int languageId, double score, bool isSuper) {
+        public Guide(int id, string name, string surname, int languageId, double score, bool isSuper, DateTime superUntil) {
             Id = id;
             Name = name;
             Surname = surname;
             LanguageId = languageId;
             Score = score;
             IsSuper = isSuper;
+            SuperUntil = superUntil;
         }
 
         public override string[] ToCSV() {
@@ -32,7 +36,8 @@ namespace BookingApp.Domain.Model
                 Surname,
                 LanguageId.ToString(),
                 Score.ToString(),
-                IsSuper.ToString()
+                IsSuper.ToString(),
+                SuperUntil.ToString("dd-MM-yyyy HH:mm")
             };
             return cssValues;
         }
@@ -44,6 +49,7 @@ namespace BookingApp.Domain.Model
             LanguageId = Convert.ToInt32(values[3]);         
             Score = Convert.ToDouble(values[4]);
             IsSuper = Convert.ToBoolean(values[5]);
+            SuperUntil = DateTime.ParseExact(values[6], "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
         }
     }
 }

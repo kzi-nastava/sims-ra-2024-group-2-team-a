@@ -37,7 +37,7 @@ namespace BookingApp.WPF.Tablet.ViewModels
             /*if (DateTime.Now.Year == DateTime.Now.AddDays(-1).Year)
                         return;                                                             NEKI USLOV
         */
-            if (guideProfileDTO.IsSuper)
+            if (guideProfileDTO.IsSuper && guideProfileDTO.SuperUntil > DateTime.Now)
                 return;
 
 
@@ -53,9 +53,10 @@ namespace BookingApp.WPF.Tablet.ViewModels
                     maxScore = avgScore;
 
                 if (avgScore > 4.0 && maxScore <= avgScore) {
+                    guideProfileDTO.LanguageId = lan.Id;
                     guideProfileDTO.IsSuper = true;
                     guideProfileDTO.Score = maxScore;
-                    guideProfileDTO.LanguageId = lan.Id;
+                    guideProfileDTO.SuperUntil = DateTime.Now.AddYears(1);
                     _guideService.Update(guideProfileDTO.ToModel());
                 }
             }

@@ -1,6 +1,5 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
-using Syncfusion.Windows.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace BookingApp.WPF.DTO {
     public class TourRequestDTO : INotifyPropertyChanged {
@@ -16,10 +16,12 @@ namespace BookingApp.WPF.DTO {
         public TourRequestDTO() { }
         public TourRequestDTO(int touristId) {
             TouristId = touristId;
+            GuideId = -1;
         }
         public TourRequestDTO(TourRequest tourRequest) {
             Id = tourRequest.Id;
             TouristId = tourRequest.TouristId;
+            GuideId = tourRequest.GuideId;
             LocationId = tourRequest.LocationId;
             Description = tourRequest.Description;
             LanguageId = tourRequest.LanguageId;
@@ -31,13 +33,18 @@ namespace BookingApp.WPF.DTO {
             Status = tourRequest.Status.ToString();
             PassengerNumber = tourRequest.PassengerNumber;
             CastToDateTime();
+            CalendarFrom = new Calendar();
+            CalendarTo = new Calendar();
+            SetCalendars();
             SetLocationTemplate(Location.City, Location.Country);
             SetLanguageTemplate(Language.Name);
+            ComplexTourId = tourRequest.ComplexTourId;
         }
 
         public TourRequestDTO(TourRequest tourRequest, int serialNumber, TourRequestStatus complexStatus) {
             Id = tourRequest.Id;
             TouristId = tourRequest.TouristId;
+            GuideId = tourRequest.GuideId;
             LocationId = tourRequest.LocationId;
             Description = tourRequest.Description;
             LanguageId = tourRequest.LanguageId;
@@ -81,6 +88,18 @@ namespace BookingApp.WPF.DTO {
             set {
                 if (_touristId != value) {
                     _touristId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _guideId;
+        public int GuideId {
+            get {
+                return _guideId;
+            }
+            set {
+                if (_guideId != value) {
+                    _guideId = value;
                     OnPropertyChanged();
                 }
             }
@@ -225,14 +244,36 @@ namespace BookingApp.WPF.DTO {
                 }
             }
         }
-        public int GuideId { get; set; }
+        private int _complexTourId;
+        public int ComplexTourId {
+            get {
+                return _complexTourId;
+            }
+            set {
+                if (_complexTourId != value) {
+                    _complexTourId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
+        public System.Windows.Controls.CalendarBlackoutDatesCollection BlackoutDatesStart { get; set; }
+        public System.Windows.Controls.CalendarBlackoutDatesCollection BlackoutDatesEnd { get; set; }
+        public Calendar CalendarFrom { get; set; }
+        public Calendar CalendarTo { get; set; }
         public string LanguageTemplate { get; set; }
         public string LocationTemplate { get; set; }
+        private void SetCalendars() {
+            CalendarFrom.DisplayDateStart = StartDateTime;
+            CalendarFrom.DisplayDateEnd = EndDateTime;
+
+            CalendarTo.DisplayDateStart = StartDateTime;
+            CalendarTo.DisplayDateEnd = EndDateTime;
+        }
         public void CastToDateTime() {
-            StartDateTime = StartDate.ToDateTime();
-            EndDateTime = EndDate.ToDateTime();
+            StartDateTime = new DateTime(StartDate.Year, StartDate.Month, StartDate.Day);
+            EndDateTime = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day);
         }
         public void SetLocationTemplate(string city, string country) {
             LocationTemplate = $"{country}, {city}";
@@ -243,7 +284,7 @@ namespace BookingApp.WPF.DTO {
         }
 
         public TourRequest ToModel() {
-            return new TourRequest(Id, TouristId, LocationId, Description, LanguageId, StartDate, EndDate, StatusReal, PassengerNumber);
+            return new TourRequest(Id, TouristId, GuideId, LocationId, Description, LanguageId, StartDate, EndDate, StatusReal, PassengerNumber, ComplexTourId);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

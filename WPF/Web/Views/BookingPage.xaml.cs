@@ -16,6 +16,7 @@ namespace BookingApp.WPF.Web.Views {
         private List<LocationDTO> _locationDTOs = new List<LocationDTO>();
 
         private readonly AccommodationService _accommodationService = ServicesPool.GetService<AccommodationService>();
+        private readonly AccommodationReservationService _accommodationReservationService = ServicesPool.GetService<AccommodationReservationService>();
         private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         private readonly OwnerService _ownerService = ServicesPool.GetService<OwnerService>();
 
@@ -60,9 +61,28 @@ namespace BookingApp.WPF.Web.Views {
 
             comboBoxType.ItemsSource = Enum.GetValues(typeof(AccommodationType));
             comboBoxType.SelectedIndex = 0;
+
+            quickDatePickerStartDate.DisplayDateStart = DateTime.Today.AddDays(1);
+            quickDatePickerEndDate.IsEnabled = false;
+        }
+
+        private void UpdateDatePicker(object sender, SelectionChangedEventArgs e) {
+            if (quickDatePickerStartDate.SelectedDate != null) {
+                quickDatePickerEndDate.IsEnabled = true;
+                quickDatePickerEndDate.DisplayDateStart = quickDatePickerStartDate.SelectedDate.Value.AddDays(1);
+                return;
+            }
         }
 
         private void ButtonFilterClick(object sender, RoutedEventArgs e) {
+            if (toggleSwitch.IsChecked) {
+                ApplyQuickFilter();
+            } else {
+                ApplyRegularFilter();
+            }
+        }
+
+        private void ApplyRegularFilter() {
             string name = textBoxName.Text;
             LocationDTO location = (LocationDTO)comboBoxLocation.SelectedItem;
             AccommodationType type = (AccommodationType)comboBoxType.SelectedItem;
@@ -81,12 +101,46 @@ namespace BookingApp.WPF.Web.Views {
             UpdateAccommodationDTOs(accommodations);
         }
 
+        private void ApplyQuickFilter() {
+            DateOnly startDate = new DateOnly();
+            DateOnly endDate = new DateOnly();
+
+            if (!int.TryParse(quickTextBoxGuests.Text, out int guestNumber)) {
+                textBoxGuests.Text = "";
+            }
+
+            if (!int.TryParse(quickTextBoxDays.Text, out int reservationDays)) {
+                textBoxDays.Text = "";
+            }
+
+            if(quickDatePickerStartDate.SelectedDate != null) {
+                startDate = DateOnly.FromDateTime(quickDatePickerStartDate.SelectedDate.Value);
+            }
+
+            if (quickDatePickerEndDate.SelectedDate != null) {
+                endDate = DateOnly.FromDateTime(quickDatePickerEndDate.SelectedDate.Value);
+            }
+
+
+            AccommodationFilterDTO accFilter = new AccommodationFilterDTO("", new LocationDTO(), AccommodationType.any, guestNumber, reservationDays);
+            AccommodationReservationFilterDTO resFilter = new AccommodationReservationFilterDTO(0, reservationDays, guestNumber, startDate, endDate);
+
+            var accommodations = _accommodationService.GetAvailableAccommodationsInDateRange(accFilter, resFilter);
+            UpdateAccommodationDTOs(accommodations);
+        }
+
         private void ButtonClearClick(object sender, RoutedEventArgs e) {
             comboBoxLocation.SelectedIndex = 0;
             comboBoxType.SelectedIndex = 0;
             textBoxDays.Text = "";
             textBoxGuests.Text = "";
             textBoxName.Text = "";
+
+            quickDatePickerStartDate.SelectedDate = null;
+            quickDatePickerEndDate.SelectedDate = null;
+            quickDatePickerEndDate.IsEnabled = false;
+            quickTextBoxDays.Text = "";
+            quickTextBoxGuests.Text = "";
         }
     }
 }

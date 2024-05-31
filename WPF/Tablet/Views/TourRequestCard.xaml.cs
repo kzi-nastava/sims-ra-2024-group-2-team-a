@@ -29,7 +29,13 @@ namespace BookingApp.WPF.Tablet.Views
         private void TourRequestClick(object sender, MouseButtonEventArgs e) {
             Frame additionalFrame = (Frame)Window.GetWindow(this).FindName("additionalFrame");
             TourRequestDTO tourRequestDTO = (TourRequestDTO)DataContext;
-            AcceptTourRequestWindow window = new AcceptTourRequestWindow(tourRequestDTO, additionalFrame);
+            AcceptTourRequestWindow window;
+            if (additionalFrame.Content.ToString() == "BookingApp.WPF.Tablet.Views.ComplexTourRequestPage") {
+                window = new AcceptTourRequestWindow(tourRequestDTO, additionalFrame, true);
+            }
+            else {
+                window = new AcceptTourRequestWindow(tourRequestDTO, additionalFrame, false);
+            }
             window.ShowDialog();
         }
     }
