@@ -45,6 +45,9 @@ namespace BookingApp.Services {
                 Guest guest = new Guest(savedUser);
                 _guestService.Save(guest);
             }
+            else if (savedUser.Category == UserCategory.Tourist) {
+                Tourist tourist = new Tourist(savedUser);
+            }
 
             return savedUser;
         }

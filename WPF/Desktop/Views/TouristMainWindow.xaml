@@ -89,7 +89,8 @@
                         </StackPanel>
                     </Button>
                     <Button x:Name="SettingsButton"
-                            Style="{StaticResource ButtonStyle}">
+                            Style="{StaticResource ButtonStyle}"
+                            Click="SettingsButton_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource BeigeWheel}"
                                    Height="35"

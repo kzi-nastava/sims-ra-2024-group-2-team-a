@@ -39,7 +39,8 @@ namespace BookingApp.Services {
             { typeof(IComplexTourRequestRepository), new Dictionary<RepositoryType, object>() },
             { typeof(IForumRepository), new Dictionary<RepositoryType, object>()},
             { typeof(ICommentRepository), new Dictionary<RepositoryType, object>()},
-            { typeof(IVisitedTourRepository), new Dictionary<RepositoryType, object>() }
+            { typeof(IVisitedTourRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(ITouristRepository), new Dictionary<RepositoryType, object>() }
         };
 
         static RepositoryInjector() {
@@ -68,6 +69,7 @@ namespace BookingApp.Services {
             _repositoryInstances[typeof(IForumRepository)][RepositoryType.CSV] = new ForumRepository();
             _repositoryInstances[typeof(ICommentRepository)][RepositoryType.CSV] = new CommentRepository();
             _repositoryInstances[typeof(IVisitedTourRepository)][RepositoryType.CSV] = new VisitedTourRepository();
+            _repositoryInstances[typeof(ITouristRepository)][RepositoryType.CSV] = new TouristRepository();
 
             // SQL repository registration
             // ...
