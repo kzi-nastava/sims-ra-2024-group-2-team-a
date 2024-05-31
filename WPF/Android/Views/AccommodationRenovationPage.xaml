@@ -16,27 +16,27 @@
 
             <Style TargetType="Label" x:Key="Header1">
             <Style.Setters>
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource HardGreen}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
                 <Setter Property="Padding" Value="0"/>
             </Style.Setters>
         </Style>
         
         <Style TargetType="Label" x:Key="Labels">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
             </Style.Setters>
         </Style>
 
         <Style TargetType="Label" x:Key="ButtonLabels">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
-                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontWeight" Value="DemiBold"/>
             </Style.Setters>
         </Style>
 
@@ -93,8 +93,8 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" Margin="0,5,0,10" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-            <Label Content="Add renovation: " Style="{StaticResource Header1}"/>
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <Label Content="New renovation: " Style="{StaticResource Header1}"/>
             <Label Content="{Binding AccommodationDTO.Name}" Style="{StaticResource Header1}"/>
         </StackPanel>
         <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="2"/>
@@ -133,7 +133,7 @@
         <xctk:IntegerUpDown  x:Name="textBox" Value="{Binding Duration}" 
                              IsEnabled="{Binding SelectedDate, ElementName=endDatePicker, Converter={StaticResource SelectedConverter}}" 
                              Grid.Column="1" Grid.Row="2" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30"
-                             Minimum="1" ClipValueToMinMax="True" HorizontalContentAlignment="Center" Margin="0,15,0,0"/>
+                             Minimum="1" ClipValueToMinMax="True" TextAlignment="Left" Margin="0,15,0,0"/>
 
         <Button Grid.Column="3" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
         IsEnabled="{Binding Duration, Converter={StaticResource CountToBoolConverter}}"
@@ -145,11 +145,11 @@
         </Button>
 
         <Label Content="Available Dates: " Style="{StaticResource Header1}" BorderBrush="Transparent"
-               HorizontalAlignment="Center"  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"/>
+               HorizontalAlignment="Center"  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5"/>
         
         <ListView Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="auto" Width="250" Margin="0,40,0,0"
                   ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged}"
-          SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
+          SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
           SelectionMode="Single">
             <ListView.View>
                 <GridView>

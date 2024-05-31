@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
         xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
         mc:Ignorable="d"
-        Title="AssignGradeWindow" Height="460" Width="350"
+        Title="AssignGradeWindow" Height="500" Width="350"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
@@ -34,25 +34,28 @@
         <Style TargetType="Label" x:Key="Header">
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
-                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource HardGreen}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Padding" Value="0,0,0,0"/>
             </Style.Setters>
         </Style>
 
         <Style TargetType="Label" x:Key="ButtonLabel">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"></Setter>
             </Style.Setters>
         </Style>
 
         <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"></Setter>
             </Style.Setters>
         </Style>
 
@@ -65,46 +68,70 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="80"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Content="Reservation info:" Style="{StaticResource Header}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               HorizontalAlignment="Center" FontWeight="Bold" Padding="3" VerticalAlignment="Center"/>
-        <TextBlock Text="{Binding AccReservationDTO.Accommodation.Name}" Grid.Column="0" Grid.Row="1" FontSize="16"  HorizontalAlignment="Center"/>
-        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="12" HorizontalAlignment="Center">
-                <Run Text="{Binding AccReservationDTO.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
-                <Run Text=" - "/>
-                <Run Text="{Binding AccReservationDTO.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
-        </TextBlock>
-        <TextBlock Text="{Binding GuestUsername}" Grid.Column="0" Grid.Row="2" FontSize="16" HorizontalAlignment="Center"/>
-        <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"/>
+        <Label Content="Grade your guest:" Style="{StaticResource Header}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <StackPanel  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Cleanness Grade: " FontSize="14" FontFamily="Global Sans Serif" HorizontalAlignment="Center" />
-            <Label Content="{Binding ElementName=SliderCleanness, Path=Value}" HorizontalAlignment="Center" />
+        <Border BorderBrush="{StaticResource HardGreen}" Background="{StaticResource SoftGreen}" BorderThickness="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center"
+                CornerRadius="15" Height="100">
+            <Grid Width="250">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.2*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="{StaticResource HouseIcon}" RenderOptions.BitmapScalingMode="HighQuality" Height="15" Width="15" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding AccReservationDTO.Accommodation.Name}" FontSize="18" 
+                   FontFamily="{StaticResource Roboto}" VerticalAlignment="Center"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="{StaticResource CalendarIcon}" RenderOptions.BitmapScalingMode="HighQuality" Height="15" Width="15" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                    <TextBlock FontSize="14" FontFamily="{StaticResource Roboto}" VerticalAlignment="Center">
+                    <Run Text="{Binding AccReservationDTO.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                    <Run Text="  "/>
+                    <Run Text="{Binding AccReservationDTO.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="{StaticResource PeopleIcon}" RenderOptions.BitmapScalingMode="HighQuality" Height="15" Width="15" Margin="0,0,10,0" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding GuestUsername}" FontSize="14" FontFamily="{StaticResource Roboto}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+                <StackPanel  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Cleanness Grade: " FontSize="16" FontFamily="{StaticResource Roboto}" HorizontalAlignment="Center" />
+            <Label Content="{Binding ElementName=SliderCleanness, Path=Value}" HorizontalAlignment="Center" FontSize="16" FontFamily="{StaticResource Roboto}"/>
         </StackPanel>
 
         <Slider x:Name="SliderCleanness" Grid.Row="3" Value="{Binding ReviewDTO.GuestCleannessGrade,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                 Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True"
-                Width="200" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="14" Grid.Column="0" 
-                Grid.ColumnSpan="2" HorizontalAlignment="Center" FontFamily="Global Sans Serif"/>
+                Width="200" VerticalAlignment="Center" Margin="0,20,0,0" FontSize="20" Grid.Column="0" 
+                Grid.ColumnSpan="2" HorizontalAlignment="Center" FontFamily="{StaticResource Roboto}"/>
 
         <StackPanel  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Rule Following Grade: " FontSize="14" HorizontalAlignment="Center" FontFamily="Global Sans Serif"/>
-            <Label Content="{Binding ElementName=SliderRuleFollowing, Path=Value}" HorizontalAlignment="Center" />
+            <Label Content="Rule Following Grade: " HorizontalAlignment="Center" FontSize="16" FontFamily="{StaticResource Roboto}"/>
+            <Label Content="{Binding ElementName=SliderRuleFollowing, Path=Value}" HorizontalAlignment="Center" FontSize="16" FontFamily="{StaticResource Roboto}"/>
         </StackPanel>
 
         <Slider  x:Name="SliderRuleFollowing" Grid.Row="4" Value="{Binding ReviewDTO.RuleFollowingGrade,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True"
-                Width="200" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="14" Grid.Column="0" Grid.ColumnSpan="2"
-                HorizontalAlignment="Center" FontFamily="Global Sans Serif"/>
+                Width="200" VerticalAlignment="Center" Margin="0,20,0,0" FontSize="20" Grid.Column="0" Grid.ColumnSpan="2"
+                HorizontalAlignment="Center" FontFamily="{StaticResource Roboto}"/>
 
-        <Label Grid.Row="5" Content="Additional Comments: " FontSize="14" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontFamily="Global Sans Serif"/>
-        <TextBox Grid.Row="6" Text="{Binding ReviewDTO.OwnerComment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="13" Grid.Column="0" Grid.ColumnSpan="2" Width="250" Height="50"  HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Global Sans Serif"/>
+        <Label Grid.Row="5" Content="Additional Comments: " FontSize="16" FontFamily="{StaticResource Roboto}" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="6" Text="{Binding ReviewDTO.OwnerComment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="14" FontFamily="{StaticResource Roboto}"
+                 Grid.Column="0" Grid.ColumnSpan="2" Width="250" Height="60"  HorizontalAlignment="Center" VerticalAlignment="Top" />
 
         <Button x:Name="CancelButton" Grid.Row="7" Height="50" Width="130" Click="CancelButton_Click" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">

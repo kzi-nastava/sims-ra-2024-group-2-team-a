@@ -29,23 +29,12 @@
             </Setter>
         </Style>
 
-
-        <Style TargetType="Label" x:Key="Header">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="22"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
-                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
-                <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
-                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
-            </Style.Setters>
-        </Style>
-
         <Style TargetType="Label" x:Key="ButtonLabel">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
 
@@ -69,16 +58,16 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" FontFamily="Global sans serif" TextAlignment="Center"
-               Text="Generate average grades report for your accommodations" TextWrapping="Wrap" Margin="10"
-                   VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <Label Content="File path: " FontSize="14" FontFamily="Global sans serif" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" Padding="0"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" FontFamily="{StaticResource Roboto}" TextAlignment="Center"
+               Text="Generate average grades report for your accommodations" TextWrapping="Wrap"  Margin="15,0,15,0" Width="270"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0"/>
+        <Label Content="File path: " FontSize="16" FontFamily="{StaticResource Roboto}" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,5,0,0" Padding="0"/>
 
-        <TextBox Text="{Binding FilePath}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="25" Width="200" HorizontalAlignment="Left" Margin="15 0" IsReadOnly="True"/>
+        <TextBox Text="{Binding FilePath}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="25" Width="200" HorizontalAlignment="Left" Margin="15,0,0,0" IsReadOnly="True"/>
 
         <Button x:Name="OpenFolder" Style="{StaticResource DisabledButtonStyle}" Grid.Column="1" Margin="15 0"
         Grid.Row="1" Height="50" Width="50" Click="OpenFolder_Click" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <Image Source="{StaticResource DocumentBeigeIcon}" Height="35" Width="35"/>
+            <Image Source="{StaticResource DocumentBeigeIcon}" Height="35" Width="35" RenderOptions.BitmapScalingMode="HighQuality"/>
         </Button>
 
 

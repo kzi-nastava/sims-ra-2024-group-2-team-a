@@ -94,7 +94,7 @@ namespace BookingApp.WPF.Android.Views {
         private void ViewImages_Click(object sender, RoutedEventArgs e) {
             if (AccommodationDTO.ProfilePictures.Count == 0) {
                 ViewButton.IsEnabled = false;
-                importLabel.Content = "Import images first!";
+                importLabel.Content = "No images selected!";
             }
             else {
                 ViewSelectedImagesWindow viewSelectedImagesWindow = new ViewSelectedImagesWindow(AccommodationDTO);

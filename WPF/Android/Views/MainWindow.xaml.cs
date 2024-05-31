@@ -101,7 +101,7 @@ namespace BookingApp.WPF.Android.Views {
         private void mainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e) {
             switch (e.Content as Page) {
                 case AccommodationPage: {
-                        AnimateLabelContentChange("My accommodations and statistics");
+                        AnimateLabelContentChange("Accommodations and statistics");
                         break;
                     }
                 case ReservationReviewsPage: {

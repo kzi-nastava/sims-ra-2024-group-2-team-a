@@ -34,17 +34,19 @@
         <Style TargetType="Label" x:Key="Header">
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
-                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource HardGreen}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="Padding" Value="0"/>
             </Style.Setters>
         </Style>
 
         <Style TargetType="Label" x:Key="ButtonLabel">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
 
@@ -86,7 +88,8 @@
                         <StackPanel>
                             <Image Source="{Binding Converter={StaticResource Converter}}" Height="120" Width="120" SnapsToDevicePixels="True"/>
                             <Button  Click="DeleteSelectedImage_Click" Height="40" Width="70" Margin="0,-10,0,0" Background="{StaticResource Green}">
-                                    <Label Content="Delete" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <Label Content="Delete" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource Roboto}" Padding="0"/>
                                 </Button>
                             </StackPanel>
                     </DataTemplate>

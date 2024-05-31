@@ -10,8 +10,8 @@
     <Page.Resources>
         <Style TargetType="Label" x:Key="Header">
             <Style.Setters>
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
             </Style.Setters>
@@ -19,16 +19,16 @@
 
         <Style TargetType="Label" x:Key="ButtonLabel">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
 
         <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
@@ -45,21 +45,22 @@
                 <Border Grid.Row="0" BorderBrush="Black" BorderThickness="0,0,0,1">
                     <Grid Background="{StaticResource SoftGreen}">
                         <StackPanel Orientation="Vertical" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <Label Content="{Binding ForumDTO.Title}" Style="{StaticResource Header}" BorderBrush="Transparent"/>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="{StaticResource LocationIcon}" Height="25" Width="25"/>
-                                <Label Content="{Binding ForumDTO.Location.LocationInfoTemplate}" FontFamily="Global sans serif" FontSize="14"/>
+                            <Label Content="{Binding ForumDTO.Title}" Style="{StaticResource Header}" BorderBrush="Transparent" Padding="0"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <TextBlock Text="Comments: " FontSize="16" FontFamily="{StaticResource Roboto}" Foreground="Black" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding ForumDTO.CommentNum}" FontSize="16" Padding="0" FontFamily="{StaticResource Roboto}" Foreground="Black" VerticalAlignment="Center"/>
                             </StackPanel>
+                            
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="{StaticResource PeopleIcon}" Height="25" Width="25"/>
-                                <Label Content="{Binding ForumDTO.Username}" FontFamily="Global sans serif" FontSize="14"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <Image Source="{StaticResource LocationIcon}" Height="20" Width="20" Margin="0,0,5,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <Label Content="{Binding ForumDTO.Location.LocationInfoTemplate}" FontFamily="{StaticResource Roboto}" FontSize="16" Padding="0"/>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Comments: " FontSize="14" FontFamily="Global Sans Serif" Foreground="Black" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding ForumDTO.CommentNum}" FontSize="14" FontFamily="Global Sans Serif" Foreground="Black" VerticalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" >
+                                <Image Source="{StaticResource PeopleIcon}" Height="20" Width="20" Margin="0,0,5,0"/>
+                                <Label Content="{Binding ForumDTO.Username}" FontFamily="{StaticResource Roboto}" FontSize="16" Padding="0"/>
                             </StackPanel>
                         </StackPanel>
 
@@ -93,7 +94,7 @@
                         </Grid.RowDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Header}" VerticalContentAlignment="Center" BorderBrush="Transparent"
-                               Padding="0" FontSize="18" Content="Express your opinion:" Width="180" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                               Padding="0" FontSize="20" Content="Express your opinion:" Width="200" HorizontalAlignment="Left" Margin="10,5,0,0"/>
 
                         <TextBox Grid.Row="1" Margin="10,5,10,5" Text="{Binding CommentDTO.Text}"/>
 
@@ -101,7 +102,7 @@
                                 Background="{StaticResource Green}" Click="PostButton_Click">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2">
                                 <Image Source="{StaticResource SendIconBeige}" Width="25" Height="25"/>
-                                <TextBlock Text="Post !" FontSize="16" Style="{StaticResource ButtonLabelTextBlock}" Margin="0,5,0,0"/>
+                                <TextBlock Text="Post!" FontSize="18" Style="{StaticResource ButtonLabelTextBlock}" FontWeight="Medium" Margin="0,5,0,0"/>
                             </StackPanel>
                         </Button>
                     </Grid>
