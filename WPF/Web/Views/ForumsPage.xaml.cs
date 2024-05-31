@@ -57,6 +57,8 @@ namespace BookingApp.WPF.Web.Views {
                 forum.CommentNum = forum.GuestCommentNum + forum.OwnerCommentNum;
             }
 
+            _forumDTOs = _forumDTOs.OrderByDescending(l => l.CommentNum).ToList();
+
             itemsControlForums.ItemsSource = _forumDTOs;
         }
 

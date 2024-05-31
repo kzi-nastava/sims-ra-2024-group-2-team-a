@@ -54,13 +54,13 @@
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="500"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0" Background="{StaticResource Green}">
                     <WrapPanel Margin="0 5 5 5" VerticalAlignment="Center">
                         <Label Content="Filter by location" Style="{StaticResource SearchLabel}"/>
-                        <ComboBox Name="comboBoxLocation" Width="230" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left"
+                        <ComboBox Name="comboBoxLocation" Width="230" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left" Cursor="Hand"
                     ItemsSource="{Binding Path=_locationDTOs}" DisplayMemberPath="LocationOptionTemplate" SelectionChanged="LocationSelectionChanged"/>
                     </WrapPanel>
 
@@ -73,7 +73,7 @@
                 </Grid>
 
                 <Grid Grid.Row="1" Background="{StaticResource Beige}">
-                    <ScrollViewer Height="540">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <ItemsControl Name="itemsControlForums" ItemsSource="{Binding _forumDTOs}" Margin="10 10 10 10" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>

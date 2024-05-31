@@ -57,7 +57,7 @@
 
             <StackPanel Grid.Row="1" Margin="10 10 0 5">
                 <Label Content="Location" Style="{StaticResource LabelStyle}"/>
-                <ComboBox Name="comboBoxLocation" SelectedIndex="0" Width="300" HorizontalAlignment="Left" Margin="10 0 0 0"
+                <ComboBox Name="comboBoxLocation" SelectedIndex="0" Width="300" HorizontalAlignment="Left" Margin="10 0 0 0" Cursor="Hand"
                           ItemsSource="{Binding LocationDTOs}" DisplayMemberPath="LocationOptionTemplate" SelectionChanged="LocationSelectionChanged"/>
             </StackPanel>
 

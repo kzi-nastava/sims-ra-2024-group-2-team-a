@@ -80,13 +80,13 @@
                 <StackPanel Orientation="Vertical" Margin="20 0 0 0" Grid.Column="0">
                     <WrapPanel Margin="0 5 5 5">
                         <Label Content="Location" Style="{StaticResource SearchLabel}"/>
-                        <ComboBox x:Name="comboBoxLocation" Width="230" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left"
+                        <ComboBox x:Name="comboBoxLocation" Width="230" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left" Cursor="Hand"
                             ItemsSource="{Binding Path=_locationDTOs}" DisplayMemberPath="LocationOptionTemplate"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="0 5 5 5">
                         <Label Content="Type" Style="{StaticResource SearchLabel}"/>
-                        <ComboBox x:Name="comboBoxType" Height="24" VerticalAlignment="Center" HorizontalAlignment="Left" Width="140"/>
+                        <ComboBox x:Name="comboBoxType" Height="24" VerticalAlignment="Center" HorizontalAlignment="Left" Width="140" Cursor="Hand"/>
                     </WrapPanel>
                 </StackPanel>
 
