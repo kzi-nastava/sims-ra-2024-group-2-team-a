@@ -28,8 +28,8 @@ namespace BookingApp.Services {
             return _forumRepository.GetAll();
         }
 
-        public void Save(Forum forum) {
-            _forumRepository.Save(forum);
+        public Forum Save(Forum forum) {
+            return _forumRepository.Save(forum);
         }
 
         public Forum GetById(int id) {

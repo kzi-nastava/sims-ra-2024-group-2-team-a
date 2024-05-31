@@ -63,5 +63,18 @@ namespace BookingApp.WPF.Web.Views {
         private void LocationSelectionChanged(object sender, SelectionChangedEventArgs e) {
             Update();
         }
+
+        public void ButtonCreateForumClick(object sender, RoutedEventArgs e) {
+            rectBlurBackground.Visibility = Visibility.Visible;
+
+            GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
+
+            mainGrid.Children.Add(new CreateForumModalDialog(this, _locationDTOs, window.GuestId));
+        }
+
+        public void CloseModalDialog() {
+            rectBlurBackground.Visibility = Visibility.Hidden;
+            mainGrid.Children.RemoveAt(mainGrid.Children.Count - 1);
+        }
     }
 }

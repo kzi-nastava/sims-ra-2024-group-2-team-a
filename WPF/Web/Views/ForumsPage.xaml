@@ -39,54 +39,58 @@
         </Style>
     </Page.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Grid x:Name="mainGrid" Background="{StaticResource Beige}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
-            <Border Background="{StaticResource Beige}" BorderThickness="0 0 3 0" BorderBrush="{StaticResource HardGreen}">
-            </Border>
-        </Grid>
+            <Grid Grid.Column="0">
+                <Border BorderThickness="0 0 3 0" BorderBrush="{StaticResource HardGreen}">
+                </Border>
+            </Grid>
 
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Background="{StaticResource Green}">
-                <WrapPanel Margin="0 5 5 5" VerticalAlignment="Center">
-                    <Label Content="Filter by location" Style="{StaticResource SearchLabel}"/>
-                    <ComboBox x:Name="comboBoxLocation" Width="230" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left"
-                            ItemsSource="{Binding Path=_locationDTOs}" DisplayMemberPath="LocationOptionTemplate" SelectionChanged="LocationSelectionChanged"/>
-                </WrapPanel>
-
-                <Button x:Name="buttonAddForum" Margin="10 5 20 5" Width="150" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <WrapPanel>
-                        <Image Style="{StaticResource ButtonImage}" Source="{StaticResource AddNewIcon}"/>
-                        <TextBlock Text="Create forum" Style="{StaticResource ButtonText}"/>
+                <Grid Grid.Row="0" Background="{StaticResource Green}">
+                    <WrapPanel Margin="0 5 5 5" VerticalAlignment="Center">
+                        <Label Content="Filter by location" Style="{StaticResource SearchLabel}"/>
+                        <ComboBox Name="comboBoxLocation" Width="230" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    ItemsSource="{Binding Path=_locationDTOs}" DisplayMemberPath="LocationOptionTemplate" SelectionChanged="LocationSelectionChanged"/>
                     </WrapPanel>
-                </Button>
-            </Grid>
 
-            <Grid Grid.Row="1" Background="{StaticResource Beige}">
-                <ScrollViewer Height="540">
-                    <ItemsControl x:Name="itemsControlForums" ItemsSource="{Binding _forumDTOs}" Margin="10 10 10 10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <local:ForumCard/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </ScrollViewer>
+                    <Button x:Name="buttonAddForum" Margin="10 5 20 5" Width="150" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right" Click="ButtonCreateForumClick">
+                        <WrapPanel>
+                            <Image Style="{StaticResource ButtonImage}" Source="{StaticResource AddNewIcon}"/>
+                            <TextBlock Text="Create forum" Style="{StaticResource ButtonText}"/>
+                        </WrapPanel>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Row="1" Background="{StaticResource Beige}">
+                    <ScrollViewer Height="540">
+                        <ItemsControl Name="itemsControlForums" ItemsSource="{Binding _forumDTOs}" Margin="10 10 10 10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <local:ForumCard/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
             </Grid>
         </Grid>
+        
+        <Rectangle x:Name="rectBlurBackground" Fill="Gray" Opacity="0.5" Visibility="Hidden"/>
     </Grid>
 </Page>
