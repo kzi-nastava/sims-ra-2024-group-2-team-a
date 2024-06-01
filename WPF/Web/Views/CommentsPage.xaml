@@ -39,7 +39,7 @@
             <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Height="465">
             <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Auto">
                 <ItemsControl Name="itemsControlComments" ItemsSource="{Binding _commentDTOs}" Margin="100 20 100 20">
                     <ItemsControl.ItemTemplate>

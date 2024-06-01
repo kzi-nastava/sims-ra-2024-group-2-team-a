@@ -54,9 +54,9 @@
 
         <WrapPanel Grid.Column="2" Name="reportIndicator" Orientation="Horizontal"
                    VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10 0 0 10">
-            <Image Name="reportImage" Style="{StaticResource ImageStyle}" Source="{StaticResource ReportIcon}"/>
+            <Image Name="reportImage" Style="{StaticResource ImageStyle}" Width="16" Height="16" Source="{StaticResource ReportIcon}"/>
             <TextBlock Text="{Binding Comment.ReportsNum}" VerticalAlignment="Bottom" HorizontalAlignment="Center"
-                   FontSize="16" Margin="10 0 0 0"/>
+                   FontSize="14" Margin="5 0 0 0"/>
         </WrapPanel>
     </Grid>
 </UserControl>
