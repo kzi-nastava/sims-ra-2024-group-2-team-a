@@ -24,11 +24,13 @@ namespace BookingApp.Services {
             _accommodationService = accommodationService;
             _notificationService = notificationService;
         }
+
         public List<Forum> GetAll() {
             return _forumRepository.GetAll();
         }
 
         public Forum Save(Forum forum) {
+            _notificationService.CreateNewForumNotification(forum.LocationId);
             return _forumRepository.Save(forum);
         }
 
