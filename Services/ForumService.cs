@@ -28,9 +28,20 @@ namespace BookingApp.Services {
             return _forumRepository.GetAll();
         }
 
+        public Forum Save(Forum forum) {
+            return _forumRepository.Save(forum);
+        }
+
+        public void Close(int id) {
+            Forum f = this.GetById(id);
+            f.Close();
+            _forumRepository.Update(f);
+        }
+
         public Forum GetById(int id) {
             return _forumRepository.GetById(id);
         }
+
         public List<Forum> GetByLocationId(int locationId) {
             return this.GetAll().Where(x => x.LocationId == locationId).ToList();
         }
@@ -38,6 +49,7 @@ namespace BookingApp.Services {
         public void Update(Forum forum) {
             _forumRepository.Update(forum);
         }
+
         public List<Forum> GetAllByOwnerId(int ownerId) {
             List<Forum> forums = new List<Forum>();
             List<int> locationIds = new List<int>();
@@ -53,6 +65,7 @@ namespace BookingApp.Services {
 
             return forums.OrderByDescending(x => (x.OwnerCommentNum + x.GuestCommentNum)).ToList();  
         }
+
         public List<Forum> GetFilteredForums(int locationId, int creatorId, bool isUsefull, int ownerId) {
             List<Forum> filteredForums = new List<Forum> ();
 
@@ -66,6 +79,7 @@ namespace BookingApp.Services {
 
             return filteredForums;
         }
+
         private bool CheckLocationId(int locationId, Forum forum) {
             if (locationId == -1 || forum.LocationId == locationId) {
                 return true;
@@ -73,6 +87,7 @@ namespace BookingApp.Services {
 
             return false;
         }
+
         private bool CheckCreatorId(int creatorId, Forum forum) {
             if (creatorId == -1 || forum.CreatorId == creatorId) {
                 return true;
@@ -87,6 +102,7 @@ namespace BookingApp.Services {
             }
             return false;
         }
+
         public void IncreaseOwnerComment(int forumId) {
             Forum forum = this.GetById(forumId);
 
@@ -95,6 +111,5 @@ namespace BookingApp.Services {
 
             this.Update(forum);
         }
-
     }
 }

@@ -60,7 +60,13 @@
         <BitmapImage x:Key="SendIconBeige" UriSource="Resources/Images/Icons/send-icon-beige.png"/>
         <BitmapImage x:Key="CategoryIcon" UriSource="Resources/Images/Icons/category-icon.png"/>
         <BitmapImage x:Key="HelpIcon" UriSource="/Resources/Images/help.png"/>
-            
+        <BitmapImage x:Key="AddNewIcon" UriSource="Resources/Images/Icons/add-new-icon.png"/>
+        <BitmapImage x:Key="CommentIcon" UriSource="Resources/Images/Icons/comment-icon.png"/>
+        <BitmapImage x:Key="UserIcon" UriSource="Resources/Images/Icons/user-icon.png"/>
+        <BitmapImage x:Key="PlaneIcon" UriSource="Resources/Images/Icons/plane-icon.png"/>
+        <BitmapImage x:Key="OwnerIcon" UriSource="Resources/Images/owner-icon.png"/>
+        <BitmapImage x:Key="VerifiedIcon" UriSource="Resources/Images/Icons/verified-icon.png"/>
+
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>
         <SolidColorBrush x:Key="Green2" Color="#5a8c6a"/>

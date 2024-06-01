@@ -27,6 +27,7 @@
     <None Remove="Resources\Images\forums-icon.png" />
     <None Remove="Resources\Images\guidance-icon-beige.png" />
     <None Remove="Resources\Images\Icons\add-icon3-b.png" />
+    <None Remove="Resources\Images\Icons\add-new-icon.png" />
     <None Remove="Resources\Images\Icons\android-alert.png" />
     <None Remove="Resources\Images\Icons\android-house-icon.png" />
     <None Remove="Resources\Images\Icons\android-inbox-icon.png" />
@@ -55,6 +56,7 @@
     <None Remove="Resources\Images\Icons\category-icon.png" />
     <None Remove="Resources\Images\Icons\chat-white-icon.png" />
     <None Remove="Resources\Images\Icons\clear-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\comment-icon.png" />
     <None Remove="Resources\Images\Icons\confirm-icon-beige.png" />
     <None Remove="Resources\Images\Icons\confirm-icon.png" />
     <None Remove="Resources\Images\Icons\coupon.png" />
@@ -79,6 +81,7 @@
     <None Remove="Resources\Images\Icons\not-super-icon.png" />
     <None Remove="Resources\Images\Icons\owner-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
+    <None Remove="Resources\Images\Icons\plane-icon.png" />
     <None Remove="Resources\Images\Icons\pointing-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\red-circle-icon.png" />
     <None Remove="Resources\Images\Icons\renovation-icon-beige.png" />
@@ -108,6 +111,8 @@
     <None Remove="Resources\Images\Icons\stopwatch.png" />
     <None Remove="Resources\Images\Icons\super-icon.png" />
     <None Remove="Resources\Images\Icons\time-icon.png" />
+    <None Remove="Resources\Images\Icons\user-icon.png" />
+    <None Remove="Resources\Images\Icons\verified-icon.png" />
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\normal-home-icon.png" />
     <None Remove="Resources\Images\notification-request-icon.png" />
@@ -162,6 +167,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Icons\plane-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>4</VersionMinor>
@@ -189,6 +198,7 @@
     <Resource Include="Resources\Images\eye-beige.png" />
     <Resource Include="Resources\Images\forums-icon.png" />
     <Resource Include="Resources\Images\Icons\add-icon3-b.png" />
+    <Resource Include="Resources\Images\Icons\add-new-icon.png" />
     <Resource Include="Resources\Images\Icons\android-alert.png" />
     <Resource Include="Resources\Images\Icons\android-house-icon.png" />
     <Resource Include="Resources\Images\Icons\android-inbox-icon.png" />
@@ -229,6 +239,7 @@
     <Resource Include="Resources\Images\Icons\category-icon.png" />
     <Resource Include="Resources\Images\Icons\chat-white-icon.png" />
     <Resource Include="Resources\Images\Icons\clear-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\comment-icon.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon.png" />
     <Resource Include="Resources\Images\Icons\coupon.png" />
@@ -279,6 +290,8 @@
     <Resource Include="Resources\Images\Icons\statistics-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\stopwatch.png" />
     <Resource Include="Resources\Images\Icons\time-icon.png" />
+    <Resource Include="Resources\Images\Icons\user-icon.png" />
+    <Resource Include="Resources\Images\Icons\verified-icon.png" />
     <Resource Include="Resources\Images\live.png" />
     <Resource Include="Resources\Images\normal-home-icon.png" />
     <Resource Include="Resources\Images\notification-request-icon.png" />
