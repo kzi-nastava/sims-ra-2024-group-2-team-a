@@ -101,7 +101,7 @@
                         <Button x:Name="PostButton" Grid.Column="1" Grid.Row="1" Height="60" Width="60" 
                                 Background="{StaticResource Green}" Click="PostButton_Click">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2">
-                                <Image Source="{StaticResource SendIconBeige}" Width="25" Height="25"/>
+                                <Image Source="{StaticResource SendIconBeige}" Width="25" Height="25" RenderOptions.BitmapScalingMode="HighQuality"/>
                                 <TextBlock Text="Post!" FontSize="18" Style="{StaticResource ButtonLabelTextBlock}" FontWeight="Medium" Margin="0,5,0,0"/>
                             </StackPanel>
                         </Button>

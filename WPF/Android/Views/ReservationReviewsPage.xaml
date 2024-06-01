@@ -64,7 +64,7 @@
             <Grid Background="{StaticResource Beige}">
         <TabControl Height="600" Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TabItem Header="Reviews" Width="120" Height="40" FontFamily="{StaticResource Roboto}" FontSize="16">
-                <Grid Background="#FFE5E5E5">
+                <Grid Background="{StaticResource Beige}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="*"/>
@@ -172,6 +172,9 @@
                                 <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                                 <Setter Property="FontSize" Value="12"/>
                                 <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CanBeGradedByOwner}" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource Green}"/>
+                                    </DataTrigger>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="{StaticResource Beige}"/>
                                     </Trigger>
