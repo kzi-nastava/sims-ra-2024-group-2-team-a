@@ -31,11 +31,13 @@ namespace BookingApp.WPF.Android.Views {
             ForumCommentsViewmodel = new ForumCommentsViewmodel(forumDTO, user);
             DataContext = ForumCommentsViewmodel;
             _forumsPageViewmodel = forumsPageViewmodel;
+            scrollViewer.ScrollToBottom();
         }
 
         private void PostButton_Click(object sender, RoutedEventArgs e) {
             ForumCommentsViewmodel.PostClick();
             _forumsPageViewmodel.Update();
+            scrollViewer.ScrollToBottom();
         }
     }
 }

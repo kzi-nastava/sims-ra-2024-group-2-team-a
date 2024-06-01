@@ -35,6 +35,10 @@ namespace BookingApp.WPF.Android.ViewModels {
             }
         }
         public void PostClick() {
+            if (ForumDTO.IsClosed) {
+                return;
+            }
+
             CommentDTO.CreatorId = _user.Id;
             CommentDTO.CreationDate = DateTime.Now;
             CommentDTO.ForumId = ForumDTO.Id;
@@ -42,6 +46,7 @@ namespace BookingApp.WPF.Android.ViewModels {
             _commentService.SaveOwnerComment(CommentDTO.ToComment());
             ForumDTO.CommentNum++;
             this.Update();
+            CommentDTO.Text = "";
         }
     }
 }

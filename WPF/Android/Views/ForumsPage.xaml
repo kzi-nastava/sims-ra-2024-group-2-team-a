@@ -77,51 +77,61 @@
       HorizontalContentAlignment="Stretch" Background="{StaticResource Beige}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="{StaticResource SoftGreen}" BorderBrush="Black" BorderThickness="1" Height="80" CornerRadius="20" Width="380">
-                            <Grid Margin="10,0,10,0" VerticalAlignment="Center" Background="{StaticResource SoftGreen}" Height="70" Width="370">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="180"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="50"/>
-                                </Grid.ColumnDefinitions>
+                        <Border Background="{StaticResource SoftGreen}" BorderBrush="Black" BorderThickness="1" Height="120" CornerRadius="20" Width="380">
+                            <Grid Margin="10,0,10,0" VerticalAlignment="Center" Background="{StaticResource SoftGreen}" Height="110" Width="370">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                                <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Margin="10,0,0,0">
-                                        <Image Source="{StaticResource PeopleIcon}" Height="15" Width="15" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                            <TextBlock Text="{Binding Username}" 
-                                            FontSize="16" FontFamily="{StaticResource Roboto}" Foreground="Black" Margin="5,0,0,0"/>
-                                    </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="10,5,0,0">
+                                <Border BorderBrush="{StaticResource Beige}" BorderThickness="0,0,0,1" Grid.Row="0">
+                                    <Grid>
+                                        <TextBlock Text="{Binding Title}" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                         Margin="5,0,0,0" FontFamily="{StaticResource Roboto}" Background="{StaticResource SoftGreen}" FontSize="18" 
+                                               FontWeight="Medium" TextWrapping="Wrap" />
+                                        <Image Source="{StaticResource StarIcon}" Height="40" Width="40"  
+                                               RenderOptions.BitmapScalingMode="HighQuality" Grid.Row="1" Grid.RowSpan="3" 
+                                                VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" 
+                                               Visibility="{Binding IsUsefull, Converter={StaticResource VisibilityConverter}}"/>
+                                    </Grid>
+                                </Border>
+                                <Grid Grid.Row="1" Margin="10,5,0,0">
+                                    <StackPanel Orientation="Horizontal"  >
                                         <Image Source="{StaticResource LocationIcon}" Height="15" Width="15" VerticalAlignment="Center"  RenderOptions.BitmapScalingMode="HighQuality"/>
                                         <TextBlock Text="{Binding Location.LocationInfoTemplate}" 
-                                            FontSize="16" FontFamily="{StaticResource Roboto}" Foreground="Black" Margin="5,0,0,0"/>
+                                            FontSize="16" FontFamily="{StaticResource Roboto}" Foreground="Black" Margin="5,0,0,0" VerticalAlignment="Center"/>
                                     </StackPanel>
-                                </Grid>
 
-                                <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Margin="10,0,0,0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="2*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Text="{Binding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0"
-                                            FontFamily="{StaticResource Roboto}" Background="{StaticResource SoftGreen}" FontSize="20" />
-
-                                    <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="0,5,0,0">
+                                    <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
                                         <TextBlock Text="Comments: "  
                                             FontSize="16" FontFamily="{StaticResource Roboto}" Foreground="Black" />
-                                        <TextBlock Text="{Binding CommentNum}" FontSize="16" FontFamily="{StaticResource Roboto}" Foreground="Black"/>
+                                        <TextBlock Text="{Binding CommentNum}" FontSize="16" FontFamily="{StaticResource Roboto}" Foreground="Black" Margin="0,0,20,0"/>
                                     </WrapPanel>
-
-                                    
                                 </Grid>
 
-                                <Image Source="{StaticResource StarIcon}" Height="40" Width="40" Grid.Column="2"  RenderOptions.BitmapScalingMode="HighQuality"
-                                       VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="{Binding IsUsefull, Converter={StaticResource VisibilityConverter}}"/>
+                                <Grid Grid.Row="2">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">
+                                    <Image Source="{StaticResource PeopleIcon}" Height="15" Width="15" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                    <TextBlock Text="{Binding Username}" 
+                                        FontSize="16" FontFamily="{StaticResource Roboto}" Foreground="Black" Margin="5,0,0,0"/>
+                                    </StackPanel>
+                                    <Label FontWeight="Medium" FontFamily="{StaticResource Roboto}" 
+                                           Margin="0,0,15,0" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="12">
+                                        <Label.Style>
+                                            <Style TargetType="Label">
+                                                <Setter Property="Content" Value="Open"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsClosed}" Value="True">
+                                                        <Setter Property="Content" Value="Closed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                </Grid>
+
+
                             </Grid>
                         </Border>
                     </DataTemplate>
