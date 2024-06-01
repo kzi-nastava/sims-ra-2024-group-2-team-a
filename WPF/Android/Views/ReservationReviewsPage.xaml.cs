@@ -36,6 +36,20 @@ namespace BookingApp.WPF.Android.Views {
             ReservationReviewsViewmodel.RequestsListSelectionChanged();
         }
 
-      
+        private void Accept_Click(object sender, RoutedEventArgs e) {
+            if (ReservationReviewsViewmodel.SelectedRequest == null) {
+                AndroidDialogWindow androidDialogWindow = new AndroidDialogWindow("Please select a request first!");
+                androidDialogWindow.ShowDialog();
+                return;
+            }
+        }
+
+        private void Decline_Click(object sender, RoutedEventArgs e) {
+            if (ReservationReviewsViewmodel.SelectedRequest == null) {
+                AndroidDialogWindow androidDialogWindow = new AndroidDialogWindow("Please select a request first!");
+                androidDialogWindow.ShowDialog();
+                return;
+            }
+        }
     }
 }

@@ -36,35 +36,35 @@
         <Style TargetType="Label" x:Key="Header">
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
-                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
 
         <Style TargetType="Label" x:Key="ButtonLabel">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
 
         <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
 
     </Page.Resources>
             <Grid Background="{StaticResource Beige}">
         <TabControl Height="600" Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TabItem Header="Reviews" Width="120" Height="40" FontSize="12">
-                <Grid Background="#FFE5E5E5">
+            <TabItem Header="Reviews" Width="120" Height="40" FontFamily="{StaticResource Roboto}" FontSize="16">
+                <Grid Background="{StaticResource Beige}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="*"/>
@@ -76,9 +76,9 @@
                         <RowDefinition Height="90"/>
                     </Grid.RowDefinitions>
 
-                    <Label  Grid.Row="1"
-                            Grid.Column="0" Grid.ColumnSpan="2" Foreground="red"
-                            VerticalAlignment="Top" Margin="0,0,0,0" HorizontalAlignment="Center">
+                        <Label  Grid.Row="1" FontFamily="{StaticResource Roboto}" FontSize="12" Padding="0"
+                            Grid.Column="0" Grid.ColumnSpan="2" Foreground="red" Margin="0,15,0,0"
+                            VerticalAlignment="Top" HorizontalAlignment="Center">
                         <Label.Style>
                             <Style TargetType="Label">
                                 <Setter Property="Content" Value=""/>
@@ -91,8 +91,18 @@
                                         <MultiDataTrigger.Conditions>
                                             <Condition Binding="{Binding ElementName=AssignGradeButton, Path=IsEnabled}" Value="False" />
                                             <Condition Binding="{Binding SelectedReservation.IsGradedByOwner}" Value="False"/>
+                                            <Condition Binding="{Binding SelectedReservation.IsReservationFinished}" Value="False"/>
                                         </MultiDataTrigger.Conditions>
-                                        <Setter Property="Content" Value="Grade time window expired" />
+                                        <Setter Property="Content" Value="Reservation hasn`t ended" />
+                                    </MultiDataTrigger>
+
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=AssignGradeButton, Path=IsEnabled}" Value="False" />
+                                            <Condition Binding="{Binding SelectedReservation.IsGradedByOwner}" Value="False"/>
+                                            <Condition Binding="{Binding SelectedReservation.IsReservationFinished}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Content" Value="Grade time period expired" />
                                     </MultiDataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -100,19 +110,19 @@
                     </Label>
 
                     <Button x:Name="AssignGradeButton" Grid.Row="1"
-                            Grid.Column="0" Grid.ColumnSpan="2" Width="160" Height="50" Click="AssignGradeButton_Click" 
+                            Grid.Column="0" Grid.ColumnSpan="2" Width="170" Height="50" Click="AssignGradeButton_Click" 
                             IsEnabled="{Binding SelectedReservation.CanBeGradedByOwner}" 
                             VerticalAlignment="Bottom" Margin="0,0,0,10"
                             Style="{StaticResource DisabledButtonStyle}">
-                        <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
+                        <StackPanel Orientation="Horizontal"  Margin="5,0,0,0">
                             <Image Source="{StaticResource ReviewIconBeige}" Height="30" Width="30"/>
                             <Label Content="Assign a grade" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-                    <Label  Grid.Row="1"
-                    Grid.Column="2" Grid.ColumnSpan="2" Foreground="red"
-                    VerticalAlignment="Top" Margin="0,0,0,0" HorizontalAlignment="Center">
+                    <Label  Grid.Row="1" FontFamily="{StaticResource Roboto}" FontSize="12"
+                    Grid.Column="2" Grid.ColumnSpan="2" Foreground="red" Margin="0,10,0,0"
+                    VerticalAlignment="Top" HorizontalAlignment="Center">
                         <Label.Style>
                             <Style TargetType="Label">
                                 <Setter Property="Content" Value=""/>
@@ -125,19 +135,20 @@
                         </Label.Style>
                     </Label>
 
-                    <Button x:Name="ViewGradeButton" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Width="160" Height="50" 
+                    <Button x:Name="ViewGradeButton" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Width="170" Height="50" 
                             Click="ViewGradeButton_Click" IsEnabled="{Binding SelectedReservation.IsGradedByGuest}"
                             VerticalAlignment="Bottom" Margin="0,0,0,10"
                             Style="{StaticResource DisabledButtonStyle}">
-                        <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
+                        <StackPanel Orientation="Horizontal"  Margin="5,0,0,0">
                             <Image Source="{StaticResource EyeIconBeige}" Height="30" Width="30"/>
                             <Label Content="View grade" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
-                    <ListView ItemsSource="{Binding ReservationCollection, UpdateSourceTrigger=PropertyChanged}"
-          SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
-          SelectionMode="Single" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                    <ListView ItemsSource="{Binding ReservationCollection, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Roboto}"
+          SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" FontSize="12"
+          SelectionMode="Single" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Accommodation" Width="160" DisplayMemberBinding="{Binding Accommodation.Name}"/>
@@ -158,7 +169,12 @@
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                 <Setter Property="Foreground" Value="Black"/>
                                 <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                                <Setter Property="FontSize" Value="12"/>
                                 <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CanBeGradedByOwner}" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource Green}"/>
+                                    </DataTrigger>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="{StaticResource Beige}"/>
                                     </Trigger>
@@ -173,7 +189,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Requests"  Width="120" Height="40" FontSize="12">
+            <TabItem Header="Requests"  Width="120" Height="40"  FontFamily="{StaticResource Roboto}" FontSize="16">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
@@ -185,23 +201,26 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="70"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="Decline" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Width="130" Height="50" Command="{Binding DeclineButtonCommand}" Style="{StaticResource DisabledButtonStyle}">
+                    <Button x:Name="Decline" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Width="130" Height="50" Command="{Binding DeclineButtonCommand}" 
+                            Style="{StaticResource DisabledButtonStyle}" Click="Decline_Click">
                         <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                             <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
-                            <Label Content="Decline" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
+                            <Label Content="Decline" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="Accept" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Width="130" Height="50" Command="{Binding AcceptButtonCommand}" Style="{StaticResource DisabledButtonStyle}">
+                    <Button x:Name="Accept" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Width="130" Height="50" Command="{Binding AcceptButtonCommand}" 
+                            Style="{StaticResource DisabledButtonStyle}" Click="Accept_Click">
                         <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
                             <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
-                            <Label Content="Accept" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
+                            <Label Content="Accept" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
                         </StackPanel>
                     </Button>
 
                     <ListView x:Name="RequestsList" ItemsSource="{Binding RescheduleRequestDTOs, UpdateSourceTrigger=PropertyChanged}"
                         SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
                         SelectionMode="Single" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" SelectionChanged="RequestsList_SelectionChanged"
+                              FontFamily="{StaticResource Roboto}" FontSize="12"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                         <ListView.View>
                             <GridView>
@@ -224,6 +243,8 @@
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                 <Setter Property="Foreground" Value="Black"/>
                                 <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                                <Setter Property="FontSize" Value="12"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="{StaticResource Beige}"/>

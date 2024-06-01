@@ -52,6 +52,7 @@
     <None Remove="Resources\Images\Icons\cancel-event-icon.png" />
     <None Remove="Resources\Images\Icons\cancel-icon-beige.png" />
     <None Remove="Resources\Images\Icons\cancel-icon.png" />
+    <None Remove="Resources\Images\Icons\category-icon.png" />
     <None Remove="Resources\Images\Icons\chat-white-icon.png" />
     <None Remove="Resources\Images\Icons\clear-icon-beige.png" />
     <None Remove="Resources\Images\Icons\confirm-icon-beige.png" />
@@ -76,11 +77,13 @@
     <None Remove="Resources\Images\Icons\logout-white-icon.png" />
     <None Remove="Resources\Images\Icons\normal-owner-icon.png" />
     <None Remove="Resources\Images\Icons\not-super-icon.png" />
+    <None Remove="Resources\Images\Icons\owner-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
     <None Remove="Resources\Images\Icons\pointing-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\red-circle-icon.png" />
     <None Remove="Resources\Images\Icons\renovation-icon-beige.png" />
     <None Remove="Resources\Images\Icons\reschedule-icon.png" />
+    <None Remove="Resources\Images\Icons\reservations-beige-icon.png" />
     <None Remove="Resources\Images\Icons\right-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\scheduled-icon.png" />
     <None Remove="Resources\Images\Icons\search-white-icon.png" />
@@ -144,6 +147,18 @@
     <None Remove="Resources\Images\trash.png" />
     <None Remove="Resources\Images\user-icon.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Black.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-BlackItalic.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Bold.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-BoldItalic.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Italic.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Light.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-LightItalic.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Medium.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-MediumItalic.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Regular.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Thin.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-ThinItalic.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -211,6 +226,7 @@
     <Resource Include="Resources\Images\default-coupon.png" />
     <Resource Include="Resources\Images\Icons\cancel-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\cancel-icon.png" />
+    <Resource Include="Resources\Images\Icons\category-icon.png" />
     <Resource Include="Resources\Images\Icons\chat-white-icon.png" />
     <Resource Include="Resources\Images\Icons\clear-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon-beige.png" />
@@ -235,12 +251,14 @@
     <Resource Include="Resources\Images\Icons\locked-building-icon.png" />
     <Resource Include="Resources\Images\Icons\logout-white-icon.png" />
     <Resource Include="Resources\Images\Icons\normal-owner-icon.png" />
+    <Resource Include="Resources\Images\Icons\owner-icon.png" />
     <Resource Include="Resources\Images\Icons\people-icon.png" />
     <Resource Include="Resources\Images\Icons\location-icon.png" />
     <Resource Include="Resources\Images\Icons\pointing-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\red-circle-icon.png" />
     <Resource Include="Resources\Images\Icons\renovation-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\reschedule-icon.png" />
+    <Resource Include="Resources\Images\Icons\reservations-beige-icon.png" />
     <Resource Include="Resources\Images\Icons\right-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\scheduled-icon.png" />
     <Resource Include="Resources\Images\Icons\search-white-icon.png" />
@@ -297,6 +315,18 @@
     <Resource Include="Resources\Images\tour_request_icon.png" />
     <Resource Include="Resources\Images\trash.png" />
     <Resource Include="Resources\Images\user-icon.png" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Black.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-BlackItalic.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Bold.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-BoldItalic.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Italic.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Light.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-LightItalic.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Medium.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-MediumItalic.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Regular.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Thin.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-ThinItalic.ttf" />
   </ItemGroup>
 
   <ItemGroup>

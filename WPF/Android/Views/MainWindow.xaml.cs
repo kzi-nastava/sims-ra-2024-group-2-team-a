@@ -82,6 +82,10 @@ namespace BookingApp.WPF.Android.Views {
 
         private void BackButton_Click(object sender, RoutedEventArgs e) {
             Page currentPage = MainFrame.Content as Page;
+
+            if (SideFrame.Content != null)
+                HideSideFrame();
+
             if (MainFrame.CanGoBack && currentPage != null) {
                 ThicknessAnimation animation = new ThicknessAnimation();
                 animation.From = new Thickness(0, 0, 0, 0);
@@ -97,7 +101,7 @@ namespace BookingApp.WPF.Android.Views {
         private void mainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e) {
             switch (e.Content as Page) {
                 case AccommodationPage: {
-                        AnimateLabelContentChange("My accommodations and statistics");
+                        AnimateLabelContentChange("Accommodations and statistics");
                         break;
                     }
                 case ReservationReviewsPage: {

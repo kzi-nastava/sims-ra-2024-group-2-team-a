@@ -68,6 +68,19 @@ namespace BookingApp.WPF.DTO {
             }
         }
 
+        public string _clickMessage;
+        public string ClickMessage {
+            get {
+                return _clickMessage;
+            }
+            set {
+                if (value != _clickMessage) {
+                    _clickMessage = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private int _tourId;
         public int TourId
         {
@@ -167,10 +180,12 @@ namespace BookingApp.WPF.DTO {
             if (Category == NotificationCategory.Review)
             {
                 NotificationIcon += "notification-review-icon.png";
+                ClickMessage = "Click here to navigate to reviews tab!";
             }
             if (Category == NotificationCategory.Request)
             {
                 NotificationIcon += "notification-request-icon.png";
+                ClickMessage = "Click here to navigate to requests tab!";
             }
             if (Category == NotificationCategory.SuperOwner)
             {
@@ -178,6 +193,7 @@ namespace BookingApp.WPF.DTO {
             }
             if (Category == NotificationCategory.Forum) {
                 NotificationIcon += "forums-icon.png";
+                ClickMessage = "Click here to check it out!";
             }
             if (Category == NotificationCategory.TourActive) {
                 NotificationIcon += "Icons/black-book.png";

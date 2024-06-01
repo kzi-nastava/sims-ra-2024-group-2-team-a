@@ -43,23 +43,26 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        
+
         <Grid Grid.Row="0" Background="{StaticResource HardGreen}">
-            <Button Grid.Column="1" Grid.Row="5" Height="50" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center"
-            Click="Button_Click" Style="{StaticResource DisabledButtonStyle}">
-                <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                    <Image Source="{StaticResource CancelIconBeige}" Height="40" Width="40"/>
-                    <Label Content="End Demo" Style="{StaticResource ButtonLabels}" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+            <Label x:Name="HeaderLabel" Content="Demo mode activated" 
+             VerticalAlignment="Center" FontWeight="Bold" FontSize="20" FontFamily="{StaticResource Roboto}" Margin="0,0,0,0"
+            Foreground="{StaticResource Beige}" HorizontalAlignment="Center"/>
         </Grid>
 
         <Grid Grid.Row="1" Background="Transparent">
         </Grid>
 
         <Grid Grid.Row="2" Background="{StaticResource SoftGreen}">
+            <Button Grid.Column="1" Grid.Row="5" Height="50" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Click="Button_Click" Style="{StaticResource DisabledButtonStyle}">
+                <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                    <Image Source="{StaticResource CancelIconBeige}" Height="40" Width="40"/>
+                    <Label Content="End Demo" Style="{StaticResource ButtonLabels}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
 </Page>

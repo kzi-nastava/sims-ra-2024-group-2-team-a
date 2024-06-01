@@ -42,12 +42,12 @@ namespace BookingApp.Services {
             int pendingRescheduleRequests = _rescheduleRequestService.GetPendingRequestsByOwnerId(ownerId).Count;
 
             if (ungradedReservations != 0) {
-                string message = $"You have {ungradedReservations} ungraded reservations. Navigate to reservations tab to grade them!";
+                string message = $"You have {ungradedReservations} ungraded reservations.";
                 Notification notification = new Notification(message, NotificationCategory.Review, ownerId, DateTime.Now, false);
                 this.Save(notification);
             }
             if (pendingRescheduleRequests > 0) {
-                string message = $"You have {pendingRescheduleRequests} pending reschedule requests. Navigate to reservations/requests tab to accept/decline them!";
+                string message = $"You have {pendingRescheduleRequests} pending reschedule requests.";
                 Notification notification = new Notification(message, NotificationCategory.Request, ownerId, DateTime.Now, false);
                 this.Save(notification);
             }
@@ -75,7 +75,7 @@ namespace BookingApp.Services {
             }
 
             foreach (var ownerId in ownerIds) {
-                string message = $"New forum opened in {loc.Country}, {loc.City}!";
+                string message = $"New forum opened in {loc.Country}, {loc.City}.";
                 Notification notification = new Notification(message, NotificationCategory.Forum, ownerId, DateTime.Now, false);
                 this.Save(notification);
             }

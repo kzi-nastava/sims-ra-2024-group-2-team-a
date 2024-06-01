@@ -11,27 +11,29 @@
         <Style TargetType="Label" x:Key="Header">
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
-                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
-                <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
-                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource HardGreen}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,0"/>
+                <Setter Property="Padding" Value="0,0,0,0"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
 
         <Style TargetType="Label" x:Key="ButtonLabel">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"></Setter>
             </Style.Setters>
         </Style>
 
         <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"></Setter>
             </Style.Setters>
         </Style>
         
@@ -89,18 +91,19 @@
             <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource Header}"
-               Content="All renovations: " VerticalAlignment="Center" HorizontalAlignment="Left"/>
+               Content="All renovations: " VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="auto" Width="400" Margin="0,10,0,0"
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="auto" Width="380" Margin="0,0,0,0"
           ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
-            SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1"
+                  FontFamily="{StaticResource Roboto}" FontSize="14">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Accommodation" Width="150" DisplayMemberBinding="{Binding Accommodation.Name}"/>
                     <GridViewColumn Header="Start Date" Width="75" DisplayMemberBinding="{Binding StartDate}"/>
                     <GridViewColumn Header="End Date" Width="75" DisplayMemberBinding="{Binding EndDate}"/>
-                    <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding RenovationState}"/>
+                    <GridViewColumn Header="Status" Width="80" DisplayMemberBinding="{Binding RenovationState}"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>
@@ -109,6 +112,7 @@
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="Foreground" Value="Black"/>
                     <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="FontSize" Value="14"/>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="{StaticResource Beige}"/>

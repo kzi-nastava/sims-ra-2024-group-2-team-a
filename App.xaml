@@ -58,6 +58,7 @@
         <BitmapImage x:Key="ClearIconBeige" UriSource="Resources/Images/Icons/clear-icon-beige.png"/>
         <BitmapImage x:Key="FilterIconBeige" UriSource="Resources/Images/Icons/filter-icon-beige.png"/>
         <BitmapImage x:Key="SendIconBeige" UriSource="Resources/Images/Icons/send-icon-beige.png"/>
+        <BitmapImage x:Key="CategoryIcon" UriSource="Resources/Images/Icons/category-icon.png"/>
         <BitmapImage x:Key="HelpIcon" UriSource="/Resources/Images/help.png"/>
             
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
@@ -66,9 +67,12 @@
         <SolidColorBrush x:Key="SoftGreen" Color="#ADBC9F"/>
         <SolidColorBrush x:Key="Beige" Color="Beige"/>
 
+        <FontFamily x:Key="Roboto" >pack://application:,,,/BookingApp;component/Utils/Fonts/#Roboto</FontFamily>
+            
         <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
         </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        
     </Application.Resources>
 </Application>

@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.WPF.Android.ViewModels;
+using BookingApp.WPF.Tablet.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +55,13 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void CloseAccomodationButton_Click(object sender, RoutedEventArgs e) {
+            AndroidYesNoDialog dialog = new AndroidYesNoDialog("Are you sure you want to close this accommodation?");
+            bool? result = dialog.ShowDialog();
+
+            if (result == false) {
+                return;
+            }
+
             if (!accommodationGuidanceViewmodel.CloseButton()) {
                 mainFrame.NavigationService.Navigate(new AccommodationPage(mainFrame, _user));
             }
