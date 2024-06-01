@@ -1,5 +1,6 @@
 ﻿using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using BookingApp.WPF.Web.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +8,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace BookingApp.WPF.Android.ViewModels {
     public class CommentCardViewModel : INotifyPropertyChanged {

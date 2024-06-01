@@ -124,7 +124,8 @@ namespace BookingApp.Services {
 
             GetService<CommentService>().InjectServices(
                 GetService<AccommodationReservationService>(),
-                GetService<ForumService>()
+                GetService<ForumService>(),
+                GetService<UserService>()
                 );
         }
 

@@ -23,9 +23,22 @@ namespace BookingApp.WPF.Web.Views {
     public partial class CommentCard : UserControl {
 
         public CommentCardViewModel ViewModel { get; set; }
-        
+
         public CommentCard() {
             InitializeComponent();
+        }
+
+        private void UserControlLoaded(object sender, RoutedEventArgs e) {
+            if(ViewModel != null)
+                return;
+
+            ViewModel = DataContext as CommentCardViewModel;
+            GuestMainWindow window = App.GuestMainWindowReference;
+
+            if (window.GuestId == ViewModel.Comment.CreatorId) {
+                this.HorizontalContentAlignment = HorizontalAlignment.Right;
+                userImage.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

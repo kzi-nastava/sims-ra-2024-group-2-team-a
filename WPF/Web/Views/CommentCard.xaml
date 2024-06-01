@@ -7,7 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600"
              Margin="10"
-             HorizontalContentAlignment="Left">
+             HorizontalContentAlignment="Left"
+             Loaded="UserControlLoaded">
 
     <UserControl.Resources>
         <Style x:Key="ImageStyle" TargetType="Image">
@@ -24,7 +25,7 @@
             <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-        <Image Grid.Column="0" 
+        <Image Grid.Column="0" Name="userImage"
                VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 10 0">
             <Image.Style>
                 <Style TargetType="Image" BasedOn="{StaticResource ImageStyle}">
@@ -33,9 +34,6 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsOwner}" Value="True">
                             <Setter Property="Source" Value="{StaticResource OwnerIcon}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding IsOwner}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

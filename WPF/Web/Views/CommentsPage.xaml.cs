@@ -44,7 +44,7 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void PostCommentClick(object sender, RoutedEventArgs e) {
-            Comment newComment = new Comment(DateTime.Now, textBoxComment.Text, _forumId, _guestId);
+            Comment newComment = new Comment(DateTime.Now, textBoxComment.Text, _guestId, _forumId);
             _commentService.Save(newComment);
             
             Update();
@@ -53,13 +53,13 @@ namespace BookingApp.WPF.Web.Views {
 
         private void Update() {
             _comments = _commentService.GetByForumId(_forumId)
-                .OrderBy(c => c.CreationTime)
                 .Select(c => new CommentCardViewModel(new CommentDTO(c)))
                 .ToList();
 
             _comments.ForEach(vm => vm.Comment.Username = _userService.GetById(vm.Comment.CreatorId).Username);
 
             itemsControlComments.ItemsSource = _comments;
+            scrollViewer.ScrollToBottom();
         }
 
         private void CommentTextChanged(object sender, TextChangedEventArgs e) {

@@ -36,12 +36,12 @@
     <Grid Background="{StaticResource Beige}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="180"/>
+            <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Height="440">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl Name="itemsControlComments" ItemsSource="{Binding _commentDTOs}" Margin="100 10 100 10">
+        <Grid Grid.Row="0">
+            <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Auto">
+                <ItemsControl Name="itemsControlComments" ItemsSource="{Binding _commentDTOs}" Margin="100 20 100 20">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:CommentCard/>
@@ -60,7 +60,7 @@
 
                 <WrapPanel Grid.Column="0" Orientation="Vertical">
                     <Label Content="Comment" Style="{StaticResource LabelStyle}"/>
-                    <TextBox Name="textBoxComment" TextWrapping="Wrap" Width="700" Height="140" Padding="5" HorizontalAlignment="Left" TextChanged="CommentTextChanged"/>
+                    <TextBox Name="textBoxComment" TextWrapping="Wrap" Width="700" Height="80" Padding="5" HorizontalAlignment="Left" TextChanged="CommentTextChanged"/>
                 </WrapPanel>
 
                 <Button Grid.Column="1" Margin="10" Height="60" Width="60" Name="buttonPost" HorizontalAlignment="Right" Style="{StaticResource MainButton}" Click="PostCommentClick">

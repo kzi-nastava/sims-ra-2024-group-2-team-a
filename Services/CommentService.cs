@@ -14,17 +14,33 @@ namespace BookingApp.Services {
         private AccommodationReservationService _reservationService;
 
         private ForumService _forumService;
+
+        private UserService _userService;
+
         public CommentService(ICommentRepository commentRepo) {
             _commentRepository = commentRepo;
         }
 
-        public void InjectServices(AccommodationReservationService reservationService, ForumService forumService) {
+        public void InjectServices(AccommodationReservationService reservationService, ForumService forumService, UserService userService) {
             _reservationService = reservationService;
             _forumService = forumService;
+            _userService = userService;
         }
 
         public void Save(Comment comment) {
             _commentRepository.Save(comment);
+            Forum f = _forumService.GetById(comment.ForumId);
+
+            UserCategory u = _userService.GetById(comment.UserId).Category;
+
+            if(u == UserCategory.Guest) {
+                f.GuestCommentNum++;
+            }
+            else {
+                f.OwnerCommentNum++;
+            }
+
+            _forumService.Update(f);
         }
         public List<Comment> GetAll() {
             return _commentRepository.GetAll();
