@@ -32,6 +32,12 @@ namespace BookingApp.Services {
             return _forumRepository.Save(forum);
         }
 
+        public void Close(int id) {
+            Forum f = this.GetById(id);
+            f.Close();
+            _forumRepository.Update(f);
+        }
+
         public Forum GetById(int id) {
             return _forumRepository.GetById(id);
         }

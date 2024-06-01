@@ -39,6 +39,13 @@ namespace BookingApp.WPF.Web.Views {
                 this.HorizontalContentAlignment = HorizontalAlignment.Right;
                 userImage.Visibility = Visibility.Collapsed;
             }
+
+            if(ViewModel.Comment.ReportsNum == 0) {
+                reportIndicator.Visibility = Visibility.Collapsed;
+            }
+            else {
+                commentBorder.Background = new SolidColorBrush(Colors.LightGray);
+            }
         }
     }
 }

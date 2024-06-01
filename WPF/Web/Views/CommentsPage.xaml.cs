@@ -33,19 +33,22 @@ namespace BookingApp.WPF.Web.Views {
 
         public List<CommentCardViewModel> _comments { get; set; }
 
-        public CommentsPage(ForumsPage forumsPage, int guestId, int forumId) {
+        public CommentsPage(ForumsPage forumsPage, int guestId, ForumDTO forum) {
             InitializeComponent();
 
             _guestId = guestId;
-            _forumId = forumId;
+            _forumId = forum.Id;
+
             _parentPage = forumsPage;
             buttonPost.IsEnabled = false;
+            textBoxComment.IsEnabled = !forum.IsClosed;
             Update();
         }
 
         private void PostCommentClick(object sender, RoutedEventArgs e) {
             Comment newComment = new Comment(DateTime.Now, textBoxComment.Text, _guestId, _forumId);
             _commentService.Save(newComment);
+            textBoxComment.Text = "";
             
             Update();
             _parentPage.Update();

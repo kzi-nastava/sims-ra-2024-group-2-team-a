@@ -64,6 +64,7 @@
         <BitmapImage x:Key="UserIcon" UriSource="Resources/Images/Icons/user-icon.png"/>
         <BitmapImage x:Key="PlaneIcon" UriSource="Resources/Images/Icons/plane-icon.png"/>
         <BitmapImage x:Key="OwnerIcon" UriSource="Resources/Images/owner-icon.png"/>
+        <BitmapImage x:Key="VerifiedIcon" UriSource="Resources/Images/Icons/verified-icon.png"/>
 
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>

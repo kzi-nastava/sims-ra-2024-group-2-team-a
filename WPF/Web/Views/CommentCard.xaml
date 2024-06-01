@@ -12,8 +12,8 @@
 
     <UserControl.Resources>
         <Style x:Key="ImageStyle" TargetType="Image">
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Width" Value="32"/>
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         </Style>
     </UserControl.Resources>
@@ -41,15 +41,22 @@
         </Image>
 
         <StackPanel Grid.Column="1" >
-            <TextBlock Margin="5 0 0 5">
+            <TextBlock Margin="5 0 0 5" HorizontalAlignment="Left">
                 <Run Text="{Binding Comment.Username}" FontWeight="Bold"/>
                 <Run Text=" "/>
                 <Run Text="{Binding Comment.CreationDateString}"/>
             </TextBlock>
-            <Border Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" CornerRadius="10">
+            <Border Name="commentBorder" Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" CornerRadius="10">
                 <TextBlock Text="{Binding Comment.Text}" TextWrapping="Wrap" Margin="5 5 5 5" Padding="5" MaxWidth="400"
                             MaxHeight="500"/>
             </Border>
         </StackPanel>
+
+        <WrapPanel Grid.Column="2" Name="reportIndicator" Orientation="Horizontal"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10 0 0 10">
+            <Image Name="reportImage" Style="{StaticResource ImageStyle}" Source="{StaticResource ReportIcon}"/>
+            <TextBlock Text="{Binding Comment.ReportsNum}" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                   FontSize="16" Margin="10 0 0 0"/>
+        </WrapPanel>
     </Grid>
 </UserControl>

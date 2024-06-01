@@ -8,7 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800"
              Margin="5 5 5 5"
              Cursor="Hand"
-             MouseLeftButtonDown="ForumCardClick">
+             MouseLeftButtonDown="ForumCardClick"
+             Loaded="UserControlLoaded">
 
     <UserControl.Resources>
         <Style TargetType="local:ForumCard">
@@ -50,15 +51,21 @@
             <Setter Property="Margin" Value="10 5 0 5"/>
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
         </Style>
+
+        <Style x:Key="ButtonImage" TargetType="Image">
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
     </UserControl.Resources>
     
     <Grid Width="620" Height="160">
-        <Border Margin="5 5 5 5" Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" CornerRadius="10">
-
+        <Border Name="mainBorder" Margin="5 5 5 5" Background="White" BorderBrush="{StaticResource Green}" BorderThickness="1" CornerRadius="10">
             <Grid>
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="170"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
 
                 <Border BorderThickness="0 0 1 0" BorderBrush="Black">
@@ -93,6 +100,19 @@
                 </Border>
 
                 <TextBlock Grid.Column="1" Text="{Binding Title}" FontSize="18" Margin="10 10 10 10" FontWeight="DemiBold" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" />
+
+                <Grid Grid.Column="2">
+                    <Button Name="closeForumButton" VerticalAlignment="Top" Margin="10 10 0 0" Width="24" Height="24" Click="CloseForumClick">
+                        <WrapPanel>
+                            <Image Style="{StaticResource ButtonImage}" Source="{StaticResource CancelIcon}"/>
+                        </WrapPanel>
+                    </Button>
+
+                    <WrapPanel Name="usefulIndicator" Orientation="Vertical" VerticalAlignment="Bottom" Margin="10 0 10 10" HorizontalAlignment="Center">
+                        <TextBlock Text="Usefull" FontStyle="Italic" FontSize="12" Margin="0 0 0 5"/>
+                        <Image Style="{StaticResource ButtonImage}" Width="22" Height="22" Source="{StaticResource VerifiedIcon}"/>
+                    </WrapPanel>
+                </Grid>
             </Grid>
         </Border>
     </Grid>

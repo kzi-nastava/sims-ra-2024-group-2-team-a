@@ -40,6 +40,8 @@ namespace BookingApp.Services {
                 f.OwnerCommentNum++;
             }
 
+            f.UpgradeToUsefull();
+
             _forumService.Update(f);
         }
         public List<Comment> GetAll() {
