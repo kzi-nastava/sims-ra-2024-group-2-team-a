@@ -116,7 +116,9 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         public bool AcceptButton_CanExecute(object obj) {
-            if (SelectedRequest == null || SelectedRequest.Status != RescheduleRequestStatus.Pending) {
+            if (SelectedRequest == null)
+                return true;
+            else if (SelectedRequest.Status != RescheduleRequestStatus.Pending) {
                 return false;
             }
             else {
@@ -124,6 +126,9 @@ namespace BookingApp.WPF.Android.ViewModels {
             }
         }
         public void AcceptButton_Executed(object obj) {
+            if (SelectedRequest == null)
+                return;
+
             AccommodationStatisticsService statisticsService = ServicesPool.GetService<AccommodationStatisticsService>();
             AccommodationReservation accommodationReservation = accReservationService.GetById(SelectedRequest.ReservationId);
 
@@ -143,7 +148,9 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         public bool DeclineButton_CanExecute(object obj) {
-            if (SelectedRequest == null || SelectedRequest.Status != RescheduleRequestStatus.Pending) {
+            if (SelectedRequest == null)
+                return true;
+            else if (SelectedRequest.Status != RescheduleRequestStatus.Pending) {
                 return false;
             }
             else {
@@ -152,6 +159,9 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         public void DeclineButton_Executed(object obj) {
+            if (SelectedRequest == null)
+                return;
+
             RescheduleRequestDeclineWindow rescheduleRequestDeclineWindow = new RescheduleRequestDeclineWindow(SelectedRequest);
             rescheduleRequestDeclineWindow.ShowDialog();
             this.Update();

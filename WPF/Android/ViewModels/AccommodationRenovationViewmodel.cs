@@ -117,6 +117,13 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         public void DeclineButton_Execute(object obj) {
+            AndroidYesNoDialog dialog = new AndroidYesNoDialog("Your progress will be lost, are you sure?");
+            bool? result = dialog.ShowDialog();
+
+            if (result == false) {
+                return;
+            }
+
             _mainFrame.GoBack();
         }
 

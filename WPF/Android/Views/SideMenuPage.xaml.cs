@@ -61,7 +61,7 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void InboxButton_Click(object sender, RoutedEventArgs e) {
-            MainFrame.Content = new NotificationsPage(_user);
+            MainFrame.Content = new NotificationsPage(_user, MainFrame);
             HideSideFrame();
             BlackFrame.Content = null;
         }

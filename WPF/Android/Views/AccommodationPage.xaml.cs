@@ -79,7 +79,7 @@ namespace BookingApp.WPF.Android.Views {
 
         private void GuidanceButton_Click(object sender, RoutedEventArgs e) {
             if (_statisticsService.GetHottestAndColdestLocations(_user.Id)[0] == -1) {
-                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Insufficent accommodations registered on various locations to enable this feature!");
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Register more accommodations on various locations to enable this feature!");
                 dialogWindow.ShowDialog();
                 return;
             }

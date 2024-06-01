@@ -64,7 +64,7 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <Label Content="Additional info:" HorizontalAlignment="Center" VerticalAlignment="Center"  FontFamily="{StaticResource Roboto}" FontSize="22"
-             Style="{StaticResource Header}" Padding="0" BorderBrush="{StaticResource HardGreen}"/>
+             Style="{StaticResource Header}" Padding="0" FontWeight="Medium"/>
         <Border Height="140" Grid.Row="1" Width="250" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" Margin="0,10,0,0"  HorizontalAlignment="Center">
             <TextBox Text="{Binding RescheduleRequestDTO.OwnerComment}" Margin="0" Background="Transparent"/>
         </Border>

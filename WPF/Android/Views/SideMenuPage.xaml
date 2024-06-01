@@ -40,10 +40,10 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Button Click="AccommodationsButton_Click" Grid.Row="0" Background="{StaticResource Green}">
+        <Button Click="AccommodationsButton_Click" Grid.Row="0" Background="{StaticResource HardGreen}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
+                    <Border x:Name="border" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="{StaticResource HouseIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
                             <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0">
@@ -61,10 +61,10 @@
             </Button.Template>
         </Button>
 
-        <Button Click="InboxButton_Click" Grid.Row="1" Background="{StaticResource Green}">
+        <Button Click="InboxButton_Click" Grid.Row="1" Background="{StaticResource HardGreen}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
+                    <Border x:Name="border" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="{StaticResource InboxIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
                             <TextBlock Text="Inbox"  Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockBeige}"/>
@@ -80,10 +80,10 @@
             </Button.Template>
         </Button>
 
-        <Button Click="ReservationsButton_Click" Grid.Row="2" Background="{StaticResource Green}">
+        <Button Click="ReservationsButton_Click" Grid.Row="2" Background="{StaticResource HardGreen}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="ResBorder" BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
+                    <Border x:Name="ResBorder" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="{StaticResource CalendarBeigeIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
                             <TextBlock Text="Reservations" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockBeige}"/>
@@ -98,10 +98,10 @@
             </Button.Template>
         </Button>
 
-        <Button Click="RenovationsButton_Click" Grid.Row="3" Background="{StaticResource Green}">
+        <Button Click="RenovationsButton_Click" Grid.Row="3" Background="{StaticResource HardGreen}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="RenovationBorder" BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
+                    <Border x:Name="RenovationBorder" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="{StaticResource RenovationIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
                             <TextBlock Text="Renovations" Style="{StaticResource TextBlockBeige}" Margin="10,0,0,0" VerticalAlignment="Center"/>
@@ -119,7 +119,7 @@
         <Button x:Name="ForumsButton"  Click="ForumsButton_Click" Grid.Row="4">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="ForumsBorder" BorderBrush="Black" BorderThickness="2,2,2,2" Background="{StaticResource Green}">
+                    <Border x:Name="ForumsBorder" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,1" Background="{StaticResource HardGreen}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="{StaticResource ForumsIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
                             <TextBlock Text="Forums" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockBeige}"/>
@@ -135,8 +135,8 @@
         </Button>
 
 
-        <Border BorderBrush="Black" BorderThickness="2,2,2,0" Grid.Row="6">
-            <Grid Grid.Row="6" Background="{StaticResource Green}">
+        <Border BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,0" Grid.Row="6">
+            <Grid Grid.Row="6" Background="{StaticResource HardGreen}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="*"/>
@@ -161,10 +161,10 @@
             </Grid>
         </Border>
 
-        <Button Click="LogOutButton_Click" Grid.Row="7" Background="{StaticResource Green}">
+        <Button Click="LogOutButton_Click" Grid.Row="7" Background="{StaticResource HardGreen}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="LogBorder" BorderBrush="Black" BorderThickness="2,2,2,2" Background="{TemplateBinding Background}">
+                    <Border x:Name="LogBorder" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1" Background="{TemplateBinding Background}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="{StaticResource LogoutIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
                             <TextBlock Text="Log out" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockBeige}"/>

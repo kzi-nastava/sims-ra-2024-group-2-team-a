@@ -19,8 +19,9 @@
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource HardGreen}"/>
-                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="BorderThickness" Value="0,0,0,0"/>
                 <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
         

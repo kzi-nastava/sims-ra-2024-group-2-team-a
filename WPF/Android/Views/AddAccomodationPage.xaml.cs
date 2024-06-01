@@ -51,10 +51,14 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void Decline_Click(object sender, RoutedEventArgs e) {
-            MessageBoxResult result = MessageBox.Show("Your progress will be lost, are you sure?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (result == MessageBoxResult.Yes) {
-                mainFrame.GoBack();
+            AndroidYesNoDialog dialog = new AndroidYesNoDialog("Your progress will be lost, are you sure?");
+            bool? result = dialog.ShowDialog();
+
+            if (result == false) {
+                return;
             }
+            
+            mainFrame.GoBack();
         }
 
         private void Confirm_Click(object sender, RoutedEventArgs e) {

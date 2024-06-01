@@ -73,7 +73,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label Content="Hottest locations: " Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"
-                            Style="{StaticResource Header}" BorderBrush="{StaticResource HardGreen}" BorderThickness="0,0,0,2" Padding="0"/>
+                            Style="{StaticResource Header}" FontWeight="Medium" Padding="0"/>
 
                     <Border BorderBrush="{StaticResource SoftGreen}" BorderThickness="1"  Grid.Column="0" Grid.Row="1" 
                             VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">
@@ -93,17 +93,17 @@
                         </StackPanel>
                     </Border>
 
-                    <Button x:Name="FirstLocationButton" Grid.Row="1" Grid.Column="1" Height="60" Width="140" Style="{StaticResource DisabledButtonStyle}" HorizontalAlignment="Center"
+                    <Button x:Name="FirstLocationButton" Grid.Row="1" Grid.Column="1" Height="60" Width="130" Style="{StaticResource DisabledButtonStyle}" HorizontalAlignment="Center"
                             VerticalAlignment="Center" Click="FirstLocationButton_Click">
-                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                             <Image Source="{StaticResource AddIcon}" Height="30" Width="30"/>
                             <Label Content="Add more" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="SecondLocationButton" Grid.Row="2" Grid.Column="1" Height="60" Width="140" Style="{StaticResource DisabledButtonStyle}"
-                            Click="SecondLocationButton_Click">
-                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Button x:Name="SecondLocationButton" Grid.Row="2" Grid.Column="1" Height="60" Width="130" Style="{StaticResource DisabledButtonStyle}"
+                            Click="SecondLocationButton_Click" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                             <Image Source="{StaticResource AddIcon}" Height="30" Width="30"/>
                             <Label Content="Add more" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
                         </StackPanel>
@@ -123,7 +123,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Label Content="Least popular locations: " Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"
-                Style="{StaticResource Header}" BorderBrush="{StaticResource HardGreen}" BorderThickness="0,0,0,2" Padding="0"/>
+                Style="{StaticResource Header}" FontWeight="Medium" Padding="0"/>
 
                     <Border BorderBrush="{StaticResource SoftGreen}" BorderThickness="1" 
                             Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0">
@@ -144,15 +144,15 @@
                     </Border>
 
 
-                    <Button x:Name="CloseAccomodationButton" Grid.Row="1" Grid.Column="1" Height="70" Width="140" Style="{StaticResource DisabledButtonStyle}" VerticalAlignment="Top"
-                            Margin="0,10,0,0" Command="{Binding CloseCommand}" Click="CloseAccomodationButton_Click">
-                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Button x:Name="CloseAccomodationButton" Grid.Row="1" Grid.Column="1" Height="60" Width="130" Style="{StaticResource DisabledButtonStyle}" 
+                            VerticalAlignment="Center" Command="{Binding CloseCommand}" Click="CloseAccomodationButton_Click" HorizontalAlignment="Center" Margin="0,0,10,0">
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                             <Image Source="{StaticResource LockedIcon}" Height="30" Width="30"/>
                             <Label Content="Close" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}" Margin="10,0,0,0"/>
                         </StackPanel>
                     </Button>
                     
-                    <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,10,0,10" Content="Select an accomodation" Foreground="Red">
+                    <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,10,0,5" Content="Select an accomodation" Foreground="Red">
                         <Label.Style>
                             <Style TargetType="Label">
                                 <Style.Triggers>

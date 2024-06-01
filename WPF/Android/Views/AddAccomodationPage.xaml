@@ -83,7 +83,8 @@
                 <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Grid.ColumnSpan="2" HorizontalAlignment="Left" Content="New Accomodation:" Style="{StaticResource Header}"/>
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="New Accomodation:" Style="{StaticResource Header}"
+                   FontWeight="Medium"/>
 
             <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Name:" FontFamily="{StaticResource Roboto}"
                      FontSize="18"/>

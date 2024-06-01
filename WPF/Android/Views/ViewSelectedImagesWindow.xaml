@@ -36,8 +36,9 @@
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource HardGreen}"/>
-                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="BorderThickness" Value="0,0,0,0"/>
                 <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
 
@@ -72,7 +73,7 @@
         </Grid.RowDefinitions>
             
         <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="0,0,0,1">
-            <Label Content="Selected images: " Style="{StaticResource Header}" Width="180" VerticalAlignment="Center"/>
+            <Label Content="Selected images" Style="{StaticResource Header}" Width="180" VerticalAlignment="Center"/>
         </Border>
 
         <Border Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="1">

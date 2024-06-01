@@ -13,8 +13,9 @@
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource HardGreen}"/>
-                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="BorderThickness" Value="0,0,0,0"/>
                 <Setter Property="Padding" Value="0,0,0,0"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
 
@@ -90,7 +91,7 @@
             <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource Header}"
-               Content="All renovations: " VerticalAlignment="Center" HorizontalAlignment="Left"/>
+               Content="All renovations: " VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
         <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="auto" Width="380" Margin="0,0,0,0"
           ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged}"
