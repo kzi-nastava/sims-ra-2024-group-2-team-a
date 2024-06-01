@@ -39,7 +39,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid x:Name="mainGrid" Background="{StaticResource Beige}">
+    <Grid Name="mainGrid" Background="{StaticResource Beige}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
@@ -64,7 +64,7 @@
                     ItemsSource="{Binding Path=_locationDTOs}" DisplayMemberPath="LocationOptionTemplate" SelectionChanged="LocationSelectionChanged"/>
                     </WrapPanel>
 
-                    <Button x:Name="buttonAddForum" Margin="10 5 20 5" Width="150" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right" Click="ButtonCreateForumClick">
+                    <Button Name="buttonAddForum" Margin="10 5 20 5" Width="150" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right" Click="ButtonCreateForumClick">
                         <WrapPanel>
                             <Image Style="{StaticResource ButtonImage}" Source="{StaticResource AddNewIcon}"/>
                             <TextBlock Text="Create forum" Style="{StaticResource ButtonText}"/>

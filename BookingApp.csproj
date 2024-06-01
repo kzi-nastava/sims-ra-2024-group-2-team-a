@@ -79,6 +79,7 @@
     <None Remove="Resources\Images\Icons\normal-owner-icon.png" />
     <None Remove="Resources\Images\Icons\not-super-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
+    <None Remove="Resources\Images\Icons\plane-icon.png" />
     <None Remove="Resources\Images\Icons\pointing-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\red-circle-icon.png" />
     <None Remove="Resources\Images\Icons\renovation-icon-beige.png" />
@@ -147,6 +148,10 @@
     <None Remove="Resources\Images\trash.png" />
     <None Remove="Resources\Images\user-icon.png" />
     <None Remove="Resources\Images\view.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\plane-icon.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,75 @@
+﻿<Page x:Class="BookingApp.WPF.Web.Views.CommentsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="1000"
+      Title="CommentsPage">
+
+    <Page.Resources>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="ImageStyle" TargetType="Image">
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        </Style>
+
+        <Style x:Key="ButtonText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style x:Key="MainButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource Beige}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="180"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Height="440">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl Name="itemsControlComments" ItemsSource="{Binding _commentDTOs}" Margin="100 10 100 10">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:CommentCard/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="{StaticResource Green}">
+            <Grid Margin="100 0 100 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <WrapPanel Grid.Column="0" Orientation="Vertical">
+                    <Label Content="Comment" Style="{StaticResource LabelStyle}"/>
+                    <TextBox Name="textBoxComment" TextWrapping="Wrap" Width="700" Height="140" Padding="5" HorizontalAlignment="Left" TextChanged="CommentTextChanged"/>
+                </WrapPanel>
+
+                <Button Grid.Column="1" Margin="10" Height="60" Width="60" Name="buttonPost" HorizontalAlignment="Right" Style="{StaticResource MainButton}" Click="PostCommentClick">
+                    <WrapPanel Orientation="Vertical">
+                        <Image Style="{StaticResource ImageStyle}" Source="{StaticResource PlaneIcon}"/>
+                        <TextBlock Text="Post" Style="{StaticResource ButtonText}"/>
+                    </WrapPanel>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

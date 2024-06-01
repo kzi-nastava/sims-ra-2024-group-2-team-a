@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.WPF.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,17 @@ namespace BookingApp.WPF.Web.Views {
     public partial class ForumCard : UserControl {
         public ForumCard() {
             InitializeComponent();
+        }
+
+        private void ForumCardClick(object sender, MouseButtonEventArgs e) {
+            GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
+            Frame mainFrame = window.MainFrame;
+
+            ForumsPage forumsPage = mainFrame.Content as ForumsPage;
+
+            ForumDTO forum = DataContext as ForumDTO;
+
+            mainFrame.Navigate(new CommentsPage(forumsPage, window.GuestId, forum.Id));
         }
     }
 }

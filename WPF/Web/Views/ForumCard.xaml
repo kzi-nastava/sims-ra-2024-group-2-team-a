@@ -7,7 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Margin="5 5 5 5"
-             Cursor="Hand">
+             Cursor="Hand"
+             MouseLeftButtonDown="ForumCardClick">
 
     <UserControl.Resources>
         <Style TargetType="local:ForumCard">
