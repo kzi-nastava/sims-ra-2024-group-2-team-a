@@ -12,9 +12,18 @@
     <None Remove="Resources\Images\AccommodationsInside\Accommodation1.jpg" />
     <None Remove="Resources\Images\AccommodationsInside\Accommodation2.jpg" />
     <None Remove="Resources\Images\AccommodationsInside\Accommodation3.jpg" />
+    <None Remove="Resources\Images\Accommodations\Apartments.jpg" />
+    <None Remove="Resources\Images\Accommodations\Cottage.jpg" />
+    <None Remove="Resources\Images\Accommodations\House-1.jpeg" />
+    <None Remove="Resources\Images\Accommodations\House-2.jpg" />
+    <None Remove="Resources\Images\Accommodations\house-3.jpg" />
     <None Remove="Resources\Images\Accommodations\House.jpeg" />
+    <None Remove="Resources\Images\Accommodations\Hut-1.jpg" />
+    <None Remove="Resources\Images\Accommodations\hut-2.jpg" />
     <None Remove="Resources\Images\Accommodations\Hut.jpg" />
+    <None Remove="Resources\Images\Accommodations\Minecraft.png" />
     <None Remove="Resources\Images\Accommodations\Penthouse.jpeg" />
+    <None Remove="Resources\Images\Accommodations\Sheraton.jpg" />
     <None Remove="Resources\Images\add-icon3-b.png" />
     <None Remove="Resources\Images\android-search-icon-beige.png" />
     <None Remove="Resources\Images\android-search-icon.png" />
@@ -167,6 +176,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Accommodations\Apartments.jpg" />
+    <Resource Include="Resources\Images\Accommodations\Cottage.jpg" />
+    <Resource Include="Resources\Images\Accommodations\House-1.jpeg" />
+    <Resource Include="Resources\Images\Accommodations\House-2.jpg" />
+    <Resource Include="Resources\Images\Accommodations\House-3.jpg" />
+    <Resource Include="Resources\Images\Accommodations\Hut-1.jpg" />
+    <Resource Include="Resources\Images\Accommodations\Hut-2.jpg" />
+    <Resource Include="Resources\Images\Accommodations\Minecraft.png" />
+    <Resource Include="Resources\Images\Accommodations\Sheraton.jpg" />
     <Resource Include="Resources\Images\Icons\plane-icon.png" />
   </ItemGroup>
 
@@ -220,8 +238,6 @@
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation1.jpg" />
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation2.jpg" />
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation3.jpg" />
-    <Resource Include="Resources\Images\Accommodations\House.jpeg" />
-    <Resource Include="Resources\Images\Accommodations\Hut.jpg" />
     <Resource Include="Resources\Images\Accommodations\Penthouse.jpeg" />
     <Resource Include="Resources\Images\android-search-icon.png" />
     <Resource Include="Resources\Images\android-view-icon.png" />
@@ -302,7 +318,6 @@
     <Resource Include="Resources\Images\request.png" />
     <Resource Include="Resources\Images\reservations.png" />
     <Resource Include="Resources\Images\reviews.png" />
-    <Resource Include="Resources\Images\sheraton.jpg" />
     <Resource Include="Resources\Images\statistics-icon.png" />
     <Resource Include="Resources\Images\stats.png" />
     <Resource Include="Resources\Images\Tours\Buda1.jpg" />
