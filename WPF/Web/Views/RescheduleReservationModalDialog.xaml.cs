@@ -30,6 +30,7 @@ namespace BookingApp.WPF.Web.Views {
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
             ViewModel.Reschedule();
             _parentPage.Update();
+            App.NotificationService.ShowSuccess("Reschedule request created successfully!");
             _parentPage.CloseModalDialog();
         }
     }

@@ -33,9 +33,8 @@ namespace BookingApp.WPF.Web.Views {
                 return;
 
             ViewModel = DataContext as CommentCardViewModel;
-            GuestMainWindow window = App.GuestMainWindowReference;
 
-            if (window.GuestId == ViewModel.Comment.CreatorId) {
+            if (ViewModel.IsSelfComment) {
                 this.HorizontalContentAlignment = HorizontalAlignment.Right;
                 userImage.Visibility = Visibility.Collapsed;
             }
@@ -45,6 +44,12 @@ namespace BookingApp.WPF.Web.Views {
             }
             else {
                 commentBorder.Background = new SolidColorBrush(Colors.LightGray);
+            }
+
+            if(!ViewModel.IsSelfComment && 
+                !ViewModel.IsByOwner &&
+                ViewModel.HasVisitedLocation) {
+                visitedIndicator.Visibility = Visibility.Visible;
             }
         }
     }

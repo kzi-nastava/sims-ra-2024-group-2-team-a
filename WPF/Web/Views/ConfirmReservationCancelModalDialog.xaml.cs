@@ -38,6 +38,7 @@ namespace BookingApp.WPF.Web.Views {
 
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
             ViewModel.CancelReservation();
+            App.NotificationService.ShowSuccess("Reservation canceled successfully.");
             _parentPage.Update();
             _parentPage.CloseModalDialog();
         }

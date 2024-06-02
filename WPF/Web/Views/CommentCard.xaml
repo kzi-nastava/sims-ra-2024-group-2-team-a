@@ -32,7 +32,7 @@
                     <Setter Property="Source" Value="{StaticResource UserIcon}" />
                     <Setter Property="Visibility" Value="Visible"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsOwner}" Value="True">
+                        <DataTrigger Binding="{Binding IsByOwner}" Value="True">
                             <Setter Property="Source" Value="{StaticResource OwnerIcon}" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -50,6 +50,7 @@
                 <TextBlock Text="{Binding Comment.Text}" TextWrapping="Wrap" Margin="5 5 5 5" Padding="5" MaxWidth="400"
                             MaxHeight="500"/>
             </Border>
+            <TextBlock Name="visitedIndicator" Text="Visited this location ✔️" FontSize="10" FontStyle="Italic" Visibility="Collapsed"/>
         </StackPanel>
 
         <WrapPanel Grid.Column="2" Name="reportIndicator" Orientation="Horizontal"

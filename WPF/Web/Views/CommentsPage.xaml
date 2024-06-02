@@ -15,6 +15,12 @@
             <Setter Property="FontWeight" Value="SemiBold"/>
         </Style>
 
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
         <Style x:Key="ImageStyle" TargetType="Image">
             <Setter Property="Height" Value="16"/>
             <Setter Property="Width" Value="16"/>
@@ -58,9 +64,15 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <WrapPanel Grid.Column="0" Orientation="Vertical">
-                    <Label Content="Comment" Style="{StaticResource LabelStyle}"/>
-                    <TextBox Name="textBoxComment" TextWrapping="Wrap" Width="700" Height="80" Padding="5" HorizontalAlignment="Left" TextChanged="CommentTextChanged"/>
+                <WrapPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
+                    <Grid Width="700">
+                        <Label Content="Comment" Style="{StaticResource LabelStyle}" HorizontalAlignment="Left"/>
+                        <TextBlock Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Right">
+                            <Run Text="{Binding ElementName=textBoxComment, Path=Text.Length, Mode=OneWay}"/>
+                            <Run Text="/ 256 "/>
+                        </TextBlock>
+                    </Grid>
+                    <TextBox x:Name="textBoxComment" TextWrapping="Wrap" Width="700" Height="80" Padding="5" HorizontalAlignment="Left" TextChanged="CommentTextChanged" MaxLength="256"/>
                 </WrapPanel>
 
                 <Button Grid.Column="1" Margin="10" Height="60" Width="60" Name="buttonPost" HorizontalAlignment="Right" Style="{StaticResource MainButton}" Click="PostCommentClick">
