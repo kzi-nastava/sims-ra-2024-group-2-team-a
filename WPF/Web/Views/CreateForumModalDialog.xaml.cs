@@ -54,6 +54,7 @@ namespace BookingApp.WPF.Web.Views {
             _commentService.Save(comment);
 
             _parentPage.Update();
+            App.NotificationService.ShowSuccess("Forum created successfully!");
             _parentPage.CloseModalDialog();
         }
 

@@ -70,6 +70,7 @@ namespace BookingApp.WPF.Web.Views {
             Frame mainFrame = window.MainFrame;
             ForumsPage forumsPage = mainFrame.Content as ForumsPage;
 
+            App.NotificationService.ShowSuccess("Forum closed successfully");
             forumsPage.Update();
         }
     }
