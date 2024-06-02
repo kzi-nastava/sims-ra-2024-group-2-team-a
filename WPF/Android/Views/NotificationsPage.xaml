@@ -40,16 +40,16 @@
     </Page.Resources>
         <Grid Background="{StaticResource Beige}">
         
-        <Border Height="584" Width="390" BorderBrush="Black" BorderThickness="1">
+        <Border Height="584" Width="390">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0" Width="200" HorizontalAlignment="Center">
-                    <Label Content="All messages" Padding="0" HorizontalAlignment="Center" Margin="10,0,0,5" VerticalAlignment="Center" Style="{StaticResource Header}"/>
-                    <Label x:Name="NumOfMessagesLabel" Padding="0" Margin="5,0,0,5" Style="{StaticResource Header}" VerticalAlignment="Center"/>
+                    <Label Content="All messages" Padding="0" HorizontalAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource Header}"/>
+                    <Label x:Name="NumOfMessagesLabel" Padding="0" Margin="5,0,0,0" Style="{StaticResource Header}" VerticalAlignment="Center"/>
                 </StackPanel>
                 <Button Grid.Row="3" Width="160" Height="50" Content="Mark all as read" FontSize="18" Click="MarkReadButton_Click" Background="{StaticResource Green}"
                         Foreground="{StaticResource Beige}" FontFamily="{StaticResource Roboto}" FontWeight="Medium"/>

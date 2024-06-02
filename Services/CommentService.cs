@@ -75,7 +75,7 @@ namespace BookingApp.Services {
         public void SaveOwnerComment(Comment comment) {
             _forumService.IncreaseOwnerComment(comment.ForumId);
 
-            this.Save(comment);
+            _commentRepository.Save(comment);
         }
 
     }

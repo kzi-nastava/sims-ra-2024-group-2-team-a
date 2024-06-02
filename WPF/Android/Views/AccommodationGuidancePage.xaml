@@ -170,7 +170,7 @@
                     <ListView ItemsSource="{Binding AccommodationDTOs, UpdateSourceTrigger=PropertyChanged}"
                         SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
                         SelectionMode="Single" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="5"
-                              SelectionChanged="ListView_SelectionChanged">
+                              SelectionChanged="ListView_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Accommodation" Width="150" DisplayMemberBinding="{Binding Name}"/>

@@ -26,7 +26,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Image Grid.Column="0" Grid.Row="0" Height="50" Width="50" Source="{StaticResource AlertIcon}" RenderOptions.BitmapScalingMode="HighQuality" Margin="5,0"/>
-        <TextBlock Text="{Binding Text}" Width="170" TextWrapping="Wrap" Grid.Column="1" Style="{StaticResource ButtonLabelTextBlock}"
+        <TextBlock Text="{Binding Text}" Width="210" TextWrapping="Wrap" Grid.Column="1" Style="{StaticResource ButtonLabelTextBlock}"
                    VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
         <Button x:Name="Yes" Content="Yes" FontSize="16" FontFamily="{StaticResource Roboto}" FontWeight="Medium" Foreground="{StaticResource Beige}" Background="{StaticResource Green}" Click="Yes_Click"
                 Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Height="50" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,0,0,0"/>
