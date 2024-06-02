@@ -35,14 +35,14 @@ namespace BookingApp.WPF.Desktop.Views {
             PageFrame.Navigate(new TouristNotificationsPage(UserId));
         }
 
-        private void LogOutButton_Click(object sender, RoutedEventArgs e) {
-            SignInForm signInForm = new SignInForm();
-            signInForm.Show();
-            this.Close();
-        }
-
         private void RequestsButton_Click(object sender, RoutedEventArgs e) {
             PageFrame.Navigate(new RequestsPage(UserId));
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e) {
+            SettingsWindow settingsWindow = new SettingsWindow(UserId);
+            settingsWindow.Owner = this;
+            settingsWindow.ShowDialog();
         }
     }
 }
