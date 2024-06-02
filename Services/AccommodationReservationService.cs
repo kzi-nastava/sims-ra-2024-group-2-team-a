@@ -136,7 +136,5 @@ namespace BookingApp.Services {
 
             return false;
         }
-
-
     }
 }

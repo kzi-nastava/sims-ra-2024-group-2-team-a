@@ -17,12 +17,21 @@ namespace BookingApp.WPF.Android.ViewModels {
         public CommentDTO Comment { get; set; }
 
         private readonly UserService _userService = ServicesPool.GetService<UserService>();
+        private readonly ForumService _forumService = ServicesPool.GetService<ForumService>();
+        private readonly AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
 
-        public bool IsOwner { get; set; }
+        public bool IsSelfComment => App.GuestMainWindowReference.GuestId == Comment.CreatorId;
+
+        public bool HasVisitedLocation { get; set; }
+
+        public bool IsByOwner { get; set; }
 
         public CommentCardViewModel(CommentDTO comment) {
             Comment = comment;
-            IsOwner = _userService.GetById(comment.CreatorId).Category == Domain.Model.UserCategory.Owner;
+            IsByOwner = _userService.GetById(comment.CreatorId).Category == Domain.Model.UserCategory.Owner;
+
+            int locationId = _forumService.GetById(comment.ForumId).LocationId;
+            HasVisitedLocation = _reservationService.WasVisitedByGuest(comment.CreatorId, DateTime.Now, locationId);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
