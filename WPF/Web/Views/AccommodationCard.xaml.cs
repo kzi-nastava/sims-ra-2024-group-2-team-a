@@ -36,7 +36,12 @@ namespace BookingApp.WPF.Web.Views {
             GuestMainWindow window = (GuestMainWindow) Window.GetWindow(this);
             Frame mainFrame = window.MainFrame;
 
-            mainFrame.Navigate(new CreateReservationPage(ViewModel.Accommodation, window.GuestId));
+            BookingPage bookingPage = mainFrame.Content as BookingPage;
+
+            if(bookingPage.QuickBookEnabled)
+                bookingPage.OpenQuickBookDialog(ViewModel.Accommodation);
+            else 
+                mainFrame.Navigate(new CreateReservationPage(ViewModel.Accommodation, window.GuestId));
         }
     }
 }

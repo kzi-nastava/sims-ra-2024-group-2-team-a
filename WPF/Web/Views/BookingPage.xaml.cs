@@ -20,6 +20,8 @@ namespace BookingApp.WPF.Web.Views {
         private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         private readonly OwnerService _ownerService = ServicesPool.GetService<OwnerService>();
 
+        public bool QuickBookEnabled => toggleSwitch.IsChecked;
+
         public BookingPage() {
             InitializeComponent();
             Update();
@@ -141,6 +143,40 @@ namespace BookingApp.WPF.Web.Views {
             quickDatePickerEndDate.IsEnabled = false;
             quickTextBoxDays.Text = "";
             quickTextBoxGuests.Text = "";
+
+            ButtonFilterClick(null, null);
+        }
+
+        public void OpenQuickBookDialog(AccommodationDTO accommodation) {
+            rectBlurBackground.Visibility = Visibility.Visible;
+
+            int.TryParse(quickTextBoxGuests.Text, out int guestNumber);
+            int.TryParse(quickTextBoxDays.Text, out int reservationDays);
+
+            DateOnly startDate = new DateOnly();
+            DateOnly endDate = new DateOnly();
+
+            if (quickDatePickerStartDate.SelectedDate != null) {
+                startDate = DateOnly.FromDateTime(quickDatePickerStartDate.SelectedDate.Value);
+            }
+
+            if (quickDatePickerEndDate.SelectedDate != null) {
+                endDate = DateOnly.FromDateTime(quickDatePickerEndDate.SelectedDate.Value);
+            }
+
+            AccommodationReservationFilterDTO resFilter = new AccommodationReservationFilterDTO(
+                accommodation.Id,
+                reservationDays, 
+                guestNumber,
+                startDate,
+                endDate);
+
+            mainGrid.Children.Add(new QuickBookModalDialog(this, accommodation, resFilter));
+        }
+
+        public void CloseModalDialog() {
+            rectBlurBackground.Visibility = Visibility.Hidden;
+            mainGrid.Children.RemoveAt(mainGrid.Children.Count - 1);
         }
     }
 }
