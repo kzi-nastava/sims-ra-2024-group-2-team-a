@@ -45,6 +45,9 @@ public class ToastNotificationService : IDisposable {
     }
 
     public void Dispose() {
-        _notifier.Dispose();
+        if(_notifier != null) {
+            _notifier.Dispose(); //Pucka kod mene(Mede) i Djuke
+
+        }
     }
 }
