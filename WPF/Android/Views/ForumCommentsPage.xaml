@@ -73,7 +73,7 @@
                     <ItemsControl x:Name="itemsControlAccommodations" ItemsSource="{Binding CommentDTOs}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:ForumCommentCard/>
+                                <local:ForumCommentCard MaxHeight="150"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemsPanel>
@@ -104,10 +104,16 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Header}" VerticalContentAlignment="Center" BorderBrush="Transparent"
-                               Padding="0" FontSize="20" Content="Express your opinion:" Width="200" HorizontalAlignment="Left" Margin="10,5,0,0"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Left" Margin="10,5,0,0">
+                            <Label Style="{StaticResource Header}" VerticalContentAlignment="Center" BorderBrush="Transparent"
+                               Padding="0" FontSize="20" Content="Express your opinion:" Width="200"/>
+                            <Label VerticalContentAlignment="Center" BorderBrush="Transparent"
+                                 Padding="0" FontSize="16" Content="{Binding CommentDTO.TextCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="10,0,0,0"/>
+                            <Label VerticalContentAlignment="Center" BorderBrush="Transparent"
+                                Padding="0" FontSize="16" Content=" / 256" />
+                        </StackPanel>
 
-                        <TextBox Grid.Row="1" Margin="10,5,10,5" Text="{Binding CommentDTO.Text}">
+                        <TextBox Grid.Row="1" Margin="10,5,10,5" Text="{Binding CommentDTO.Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MaxLength="256" TextWrapping="Wrap">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Style.Triggers>

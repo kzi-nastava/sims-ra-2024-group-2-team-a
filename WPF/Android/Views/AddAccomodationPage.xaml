@@ -89,7 +89,7 @@
             <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Name:" FontFamily="{StaticResource Roboto}"
                      FontSize="18"/>
             <TextBox x:Name="nameTextbox" Grid.Row="1" Grid.Column="1" Width="250" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40" FontFamily="{StaticResource Roboto}"
-                     FontSize="16">
+                     FontSize="16" MaxLength="20">
                 <TextBox.Text>
                     <Binding Path="AccommodationDTO.Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
                              ValidatesOnDataErrors="True"
@@ -142,17 +142,17 @@
 
             <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontFamily="{StaticResource Roboto}" FontSize="18"/>
             <xctk:IntegerUpDown Grid.Row="3" Grid.Column="1" Width="70" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                                Value="{Binding AccommodationDTO.MaxGuestNumber}" Minimum="1" ClipValueToMinMax="True" TextAlignment="Left"
+                                Value="{Binding AccommodationDTO.MaxGuestNumber}" Minimum="1" Maximum="100" ClipValueToMinMax="True" TextAlignment="Left"
                                 FontFamily="{StaticResource Roboto}" FontSize="16"/>
 
             <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Min Reservation Days:" FontFamily="{StaticResource Roboto}" FontSize="18"/>
             <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Width="70" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.MinReservationDays}" Minimum="1" ClipValueToMinMax="True" TextAlignment="Left" 
+                     Text="{Binding AccommodationDTO.MinReservationDays}" Minimum="1" Maximum="100" ClipValueToMinMax="True" TextAlignment="Left" 
                                 FontFamily="{StaticResource Roboto}" FontSize="16"/>
 
             <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Last Cancellation Day:" FontFamily="{StaticResource Roboto}" FontSize="18"/>
             <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Width="70" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.LastCancellationDay}" Minimum="1" ClipValueToMinMax="True" TextAlignment="Left"
+                     Text="{Binding AccommodationDTO.LastCancellationDay}" Minimum="1" Maximum="365" ClipValueToMinMax="True" TextAlignment="Left"
                                 FontFamily="{StaticResource Roboto}" FontSize="16"/>
 
             <Button x:Name="ImportButton" Grid.Column="1"  HorizontalAlignment="Left" Margin="5,0,0,10" VerticalAlignment="Center"

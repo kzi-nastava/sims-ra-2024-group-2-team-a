@@ -12,7 +12,7 @@
     <Page.Resources>
         <BitmapImage x:Key="SearchIcon" UriSource="../../../Resources/Images/Icons/android-search-icon-beige.png"/>
         <converter:SelectedToEnabledConverter x:Key="SelectedConverter"/>
-        <converter:CountToBooleanConverter x:Key="CountToBoolConverter" />
+        <converter:CountDurationToBooleanConverter x:Key="CountToBoolConverter" />
 
             <Style TargetType="Label" x:Key="Header1">
             <Style.Setters>
@@ -131,7 +131,7 @@
         </DatePicker>
 
         <Label Content="Duration: " Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="2"/>
-        <xctk:IntegerUpDown  x:Name="textBox" Value="{Binding Duration}" 
+        <xctk:IntegerUpDown  x:Name="textBox" Value="{Binding Duration}" FontFamily="{StaticResource Roboto}" FontSize="16"
                              IsEnabled="{Binding SelectedDate, ElementName=endDatePicker, Converter={StaticResource SelectedConverter}}" 
                              Grid.Column="1" Grid.Row="2" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30"
                              Minimum="1" ClipValueToMinMax="True" TextAlignment="Left" Margin="0,15,0,0"/>
@@ -151,6 +151,7 @@
         <ListView Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="auto" Width="250" Margin="0,40,0,0"
                   ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged}"
           SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
           SelectionMode="Single">
             <ListView.View>
                 <GridView>

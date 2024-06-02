@@ -29,7 +29,22 @@ namespace BookingApp.WPF.DTO {
             }
             set {
                 if (value != _text) {
+                    TextCount = value.Count();
+
                     _text = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _textCount;
+        public int TextCount {
+            get {
+                return _textCount;
+            }
+            set {
+                if (value != _textCount) {
+                    _textCount = value;
                     OnPropertyChanged();
                 }
             }

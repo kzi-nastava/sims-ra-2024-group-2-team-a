@@ -61,7 +61,7 @@
                VerticalAlignment="Top" HorizontalAlignment="Center" Padding="0" Margin="0,10" BorderBrush="{StaticResource HardGreen}"
                BorderThickness="0,0,0,0" Style="{StaticResource Header}" FontWeight="Medium"/>
         <TextBox x:Name="textBox" Text="{Binding RenovationDTO.Description}" IsEnabled="{Binding Editable}"
-                 Height="150" Width="250" VerticalAlignment="Center" Margin="0,-15,0,15"/>
+                 Height="150" Width="250" VerticalAlignment="Center" Margin="0,-15,0,15" MaxLength="256"/>
         <Button x:Name="ConfirmButton" Height="50" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="15" Command="{Binding ConfirmCommand}"
                 Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
