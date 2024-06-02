@@ -4,17 +4,21 @@
              xmlns:local="clr-namespace:BookingApp"
              StartupUri="WPF/SignInForm.xaml">
     <Application.Resources>
+        <ResourceDictionary>
         <BitmapImage x:Key="TimeIcon" UriSource="Resources/Images/Icons/time-icon.png"/>
         <BitmapImage x:Key="ScheduledIcon" UriSource="Resources/Images/Icons/scheduled-icon.png"/>
         <BitmapImage x:Key="CancelIcon" UriSource="Resources/Images/Icons/cancel-icon.png"/>
+        <BitmapImage x:Key="CancelIconBeige" UriSource="Resources/Images/Icons/cancel-icon-beige.png"/>
         <BitmapImage x:Key="LocationIcon" UriSource="Resources/Images/Icons/location-icon.png"/>
         <BitmapImage x:Key="HouseIcon" UriSource="Resources/Images/Icons/house-icon.png"/>
         <BitmapImage x:Key="CalendarIcon" UriSource="Resources/Images/Icons/calendar-icon.png"/>
         <BitmapImage x:Key="PeopleIcon" UriSource="Resources/Images/Icons/people-icon.png"/>
         <BitmapImage x:Key="CancelEventIcon" UriSource="Resources/Images/Icons/cancel-event-icon.png"/>
         <BitmapImage x:Key="ReviewIcon" UriSource="Resources/Images/Icons/star-icon.png"/>
+        <BitmapImage x:Key="ReviewIconBeige" UriSource="Resources/Images/Icons/star-icon-beige.png"/>
         <BitmapImage x:Key="RescheduleIcon" UriSource="Resources/Images/Icons/reschedule-icon.png"/>
         <BitmapImage x:Key="ConfirmIcon" UriSource="Resources/Images/Icons/confirm-icon.png"/>
+        <BitmapImage x:Key="ConfirmIconBeige" UriSource="Resources/Images/Icons/confirm-icon-beige.png"/>
         <BitmapImage x:Key="CaneclIcon" UriSource="Resources/Images/Icons/cancel-icon.png"/>
         <BitmapImage x:Key="RightArrowIcon" UriSource="Resources/Images/Icons/right-arrow-icon.png"/>
         <BitmapImage x:Key="CameraIcon" UriSource="Resources/Images/Icons/camera-icon.png"/>
@@ -34,13 +38,47 @@
         <BitmapImage x:Key="HomeIcon" UriSource="Resources/Images/normal-home-icon.png"/>
         <BitmapImage x:Key="LiveIcon" UriSource="Resources/Images/live.png"/>
         <BitmapImage x:Key="FinishIcon" UriSource="Resources\Images\finish.png"/>
+        <BitmapImage x:Key="TourRequestIcon" UriSource="Resources/Images/tour_request_icon.png" />
         <BitmapImage x:Key="RequestIcon" UriSource="Resources/Images/request.png"/>
         <BitmapImage x:Key="ReportIcon" UriSource="Resources/Images/report.png"/>
         <BitmapImage x:Key="EyeIcon" UriSource="Resources/Images/eye.png"/>
+        <BitmapImage x:Key="EyeIconBeige" UriSource="Resources/Images/eye-beige.png"/>
+        <BitmapImage x:Key="BeigeHome" UriSource="Resources/Images/Icons/beige-home.png"/>
+        <BitmapImage x:Key="BeigeBook" UriSource="Resources/Images/Icons/beige-book.png"/>
+        <BitmapImage x:Key="BeigeBell" UriSource="Resources/Images/Icons/beige-bell.png"/>
+        <BitmapImage x:Key="BeigeRequest" UriSource="Resources/Images/Icons/beige-request.png"/>
+        <BitmapImage x:Key="BeigeCoupon" UriSource="Resources/Images/Icons/beige-coupon.png"/>
+        <BitmapImage x:Key="BeigeHelp" UriSource="Resources/Images/Icons/beige-help.png"/>
+        <BitmapImage x:Key="BeigeWheel" UriSource="Resources/Images/Icons/beige-wheel.png"/>
+        <BitmapImage x:Key="BlackAccount" UriSource="Resources/Images/Icons/black-account.png"/>
+        <BitmapImage x:Key="LanguageIcon" UriSource="Resources/Images/Icons/language.png"/>
+        <BitmapImage x:Key="Stopwatch" UriSource="Resources/Images/Icons/stopwatch.png"/>
+        <BitmapImage x:Key="LeftArrowIcon" UriSource="Resources/Images/Icons/left-arrow-icon.png"/>
+        <BitmapImage x:Key="PointingArrowIcon" UriSource="Resources/Images/Icons/pointing-arrow-icon.png"/>
+        <BitmapImage x:Key="ClearIconBeige" UriSource="Resources/Images/Icons/clear-icon-beige.png"/>
+        <BitmapImage x:Key="FilterIconBeige" UriSource="Resources/Images/Icons/filter-icon-beige.png"/>
+        <BitmapImage x:Key="SendIconBeige" UriSource="Resources/Images/Icons/send-icon-beige.png"/>
+        <BitmapImage x:Key="CategoryIcon" UriSource="Resources/Images/Icons/category-icon.png"/>
+        <BitmapImage x:Key="HelpIcon" UriSource="/Resources/Images/help.png"/>
+        <BitmapImage x:Key="AddNewIcon" UriSource="Resources/Images/Icons/add-new-icon.png"/>
+        <BitmapImage x:Key="CommentIcon" UriSource="Resources/Images/Icons/comment-icon.png"/>
+        <BitmapImage x:Key="UserIcon" UriSource="Resources/Images/Icons/user-icon.png"/>
+        <BitmapImage x:Key="PlaneIcon" UriSource="Resources/Images/Icons/plane-icon.png"/>
+        <BitmapImage x:Key="OwnerIcon" UriSource="Resources/Images/owner-icon.png"/>
+        <BitmapImage x:Key="VerifiedIcon" UriSource="Resources/Images/Icons/verified-icon.png"/>
 
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>
+        <SolidColorBrush x:Key="Green2" Color="#5a8c6a"/>
         <SolidColorBrush x:Key="SoftGreen" Color="#ADBC9F"/>
-        <SolidColorBrush x:Key="Beige" Color="#EDEEDD"/>
+        <SolidColorBrush x:Key="Beige" Color="Beige"/>
+
+        <FontFamily x:Key="Roboto" >pack://application:,,,/BookingApp;component/Utils/Fonts/#Roboto</FontFamily>
+            
+        <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
+        </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
     </Application.Resources>
 </Application>

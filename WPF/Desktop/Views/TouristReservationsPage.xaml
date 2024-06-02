@@ -10,87 +10,234 @@
       Title="TouristReservationsPage">
     <Page.Resources>
         <converters:TourStateToButtonVisibilityConverter x:Key="ButtonConverter"/>
-        <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
-            <Setter Property="Width" Value="250"/>
-            <Setter Property="Height" Value="71"/>
+        <converters:RadioButtonToStringConverter x:Key="RadioConverter"/>
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
         </Style>
-        <Style TargetType="TextBox" x:Key="TextBoxStyle">
-            <Setter Property="Width" Value="250"/>
-            <Setter Property="Height" Value="71"/>
-            <Setter Property="Margin" Value="5"/>
-        </Style>
+        <ControlTemplate x:Key="ButtonControlTemplate" TargetType="Button">
+            <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource Green2}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
         <Style TargetType="Button" x:Key="ButtonStyle">
-            <Setter Property="Background" Value="#88C0D0"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="Height" Value="71"/>
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            <Setter Property="Margin" Value="10"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Template" Value="{StaticResource ButtonControlTemplate}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Info">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
     </Page.Resources>
-    <Grid>
-        <ScrollViewer Grid.Row="1" 
-              Margin="10, 5, 10, 10">
+    <Grid Background="Beige">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <Border Style="{StaticResource BorderStyle}"
+        Background="{StaticResource SoftGreen}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="All"
+                               VerticalAlignment="Center"
+                               Margin="5"
+                               FontSize="24"/>
+                    <RadioButton VerticalAlignment="Center"
+                                 GroupName="Filter"
+                                 IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=All}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="Scheduled"
+                               VerticalAlignment="Center"
+                               Margin="5"
+                               FontSize="24"/>
+                    <RadioButton VerticalAlignment="Center"
+                                 GroupName="Filter"
+                                 IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Scheduled}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="2"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="Active"
+                               VerticalAlignment="Center"
+                               Margin="5"
+                               FontSize="24"/>
+                    <RadioButton VerticalAlignment="Center"
+                                 GroupName="Filter"
+                                 IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Active}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="3"
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="Finished"
+                               VerticalAlignment="Center"
+                               Margin="5"
+                               FontSize="24"/>
+                    <RadioButton VerticalAlignment="Center"
+                                 GroupName="Filter"
+                                 IsChecked="{Binding Filter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Finished}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <ScrollViewer Grid.Row="1"
+                      Margin="0, 0, 5, 0">
             <ItemsControl ItemsSource="{Binding ReservedTours}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Black" 
-                    BorderThickness="1"
-                    Width="1396"
-                    Height="265"
-                    Margin="0, 10">
-                            <Grid Margin="5">
+                        <Border Style="{StaticResource BorderStyle}"
+                                Margin="10, 0, 10, 10">
+                            <Grid Margin="5, 5, 0, 5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="5*"/>
                                 </Grid.ColumnDefinitions>
+                                <Image Grid.RowSpan="2"
+                                       Source="{Binding ProfilePictures[0]}"
+                                       Stretch="UniformToFill"/>
+                                <TextBlock Grid.ColumnSpan="2"
+                                       Text="{Binding Name}"
+                                       HorizontalAlignment="Center"
+                                       FontSize="24"
+                                       FontWeight="Bold"
+                                       Margin="10, 5, 10, 10"/>
+                                <Grid Grid.Column="1"
+                                      Grid.Row="1"
+                                      VerticalAlignment="Bottom"
+                                      Margin="10, 0, 0, 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0"
+                                          HorizontalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{StaticResource LocationIcon}"
+                                                   Height="20"/>
+                                            <TextBlock Style="{StaticResource Info}">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0}, {1}">
+                                                        <Binding Path="Location.City"/>
+                                                        <Binding Path="Location.Country"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Grid.Row="1">
+                                            <Image Source="{StaticResource ScheduledIcon}"
+                                                   Height="20"/>
+                                            <TextBlock Grid.Row="1"
+                                                       Style="{StaticResource Info}">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                                        <Binding Path="Beggining"/>
+                                                        <Binding Path="End"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Grid.Row="2">
+                                            <Image Source="{StaticResource LanguageIcon}"
+                                                   Height="20"/>
+                                            <TextBlock Grid.Row="2"
+                                                       Text="{Binding Language.Name}"
+                                                       Style="{StaticResource Info}"/>
 
-                                <Image Source="{Binding ProfilePictures[0]}" 
-                                   Grid.Column="0" 
-                                   SnapsToDevicePixels="True"
-                                   Margin="5"
-                                   Width="230"
-                                   Height="230"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Grid.Row="3">
+                                            <Image Source="{StaticResource Stopwatch}"
+                                                   Height="20"/>
+                                            <TextBlock Grid.Row="3"
+                                                       Text="{Binding Duration}"
+                                                       Style="{StaticResource Info}"/>
 
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontSize="40" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding LocationTemplate, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding LanguageTemplate, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" FontSize="24" FontWeight="Bold"/>
-                                </StackPanel>
-                                <Border Grid.Column="2"
-                                    BorderBrush="Black" 
-                                    BorderThickness="1">
-                                    <TextBlock Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
-                                           TextWrapping="Wrap"/>
-                                </Border>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Border Style="{StaticResource BorderStyle}"
+                                            Margin="0"
+                                            Grid.Column="1">
+                                        <TextBlock Text="{Binding Description}"
+                                                   Style="{StaticResource Info}"
+                                                   FontWeight="Normal"
+                                                   TextWrapping="Wrap"/>
+                                    </Border>
+                                    <Grid Grid.Column="3" 
+                                          Margin="5, 5, 5, 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
 
-                                <Grid Grid.Column="3" 
-                                      Margin="10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
+                                        <TextBlock Style="{StaticResource Info}"
+                                                   Margin="0, 5"
+                                                   HorizontalAlignment="Left"
+                                                   VerticalAlignment="Bottom">
+                                            <TextBlock.Text>
+                                                <Binding StringFormat="• {0}" 
+                                                         Path="TourStatus"/>
+                                            </TextBlock.Text>
+                                        </TextBlock>
 
-                                    <TextBlock Text="{Binding TourStatus}"> 
-                                        
-                                    </TextBlock>
-                                    
-                                    <Button Grid.Row="1"
-                                            x:Name="RateTourButton"                                        
-                                            Click="RateTourButton_Click"
-                                            Style="{StaticResource ButtonStyle}"
-                                            Content="Rate tour"
-                                            Visibility="{Binding TourStatus, Converter={StaticResource ButtonConverter}, ConverterParameter=RateTourButton}"/>
-                                    <Button Grid.Row="1"
-                                            x:Name="FollowLiveButton"                                        
-                                            Click="FollowLiveButton_Click"
-                                            Style="{StaticResource ButtonStyle}"
-                                            Content="Follow live"
-                                            Visibility="{Binding TourStatus, Converter={StaticResource ButtonConverter}, ConverterParameter=FollowLiveButton}"/>
+                                        <Button Grid.Row="1"
+                                                x:Name="RateTourButton"                                        
+                                                Click="RateTourButton_Click"
+                                                Style="{StaticResource ButtonStyle}"
+                                                Margin="0"
+                                                Padding="Auto"
+                                                Content="Rate tour"
+                                                Visibility="{Binding TourStatus, Converter={StaticResource ButtonConverter}, ConverterParameter=RateTourButton}"/>
+                                        <Button Grid.Row="1"
+                                                x:Name="FollowLiveButton"                                        
+                                                Click="FollowLiveButton_Click"
+                                                Style="{StaticResource ButtonStyle}"
+                                                Margin="0"
+                                                Padding="Auto"
+                                                Content="Follow live"
+                                                Visibility="{Binding TourStatus, Converter={StaticResource ButtonConverter}, ConverterParameter=FollowLiveButton}"/>
+                                        <Button Grid.Row="1"
+                                                x:Name="GenerateReportButton"                                        
+                                                Click="GenerateReportButton_Click"
+                                                Style="{StaticResource ButtonStyle}"
+                                                Margin="0"
+                                                Padding="Auto"
+                                                Content="Report"
+                                                Visibility="{Binding TourStatus, Converter={StaticResource ButtonConverter}, ConverterParameter=GenerateReportButton}"/>    
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Border>

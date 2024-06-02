@@ -1,0 +1,46 @@
+﻿<Window x:Class="BookingApp.WPF.Tablet.Views.AcceptTourRequestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
+        xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
+        mc:Ignorable="d"
+        Title="AcceptTourRequestWindow" Height="200" Width="350" WindowStartupLocation="CenterScreen">
+    <Window.CommandBindings>
+        <CommandBinding x:Name="Cancel" Command="cmd:RoutedCommands.Cancel" CanExecute="Cancel_CanExecute" Executed="Cancel_Executed"/>
+        <CommandBinding x:Name="Accept" Command="cmd:RoutedCommands.Confirm" CanExecute="Accept_CanExecute" Executed="Accept_Executed"/>
+    </Window.CommandBindings>
+    <Window.Resources>
+        <ResourceDictionary Source="../TabletSTyles.xaml">
+
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Style="{StaticResource GridBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <!--<Label Grid.Row="0" Grid.ColumnSpan="2"  Content="From:" Style="{StaticResource WindowLabel}"/>
+        <DatePicker x:Name="datePickerFrom" Grid.Row="0" Grid.Column="2" DisplayDateStart="{Binding tourRequestDTO.StartDateTime, Mode=OneWay}" DisplayDateEnd="{Binding tourRequestDTO.EndDateTime, Mode=OneWay}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePickerFrom_SelectedDateChanged"/>
+
+        <Label Grid.Row="1" Grid.ColumnSpan="2" Content="To:" Style="{StaticResource WindowLabel}"/>
+        <DatePicker x:Name="datePickerTo" Grid.Row="1" Grid.Column="2" DisplayDateStart="{Binding tourRequestDTO.StartDateTime, Mode=OneWay}"  DisplayDateEnd="{Binding tourRequestDTO.EndDateTime, Mode=OneWay}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePickerTo_SelectedDateChanged"/>-->
+
+        <Label Grid.Row="0" Grid.ColumnSpan="2"  Content="From:" Style="{StaticResource WindowLabel}"/>
+        <DatePicker x:Name="datePickerFrom" Grid.Row="0" Grid.Column="2" DisplayDateStart="{Binding tourRequestDTO.StartDateTime, Mode=OneWay}" DisplayDateEnd="{Binding tourRequestDTO.EndDateTime, Mode=OneWay}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePickerFrom_SelectedDateChanged"/>
+
+        <Label Grid.Row="1" Grid.ColumnSpan="2" Content="To:" Style="{StaticResource WindowLabel}"/>
+        <DatePicker x:Name="datePickerTo" Grid.Row="1" Grid.Column="2" DisplayDateStart="{Binding tourRequestDTO.StartDateTime, Mode=OneWay}"  DisplayDateEnd="{Binding tourRequestDTO.EndDateTime, Mode=OneWay}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePickerTo_SelectedDateChanged"/>
+
+
+        <Button x:Name="addButton" Content="Add" Command="cmd:RoutedCommands.Confirm" Style="{StaticResource WindowButton}" Grid.Row="3" Grid.Column="1"/>
+        <Button x:Name="cancelButton" Content="Cancel" Command="cmd:RoutedCommands.Cancel" Style="{StaticResource WindowButton}" Grid.Row="3" Grid.Column="0"/>
+    </Grid>
+</Window>

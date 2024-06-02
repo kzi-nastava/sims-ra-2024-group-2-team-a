@@ -9,7 +9,7 @@ namespace BookingApp.WPF.Android.Views {
     public partial class RescheduleRequestDeclineWindow : Window {
         
         RescheduleDeclineViewmodel RescheduleDeclineViewmodel { get; set; }
-        public RescheduleRequestDeclineWindow(RescheduleRequestDTO rescheduleRequestDTO) {
+        public RescheduleRequestDeclineWindow(AccommodationRescheduleRequestDTO rescheduleRequestDTO) {
             InitializeComponent();
             RescheduleDeclineViewmodel = new RescheduleDeclineViewmodel(rescheduleRequestDTO);
             DataContext = RescheduleDeclineViewmodel;

@@ -6,8 +6,13 @@
              xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+            
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Border BorderBrush="Black" BorderThickness="1" Margin="5">
-        <Grid Background="AliceBlue" MouseLeftButtonDown="TourCardClick" Height="300" Width="1000">
+        <Grid Style="{StaticResource GridButton}" MouseLeftButtonDown="TourCardClick" Height="300" Width="1000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -25,12 +30,12 @@
                     <ImageBrush ImageSource="{Binding ProfilePictures[0]}"/>
                 </Border.Background>
             </Border>
-            <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="{Binding Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Margin="10" Text="{Binding LocationTemplate, StringFormat=Location: {0}}" FontSize="18"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Margin="10" Text="{Binding LanguageTemplate, StringFormat=Language: {0}}" FontSize="18"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Margin="10" Text="{Binding CurrentTouristNumber, StringFormat=Tourists: {0}}" FontSize="18"/>
-            <TextBlock Grid.Row="4" Grid.Column="1" Margin="10" Text="{Binding Duration, StringFormat=Duration: {0} hours}" FontSize="18"/>
-            <TextBlock Grid.Row="5" Grid.Column="1" Margin="10" Text="{Binding Beggining, StringFormat=Beggining: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="0" Grid.Column="1"  Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="5" Text="{Binding Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding LocationTemplate, StringFormat=Location: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding LanguageTemplate, StringFormat=Language: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding CurrentTouristNumber, StringFormat=Tourists: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding Duration, StringFormat=Duration: {0} hours}" FontSize="18"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding Beggining, StringFormat=Beggining: {0}}" FontSize="18"/>
         </Grid>
     </Border>
 </UserControl>

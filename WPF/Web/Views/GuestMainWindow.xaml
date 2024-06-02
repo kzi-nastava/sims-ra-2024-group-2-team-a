@@ -6,12 +6,16 @@
         xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
         xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
         mc:Ignorable="d"
-        Title="GuestMainWindow" Height="650" Width="800"
+        Title="GuestMainWindow" Height="700" Width="1000"
         ResizeMode="NoResize">
 
     <Window.Resources>
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
+        <Style TargetType="Button">
+            
+        </Style>
+        
         <Style x:Key="ButtonImage" TargetType="Image">
             <Setter Property="Height" Value="20"/>
             <Setter Property="Width" Value="20"/>
@@ -26,6 +30,24 @@
             <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="Width" Value="150"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                BorderBrush="White"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style x:Key="SecondaryButton" TargetType="Button">
@@ -34,6 +56,23 @@
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="Width" Value="90"/>
             <Setter Property="Height" Value="30"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style x:Key="ButtonText" TargetType="TextBlock">
@@ -43,10 +82,12 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="10 0 0 0"/>
         </Style>
+        
+        
 
     </Window.Resources>
     
-    <Grid>
+    <Grid Background="{StaticResource Beige}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -97,7 +138,7 @@
                     </WrapPanel>
                 </Button>
 
-                <Button Name="buttonForum" Style="{StaticResource PrimaryButton}">
+                <Button Name="buttonForum" Style="{StaticResource PrimaryButton}" Click="ButtonForumsClick">
                     <WrapPanel>
                         <Image Style="{StaticResource ButtonImage}" Source="{StaticResource ChatWhiteIcon}"/>
                         <TextBlock Text="Forums" Style="{StaticResource ButtonText}"/>
@@ -107,7 +148,7 @@
             </StackPanel>
         </Grid>
             
-        <Grid x:Name="gridPages" Height="550" VerticalAlignment="Top" Grid.Row="1">
+        <Grid x:Name="gridPages" VerticalAlignment="Top" Grid.Row="1">
             <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>

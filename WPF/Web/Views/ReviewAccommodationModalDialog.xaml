@@ -46,6 +46,7 @@
 
         <Style x:Key="MainButton" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
     </UserControl.Resources>
 
@@ -111,7 +112,7 @@
 
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Accommodation photos" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="buttonUpload" Margin="10" HorizontalAlignment="Left" Click="ButtonUploadClick">
+                            <Button x:Name="buttonUpload" Margin="10" HorizontalAlignment="Left" Cursor="Hand" Click="ButtonUploadClick">
                                 <WrapPanel Margin="5">
                                     <Image Style="{StaticResource ImageStyle}" Source="{StaticResource CameraIcon}"/>
                                     <TextBlock Text="Upload"/>
@@ -128,7 +129,7 @@
 
                         <StackPanel Margin="0 10 0 0" Orientation="Horizontal" IsEnabled="{Binding ElementName=checkBoxRequiresRenovation, Path=IsChecked}">
                             <Label Content="Renovation importance" Style="{StaticResource LabelStyle}"/>
-                            <ComboBox x:Name="comboBoxRenovationImportance" SelectedIndex="0" Width="200" Margin="10 0 0 0"
+                            <ComboBox x:Name="comboBoxRenovationImportance" SelectedIndex="0" Width="200" Margin="10 0 0 0" Cursor="Hand"
                                       ItemsSource="{Binding ImportanceTypes}"
                                       SelectedValue="{Binding Review.Importance, Mode=OneWayToSource}"
                                       ItemTemplate="{StaticResource ComboBoxItemTemplate}"/>

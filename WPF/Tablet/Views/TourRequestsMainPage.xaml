@@ -1,0 +1,30 @@
+﻿<Page x:Class="BookingApp.WPF.Tablet.Views.TourRequestsMainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
+      xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="726" d:DesignWidth="1024"
+      Title="TourRequestsMainPage">
+    
+    <Grid>
+        <TabControl x:Name="menuTabControl" SelectionChanged="menuTabControl_SelectionChanged" Margin="0,15,0,0" BorderBrush="Black" Background="{StaticResource Beige}" >
+            <TabItem x:Name="tabRegularTourRequests"  Header="Regular Tour Requests" BorderBrush="Black">
+               
+            </TabItem>
+            <TabItem x:Name="tabComplexTourRequests" Header="Complex Tour Requests" BorderBrush="Black">
+
+            </TabItem>
+            <TabItem x:Name="tabRequestsStats" Header="Stats for Requests" BorderBrush="Black">
+                
+            </TabItem>
+            <TabItem x:Name="tabSuggestions" Header="Suggestions" BorderBrush="Black">
+
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

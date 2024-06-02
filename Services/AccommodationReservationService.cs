@@ -10,19 +10,19 @@ namespace BookingApp.Services {
     {
         private readonly IAccommodationReservationRepository _reservationRepository;
 
-        private RescheduleRequestService _rescheduleService;
+        private AccommodationRescheduleRequestService _rescheduleService;
         private AccommodationService _accommodationService;
         private ReservationRecommenderService _recommenderService;
         private AccommodationStatisticsService _statisticService;
         private GuestService _guestService;
-        private ReviewService _reviewService;
+        private AccommodationReviewService _reviewService;
       
         public AccommodationReservationService(IAccommodationReservationRepository reservationRepository) {
            _reservationRepository = reservationRepository;
         }
 
-        public void InjectServices(RescheduleRequestService rescheduleService, AccommodationService accommodationService, ReservationRecommenderService recommenderService,
-                       AccommodationStatisticsService statisticService, GuestService guestService, ReviewService reviewService) {
+        public void InjectServices(AccommodationRescheduleRequestService rescheduleService, AccommodationService accommodationService, ReservationRecommenderService recommenderService,
+                       AccommodationStatisticsService statisticService, GuestService guestService, AccommodationReviewService reviewService) {
             _rescheduleService = rescheduleService;
             _accommodationService = accommodationService;
             _recommenderService = recommenderService;
@@ -48,14 +48,13 @@ namespace BookingApp.Services {
         }
 
         public AccommodationReservation Save(AccommodationReservation reservation) {
-
-
-            _statisticService.UpdateReservationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate);
           
             AccommodationReservation newReservation = _reservationRepository.Save(reservation);
 
             int reservationsCount = _reservationRepository.CountReservationsInLastYear(newReservation.GuestId);
-            _guestService.PromoteOrDecreaseBonusPoints(newReservation.GuestId, reservationsCount);
+            _guestService.ManageGuestStatus(newReservation.GuestId, reservationsCount);
+
+            _statisticService.UpdateReservationStatisticsAndCheckDates(newReservation.AccommodationId, reservation.StartDate, reservation.EndDate, reservation.GuestsNumber);
 
             return newReservation;
         }
@@ -76,14 +75,14 @@ namespace BookingApp.Services {
 
             _rescheduleService.CancelByReservationId(id);
 
-            _statisticService.UpdateCancellationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate);
+            _statisticService.UpdateCancellationStatisticsAndCheckDates(reservation.AccommodationId, reservation.StartDate, reservation.EndDate, reservation.GuestsNumber);
         }
 
         public bool Update(AccommodationReservation accReservation) {
             return _reservationRepository.Update(accReservation);  
         }
 
-        public List<AccommodationReservation> SuggestReservations(AccommodationReservationDTO rDTO) {
+        public List<AccommodationReservation> SuggestReservations(AccommodationReservationFilterDTO rDTO) {
             return _recommenderService.SuggestReservations(rDTO);
         }
 
@@ -121,6 +120,23 @@ namespace BookingApp.Services {
         private bool CheckReservationOwner(int accommodationId, int ownerId) {
             return _accommodationService.GetById(accommodationId).OwnerId == ownerId;
         }
+
+        public bool WasVisitedByGuest(int guestId, DateTime dateTime, int locationId) {
+            foreach (var res in this.GetByGuestId(guestId)) {
+                Accommodation acc = _accommodationService.GetById(res.AccommodationId);
+
+                if (res.Cancelled == false && 
+                    res.StartDate <= DateOnly.FromDateTime(dateTime) && 
+                    acc.LocationId == locationId) {
+
+                        return true;
+                }
+
+            }
+
+            return false;
+        }
+
 
     }
 }

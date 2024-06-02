@@ -11,19 +11,33 @@
         <Style TargetType="Label" x:Key="Header">
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource HardGreen}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,0"/>
+                <Setter Property="Padding" Value="0,0,0,0"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
-        <Style TargetType="Label" x:Key="Labels">
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"></Setter>
             </Style.Setters>
         </Style>
-        <BitmapImage x:Key="ViewIcon" UriSource="../../../Resources/Images/android-view-icon.png"/>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"></Setter>
+            </Style.Setters>
+        </Style>
+        
+        <BitmapImage x:Key="ViewIcon" UriSource="../../../Resources/Images/Icons/android-view-icon-beige.png"/>
 
         <Style TargetType="Button" x:Key="DisabledButtonStyle">
             <Setter Property="Background" Value="{StaticResource Green}"/>
@@ -46,6 +60,22 @@
             </Setter>
         </Style>
 
+        <Style x:Key="CancelButtonStyle" TargetType="Button" BasedOn="{StaticResource DisabledButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CancelDemoClick}" Value="True">
+                    <Setter Property="Background" Value="#5a8c6b"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ViewButtonStyle" TargetType="Button" BasedOn="{StaticResource DisabledButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ViewDemoClick}" Value="True">
+                    <Setter Property="Background" Value="#5a8c6b"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
     </Page.Resources>
 
     <Grid Background="{StaticResource Beige}">
@@ -58,21 +88,22 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource Header}"
-               Content="All renovations: " VerticalAlignment="Center" HorizontalAlignment="Left"/>
+               Content="All renovations: " VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="auto" Width="400" Margin="0,10,0,10"
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="auto" Width="380" Margin="0,0,0,0"
           ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
-            SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1"
+                  FontFamily="{StaticResource Roboto}" FontSize="14">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Accommodation" Width="150" DisplayMemberBinding="{Binding Accommodation.Name}"/>
                     <GridViewColumn Header="Start Date" Width="75" DisplayMemberBinding="{Binding StartDate}"/>
                     <GridViewColumn Header="End Date" Width="75" DisplayMemberBinding="{Binding EndDate}"/>
-                    <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding RenovationState}"/>
+                    <GridViewColumn Header="Status" Width="80" DisplayMemberBinding="{Binding RenovationState}"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>
@@ -81,6 +112,7 @@
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="Foreground" Value="Black"/>
                     <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="FontSize" Value="14"/>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="{StaticResource Beige}"/>
@@ -94,19 +126,38 @@
             </ListView.ItemContainerStyle>
         </ListView>
 
-        <Button Grid.Column="2" Grid.Row="2" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
-            Command="{Binding ViewCommand}" Style="{StaticResource DisabledButtonStyle}">
+        <Button Grid.Column="2" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20"
+            Command="{Binding ViewCommand}" Style="{StaticResource ViewButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                 <Image Source="{StaticResource ViewIcon}" Height="30" Width="30"/>
-                <Label Content="View" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Label Content="View" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
 
-        <Button Grid.Column="1" Grid.Row="2" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
-        Command="{Binding CancelCommand}" Style="{StaticResource DisabledButtonStyle}">
+        <Label  Grid.Row="2"
+            Grid.Column="1" Foreground="red"
+                VerticalAlignment="Top" Margin="0,0,0,0" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Content" Value=""/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=CancelButton, Path=IsEnabled}" Value="False" />
+                                <Condition Binding="{Binding SelectedRenovation.RenovationState}" Value="Pending"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Content" Value="Cancellation period expired" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        
+        <Button x:Name="CancelButton" Grid.Column="1" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20"
+        Command="{Binding CancelCommand}" Style="{StaticResource CancelButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
-                <Label Content="Cancel" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
+                <Label Content="Cancel" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
         

@@ -156,6 +156,13 @@ namespace BookingApp.WPF.DTO {
             }
         }
 
+        public bool IsReservationFinished {
+            get {
+                var dateNow = DateOnly.FromDateTime(DateTime.Now);
+                return dateNow >= EndDate;
+            }
+        }
+
         public AccommodationReservation ToAccommodationReservation()
         {
             var res = new AccommodationReservation(GuestId, AccommodationId, GuestsNumber, StartDate, EndDate);

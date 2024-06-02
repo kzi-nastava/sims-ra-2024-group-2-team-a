@@ -19,9 +19,9 @@ namespace BookingApp.Services {
             { typeof(IAccommodationRepository), new Dictionary<RepositoryType, object>() },
             { typeof(IAccommodationReservationRepository), new Dictionary<RepositoryType, object>() },
             { typeof(ILocationRepository), new Dictionary<RepositoryType, object>() },
-            { typeof(IRescheduleRequestRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(IAccommodationRescheduleRequestRepository), new Dictionary<RepositoryType, object>() },
             { typeof(IUserRepository), new Dictionary<RepositoryType, object>() },
-            { typeof(IReviewRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(IAccommodationReviewRepository), new Dictionary<RepositoryType, object>() },
             { typeof(IOwnerRepository), new Dictionary<RepositoryType, object>() },
             { typeof(ILanguageRepository), new Dictionary<RepositoryType, object>() },
             { typeof(IPassengerRepository), new Dictionary<RepositoryType, object>() },
@@ -34,7 +34,13 @@ namespace BookingApp.Services {
             { typeof(ITourRequestRepository), new Dictionary<RepositoryType, object>() },
             { typeof(IAccommodationRenovationRepository), new Dictionary<RepositoryType, object>() },
             { typeof(IAccommodationStatisticsRepository), new Dictionary<RepositoryType, object>() },
-            { typeof(IGuestRepository), new Dictionary<RepositoryType, object>() }
+            { typeof(IGuestRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(IGuideRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(IComplexTourRequestRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(IForumRepository), new Dictionary<RepositoryType, object>()},
+            { typeof(ICommentRepository), new Dictionary<RepositoryType, object>()},
+            { typeof(IVisitedTourRepository), new Dictionary<RepositoryType, object>() },
+            { typeof(ITouristRepository), new Dictionary<RepositoryType, object>() }
         };
 
         static RepositoryInjector() {
@@ -42,9 +48,9 @@ namespace BookingApp.Services {
             _repositoryInstances[typeof(IAccommodationRepository)][RepositoryType.CSV] = new AccommodationRepository();
             _repositoryInstances[typeof(IAccommodationReservationRepository)][RepositoryType.CSV] = new AccommodationReservationRepository();
             _repositoryInstances[typeof(ILocationRepository)][RepositoryType.CSV] = new LocationRepository();
-            _repositoryInstances[typeof(IRescheduleRequestRepository)][RepositoryType.CSV] = new RescheduleRequestRepository();
+            _repositoryInstances[typeof(IAccommodationRescheduleRequestRepository)][RepositoryType.CSV] = new AccommodationRescheduleRequestRepository();
             _repositoryInstances[typeof(IUserRepository)][RepositoryType.CSV] = new UserRepository();
-            _repositoryInstances[typeof(IReviewRepository)][RepositoryType.CSV] = new ReviewRepository();
+            _repositoryInstances[typeof(IAccommodationReviewRepository)][RepositoryType.CSV] = new AccommodationReviewRepository();
             _repositoryInstances[typeof(IOwnerRepository)][RepositoryType.CSV] = new OwnerRepository();
             _repositoryInstances[typeof(ILanguageRepository)][RepositoryType.CSV] = new LanguageRepository();
             _repositoryInstances[typeof(IPassengerRepository)][RepositoryType.CSV] = new PassengerRepository();
@@ -58,6 +64,12 @@ namespace BookingApp.Services {
             _repositoryInstances[typeof(IAccommodationRenovationRepository)][RepositoryType.CSV] = new AccommodationRenovationRepository();
             _repositoryInstances[typeof(IAccommodationStatisticsRepository)][RepositoryType.CSV] = new AccommodationStatisticsRepository();
             _repositoryInstances[typeof(IGuestRepository)][RepositoryType.CSV] = new GuestRepository();
+            _repositoryInstances[typeof(IGuideRepository)][RepositoryType.CSV] = new GuideRepository();
+            _repositoryInstances[typeof(IComplexTourRequestRepository)][RepositoryType.CSV] = new ComplexTourRequestRepository();
+            _repositoryInstances[typeof(IForumRepository)][RepositoryType.CSV] = new ForumRepository();
+            _repositoryInstances[typeof(ICommentRepository)][RepositoryType.CSV] = new CommentRepository();
+            _repositoryInstances[typeof(IVisitedTourRepository)][RepositoryType.CSV] = new VisitedTourRepository();
+            _repositoryInstances[typeof(ITouristRepository)][RepositoryType.CSV] = new TouristRepository();
 
             // SQL repository registration
             // ...

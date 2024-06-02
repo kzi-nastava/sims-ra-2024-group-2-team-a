@@ -5,27 +5,39 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
       xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="624" d:DesignWidth="430"
       Title="AccommodationRenovationPagexaml">
     <Page.Resources>
-        <BitmapImage x:Key="SearchIcon" UriSource="../../../Resources/Images/android-search-icon.png"/>
+        <BitmapImage x:Key="SearchIcon" UriSource="../../../Resources/Images/Icons/android-search-icon-beige.png"/>
         <converter:SelectedToEnabledConverter x:Key="SelectedConverter"/>
-        <converter:CountToBooleanConverter x:Key="CountToBoolConverter" />
+        <converter:CountDurationToBooleanConverter x:Key="CountToBoolConverter" />
 
             <Style TargetType="Label" x:Key="Header1">
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource HardGreen}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
         
         <Style TargetType="Label" x:Key="Labels">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabels">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="DemiBold"/>
             </Style.Setters>
         </Style>
 
@@ -50,6 +62,22 @@
             </Setter>
         </Style>
 
+        <Style x:Key="SearchButtonStyle" TargetType="Button" BasedOn="{StaticResource DisabledButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding SearchDemoClick}" Value="True">
+                    <Setter Property="Background" Value="#5a8c6b"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ConfirmButtonStyle" TargetType="Button" BasedOn="{StaticResource DisabledButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ConfirmDemoClick}" Value="True">
+                    <Setter Property="Background" Value="#5a8c6b"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
     </Page.Resources>
     <Grid Background="{StaticResource Beige}">
         <Grid.ColumnDefinitions>
@@ -66,10 +94,12 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Label Content="{Binding AccommodationDTO.Name}" Style="{StaticResource Header1}" Grid.Row="0" Grid.ColumnSpan="5"
-               Background="{StaticResource Green}" HorizontalAlignment="Center" Margin="0,5,0,10"/>
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <Label Content="New renovation: " Style="{StaticResource Header1}"/>
+            <Label Content="{Binding AccommodationDTO.Name}" Style="{StaticResource Header1}"/>
+        </StackPanel>
         <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="2"/>
-        <Label Content="Start Date:" Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="1"/>
+            <Label Content="Start Date:" Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="1"/>
         <DatePicker x:Name="startDatePicker" Height="30" Width="120" Margin="0,15,0,0" 
                     Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
                     SelectedDate="{Binding StartDate}">
@@ -101,24 +131,27 @@
         </DatePicker>
 
         <Label Content="Duration: " Style="{StaticResource Labels}" Grid.Column="1" Grid.Row="2"/>
-        <TextBox x:Name="textBox" Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedDate, ElementName=endDatePicker, Converter={StaticResource SelectedConverter}}" 
-                 Grid.Column="1" Grid.Row="2" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Margin="0,15,0,0"/>
+        <xctk:IntegerUpDown  x:Name="textBox" Value="{Binding Duration}" FontFamily="{StaticResource Roboto}" FontSize="16"
+                             IsEnabled="{Binding SelectedDate, ElementName=endDatePicker, Converter={StaticResource SelectedConverter}}" 
+                             Grid.Column="1" Grid.Row="2" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30"
+                             Minimum="1" ClipValueToMinMax="True" TextAlignment="Left" Margin="0,15,0,0"/>
 
-        <Button Grid.Column="3" Grid.Row="2" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
+        <Button Grid.Column="3" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
         IsEnabled="{Binding Duration, Converter={StaticResource CountToBoolConverter}}"
-        Click="SearchButton_Click" Style="{StaticResource DisabledButtonStyle}">
+        Click="SearchButton_Click" Style="{StaticResource SearchButtonStyle}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="{StaticResource SearchIcon}" Height="40" Width="40"/>
-                <Label Content="Search" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Label Content="Search" Style="{StaticResource ButtonLabels}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
 
         <Label Content="Available Dates: " Style="{StaticResource Header1}" BorderBrush="Transparent"
-               HorizontalAlignment="Center"  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"/>
+               HorizontalAlignment="Center"  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5"/>
         
         <ListView Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="auto" Width="250" Margin="0,40,0,0"
                   ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged}"
-          SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
+          SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
           SelectionMode="Single">
             <ListView.View>
                 <GridView>
@@ -133,19 +166,19 @@
             </ListView.ItemContainerStyle>
         </ListView>
 
-        <Button Grid.Column="3" Grid.Row="5" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
-        Command="{Binding AcceptCommand}" Style="{StaticResource DisabledButtonStyle}">
+        <Button Grid.Column="3" Grid.Row="5" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
+        Command="{Binding AcceptCommand}" Style="{StaticResource ConfirmButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
-                <Label Content="Accept" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
+                <Label Content="Confirm" Style="{StaticResource ButtonLabels}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
 
-        <Button Grid.Column="1" Grid.Row="5" Height="50" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center"
+        <Button Grid.Column="1" Grid.Row="5" Height="50" Width="130" VerticalAlignment="Center" HorizontalAlignment="Center"
                 Command="{Binding DeclineCommand}" Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                <Image Source="{StaticResource CancelIcon}" Height="30" Width="30"/>
-                <Label Content="Decline" Style="{StaticResource Labels}" VerticalAlignment="Center"/>
+                <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
+                <Label Content="Cancel" Style="{StaticResource ButtonLabels}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
     </Grid>

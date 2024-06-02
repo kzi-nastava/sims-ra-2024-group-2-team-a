@@ -17,5 +17,13 @@ namespace BookingApp.Repository {
             _serializer.ToCSV(_items);
             return true;
         }
+        public bool DeleteByTours(List<Tour> tours) {
+            _items = _serializer.FromCSV();
+            if (_items.RemoveAll(x => tours.Select(y => y.Id).Contains(x.TourId)) <= 0)
+                return false;
+            _serializer.ToCSV(_items);
+            return true;
+        }
+
     }
 }

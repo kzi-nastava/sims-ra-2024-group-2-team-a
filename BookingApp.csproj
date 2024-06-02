@@ -5,40 +5,102 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\Images\AccommodationsInside\Accommodation1.jpg" />
     <None Remove="Resources\Images\AccommodationsInside\Accommodation2.jpg" />
     <None Remove="Resources\Images\AccommodationsInside\Accommodation3.jpg" />
+    <None Remove="Resources\Images\Accommodations\Apartments.jpg" />
+    <None Remove="Resources\Images\Accommodations\Cottage.jpg" />
+    <None Remove="Resources\Images\Accommodations\House-1.jpeg" />
+    <None Remove="Resources\Images\Accommodations\House-2.jpg" />
+    <None Remove="Resources\Images\Accommodations\house-3.jpg" />
     <None Remove="Resources\Images\Accommodations\House.jpeg" />
+    <None Remove="Resources\Images\Accommodations\Hut-1.jpg" />
+    <None Remove="Resources\Images\Accommodations\hut-2.jpg" />
     <None Remove="Resources\Images\Accommodations\Hut.jpg" />
+    <None Remove="Resources\Images\Accommodations\Minecraft.png" />
     <None Remove="Resources\Images\Accommodations\Penthouse.jpeg" />
+    <None Remove="Resources\Images\Accommodations\Sheraton.jpg" />
+    <None Remove="Resources\Images\add-icon3-b.png" />
+    <None Remove="Resources\Images\android-search-icon-beige.png" />
     <None Remove="Resources\Images\android-search-icon.png" />
     <None Remove="Resources\Images\android-view-icon.png" />
+    <None Remove="Resources\Images\document-icon-beige.png" />
+    <None Remove="Resources\Images\eye-beige.png" />
     <None Remove="Resources\Images\eye.png" />
     <None Remove="Resources\Images\finish.png" />
     <None Remove="Resources\Images\default-coupon.png" />
+    <None Remove="Resources\Images\forums-icon.png" />
+    <None Remove="Resources\Images\guidance-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\add-icon3-b.png" />
+    <None Remove="Resources\Images\Icons\add-new-icon.png" />
+    <None Remove="Resources\Images\Icons\android-alert.png" />
+    <None Remove="Resources\Images\Icons\android-house-icon.png" />
+    <None Remove="Resources\Images\Icons\android-inbox-icon.png" />
+    <None Remove="Resources\Images\Icons\android-logout-icon.png" />
+    <None Remove="Resources\Images\Icons\android-search-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\android-view-icon-beige.png" />
     <None Remove="Resources\Images\Icons\back-white-icon.png" />
+    <None Remove="Resources\Images\Icons\beige-bell.png" />
+    <None Remove="Resources\Images\Icons\beige-book.png" />
+    <None Remove="Resources\Images\Icons\beige-coupon.png" />
+    <None Remove="Resources\Images\Icons\beige-help.png" />
+    <None Remove="Resources\Images\Icons\beige-home.png" />
+    <None Remove="Resources\Images\Icons\beige-request.png" />
+    <None Remove="Resources\Images\Icons\beige-wheel.png" />
     <None Remove="Resources\Images\Icons\bin-icon.png" />
+    <None Remove="Resources\Images\Icons\black-account.png" />
+    <None Remove="Resources\Images\Icons\black-book.png" />
+    <None Remove="Resources\Images\Icons\black-coupon.png" />
+    <None Remove="Resources\Images\Icons\black-request.png" />
     <None Remove="Resources\Images\Icons\book-white-icon.png" />
     <None Remove="Resources\Images\Icons\calendar-icon.png" />
     <None Remove="Resources\Images\Icons\camera-icon.png" />
     <None Remove="Resources\Images\Icons\cancel-event-icon.png" />
+    <None Remove="Resources\Images\Icons\cancel-icon-beige.png" />
     <None Remove="Resources\Images\Icons\cancel-icon.png" />
+    <None Remove="Resources\Images\Icons\category-icon.png" />
     <None Remove="Resources\Images\Icons\chat-white-icon.png" />
+    <None Remove="Resources\Images\Icons\clear-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\comment-icon.png" />
+    <None Remove="Resources\Images\Icons\confirm-icon-beige.png" />
     <None Remove="Resources\Images\Icons\confirm-icon.png" />
     <None Remove="Resources\Images\Icons\coupon.png" />
+    <None Remove="Resources\Images\Icons\document-icon-beige.png" />
     <None Remove="Resources\Images\Icons\document-icon.png" />
+    <None Remove="Resources\Images\Icons\filter-icon-beige.png" />
     <None Remove="Resources\Images\Icons\filter-icon.png" />
+    <None Remove="Resources\Images\Icons\forums-icon.png" />
+    <None Remove="Resources\Images\Icons\gold-star-icon.png" />
+    <None Remove="Resources\Images\Icons\guidance-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\hamburger-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\help-beige.png" />
     <None Remove="Resources\Images\Icons\house-icon.png" />
+    <None Remove="Resources\Images\Icons\import-images-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\import-images-icon.png" />
+    <None Remove="Resources\Images\Icons\language.png" />
+    <None Remove="Resources\Images\Icons\left-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\location-icon.png" />
+    <None Remove="Resources\Images\Icons\locked-building-icon.png" />
     <None Remove="Resources\Images\Icons\logout-white-icon.png" />
+    <None Remove="Resources\Images\Icons\normal-owner-icon.png" />
+    <None Remove="Resources\Images\Icons\not-super-icon.png" />
+    <None Remove="Resources\Images\Icons\owner-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
+    <None Remove="Resources\Images\Icons\plane-icon.png" />
+    <None Remove="Resources\Images\Icons\pointing-arrow-icon.png" />
+    <None Remove="Resources\Images\Icons\red-circle-icon.png" />
+    <None Remove="Resources\Images\Icons\renovation-icon-beige.png" />
     <None Remove="Resources\Images\Icons\reschedule-icon.png" />
+    <None Remove="Resources\Images\Icons\reservations-beige-icon.png" />
     <None Remove="Resources\Images\Icons\right-arrow-icon.png" />
     <None Remove="Resources\Images\Icons\scheduled-icon.png" />
     <None Remove="Resources\Images\Icons\search-white-icon.png" />
+    <None Remove="Resources\Images\Icons\send-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\star-icon-beige.png" />
     <None Remove="Resources\Images\Icons\star-icon.png" />
     <None Remove="Resources\Images\account.png" />
     <None Remove="Resources\Images\add-icon3.png" />
@@ -54,18 +116,25 @@
     <None Remove="Resources\Images\help.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\Icons\star-white-icon.png" />
+    <None Remove="Resources\Images\Icons\statistics-icon-beige.png" />
+    <None Remove="Resources\Images\Icons\stopwatch.png" />
+    <None Remove="Resources\Images\Icons\super-icon.png" />
     <None Remove="Resources\Images\Icons\time-icon.png" />
+    <None Remove="Resources\Images\Icons\user-icon.png" />
+    <None Remove="Resources\Images\Icons\verified-icon.png" />
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\normal-home-icon.png" />
     <None Remove="Resources\Images\notification-request-icon.png" />
     <None Remove="Resources\Images\notification-review-icon.png" />
     <None Remove="Resources\Images\owner-icon.png" />
+    <None Remove="Resources\Images\renovation-icon-beige.png" />
     <None Remove="Resources\Images\renovation-icon.png" />
     <None Remove="Resources\Images\report.png" />
     <None Remove="Resources\Images\request.png" />
     <None Remove="Resources\Images\reservations.png" />
     <None Remove="Resources\Images\reviews.png" />
     <None Remove="Resources\Images\sheraton.jpg" />
+    <None Remove="Resources\Images\statistics-icon-beige.png" />
     <None Remove="Resources\Images\statistics-icon.png" />
     <None Remove="Resources\Images\stats.png" />
     <None Remove="Resources\Images\Tours\Buda1.jpg" />
@@ -88,8 +157,44 @@
     <None Remove="Resources\Images\Tours\Vienna4.jpg" />
     <None Remove="Resources\Images\Tours\Vienna5.jpg" />
     <None Remove="Resources\Images\Tours\Vienna6.jpg" />
+    <None Remove="Resources\Images\tour_request_icon.png" />
     <None Remove="Resources\Images\trash.png" />
+    <None Remove="Resources\Images\user-icon.png" />
     <None Remove="Resources\Images\view.png" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Black.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-BlackItalic.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Bold.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-BoldItalic.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Italic.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Light.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-LightItalic.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Medium.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-MediumItalic.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Regular.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-Thin.ttf" />
+    <None Remove="WPF\Utils\Fonts\Roboto-ThinItalic.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Accommodations\Apartments.jpg" />
+    <Resource Include="Resources\Images\Accommodations\Cottage.jpg" />
+    <Resource Include="Resources\Images\Accommodations\House-1.jpeg" />
+    <Resource Include="Resources\Images\Accommodations\House-2.jpg" />
+    <Resource Include="Resources\Images\Accommodations\House-3.jpg" />
+    <Resource Include="Resources\Images\Accommodations\Hut-1.jpg" />
+    <Resource Include="Resources\Images\Accommodations\Hut-2.jpg" />
+    <Resource Include="Resources\Images\Accommodations\Minecraft.png" />
+    <Resource Include="Resources\Images\Accommodations\Sheraton.jpg" />
+    <Resource Include="Resources\Images\Icons\plane-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>4</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>215d64d2-031c-33c7-96e3-61794cd1ee61</Guid>
+    </COMReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -108,7 +213,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\eye-beige.png" />
+    <Resource Include="Resources\Images\forums-icon.png" />
+    <Resource Include="Resources\Images\Icons\add-icon3-b.png" />
+    <Resource Include="Resources\Images\Icons\add-new-icon.png" />
+    <Resource Include="Resources\Images\Icons\android-alert.png" />
+    <Resource Include="Resources\Images\Icons\android-house-icon.png" />
+    <Resource Include="Resources\Images\Icons\android-inbox-icon.png" />
+    <Resource Include="Resources\Images\Icons\android-logout-icon.png" />
+    <Resource Include="Resources\Images\Icons\android-search-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\android-view-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\back-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\beige-bell.png" />
+    <Resource Include="Resources\Images\Icons\beige-book.png" />
+    <Resource Include="Resources\Images\Icons\beige-coupon.png" />
+    <Resource Include="Resources\Images\Icons\beige-help.png" />
+    <Resource Include="Resources\Images\Icons\beige-home.png" />
+    <Resource Include="Resources\Images\Icons\beige-request.png" />
+    <Resource Include="Resources\Images\Icons\beige-wheel.png" />
     <Resource Include="Resources\Images\Icons\bin-icon.png" />
   </ItemGroup>
 
@@ -116,32 +238,59 @@
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation1.jpg" />
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation2.jpg" />
     <Resource Include="Resources\Images\AccommodationsInside\Accommodation3.jpg" />
-    <Resource Include="Resources\Images\Accommodations\House.jpeg" />
-    <Resource Include="Resources\Images\Accommodations\Hut.jpg" />
     <Resource Include="Resources\Images\Accommodations\Penthouse.jpeg" />
     <Resource Include="Resources\Images\android-search-icon.png" />
     <Resource Include="Resources\Images\android-view-icon.png" />
     <Resource Include="Resources\Images\eye.png" />
     <Resource Include="Resources\Images\finish.png" />
+    <Resource Include="Resources\Images\Icons\black-account.png" />
+    <Resource Include="Resources\Images\Icons\black-book.png" />
+    <Resource Include="Resources\Images\Icons\black-coupon.png" />
+    <Resource Include="Resources\Images\Icons\black-request.png" />
     <Resource Include="Resources\Images\Icons\book-white-icon.png" />
     <Resource Include="Resources\Images\Icons\camera-icon.png" />
     <Resource Include="Resources\Images\default-coupon.png" />
+    <Resource Include="Resources\Images\Icons\cancel-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\cancel-icon.png" />
+    <Resource Include="Resources\Images\Icons\category-icon.png" />
     <Resource Include="Resources\Images\Icons\chat-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\clear-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\comment-icon.png" />
+    <Resource Include="Resources\Images\Icons\confirm-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\confirm-icon.png" />
     <Resource Include="Resources\Images\Icons\coupon.png" />
+    <Resource Include="Resources\Images\Icons\document-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\document-icon.png" />
+    <Resource Include="Resources\Images\Icons\filter-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\filter-icon.png" />
+    <Resource Include="Resources\Images\Icons\forums-icon.png" />
+    <Resource Include="Resources\Images\Icons\gold-star-icon.png" />
+    <Resource Include="Resources\Images\Icons\guidance-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\hamburger-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\help-beige.png" />
     <Resource Include="Resources\Images\Icons\house-icon.png" />
     <Resource Include="Resources\Images\Icons\calendar-icon.png" />
     <Resource Include="Resources\Images\Icons\cancel-event-icon.png" />
+    <Resource Include="Resources\Images\Icons\import-images-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\import-images-icon.png" />
+    <Resource Include="Resources\Images\Icons\language.png" />
+    <Resource Include="Resources\Images\Icons\left-arrow-icon.png" />
+    <Resource Include="Resources\Images\Icons\locked-building-icon.png" />
     <Resource Include="Resources\Images\Icons\logout-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\normal-owner-icon.png" />
+    <Resource Include="Resources\Images\Icons\owner-icon.png" />
     <Resource Include="Resources\Images\Icons\people-icon.png" />
     <Resource Include="Resources\Images\Icons\location-icon.png" />
+    <Resource Include="Resources\Images\Icons\pointing-arrow-icon.png" />
+    <Resource Include="Resources\Images\Icons\red-circle-icon.png" />
+    <Resource Include="Resources\Images\Icons\renovation-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\reschedule-icon.png" />
+    <Resource Include="Resources\Images\Icons\reservations-beige-icon.png" />
     <Resource Include="Resources\Images\Icons\right-arrow-icon.png" />
     <Resource Include="Resources\Images\Icons\scheduled-icon.png" />
     <Resource Include="Resources\Images\Icons\search-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\send-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\star-icon-beige.png" />
     <Resource Include="Resources\Images\Icons\star-icon.png" />
     <Resource Include="Resources\Images\account.png" />
     <Resource Include="Resources\Images\add-icon3.png" />
@@ -154,7 +303,11 @@
     <Resource Include="Resources\Images\help.png" />
     <Resource Include="Resources\Images\home.png" />
     <Resource Include="Resources\Images\Icons\star-white-icon.png" />
+    <Resource Include="Resources\Images\Icons\statistics-icon-beige.png" />
+    <Resource Include="Resources\Images\Icons\stopwatch.png" />
     <Resource Include="Resources\Images\Icons\time-icon.png" />
+    <Resource Include="Resources\Images\Icons\user-icon.png" />
+    <Resource Include="Resources\Images\Icons\verified-icon.png" />
     <Resource Include="Resources\Images\live.png" />
     <Resource Include="Resources\Images\normal-home-icon.png" />
     <Resource Include="Resources\Images\notification-request-icon.png" />
@@ -165,7 +318,6 @@
     <Resource Include="Resources\Images\request.png" />
     <Resource Include="Resources\Images\reservations.png" />
     <Resource Include="Resources\Images\reviews.png" />
-    <Resource Include="Resources\Images\sheraton.jpg" />
     <Resource Include="Resources\Images\statistics-icon.png" />
     <Resource Include="Resources\Images\stats.png" />
     <Resource Include="Resources\Images\Tours\Buda1.jpg" />
@@ -188,13 +340,36 @@
     <Resource Include="Resources\Images\Tours\Vienna4.jpg" />
     <Resource Include="Resources\Images\Tours\Vienna5.jpg" />
     <Resource Include="Resources\Images\Tours\Vienna6.jpg" />
+    <Resource Include="Resources\Images\tour_request_icon.png" />
     <Resource Include="Resources\Images\trash.png" />
+    <Resource Include="Resources\Images\user-icon.png" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Black.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-BlackItalic.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Bold.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-BoldItalic.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Italic.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Light.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-LightItalic.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Medium.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-MediumItalic.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Regular.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-Thin.ttf" />
+    <Resource Include="WPF\Utils\Fonts\Roboto-ThinItalic.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="Jon.Wpf.CustomControls" Version="2.33.0" />
     <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="QuestPDF" Version="2024.3.7" />
+    <PackageReference Include="Syncfusion.SfInput.WPF" Version="25.2.3" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
+    <PackageReference Include="ToggleSwitch" Version="1.2.0" />
+
   </ItemGroup>
 
   <ItemGroup>

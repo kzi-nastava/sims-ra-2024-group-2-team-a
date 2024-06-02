@@ -23,5 +23,9 @@ namespace BookingApp.Services {
         public bool Update(PointOfInterest pointOfInterest) {
             return _pointOfInterestRepository.Update(pointOfInterest);
         }
+
+        public bool DeleteByTours(List<Tour> tours) {
+            return _pointOfInterestRepository.DeleteByTours(tours);
+        }
     }
 }

@@ -5,22 +5,74 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
       xmlns:converters="clr-namespace:BookingApp.WPF.Utils.Converters"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:val="clr-namespace:BookingApp.WPF.Utils.Validation"
       mc:Ignorable="d" 
       d:DesignHeight="624" d:DesignWidth="430"
       Title="AddAccommodationPage">
     <Page.Resources>
         <converters:RadioButtonToAccommodationTypeConverter x:Key="AccTypeConverter"/>
+
+        <Style TargetType="Button" x:Key="DisabledButtonStyle">
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5a8c6b"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <BitmapImage x:Key="ImagesIcon" UriSource="../../../Resources/Images/Icons/import-images-icon-beige.png"/>
+
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"></Setter>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+        
     </Page.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Background="{StaticResource Beige}">
         <Grid Height="600" Width="430">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="90"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
@@ -28,53 +80,157 @@
                 <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition  Width="*"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="New Accomodation:" FontWeight="Bold" FontSize="18"/>
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="New Accomodation:" Style="{StaticResource Header}"
+                   FontWeight="Medium"/>
 
-            <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Name:" FontSize="16"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Width="250" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.Name}"/>
+            <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Name:" FontFamily="{StaticResource Roboto}"
+                     FontSize="18"/>
+            <TextBox x:Name="nameTextbox" Grid.Row="1" Grid.Column="1" Width="250" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40" FontFamily="{StaticResource Roboto}"
+                     FontSize="16" MaxLength="20">
+                <TextBox.Text>
+                    <Binding Path="AccommodationDTO.Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"
+                             ValidatesOnDataErrors="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <val:EmptyStringValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <AdornedElementPlaceholder x:Name="textBox"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
-            <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Location:" FontSize="16"/>
-            <ComboBox Grid.Row="2" Grid.Column="2" Height="40" Text="Choose location" 
-                      SelectedItem="{Binding SelectedLocationDTO}" ItemsSource="{Binding LocationDTOs}"
-                      DisplayMemberPath="LocationOptionTemplate" Background="{StaticResource Green}"/>
+            <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Location:" FontFamily="{StaticResource Roboto}"
+                     FontSize="18" Margin="0,0,0,5"/>
 
+            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Grid.ColumnSpan="2" Width="220" HorizontalAlignment="Right">
+                <ComboBox x:Name="comboBox"  Height="40" Text="Choose location" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                      SelectedItem="{Binding SelectedLocationDTO, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding LocationDTOs}"
+                      DisplayMemberPath="LocationOptionTemplate" Background="{StaticResource Green}" IsEditable="True" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False"
+                          FontFamily="{StaticResource Roboto}" FontSize="16"/>
+                <Label Foreground="Red" Padding="0" FontFamily="{StaticResource Roboto}">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedIndex, ElementName=comboBox}" Value="-1">
+                                    <Setter Property="Content" Value="Please select a location"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+            </StackPanel>
 
-            <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Type:" FontSize="16"/>
-            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                <RadioButton x:Name="radioButtonApartment" FontSize="16" Content="Apartment" GroupName="AccomodationType" 
+            <Label Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Type:" FontFamily="{StaticResource Roboto}" FontSize="18"/>
+            <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <RadioButton x:Name="radioButtonApartment" Content="Apartment" GroupName="AccomodationType" FontFamily="{StaticResource Roboto}" FontSize="16"
                              IsChecked="{Binding AccommodationDTO.Type, Converter={StaticResource AccTypeConverter}, ConverterParameter=apartment}"/>
-                <RadioButton x:Name="radioButtonHouse" FontSize="16" Content="House" GroupName="AccomodationType" 
+                <RadioButton x:Name="radioButtonHouse" Content="House" GroupName="AccomodationType" FontFamily="{StaticResource Roboto}" FontSize="16"
                              IsChecked="{Binding AccommodationDTO.Type, Converter={StaticResource AccTypeConverter}, ConverterParameter=house}"/>
-                <RadioButton x:Name="radioButtonHut" FontSize="16" Content="Hut" GroupName="AccomodationType"
+                <RadioButton x:Name="radioButtonHut" Content="Hut" GroupName="AccomodationType" FontFamily="{StaticResource Roboto}" FontSize="16"
                              IsChecked="{Binding AccommodationDTO.Type, Converter={StaticResource AccTypeConverter}, ConverterParameter=hut}"/>
             </StackPanel>
 
-            <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontSize="16"/>
-            <TextBox Grid.Row="4" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.MaxGuestNumber}"/>
+            <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Max No of Guests:" FontFamily="{StaticResource Roboto}" FontSize="18"/>
+            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="1" Width="70" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+                                Value="{Binding AccommodationDTO.MaxGuestNumber}" Minimum="1" Maximum="100" ClipValueToMinMax="True" TextAlignment="Left"
+                                FontFamily="{StaticResource Roboto}" FontSize="16"/>
 
-            <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Min Reservation Days:" FontSize="16"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.MinReservationDays}"/>
+            <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Min Reservation Days:" FontFamily="{StaticResource Roboto}" FontSize="18"/>
+            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Width="70" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+                     Text="{Binding AccommodationDTO.MinReservationDays}" Minimum="1" Maximum="100" ClipValueToMinMax="True" TextAlignment="Left" 
+                                FontFamily="{StaticResource Roboto}" FontSize="16"/>
 
-            <Label Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Last Cancellation Day:" FontSize="16"/>
-            <TextBox Grid.Row="6" Grid.Column="1" Width="180" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
-                     Text="{Binding AccommodationDTO.LastCancellationDay}"/>
+            <Label Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Last Cancellation Day:" FontFamily="{StaticResource Roboto}" FontSize="18"/>
+            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Width="70" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="40"
+                     Text="{Binding AccommodationDTO.LastCancellationDay}" Minimum="1" Maximum="365" ClipValueToMinMax="True" TextAlignment="Left"
+                                FontFamily="{StaticResource Roboto}" FontSize="16"/>
 
-            <Button Content="Import Images" Grid.Column="1"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="SelectImages_Click"
-                    Background="{StaticResource Green}"/>
+            <Button x:Name="ImportButton" Grid.Column="1"  HorizontalAlignment="Left" Margin="5,0,0,10" VerticalAlignment="Center"
+                    Grid.Row="7" Height="60" Width="150" Click="SelectImages_Click" Style="{StaticResource DisabledButtonStyle}">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource ImagesIcon}" Height="30" Width="30"/>
+                    <StackPanel VerticalAlignment="Center" Margin="10,0,0,0">
+                        <Label Content="Import" Padding="0"  Style="{StaticResource ButtonLabel}"/>
+                        <Label Content="images" Padding="0" Style="{StaticResource ButtonLabel}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Button>
 
-            <Button Content="View Selected" Grid.Column="2"  HorizontalAlignment="Center" Grid.Row="7" Height="50" Width="120" Click="ViewImages_Click"
-                    Background="{StaticResource Green}"/>
+            <Button x:Name="ViewButton" Style="{StaticResource DisabledButtonStyle}" Grid.Column="2" HorizontalAlignment="Right" Margin="5,0,0,10"
+                    Grid.Row="7" Height="60" Width="150" Click="ViewImages_Click" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource EyeIconBeige}" Height="30" Width="30"/>
+                    <StackPanel VerticalAlignment="Center" Margin="10,0,0,0">
+                        <Label Content="View" Padding="0"  Style="{StaticResource ButtonLabel}"/>
+                        <Label Content="images" Padding="0" Style="{StaticResource ButtonLabel}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Button>
+            <Label x:Name="importLabel" Content="" Grid.Row="7" Grid.Column="2" Foreground="red" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                   Margin="0,0,0,5"/>
 
-            <Button Grid.Row="9" Grid.Column="1" Content="Decline" Height="50" Width="120" Click="Decline_Click"
-                    Background="{StaticResource Green}"/>
+            <Button Grid.Row="9" Grid.Column="1" Height="50" Width="130" Click="Decline_Click" Style="{StaticResource DisabledButtonStyle}"
+                    HorizontalAlignment="Left" Margin="5,0,0,25" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
+                    <Label Content="Cancel" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
+                </StackPanel>
+            </Button>
 
-            <Button Grid.Row="9" Grid.Column="2" Content="Confirm" Height="50" Width="120" Click="Confirm_Click"
-                    Background="{StaticResource Green}"/>
+            <Button x:Name="ConfirmButton" Grid.Row="9" Grid.Column="2" Height="50" Width="130" Click="Confirm_Click" 
+                    HorizontalAlignment="Right" Margin="0,0,5,25" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
+                    <Label Content="Confirm" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
+                </StackPanel>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="{StaticResource Green}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#5a8c6b"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=nameTextbox, Path=(Validation.HasError)}" Value="True"/>
+                                </MultiDataTrigger.Conditions>
+
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                            <DataTrigger Binding="{Binding SelectedIndex, ElementName=comboBox}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Text, ElementName=nameTextbox}" Value="">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </ScrollViewer>
 </Page>

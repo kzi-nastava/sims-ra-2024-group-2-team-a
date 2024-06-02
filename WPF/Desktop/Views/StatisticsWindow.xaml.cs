@@ -24,7 +24,6 @@ namespace BookingApp.WPF.Desktop.Views
         public StatisticsWindow(int userId)
         {
             InitializeComponent();
-            InitializeComponent();
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
             double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
 

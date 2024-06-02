@@ -14,15 +14,15 @@ namespace BookingApp.WPF.Android.ViewModels {
 
         private AccommodationService accommodationService = ServicesPool.GetService<AccommodationService>(); 
 
-        private ReviewService reviewService = ServicesPool.GetService<ReviewService>();
+        private AccommodationReviewService reviewService = ServicesPool.GetService<AccommodationReviewService>();
 
         private AccommodationReservationService accReservationService = ServicesPool.GetService<AccommodationReservationService>();
 
-        private RescheduleRequestService requestService = ServicesPool.GetService<RescheduleRequestService>();
+        private AccommodationRescheduleRequestService requestService = ServicesPool.GetService<AccommodationRescheduleRequestService>();
 
         private User _user;
         public ObservableCollection<AccommodationReservationDTO> ReservationCollection { get; set; }
-        public ObservableCollection<RescheduleRequestDTO> RescheduleRequestDTOs { get; set; }
+        public ObservableCollection<AccommodationRescheduleRequestDTO> RescheduleRequestDTOs { get; set; }
 
         public AccommodationReservationDTO _selectedReservation;
         public AccommodationReservationDTO SelectedReservation {
@@ -36,14 +36,14 @@ namespace BookingApp.WPF.Android.ViewModels {
                 }
             }
         }
-        public RescheduleRequestDTO SelectedRequest { get; set; }
+        public AccommodationRescheduleRequestDTO SelectedRequest { get; set; }
         public AndroidCommand AcceptButtonCommand{ get; set;}
         public AndroidCommand DeclineButtonCommand { get; set; }
         public ReservationReviewsViewmodel(User user) {
             _user = user;
 
             ReservationCollection = new ObservableCollection<AccommodationReservationDTO>();
-            RescheduleRequestDTOs = new ObservableCollection<RescheduleRequestDTO>();
+            RescheduleRequestDTOs = new ObservableCollection<AccommodationRescheduleRequestDTO>();
 
             Update();
 
@@ -58,8 +58,8 @@ namespace BookingApp.WPF.Android.ViewModels {
 
         private void FillRescheduleRequestCollection() {
             RescheduleRequestDTOs.Clear();
-            foreach (RescheduleRequest request in requestService.GetSortedRequestsByOwnerId(_user.Id)) {
-                RescheduleRequestDTO rescheduleRequestDTO = new RescheduleRequestDTO(request);
+            foreach (AccommodationRescheduleRequest request in requestService.GetSortedRequestsByOwnerId(_user.Id)) {
+                AccommodationRescheduleRequestDTO rescheduleRequestDTO = new AccommodationRescheduleRequestDTO(request);
                 AccommodationReservation accommodationReservation = accReservationService.GetById(request.ReservationId);
 
                 rescheduleRequestDTO.SetDates();
@@ -90,34 +90,35 @@ namespace BookingApp.WPF.Android.ViewModels {
                 }
             }
         }
-        public void AssignGradeButton() {
+        public bool AssignGradeButton() {
             if (SelectedReservation == null) {
-                MessageBox.Show("Please select a reservation first!", "Error",MessageBoxButton.OK,MessageBoxImage.Information);
-                return;
+                return false;
             }
             if(SelectedReservation.CanBeGradedByOwner){
                 AssignGradeWindow assignGradeWindow = new AssignGradeWindow(SelectedReservation, _user.Id, this);
                 assignGradeWindow.ShowDialog();
             }
+            return true;
         }
 
-        public void ViewGradeButton() {
+        public string ViewGradeButton() {
             if (SelectedReservation == null) {
-                MessageBox.Show("Please select a reservation first!", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return "Please select a reservation first!";
             }
-            else if (!SelectedReservation.IsGradedByOwner) {
-                MessageBox.Show("You must grade this reservation first!", "View guest grade", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+            else if (!SelectedReservation.IsGradedByOwner) { 
+                return "You must grade this reservation first!";
             }
             else {
                 ViewGuestGradeWindow viewGuestGradeWindow = new ViewGuestGradeWindow(SelectedReservation);
                 viewGuestGradeWindow.ShowDialog();
+                return null;
             }
         }
 
         public bool AcceptButton_CanExecute(object obj) {
-            if (SelectedRequest == null || SelectedRequest.Status != RescheduleRequestStatus.Pending) {
+            if (SelectedRequest == null)
+                return true;
+            else if (SelectedRequest.Status != RescheduleRequestStatus.Pending) {
                 return false;
             }
             else {
@@ -125,17 +126,20 @@ namespace BookingApp.WPF.Android.ViewModels {
             }
         }
         public void AcceptButton_Executed(object obj) {
+            if (SelectedRequest == null)
+                return;
+
             AccommodationStatisticsService statisticsService = ServicesPool.GetService<AccommodationStatisticsService>();
             AccommodationReservation accommodationReservation = accReservationService.GetById(SelectedRequest.ReservationId);
 
             statisticsService.UpdatePostponedStatistics(accommodationReservation.AccommodationId, SelectedRequest.OldStartDate, 
-                SelectedRequest.OldStartDate.AddDays(SelectedRequest.Duration) , SelectedRequest.NewStartDate, SelectedRequest.NewEndDate);
+                SelectedRequest.OldStartDate.AddDays(SelectedRequest.Duration) , SelectedRequest.NewStartDate, SelectedRequest.NewEndDate, accommodationReservation.GuestsNumber);
 
             accommodationReservation.StartDate = SelectedRequest.NewStartDate;
             accommodationReservation.EndDate = SelectedRequest.NewEndDate;
             accReservationService.Update(accommodationReservation);
 
-            RescheduleRequest rescheduleRequest = SelectedRequest.ToRescheduleRequest();
+            AccommodationRescheduleRequest rescheduleRequest = SelectedRequest.ToRescheduleRequest();
             rescheduleRequest.Status = RescheduleRequestStatus.Approved;
             requestService.Update(rescheduleRequest);
 
@@ -144,7 +148,9 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         public bool DeclineButton_CanExecute(object obj) {
-            if (SelectedRequest == null || SelectedRequest.Status != RescheduleRequestStatus.Pending) {
+            if (SelectedRequest == null)
+                return true;
+            else if (SelectedRequest.Status != RescheduleRequestStatus.Pending) {
                 return false;
             }
             else {
@@ -153,6 +159,9 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         public void DeclineButton_Executed(object obj) {
+            if (SelectedRequest == null)
+                return;
+
             RescheduleRequestDeclineWindow rescheduleRequestDeclineWindow = new RescheduleRequestDeclineWindow(SelectedRequest);
             rescheduleRequestDeclineWindow.ShowDialog();
             this.Update();

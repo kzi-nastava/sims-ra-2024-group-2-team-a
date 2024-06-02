@@ -33,6 +33,18 @@ namespace BookingApp.WPF.DTO {
             MinReservationDays = acc.MinReservationDays;
             LastCancellationDay = acc.LastCancellationDay;
             OwnerId = acc.OwnerId;
+            ProfilePictures = acc.Pictures;
+        }
+
+        public AccommodationDTO(AccommodationDTO acc) {
+            Id = acc.Id;
+            Name = acc.Name;
+            LocationId = acc.LocationId;
+            Type = acc.Type;
+            MaxGuestNumber = acc.MaxGuestNumber;
+            MinReservationDays = acc.MinReservationDays;
+            LastCancellationDay = acc.LastCancellationDay;
+            OwnerId = acc.OwnerId;
             ProfilePictures = acc.ProfilePictures;
         }
 

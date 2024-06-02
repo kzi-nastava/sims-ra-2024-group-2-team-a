@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +8,9 @@ using System.Runtime.CompilerServices;
 namespace BookingApp.WPF.DTO {
     public class TourDTO : INotifyPropertyChanged
     {
+        private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
+        private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
+
         public TourDTO()
         {
             ProfilePictures = new List<string>();
@@ -19,6 +23,8 @@ namespace BookingApp.WPF.DTO {
             LocationId = t.LocationId;
             Description = t.Description;
             LanguageId = t.LanguageId;
+            Location = new LocationDTO(_locationService.GetById(LocationId));
+            Language = new LanguageDTO(_languageService.GetById(LanguageId));
             MaxTouristNumber = t.MaxTouristNumber;
             Duration = t.Duration;
             CurrentTouristNumber = t.CurrentTouristNumber;
@@ -81,6 +87,32 @@ namespace BookingApp.WPF.DTO {
                 if (_description != value)
                 {
                     _description = value; OnPropertyChanged();
+                }
+            }
+        }
+
+        private LocationDTO _locationDTO;
+        public LocationDTO Location {
+            get {
+                return _locationDTO;
+            }
+            set {
+                if (_locationDTO != value) {
+                    _locationDTO = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private LanguageDTO _languageDTO;
+        public LanguageDTO Language {
+            get {
+                return _languageDTO;
+            }
+            set {
+                if (_languageDTO != value) {
+                    _languageDTO = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -240,6 +272,16 @@ namespace BookingApp.WPF.DTO {
                 if (_guideId != value)
                 {
                     _guideId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private double _grade;
+        public double Grade {
+            get { return _grade; }
+            set {
+                if(_grade != value) {
+                    _grade = value;
                     OnPropertyChanged();
                 }
             }

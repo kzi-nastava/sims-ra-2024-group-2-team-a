@@ -7,6 +7,8 @@ namespace BookingApp.Domain.RepositoryInterfaces {
         public List<TourReservation> GetByTourId(int tourId);
         public TourReservation GetByTourAndTourist(int tourId, int touristId);
         public bool DeleteMultiple(List<TourReservation> reservations);
+        public List<TourReservation> GetByTours(List<Tour> tours);
+
 
     }
 }

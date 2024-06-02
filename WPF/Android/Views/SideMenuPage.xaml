@@ -8,7 +8,28 @@
       d:DesignHeight="700" d:DesignWidth="260"
       Title="SideMenuPage">
 
-    <Grid Background="{StaticResource SoftGreen}">
+    <Page.Resources>
+        <Style x:Key="TextBlockBeige" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+        </Style>
+
+        <Style x:Key="LabelBeige" TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+        </Style>
+
+        <BitmapImage x:Key="RenovationIcon" UriSource="../../../Resources/Images/Icons/renovation-icon-beige.png"/>
+        <BitmapImage x:Key="InboxIcon" UriSource="../../../Resources/Images/Icons/android-inbox-icon.png"/>
+        <BitmapImage x:Key="HouseIcon" UriSource="../../../Resources/Images/Icons/android-house-icon.png"/>
+        <BitmapImage x:Key="LogoutIcon" UriSource="../../../Resources/Images/Icons/android-logout-icon.png"/>
+        <BitmapImage x:Key="ForumsIcon" UriSource="../../../Resources/Images/Icons/forums-icon.png"/>
+        <BitmapImage x:Key="CalendarBeigeIcon" UriSource="../../../Resources/Images/Icons/reservations-beige-icon.png"/>
+    </Page.Resources>
+
+            <Grid Background="{StaticResource SoftGreen}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
@@ -19,57 +40,103 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Button Click="AccommodationsButton_Click" Grid.Row="0" Background="{StaticResource Green}">
+        <Button Click="AccommodationsButton_Click" Grid.Row="0" Background="{StaticResource HardGreen}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock Text="Accommodations and" FontSize="16" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Statistics" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Border x:Name="border" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="{StaticResource HouseIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0">
+                                <TextBlock Text="Accommodations"  HorizontalAlignment="Center" Style="{StaticResource TextBlockBeige}"/>
+                                <TextBlock Text="and Statistics" Style="{StaticResource TextBlockBeige}"/>
+                            </StackPanel>
                         </StackPanel>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#5a8c6b"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
 
-        <Button Click="InboxButton_Click" Grid.Row="1" Background="{StaticResource Green}">
+        <Button Click="InboxButton_Click" Grid.Row="1" Background="{StaticResource HardGreen}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock Text="Inbox" FontSize="16" HorizontalAlignment="Center"/>
+                    <Border x:Name="border" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="{StaticResource InboxIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <TextBlock Text="Inbox"  Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockBeige}"/>
+                            <TextBlock Text="{Binding MessagesNumLabel}"  Margin="5,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockBeige}"/>
                         </StackPanel>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#5a8c6b"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
 
-        <Button Click="ReservationsButton_Click" Grid.Row="2" Background="{StaticResource Green}">
+        <Button Click="ReservationsButton_Click" Grid.Row="2" Background="{StaticResource HardGreen}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2,2,2,0" Background="{TemplateBinding Background}">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock Text="Reservations" FontSize="16" HorizontalAlignment="Center"/>
+                    <Border x:Name="ResBorder" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="{StaticResource CalendarBeigeIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <TextBlock Text="Reservations" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockBeige}"/>
                         </StackPanel>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ResBorder" Property="Background" Value="#5a8c6b"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
 
-        <Button Click="RenovationsButton_Click" Grid.Row="3" Background="{StaticResource Green}">
+        <Button Click="RenovationsButton_Click" Grid.Row="3" Background="{StaticResource HardGreen}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="{TemplateBinding Background}">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock Text="Renovations" FontSize="16" HorizontalAlignment="Center"/>
+                    <Border x:Name="RenovationBorder" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="{StaticResource RenovationIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <TextBlock Text="Renovations" Style="{StaticResource TextBlockBeige}" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RenovationBorder" Property="Background" Value="#5a8c6b"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
 
-        <Border BorderBrush="Black" BorderThickness="2,2,2,0" Grid.Row="6">
-            <Grid Grid.Row="6" Background="{StaticResource Green}">
+        <Button x:Name="ForumsButton"  Click="ForumsButton_Click" Grid.Row="4">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="ForumsBorder" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,1" Background="{StaticResource HardGreen}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="{StaticResource ForumsIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <TextBlock Text="Forums" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockBeige}"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ForumsBorder" Property="Background" Value="#5a8c6b"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+
+        <Border BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,0" Grid.Row="6">
+            <Grid Grid.Row="6" Background="{StaticResource HardGreen}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="*"/>
@@ -79,28 +146,37 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-                <Image Height="45" Width="45" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Source="../../../Resources/Images/owner-icon.png"/>
-                <Label x:Name="UsernameLabel" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" FontSize="16" FontWeight="Bold" VerticalAlignment="Top" Padding="0"/>
-                <Label Grid.Column="1" Grid.Row="1" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Content="Average Grade:" Height="25" Padding="0"/>
+                <Image Height="40" Width="40" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Source="../../../Resources/Images/Icons/owner-icon.png" Margin="-5,0,0,0"
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                <Label x:Name="UsernameLabel" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"
+                       FontWeight="SemiBold" VerticalAlignment="Top" Padding="0" Style="{StaticResource LabelBeige}" Margin="5,0,0,0"/>
+                <Label Grid.Column="1" Grid.Row="1" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" Content="Average Grade:" Height="25" Padding="0" Style="{StaticResource LabelBeige}"/>
 
-                <Label x:Name="SuperLabel" Grid.Column="2" Grid.Row="0" FontSize="16" VerticalAlignment="Top" Padding="0" HorizontalAlignment="Left"/>
-                <Label x:Name="AverageGradeLabel"  Grid.Column="2" Grid.Row="2" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Padding="0"/>
+                <Image x:Name="SuperImage" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="20" Width="20" Margin="0,0,5,0"
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                <Label x:Name="AverageGradeLabel"  Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Padding="0"
+                       Style="{StaticResource LabelBeige}"/>
 
             </Grid>
         </Border>
 
-        <Button Click="LogOutButton_Click" Grid.Row="7" Background="{StaticResource Green}">
+        <Button Click="LogOutButton_Click" Grid.Row="7" Background="{StaticResource HardGreen}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="{TemplateBinding Background}">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock Text="Log out" FontSize="16" HorizontalAlignment="Center"/>
+                    <Border x:Name="LogBorder" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1" Background="{TemplateBinding Background}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="{StaticResource LogoutIcon}"  Height="40" Width="40" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <TextBlock Text="Log out" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource TextBlockBeige}"/>
                         </StackPanel>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="LogBorder" Property="Background" Value="#5a8c6b"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-
-
     </Grid>
 </Page>

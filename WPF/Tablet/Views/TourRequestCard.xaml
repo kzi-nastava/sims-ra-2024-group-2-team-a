@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="BookingApp.WPF.Tablet.Views.TourRequestCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="900">
+    <UserControl.Resources>
+        <ResourceDictionary Source="../TabletStyles.xaml">
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border BorderBrush="Black" BorderThickness="1" Margin="45 8 45 8">
+        <Grid Style="{StaticResource GridButton}" MouseLeftButtonDown="TourRequestClick" Height="100" Width="900">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Text="{Binding LocationTemplate, StringFormat=Location: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="{Binding LanguageTemplate, StringFormat=Language: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" Text="{Binding PassengerNumber, StringFormat=Tourist: {0}}" FontSize="18"/>
+            <Label Grid.Row="0" Grid.Column="1" Margin="0" FontSize="18" HorizontalAlignment="Left" Content="Date:"/>
+            <Label Grid.Row="1" Grid.Column="1" Margin="0" FontSize="18" HorizontalAlignment="Left" Content="Start:"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding StartDate}" FontSize="18"/>
+            <Label Grid.Row="1" Grid.Column="2" Margin="0" FontSize="18" HorizontalAlignment="Left" Content="End:"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" Margin="5" Text="{Binding EndDate}" FontSize="18"/>
+
+            <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Margin="0,5,50,0" Source="{StaticResource TourRequestIcon}" Height="60" Width="60"/>
+            <Label Grid.Row="2" Grid.Column="3" FontSize="18" Margin="0,0,50,0" Content="Accept Request" FontWeight="Bold"/>
+        </Grid>
+    </Border>
+</UserControl>

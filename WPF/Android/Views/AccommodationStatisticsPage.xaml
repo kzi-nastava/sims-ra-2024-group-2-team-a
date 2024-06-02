@@ -12,16 +12,27 @@
         <Style TargetType="Label" x:Key="Header1">
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
-                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="BeigeLabels">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource HardGreen}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
 
         <Style TargetType="Label" x:Key="Labels">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
             </Style.Setters>
         </Style>
     </Page.Resources>
@@ -30,13 +41,13 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="0,0,0,2">
+        <Border BorderBrush="{StaticResource HardGreen}" BorderThickness="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="{Binding AccommodationDTO.Name}" Style="{StaticResource Header1}" BorderBrush="Transparent"
-                   VerticalAlignment="Center" HorizontalAlignment="Center" Background="{StaticResource Green}"/>
+                   Padding="2" FontWeight="Medium"/>
         </Border>
 
         <TabControl Grid.Row="1" Height="550" Width="400">
-            <TabItem Header="Yearly" Width="120" Height="40">
+            <TabItem Header="Yearly" Width="120" Height="40" FontFamily="{StaticResource Roboto}" FontSize="16">
                 <StackPanel Orientation="Vertical">
                     <Border Height="150" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="0,0,0,1">
                         <Grid>
@@ -49,13 +60,13 @@
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="Busiest year: " Style="{StaticResource Labels}" Grid.Row="0" VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"/>
+                            <Label Content="Busiest year: " Style="{StaticResource Labels}" Grid.Row="0" VerticalAlignment="Center" Width="110" HorizontalAlignment="Left"/>
                             <Label Content="{Binding BusiestYear.Year}" Style="{StaticResource Labels}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
                             <Label Content="Reservations: " Style="{StaticResource Labels}" Grid.Row="1" VerticalAlignment="Center" Width="130" HorizontalAlignment="Left"/>
                             <Label Content="{Binding BusiestYear.ReservationsNum}" Style="{StaticResource Labels}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
-                            <Label Content="Total reservations: " Style="{StaticResource Labels}" Grid.Row="2" VerticalAlignment="Center" Width="140" HorizontalAlignment="Left"/>
+                            <Label Content="Total reservations: " Style="{StaticResource Labels}" Grid.Row="2" VerticalAlignment="Center" Width="155" HorizontalAlignment="Left"/>
                             <Label Content="{Binding TotalReservations}" Style="{StaticResource Labels}" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
                             <lvc:PieChart x:Name="reservationPieChart"  Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="15,0,0,0"  Series="{Binding ChartPieYearlyList}">
@@ -64,9 +75,10 @@
                         </Grid>
                     </Border>
                     <ScrollViewer HorizontalScrollBarVisibility="Hidden" Margin="0,10,0,0" VerticalScrollBarVisibility="Hidden" Height="350" Width="400">
-                        <StackPanel Orientation="Vertical" Height="850" Width="400">
-
-                            <lvc:CartesianChart x:Name="reservationsYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel Orientation="Vertical" Width="400">
+                            <Label Style="{StaticResource BeigeLabels}" Content="Number of Reservations" HorizontalAlignment="Center"/>
+                            
+                            <lvc:CartesianChart x:Name="reservationsYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1" Margin="5,10,10,10">
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Year" Labels="{Binding Years}" />
                                 </lvc:CartesianChart.AxisX>
@@ -78,7 +90,8 @@
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
-                            <lvc:CartesianChart x:Name="reservationsCancelledYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                            <Label Style="{StaticResource BeigeLabels}" Content="Number of Reservations Cancelled" HorizontalAlignment="Center"/>
+                            <lvc:CartesianChart x:Name="reservationsCancelledYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1" Margin="5,10,10,10">
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Year" Labels="{Binding Years}" />
                                 </lvc:CartesianChart.AxisX>
@@ -90,7 +103,8 @@
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
-                            <lvc:CartesianChart x:Name="reservationsPostponedYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                            <Label Style="{StaticResource BeigeLabels}" Content="Number of Postponed Reservations" HorizontalAlignment="Center"/>
+                            <lvc:CartesianChart x:Name="reservationsPostponedYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1" Margin="5,10,10,10">
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Year" Labels="{Binding Years}" />
                                 </lvc:CartesianChart.AxisX>
@@ -102,7 +116,8 @@
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
-                            <lvc:CartesianChart x:Name="reservationsRecommendedYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                            <Label Style="{StaticResource BeigeLabels}" Content="Number of Recommended Renovations" HorizontalAlignment="Center"/>
+                            <lvc:CartesianChart x:Name="reservationsRecommendedYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1" Margin="5,10,10,10">
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Year" Labels="{Binding Years}" />
                                 </lvc:CartesianChart.AxisX>
@@ -119,7 +134,7 @@
                 </StackPanel>
             </TabItem>
             
-            <TabItem Header="Monthly" Width="120" Height="40">
+            <TabItem Header="Monthly" Width="120" Height="40" FontFamily="{StaticResource Roboto}" FontSize="16">
                 <StackPanel Orientation="Vertical">
                     <Border Height="150" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="0,0,0,1">
                         <Grid>
@@ -148,9 +163,10 @@
                         </Grid>
                     </Border>
                     <ScrollViewer HorizontalScrollBarVisibility="Hidden" Margin="0,10,0,0" VerticalScrollBarVisibility="Hidden" Height="350" Width="400">
-                        <StackPanel Orientation="Vertical" Height="850" Width="400">
+                        <StackPanel Orientation="Vertical" Width="400">
 
-                            <lvc:CartesianChart x:Name="reservationsMonthlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                            <Label Style="{StaticResource BeigeLabels}" Content="Number of Reservations" HorizontalAlignment="Center"/>
+                            <lvc:CartesianChart x:Name="reservationsMonthlyChart" Height="200" BorderBrush="Black" BorderThickness="1" Margin="5,10,10,10">
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Months" Labels="{Binding Months}" />
                                 </lvc:CartesianChart.AxisX>
@@ -162,7 +178,8 @@
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
-                            <lvc:CartesianChart x:Name="reservationsMonthlyYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                            <Label Style="{StaticResource BeigeLabels}" Content="Number of Reservations Cancelled" HorizontalAlignment="Center"/>
+                            <lvc:CartesianChart x:Name="reservationsMonthlyYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1" Margin="5,10,10,10">
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Months" Labels="{Binding Months}" />
                                 </lvc:CartesianChart.AxisX>
@@ -174,7 +191,8 @@
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
-                            <lvc:CartesianChart x:Name="postponedMonthlyYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                            <Label Style="{StaticResource BeigeLabels}" Content="Number of Reservations Postponed" HorizontalAlignment="Center"/>
+                            <lvc:CartesianChart x:Name="postponedMonthlyYearlyChart" Height="200" BorderBrush="Black" BorderThickness="1" Margin="5,10,10,10">
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Months" Labels="{Binding Months}" />
                                 </lvc:CartesianChart.AxisX>
@@ -186,7 +204,8 @@
                                 </lvc:CartesianChart.Series>
                             </lvc:CartesianChart>
 
-                            <lvc:CartesianChart x:Name="reservationsRecommendedMonthlyChart" Height="200" BorderBrush="Black" BorderThickness="1">
+                            <Label Style="{StaticResource BeigeLabels}" Content="Number of Recommended Renovations" HorizontalAlignment="Center"/>
+                            <lvc:CartesianChart x:Name="reservationsRecommendedMonthlyChart" Height="200" BorderBrush="Black" BorderThickness="1" Margin="5,10,10,10">
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Months" Labels="{Binding Months}" />
                                 </lvc:CartesianChart.AxisX>

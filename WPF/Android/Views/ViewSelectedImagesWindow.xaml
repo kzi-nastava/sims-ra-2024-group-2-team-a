@@ -10,6 +10,55 @@
         Title="ViewSelectedImagesWindow" Height="450" Width="400">
     <Window.Resources>
         <converters:PathToImageConverter x:Key="Converter"/>
+        <Style TargetType="Button" x:Key="DisabledButtonStyle">
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5a8c6b"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource HardGreen}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontWeight" Value="Medium"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
     </Window.Resources>
     <Grid Background="{StaticResource Beige}">
         <Grid.ColumnDefinitions>
@@ -24,7 +73,7 @@
         </Grid.RowDefinitions>
             
         <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="0,0,0,1">
-            <Label Content="Selected images: " FontFamily="Global Sans Serif" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+            <Label Content="Selected images" Style="{StaticResource Header}" Width="180" VerticalAlignment="Center"/>
         </Border>
 
         <Border Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="1">
@@ -39,15 +88,24 @@
                     <DataTemplate>
                         <StackPanel>
                             <Image Source="{Binding Converter={StaticResource Converter}}" Height="120" Width="120" SnapsToDevicePixels="True"/>
-                            <Button Content="Delete" Click="DeleteSelectedImage_Click" Height="40" Width="70" Margin="0,-10,0,0"/>
-                        </StackPanel>
+                            <Button  Click="DeleteSelectedImage_Click" Height="40" Width="70" Margin="0,-10,0,0" Background="{StaticResource Green}">
+                                    <Label Content="Delete" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource Roboto}" Padding="0"/>
+                                </Button>
+                            </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
         </Border>
 
-        <Button Content="Done" Height="50" Width="120" Grid.Row="2" HorizontalAlignment="Center" Grid.Column="1" Click="Button_Click"
-                Background="{StaticResource Green}"/>
+        <Button Height="50" Width="130" VerticalAlignment="Center" Grid.Row="2" HorizontalAlignment="Center" Grid.Column="1" Click="Button_Click"
+                Style="{StaticResource DisabledButtonStyle}">
+            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
+                <Label Content="Confirm" VerticalAlignment="Center" Style="{StaticResource ButtonLabel}"/>
+            </StackPanel>
+        </Button>
+
     </Grid>
 </Window>

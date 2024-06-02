@@ -8,6 +8,7 @@ using System.Linq;
 namespace BookingApp.Services {
     public class VoucherService {
         private readonly IVoucherRepository _voucherRepository;
+
         public VoucherService(IVoucherRepository voucherRepository) {
             _voucherRepository = voucherRepository;
         }
@@ -16,8 +17,16 @@ namespace BookingApp.Services {
 
         }
 
+        public void Update(Voucher voucher) {
+            _voucherRepository.Update(voucher);
+        }
+
+        public Voucher GetById(int id) {
+            return _voucherRepository.GetById(id);
+        }
+
         public List<Voucher> GetByTouristId(int userId) {
-            return _voucherRepository.GetAll().Where(v => v.TouristId == userId).ToList();
+                return _voucherRepository.GetAll().Where(v => v.TouristId == userId).ToList();
         }
 
         public List<Voucher> GetAvailableVouchers(int userId) {
@@ -30,6 +39,10 @@ namespace BookingApp.Services {
         }
         public bool AddMultiple(List<int> TouristIds, DateTime expireDate) {
             return _voucherRepository.AddMultiple(TouristIds, expireDate);  
+        }
+
+        public void AwardVoucher(int touristId) {
+            _voucherRepository.Save(new Voucher(DateTime.Now.AddMonths(6), touristId));
         }
     }
 }

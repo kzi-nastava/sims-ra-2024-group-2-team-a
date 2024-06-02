@@ -8,10 +8,29 @@
         Title="RenovationDescriptionWindow" Height="300" Width="300"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style TargetType="Label" x:Key="Labels">
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,0"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium" />
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
             <Style.Setters>
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
 
@@ -38,15 +57,16 @@
 
     </Window.Resources>
         <Grid Background="{StaticResource Beige}">
-        <Label Content="Renovation Description" FontFamily="Global Sans Serif" FontSize="22" 
-               VerticalAlignment="Top" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="0,0,0,2" Padding="5,5,5,0" Background="{StaticResource Green}"/>
+        <Label Content="Renovation Description" FontFamily="{StaticResource Roboto}" FontSize="22" 
+               VerticalAlignment="Top" HorizontalAlignment="Center" Padding="0" Margin="0,10" BorderBrush="{StaticResource HardGreen}"
+               BorderThickness="0,0,0,0" Style="{StaticResource Header}" FontWeight="Medium"/>
         <TextBox x:Name="textBox" Text="{Binding RenovationDTO.Description}" IsEnabled="{Binding Editable}"
-                 Height="150" Width="250" VerticalAlignment="Center" Margin="0,-15,0,15"/>
-        <Button Height="50" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="15" Command="{Binding ConfirmCommand}"
+                 Height="150" Width="250" VerticalAlignment="Center" Margin="0,-15,0,15" MaxLength="256"/>
+        <Button x:Name="ConfirmButton" Height="50" Width="120" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="15" Command="{Binding ConfirmCommand}"
                 Style="{StaticResource DisabledButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                <Image Source="{StaticResource ConfirmIcon}" Height="30" Width="30"/>
-                <Label Content="Confirm" Style="{StaticResource Labels}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <Image Source="{StaticResource ConfirmIconBeige}" Height="30" Width="30"/>
+                <Label Content="Confirm" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center" Margin="5,0,0,0"/>
             </StackPanel>
         </Button>
     </Grid>

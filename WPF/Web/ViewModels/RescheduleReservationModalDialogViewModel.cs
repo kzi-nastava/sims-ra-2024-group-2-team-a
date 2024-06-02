@@ -9,14 +9,14 @@ namespace BookingApp.WPF.Web.ViewModels {
         public AccommodationReservationDTO Reservation { get; set; }
         public DateTime NewDate { get; set; }
 
-        private readonly RescheduleRequestService _rescheduleRequestService = ServicesPool.GetService<RescheduleRequestService>();
+        private readonly AccommodationRescheduleRequestService _rescheduleRequestService = ServicesPool.GetService<AccommodationRescheduleRequestService>();
 
         public RescheduleReservationModalDialogViewModel(AccommodationReservationDTO reservation) {
             Reservation = reservation;
         }
 
         public void Reschedule() {
-            RescheduleRequest newRequest = new RescheduleRequest(
+            AccommodationRescheduleRequest newRequest = new AccommodationRescheduleRequest(
                 RescheduleRequestStatus.Pending,
                 Reservation.Id,
                 Reservation.GuestId,

@@ -17,12 +17,14 @@ namespace BookingApp.WPF.Tablet.Views {
 
         public AddTourViewModel ViewModel { get; set; }
 
-        public AddTourPage(Frame mainF, int userId) {
-            ViewModel = new AddTourViewModel(userId);
+        public AddTourPage(TourDTO tDTO, Frame mainF, int userId) {
+            ViewModel = new AddTourViewModel(tDTO, userId);
             InitializeComponent();
             _mainFrame = mainF;
             _userId = userId;
             DataContext = ViewModel;
+            comboBoxLocation.SelectedIndex = ViewModel.tourDTO.LocationId - 1;
+            comboBoxLanguage.SelectedIndex = ViewModel.tourDTO.LanguageId - 1;
         }
 
         private void Reset_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -30,7 +32,7 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void Reset_Executed(object sender, ExecutedRoutedEventArgs e) {
-            _mainFrame.Content = new AddTourPage(_mainFrame, _userId);
+            _mainFrame.Content = new AddTourPage(null, _mainFrame, _userId);
         }
         private void Confirm_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
             if (ViewModel.CheckValidation()) //ubaci uslov da su sva polja popunjena
@@ -42,7 +44,7 @@ namespace BookingApp.WPF.Tablet.Views {
         private void Confirm_Executed(object sender, ExecutedRoutedEventArgs e) {
             ViewModel.AddTour();
             MessageBox.Show("Tour Added Succesfully", "Confirmed", MessageBoxButton.OK, MessageBoxImage.Information);
-            _mainFrame.Content = new AddTourPage(_mainFrame, _userId);
+            _mainFrame.Content = new AddTourPage(null, _mainFrame, _userId);
         }
 
         private void AddDateTime_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
