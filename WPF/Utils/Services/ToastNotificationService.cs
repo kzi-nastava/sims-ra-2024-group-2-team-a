@@ -4,21 +4,25 @@ using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Position;
 using ToastNotifications.Messages;
+using BookingApp.WPF.Web.Views;
 
 public class ToastNotificationService : IDisposable {
     private Notifier _notifier;
 
     public ToastNotificationService() {
+    }
+
+    public void ConfigureNotifier(Window mainWindow) {
         _notifier = new Notifier(cfg => {
             cfg.PositionProvider = new WindowPositionProvider(
-                parentWindow: Application.Current.MainWindow,
+                parentWindow: mainWindow,
                 corner: Corner.BottomRight,
                 offsetX: 10,
                 offsetY: 10);
 
             cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                notificationLifetime: TimeSpan.FromSeconds(5),
-                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(3));
 
             cfg.Dispatcher = Application.Current.Dispatcher;
         });

@@ -128,6 +128,11 @@ namespace BookingApp.WPF.Web.Views {
             AccommodationReservationFilterDTO resFilter = new AccommodationReservationFilterDTO(0, reservationDays, guestNumber, startDate, endDate);
 
             var accommodations = _accommodationService.GetAvailableAccommodationsInDateRange(accFilter, resFilter);
+
+            if(accommodations.Count == 0) {
+                App.NotificationService.ShowInformation("No available accommodations for filtering.");
+            }
+
             UpdateAccommodationDTOs(accommodations);
         }
 
