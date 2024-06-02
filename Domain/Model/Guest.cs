@@ -23,7 +23,7 @@ namespace BookingApp.Domain.Model {
             string[] csvValues = { 
                 Id.ToString(), 
                 IsSuper.ToString(),
-                SuperGuestExpirationDate.ToString(),
+                SuperGuestExpirationDate.ToString("dd-MM-yyyy"),
                 BonusPoints.ToString()
             };
             return csvValues;
@@ -32,7 +32,7 @@ namespace BookingApp.Domain.Model {
         public override void FromCSV(string[] values) {
             Id = Convert.ToInt32(values[0]);
             IsSuper = Convert.ToBoolean(values[1]);
-            SuperGuestExpirationDate = DateOnly.Parse(values[2]);
+            SuperGuestExpirationDate = DateOnly.ParseExact(values[2], "dd-MM-yyyy");
             BonusPoints = Convert.ToInt32(values[3]);
         }
     }

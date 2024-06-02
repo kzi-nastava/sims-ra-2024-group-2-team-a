@@ -54,6 +54,11 @@ namespace BookingApp.Services {
         }
 
         public void GradeOwner(AccommodationReviewDTO reviewDTO) {
+            if (reviewDTO.RequiresRenovation) {
+                AccommodationReservation accRes = _reservationService.GetById(reviewDTO.ReservationId);
+                _accommodationStatisticsService.UpdateRecommendationStatistics(accRes.AccommodationId, accRes.StartDate); ;
+            }
+
             AccommodationReview review = this.GetByReservationId(reviewDTO.ReservationId);
             if (review == null) {
                 _reviewRepository.Save(reviewDTO.ToReview());
@@ -69,11 +74,6 @@ namespace BookingApp.Services {
             review.RenovationComment = reviewDTO.RenovationComment;
             _reviewRepository.Update(review);
             _ownerService.AdjustSuperOwner(review.OwnerId);
-
-            if (reviewDTO.RequiresRenovation) {
-                AccommodationReservation accRes = _reservationService.GetById(reviewDTO.ReservationId);
-                _accommodationStatisticsService.UpdateRecommendationStatistics(accRes.AccommodationId, accRes.StartDate);;
-            }
         }
 
         public bool IsGradedByGuest(int reservationId) {
