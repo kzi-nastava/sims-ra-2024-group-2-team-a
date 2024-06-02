@@ -125,43 +125,59 @@ namespace BookingApp.WPF.Android.Views {
         private void Timer_Tick(object sender, EventArgs e) {
             switch (_currentFieldIndex) {
                 case 0:
-                    AccommodationDTO.Name = "Villa Kamenica";
+                    DemoNameInput();
                     break;
-                case 1:
+                case 2:
                     SelectedLocationDTO = LocationDTOs[0];
                     comboBox.SelectedItem = SelectedLocationDTO;
                     break;
-                case 2:
+                case 3:
                     AccommodationDTO.MaxGuestNumber = 2;
                     break;
-                case 3:
+                case 4:
                     AccommodationDTO.MinReservationDays = 5;
                     break;
-                case 4:
+                case 5:
                     AccommodationDTO.LastCancellationDay = 2;
                     break;
-                case 5:
+                case 6:
                     AccommodationDTO.Type = AccommodationType.house;
                     break;
-                case 6:
+                case 7:
                     SimulateButtonClickAppearance(ImportButton);
                     ConfirmButton.IsEnabled = true;
                     break;
-                case 7:
+                case 8:
                     SimulateButtonClickAppearance(ConfirmButton);
                     ConfirmButton.IsEnabled = false;
                     break;
-                case 8:
+                case 9:
                     DemoReset();
                     break;
             }
 
             _currentFieldIndex++;
-            if (_currentFieldIndex > 8) 
+            if (_currentFieldIndex > 9) 
             {
                 _currentFieldIndex = 0;
             }
         }
+
+        private void DemoNameInput() {
+            DispatcherTimer timer2 = new DispatcherTimer();
+            int index = 0;
+            string input = "Villa Kamenica";
+            timer2.Interval = TimeSpan.FromSeconds(0.05);
+            timer2.Tick += (sender,e) => {
+                AccommodationDTO.Name += input[index++];
+                if (index == input.Length) {
+                    timer2.Stop();
+                    return;
+                }
+            };
+            timer2.Start();
+        }
+
         private void DemoReset() {
             AccommodationDTO.Name = "";
             AccommodationDTO.MaxGuestNumber = 1;

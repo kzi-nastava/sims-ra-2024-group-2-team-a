@@ -35,7 +35,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="0.3*"/>
+                        <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
 
                     <Border BorderBrush="{StaticResource SoftGreen}" CornerRadius="20,0,0,20" BorderThickness="0,0,1,0" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="{StaticResource SoftGreen}"/>
@@ -52,7 +52,7 @@
                                 </Style>
                             </Image.Style>
                         </Image>
-                        <Label Content="{Binding CommentDTO.Username}" FontFamily="{StaticResource Roboto}" FontSize="14" Padding="0" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding CommentDTO.Username}" TextWrapping="Wrap" FontFamily="{StaticResource Roboto}" FontSize="14" Padding="0" HorizontalAlignment="Center"/>
                         <Label FontFamily="{StaticResource Roboto}" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0" Margin="0,0,0,2">
                             <Label.Style>
                                 <Style TargetType="Label">
@@ -67,7 +67,9 @@
                         </Label>
                     </StackPanel>
 
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CommentDTO.Text}" FontFamily="{StaticResource Roboto}" Margin="5" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CommentDTO.Text}" FontFamily="{StaticResource Roboto}" Margin="5,10,5,10" TextWrapping="Wrap"
+                               />
+                    
                     <Border BorderBrush="{StaticResource SoftGreen}" BorderThickness="0,1,0,0" Grid.Row="1" Grid.Column="1" Padding="0">
                         <Grid>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0" Width="100" HorizontalAlignment="Left">

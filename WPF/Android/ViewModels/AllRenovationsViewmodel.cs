@@ -34,10 +34,10 @@ namespace BookingApp.WPF.Android.ViewModels
                 if (value != _selectedRenovation) {
                     _selectedRenovation = value;
                     OnPropertyChanged();
-                    if (!DemoMode) {
+                    //if (!DemoMode) {
                         ViewCommand.RaiseCanExecuteChanged();
                         CancelCommand.RaiseCanExecuteChanged();
-                    }
+                    //}
                 }
             }
         }
@@ -70,8 +70,10 @@ namespace BookingApp.WPF.Android.ViewModels
         public bool CancelButton_CanBeExecuted(object obj) {
             if (SelectedRenovation == null)
                 return false;
-            else
+            else if (!DemoMode)
                 return _renovationService.CanBeCancelled(SelectedRenovation.Id);
+            else
+                return true;
         }
 
         public void ViewButton_Executed(object obj) {
@@ -212,6 +214,7 @@ namespace BookingApp.WPF.Android.ViewModels
             foreach (var ren in tempRenovations) {
                 Renovations.Add(ren);
             }
+            tempRenovations.Clear();
         }
 
     }
