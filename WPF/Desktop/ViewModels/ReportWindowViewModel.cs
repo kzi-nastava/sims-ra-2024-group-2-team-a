@@ -1,26 +1,22 @@
 ﻿using BookingApp.WPF.DTO;
 using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows;
-using System.Windows.Media;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using IContainer = QuestPDF.Infrastructure.IContainer;
-using Application = System.Windows.Application;
-using Colors = QuestPDF.Helpers.Colors;
 using BookingApp.Domain.Model;
+using BookingApp.Services;
+using System.Windows.Input;
+using QuestPDF.Infrastructure;
+using BookingApp.WPF.Utils.Reports.Tourist;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class ReportWindowViewModel : INotifyPropertyChanged {
+        private readonly UserService _userService = ServicesPool.GetService<UserService>();
+        private readonly PassengerService _passengerService = ServicesPool.GetService<PassengerService>();
+        private readonly PointOfInterestService _pointOfInterestService = ServicesPool.GetService<PointOfInterestService>();
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
@@ -40,119 +36,77 @@ namespace BookingApp.WPF.Desktop.ViewModels {
             }
         }
 
-        private void GenerateReport() {
- //           var report = new TouristReportGenerator(Title,  DateTime.Now, Username, TourDetails);
-  //          report.GeneratePdf(FilePath);
+        private bool _isEnabled = false;
+        public bool GenerateEnabled {
+            get {
+                return _isEnabled;
+            }
+            set {
+                if (value != _isEnabled) {
+                    _isEnabled = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int UserId { get; set; }
+        public TourDTO Tour { get; set; }
+        public ICommand GenerateReportCommand { get; set; }
+        public ICommand ChooseFileDestinationCommand { get; set; }
+
+        public ReportWindowViewModel(int userId, TourDTO tour) {
+            UserId = userId;
+            Tour = tour;
+
+            GenerateReportCommand = new RelayCommand(GenerateReport, CanGenerate);
+            ChooseFileDestinationCommand = new RelayCommand(BrowseFilePath, () => true);
+        }
+
+        private List<PassengerDTO> LoadPassengers() {
+            List<PassengerDTO> passengers = new List<PassengerDTO>();
+
+            foreach (var passenger in _passengerService.GetByTourAndTourist(Tour.Id, UserId))
+                passengers.Add(new PassengerDTO(passenger));
+
+            return passengers;
+        }
+
+        private List<PointOfInterestDTO> LoadPointsOfInterest() {
+            List<PointOfInterestDTO> pointsOfInterest = new List<PointOfInterestDTO>();
+
+            foreach (var poi in _pointOfInterestService.GetAllByTourId(Tour.Id))
+                pointsOfInterest.Add(new PointOfInterestDTO(poi));
+
+            return pointsOfInterest;
+        }
+
+        private bool CanGenerate() {
+            return _isEnabled;
+        }
+
+        private void GenerateReport(object parameter) {
+            QuestPDF.Settings.License = LicenseType.Community;
+            var report = new TouristReportGenerator(DateTime.Now, _userService.GetById(UserId).Username, Tour, LoadPassengers(), LoadPointsOfInterest());
+            report.GeneratePdf($"{FilePath}/TourReservationReport{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.pdf");
 
             // Optionally, notify the user that the report has been generated
             // For example, use a MessageBox or another UI element in the View
         }
 
-        private void BrowseFilePath() {
-            SaveFileDialog saveFileDialog = new SaveFileDialog {
-                Filter = "PDF file (*.pdf)|*.pdf",
-                FileName = "tour_reservation_report.pdf"
-            };
+        private void BrowseFilePath(object parameter) {
+            using (var dialog = new FolderBrowserDialog()) {
+                dialog.Description = "Select pdf generation folder";
+                dialog.ShowNewFolderButton = true;
+                dialog.RootFolder = Environment.SpecialFolder.Desktop;
+                dialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-   //         if (saveFileDialog.ShowDialog() == true) {
-                FilePath = saveFileDialog.FileName;
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath)) {
+                    FilePath = dialog.SelectedPath;
+                    FilePath = FilePath.Replace('\\', '/');
+                    GenerateEnabled = true;
+                }
             }
         }
-    }
-
-    public class ReportDocument : IDocument {
-        private DateTime _issueDate;
-        private string _generatedBy;
-        private TourDTO _tourDetails;
-        private List<PassengerDTO> _passengers;
-        private List<PointOfInterestDTO> _pointsOfInterest;
-
-        public ReportDocument(DateTime issueDate, string generatedBy, TourDTO tourDetails, List<PassengerDTO> passengers, List<PointOfInterestDTO> pointsOfInterest) {
-            _issueDate = issueDate;
-            _generatedBy = generatedBy;
-            _tourDetails = tourDetails;
-            _passengers = passengers;
-            _pointsOfInterest = pointsOfInterest;
-        }
-
-        public void Compose(IDocumentContainer container) {
-            container.Page(page =>
-            {
-                page.Margin(20);
-                page.Size(PageSizes.A4);
-                page.PageColor(Colors.White);
-
-                page.Header()
-                    .Column(column => {
-                        column.Item().Text("Tour reservation report")
-                            .FontSize(20)
-                            .Bold()
-                            .AlignCenter()
-                            .BackgroundColor("#D3D3D3");
-
-                        column.Item().Row(row => {
-                            row.RelativeItem().Text($"Issue Date: {_issueDate}");
-                            row.RelativeItem().Text($"Generated By: {_generatedBy}");
-                        });
-                    });
-
-                page.Content()
-                    .PaddingVertical(10)
-                    .Column(column => {
-                        column.Spacing(10);
-
-                        // Tour Basic Information
-                        column.Item().Text("Tour basic information").Bold().FontSize(14);
-                        column.Item().Text($"Name: {_tourDetails.Name}");
-                        column.Item().Text($"Description: {_tourDetails.Description}");
-                        column.Item().Text($"Language: {_tourDetails.Language.Name}");
-                        column.Item().Text($"Location: {_tourDetails.Location.City} - {_tourDetails.Location.Country}");
-                        column.Item().Text($"Start Date: {_tourDetails.Beggining.ToShortDateString()}");
-                        column.Item().Text($"End Date: {_tourDetails.End.ToShortDateString()}");
-                        column.Item().Text($"Duration: {_tourDetails.Duration}");
-
-                        // Tour Checkpoints
-                        column.Item().Text("Tour points of interest").Bold().FontSize(14);
-                        foreach (var pointOfInterest in _pointsOfInterest) {
-                            column.Item().Text($"- {pointOfInterest.Name}");
-                        }
-
-                        // List of Guests
-                        column.Item().Text("List of passengers").Bold().FontSize(14);
-                        column.Item().Table(table => {
-                            table.ColumnsDefinition(columns => {
-                                columns.RelativeColumn(); // Name
-                                columns.RelativeColumn(); // Surname
-                                columns.RelativeColumn(); // Age
-                            });
-
-                            // Table Header
-                            table.Header(header => {
-                                header.Cell().Element(CellStyle).Text("Name");
-                                header.Cell().Element(CellStyle).Text("Surname");
-                                header.Cell().Element(CellStyle).Text("Age");
-                            });
-
-                            // Table Rows
-                            foreach (var passenger in _passengers) {
-                                table.Cell().Element(CellStyle).Text(passenger.Name);
-                                table.Cell().Element(CellStyle).Text(passenger.Surname);
-                                table.Cell().Element(CellStyle).Text(passenger.Age.ToString());
-                            }
-                        });
-                    });
-
-                page.Footer()
-                    .AlignCenter()
-                    .Text(x => {
-                        x.Span("Page ");
-                        x.CurrentPageNumber();
-                    });
-            });
-        }
-
-        private IContainer CellStyle(IContainer container) {
-            return container.Padding(5).Border(1).BorderColor(Colors.Grey.Lighten1);
-        }
-    }
+    }   
 }
