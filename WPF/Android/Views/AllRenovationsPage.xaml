@@ -126,7 +126,7 @@
             </ListView.ItemContainerStyle>
         </ListView>
 
-        <Button Grid.Column="2" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"
+        <Button Grid.Column="2" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20"
             Command="{Binding ViewCommand}" Style="{StaticResource ViewButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                 <Image Source="{StaticResource ViewIcon}" Height="30" Width="30"/>
@@ -153,7 +153,7 @@
             </Label.Style>
         </Label>
         
-        <Button x:Name="CancelButton" Grid.Column="1" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"
+        <Button x:Name="CancelButton" Grid.Column="1" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20"
         Command="{Binding CancelCommand}" Style="{StaticResource CancelButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                 <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
