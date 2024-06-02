@@ -16,17 +16,18 @@ namespace BookingApp.Services {
         private PointOfInterestService _pointOfInterestService;
         private TourRequestService _tourRequestService;
         private NotificationService _notificationService;
+        private GuideService _guideService;
         public TourService(ITourRepository tourRepository) {
             _tourRepository = tourRepository;
         }
-        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService, TourReviewService tourReviewService, PointOfInterestService pointOfInterestService, TourRequestService tourRequestService, NotificationService notificationService) {
+        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService, TourReviewService tourReviewService, PointOfInterestService pointOfInterestService, TourRequestService tourRequestService, NotificationService notificationService, GuideService guideService) {
             _passengerService = passengerService;
             _tourReservationService = tourReservationService;
             _tourReviewService = tourReviewService;
             _pointOfInterestService = pointOfInterestService;
             _tourRequestService = tourRequestService;
             _notificationService = notificationService;
-
+            _guideService = guideService;
         }
         public double GetTourGrade(int Id) {
             List<TourReview> reviews = _tourReviewService.GetByTourId(Id);
@@ -69,7 +70,18 @@ namespace BookingApp.Services {
         }
 
         public List<Tour> GetFiltered(TourFilterDTO filter) {
-            List<Tour> allTours = _tourRepository.GetAll();
+            List<Tour> allTours = new List<Tour>();
+
+            foreach (var tour in _tourRepository.GetAll())
+            {
+                if(_guideService.GetById(tour.GuideId).IsSuper)
+                    allTours.Add(tour);
+            }
+
+            foreach (var tour in _tourRepository.GetAll()) {
+                if (!_guideService.GetById(tour.GuideId).IsSuper)
+                    allTours.Add(tour);
+            }
 
             if (filter.isEmpty())
                 return allTours;
