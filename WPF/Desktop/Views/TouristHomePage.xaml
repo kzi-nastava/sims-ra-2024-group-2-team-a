@@ -146,7 +146,7 @@
                                                            Height="20"/>
                                                     <TextBlock Style="{StaticResource Info}">
                                                         <TextBlock.Text>
-                                                            <MultiBinding StringFormat="{}{0}, {1}">
+                                                            <MultiBinding StringFormat="{}{0}, {1}s">
                                                                 <Binding Path="Location.City"/>
                                                                 <Binding Path="Location.Country"/>
                                                             </MultiBinding>
