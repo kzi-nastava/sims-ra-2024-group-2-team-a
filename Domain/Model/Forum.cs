@@ -19,7 +19,7 @@ namespace BookingApp.Domain.Model {
 
         //smart methods
         public void UpgradeToUsefull() {
-            if(GuestCommentNum > 20 && OwnerCommentNum > 10)
+            if(GuestCommentNum >= 20 && OwnerCommentNum >= 10)
                 IsUsefull = true;
         }
         public void Close() {

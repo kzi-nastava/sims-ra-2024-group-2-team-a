@@ -113,7 +113,7 @@
                                 Padding="0" FontSize="16" Content=" / 256" />
                         </StackPanel>
 
-                        <TextBox Grid.Row="1" Margin="10,5,10,5" Text="{Binding CommentDTO.Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MaxLength="256" TextWrapping="Wrap">
+                        <TextBox Grid.Row="1" Margin="10,5,10,5" x:Name="commentTextBox" Text="{Binding CommentDTO.Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MaxLength="256" TextWrapping="Wrap">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Style.Triggers>
@@ -131,6 +131,15 @@
                                 <Image Source="{StaticResource SendIconBeige}" Width="25" Height="25" RenderOptions.BitmapScalingMode="HighQuality"/>
                                 <TextBlock Text="Post!" FontSize="18" Style="{StaticResource ButtonLabelTextBlock}" FontWeight="Medium" Margin="0,5,0,0"/>
                             </StackPanel>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=commentTextBox}" Value="">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
                         </Button>
                     </Grid>
                     <Border.Style>
