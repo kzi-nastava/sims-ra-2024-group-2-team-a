@@ -48,6 +48,7 @@ namespace BookingApp.Services {
             }
             return calendar;
         }
+
         public List<TourRequest> GetAll() {
             return _tourRequestRepository.GetAll();
         }
@@ -103,6 +104,7 @@ namespace BookingApp.Services {
         public void CreateRequest(TourRequestDTO tourRequestDTO, int complexRequestId) {           
             _tourRequestRepository.Save(new TourRequest(tourRequestDTO, complexRequestId));
         }      
+
         public TouristStatistics GetStatistics(int userId, string year) {
             if (year == "All-time")
                 return StatisticsCalculator.CalculateTouristStatistics(_tourRequestRepository.GetAccepted(userId), _tourRequestRepository.GetByTouristId(userId));
