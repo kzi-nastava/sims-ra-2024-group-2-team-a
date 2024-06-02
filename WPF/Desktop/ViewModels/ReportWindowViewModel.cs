@@ -10,6 +10,9 @@ using BookingApp.Services;
 using System.Windows.Input;
 using QuestPDF.Infrastructure;
 using BookingApp.WPF.Utils.Reports.Tourist;
+using System.Windows.Media.Imaging;
+using BookingApp.WPF.Utils.Reports;
+using System.Drawing;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class ReportWindowViewModel : INotifyPropertyChanged {
@@ -23,6 +26,8 @@ namespace BookingApp.WPF.Desktop.ViewModels {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private TouristReportGenerator _touristReportGenerator;
+
         private string _filePath;
         public string FilePath {
             get {
@@ -35,6 +40,20 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 }
             }
         }
+
+        private System.Drawing.Image _preview;
+        public System.Drawing.Image Preview {
+            get {
+                return _preview;
+            }
+            set {
+                if (_preview != value) {
+                    _preview = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         private bool _isEnabled = false;
         public bool GenerateEnabled {
@@ -57,6 +76,8 @@ namespace BookingApp.WPF.Desktop.ViewModels {
         public ReportWindowViewModel(int userId, TourDTO tour) {
             UserId = userId;
             Tour = tour;
+            _touristReportGenerator = new TouristReportGenerator(DateTime.Now, _userService.GetById(UserId).Username, Tour, LoadPassengers(), LoadPointsOfInterest());
+            Preview = PdfPreviewGenerator.GeneratePdfPreview(_touristReportGenerator);
 
             GenerateReportCommand = new RelayCommand(GenerateReport, CanGenerate);
             ChooseFileDestinationCommand = new RelayCommand(BrowseFilePath, () => true);
@@ -86,8 +107,7 @@ namespace BookingApp.WPF.Desktop.ViewModels {
 
         private void GenerateReport(object parameter) {
             QuestPDF.Settings.License = LicenseType.Community;
-            var report = new TouristReportGenerator(DateTime.Now, _userService.GetById(UserId).Username, Tour, LoadPassengers(), LoadPointsOfInterest());
-            report.GeneratePdf($"{FilePath}/TourReservationReport{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.pdf");
+            _touristReportGenerator.GeneratePdf($"{FilePath}/TourReservationReport{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.pdf");
 
             // Optionally, notify the user that the report has been generated
             // For example, use a MessageBox or another UI element in the View
