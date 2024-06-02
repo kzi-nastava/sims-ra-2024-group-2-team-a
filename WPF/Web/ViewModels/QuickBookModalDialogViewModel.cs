@@ -24,7 +24,21 @@ namespace BookingApp.WPF.Web.ViewModels {
             ReservationFilter = resFilter;
             GuestUser = _guestService.GetById(guestId);
 
+            CheckDates();
+
             SuggestedReservations = _reservationService.SuggestReservations(resFilter);
+        }
+
+        private void CheckDates() {
+            DateOnly emptyDate = new DateOnly();
+
+            if(ReservationFilter.StartDate == emptyDate) {
+                ReservationFilter.StartDate = DateOnly.FromDateTime(DateTime.Now);
+            }
+
+            if(ReservationFilter.EndDate == emptyDate) {
+                ReservationFilter.EndDate = DateOnly.FromDateTime(DateTime.Now.AddDays(20));
+            }
         }
 
         public void SaveReservation(AccommodationReservation selectedReservation) {

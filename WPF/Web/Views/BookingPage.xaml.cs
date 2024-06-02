@@ -132,6 +132,17 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void ButtonClearClick(object sender, RoutedEventArgs e) {
+            if(toggleSwitch.IsChecked) {
+                ClearInputs();
+                itemsControlAccommodations.ItemsSource = null;
+                return;
+            } else {
+                ClearInputs();
+                ApplyRegularFilter();
+            }
+        }
+
+        private void ClearInputs() {
             comboBoxLocation.SelectedIndex = 0;
             comboBoxType.SelectedIndex = 0;
             textBoxDays.Text = "";
@@ -143,8 +154,6 @@ namespace BookingApp.WPF.Web.Views {
             quickDatePickerEndDate.IsEnabled = false;
             quickTextBoxDays.Text = "";
             quickTextBoxGuests.Text = "";
-
-            ButtonFilterClick(null, null);
         }
 
         public void OpenQuickBookDialog(AccommodationDTO accommodation) {

@@ -50,7 +50,7 @@
 
     </Page.Resources>
     
-    <Grid x:Name="mainGrid">
+    <Grid x:Name="mainGrid" Background="{StaticResource Beige}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
@@ -67,7 +67,7 @@
                 <Border BorderThickness="0 0 3 0" BorderBrush="{StaticResource HardGreen}">
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <toggle:HorizontalToggleSwitch x:Name="toggleSwitch" CheckedContent="Yes" CheckedBackground="{StaticResource SoftGreen}" CheckedForeground="Black"
-                                               UncheckedContent="No" UncheckedBackground="White" UncheckedForeground="Black" IsChecked="False" Checked="ButtonClearClick"/>
+                                               UncheckedContent="No" UncheckedBackground="White" UncheckedForeground="Black" IsChecked="False" Checked="ButtonClearClick" Unchecked="ButtonClearClick"/>
                         <Label Width="100" Style="{StaticResource SearchLabel}" Margin="0 0 0 0" HorizontalContentAlignment="Center" Content="Quick book"/>
                     </StackPanel>
                 </Border>
@@ -161,12 +161,19 @@
                     </WrapPanel>
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                            <Setter Property="IsEnabled" Value="True"/>
                             <Style.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding ElementName=quickTextBoxDays, Path=Text}" Value=""/>
-                                        <Condition Binding="{Binding ElementName=quickTextBoxGuests, Path=Text}" Value=""/>
                                         <Condition Binding="{Binding ElementName=toggleSwitch, Path=IsChecked}" Value="True"/>
+                                        <Condition Binding="{Binding ElementName=quickTextBoxDays, Path=Text}" Value=""/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=toggleSwitch, Path=IsChecked}" Value="True"/>
+                                        <Condition Binding="{Binding ElementName=quickTextBoxGuests, Path=Text}" Value=""/>
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="IsEnabled" Value="False"/>
                                 </MultiDataTrigger>
@@ -176,7 +183,7 @@
                 </Button>
             </Grid>
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Background="{StaticResource Beige}" Height="500">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Height="500">
                 <ItemsControl x:Name="itemsControlAccommodations" ItemsSource="{Binding _accommodationDTOs}" Margin="10 10 10 10" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
