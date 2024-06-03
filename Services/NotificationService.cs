@@ -36,7 +36,13 @@ namespace BookingApp.Services {
         public void Update(Notification notification) {
             _notificationRepository.Update(notification);
         }
-
+        public void ClearRepeatingNotifications(int ownerId) {
+            foreach (var notification in GetByUserId(ownerId)) {
+                if (notification.Category == NotificationCategory.Review || notification.Category==NotificationCategory.Request) {
+                    _notificationRepository.Delete(notification);
+                }
+            }
+        }
         public void CreateNotifications(int ownerId) {
             int ungradedReservations = _reservationService.CheckForNotGradedReservations(ownerId);
             int pendingRescheduleRequests = _rescheduleRequestService.GetPendingRequestsByOwnerId(ownerId).Count;
