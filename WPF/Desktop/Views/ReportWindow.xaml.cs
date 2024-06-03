@@ -25,7 +25,7 @@ namespace BookingApp.WPF.Desktop.Views {
             double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
 
             this.Width = screenWidth * 0.5;
-            this.Height = screenHeight * 0.5;
+            this.Height = screenHeight * 0.7;
 
             DataContext = new ReportWindowViewModel(userId, tour);
         }
