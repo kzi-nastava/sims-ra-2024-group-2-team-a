@@ -54,7 +54,7 @@
             <Label Grid.Column="0" Style="{StaticResource MainLabel}"
                    Content="Reviews received by accommodation owners" />
 
-            <Button x:Name="buttonGenerateReport" Grid.Column="1" Style="{StaticResource ButtonStyle}">
+            <Button x:Name="buttonGenerateReport" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="GenerateReportClick">
                 <WrapPanel>
                     <Image Style="{StaticResource ButtonImage}" Source="{StaticResource DocumentIcon}"/>
                     <TextBlock Text="Generate report" Style="{StaticResource ButtonText}"/>
