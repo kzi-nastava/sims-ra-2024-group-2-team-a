@@ -38,6 +38,12 @@ namespace BookingApp.WPF.Android.ViewModels {
             if (ForumDTO.IsClosed) {
                 return;
             }
+            if (CommentDTO.Text == null) {
+                return;
+            }
+            if (CommentDTO.Text == "") {
+                return;
+            }
 
             CommentDTO.CreatorId = _user.Id;
             CommentDTO.CreationDate = DateTime.Now;
