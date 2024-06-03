@@ -115,11 +115,11 @@ namespace BookingApp.Services {
             int gradeCount = 0;
             foreach (var reservation in _reservationService.GetByAccommodationId(accId)) {
                 AccommodationReview accReview = this.GetByReservationId(reservation.Id);
-                if (accReview == null || accReview.OwnerCorrectnessGrade == 0 || accReview.GuestCleannessGrade == 0) {
+                if (accReview == null || accReview.OwnerCorrectnessGrade == 0 || accReview.AccommodationCleannessGrade == 0) {
                     continue;
                 }
 
-                double avg = (accReview.OwnerCorrectnessGrade + accReview.AccommodationCleannessGrade)/2;
+                double avg = (accReview.OwnerCorrectnessGrade + accReview.AccommodationCleannessGrade)/2.0;
                 gradeCount++;
 
                 avgGrade += avg;
