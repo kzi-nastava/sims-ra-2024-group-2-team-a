@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using BookingApp.WPF.Android.ViewModels;
 using BookingApp.Domain.Model;
+using System.Numerics;
 
 namespace BookingApp.WPF.Android.Views {
     /// <summary>
@@ -17,14 +18,38 @@ namespace BookingApp.WPF.Android.Views {
             this.DataContext = ReservationReviewsViewmodel;
         }
         private void AssignGradeButton_Click(object sender, RoutedEventArgs e) {
-            ReservationReviewsViewmodel.AssignGradeButton();
+            if (!ReservationReviewsViewmodel.AssignGradeButton())
+            {
+                AndroidDialogWindow androidDialogWindow = new AndroidDialogWindow("Please select a reservation first!");
+                androidDialogWindow.ShowDialog();
+            }
+
         }
         private void ViewGradeButton_Click(object sender, RoutedEventArgs e) {
-            ReservationReviewsViewmodel.ViewGradeButton();        }
+            string error = ReservationReviewsViewmodel.ViewGradeButton();
+            if (error != null) {
+                AndroidDialogWindow androidDialogWindow = new AndroidDialogWindow(error);
+                androidDialogWindow.ShowDialog();
+            }
+        }
         private void RequestsList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             ReservationReviewsViewmodel.RequestsListSelectionChanged();
         }
 
-      
+        private void Accept_Click(object sender, RoutedEventArgs e) {
+            if (ReservationReviewsViewmodel.SelectedRequest == null) {
+                AndroidDialogWindow androidDialogWindow = new AndroidDialogWindow("Please select a request first!");
+                androidDialogWindow.ShowDialog();
+                return;
+            }
+        }
+
+        private void Decline_Click(object sender, RoutedEventArgs e) {
+            if (ReservationReviewsViewmodel.SelectedRequest == null) {
+                AndroidDialogWindow androidDialogWindow = new AndroidDialogWindow("Please select a request first!");
+                androidDialogWindow.ShowDialog();
+                return;
+            }
+        }
     }
 }

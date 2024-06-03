@@ -1,0 +1,23 @@
+﻿<Window x:Class="BookingApp.WPF.Desktop.Views.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.Desktop.Views"
+        xmlns:converters="clr-namespace:BookingApp.WPF.Utils.Converters"
+        mc:Ignorable="d"
+        Title="ReportWindow" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converters:ImageConverter x:Key="ImageConverter"/>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <Button Command="{Binding ChooseFileDestinationCommand}"
+                    Content="CHoose"/>
+            <Button Command="{Binding GenerateReportCommand}"
+                    Content="Generate"/>
+            <Image Source="{Binding Preview, Converter={StaticResource ImageConverter}}"/>
+        </StackPanel>
+    </Grid>
+</Window>

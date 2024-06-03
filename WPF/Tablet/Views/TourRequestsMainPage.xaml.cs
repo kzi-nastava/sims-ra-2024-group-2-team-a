@@ -42,6 +42,7 @@ namespace BookingApp.WPF.Tablet.Views
                     break;
 
                 case "Complex Tour Requests":
+                    _additionalFrame.Content = new ComplexTourRequestPage(_additionalFrame, _userId);
                     break;
 
                 case "Stats for Requests":

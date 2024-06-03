@@ -4,6 +4,10 @@ using BookingApp.WPF.DTO;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections.Generic;
+using System.Linq;
+using System.ComponentModel;
+
 
 namespace BookingApp.WPF.Android.Views {
     /// <summary>
@@ -19,8 +23,9 @@ namespace BookingApp.WPF.Android.Views {
         private readonly AccommodationStatisticsService _statisticsService = ServicesPool.GetService<AccommodationStatisticsService>();  
 
         private LocationService locationService = ServicesPool.GetService<LocationService>();
-        public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
 
+        private AccommodationReviewService _reviewService = ServicesPool.GetService<AccommodationReviewService>();
+        public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
         public AccommodationDTO SelectedAccommodation { get; set; }
 
         public AccommodationPage(Frame mFrame, User user) {
@@ -43,11 +48,13 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void AddAccomodation_Click(object sender, RoutedEventArgs e) {
-            mainFrame.Content = new AddAccommodationPage(mainFrame, _user);
+            mainFrame.Content = new AddAccommodationPage(mainFrame, _user, null);
         }
 
         private void RenovationsButton_Click(object sender, RoutedEventArgs e) {
             if (SelectedAccommodation == null) {
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Please select accommodation first!");
+                dialogWindow.ShowDialog();
                 return;
             }
             else {
@@ -57,10 +64,13 @@ namespace BookingApp.WPF.Android.Views {
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e) {
             if (SelectedAccommodation == null ) {
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Please select accommodation first!");
+                dialogWindow.ShowDialog();
                 return;
             }
             else if (_statisticsService.IsStatisticEmpty(SelectedAccommodation.Id)) {
-                MessageBox.Show("Selected accommodation does not have any required statistic", "Selection Error", MessageBoxButton.OK);
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Selected accommodation does not have any required statistic!");
+                dialogWindow.ShowDialog();
             }
             else {
                 mainFrame.Content = new AccommodationStatisticsPage(SelectedAccommodation);
@@ -68,11 +78,23 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void GuidanceButton_Click(object sender, RoutedEventArgs e) {
+            if (_statisticsService.GetHottestAndColdestLocations(_user.Id)[0] == -1) {
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Register more accommodations on various locations to enable this feature!");
+                dialogWindow.ShowDialog();
+                return;
+            }
+            else if (_statisticsService.GetHottestAndColdestLocations(_user.Id)[0] == -2) {
+                AndroidDialogWindow dialogWindow = new AndroidDialogWindow("Insufficent statistics recorded to enable this feature!");
+                dialogWindow.ShowDialog();
+                return;
+            }
 
+            mainFrame.NavigationService.Navigate(new AccommodationGuidancePage(_user,mainFrame));
         }
 
         private void GeneratePdfButton_Click(object sender, RoutedEventArgs e) {
-
+            PdfGenerationWindow pdfGenerationWindow = new PdfGenerationWindow(_user);
+            pdfGenerationWindow.ShowDialog();
         }
     }
 }

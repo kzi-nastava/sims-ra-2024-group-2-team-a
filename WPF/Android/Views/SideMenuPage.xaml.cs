@@ -61,7 +61,7 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void InboxButton_Click(object sender, RoutedEventArgs e) {
-            MainFrame.Content = new NotificationsPage(_user);
+            MainFrame.Content = new NotificationsPage(_user, MainFrame);
             HideSideFrame();
             BlackFrame.Content = null;
         }
@@ -93,6 +93,12 @@ namespace BookingApp.WPF.Android.Views {
                 SideFrame.Content = null;
             };
             SideFrame.BeginAnimation(Frame.MarginProperty, animation);
+        }
+
+        private void ForumsButton_Click(object sender, RoutedEventArgs e) {
+            MainFrame.NavigationService.Navigate(new ForumsPage(_user, MainFrame));
+            HideSideFrame();
+            BlackFrame.Content = null;
         }
     }
 }

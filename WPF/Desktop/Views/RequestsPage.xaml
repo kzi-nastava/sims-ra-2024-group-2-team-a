@@ -11,6 +11,8 @@
       Title="RequestsPage">
     <Page.Resources>
         <converters:RadioButtonToStringConverter x:Key="RadioConverter"/>
+        <converters:RequestStatusToColorConverter x:Key="ColorConverter"/>
+        <converters:BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
         <Style TargetType="TabItem" x:Key="Tab">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="MinWidth" Value="120"/>
@@ -24,10 +26,16 @@
             </Setter>
             <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
         </Style>
-        <Style TargetType="Border" x:Key="BorderStyle">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="0.5"/>
+        <Style x:Key="BaseBorderStyle">
+            <Setter Property="Control.BorderBrush" Value="Black"/>
+            <Setter Property="Control.BorderThickness" Value="0.5"/>
+            <Setter Property="Control.Margin" Value="5"/>
+        </Style>
+        <Style TargetType="Border" x:Key="BorderStyle" BasedOn="{StaticResource BaseBorderStyle}">
+            
+        </Style>
+        <Style TargetType="GroupBox" x:Key="GroupBoxStyle" BasedOn="{StaticResource BaseBorderStyle}">
+
         </Style>
         <Style TargetType="Button" x:Key="ButtonStyle">
             <Setter Property="Background" Value="{StaticResource Green}"/>
@@ -59,7 +67,8 @@
                         <ColumnDefinition Width="17*"/>
                         <ColumnDefinition Width="13*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Command="{Binding CreateRequestCommand}"
+                    <Button x:Name="CreateRequestButton"
+                            Click="CreateRequestButton_Click"
                             Style="{StaticResource ButtonStyle}"
                             Grid.Column="1">Create Request</Button>
                     <Button x:Name="StatisticsButton"
@@ -173,7 +182,8 @@
                                                    Style="{StaticResource Info}"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
-                                                   Margin="20">
+                                                   Margin="20"
+                                                   Foreground="{Binding Status, Converter={StaticResource ColorConverter}}">
                                             <TextBlock.Text>
                                                 <Binding StringFormat="• {0}" 
                                                          Path="Status"/>
@@ -188,7 +198,178 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Complex tours"
-                     Style="{StaticResource Tab}"/>
+                     Style="{StaticResource Tab}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="CreateComplexRequestButton"
+                            Click="CreateComplexRequestButton_Click"
+                            Style="{StaticResource ButtonStyle}"
+                            Grid.Column="1">Create Request</Button>
+                    <Border Style="{StaticResource BorderStyle}"
+                            Background="{StaticResource SoftGreen}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="All"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="ComplexFilter"
+                                             IsChecked="{Binding ComplexFilter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=All}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="On hold"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="ComplexFilter"
+                                             IsChecked="{Binding ComplexFilter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=OnHold}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="2"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="Expired"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="ComplexFilter"
+                                             IsChecked="{Binding ComplexFilter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Expired}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="3"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="Accepted"
+                                           VerticalAlignment="Center"
+                                           Margin="5"/>
+                                <RadioButton VerticalAlignment="Center"
+                                             GroupName="ComplexFilter"
+                                             IsChecked="{Binding ComplexFilter, Mode=TwoWay, Converter={StaticResource RadioConverter}, ConverterParameter=Accepted}"/>
+                            </StackPanel>
+                            
+                        </Grid>
+                    </Border>
+                    <ScrollViewer Grid.Row="1"
+                                  Grid.ColumnSpan="2">
+                        <ItemsControl ItemsSource="{Binding ComplexTourRequests}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <GroupBox Header="{Binding Title}"
+                                              Style="{StaticResource GroupBoxStyle}">
+                                        <StackPanel>
+                                            <ItemsControl ItemsSource="{Binding TourRequests}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <GroupBox Header="{Binding Title}"
+                                                                  Style="{StaticResource GroupBoxStyle}">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="2*"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid Grid.Column="0"
+                                                                      Margin="20"
+                                                                      HorizontalAlignment="Center">
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition/>
+                                                                        <RowDefinition/>
+                                                                        <RowDefinition/>
+                                                                        <RowDefinition/>
+                                                                    </Grid.RowDefinitions>
+                                                                    <TextBlock Style="{StaticResource Info}">
+                                                                        <TextBlock.Text>
+                                                                            <MultiBinding StringFormat="{}{0}, {1}">
+                                                                                <Binding Path="Location.City"/>
+                                                                                <Binding Path="Location.Country"/>
+                                                                            </MultiBinding>
+                                                                        </TextBlock.Text>
+                                                                    </TextBlock>
+                                                                    <TextBlock Grid.Row="1"
+                                                                               Text="{Binding Language.Name}"
+                                                                               Style="{StaticResource Info}"/>
+                                                                    <TextBlock Grid.Row="2"
+                                                                               Style="{StaticResource Info}">
+                                                                        <TextBlock.Text>
+                                                                            <MultiBinding StringFormat="{}{0} - {1}">
+                                                                                <Binding Path="StartDate"/>
+                                                                                <Binding Path="EndDate"/>
+                                                                            </MultiBinding>
+                                                                        </TextBlock.Text>
+                                                                    </TextBlock>
+                                                                    <TextBlock Grid.Row="3"
+                                                                               Text="{Binding PassengerNumber}"
+                                                                               Style="{StaticResource Info}"/>
+                                                                </Grid>
+                                                                <Border Style="{StaticResource BorderStyle}"
+                                                                        Margin="20"
+                                                                        Grid.Column="1">
+                                                                    <TextBlock Style="{StaticResource Info}"
+                                                                               Text="{Binding Description}"/>
+                                                                </Border>
+                                                                <TextBlock Grid.Column="2"                                             
+                                                                           Style="{StaticResource Info}"
+                                                                           HorizontalAlignment="Center"
+                                                                           VerticalAlignment="Center"
+                                                                           Margin="20"
+                                                                           Foreground="{Binding Status, Converter={StaticResource ColorConverter}}"
+                                                                           Visibility="{Binding StatusVisible, Converter={StaticResource VisibilityConverter}}">
+                                                                    <TextBlock.Text>
+                                                                        <Binding StringFormat="• {0}" 
+                                                                                 Path="Status"/>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                            </Grid>
+                                                        </GroupBox>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <Border Style="{StaticResource BorderStyle}"
+                                                    MinHeight="60">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Button Style="{StaticResource ButtonStyle}"
+                                                            HorizontalAlignment="Left"
+                                                            Content="Click for more information"
+                                                            Padding="10, 0"/>
+                                                    <TextBlock Grid.Column="1"                                             
+                                                               Style="{StaticResource Info}"
+                                                               FontSize="24"
+                                                               HorizontalAlignment="Right"
+                                                               VerticalAlignment="Center"
+                                                               Foreground="{Binding Status, Converter={StaticResource ColorConverter}}">
+                                                        <TextBlock.Text>
+                                                            <Binding StringFormat="• {0}" 
+                                                                     Path="Status"/>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Grid>
+                                            </Border>
+                                        </StackPanel>
+                                    </GroupBox>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Page>

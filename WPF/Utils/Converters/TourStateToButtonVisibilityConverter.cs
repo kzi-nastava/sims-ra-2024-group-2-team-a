@@ -14,7 +14,7 @@ namespace BookingApp.WPF.Utils.Converters {
                 switch (status)
                 {
                     case "Scheduled":
-                        return Visibility.Collapsed;
+                        return parameter as string == "GenerateReportButton" ? Visibility.Visible : Visibility.Collapsed;
                     case "Active":
                         return parameter as string == "FollowLiveButton" ? Visibility.Visible : Visibility.Collapsed;
                     case "Finished":

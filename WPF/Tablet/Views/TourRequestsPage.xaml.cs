@@ -27,7 +27,7 @@ namespace BookingApp.WPF.Tablet.Views
         {
             InitializeComponent();
             _additionalFrame = aFrame;
-            ViewModel = new TourRequestViewModel(userId);
+            ViewModel = new TourRequestViewModel(userId, false);
             DataContext = ViewModel;
         }
         private void Clear_CanExecute(object sender, CanExecuteRoutedEventArgs e) {

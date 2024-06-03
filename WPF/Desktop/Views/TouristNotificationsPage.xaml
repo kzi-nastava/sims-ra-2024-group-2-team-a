@@ -4,54 +4,77 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.WPF.Desktop.Views"
+      xmlns:converters="clr-namespace:BookingApp.WPF.Utils.Converters"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TouristNotificationsPage">
     <Page.Resources>
-        <Style x:Key="ContentButtonStyle" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <ContentPresenter />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Cursor" Value="Hand" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <converters:NotificationStatusToBackgroundConverter x:Key="BackgroundConverter"
+                                                            TrueBrush="DarkGray"
+                                                            FalseBrush="{StaticResource SoftGreen}"/>
+        <converters:BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
     </Page.Resources>
     <Grid>
-        <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding Notifications}">
+        <ScrollViewer Margin="10, 5">
+            <ItemsControl ItemsSource="{Binding Notifications}"
+                          Margin="0, 5, 0, 0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Margin="5"
-                                Background="LightGray">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Column="0"
-                                       Grid.Row="1"
-                                       Text="{Binding Message}"/>
-                            <Button Grid.Column="1"
-                                    Grid.Row="0"
-                                    Content="Click to check it out"
-                                    Command="{Binding DataContext.NotificationCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
-                                    CommandParameter="{Binding}"
-                                    Style="{StaticResource ContentButtonStyle}"/>
-                            <TextBlock Grid.Column="1"
-                                       Grid.Row="1"
-                                       Text="{Binding CreationDate}"/>
-                        </Grid>
+                        <Border Margin="0, 0, 10, 5"
+                                Background="{Binding IsRead, Converter={StaticResource BackgroundConverter}}">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal"
+                                            VerticalAlignment="Top"
+                                            HorizontalAlignment="Left">
+                                    <Image Source="{Binding NotificationIcon}"
+                                           Height="40"
+                                           Margin="0, 0, 5, 0"/>
+                                    <TextBlock FontSize="32"
+                                               Text="{Binding Title}"
+                                               FontWeight="Bold"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="1"
+                                           Text="Click to check it out"
+                                           Visibility="{Binding IsRead, Converter={StaticResource VisibilityConverter}, ConverterParameter=Inverse}"
+                                           FontSize="24"
+                                           FontWeight="Bold"
+                                           Cursor="Hand"
+                                           Padding="0"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Top">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewMouseDown">
+                                            <i:InvokeCommandAction Command="{Binding DataContext.NotificationCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                                                   CommandParameter="{Binding}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBlock>
+                                <StackPanel VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"
+                                            Margin="0, 10"
+                                            Grid.Row="1">
+                                    <TextBlock Text="{Binding MessageHeader}"
+                                               FontSize="16"
+                                               FontWeight="Bold"/>
+                                    <TextBlock FontSize="16"
+                                               Text="{Binding Message}"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           FontSize="16"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Text="{Binding CreationDate}"/>
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

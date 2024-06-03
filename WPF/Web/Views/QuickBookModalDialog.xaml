@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="BookingApp.WPF.Web.Views.QuickBookModalDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             HorizontalAlignment="Center" VerticalAlignment="Center">
+
+    <UserControl.Resources>
+        <Style x:Key="ImageStyle" TargetType="Image">
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        </Style>
+
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="0 10 0 10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ButtonText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Border BorderBrush="{StaticResource Green}" BorderThickness="2" Width="350" CornerRadius="10" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="{StaticResource Green}" Grid.Row="0" BorderThickness="2" Width="350" CornerRadius="10" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Text="Choose reservation date" Style="{StaticResource Title}"/>
+
+            <Label Grid.Row="1" FontSize="18" Content="{Binding Accommodation.Name}" HorizontalAlignment="Left" Margin="10 10 0 10"/>
+
+            <Label Grid.Row="1" HorizontalAlignment="Right" Margin="0 10 10 10">
+                <WrapPanel>
+                    <Image Style="{StaticResource ImageStyle}" Source="{StaticResource LocationIcon}"/>
+                    <TextBlock Text="{Binding Accommodation.Location.LocationInfoTemplate}"/>
+                </WrapPanel>
+            </Label>
+
+            <DataGrid x:Name="dataGridSuggestedDates" Grid.Row="2" ItemsSource="{Binding SuggestedReservations}" Margin="15 5 15 5" Height="250" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Start date" Binding="{Binding StartDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
+                    <DataGridTextColumn Header="End date" Binding="{Binding EndDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <TextBlock x:Name="infoTextBlock" Grid.Row="3" HorizontalAlignment="Center" Margin="0 10 0 10">
+                    <Run Text="Bonus points: "/>
+                    <Run Text="{Binding GuestUser.BonusPoints}"/>
+                    <Run Text=" / "/>
+                    <Run Text="{Binding MaxBonusPoints}"/>
+            </TextBlock>
+
+            <Button x:Name="buttonCancel" Grid.Row="4" Margin="10" HorizontalAlignment="Left" Click="ButtonCancelClick">
+                <WrapPanel Margin="10">
+                    <Image Style="{StaticResource ImageStyle}" Source="{StaticResource CaneclIcon}"/>
+                    <TextBlock Text="Cancel" Style="{StaticResource ButtonText}"/>
+                </WrapPanel>
+            </Button>
+
+            <Button Grid.Row="4" Margin="10" HorizontalAlignment="Right" Click="ButtonConfirmClick">
+                <WrapPanel Margin="10">
+                    <Image Style="{StaticResource ImageStyle}" Source="{StaticResource ConfirmIcon}"/>
+                    <TextBlock Text="Confirm" Style="{StaticResource ButtonText}"/>
+                </WrapPanel>
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedItem, ElementName=dataGridSuggestedDates}" Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Border>
+</UserControl>

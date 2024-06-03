@@ -52,6 +52,7 @@ namespace BookingApp.WPF {
             }
             else if (user.Category == UserCategory.Tourist) {
                 TouristMainWindow touristMainWindow = new TouristMainWindow(user.Id);
+                App.NotificationService.ConfigureNotifier(touristMainWindow);
                 touristMainWindow.Show();
                 Close();
             }
@@ -62,6 +63,8 @@ namespace BookingApp.WPF {
             }
             else {
                 GuestMainWindow guestMainWindow = new GuestMainWindow(user.Id);
+                App.GuestMainWindowReference = guestMainWindow;
+                App.NotificationService.ConfigureNotifier(guestMainWindow);
                 guestMainWindow.Show();
                 Close();
             }

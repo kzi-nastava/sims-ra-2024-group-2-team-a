@@ -1,7 +1,9 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.DTO;
+using System;
 using System.Collections.Generic;
+using System.Net.WebSockets;
 using System.Windows.Documents;
 
 namespace BookingApp.Services {
@@ -12,15 +14,18 @@ namespace BookingApp.Services {
         private AccommodationReservationService _reservationService;
         private OwnerService _ownerService;
         private AccommodationStatisticsService _accommodationStatisticsService;
+        private AccommodationService _accommodationService;
         
         public AccommodationReviewService(IAccommodationReviewRepository reviewRepository) {
             _reviewRepository = reviewRepository;
         }
 
-        public void InjectServices(AccommodationReservationService reservationService, OwnerService ownerService, AccommodationStatisticsService accommodationStatisticsService) {
+        public void InjectServices(AccommodationReservationService reservationService, OwnerService ownerService, 
+                AccommodationStatisticsService accommodationStatisticsService, AccommodationService accService) {
             _reservationService = reservationService;
             _ownerService = ownerService;
             _accommodationStatisticsService = accommodationStatisticsService;
+            _accommodationService = accService;
         }
         
         public List<AccommodationReview> GetByGuestId(int ownerId) { 
@@ -49,6 +54,11 @@ namespace BookingApp.Services {
         }
 
         public void GradeOwner(AccommodationReviewDTO reviewDTO) {
+            if (reviewDTO.RequiresRenovation) {
+                AccommodationReservation accRes = _reservationService.GetById(reviewDTO.ReservationId);
+                _accommodationStatisticsService.UpdateRecommendationStatistics(accRes.AccommodationId, accRes.StartDate); ;
+            }
+
             AccommodationReview review = this.GetByReservationId(reviewDTO.ReservationId);
             if (review == null) {
                 _reviewRepository.Save(reviewDTO.ToReview());
@@ -64,11 +74,6 @@ namespace BookingApp.Services {
             review.RenovationComment = reviewDTO.RenovationComment;
             _reviewRepository.Update(review);
             _ownerService.AdjustSuperOwner(review.OwnerId);
-
-            if (reviewDTO.RequiresRenovation) {
-                AccommodationReservation accRes = _reservationService.GetById(reviewDTO.ReservationId);
-                _accommodationStatisticsService.UpdateRecommendationStatistics(accRes.AccommodationId, accRes.StartDate);;
-            }
         }
 
         public bool IsGradedByGuest(int reservationId) {
@@ -92,6 +97,39 @@ namespace BookingApp.Services {
             }
             return true;
         }
+        public Dictionary<Accommodation,double> GetAverageAccommodationGradesByOwnerId(int ownerId, AccommodationType type) {
+            Dictionary<Accommodation, double> allAccommodations = new Dictionary<Accommodation, double>();
 
+            foreach (var acc in _accommodationService.GetByOwnerId(ownerId)) {
+                if (acc.Type == type) {
+                    double averageGrade = this.CalculateAverageAccommodationGrade(acc.Id);
+                    allAccommodations.Add(acc, averageGrade);
+                }
+            }
+
+            return allAccommodations;
+        }
+
+        private double CalculateAverageAccommodationGrade(int accId) {
+            double avgGrade = 0;
+            int gradeCount = 0;
+            foreach (var reservation in _reservationService.GetByAccommodationId(accId)) {
+                AccommodationReview accReview = this.GetByReservationId(reservation.Id);
+                if (accReview == null || accReview.OwnerCorrectnessGrade == 0 || accReview.GuestCleannessGrade == 0) {
+                    continue;
+                }
+
+                double avg = (accReview.OwnerCorrectnessGrade + accReview.AccommodationCleannessGrade)/2;
+                gradeCount++;
+
+                avgGrade += avg;
+            }
+
+            if (avgGrade == 0 || gradeCount == 0) {
+                return 0;
+            }
+
+            return avgGrade / gradeCount;
+        }
     }
 }

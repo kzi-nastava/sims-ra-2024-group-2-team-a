@@ -32,18 +32,30 @@ namespace BookingApp.Services {
             _services[typeof(AccommodationRenovationService)] = new AccommodationRenovationService(RepositoryInjector.GetInstance<IAccommodationRenovationRepository>());
             _services[typeof(AccommodationReviewService)] = new AccommodationReviewService(RepositoryInjector.GetInstance<IAccommodationReviewRepository>());
             _services[typeof(NotificationService)] = new NotificationService(RepositoryInjector.GetInstance<INotificationRepository>());
+            _services[typeof(ComplexTourRequestService)] = new ComplexTourRequestService(RepositoryInjector.GetInstance<IComplexTourRequestRepository>());
+            _services[typeof(ForumService)] = new ForumService(RepositoryInjector.GetInstance<IForumRepository>());
+            _services[typeof(CommentService)] = new CommentService(RepositoryInjector.GetInstance<ICommentRepository>());
+            _services[typeof(VisitedTourService)] = new VisitedTourService(RepositoryInjector.GetInstance<IVisitedTourRepository>());
+            _services[typeof(GuideService)] = new GuideService(RepositoryInjector.GetInstance<IGuideRepository>());
+            _services[typeof(TouristService)] = new TouristService(RepositoryInjector.GetInstance<ITouristRepository>());
 
             LinkAllServices();
         }
 
         private static void LinkAllServices() {
+
+            GetService<AccommodationService>().InjectServices(
+                GetService<ReservationRecommenderService>()
+            );
+
             GetService<TourService>().InjectService(
                 GetService<PassengerService>(),
                 GetService<TourReservationService>(),
                 GetService<TourReviewService>(),
                 GetService<PointOfInterestService>(),
                 GetService<TourRequestService>(),
-                GetService<NotificationService>()
+                GetService<NotificationService>(),
+                GetService<GuideService>()
                 ); 
 
             GetService<AccommodationReservationService>().InjectServices(
@@ -68,16 +80,20 @@ namespace BookingApp.Services {
             GetService<AccommodationReviewService>().InjectServices(
                 GetService<AccommodationReservationService>(),
                 GetService<OwnerService>(),
-                GetService<AccommodationStatisticsService>()
+                GetService<AccommodationStatisticsService>(),
+                GetService<AccommodationService>()
                 );
 
             GetService<NotificationService>().InjectServices(
                 GetService<AccommodationRescheduleRequestService>(),
-                GetService<AccommodationReservationService>()
+                GetService<AccommodationReservationService>(),
+                GetService<LocationService>(),
+                GetService<AccommodationService>()
                 );
 
             GetService<AccommodationStatisticsService>().InjectServices(
-                GetService<AccommodationReservationService>()
+                GetService<AccommodationReservationService>(),
+                GetService<AccommodationService>()
                 );
 
             GetService<OwnerService>().InjectServices(
@@ -98,6 +114,26 @@ namespace BookingApp.Services {
 
             GetService<PassengerService>().InjectServices(
                 GetService<TourReservationService>()
+                );
+
+            GetService<ComplexTourRequestService>().InjectServices(
+                GetService<TourRequestService>()
+                );
+
+            GetService<ForumService>().InjectServices(
+                GetService<AccommodationService>(),
+                GetService<NotificationService>()
+                );
+
+            GetService<CommentService>().InjectServices(
+                GetService<AccommodationReservationService>(),
+                GetService<ForumService>(),
+                GetService<UserService>()
+                );
+
+            GetService<VisitedTourService>().InjectServices(
+                GetService<VoucherService>(),
+                GetService<TourService>()
                 );
         }
 

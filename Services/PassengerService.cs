@@ -46,6 +46,11 @@ namespace BookingApp.Services {
         public List<Passenger> GetUnJoined(List<TourReservation> reservations) {
             return _passengerRepository.GetUnJoined(reservations);
         }
+
+        public List<Passenger> GetByTourAndTourist(int tourId, int touristId) {
+            return _passengerRepository.GetAll().Where(p => p.TourReservationId == _tourReservationService.GetByTourAndTourist(tourId, touristId).Id).ToList();
+        }
+
         public bool Update(Passenger? passenger) {
             return _passengerRepository.Update(passenger);
         }

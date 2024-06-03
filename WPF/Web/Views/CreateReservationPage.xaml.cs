@@ -91,7 +91,7 @@ namespace BookingApp.WPF.Web.Views {
             selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
 
             ViewModel.SaveReservation(selectedReservation);
-
+            App.NotificationService.ShowSuccess("Reservation successfully created!");
             GoBack(sender, e);
         }
 

@@ -16,12 +16,14 @@ namespace BookingApp.WPF.Android.Views {
 
         private readonly User _user;
         public List<NotificationDTO> NotificationDTOs { get; set; }
-        public NotificationsPage(User user) {
+        private Frame MainFrame { get; set; }
+        public NotificationsPage(User user, Frame mainframe) {
             InitializeComponent();
             DataContext = this;
 
             _user = user;
             NotificationDTOs = new List<NotificationDTO>();
+            MainFrame = mainframe;
             Update();
         }
 
@@ -61,6 +63,27 @@ namespace BookingApp.WPF.Android.Views {
             foreach (var notificationDTO in NotificationDTOs) {
                 notificationDTO.IsRead = true;
                 notificationService.Update(notificationDTO.ToNotification());
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            Button button = sender as Button;
+            if (button == null) {
+                return;
+            }
+
+            NotificationDTO item = button.DataContext as NotificationDTO;
+            if (item == null) {
+                return;
+            }
+
+            if (item.Category == NotificationCategory.Review || item.Category == NotificationCategory.Request) {
+                ReservationReviewsPage reservationReviewsPage = new ReservationReviewsPage(_user); 
+                MainFrame.Navigate(reservationReviewsPage);
+            }
+            if (item.Category == NotificationCategory.Forum) {
+                ForumsPage forumsPage = new ForumsPage(_user, MainFrame);
+                MainFrame.Navigate(forumsPage);
             }
         }
     }

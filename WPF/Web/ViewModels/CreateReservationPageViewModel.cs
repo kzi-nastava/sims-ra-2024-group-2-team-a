@@ -27,7 +27,7 @@ namespace BookingApp.WPF.Web.ViewModels {
 
         public int MaxPictureIndex => Accommodation.ProfilePictures.Count - 1;
 
-        public AccommodationReservationDTO ReservationDTO { get; set; } = new AccommodationReservationDTO();
+        public AccommodationReservationFilterDTO ReservationDTO { get; set; } = new AccommodationReservationFilterDTO();
 
         private List<AccommodationReservation> _suggestedReservations;
         public List<AccommodationReservation> SuggestedReservations {

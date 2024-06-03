@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace BookingApp.Domain.Model {
 
@@ -6,31 +7,37 @@ namespace BookingApp.Domain.Model {
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public int Age { get; set; }
+        public DateOnly DateOfBirth { get; set; }
 
         public Tourist() { }
 
-        public Tourist(string username, string password) : base(username, password)
+        public Tourist(User user) : base(user)
         {
             Category = UserCategory.Tourist;
         }
 
+        public Tourist(int id, string name, string surname, DateOnly dateOfBirth) {
+            Id = id;
+            Name = name;
+            Surname = surname;
+            DateOfBirth = dateOfBirth;
+        }
 
-        public string[] ToCSV()
+        public override string[] ToCSV()
 
         {
-            string[] csvValues = { Id.ToString(), Name, Surname, Age.ToString() };
+            string[] csvValues = { Id.ToString(), Name, Surname, DateOfBirth.ToString("dd-MM-yyyy") };
             return csvValues;
         }
 
 
-        public void FromCSV(string[] values)
+        public override void FromCSV(string[] values)
 
         {
-            base.FromCSV(values);
-            Name = values[0];
-            Surname = values[1];
-            Age = Convert.ToInt32(values[2]);
+            Id = int.Parse(values[0]);
+            Name = values[1];
+            Surname = values[2];
+            DateOfBirth = DateOnly.ParseExact(values[3], "dd-MM-yyyy", CultureInfo.InvariantCulture);
         }
     }
 }

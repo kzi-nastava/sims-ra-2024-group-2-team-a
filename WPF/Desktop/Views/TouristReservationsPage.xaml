@@ -229,6 +229,14 @@
                                                 Padding="Auto"
                                                 Content="Follow live"
                                                 Visibility="{Binding TourStatus, Converter={StaticResource ButtonConverter}, ConverterParameter=FollowLiveButton}"/>
+                                        <Button Grid.Row="1"
+                                                x:Name="GenerateReportButton"                                        
+                                                Click="GenerateReportButton_Click"
+                                                Style="{StaticResource ButtonStyle}"
+                                                Margin="0"
+                                                Padding="Auto"
+                                                Content="Report"
+                                                Visibility="{Binding TourStatus, Converter={StaticResource ButtonConverter}, ConverterParameter=GenerateReportButton}"/>    
                                     </Grid>
                                 </Grid>
                             </Grid>
