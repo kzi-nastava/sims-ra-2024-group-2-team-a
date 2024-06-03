@@ -31,6 +31,7 @@ namespace BookingApp.WPF.Web.Views {
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
             ViewModel.GradeOwner();
             _parentPage.Update();
+            App.NotificationService.ShowSuccess("Accommodation successfully reviewed!");
             _parentPage.CloseModalDialog();
         }
 

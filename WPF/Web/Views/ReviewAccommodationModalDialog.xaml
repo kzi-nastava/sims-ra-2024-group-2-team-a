@@ -106,7 +106,7 @@
 
                         <StackPanel>
                             <Label Content="Your comment" Style="{StaticResource LabelStyle}"/>
-                            <TextBox TextWrapping="Wrap" Width="400" Height="100" Margin="10 0 0 0" HorizontalAlignment="Left"
+                            <TextBox TextWrapping="Wrap" Width="400" Height="100" Margin="10 0 0 0" HorizontalAlignment="Left" Padding="5"
                             Text="{Binding Review.GuestComment,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
@@ -137,7 +137,7 @@
 
                         <StackPanel Orientation="Vertical" IsEnabled="{Binding ElementName=checkBoxRequiresRenovation, Path=IsChecked}">
                             <Label Content="Renovation comment" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="textBoxRenovationComment" TextWrapping="Wrap" Width="400" Height="100" Margin="10 0 0 0" HorizontalAlignment="Left"
+                            <TextBox x:Name="textBoxRenovationComment" TextWrapping="Wrap" Width="400" Height="100" Margin="10 0 0 0" HorizontalAlignment="Left" Padding="5"
                                      Text="{Binding Review.RenovationComment, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         
