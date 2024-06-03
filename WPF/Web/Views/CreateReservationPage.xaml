@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
       xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1000"
       Title="CreateReservationPage">
@@ -133,6 +134,30 @@
                             </WrapPanel>
                         </Label>
 
+                        <Grid Grid.Row="4">
+                            <Label Grid.Row="3" HorizontalContentAlignment="Center" Margin="0 0 0 10">
+                                <WrapPanel Orientation="Horizontal">
+                                    <Image Source="{StaticResource StatsIcon}"/>
+                                    <TextBlock Style="{StaticResource AccommodationInfoStyle}" Text="Ratings"/>
+                                </WrapPanel>
+                            </Label>
+
+                            <lvc:CartesianChart Name="RatingChart" Height="110" Margin="10 40 10 0">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Average rating" MinValue="0" MaxValue="5" Foreground="Gray">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Stroke="Gray" Step="1" IsEnabled="True"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Labels="Cleanness,Correctness" Foreground="Black"/>
+                                </lvc:CartesianChart.AxisY>
+                                <lvc:CartesianChart.Series>
+                                    <lvc:RowSeries Fill="{StaticResource Green}" Name="ratingsSeries"/>
+                                </lvc:CartesianChart.Series>
+                            </lvc:CartesianChart>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Border>

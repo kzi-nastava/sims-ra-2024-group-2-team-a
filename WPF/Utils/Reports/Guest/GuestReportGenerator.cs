@@ -15,12 +15,15 @@ namespace BookingApp.WPF.Utils.Reports.Guest {
 
         private DateTime _issueDate;
         private string _generatedBy;
-        private double AverageCleanlinessGrade;
-        private double AverageBehaviourGrade;
+        private double AverageCleanlinessGrade = 0.0;
+        private double AverageBehaviourGrade = 0.0;
 
         public GuestReportGenerator(string generatedBy, List<AccommodationReviewDTO> reviews) {
             _issueDate = DateTime.Now;
             _generatedBy = generatedBy;
+
+            if (reviews.Count == 0) 
+                return;
 
             AverageCleanlinessGrade = reviews.Average(r => r.GuestCleannessGrade);
             AverageBehaviourGrade = reviews.Average(r => r.RuleFollowingGrade);
