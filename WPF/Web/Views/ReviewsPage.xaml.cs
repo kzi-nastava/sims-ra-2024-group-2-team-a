@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using QuestPDF.Infrastructure;
 using QuestPDF.Fluent;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace BookingApp.WPF.Web.Views {
     /// <summary>
@@ -68,6 +69,10 @@ namespace BookingApp.WPF.Web.Views {
             if (result == DialogResult.OK) {
                 string filePath = saveFileDialog.FileName;
                 guestReportGenerator.GeneratePdf(filePath);
+
+                if(checkBoxPreview.IsChecked == true) {
+                    Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
+                }
             }
         }
     }
