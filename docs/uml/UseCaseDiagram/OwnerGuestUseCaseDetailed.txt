@@ -29,12 +29,21 @@ Reporting comment
 	5. Report feature on that comment is disabled
 
 (Un)popular locatons:
-	Precondition: owner must have enough accommodations on various locations
-	Postcondition: owner can add or close accommodations
+	Precondition: Owner must have enough accommodations on various locations
+	Postcondition: Owner can add or close accommodations
 
-	1.Owner sees popular and unpopular locations
-	2.Owner can choose to open a new accommodations or to close them
-	3.[Extend: Add new accommodation]
-	4.[Extend: Close accommodation]
+	1. Owner sees popular and unpopular locations
+	2. Owner can choose to open a new accommodations or to close them
+	3. [Extend: Add new accommodation]
+	4. [Extend: Close accommodation]
 
+Accommodation quick search
+	Precondition: None
+	Postcondition: Accommodations that satisfy quick search are shown. 
+		New reservation is created if the guest has booked some accommodation.
+
+	1. The guest types number of days he/she wants to spend in an accommodation and total number of guests
+	2. Accommodations that satisfy search are shown
+	3. The guest chooses and accommodation
+	4. [Extend: Booking accommodation]
 	
