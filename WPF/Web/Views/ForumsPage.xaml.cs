@@ -127,7 +127,7 @@ namespace BookingApp.WPF.Web.Views {
         private void SetupRatingChart() {
             var series = OwnerRatingChart.Series[0] as RowSeries;
 
-            List<Owner> owners = _ownerService.GetAll().OrderByDescending(o => o.AverageGrade).ToList();
+            List<Owner> owners = _ownerService.GetAll().OrderBy(o => o.AverageGrade).ToList();
             
             series.Values = new ChartValues<double>(owners.Select(o => o.AverageGrade).Take(RatingSeriesCount));
 
