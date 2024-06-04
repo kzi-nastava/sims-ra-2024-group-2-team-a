@@ -41,11 +41,15 @@ namespace BookingApp.WPF.Web.ViewModels {
         private readonly int maxSuggestedReservationsCount = 20;
 
         private readonly AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
+        private readonly AccommodationReviewService _reviewService = ServicesPool.GetService<AccommodationReviewService>();
 
         private readonly GuestService _guestService = ServicesPool.GetService<GuestService>();
 
         public Guest GuestUser { get; set; }
         public int MaxBonusPoints { get; set; } = Guest.SuperGuestStartPoints;
+
+        public double AverageCleannessGrade { get; set; } = 0.0;
+        public double AverageCorrectnessGrade { get; set; } = 0.0;
 
         public CreateReservationPageViewModel(AccommodationDTO accommodationDTO, int guestId) {
             Accommodation = accommodationDTO;
@@ -53,6 +57,9 @@ namespace BookingApp.WPF.Web.ViewModels {
 
             GuestUser = _guestService.GetById(guestId);
             SelectedAccommodationPicture = Accommodation.ProfilePictures[PicturesIndex];
+
+            AverageCleannessGrade = _reviewService.GetAverageCleannessGrade(Accommodation.Id);
+            AverageCorrectnessGrade = _reviewService.GetAverageCorrectnessGrade(Accommodation.Id);
         }
 
         public void UpdateSuggestedReservations() {
