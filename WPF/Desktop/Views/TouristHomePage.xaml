@@ -146,7 +146,7 @@
                                                            Height="20"/>
                                                     <TextBlock Style="{StaticResource Info}">
                                                         <TextBlock.Text>
-                                                            <MultiBinding StringFormat="{}{0}, {1}s">
+                                                            <MultiBinding StringFormat="{}{0}, {1}">
                                                                 <Binding Path="Location.City"/>
                                                                 <Binding Path="Location.Country"/>
                                                             </MultiBinding>
@@ -190,7 +190,7 @@
                                         <Border Style="{StaticResource BorderStyle}"
                                                 Margin="0"
                                                 Grid.Column="1"
-                                                Background="{StaticResource SoftGreen}">
+                                                Background="White">
                                             <TextBlock Text="{Binding Description}"
                                                        Style="{StaticResource Info}"
                                                        FontWeight="Normal"

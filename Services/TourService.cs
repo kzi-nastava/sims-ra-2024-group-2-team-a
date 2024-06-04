@@ -70,18 +70,7 @@ namespace BookingApp.Services {
         }
 
         public List<Tour> GetFiltered(TourFilterDTO filter) {
-            List<Tour> allTours = new List<Tour>();
-
-            foreach (var tour in _tourRepository.GetAll())
-            {
-                if(_guideService.GetById(tour.GuideId).IsSuper)
-                    allTours.Add(tour);
-            }
-
-            foreach (var tour in _tourRepository.GetAll()) {
-                if (!_guideService.GetById(tour.GuideId).IsSuper)
-                    allTours.Add(tour);
-            }
+            List<Tour> allTours = _tourRepository.GetAll();
 
             if (filter.isEmpty())
                 return allTours;
