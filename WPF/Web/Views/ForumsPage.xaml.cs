@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.WPF.Web.Views {
     /// <summary>
@@ -30,8 +31,10 @@ namespace BookingApp.WPF.Web.Views {
         private readonly ForumService _forumService = ServicesPool.GetService<ForumService>();
         private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         private readonly UserService _userService = ServicesPool.GetService<UserService>();
+        private readonly OwnerService _ownerService = ServicesPool.GetService<OwnerService>();
 
         private readonly int PieSeriesCount = 4;
+        private readonly int RatingSeriesCount = 5;
         private Dictionary<LocationDTO, int> _locationCommentNums;
 
         public ForumsPage() {
@@ -91,6 +94,7 @@ namespace BookingApp.WPF.Web.Views {
     
         public void SetupCharts() {
             SetupPieChart();
+            SetupRatingChart();
         }
 
         private void SetupPieChart() {
@@ -118,6 +122,18 @@ namespace BookingApp.WPF.Web.Views {
                 Title = "Other",
                 Values = new ChartValues<int> { otherCount },
             });
+        }
+
+        private void SetupRatingChart() {
+            var series = OwnerRatingChart.Series[0] as RowSeries;
+
+            List<Owner> owners = _ownerService.GetAll().OrderByDescending(o => o.AverageGrade).ToList();
+            
+            series.Values = new ChartValues<double>(owners.Select(o => o.AverageGrade).Take(RatingSeriesCount));
+
+            List<string> labels = owners.Select(o => _userService.GetById(o.UserId).Username).Take(RatingSeriesCount).ToList();
+
+            OwnerRatingChart.AxisY[0].Labels = labels;
         }
     }
 }
