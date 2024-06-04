@@ -113,5 +113,13 @@ namespace BookingApp.Services {
 
             this.Update(forum);
         }
+    
+        public int GetNumCommentsByLocationId(int locationId) {
+            int numComments = 0;
+            var forums = this.GetByLocationId(locationId);
+            forums.ForEach(f => numComments += f.OwnerCommentNum + f.GuestCommentNum);
+
+            return numComments;
+        }
     }
 }

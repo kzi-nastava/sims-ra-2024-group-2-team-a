@@ -1,5 +1,7 @@
 ﻿using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using LiveCharts.Wpf;
+using LiveCharts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,6 +31,9 @@ namespace BookingApp.WPF.Web.Views {
         private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         private readonly UserService _userService = ServicesPool.GetService<UserService>();
 
+        private readonly int PieSeriesCount = 4;
+        private Dictionary<LocationDTO, int> _locationCommentNums;
+
         public ForumsPage() {
             InitializeComponent();
             UpdateLocationDTOs();
@@ -44,6 +49,11 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         public void Update() {
+            UpdateForumDTOs();
+            SetupCharts();
+        }
+
+        public void UpdateForumDTOs() {
             if (comboBoxLocation.SelectedIndex == 0) {
                 _forumDTOs = _forumService.GetAll().Select(f => new ForumDTO(f)).ToList();
             } else {
@@ -63,7 +73,7 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void LocationSelectionChanged(object sender, SelectionChangedEventArgs e) {
-            Update();
+            UpdateForumDTOs();
         }
 
         public void ButtonCreateForumClick(object sender, RoutedEventArgs e) {
@@ -77,6 +87,37 @@ namespace BookingApp.WPF.Web.Views {
         public void CloseModalDialog() {
             rectBlurBackground.Visibility = Visibility.Hidden;
             mainGrid.Children.RemoveAt(mainGrid.Children.Count - 1);
+        }
+    
+        public void SetupCharts() {
+            SetupPieChart();
+        }
+
+        private void SetupPieChart() {
+            PopularLocationsPieChart.Series = new SeriesCollection();
+            _locationCommentNums = new Dictionary<LocationDTO, int>();
+            var locations = _locationDTOs.GetRange(1, _locationDTOs.Count - 1);
+
+            foreach (var location in locations) {
+                _locationCommentNums.Add(location, _forumService.GetNumCommentsByLocationId(location.Id));
+            }
+
+            _locationCommentNums = _locationCommentNums.OrderByDescending(l => l.Value).ToDictionary(l => l.Key, l => l.Value);
+
+            foreach (var pair in _locationCommentNums.Take(PieSeriesCount)) {
+
+                PopularLocationsPieChart.Series.Add(new PieSeries {
+                    Title = pair.Key.LocationInfoTemplate,
+                    Values = new ChartValues<int> { pair.Value },
+                });
+            }
+
+            int otherCount = _locationCommentNums.Skip(PieSeriesCount).Sum(l => l.Value);
+
+            PopularLocationsPieChart.Series.Add(new PieSeries {
+                Title = "Other",
+                Values = new ChartValues<int> { otherCount },
+            });
         }
     }
 }
