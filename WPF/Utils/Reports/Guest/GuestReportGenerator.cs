@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QuestPDF.Helpers;
+using System.IO;
 
 namespace BookingApp.WPF.Utils.Reports.Guest {
     public class GuestReportGenerator : IDocument {
@@ -58,6 +59,8 @@ namespace BookingApp.WPF.Utils.Reports.Guest {
                         text.Span(_generatedBy);
                     });
                 });
+
+                row.ConstantItem(200).AlignRight().Height(64).Image(LoadImage());
             });
         }
 
@@ -140,6 +143,11 @@ namespace BookingApp.WPF.Utils.Reports.Guest {
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
+
+        private byte[] LoadImage() {
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "../../../Resources/Images/Logo/booking-app-logo.png");
+            return File.ReadAllBytes(path);
+        }
 
         private readonly string _reportSummaryIntro = @"
             This report provides a comprehensive evaluation of the guest's stay based on feedback received from accommodation owners. It includes two key metrics:";
