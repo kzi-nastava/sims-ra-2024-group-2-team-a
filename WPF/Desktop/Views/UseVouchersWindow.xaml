@@ -5,45 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="UseVouchersWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" 
-              Margin="10, 5, 10, 10">
-            <ListView ItemsSource="{Binding VouchersOnDisplay}" SelectedItem="{Binding SelectedVoucher}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border>
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="20, 10"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="{StaticResource Beige}">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Available coupons:"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+            <ScrollViewer Grid.Row="1"
+                          Margin="0, 10">
+                <ListView ItemsSource="{Binding VouchersOnDisplay}"
+                          Margin="0, 0, 10, 0"
+                          Width="Auto">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{Binding Image}" 
-                               Grid.Column="0" 
-                               SnapsToDevicePixels="True"
-                               Margin="5"
-                               />
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock FontWeight="Bold">
-                                Expire Date
-                                    </TextBlock>
-                                    <TextBlock Text="{Binding ExpireDate}">
-
-                                    </TextBlock>
-                                </StackPanel>
+                                <Border BorderBrush="Black" BorderThickness="0.5" Margin="0, 0, 0, 10">
+                                    <Viewbox Stretch="Uniform">
+                                        <Image Source="{Binding Image}"/>
+                                    </Viewbox>
+                                </Border>
                             </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollViewer>
-        <Button Grid.Row="1"
-                x:Name="UseVoucherButton"
-                Click="UseVoucherButton_Click">
-            Use coupon
-        </Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+            <Button Grid.Row="2"
+                    Style="{StaticResource ButtonStyle}"
+                    Content="Use coupon"/>
+        </Grid>
     </Grid>
 </Window>

@@ -64,9 +64,14 @@ namespace BookingApp.WPF.Utils.Reports.Tourist
                         text.Span("Issue date: ").SemiBold();
                         text.Span($"{_issueDate:d}");
                     });
+
+                    column.Item().Text(text => {
+                        text.Span("Issued by: ").SemiBold();
+                        text.Span(_generatedBy);
+                    });
                 });
 
-                row.ConstantItem(200).Height(100).Image(LoadImage());
+                row.ConstantItem(200).AlignRight().Height(50).Image(File.ReadAllBytes(Path.Combine(Directory.GetCurrentDirectory(), "../../../Resources/Images/booking-app-logo.png")));
             });
         }
         private byte[] LoadImage()
@@ -82,6 +87,10 @@ namespace BookingApp.WPF.Utils.Reports.Tourist
             container.PaddingVertical(40).Column(column =>
             {
                 column.Spacing(5);
+
+                column.Item().AlignCenter().Width(300).Image(LoadImage());
+
+                column.Spacing(20);
 
                 column.Item().Row(row =>
                 {

@@ -108,6 +108,7 @@
                    Grid.Column="1"/>
         </Grid>
         <Button Command="{Binding GenerateReportCommand}"
+                Click="Button_Click"
                 Content="Download"
                 Grid.Row="2"
                 Style="{StaticResource ButtonStyle}"
