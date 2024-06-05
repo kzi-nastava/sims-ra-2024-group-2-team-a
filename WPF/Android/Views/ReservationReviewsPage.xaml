@@ -130,13 +130,20 @@
                                     <DataTrigger Binding="{Binding SelectedReservation.IsGradedByOwner}" Value="False">
                                         <Setter Property="Content" Value="Grade this reservation first"/>
                                     </DataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding SelectedReservation.IsGradedByOwner}" Value="True"/>
+                                            <Condition Binding="{Binding SelectedReservation.IsGradedByGuest}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Content" Value="Not graded by guest.."/>
+                                    </MultiDataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Label.Style>
                     </Label>
 
                     <Button x:Name="ViewGradeButton" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Width="170" Height="50" 
-                            Click="ViewGradeButton_Click" IsEnabled="{Binding SelectedReservation.IsGradedByGuest}"
+                            Click="ViewGradeButton_Click" IsEnabled="{Binding SelectedReservation.CanBeViewedByOwner}"
                             VerticalAlignment="Bottom" Margin="0,0,0,10"
                             Style="{StaticResource DisabledButtonStyle}">
                         <StackPanel Orientation="Horizontal"  Margin="5,0,0,0">
@@ -173,7 +180,7 @@
                                 <Setter Property="FontSize" Value="12"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding CanBeGradedByOwner}" Value="True">
-                                        <Setter Property="Background" Value="{StaticResource Green}"/>
+                                        <Setter Property="Background" Value="#fff3b0"/>
                                     </DataTrigger>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="{StaticResource Beige}"/>

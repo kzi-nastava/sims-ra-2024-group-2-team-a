@@ -162,6 +162,19 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Height" Value="50"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource Beige}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>

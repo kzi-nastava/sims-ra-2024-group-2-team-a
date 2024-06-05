@@ -149,7 +149,7 @@
                 <Image Height="40" Width="40" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Source="../../../Resources/Images/Icons/owner-icon.png" Margin="-5,0,0,0"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
                 <Label x:Name="UsernameLabel" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"
-                       FontWeight="SemiBold" VerticalAlignment="Top" Padding="0" Style="{StaticResource LabelBeige}" Margin="5,0,0,0"/>
+                       FontWeight="SemiBold" VerticalAlignment="Top" Padding="0" Style="{StaticResource LabelBeige}" Margin="0,5,0,0"/>
                 <Label Grid.Column="1" Grid.Row="1" VerticalAlignment="Top"
                        HorizontalAlignment="Left" Content="Average Grade:" Height="25" Padding="0" Style="{StaticResource LabelBeige}"/>
 

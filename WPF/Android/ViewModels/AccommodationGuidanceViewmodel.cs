@@ -57,12 +57,12 @@ namespace BookingApp.WPF.Android.ViewModels {
             FourthLocation = new LocationDTO(_locationService.GetById(locationIds[3]));
 
             AccommodationDTOs.Clear();
-            foreach (var acc in _accommodationService.GetByLocationId(ThirdLocation.Id)) {
+            foreach (var acc in _accommodationService.GetByLocationAndOwnerId(ThirdLocation.Id, _userId)) {
                 AccommodationDTO accDTO = new AccommodationDTO(acc);
                 accDTO.Location = ThirdLocation;
                 AccommodationDTOs.Add(accDTO);
             }
-            foreach (var acc in _accommodationService.GetByLocationId(FourthLocation.Id)) {
+            foreach (var acc in _accommodationService.GetByLocationAndOwnerId(FourthLocation.Id, _userId)) {
                 AccommodationDTO accDTO = new AccommodationDTO(acc);
                 accDTO.Location = FourthLocation;
                 AccommodationDTOs.Add(accDTO);

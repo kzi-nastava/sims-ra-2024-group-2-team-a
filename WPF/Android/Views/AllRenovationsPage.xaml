@@ -8,6 +8,7 @@
       d:DesignHeight="624" d:DesignWidth="430"
       Title="AllRenovationsPage">
     <Page.Resources>
+        <BitmapImage x:Key="AddIcon" UriSource="../../../Resources/Images/Icons/add-icon3-b.png"/>
         <Style TargetType="Label" x:Key="Header">
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
@@ -93,11 +94,11 @@
         <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource Header}"
                Content="All renovations: " VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="auto" Width="380" Margin="0,0,0,0"
-          ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged}"
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="424" Width="380" Margin="0,0,0,0" 
+          ItemsSource="{Binding Renovations, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"
             SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
             SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{StaticResource SoftGreen}" BorderThickness="1"
-                  FontFamily="{StaticResource Roboto}" FontSize="14">
+                  FontFamily="{StaticResource Roboto}" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Accommodation" Width="150" DisplayMemberBinding="{Binding Accommodation.Name}"/>
@@ -126,10 +127,21 @@
             </ListView.ItemContainerStyle>
         </ListView>
 
-        <Button Grid.Column="2" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20"
+        <Border BorderBrush="{StaticResource SoftGreen}" BorderThickness="1,1,1,1" Grid.Row="1" Grid.Column="1" 
+                Grid.ColumnSpan="2"  Height="60"  VerticalAlignment="Bottom" Background="White" Width="380">
+            <Button  Height="50" Width="180" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click"
+                Style="{StaticResource DisabledButtonStyle}">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Image Source="{StaticResource AddIcon}" Height="30" Width="30" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Label Content="New renovation" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </Border>
+
+            <Button Grid.Column="2" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,15"
             Command="{Binding ViewCommand}" Style="{StaticResource ViewButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                <Image Source="{StaticResource ViewIcon}" Height="30" Width="30"/>
+                <Image Source="{StaticResource ViewIcon}" Height="30" Width="30" RenderOptions.BitmapScalingMode="HighQuality"/>
                 <Label Content="View" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
@@ -153,10 +165,10 @@
             </Label.Style>
         </Label>
         
-        <Button x:Name="CancelButton" Grid.Column="1" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20"
+        <Button x:Name="CancelButton" Grid.Column="1" Grid.Row="2" Height="50" Width="130" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,15"
         Command="{Binding CancelCommand}" Style="{StaticResource CancelButtonStyle}">
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30"/>
+                <Image Source="{StaticResource CancelIconBeige}" Height="30" Width="30" RenderOptions.BitmapScalingMode="HighQuality"/>
                 <Label Content="Cancel" Style="{StaticResource ButtonLabel}" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>

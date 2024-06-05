@@ -53,6 +53,8 @@
         </Grid>
 
         <Grid Grid.Row="1" Background="Transparent">
+            <Border BorderBrush="Red" BorderThickness="2" Background="Transparent">
+            </Border>
         </Grid>
 
         <Grid Grid.Row="2" Background="{StaticResource SoftGreen}">

@@ -91,7 +91,7 @@
         <StackPanel Grid.Row="0" Height="50" VerticalAlignment="Top" Orientation="Horizontal">
             <Label Content="Registered Accomodations: " Style="{StaticResource Header}" Width="280" HorizontalAlignment="Left"  Margin="10,5,0,0" Height="40" FontWeight="Medium"/>
             <Button Margin="75,5,0,5" Width="40" Height="40" Click="GeneratePdfButton_Click" Background="{StaticResource Green}">
-                <Image Source="{StaticResource DocumentBeigeIcon}" Width="30" Height="30" RenderOptions.BitmapScalingMode="HighQuality"/>
+                <Image Source="{StaticResource PDFDownload}" Width="30" Height="30" RenderOptions.BitmapScalingMode="HighQuality"/>
             </Button>
         </StackPanel>
 

@@ -22,9 +22,11 @@ namespace BookingApp.WPF.Android.Views {
     public partial class AllRenovationsPage : Page, IDemo {
 
         public AllRenovationsViewmodel AllRenovationsViewmodel;
+
+        private User _user;
         public AllRenovationsPage(User user) {
             InitializeComponent();
-            
+            _user = user;
             AllRenovationsViewmodel = new AllRenovationsViewmodel(user);
             DataContext = AllRenovationsViewmodel;
         }
@@ -35,6 +37,17 @@ namespace BookingApp.WPF.Android.Views {
 
         public void StopDemo() {
             AllRenovationsViewmodel.StopDemo();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null) {
+                MainWindow mainWindow = parentWindow as MainWindow;
+                if (mainWindow != null) {
+                    Frame MainFrame = mainWindow.MainFrame;
+                    MainFrame.Navigate(new AccommodationPage(MainFrame, _user));
+                }
+            }
         }
     }
 }

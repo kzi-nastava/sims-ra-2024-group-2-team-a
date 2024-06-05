@@ -245,6 +245,8 @@ namespace BookingApp.WPF.Android.ViewModels {
             StartDate = tempStartDate;
             EndDate = tempEndDate;
             Duration = tempDuration;
+            Renovations.Clear();
+            SelectedRenovation = null;
             _timer.Stop();
         }
     }

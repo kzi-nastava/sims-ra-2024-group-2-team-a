@@ -75,6 +75,10 @@ namespace BookingApp.Services {
             return this.GetAll().Where(x => x.LocationId == locationId).ToList();
         }
 
+        public List<Accommodation> GetByLocationAndOwnerId(int locationId, int ownerId) {
+            return this.GetByOwnerId(ownerId).Where(x => x.LocationId == locationId).ToList();
+        }
+
         public void CloseAccommodation(int accommodationId) {
             Accommodation accommodation = this.GetById(accommodationId);
 

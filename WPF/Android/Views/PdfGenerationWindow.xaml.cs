@@ -24,6 +24,8 @@ using QuestPDF.Helpers;
 using Colors = QuestPDF.Helpers.Colors;
 using BookingApp.WPF.DTO;
 using System.Diagnostics;
+using System.IO;
+using Path = System.IO.Path;
 
 namespace BookingApp.WPF.Android.Views {
     /// <summary>
@@ -136,7 +138,7 @@ namespace BookingApp.WPF.Android.Views {
 
             container.Row(row => {
                 row.RelativeItem().Column(column => {
-                    column.Item().Text("Average grades for your accommodations").Style(titleStyle);
+                    column.Item().Text("Average grades for accommodations").Style(titleStyle);
 
                     column.Item().Text(text => {
                         text.Span("Issue date: ").SemiBold();
@@ -148,6 +150,7 @@ namespace BookingApp.WPF.Android.Views {
                         text.Span(_user.Username);
                     });
                 });
+                row.ConstantItem(150).AlignRight().Height(50).Image(File.ReadAllBytes(Path.Combine(Directory.GetCurrentDirectory(), "../../../Resources/Images/Logo/booking-app-logo.png")));
             });
         }
 

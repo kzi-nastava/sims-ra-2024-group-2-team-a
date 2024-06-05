@@ -113,6 +113,11 @@ namespace BookingApp.WPF.DTO {
         public bool IsGradedByOwner { get; set; } = false;
         public int ReservationDays { get; set; }
 
+        public bool CanBeViewedByOwner {
+            get {
+                return IsGradedByGuest && IsGradedByOwner;
+            }
+        }
         public bool CanBeGradedByOwner {
             get {
                 var dateNow = DateOnly.FromDateTime(DateTime.Now);

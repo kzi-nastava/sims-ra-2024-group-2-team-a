@@ -86,6 +86,9 @@ namespace BookingApp.WPF.Android.ViewModels {
                 }
             }
         }
+        public Func<double, string> YAxisFormatter { get; set; }
+
+        public Separator YAxisSeparator { get; set; }
         public AccommodationStatisticsViewmodel(AccommodationDTO accomodationDTO) {
             this.AccommodationDTO = accomodationDTO;
 
@@ -102,7 +105,8 @@ namespace BookingApp.WPF.Android.ViewModels {
             Years = new ChartValues<string>();
             TotalReservations = 0;
             Months = new ChartValues<string> { "Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec"};
-
+            YAxisFormatter = value => value.ToString("N0");
+            YAxisSeparator = new Separator { Step = 1 };
             Update();
         }
         public void SelectionChangedExecute() {
