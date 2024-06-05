@@ -88,10 +88,6 @@ namespace BookingApp.WPF.Utils.Reports.Tourist
             {
                 column.Spacing(5);
 
-                column.Item().AlignCenter().Width(300).Image(LoadImage());
-
-                column.Spacing(20);
-
                 column.Item().Row(row =>
                 {
                     row.RelativeItem().Component(new TourDetailsComponent(_tourDetails));
