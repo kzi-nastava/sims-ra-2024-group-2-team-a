@@ -125,6 +125,8 @@
     <None Remove="Resources\Images\Icons\user-icon.png" />
     <None Remove="Resources\Images\Icons\verified-icon.png" />
     <None Remove="Resources\Images\live.png" />
+    <None Remove="Resources\Images\Logo\beige-logo.png" />
+    <None Remove="Resources\Images\Logo\booking-app-logo.png" />
     <None Remove="Resources\Images\normal-home-icon.png" />
     <None Remove="Resources\Images\notification-request-icon.png" />
     <None Remove="Resources\Images\notification-review-icon.png" />
@@ -313,6 +315,8 @@
     <Resource Include="Resources\Images\Icons\user-icon.png" />
     <Resource Include="Resources\Images\Icons\verified-icon.png" />
     <Resource Include="Resources\Images\live.png" />
+    <Resource Include="Resources\Images\Logo\beige-logo.png" />
+    <Resource Include="Resources\Images\Logo\booking-app-logo.png" />
     <Resource Include="Resources\Images\normal-home-icon.png" />
     <Resource Include="Resources\Images\notification-request-icon.png" />
     <Resource Include="Resources\Images\notification-review-icon.png" />

@@ -9,18 +9,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QuestPDF.Helpers;
+using System.IO;
 
 namespace BookingApp.WPF.Utils.Reports.Guest {
     public class GuestReportGenerator : IDocument {
 
         private DateTime _issueDate;
         private string _generatedBy;
-        private double AverageCleanlinessGrade;
-        private double AverageBehaviourGrade;
+        private double AverageCleanlinessGrade = 0.0;
+        private double AverageBehaviourGrade = 0.0;
 
         public GuestReportGenerator(string generatedBy, List<AccommodationReviewDTO> reviews) {
             _issueDate = DateTime.Now;
             _generatedBy = generatedBy;
+
+            if (reviews.Count == 0) 
+                return;
 
             AverageCleanlinessGrade = reviews.Average(r => r.GuestCleannessGrade);
             AverageBehaviourGrade = reviews.Average(r => r.RuleFollowingGrade);
@@ -55,6 +59,8 @@ namespace BookingApp.WPF.Utils.Reports.Guest {
                         text.Span(_generatedBy);
                     });
                 });
+
+                row.ConstantItem(200).AlignRight().Height(64).Image(LoadImage());
             });
         }
 
@@ -137,6 +143,11 @@ namespace BookingApp.WPF.Utils.Reports.Guest {
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
+
+        private byte[] LoadImage() {
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "../../../Resources/Images/Logo/booking-app-logo.png");
+            return File.ReadAllBytes(path);
+        }
 
         private readonly string _reportSummaryIntro = @"
             This report provides a comprehensive evaluation of the guest's stay based on feedback received from accommodation owners. It includes two key metrics:";

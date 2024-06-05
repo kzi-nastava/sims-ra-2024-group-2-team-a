@@ -6,6 +6,8 @@ using BookingApp.Services;
 using BookingApp.WPF.DTO;
 using BookingApp.Domain.Model;
 using BookingApp.WPF.Web.ViewModels;
+using LiveCharts.Wpf;
+using LiveCharts;
 
 namespace BookingApp.WPF.Web.Views {
     /// <summary>
@@ -33,6 +35,8 @@ namespace BookingApp.WPF.Web.Views {
             buttonLeft.IsEnabled = false;
             if(ViewModel.Accommodation.ProfilePictures.Count == 1)
                 buttonRight.IsEnabled = false;
+
+            SetupRatingChart();
         }
 
         private void GoBack(object sender, RoutedEventArgs e) {
@@ -112,5 +116,10 @@ namespace BookingApp.WPF.Web.Views {
                 buttonLeft.IsEnabled = true;
             }
         }
+
+        private void SetupRatingChart() {
+            var series = RatingChart.Series[0] as RowSeries;
+            series.Values = new ChartValues<double> { ViewModel.AverageCleannessGrade, ViewModel.AverageCorrectnessGrade };
+        } 
     }
 }

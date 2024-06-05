@@ -77,6 +77,10 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
+                <Image Grid.Row="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Source="{StaticResource BeigeLogo}"/>
                 <StackPanel Grid.Row="2">
                     <Button x:Name="NotificationsButton"
                             Click="NotificationsButton_Click"

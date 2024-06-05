@@ -104,9 +104,6 @@ namespace BookingApp.WPF.Utils.Reports.Tourist
                 column.Spacing(5);
 
                 column.Item().Element(ComposeTable);
-
-                //if (!string.IsNullOrWhiteSpace(Model.Comments))
-                //column.Item().PaddingTop(25).Element(ComposeComments);
             });
         }
 

@@ -19,6 +19,10 @@ namespace BookingApp.Services {
             _reviewService = reviewService;
         }
 
+        public List<Owner> GetAll() {
+            return _ownerRepository.GetAll();
+        }
+
         public Owner GetByUserId(int userId) {
             return _ownerRepository.GetAll().Find(owner => owner.UserId == userId);
         }
