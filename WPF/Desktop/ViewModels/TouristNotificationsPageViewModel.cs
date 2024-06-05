@@ -39,7 +39,7 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                         _notificationService.UpdateNotificationStatus(notification.Id);
                         break;
                     case NotificationCategory.TourRequest:
-                        TourReservationWindow reservationWindow = new TourReservationWindow(notifiedTour, UserId);
+                        TourReservationWindow reservationWindow = new TourReservationWindow(notifiedTour, UserId, null);
                         reservationWindow.ShowDialog();
                         _notificationService.UpdateNotificationStatus(notification.Id);
                         break;

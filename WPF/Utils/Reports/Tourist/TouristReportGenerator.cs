@@ -74,11 +74,6 @@ namespace BookingApp.WPF.Utils.Reports.Tourist
                 row.ConstantItem(200).AlignRight().Height(50).Image(File.ReadAllBytes(Path.Combine(Directory.GetCurrentDirectory(), "../../../Resources/Images/booking-app-logo.png")));
             });
         }
-        private byte[] LoadImage()
-        {
-            string path = _tourDetails.ProfilePictures[0];
-            return File.ReadAllBytes(path);
-        }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
 

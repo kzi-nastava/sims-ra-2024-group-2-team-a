@@ -167,8 +167,10 @@ namespace BookingApp.WPF.Desktop.ViewModels
 
         public int UserId { get; set; }
 
+        private RequestsPageViewModel _parentViewModel;
         CreateComplexRequestWindowViewModel? ComplexViewModel { get; set; }
-        public CreateRequestWindowViewModel(int userId, CreateComplexRequestWindowViewModel? complexViewModel) {
+        public CreateRequestWindowViewModel(int userId, CreateComplexRequestWindowViewModel? complexViewModel, RequestsPageViewModel requestsPageViewModel) {
+            UserId = userId;
             TourRequest = new TourRequestDTO(userId);
             IsTouristButtonEnabled = false;
             IsPassengerButtonEnabled = false;
@@ -185,6 +187,7 @@ namespace BookingApp.WPF.Desktop.ViewModels
             SetLocations();
             SetLanguages();
             ComplexViewModel = complexViewModel;
+            _parentViewModel = requestsPageViewModel;
         }
 
         private void SetLocations() {
@@ -234,8 +237,12 @@ namespace BookingApp.WPF.Desktop.ViewModels
 
         public void CreateRequest(object parameter) {
             TourRequest.PassengerNumber = Passengers.Count();
-            if(ComplexViewModel == null)
+            TourRequest.Passengers = Passengers.ToList();
+
+            if(ComplexViewModel == null) {
                 _tourRequestService.CreateRequest(TourRequest, 0);
+                _parentViewModel.DisplayTourRequests();
+            }            
             else
                 ComplexViewModel.SimpleTourRequests.Add(TourRequest);
         }

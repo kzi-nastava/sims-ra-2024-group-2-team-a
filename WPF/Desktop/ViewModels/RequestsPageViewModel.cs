@@ -41,23 +41,59 @@ namespace BookingApp.WPF.Desktop.ViewModels
             }
         }
 
+        private string _complexFilter;
+        public string ComplexFilter {
+            get {
+                return _complexFilter;
+            }
+            set {
+                if(value != _complexFilter) {
+                    _complexFilter = value;
+                    OnPropertyChanged();
+                    DisplayComplexTourRequests();
+                }
+            }
+        }
+
+        public ICommand RequestInformationCommand { get; set; }
+
+        public ICommand ComplexInformationCommand { get; set; }
+
         public RequestsPageViewModel(int userId) {
             UserId = userId;
             Filter = "All";
-            DisplayComplexTourRequests();
+            ComplexFilter = "All";
+
+            Func<bool> alwaysTrue = () => true;
+            RequestInformationCommand = new RelayCommand(OpenRequestInformation, alwaysTrue);
+            ComplexInformationCommand = new RelayCommand(OpenComplexInformation, alwaysTrue);
         }
 
-        private void DisplayTourRequests() {
+        private void OpenComplexInformation(object parameter) {
+            var request = (ComplexTourRequestDTO)parameter;
+
+            ComplexInformationWindow window = new ComplexInformationWindow(request);
+            window.ShowDialog();
+        }
+
+        private void OpenRequestInformation(object parameter) {
+            var request = (TourRequestDTO)parameter;
+
+            TourRequestInformationWindow window = new TourRequestInformationWindow(request, this);
+            window.ShowDialog();
+        }
+
+        public void DisplayTourRequests() {
             TourRequests.Clear();
             foreach (var tourRequest in _tourRequestService.GetFiltered(UserId, Filter)) {
                 TourRequests.Add(new TourRequestDTO(tourRequest));
             }
         }
 
-        private void DisplayComplexTourRequests() {
+        public void DisplayComplexTourRequests() {
             ComplexTourRequests.Clear();
             int complexCounter = 0;
-            foreach(var complexRequest in _complexTourRequestService.GetByTouristId(UserId)) {
+            foreach(var complexRequest in _complexTourRequestService.GetFiltered(UserId, ComplexFilter)) {
                 ComplexTourRequestDTO complexTourRequestDTO = new ComplexTourRequestDTO(complexRequest, ++complexCounter);
                 int simpleCounter = 0;
                 foreach (var simpleRequest in _tourRequestService.GetForComplexRequest(complexRequest.Id))

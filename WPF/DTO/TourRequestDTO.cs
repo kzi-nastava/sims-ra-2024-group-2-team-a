@@ -13,6 +13,7 @@ namespace BookingApp.WPF.DTO {
     public class TourRequestDTO : INotifyPropertyChanged {
         private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
         private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
+        private readonly RequestPassengerService _requestPassengerService = ServicesPool.GetService<RequestPassengerService>();
         public TourRequestDTO() { }
         public TourRequestDTO(int touristId) {
             TouristId = touristId;
@@ -39,6 +40,12 @@ namespace BookingApp.WPF.DTO {
             SetLocationTemplate(Location.City, Location.Country);
             SetLanguageTemplate(Language.Name);
             ComplexTourId = tourRequest.ComplexTourId;
+            LoadPassengers();
+        }
+
+        private void LoadPassengers() {
+            foreach (var passenger in _requestPassengerService.GetByRequestId(Id)) 
+                Passengers.Add(new PassengerDTO(passenger));
         }
 
         public TourRequestDTO(TourRequest tourRequest, int serialNumber, TourRequestStatus complexStatus) {
@@ -256,6 +263,20 @@ namespace BookingApp.WPF.DTO {
                 }
             }
         }
+
+        private List<PassengerDTO> _passengers = new List<PassengerDTO>();
+        public List<PassengerDTO> Passengers {
+            get {
+                return _passengers;
+            }
+            set {
+                if (_passengers != value) {
+                    _passengers = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
         public System.Windows.Controls.CalendarBlackoutDatesCollection BlackoutDatesStart { get; set; }

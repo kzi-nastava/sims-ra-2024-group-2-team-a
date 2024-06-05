@@ -14,6 +14,15 @@ namespace BookingApp.WPF.DTO {
             //JoinedPointOfInterestId
             UserId = userId;
         }
+
+        public PassengerDTO(RequestPassenger p) {
+            Id = p.Id;
+            TourRequestId = p.TourRequestId;
+            Name = p.Name;
+            Surname = p.Surname;
+            Age = p.Age;
+            UserId = p.UserId;
+        }
         public PassengerDTO(Passenger p)
         {
             Id = p.Id;
@@ -42,6 +51,20 @@ namespace BookingApp.WPF.DTO {
                 }
             }
         }
+
+        private int _tourRequestId;
+        public int TourRequestId {
+            get {
+                return _tourRequestId;
+            }
+            set {
+                if (_tourRequestId != value) {
+                    _tourRequestId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private int _tourReservationId;
         public int TourReservationId
         {

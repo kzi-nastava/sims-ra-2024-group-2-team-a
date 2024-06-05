@@ -8,8 +8,9 @@ namespace BookingApp.WPF.Desktop.Views {
     /// Interaction logic for ReservationWindow.xaml
     /// </summary>
     public partial class TourReservationWindow : Window {
+        private TouristHomePage? _touristHomePage;
         public TouristReservationWindowViewModel TourReservationViewModel { get; set; }
-        public TourReservationWindow(TourDTO selectedTour, int userId)
+        public TourReservationWindow(TourDTO selectedTour, int userId, TouristHomePage? parentWindow)
         {
             InitializeComponent();
 
@@ -21,6 +22,7 @@ namespace BookingApp.WPF.Desktop.Views {
 
             TourReservationViewModel = new TouristReservationWindowViewModel(selectedTour, userId);
             DataContext = TourReservationViewModel;
+            _touristHomePage = parentWindow;
         }
 
         private void OpenSameLocationsWindow() {
@@ -36,7 +38,9 @@ namespace BookingApp.WPF.Desktop.Views {
             else {
                 App.NotificationService.ShowSuccess("Reservation successful!");
                 this.Close();
-            }              
+            }
+
+            _touristHomePage.Update();
         }
 
         private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {

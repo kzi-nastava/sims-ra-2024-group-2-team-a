@@ -112,7 +112,7 @@ namespace BookingApp.WPF.Desktop.Views {
             var button = (Button)sender;
             var selectedTour = (TourDTO)button.DataContext;
 
-            TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, UserId);
+            TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, UserId, this);
             reservationWindow.ShowDialog();
         }
 

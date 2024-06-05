@@ -27,6 +27,7 @@
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
         <Style TargetType="TextBlock" x:Key="Info">
             <Setter Property="FontWeight" Value="Bold"/>
@@ -120,7 +121,7 @@
             <Border Style="{StaticResource BorderStyle}"
                     Grid.Row="1"
                     Grid.Column="1"
-                    Background="{StaticResource SoftGreen}">
+                    Background="{StaticResource Beige}">
                 <ScrollViewer>
                     <TextBlock Text="{Binding SelectedTour.Description}"
                                FontSize="14"
