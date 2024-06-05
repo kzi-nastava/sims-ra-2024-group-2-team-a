@@ -18,6 +18,7 @@
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
         <Style TargetType="TextBlock" x:Key="Info">
             <Setter Property="FontWeight" Value="Bold"/>
@@ -159,14 +160,8 @@
                                                            Height="20"/>
                                                     <TextBlock Grid.Row="1"
                                                                Style="{StaticResource Info}"
-                                                               TextWrapping="Wrap">
-                                                        <TextBlock.Text>
-                                                            <MultiBinding StringFormat="{}{0} - {1}">
-                                                                <Binding Path="Beggining"/>
-                                                                <Binding Path="End"/>
-                                                            </MultiBinding>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
+                                                               TextWrapping="Wrap"
+                                                               Text="{Binding TouristDateTemplate}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal"
                                                             Grid.Row="2">

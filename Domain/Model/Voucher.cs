@@ -18,13 +18,13 @@ namespace BookingApp.Domain.Model {
             Id = id;
             ExpireDate = expireDate;
             TouristId = touristId;
-            Image = "../../../Resources/Images/default-coupon.png";
+            Image = "../../../Resources/Images/coupon.png";
         }
         public Voucher(DateTime expireDate, int touristId)
         {
             ExpireDate = expireDate;
             TouristId = touristId;
-            Image = "../../../Resources/Images/default-coupon.png";
+            Image = "../../../Resources/Images/coupon.png";
         }
 
         public string[] ToCSV()

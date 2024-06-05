@@ -289,6 +289,7 @@ namespace BookingApp.WPF.DTO {
         public List<string> ProfilePictures { get; set; }
         public string LanguageTemplate { get; set; }
         public string LocationTemplate { get; set; }
+        public string TouristDateTemplate => $"{Beggining:d} - {End:d}";
 
         public void setBeggining(DateTime dateTime)
         {

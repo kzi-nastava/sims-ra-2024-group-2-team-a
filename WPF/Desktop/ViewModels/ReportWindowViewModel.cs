@@ -13,6 +13,8 @@ using BookingApp.WPF.Utils.Reports.Tourist;
 using System.Windows.Media.Imaging;
 using BookingApp.WPF.Utils.Reports;
 using System.Drawing;
+using System.Diagnostics;
+using System.Windows;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
     public class ReportWindowViewModel : INotifyPropertyChanged {
@@ -40,6 +42,8 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 }
             }
         }
+
+        public string FullPath { get; set; }
 
         private System.Drawing.Image _preview;
         public System.Drawing.Image Preview {
@@ -107,10 +111,16 @@ namespace BookingApp.WPF.Desktop.ViewModels {
 
         private void GenerateReport(object parameter) {
             QuestPDF.Settings.License = LicenseType.Community;
-            _touristReportGenerator.GeneratePdf($"{FilePath}/TourReservationReport{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.pdf");
-
-            // Optionally, notify the user that the report has been generated
-            // For example, use a MessageBox or another UI element in the View
+            FullPath = $"{FilePath}/TourReservationReport{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.pdf";
+            _touristReportGenerator.GeneratePdf(FullPath);
+            if (System.Windows.MessageBox.Show("Do you want to view your report right away?", "PDF Report", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) {
+                try {
+                    Process.Start(new ProcessStartInfo(FullPath) { UseShellExecute = true });
+                }
+                catch (Exception ex) {
+                    App.NotificationService.ShowError("An error occurred while trying to open the PDF file");
+                }
+            }
         }
 
         private void BrowseFilePath(object parameter) {

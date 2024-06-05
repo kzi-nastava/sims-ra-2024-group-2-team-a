@@ -28,6 +28,7 @@
     <None Remove="Resources\Images\android-search-icon-beige.png" />
     <None Remove="Resources\Images\android-search-icon.png" />
     <None Remove="Resources\Images\android-view-icon.png" />
+    <None Remove="Resources\Images\coupon.png" />
     <None Remove="Resources\Images\document-icon-beige.png" />
     <None Remove="Resources\Images\eye-beige.png" />
     <None Remove="Resources\Images\eye.png" />
@@ -49,6 +50,7 @@
     <None Remove="Resources\Images\Icons\beige-coupon.png" />
     <None Remove="Resources\Images\Icons\beige-help.png" />
     <None Remove="Resources\Images\Icons\beige-home.png" />
+    <None Remove="Resources\Images\Icons\beige-pdf.png" />
     <None Remove="Resources\Images\Icons\beige-request.png" />
     <None Remove="Resources\Images\Icons\beige-wheel.png" />
     <None Remove="Resources\Images\Icons\bin-icon.png" />
@@ -187,6 +189,8 @@
     <Resource Include="Resources\Images\Accommodations\Hut-2.jpg" />
     <Resource Include="Resources\Images\Accommodations\Minecraft.png" />
     <Resource Include="Resources\Images\Accommodations\Sheraton.jpg" />
+    <Resource Include="Resources\Images\coupon.png" />
+    <Resource Include="Resources\Images\Icons\beige-pdf.png" />
     <Resource Include="Resources\Images\Icons\plane-icon.png" />
   </ItemGroup>
 

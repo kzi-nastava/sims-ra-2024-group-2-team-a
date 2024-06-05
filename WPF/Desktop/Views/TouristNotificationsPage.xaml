@@ -15,7 +15,7 @@
                                                             FalseBrush="{StaticResource SoftGreen}"/>
         <converters:BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
     </Page.Resources>
-    <Grid>
+    <Grid Background="{StaticResource Beige}">
         <ScrollViewer Margin="10, 5">
             <ItemsControl ItemsSource="{Binding Notifications}"
                           Margin="0, 5, 0, 0">
