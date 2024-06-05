@@ -180,6 +180,7 @@ namespace BookingApp.WPF.Android.Views {
 
         private void ComposeTable(IContainer container) {
             int id = 1;
+            int graded = 1;
             double sum = 0.0;
             Dictionary<Accommodation, double> data = _reviewService.GetAverageAccommodationGradesByOwnerId(_user.Id, accommodationType);
 
@@ -212,8 +213,14 @@ namespace BookingApp.WPF.Android.Views {
                         LocationDTO locationDTO = new LocationDTO(locationService.GetById(item.Key.LocationId));
 
                         table.Cell().Element(CellStyle).Text(locationDTO.LocationInfoTemplate);
-                        table.Cell().Element(CellStyle).AlignCenter().Text(System.Math.Round(item.Value, 2).ToString());
-                        sum += item.Value;
+                        if (item.Value != 0) {
+                            table.Cell().Element(CellStyle).AlignCenter().Text(System.Math.Round(item.Value, 2).ToString());
+                            graded++;
+                            sum += item.Value;
+                        }
+                        else
+                            table.Cell().Element(CellStyle).AlignCenter().Text("not graded").Italic().Light();
+
                     }
 
                     if (id == 1) {
@@ -223,7 +230,10 @@ namespace BookingApp.WPF.Android.Views {
                     table.Cell().Element(EmptyCellStyle).Text("");
                     table.Cell().Element(EmptyCellStyle).Text("");
                     table.Cell().Element(OverallCellStyle).Text("Overall: ");
-                    table.Cell().Element(OverallCellStyle).AlignCenter().Text(System.Math.Round(sum/--id, 2).ToString());
+                    if(sum != 0)
+                        table.Cell().Element(OverallCellStyle).AlignCenter().Text(System.Math.Round(sum/--graded, 2).ToString());
+                    else
+                        table.Cell().Element(OverallCellStyle).AlignCenter().Text("not graded").Italic().Light();
 
 
                     static IContainer OverallCellStyle(IContainer container) {
