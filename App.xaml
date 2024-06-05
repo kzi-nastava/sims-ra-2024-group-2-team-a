@@ -66,8 +66,9 @@
         <BitmapImage x:Key="PlaneIcon" UriSource="Resources/Images/Icons/plane-icon.png"/>
         <BitmapImage x:Key="OwnerIcon" UriSource="Resources/Images/owner-icon.png"/>
         <BitmapImage x:Key="VerifiedIcon" UriSource="Resources/Images/Icons/verified-icon.png"/>
+        <BitmapImage x:Key="BeigeLogo" UriSource="Resources/Images/Logo/beige-logo.png"/>
 
-        <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
+            <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>
         <SolidColorBrush x:Key="Green2" Color="#5a8c6a"/>
         <SolidColorBrush x:Key="SoftGreen" Color="#ADBC9F"/>
