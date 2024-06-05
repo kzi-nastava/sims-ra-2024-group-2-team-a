@@ -24,6 +24,12 @@
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         </Style>
 
+        <Style x:Key="SmallButtonImage" TargetType="Image">
+            <Setter Property="Height" Value="14"/>
+            <Setter Property="Width" Value="14"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="Margin" Value="10 0 0 0"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -122,13 +128,42 @@
 
                         <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                             <Label Content="Accommodation photos" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="buttonUpload" Margin="10" HorizontalAlignment="Left" Cursor="Hand" Click="ButtonUploadClick">
+                            <Button x:Name="buttonUpload" Margin="30 10 10 10" HorizontalAlignment="Left"
+                                    Cursor="Hand" Click="ButtonUploadClick">
                                 <WrapPanel Margin="5">
                                     <Image Style="{StaticResource ImageStyle}" Source="{StaticResource CameraIcon}"/>
                                     <TextBlock Text="Upload"/>
                                 </WrapPanel>
                             </Button>
                         </StackPanel>
+
+                        <WrapPanel x:Name="picturesPreview" Orientation="Horizontal" Margin="50 10 0 10" Visibility="Collapsed">
+                            <Button x:Name="buttonLeft" Height="30" Width="30" Margin="0 0 10 0" Click="ButtonLeftClick" Cursor="Hand">
+                                <WrapPanel>
+                                    <Image Source="{StaticResource LeftArrowIcon}" Style="{StaticResource SmallButtonImage}"/>
+                                </WrapPanel>
+                            </Button>
+
+                            <Border Height="150" Width="250" CornerRadius="10">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding SelectedAccommodationPicture, Mode=OneWay}" Stretch="Fill"/>
+                                </Border.Background>
+                            </Border>
+
+                            <Grid>
+                                <Button x:Name="buttonRemove" Height="30" Width="30" Margin="10 0 0 0" VerticalAlignment="Top" Click="ButtonRemoveClick" Cursor="Hand">
+                                    <WrapPanel>
+                                        <Image Source="{StaticResource CancelIcon}" Style="{StaticResource SmallButtonImage}"/>
+                                    </WrapPanel>
+                                </Button>
+                                
+                                <Button x:Name="buttonRight" Height="30" Width="30" Margin="10 0 0 0" VerticalAlignment="Center" Click="ButtonRightClick" Cursor="Hand">
+                                    <WrapPanel>
+                                        <Image Source="{StaticResource RightArrowIcon}" Style="{StaticResource SmallButtonImage}"/>
+                                    </WrapPanel>
+                                </Button>
+                            </Grid>
+                        </WrapPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                             <CheckBox x:Name="checkBoxRequiresRenovation" Margin="10 0 0 0" VerticalAlignment="Center"

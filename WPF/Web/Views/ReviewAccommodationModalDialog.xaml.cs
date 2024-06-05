@@ -53,12 +53,56 @@ namespace BookingApp.WPF.Web.Views {
                 string relativePath = GetRelativePath(basePath, fileName);
                 ViewModel.Review.AccommodationPhotos.Add(relativePath);
             }
+
+            SetPicturePreview();
+        }
+
+        private void SetPicturePreview() {
+            if(ViewModel.Review.AccommodationPhotos.Count > 0) {
+                picturesPreview.Visibility = Visibility.Visible;
+                ViewModel.SelectedAccommodationPicture = ViewModel.Review.AccommodationPhotos[0];
+            }
+            else {
+                picturesPreview.Visibility = Visibility.Collapsed;
+            }
+
+            if(ViewModel.Review.AccommodationPhotos.Count == 1) {
+                buttonLeft.IsEnabled = false;
+                buttonRight.IsEnabled = false;
+            }
+            else {
+                buttonLeft.IsEnabled = false;
+                buttonRight.IsEnabled = true;
+            }
         }
 
         private string GetRelativePath(string basePath, string fullPath) {
             Uri baseUri = new Uri(basePath + Path.DirectorySeparatorChar);
             Uri fullUri = new Uri(fullPath);
             return baseUri.MakeRelativeUri(fullUri).ToString();
+        }
+
+        private void ButtonLeftClick(object sender, RoutedEventArgs e) {
+            ViewModel.ChangePictureLeft();
+
+            if (ViewModel.PicturesIndex == 0) {
+                buttonLeft.IsEnabled = false;
+                buttonRight.IsEnabled = true;
+            }
+        }
+
+        private void ButtonRightClick(object sender, RoutedEventArgs e) {
+            ViewModel.ChangePictureRight();
+
+            if (ViewModel.PicturesIndex == ViewModel.MaxPictureIndex) {
+                buttonRight.IsEnabled = false;
+                buttonLeft.IsEnabled = true;
+            }
+        }
+
+        private void ButtonRemoveClick(object sender, RoutedEventArgs e) {
+            ViewModel.RemovePicture();
+            SetPicturePreview();
         }
     }
 }
