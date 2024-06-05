@@ -59,7 +59,8 @@
                 </WrapPanel>
             </Label>
 
-            <DataGrid x:Name="dataGridSuggestedDates" Grid.Row="2" ItemsSource="{Binding SuggestedReservations}" Margin="15 5 15 5" Height="250" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid x:Name="dataGridSuggestedDates" Grid.Row="2" Margin="15 5 15 5" Height="250" IsReadOnly="True" AutoGenerateColumns="False"
+                       ItemsSource="{Binding SuggestedReservations}" SelectedItem="{Binding SelectedReservation, Mode=OneWayToSource}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Start date" Binding="{Binding StartDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
                     <DataGridTextColumn Header="End date" Binding="{Binding EndDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
@@ -80,20 +81,11 @@
                 </WrapPanel>
             </Button>
 
-            <Button Grid.Row="4" Margin="10" HorizontalAlignment="Right" Click="ButtonConfirmClick">
+            <Button Grid.Row="4" Margin="10" HorizontalAlignment="Right" Command="{Binding CreateReservation}" Click="ButtonConfirmClick">
                 <WrapPanel Margin="10">
                     <Image Style="{StaticResource ImageStyle}" Source="{StaticResource ConfirmIcon}"/>
                     <TextBlock Text="Confirm" Style="{StaticResource ButtonText}"/>
                 </WrapPanel>
-                <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedItem, ElementName=dataGridSuggestedDates}" Value="{x:Null}">
-                                <Setter Property="IsEnabled" Value="False"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
             </Button>
         </Grid>
     </Border>
