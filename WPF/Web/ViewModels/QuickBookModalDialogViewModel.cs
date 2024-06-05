@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.Web.ViewModels {
     public class QuickBookModalDialogViewModel {
@@ -15,6 +16,10 @@ namespace BookingApp.WPF.Web.ViewModels {
         public AccommodationReservationFilterDTO ReservationFilter { get; set; }
         public Guest GuestUser { get; set; }
         public int MaxBonusPoints { get; set; } = Guest.SuperGuestStartPoints;
+
+        public AccommodationReservation SelectedReservation { get; set; }
+
+        public ICommand CreateReservation { get; set; }
 
         private readonly GuestService _guestService = ServicesPool.GetService<GuestService>();
         private readonly AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
@@ -27,6 +32,10 @@ namespace BookingApp.WPF.Web.ViewModels {
             CheckDates();
 
             SuggestedReservations = _reservationService.SuggestReservations(resFilter);
+
+            CreateReservation = new RelayCommand(SaveReservation, () => {
+                return SelectedReservation != null;
+            });
         }
 
         private void CheckDates() {
@@ -41,10 +50,10 @@ namespace BookingApp.WPF.Web.ViewModels {
             }
         }
 
-        public void SaveReservation(AccommodationReservation selectedReservation) {
-            selectedReservation.GuestsNumber = ReservationFilter.GuestsNumber;
-            selectedReservation.GuestId = GuestUser.Id;
-            _reservationService.Save(selectedReservation);
+        public void SaveReservation(object parameter) {
+            SelectedReservation.GuestsNumber = ReservationFilter.GuestsNumber;
+            SelectedReservation.GuestId = GuestUser.Id;
+            _reservationService.Save(SelectedReservation);
         }
     }
 }

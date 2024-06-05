@@ -40,37 +40,25 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void GoBack(object sender, RoutedEventArgs e) {
-            GuestMainWindow window = (GuestMainWindow)Window.GetWindow(this);
-            window.ButtonBackClick(this, e);
+            App.GuestMainWindowReference.ButtonBackClick(this, e);
         }
 
         private void UpdateSuggestedReservations(object sender, EventArgs e) {
             SetDatePickerEndDate();
 
-            if(!IsReservationInputValid()) {
+            if(!IsDateInputValid()) {
                 ViewModel.SuggestedReservations = null;
                 return;
             }
 
-            ViewModel.ReservationDTO.ReservationDays = int.Parse(textBoxReservationDays.Text);
-            ViewModel.ReservationDTO.StartDate = DateOnly.FromDateTime(datePickerStartDate.SelectedDate.Value);
-            ViewModel.ReservationDTO.EndDate = DateOnly.FromDateTime(datePickerEndDate.SelectedDate.Value);
+            ViewModel.ReservationFilter.StartDate = DateOnly.FromDateTime(datePickerStartDate.SelectedDate.Value);
+            ViewModel.ReservationFilter.EndDate = DateOnly.FromDateTime(datePickerEndDate.SelectedDate.Value);
 
             ViewModel.UpdateSuggestedReservations();
         }
 
-        private bool IsReservationInputValid() {
-            if (!int.TryParse(textBoxReservationDays.Text, out int reservationDays))
-                return false;
-
-            if (reservationDays < ViewModel.Accommodation.MinReservationDays)
-                textBoxReservationDays.Text = ViewModel.Accommodation.MinReservationDays.ToString();
-
+        private bool IsDateInputValid() {
             if (datePickerStartDate.SelectedDate == null || datePickerEndDate.SelectedDate == null)
-                return false;
-
-            TimeSpan span = datePickerEndDate.SelectedDate.Value - datePickerStartDate.SelectedDate.Value;
-            if(span.Days < reservationDays)
                 return false;
 
             return true;
@@ -85,16 +73,12 @@ namespace BookingApp.WPF.Web.Views {
 
             if (datePickerStartDate.SelectedDate != null) {
                 datePickerEndDate.IsEnabled = true;
-                datePickerEndDate.DisplayDateStart = datePickerStartDate.SelectedDate.Value.AddDays(1);
+                datePickerEndDate.DisplayDateStart = datePickerStartDate.SelectedDate.Value.AddDays(ViewModel.ReservationFilter.ReservationDays);
                 return;
             }
         }
 
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
-            AccommodationReservation selectedReservation = (AccommodationReservation) dataGridSuggestedDates.SelectedItem;
-            selectedReservation.GuestsNumber = int.Parse(textBoxGuests.Text);
-
-            ViewModel.SaveReservation(selectedReservation);
             App.NotificationService.ShowSuccess("Reservation successfully created!");
             GoBack(sender, e);
         }
