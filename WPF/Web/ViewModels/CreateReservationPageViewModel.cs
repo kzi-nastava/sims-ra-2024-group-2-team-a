@@ -99,7 +99,6 @@ namespace BookingApp.WPF.Web.ViewModels {
 
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
         protected virtual void OnPropertyChanged(string propertyName) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

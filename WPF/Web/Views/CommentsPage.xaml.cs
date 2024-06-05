@@ -2,6 +2,7 @@
 using BookingApp.Services;
 using BookingApp.WPF.Android.ViewModels;
 using BookingApp.WPF.DTO;
+using BookingApp.WPF.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,45 +24,29 @@ namespace BookingApp.WPF.Web.Views {
     /// </summary>
     public partial class CommentsPage : Page {
 
-        private readonly CommentService _commentService = ServicesPool.GetService<CommentService>();
-        private readonly ForumService _forumService = ServicesPool.GetService<ForumService>();
-        private readonly UserService _userService = ServicesPool.GetService<UserService>();
         private readonly ForumsPage _parentPage;
 
-        private int _guestId;
-        private int _forumId;
-
-        public List<CommentCardViewModel> _comments { get; set; }
+        public CommentsPageViewModel ViewModel { get; set; }
 
         public CommentsPage(ForumsPage forumsPage, int guestId, ForumDTO forum) {
             InitializeComponent();
 
-            _guestId = guestId;
-            _forumId = forum.Id;
-
             _parentPage = forumsPage;
+            ViewModel = new CommentsPageViewModel(guestId, forum);
+            DataContext = ViewModel;
             buttonPost.IsEnabled = false;
-            textBoxComment.IsEnabled = !forum.IsClosed;
-            Update();
+
+            UpdateCommentsView();
         }
 
         private void PostCommentClick(object sender, RoutedEventArgs e) {
-            Comment newComment = new Comment(DateTime.Now, textBoxComment.Text, _guestId, _forumId);
-            _commentService.Save(newComment);
-            textBoxComment.Text = "";
-            
-            Update();
+            ViewModel.PostComment();
+            UpdateCommentsView();
             _parentPage.Update();
         }   
 
-        private void Update() {
-            _comments = _commentService.GetByForumId(_forumId)
-                .Select(c => new CommentCardViewModel(new CommentDTO(c)))
-                .ToList();
-
-            _comments.ForEach(vm => vm.Comment.Username = _userService.GetById(vm.Comment.CreatorId).Username);
-
-            itemsControlComments.ItemsSource = _comments;
+        private void UpdateCommentsView() {
+            ViewModel.UpdateComments();
             scrollViewer.ScrollToBottom();
         }
 
