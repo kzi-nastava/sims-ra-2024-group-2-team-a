@@ -14,7 +14,7 @@ namespace BookingApp.WPF.Web.ViewModels {
 
     public class CommentsPageViewModel : INotifyPropertyChanged {
 
-        private readonly ForumDTO _forum;
+        public ForumDTO Forum { get; set; }
         public CommentDTO NewComment { get; set; }
         public List<CommentCardViewModel> _comments { get; set; }
         public List<CommentCardViewModel> Comments {
@@ -28,11 +28,13 @@ namespace BookingApp.WPF.Web.ViewModels {
 
         private readonly CommentService _commentService = ServicesPool.GetService<CommentService>();
         private readonly UserService _userService = ServicesPool.GetService<UserService>();
+        private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
 
-        public bool IsPostingEnabled => !_forum.IsClosed;
+        public bool IsPostingEnabled => !Forum.IsClosed;
 
         public CommentsPageViewModel(int guestId, ForumDTO forum) {
-            _forum = forum;
+            Forum = forum;
+            Forum.Location = new LocationDTO(_locationService.GetById(forum.LocationId));
             NewComment = new CommentDTO();
             NewComment.CreatorId = guestId;
             NewComment.ForumId = forum.Id;
@@ -45,7 +47,7 @@ namespace BookingApp.WPF.Web.ViewModels {
         }
 
         public void UpdateComments() {
-            Comments = _commentService.GetByForumId(_forum.Id)
+            Comments = _commentService.GetByForumId(Forum.Id)
                 .Select(c => new CommentCardViewModel(new CommentDTO(c)))
                 .ToList();
 

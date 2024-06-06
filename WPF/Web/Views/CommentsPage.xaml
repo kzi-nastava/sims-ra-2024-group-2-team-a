@@ -41,11 +41,24 @@
 
     <Grid Background="{StaticResource Beige}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Height="465">
+        <Grid Grid.Row="0" Background="{StaticResource Green}" Height="40">
+            <WrapPanel Margin="50 0 50 0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="{Binding Forum.Title}" Style="{StaticResource LabelStyle}" FontSize="18"/>
+                <Label VerticalAlignment="Center" Margin="10 0 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Style="{StaticResource ImageStyle}" Source="{StaticResource LocationIconWhite}" Margin="0 0 5 0"/>
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Forum.Location.LocationInfoTemplate}"/>
+                    </StackPanel>
+                </Label>
+            </WrapPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Height="425">
             <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Auto">
                 <ItemsControl Name="itemsControlComments" ItemsSource="{Binding Comments}" Margin="100 20 100 20">
                     <ItemsControl.ItemTemplate>
@@ -57,7 +70,7 @@
             </ScrollViewer>
         </Grid>
 
-        <Grid Grid.Row="1" Background="{StaticResource Green}">
+        <Grid Grid.Row="2" Background="{StaticResource Green}">
             <Grid Margin="100 0 100 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
