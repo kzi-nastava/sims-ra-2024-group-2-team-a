@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BookingApp.WPF.Web.ViewModels {
     public class CreateReservationPageViewModel : INotifyPropertyChanged {
@@ -24,10 +25,9 @@ namespace BookingApp.WPF.Web.ViewModels {
         }
 
         public int PicturesIndex { get; set; } = 0;
-
         public int MaxPictureIndex => Accommodation.ProfilePictures.Count - 1;
 
-        public AccommodationReservationFilterDTO ReservationDTO { get; set; } = new AccommodationReservationFilterDTO();
+        public AccommodationReservationFilterDTO ReservationFilter { get; set; } = new AccommodationReservationFilterDTO();
 
         private List<AccommodationReservation> _suggestedReservations;
         public List<AccommodationReservation> SuggestedReservations {
@@ -38,12 +38,9 @@ namespace BookingApp.WPF.Web.ViewModels {
             }
         }
 
+        public AccommodationReservation SelectedReservation { get; set; }
+
         private readonly int maxSuggestedReservationsCount = 20;
-
-        private readonly AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
-        private readonly AccommodationReviewService _reviewService = ServicesPool.GetService<AccommodationReviewService>();
-
-        private readonly GuestService _guestService = ServicesPool.GetService<GuestService>();
 
         public Guest GuestUser { get; set; }
         public int MaxBonusPoints { get; set; } = Guest.SuperGuestStartPoints;
@@ -51,19 +48,29 @@ namespace BookingApp.WPF.Web.ViewModels {
         public double AverageCleannessGrade { get; set; } = 0.0;
         public double AverageCorrectnessGrade { get; set; } = 0.0;
 
+        private readonly AccommodationReservationService _reservationService = ServicesPool.GetService<AccommodationReservationService>();
+        private readonly AccommodationReviewService _reviewService = ServicesPool.GetService<AccommodationReviewService>();
+        private readonly GuestService _guestService = ServicesPool.GetService<GuestService>();
+
+        public ICommand CreateReservation { get; set; }
+
         public CreateReservationPageViewModel(AccommodationDTO accommodationDTO, int guestId) {
             Accommodation = accommodationDTO;
-            ReservationDTO.AccommodationId = Accommodation.Id;
+            ReservationFilter.AccommodationId = Accommodation.Id;
 
             GuestUser = _guestService.GetById(guestId);
             SelectedAccommodationPicture = Accommodation.ProfilePictures[PicturesIndex];
 
             AverageCleannessGrade = _reviewService.GetAverageCleannessGrade(Accommodation.Id);
             AverageCorrectnessGrade = _reviewService.GetAverageCorrectnessGrade(Accommodation.Id);
-        }
 
+            CreateReservation = new RelayCommand(SaveReservation, () => {
+                return SelectedReservation != null;
+            });
+        }
+        
         public void UpdateSuggestedReservations() {
-            SuggestedReservations = _reservationService.SuggestReservations(ReservationDTO);
+            SuggestedReservations = _reservationService.SuggestReservations(ReservationFilter);
 
             if (SuggestedReservations.Count > maxSuggestedReservationsCount)
                 SuggestedReservations = SuggestedReservations.GetRange(0, maxSuggestedReservationsCount);
@@ -71,9 +78,9 @@ namespace BookingApp.WPF.Web.ViewModels {
             SuggestedReservations = SuggestedReservations.OrderBy(r => r.StartDate).ToList();
         }
 
-        public void SaveReservation(AccommodationReservation selectedReservation) {
-            selectedReservation.GuestId = GuestUser.Id;
-            _reservationService.Save(selectedReservation);
+        public void SaveReservation(object parameter) {
+            SelectedReservation.GuestId = GuestUser.Id;
+            _reservationService.Save(SelectedReservation);
         }
 
         public void ChangePictureRight() {
@@ -95,6 +102,5 @@ namespace BookingApp.WPF.Web.ViewModels {
         protected virtual void OnPropertyChanged(string propertyName) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }

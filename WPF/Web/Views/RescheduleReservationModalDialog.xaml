@@ -79,7 +79,8 @@
                 <Image Grid.Column="1" Style="{StaticResource ImageStyle}" Source="{StaticResource PointingArrowIcon}" Width="32" Height="32"
                        VerticalAlignment="Top" Margin="10 5 10 0"/>
 
-                <DatePicker x:Name="dataPickerNewDate" SelectedDate="{Binding NewDate, Mode=OneWayToSource}" Grid.Column="3" Margin="10 10 10 30" VerticalContentAlignment="Center"/>
+                <DatePicker x:Name="dataPickerNewDate" Grid.Column="3" Margin="10 10 10 30" VerticalContentAlignment="Center"
+                            SelectedDate="{Binding NewDate, Mode=OneWayToSource}" SelectedDateChanged="SelectedDateChanged"/>
 
             </Grid>
 
@@ -90,7 +91,7 @@
                 </WrapPanel>
             </Button>
 
-            <Button Grid.Row="3" Margin="10" HorizontalAlignment="Right" Click="ButtonConfirmClick">
+            <Button x:Name="buttonConfirm" Grid.Row="3" Margin="10" HorizontalAlignment="Right" Click="ButtonConfirmClick">
                 <WrapPanel Margin="10">
                     <Image Style="{StaticResource ImageStyle}" Source="{StaticResource ConfirmIcon}"/>
                     <TextBlock Text="Confirm" Style="{StaticResource ButtonText}"/>

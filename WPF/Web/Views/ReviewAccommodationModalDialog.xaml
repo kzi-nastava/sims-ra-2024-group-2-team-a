@@ -24,6 +24,12 @@
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         </Style>
 
+        <Style x:Key="SmallButtonImage" TargetType="Image">
+            <Setter Property="Height" Value="14"/>
+            <Setter Property="Width" Value="14"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="Margin" Value="10 0 0 0"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -89,30 +95,41 @@
                 <ScrollViewer>
                     <StackPanel Margin="10 0 0 0">
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Owner correctness:" Style="{StaticResource LabelStyle}"/>
-                            <Label Style="{StaticResource LabelStyle}" Content="{Binding ElementName=sliderOwnerCorrectness, Path=Value}"/>
-                            <Slider  x:Name="sliderOwnerCorrectness" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True"
+                            <Label Content="Owner correctness" Style="{StaticResource LabelStyle}"/>
+                            <WrapPanel Margin="49 0 0 0">
+                                <Label Style="{StaticResource LabelStyle}" Content="{Binding ElementName=sliderOwnerCorrectness, Path=Value}"/>
+                                <Slider  x:Name="sliderOwnerCorrectness" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True"
                                 Width="200" VerticalAlignment="Center" Margin="10 10 0 0" HorizontalAlignment="Center"
                                 Value="{Binding Review.OwnerCorrectnessGrade,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                            </WrapPanel>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Accommodation cleanliness:" Style="{StaticResource LabelStyle}"/>
-                            <Label Style="{StaticResource LabelStyle}" Content="{Binding ElementName=sliderCleanliness, Path=Value}"/>
-                            <Slider  x:Name="sliderCleanliness" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True"
+                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                            <Label Content="Accommodation cleanliness" Style="{StaticResource LabelStyle}"/>
+                            <WrapPanel>
+                                <Label Style="{StaticResource LabelStyle}" Content="{Binding ElementName=sliderCleanliness, Path=Value}"/>
+                                <Slider  x:Name="sliderCleanliness" Minimum="1" Maximum="5" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True"
                                 Width="200" VerticalAlignment="Center" Margin="10 10 0 0" HorizontalAlignment="Center"
                                 Value="{Binding Review.AccommodationCleannessGrade,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                            </WrapPanel>
                         </StackPanel>
 
-                        <StackPanel>
-                            <Label Content="Your comment" Style="{StaticResource LabelStyle}"/>
-                            <TextBox TextWrapping="Wrap" Width="400" Height="100" Margin="10 0 0 0" HorizontalAlignment="Left" Padding="5"
+                        <StackPanel Margin="0 10 0 0 ">
+                            <Grid Width="410" HorizontalAlignment="Left">
+                                <Label Content="Your comment" Style="{StaticResource LabelStyle}" HorizontalAlignment="Left"/>
+                                <TextBlock  HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10">
+                                    <Run Text="{Binding ElementName=textBoxComment, Path=Text.Length, Mode=OneWay}"/>
+                                    <Run Text="/ 256"/>
+                                </TextBlock>
+                            </Grid>
+                            <TextBox x:Name="textBoxComment" TextWrapping="Wrap" Width="400" Height="100" Margin="10 0 0 0" HorizontalAlignment="Left" Padding="5"
                             Text="{Binding Review.GuestComment,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                             <Label Content="Accommodation photos" Style="{StaticResource LabelStyle}"/>
-                            <Button x:Name="buttonUpload" Margin="10" HorizontalAlignment="Left" Cursor="Hand" Click="ButtonUploadClick">
+                            <Button x:Name="buttonUpload" Margin="30 10 10 10" HorizontalAlignment="Left"
+                                    Cursor="Hand" Click="ButtonUploadClick">
                                 <WrapPanel Margin="5">
                                     <Image Style="{StaticResource ImageStyle}" Source="{StaticResource CameraIcon}"/>
                                     <TextBlock Text="Upload"/>
@@ -120,7 +137,35 @@
                             </Button>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
+                        <WrapPanel x:Name="picturesPreview" Orientation="Horizontal" Margin="50 10 0 10" Visibility="Collapsed">
+                            <Button x:Name="buttonLeft" Height="30" Width="30" Margin="0 0 10 0" Click="ButtonLeftClick" Cursor="Hand">
+                                <WrapPanel>
+                                    <Image Source="{StaticResource LeftArrowIcon}" Style="{StaticResource SmallButtonImage}"/>
+                                </WrapPanel>
+                            </Button>
+
+                            <Border Height="150" Width="250" CornerRadius="10">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding SelectedAccommodationPicture, Mode=OneWay}" Stretch="Fill"/>
+                                </Border.Background>
+                            </Border>
+
+                            <Grid>
+                                <Button x:Name="buttonRemove" Height="30" Width="30" Margin="10 0 0 0" VerticalAlignment="Top" Click="ButtonRemoveClick" Cursor="Hand">
+                                    <WrapPanel>
+                                        <Image Source="{StaticResource CancelIcon}" Style="{StaticResource SmallButtonImage}"/>
+                                    </WrapPanel>
+                                </Button>
+                                
+                                <Button x:Name="buttonRight" Height="30" Width="30" Margin="10 0 0 0" VerticalAlignment="Center" Click="ButtonRightClick" Cursor="Hand">
+                                    <WrapPanel>
+                                        <Image Source="{StaticResource RightArrowIcon}" Style="{StaticResource SmallButtonImage}"/>
+                                    </WrapPanel>
+                                </Button>
+                            </Grid>
+                        </WrapPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                             <CheckBox x:Name="checkBoxRequiresRenovation" Margin="10 0 0 0" VerticalAlignment="Center"
                                       IsChecked="{Binding Review.RequiresRenovation, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                                       Unchecked="CheckBoxRequiresRenovationUnchecked"/>
@@ -135,8 +180,14 @@
                                       ItemTemplate="{StaticResource ComboBoxItemTemplate}"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Vertical" IsEnabled="{Binding ElementName=checkBoxRequiresRenovation, Path=IsChecked}">
-                            <Label Content="Renovation comment" Style="{StaticResource LabelStyle}"/>
+                        <StackPanel Orientation="Vertical" IsEnabled="{Binding ElementName=checkBoxRequiresRenovation, Path=IsChecked}" Margin="0 10 0 0">
+                            <Grid Width="410" HorizontalAlignment="Left">
+                                <Label Content="Renovation comment" Style="{StaticResource LabelStyle}" HorizontalAlignment="Left"/>
+                                <TextBlock  HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="10">
+                                    <Run Text="{Binding ElementName=textBoxRenovationComment, Path=Text.Length, Mode=OneWay}"/>
+                                    <Run Text="/ 256"/>
+                                </TextBlock>
+                            </Grid>
                             <TextBox x:Name="textBoxRenovationComment" TextWrapping="Wrap" Width="400" Height="100" Margin="10 0 0 0" HorizontalAlignment="Left" Padding="5"
                                      Text="{Binding Review.RenovationComment, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>

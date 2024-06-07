@@ -85,6 +85,7 @@
     <None Remove="Resources\Images\Icons\import-images-icon.png" />
     <None Remove="Resources\Images\Icons\language.png" />
     <None Remove="Resources\Images\Icons\left-arrow-icon.png" />
+    <None Remove="Resources\Images\Icons\location-icon-white.png" />
     <None Remove="Resources\Images\Icons\location-icon.png" />
     <None Remove="Resources\Images\Icons\locked-building-icon.png" />
     <None Remove="Resources\Images\Icons\logout-white-icon.png" />
@@ -191,6 +192,7 @@
     <Resource Include="Resources\Images\Accommodations\Sheraton.jpg" />
     <Resource Include="Resources\Images\coupon.png" />
     <Resource Include="Resources\Images\Icons\beige-pdf.png" />
+    <Resource Include="Resources\Images\Icons\location-icon-white.png" />
     <Resource Include="Resources\Images\Icons\plane-icon.png" />
   </ItemGroup>
 

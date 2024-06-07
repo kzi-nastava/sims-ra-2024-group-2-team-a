@@ -41,13 +41,26 @@
 
     <Grid Background="{StaticResource Beige}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Height="465">
+        <Grid Grid.Row="0" Background="{StaticResource Green}" Height="40">
+            <WrapPanel Margin="50 0 50 0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="{Binding Forum.Title}" Style="{StaticResource LabelStyle}" FontSize="18"/>
+                <Label VerticalAlignment="Center" Margin="10 0 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Style="{StaticResource ImageStyle}" Source="{StaticResource LocationIconWhite}" Margin="0 0 5 0"/>
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding Forum.Location.LocationInfoTemplate}"/>
+                    </StackPanel>
+                </Label>
+            </WrapPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Height="425">
             <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Auto">
-                <ItemsControl Name="itemsControlComments" ItemsSource="{Binding _commentDTOs}" Margin="100 20 100 20">
+                <ItemsControl Name="itemsControlComments" ItemsSource="{Binding Comments}" Margin="100 20 100 20">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:CommentCard/>
@@ -57,25 +70,27 @@
             </ScrollViewer>
         </Grid>
 
-        <Grid Grid.Row="1" Background="{StaticResource Green}">
+        <Grid Grid.Row="2" Background="{StaticResource Green}">
             <Grid Margin="100 0 100 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <WrapPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
+                <WrapPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" IsEnabled="{Binding IsPostingEnabled}">
                     <Grid Width="700">
-                        <Label Content="Comment" Style="{StaticResource LabelStyle}" HorizontalAlignment="Left"/>
+                        <Label Content="Your comment" Style="{StaticResource LabelStyle}" HorizontalAlignment="Left"/>
                         <TextBlock Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Right">
                             <Run Text="{Binding ElementName=textBoxComment, Path=Text.Length, Mode=OneWay}"/>
                             <Run Text="/ 256 "/>
                         </TextBlock>
                     </Grid>
-                    <TextBox x:Name="textBoxComment" TextWrapping="Wrap" Width="700" Height="80" Padding="5" HorizontalAlignment="Left" TextChanged="CommentTextChanged" MaxLength="256"/>
+                    <TextBox x:Name="textBoxComment" TextWrapping="Wrap" Width="700" Height="80" Padding="5" MaxLength="256"
+                             Text="{Binding NewComment.Text, Mode=TwoWay}" TextChanged="CommentTextChanged"/>
                 </WrapPanel>
 
-                <Button Grid.Column="1" Margin="10" Height="60" Width="60" Name="buttonPost" HorizontalAlignment="Right" Style="{StaticResource MainButton}" Click="PostCommentClick">
+                <Button Grid.Column="1" Margin="10" Height="60" Width="60" Name="buttonPost" HorizontalAlignment="Right" Style="{StaticResource MainButton}" 
+                        IsEnabled="{Binding IsPostingEnabled}" Click="PostCommentClick">
                     <WrapPanel Orientation="Vertical">
                         <Image Style="{StaticResource ImageStyle}" Source="{StaticResource PlaneIcon}"/>
                         <TextBlock Text="Post" Style="{StaticResource ButtonText}"/>

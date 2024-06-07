@@ -136,12 +136,12 @@
 
                     <StackPanel Orientation="Vertical" Grid.Column="1">
                         <WrapPanel Margin="0 5 5 5">
-                            <Label Content="Days" Style="{StaticResource SearchLabel}"/>
+                            <Label Content="Days *" Style="{StaticResource SearchLabel}"/>
                             <xctk:IntegerUpDown x:Name="quickTextBoxDays" Width="80" FontSize="15" TextAlignment="Center" Minimum="1"/>
                         </WrapPanel>
 
                         <WrapPanel Margin="0 5 5 5">
-                            <Label Content="Guests" Style="{StaticResource SearchLabel}"/>
+                            <Label Content="Guests *" Style="{StaticResource SearchLabel}"/>
                             <xctk:IntegerUpDown x:Name="quickTextBoxGuests" Width="80" FontSize="15" TextAlignment="Center" Minimum="1"/>
                         </WrapPanel>
                     </StackPanel>

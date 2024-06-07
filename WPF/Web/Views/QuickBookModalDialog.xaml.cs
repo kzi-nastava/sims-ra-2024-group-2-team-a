@@ -37,8 +37,6 @@ namespace BookingApp.WPF.Web.Views {
         }
 
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
-            AccommodationReservation selectedReservation = (AccommodationReservation)dataGridSuggestedDates.SelectedItem;
-            ViewModel.SaveReservation(selectedReservation);
             App.NotificationService.ShowSuccess("Reservation successfully created!");
             _parentPage.CloseModalDialog();
         }

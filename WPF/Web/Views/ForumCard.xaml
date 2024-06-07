@@ -102,7 +102,7 @@
                 <TextBlock Grid.Column="1" Text="{Binding Title}" FontSize="18" Margin="10 10 10 10" FontWeight="DemiBold" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" />
 
                 <Grid Grid.Column="2">
-                    <Button Name="closeForumButton" VerticalAlignment="Top" Margin="10 10 0 0" Width="24" Height="24" Click="CloseForumClick">
+                    <Button Name="closeForumButton" VerticalAlignment="Top" Margin="10 10 0 0" Width="32" Height="32" Click="CloseForumClick">
                         <WrapPanel>
                             <Image Style="{StaticResource ButtonImage}" Source="{StaticResource CancelIcon}"/>
                         </WrapPanel>
