@@ -5,7 +5,9 @@ using BookingApp.WPF.Utils.Validation;
 using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -15,7 +17,7 @@ namespace BookingApp.WPF.Android.Views {
     /// <summary>
     /// Interaction logic for AddAccomodationPage.xaml
     /// </summary>
-    public partial class AddAccommodationPage : Page, IDemo {
+    public partial class AddAccommodationPage : Page, IDemo, INotifyPropertyChanged {
         public Frame mainFrame;
 
         private readonly User _user;
@@ -23,7 +25,19 @@ namespace BookingApp.WPF.Android.Views {
         private AccommodationService accommodationService = ServicesPool.GetService<AccommodationService>();
         private LocationService locationService = ServicesPool.GetService<LocationService>();
         public AccommodationDTO AccommodationDTO { get; set; }
-        public LocationDTO SelectedLocationDTO { get; set; }
+
+        private LocationDTO _location;
+        public LocationDTO SelectedLocationDTO {
+            get {
+                return _location;
+            }
+            set {
+                if (value != _location) {
+                    _location = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public ObservableCollection<LocationDTO> LocationDTOs { get; set; }
 
         public AddAccommodationPage(Frame mainFrame, User user, LocationDTO presetLocation) {
@@ -107,9 +121,10 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private DispatcherTimer _timer;
+        DispatcherTimer timer2;
         private int _currentFieldIndex;
         private AccommodationDTO tempAccommodationDTO;
-        private LocationDTO tempSelectedLocation;
+        private int selectedIndex = -1;
         public void StartDemo() {
             _currentFieldIndex = 0;
 
@@ -119,8 +134,10 @@ namespace BookingApp.WPF.Android.Views {
             _timer.Start();
 
             tempAccommodationDTO = new AccommodationDTO(AccommodationDTO);
-            if(SelectedLocationDTO != null)
-                tempSelectedLocation = new LocationDTO(SelectedLocationDTO);
+
+            selectedIndex = comboBox.SelectedIndex;
+
+            DemoReset();
         }
         private void Timer_Tick(object sender, EventArgs e) {
             switch (_currentFieldIndex) {
@@ -129,7 +146,6 @@ namespace BookingApp.WPF.Android.Views {
                     break;
                 case 2:
                     SelectedLocationDTO = LocationDTOs[0];
-                    comboBox.SelectedItem = SelectedLocationDTO;
                     break;
                 case 3:
                     AccommodationDTO.MaxGuestNumber = 2;
@@ -164,14 +180,15 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void DemoNameInput() {
-            DispatcherTimer timer2 = new DispatcherTimer();
             int index = 0;
             string input = "Villa Kamenica";
+            timer2 = new DispatcherTimer();
             timer2.Interval = TimeSpan.FromSeconds(0.05);
             timer2.Tick += (sender,e) => {
                 AccommodationDTO.Name += input[index++];
                 if (index == input.Length) {
                     timer2.Stop();
+                    index = 0;
                     return;
                 }
             };
@@ -186,7 +203,6 @@ namespace BookingApp.WPF.Android.Views {
             AccommodationDTO.Type = AccommodationType.apartment;
 
             SelectedLocationDTO = null;
-            comboBox.SelectedItem = SelectedLocationDTO;
         }
         private void SimulateButtonClickAppearance(Button button) {
             var brushConverter = new BrushConverter();
@@ -205,16 +221,26 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         public void StopDemo() {
+            if(timer2 != null)
+                timer2.Stop();
+            _timer.Stop();
+
             AccommodationDTO.Name = tempAccommodationDTO.Name;
             AccommodationDTO.MaxGuestNumber = tempAccommodationDTO.MaxGuestNumber;
             AccommodationDTO.MinReservationDays = tempAccommodationDTO.MinReservationDays;
             AccommodationDTO.LastCancellationDay = tempAccommodationDTO.LastCancellationDay;
             AccommodationDTO.Type = tempAccommodationDTO.Type;
 
-            SelectedLocationDTO = tempSelectedLocation;
-            comboBox.SelectedItem = SelectedLocationDTO;
+            SelectedLocationDTO = null;
+            if (selectedIndex != -1) {
+                SelectedLocationDTO = LocationDTOs[selectedIndex];
+            }
+        }
 
-            _timer.Stop();
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

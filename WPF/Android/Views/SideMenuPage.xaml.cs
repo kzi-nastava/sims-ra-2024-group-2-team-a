@@ -44,7 +44,7 @@ namespace BookingApp.WPF.Android.Views {
         private void SetAverageAndSuperLabels(int userId) {
             OwnerService ownerService = ServicesPool.GetService<OwnerService>(); 
             Owner owner = ownerService.GetByUserId(userId);
-            AverageGradeLabel.Content = owner.AverageGrade.ToString();
+            AverageGradeLabel.Content = owner.AverageGrade.ToString("F2");
             if (owner.IsSuper) {
                 SuperImage.Source = new BitmapImage(new Uri("pack://application:,,,/BookingApp;component/Resources/Images/Icons/gold-star-icon.png"));
             }
