@@ -23,8 +23,8 @@ namespace BookingApp.WPF.Desktop.Views {
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
             double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
 
-            this.Width = screenWidth * 0.4;
-            this.Height = screenHeight * 0.4;
+            this.Width = screenWidth * 0.3;
+            this.Height = screenHeight * 0.3;
 
             DataContext = new SettingsWindowViewModel(userId);
         }

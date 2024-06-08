@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -33,6 +34,20 @@ namespace BookingApp.WPF.DTO {
             JoinedPointOfInterestId = p.JoinedPointOfInterestId;
             UserId = p.UserId;
 
+        }
+
+        public PassengerDTO(Tourist t) {
+            Name = t.Name;
+            Surname = t.Surname;
+            Age = CalculateAge(t.DateOfBirth);
+        }
+
+        private int CalculateAge(DateOnly dateOfBirth) {
+            DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+            int age = today.Year - dateOfBirth.Year;
+            if (dateOfBirth > today.AddYears(-age)) age--;
+
+            return age;
         }
 
         private int _id;

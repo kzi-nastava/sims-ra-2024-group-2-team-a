@@ -35,12 +35,11 @@ namespace BookingApp.WPF.Desktop.Views {
                 App.NotificationService.ShowError("There is not enought space for all!\nAvailable space: " + successIndicator.ToString());
             else if (successIndicator == -1)
                 OpenSameLocationsWindow();
-            else {
+            else if (successIndicator == 0) {
                 App.NotificationService.ShowSuccess("Reservation successful!");
+                _touristHomePage.Update();
                 this.Close();
             }
-
-            _touristHomePage.Update();
         }
 
         private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {

@@ -28,7 +28,9 @@ namespace BookingApp.WPF.Desktop.Views
 
             SetWindowSize(complexViewModel);
 
-            this.DataContext = new CreateRequestWindowViewModel(userId, complexViewModel, requestsPageViewModel);
+            CreateRequestWindowViewModel viewModel = new CreateRequestWindowViewModel(userId, complexViewModel, requestsPageViewModel);
+            viewModel.CloseAction = new Action(this.Close);
+            this.DataContext = viewModel;
         }
 
         private void SetWindowSize(CreateComplexRequestWindowViewModel? complexViewModel) {
@@ -44,14 +46,6 @@ namespace BookingApp.WPF.Desktop.Views
                 this.Height = screenHeight * 0.5;
             }
             
-        }
-
-        private void CreateRequestButton_Click(object sender, RoutedEventArgs e) {
-            if (_complexViewModel != null)
-                App.NotificationService.ShowSuccess("Simple tour request added successfully!");
-            else
-                App.NotificationService.ShowSuccess("Tour request created successfully!");
-            this.Close();
         }
     }
 }
