@@ -137,7 +137,7 @@
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="1.5*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0"
@@ -174,22 +174,33 @@
                                                        Style="{StaticResource Info}"/>
                                         </Grid>
                                         <Border Style="{StaticResource BorderStyle}"
-                                                Margin="20"
+                                                Margin="0, 20"
                                                 Grid.Column="1">
                                             <TextBlock Style="{StaticResource Info}"
                                                        Text="{Binding Description}"/>
                                         </Border>
-                                        <TextBlock Grid.Column="2"                                             
-                                                   Style="{StaticResource Info}"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   Margin="20"
-                                                   Foreground="{Binding Status, Converter={StaticResource ColorConverter}}">
-                                            <TextBlock.Text>
-                                                <Binding StringFormat="• {0}" 
-                                                         Path="Status"/>
-                                            </TextBlock.Text>
-                                        </TextBlock>
+                                            <StackPanel Grid.Column="2"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Bottom"
+                                                        Margin="10, 20">
+                                                <TextBlock Style="{StaticResource Info}"                                   
+                                                           Foreground="{Binding Status, Converter={StaticResource ColorConverter}}"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="10">
+                                                    <TextBlock.Text>
+                                                        <Binding StringFormat="• {0}" 
+                                                                 Path="Status"/>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                                <Button Style="{StaticResource ButtonStyle}"
+                                                        HorizontalAlignment="Center"
+                                                        Content="Click for more information"
+                                                        Padding="10, 0"
+                                                        Margin="0"
+                                                        Command="{Binding DataContext.RequestInformationCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                                        CommandParameter="{Binding}"/>
+                                            </StackPanel>
+                                        
                                     </Grid>
                                 </Border>
                             </DataTemplate>
@@ -349,7 +360,9 @@
                                                     <Button Style="{StaticResource ButtonStyle}"
                                                             HorizontalAlignment="Left"
                                                             Content="Click for more information"
-                                                            Padding="10, 0"/>
+                                                            Padding="10, 0"
+                                                            Command="{Binding DataContext.ComplexInformationCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                                            CommandParameter="{Binding}"/>
                                                     <TextBlock Grid.Column="1"                                             
                                                                Style="{StaticResource Info}"
                                                                FontSize="24"

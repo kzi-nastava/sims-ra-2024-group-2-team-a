@@ -66,7 +66,8 @@
                           AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           Margin="10, 0, 10, 10"
-                          FontSize="16">
+                          FontSize="16"
+                          Background="{StaticResource SoftGreen}">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Location" Width="*">
                             <DataGridTemplateColumn.CellTemplate>

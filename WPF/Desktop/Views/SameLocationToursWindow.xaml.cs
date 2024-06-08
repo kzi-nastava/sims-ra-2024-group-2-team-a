@@ -35,7 +35,7 @@ namespace BookingApp.WPF.Desktop.Views {
             var selectedTour = (TourDTO)button.DataContext;
 
             if (_tourService.GetAvailableSpace(selectedTour) != 0) {
-                TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, 4);
+                TourReservationWindow reservationWindow = new TourReservationWindow(selectedTour, 4, null);
                 reservationWindow.ShowDialog();
             }
         }

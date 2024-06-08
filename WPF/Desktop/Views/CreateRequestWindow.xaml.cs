@@ -21,25 +21,31 @@ namespace BookingApp.WPF.Desktop.Views
     public partial class CreateRequestWindow : Window
     {
         private CreateComplexRequestWindowViewModel _complexViewModel;
-        public CreateRequestWindow(int userId, CreateComplexRequestWindowViewModel? complexViewModel)
+        public CreateRequestWindow(int userId, CreateComplexRequestWindowViewModel? complexViewModel, RequestsPageViewModel requestsPageViewModel)
         {
             InitializeComponent();
+            _complexViewModel = complexViewModel;
+
+            SetWindowSize(complexViewModel);
+
+            CreateRequestWindowViewModel viewModel = new CreateRequestWindowViewModel(userId, complexViewModel, requestsPageViewModel);
+            viewModel.CloseAction = new Action(this.Close);
+            this.DataContext = viewModel;
+        }
+
+        private void SetWindowSize(CreateComplexRequestWindowViewModel? complexViewModel) {
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
             double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
 
-            this.Width = screenWidth * 0.7;
-            this.Height = screenHeight * 0.7;
-
-            _complexViewModel = complexViewModel;
-            this.DataContext = new CreateRequestWindowViewModel(userId, complexViewModel);
-        }
-
-        private void CreateRequestButton_Click(object sender, RoutedEventArgs e) {
-            if (_complexViewModel != null)
-                App.NotificationService.ShowSuccess("Simple tour request added successfully!");
-            else
-                App.NotificationService.ShowSuccess("Tour request created successfully!");
-            this.Close();
+            if (complexViewModel == null) {
+                this.Width = screenWidth * 0.7;
+                this.Height = screenHeight * 0.7;
+            }
+            else {
+                this.Width = screenWidth * 0.6;
+                this.Height = screenHeight * 0.5;
+            }
+            
         }
     }
 }

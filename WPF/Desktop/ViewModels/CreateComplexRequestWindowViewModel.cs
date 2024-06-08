@@ -16,19 +16,26 @@ namespace BookingApp.WPF.Desktop.ViewModels {
         public ObservableCollection<TourRequestDTO> SimpleTourRequests { get; set; } = new ObservableCollection<TourRequestDTO>();
         public ICommand CreateComplexRequestCommand { get; set; } 
         public ICommand RemoveSimpleTourCommand { get; set; }
-        public CreateComplexRequestWindowViewModel(int userId) {
+
+        private RequestsPageViewModel _requestsPageViewModel;
+        public CreateComplexRequestWindowViewModel(int userId, RequestsPageViewModel requestsPageViewModel) {
             UserId = userId;
-            Func<bool> alwaysTrue = () => true;
-            CreateComplexRequestCommand = new RelayCommand(CreateRequest, alwaysTrue);
-            RemoveSimpleTourCommand = new RelayCommand(RemoveSimpleTour, alwaysTrue);
+            CreateComplexRequestCommand = new RelayCommand(CreateRequest, IsThereEnoughtSimpleRequests);
+            RemoveSimpleTourCommand = new RelayCommand(RemoveSimpleTour, () => true);
+            _requestsPageViewModel = requestsPageViewModel;
         }
 
         public void CreateRequest(object parameter) {
             _complexTourRequestService.CreateRequest(UserId, SimpleTourRequests.ToList());
+            _requestsPageViewModel.DisplayComplexTourRequests();
         }
 
         public void RemoveSimpleTour(object parameter) {
             SimpleTourRequests.Remove((TourRequestDTO)parameter);
+        }
+
+        private bool IsThereEnoughtSimpleRequests() {
+            return SimpleTourRequests.Count() >= 2;
         }
     }
 }

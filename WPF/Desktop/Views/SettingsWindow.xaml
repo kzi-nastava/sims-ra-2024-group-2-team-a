@@ -37,14 +37,6 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
-        <Style TargetType="Button" x:Key="SmallButton">
-            <Setter Property="Background" Value="{StaticResource Green}"/>
-            <Setter Property="Foreground" Value="{StaticResource Beige}"/>
-            <Setter Property="Margin" Value="20, 5"/>
-            <Setter Property="FontSize" Value="32"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
     </Window.Resources>
     <Grid Background="{StaticResource Beige}">
         <Grid Margin="5">
@@ -62,7 +54,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
-                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -98,12 +90,12 @@
                         Grid.Column="1"
                         Grid.Row="1"
                         Style="{StaticResource BigButton}"
-                        Content="Submit"/>
+                        Content="Save"/>
                 <Button x:Name="SignOutButton"
                         Click="SignOutButton_Click"
                         Grid.Column="1"
                         Grid.Row="2"
-                        Style="{StaticResource SmallButton}"
+                        Style="{StaticResource BigButton}"
                         Content="Sign Out"/>
             </Grid>
         </Grid>

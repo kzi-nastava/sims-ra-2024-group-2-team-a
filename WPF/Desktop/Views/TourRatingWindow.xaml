@@ -191,8 +191,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="Additional comments:"
                                Style="{StaticResource HighlightedText}"/>
-                    <TextBox Background="{StaticResource SoftGreen}"
-                             VerticalAlignment="Stretch"
+                    <TextBox VerticalAlignment="Stretch"
                              Grid.Row="1"
                              FontSize="16"/>
                 </Grid>

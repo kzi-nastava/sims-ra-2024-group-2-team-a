@@ -1,6 +1,8 @@
 ﻿using BookingApp.WPF.Desktop.ViewModels;
+using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,29 +17,20 @@ using System.Windows.Shapes;
 
 namespace BookingApp.WPF.Desktop.Views {
     /// <summary>
-    /// Interaction logic for SettingsWindow.xaml
+    /// Interaction logic for ComplexInformationWindow.xaml
     /// </summary>
-    public partial class SettingsWindow : Window {
-        public SettingsWindow(int userId) {
+    public partial class ComplexInformationWindow : Window {
+        
+        public ComplexInformationWindow(ComplexTourRequestDTO selectedRequest) {
             InitializeComponent();
+
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
             double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
 
-            this.Width = screenWidth * 0.3;
-            this.Height = screenHeight * 0.3;
+            this.Width = screenWidth * 0.7;
+            this.Height = screenHeight * 0.7;
 
-            DataContext = new SettingsWindowViewModel(userId);
-        }
-
-        private void SignOutButton_Click(object sender, RoutedEventArgs e) {
-            SignInForm signInForm = new SignInForm();
-            signInForm.Show();
-            this.Close();
-            this.Owner.Close();
-        }
-
-        private void SubmitButton_Click(object sender, RoutedEventArgs e) {
-            this.Close();
+            DataContext = new ComplexInformationWindowViewModel(selectedRequest);
         }
     }
 }

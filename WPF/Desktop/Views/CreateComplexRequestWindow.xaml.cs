@@ -20,8 +20,9 @@ namespace BookingApp.WPF.Desktop.Views {
     /// </summary>
     public partial class CreateComplexRequestWindow : Window {
         int UserId { get; set; }
+        private RequestsPageViewModel _parentViewModel;
         CreateComplexRequestWindowViewModel ViewModel { get; set; }
-        public CreateComplexRequestWindow(int userId) {
+        public CreateComplexRequestWindow(int userId, RequestsPageViewModel requestsPageViewModel) {
             InitializeComponent();
 
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
@@ -31,12 +32,13 @@ namespace BookingApp.WPF.Desktop.Views {
             this.Height = screenHeight * 0.7;
 
             UserId = userId;
-            ViewModel = new CreateComplexRequestWindowViewModel(UserId);
+            _parentViewModel = requestsPageViewModel;
+            ViewModel = new CreateComplexRequestWindowViewModel(UserId, requestsPageViewModel);
             this.DataContext = ViewModel;
         }
 
         private void AddSimpleRequestButton_Click(object sender, RoutedEventArgs e) {
-            CreateRequestWindow window = new CreateRequestWindow(UserId, ViewModel);          
+            CreateRequestWindow window = new CreateRequestWindow(UserId, ViewModel, _parentViewModel);          
             window.ShowDialog();
         }
 
