@@ -114,6 +114,23 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 if (value != _isVoucherSelected) {
                     _isVoucherSelected = value;
                     OnPropertyChanged();
+                    if (_isVoucherSelected)
+                        VoucherSelection = "Remove coupon";
+                    else
+                        VoucherSelection = "Use coupons?";
+                }
+            }
+        }
+
+        private string _voucherSelection = "Use coupons?";
+        public string VoucherSelection {
+            get {
+                return _voucherSelection;
+            }
+            set {
+                if (_voucherSelection != value) { 
+                    _voucherSelection = value;
+                    OnPropertyChanged();
                 }
             }
         }

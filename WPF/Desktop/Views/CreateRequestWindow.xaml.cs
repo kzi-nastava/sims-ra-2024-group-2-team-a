@@ -26,6 +26,9 @@ namespace BookingApp.WPF.Desktop.Views
             InitializeComponent();
             _complexViewModel = complexViewModel;
 
+            datePickerStartDate.DisplayDateStart = DateTime.Today.AddDays(1);
+            datePickerEndDate.IsEnabled = false;
+
             SetWindowSize(complexViewModel);
 
             CreateRequestWindowViewModel viewModel = new CreateRequestWindowViewModel(userId, complexViewModel, requestsPageViewModel);
@@ -42,10 +45,24 @@ namespace BookingApp.WPF.Desktop.Views
                 this.Height = screenHeight * 0.7;
             }
             else {
-                this.Width = screenWidth * 0.6;
-                this.Height = screenHeight * 0.5;
+                this.Width = screenWidth * 0.7;
+                this.Height = screenHeight * 0.62;
             }
             
+        }
+
+        private void SetDatePickerEndDate(object sender, EventArgs e) {
+            if (datePickerStartDate.SelectedDate >= datePickerEndDate.SelectedDate) {
+                datePickerEndDate.SelectedDate = null;
+                datePickerEndDate.DisplayDateStart = datePickerStartDate.SelectedDate.Value.AddDays(1);
+                return;
+            }
+
+            if (datePickerStartDate.SelectedDate != null) {
+                datePickerEndDate.IsEnabled = true;
+                datePickerEndDate.DisplayDateStart = datePickerStartDate.SelectedDate.Value.AddDays(1);
+                return;
+            }
         }
     }
 }

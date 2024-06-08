@@ -33,6 +33,18 @@ namespace BookingApp.Services {
             return _notificationRepository.GetAll().FindAll(x => x.UserId == userId);
         }
 
+        public IEnumerable<Notification> GetSortedForTourist(int touristId) {
+            List<Notification> result = new List<Notification>();
+
+            foreach (var item in _notificationRepository.GetNonReadForUser(touristId))
+                result.Add(item);
+
+            foreach (var item in _notificationRepository.GetReadForUser(touristId))
+                result.Add(item);
+
+            return result;
+        }
+
         public void Update(Notification notification) {
             _notificationRepository.Update(notification);
         }

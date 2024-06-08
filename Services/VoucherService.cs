@@ -26,11 +26,11 @@ namespace BookingApp.Services {
         }
 
         public List<Voucher> GetByTouristId(int userId) {
-                return _voucherRepository.GetAll().Where(v => v.TouristId == userId).ToList();
+                return _voucherRepository.GetAll().Where(v => v.TouristId == userId && v.Used == false).ToList();
         }
 
         public List<Voucher> GetAvailableVouchers(int userId) {
-            return GetByTouristId(userId).Where(v => v.Used == false && v.ExpireDate > DateTime.Now).ToList();
+            return GetByTouristId(userId).Where(v => v.ExpireDate > DateTime.Now).ToList();
         }
 
         public void RemoveVoucher(VoucherDTO selectedVoucher) {

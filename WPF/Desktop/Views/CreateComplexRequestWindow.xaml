@@ -129,7 +129,14 @@
                 HorizontalAlignment="Center"
                 Padding="10"
                 Command="{Binding CreateComplexRequestCommand}"
-                x:Name="CreateRequestButton"
-                Click="CreateRequestButton_Click"/>
+                x:Name="CreateRequestButton"/>
+        <TextBlock Style="{StaticResource SmallText}"
+                   TextWrapping="Wrap"
+                   Foreground="Red"
+                   Grid.Row="2"
+                   Text="{Binding ValidationErrors[Confirmation]}"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Margin="10, 10, 300, 10"/>
     </Grid>
 </Window>

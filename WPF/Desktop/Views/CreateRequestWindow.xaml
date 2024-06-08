@@ -187,8 +187,10 @@
                                         Margin="5">
                                 <TextBlock Text="Start date:"
                                            Style="{StaticResource HighlightedText}"/>
-                                <DatePicker Style="{StaticResource DatePicker}"
-                                            SelectedDate="{Binding StartDate, Mode=OneWayToSource}"/>
+                                <DatePicker x:Name="datePickerStartDate"
+                                            Style="{StaticResource DatePicker}"
+                                            SelectedDate="{Binding StartDate, Mode=OneWayToSource}"
+                                            SelectedDateChanged="SetDatePickerEndDate"/>
                             </StackPanel>
                             <TextBlock Style="{StaticResource SmallText}"
                                        Grid.Row="1"
@@ -207,7 +209,9 @@
                                 <TextBlock Text="End date:"
                                            Style="{StaticResource HighlightedText}"/>
                                 <DatePicker Style="{StaticResource DatePicker}"
-                                            SelectedDate="{Binding EndDate, Mode=OneWayToSource}"/>
+                                            SelectedDate="{Binding EndDate, Mode=OneWayToSource}"
+                                            x:Name="datePickerEndDate"
+                                            SelectedDateChanged="SetDatePickerEndDate"/>
                             </StackPanel>
                             <TextBlock Style="{StaticResource SmallText}"
                                        Grid.Row="1"
