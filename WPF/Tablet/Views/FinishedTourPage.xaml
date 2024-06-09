@@ -24,16 +24,18 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Column="0" Grid.Row="0" Margin="20" BorderBrush="Black" BorderThickness="1">
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="28" Margin="0 10 0 0">Finished Tour</TextBlock>
+        <Border Grid.Column="0" Grid.Row="1" Margin="20" BorderBrush="Black" BorderThickness="1">
             <Border.Background>
                 <ImageBrush ImageSource="{Binding tourDTO.ProfilePictures[0]}"/>
             </Border.Background>
         </Border>
-        <Grid Grid.Row="0" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -117,7 +119,7 @@
                 </StackPanel>
             </Button>
         </Grid>
-        <DockPanel Grid.Row="1" Grid.Column="0">
+        <DockPanel Grid.Row="2" Grid.Column="0">
             <Label DockPanel.Dock="Top" Content="Description:" Style="{StaticResource PageLabel}"/>
             <Border BorderBrush="Black" BorderThickness="1" Background="{StaticResource Beige}" Padding="5" Margin="10,0,10,10">
                 <ScrollViewer>
@@ -125,7 +127,7 @@
                 </ScrollViewer>
             </Border>
         </DockPanel>
-        <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+        <Grid Grid.Row="2" Grid.Column="1" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition />
@@ -143,6 +145,6 @@
                 </DataGrid>
             </Grid>
         </Grid>
-        <Button Grid.ColumnSpan="2" Grid.Row="2" x:Name="closeButton" Style="{StaticResource BigButtons}" Content="Close" Command="cmd:RoutedCommands.Cancel"/>
+        <Button Grid.ColumnSpan="2" Grid.Row="3" x:Name="closeButton" Style="{StaticResource BigButtons}" Content="Close" Command="cmd:RoutedCommands.Cancel"/>
     </Grid>
 </Page>

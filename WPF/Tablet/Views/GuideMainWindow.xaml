@@ -19,6 +19,7 @@
     <DockPanel>
         <Grid DockPanel.Dock="Top" Background="{StaticResource HardGreen}" Height="36">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>

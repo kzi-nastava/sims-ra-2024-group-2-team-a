@@ -34,9 +34,6 @@ namespace BookingApp.WPF.Tablet.ViewModels
             guideProfileDTO = new GuideProfileDTO(_guideService.GetById(_guideId));
         }
         public void Update() {
-            /*if (DateTime.Now.Year == DateTime.Now.AddDays(-1).Year)
-                        return;                                                             NEKI USLOV
-        */
             if (guideProfileDTO.IsSuper && guideProfileDTO.SuperUntil > DateTime.Now)
                 return;
 

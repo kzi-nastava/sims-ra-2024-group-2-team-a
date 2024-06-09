@@ -91,6 +91,7 @@
     <None Remove="Resources\Images\Icons\logout-white-icon.png" />
     <None Remove="Resources\Images\Icons\normal-owner-icon.png" />
     <None Remove="Resources\Images\Icons\not-super-icon.png" />
+    <None Remove="Resources\Images\Icons\no_image_icon.png" />
     <None Remove="Resources\Images\Icons\owner-icon.png" />
     <None Remove="Resources\Images\Icons\people-icon.png" />
     <None Remove="Resources\Images\Icons\plane-icon.png" />
@@ -193,6 +194,7 @@
     <Resource Include="Resources\Images\coupon.png" />
     <Resource Include="Resources\Images\Icons\beige-pdf.png" />
     <Resource Include="Resources\Images\Icons\location-icon-white.png" />
+    <Resource Include="Resources\Images\Icons\no_image_icon.png" />
     <Resource Include="Resources\Images\Icons\plane-icon.png" />
   </ItemGroup>
 
