@@ -46,7 +46,7 @@
             <Setter Property="Maximum" Value="5"/>
             <Setter Property="TickFrequency" Value="1"/>
             <Setter Property="IsSnapToTickEnabled" Value="True"/>
-            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Background" Value="{StaticResource Green}"/>
             <Setter Property="Foreground" Value="{StaticResource Green}"/>
         </Style>
     </Window.Resources>

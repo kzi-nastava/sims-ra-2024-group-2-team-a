@@ -69,6 +69,8 @@
         <BitmapImage x:Key="PDFDownload" UriSource="Resources/Images/Icons/beige-pdf.png"/>
         <BitmapImage x:Key="BeigeLogo" UriSource="Resources/Images/Logo/beige-logo.png"/>
         <BitmapImage x:Key="LocationIconWhite" UriSource="Resources/Images/Icons/location-icon-white.png"/>
+        <BitmapImage x:Key="Play" UriSource="Resources/Images/Icons/beige-play.png"/>
+        <BitmapImage x:Key="Pause" UriSource="Resources/Images/Icons/beige-pause.png"/>
 
         <SolidColorBrush x:Key="HardGreen" Color="#12372A"/>
         <SolidColorBrush x:Key="Green" Color="#436850"/>
