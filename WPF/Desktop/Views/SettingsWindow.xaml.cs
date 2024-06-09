@@ -26,6 +26,8 @@ namespace BookingApp.WPF.Desktop.Views {
             this.Width = screenWidth * 0.3;
             this.Height = screenHeight * 0.3;
 
+            datePicker.DisplayDateEnd = DateTime.Now.AddDays(-1);
+
             DataContext = new SettingsWindowViewModel(userId);
         }
 

@@ -29,6 +29,7 @@
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
         <Style TargetType="TextBlock" x:Key="Info">
             <Setter Property="FontWeight" Value="Bold"/>
@@ -45,7 +46,7 @@
             <Setter Property="Maximum" Value="5"/>
             <Setter Property="TickFrequency" Value="1"/>
             <Setter Property="IsSnapToTickEnabled" Value="True"/>
-            <Setter Property="Background" Value="{StaticResource SoftGreen}"/>
+            <Setter Property="Background" Value="{StaticResource Green}"/>
             <Setter Property="Foreground" Value="{StaticResource Green}"/>
         </Style>
     </Window.Resources>
@@ -67,14 +68,14 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.ColumnSpan="2"
-                   Text="{Binding SelectedTour.Name}"
-                   HorizontalAlignment="Center"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Margin="10, 5, 10, 10"/>
+                       Text="{Binding SelectedTour.Name}"
+                       HorizontalAlignment="Center"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Margin="10, 5, 10, 10"/>
             <Grid Grid.Row="1"
-              HorizontalAlignment="Left"
-              Margin="10, 0">
+                  HorizontalAlignment="Left"
+                  Margin="10, 0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -112,45 +113,45 @@
                     <Image Source="{StaticResource LanguageIcon}"
                        Style="{StaticResource Image}"/>
                     <TextBlock Grid.Row="2"
-                           Text="{Binding SelectedTour.Language.Name}"
-                           Style="{StaticResource Info}"/>
+                               Text="{Binding SelectedTour.Language.Name}"
+                               Style="{StaticResource Info}"/>
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
-                        Grid.Row="3">
+                            Grid.Row="3">
                     <Image Source="{StaticResource Stopwatch}"
-                       Style="{StaticResource Image}"/>
+                           Style="{StaticResource Image}"/>
                     <TextBlock Grid.Row="3"
-                           Text="{Binding SelectedTour.Duration}"
-                           Style="{StaticResource Info}"/>
+                               Text="{Binding SelectedTour.Duration}"
+                               Style="{StaticResource Info}"/>
 
                 </StackPanel>
             </Grid>
             <Border Style="{StaticResource BorderStyle}"
-                Grid.Row="1"
-                Grid.Column="1"
-                Background="{StaticResource SoftGreen}">
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Background="{StaticResource Beige}">
                 <ScrollViewer>
                     <TextBlock Text="{Binding SelectedTour.Description}"
-                           FontSize="14"
-                           TextWrapping="Wrap"
-                           Margin="5"/>
+                               FontSize="14"
+                               TextWrapping="Wrap"
+                               Margin="5"/>
                 </ScrollViewer>
             </Border>
             <Image Source="{Binding SelectedTour.ProfilePictures[0]}"
-               Grid.Row="2"
-               Grid.ColumnSpan="2"
-               Stretch="UniformToFill"
-               Margin="10, 0"/>
+                   Grid.Row="2"
+                   Grid.ColumnSpan="2"
+                   Stretch="UniformToFill"
+                   Margin="10, 0"/>
             <Image Source="{Binding SelectedTour.ProfilePictures[1]}"
-               Grid.Row="3"
-               Stretch="UniformToFill"
-               Margin="10, 10, 5, 10"/>
+                   Grid.Row="3"
+                   Stretch="UniformToFill"
+                   Margin="10, 10, 5, 10"/>
             <Image Source="{Binding SelectedTour.ProfilePictures[2]}"
-               Grid.Row="3"
-               Grid.Column="1"
-               Stretch="UniformToFill"
-               Margin="5, 10, 10, 10"/>
+                   Grid.Row="3"
+                   Grid.Column="1"
+                   Stretch="UniformToFill"
+                   Margin="5, 10, 10, 10"/>
         </Grid>
 
         <Border Style="{StaticResource BorderStyle}"
@@ -169,20 +170,46 @@
                             Margin="0, 10">
                     <TextBlock Text="Guide's knowledge:"
                                Style="{StaticResource HighlightedText}"/>
-                    <Slider Style="{StaticResource Slider}"/>
+                    <Slider Style="{StaticResource Slider}"
+                            Minimum="1"
+                            Value="{Binding TourReview.KnowledgeGrade, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                            x:Name="ks"/>
                 </StackPanel>
+                <TextBlock VerticalAlignment="Top"
+                           HorizontalAlignment="Right"
+                           Margin="10"
+                           Style="{StaticResource SmallText}"
+                           Text="{Binding TourReview.KnowledgeGrade, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel Grid.Row="1"
                             Margin="0, 5">
                     <TextBlock Text="Guide's language skill:"
                                Style="{StaticResource HighlightedText}"/>
-                    <Slider Style="{StaticResource Slider}"/>
+                    <Slider Style="{StaticResource Slider}"
+                            Value="{Binding TourReview.LanguageGrade, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                            Minimum="1"
+                            x:Name="ls"/>
                 </StackPanel>
+                <TextBlock VerticalAlignment="Top"
+                           Grid.Row="1"
+                           HorizontalAlignment="Right"
+                           Margin="10"
+                           Style="{StaticResource SmallText}"
+                           Text="{Binding TourReview.LanguageGrade, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel Grid.Row="2"
                             Margin="0, 5">
                     <TextBlock Text="How interesting was the tour?"
                                Style="{StaticResource HighlightedText}"/>
-                    <Slider Style="{StaticResource Slider}"/>
+                    <Slider Style="{StaticResource Slider}"
+                            Value="{Binding TourReview.InterestGrade, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                            Minimum="1"
+                            x:Name="iss"/>
                 </StackPanel>
+                <TextBlock VerticalAlignment="Top"
+                           Grid.Row="2"
+                           HorizontalAlignment="Right"
+                           Margin="10"
+                           Style="{StaticResource SmallText}"
+                           Text="{Binding TourReview.InterestGrade, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Grid Grid.Row="3"
                       Margin="0, 10">
                     <Grid.RowDefinitions>
@@ -224,7 +251,8 @@
                         </Button>
                         <Border Style="{StaticResource BorderStyle}"
                                 Grid.Column="2">
-                            <Image Source="{Binding CurrentImagePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Image Source="{Binding CurrentImagePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   Stretch="Fill"/>
                         </Border>
                         <Button Style="{StaticResource ButtonStyle}"
                                 Height="30"
@@ -246,7 +274,12 @@
                 <Button Content="Confirm"
                         Grid.Row="5"
                         Style="{StaticResource ButtonStyle}"
-                        Margin="200, 10, 200, 10"/>
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Padding="20, 10"
+                        Command="{Binding ConfirmCommand}"
+                        Click="ConfirmationButton_Click"/>
             </Grid>
         </Border>
     </Grid>

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="UseVouchersWindow" Height="450" Width="800">
     <Window.Resources>
         <Style TargetType="Button" x:Key="ButtonStyle">
@@ -16,13 +17,16 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Padding" Value="20, 10"/>
         </Style>
+        <Style TargetType="Border" x:Key="Border">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
+        </Style>
     </Window.Resources>
     <Grid Background="{StaticResource Beige}">
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition/>
+                <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
             <TextBlock Text="Available coupons:"
                        FontSize="24"
@@ -31,28 +35,38 @@
                        HorizontalAlignment="Center"/>
             <ScrollViewer Grid.Row="1"
                           Margin="0, 10">
-                <ListView ItemsSource="{Binding VouchersOnDisplay}"
-                          Margin="0, 0, 10, 0"
-                          Width="Auto">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Border BorderBrush="Black" BorderThickness="0.5" Margin="0, 0, 0, 10">
-                                    <Viewbox Stretch="Uniform">
-                                        <Image Source="{Binding Image}"/>
-                                    </Viewbox>
+                <Border Style="{StaticResource Border}"
+                        Margin="0, 0, 10, 0"
+                        Background="{StaticResource SoftGreen}">
+                    <ItemsControl ItemsSource="{Binding VouchersOnDisplay}"
+                                  Width="Auto"
+                                  Margin="10">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource Border}"
+                                        Background="{StaticResource Beige}"
+                                        Margin="0, 0, 0, 10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding Image}"
+                                           Margin="10"/>
+                                    <Button Grid.Column="1"
+                                            Style="{StaticResource ButtonStyle}"
+                                            Content="Use coupon"
+                                            Margin="0, 10, 10, 10"
+                                            Click="UseVoucherButton_Click"
+                                            Command="{Binding DataContext.UseVoucherCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                            CommandParameter="{Binding}"/>
+                                </Grid>
                                 </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
             </ScrollViewer>
-            <Button Grid.Row="2"
-                    Style="{StaticResource ButtonStyle}"
-                    Content="Use coupon"/>
         </Grid>
     </Grid>
 </Window>
