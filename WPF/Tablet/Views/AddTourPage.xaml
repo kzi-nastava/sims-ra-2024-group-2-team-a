@@ -14,14 +14,20 @@
         <CommandBinding x:Name="AddDateTime" Command="cmd:RoutedCommands.AddDateTime" CanExecute="AddDateTime_CanExecute" Executed="AddDateTime_Executed"/>
         <CommandBinding x:Name="AddPointOfInterest" Command="cmd:RoutedCommands.AddPointOfInterest" CanExecute="AddPointOfInterest_CanExecute" Executed="AddPointOfInterest_Executed"/>
         <CommandBinding x:Name="AddPictures" Command="cmd:RoutedCommands.AddPictures" CanExecute="AddPictures_CanExecute" Executed="AddPictures_Executed"/>
+        <CommandBinding x:Name="DeletePictures" Command="cmd:RoutedCommands.DeletePictures" CanExecute="DeletePictures_CanExecute" Executed="DeletePictures_Executed"/>
+        <CommandBinding x:Name="Previous" Command="cmd:RoutedCommands.Filter" CanExecute="Previous_CanExecute" Executed="Previous_Executed"/>
+        <CommandBinding x:Name="Next" Command="cmd:RoutedCommands.Clear" CanExecute="Next_CanExecute" Executed="Next_Executed"/>
+
     </Page.CommandBindings>
     <Page.Resources>
         <ResourceDictionary Source="../tabletstyles.xaml">
             
         </ResourceDictionary>
     </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -35,36 +41,97 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Name:" />
-        <TextBox Grid.Row="0" Grid.Column="1" Margin="20,0,20,0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Name}"/>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="28" Margin="0 20 0 0">Add Tour</TextBlock>
+        <Label Grid.Row="1" Grid.Column="0" Content="Name:" />
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="0"  Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Name}"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Description:" />
-        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="1" Grid.Column="1" Margin="20,0,20,0" Height="50" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Description}"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Description:" />
+        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Margin="0" Height="150" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Description}"/>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Max Tourists:"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.MaxTouristNumber}"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Max Tourists:"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.MaxTouristNumber}"/>
 
-        <Label Grid.Row="5" Grid.Column="0" Content="Duration:" />
-        <TextBox Grid.Row="5" Grid.Column="1" Margin="20,0,20,0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Duration}"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="Duration:" />
+        <TextBox Grid.Row="7" Grid.Column="1" Margin="0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Text="{Binding tourDTO.Duration}"/>
 
-        <Label Grid.Row="6" Grid.Column="0" Content="Photos:"/>
-        <Button x:Name="pickPhotosButton" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Command="cmd:RoutedCommands.AddPictures">
-            <StackPanel Orientation="Horizontal" Margin="0,0,30,0">
-                <Label VerticalAlignment="Center" FontSize="20" FontStyle="Italic" FontWeight="Thin" Margin="20,0,20,0">Pick photos from galery</Label>
-                <Image Source="{StaticResource Add2Icon}" Width="40" Height="40" />
-            </StackPanel>
-        </Button>
+        <Label Grid.Row="1" Grid.Column="2" Content="Photos:"/>
+        <Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!--<Button Content="Post some photos"
+                Style="{StaticResource ButtonStyle}"
+                Height="50"
+                Padding="5, 0"
+                Command="{Binding AddImageCommand}"/>-->
+            <Button Style="{StaticResource WindowButton}"
+                Height="30"
+                Width="30"
+                Margin="0"
+                Grid.Column="0"
+                Command="cmd:RoutedCommands.Filter">
+                <Image Source="{StaticResource LeftArrowIcon}"
+                     Height="20"/>
+            </Button>
+            <Border Margin="10"
+                Grid.Column="1" Grid.ColumnSpan="2">
+                <Border.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedImageIndex}" Value="-1">
+                                <Setter Property="Border.Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="{StaticResource NoImageIcon}"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Image Source="{Binding CurrentImagePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Border>
+            <Button Style="{StaticResource WindowButton}"
+                Height="30"
+                Width="30"
+                Margin="0"
+                Grid.Column="3"
+                Command="cmd:RoutedCommands.Clear">
+                <Image Source="{StaticResource RightArrowIcon}"
+                   Height="20"/>
+            </Button>
+            <Button Content="Delete"
+                Style="{StaticResource WindowButton}"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Grid.Row="1"
+                Height="40"
+                Command="cmd:RoutedCommands.DeletePictures"/>
+            <Button Content="Pick Photos"
+                Style="{StaticResource WindowButton}"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="1"
+                Height="40"
+                Command="cmd:RoutedCommands.AddPictures"/>
+        </Grid>
 
-        <Label Grid.Row="0" Grid.Column="2" Content="Location:"/>
-        <ComboBox x:Name="comboBoxLocation" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,30,0,0" Width="200" ItemsSource="{Binding locationDTOs}" SelectedItem="{Binding selectedLocationDTO, Mode=OneWayToSource}" DisplayMemberPath="LocationOptionTemplate"/>
+        <Label Grid.Row="3" Grid.Column="2" Content="Location:"/>
+        <ComboBox x:Name="comboBoxLocation" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0" Width="200" ItemsSource="{Binding locationDTOs}" SelectedItem="{Binding selectedLocationDTO, Mode=OneWayToSource}" DisplayMemberPath="LocationOptionTemplate"/>
 
-        <Label Grid.Row="2" Grid.Column="2" Content="Language:"/>
-        <ComboBox x:Name="comboBoxLanguage" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,30,0,0" Width="100" ItemsSource="{Binding languageDTOs}" SelectedItem="{Binding selectedLanguageDTO, Mode=OneWayToSource}"  DisplayMemberPath="LanguageOptionTemplate"/>
+        <Label Grid.Row="4" Grid.Column="2" Content="Language:"/>
+        <ComboBox x:Name="comboBoxLanguage" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0" Width="100" ItemsSource="{Binding languageDTOs}" SelectedItem="{Binding selectedLanguageDTO, Mode=OneWayToSource}"  DisplayMemberPath="LanguageOptionTemplate"/>
 
-        <Label Grid.Row="3"  Grid.Column="0" Content="Dates and Time:"/>
-        <Grid Background="White" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1"  Margin="20">
+        <Label Grid.Row="5"  Grid.Column="0" Content="Dates and Time:"/>
+        <Grid Background="White" Grid.Row="5" Grid.RowSpan="2" Grid.Column="1"  Margin="0">
             <DataGrid x:Name="dataGridDate" ItemsSource="{Binding begginings}" IsReadOnly="True" 
       SelectionMode="Single" AutoGenerateColumns="False">
                 <DataGrid.Columns>
@@ -81,8 +148,8 @@
             <Button x:Name="addDateTime" Style="{StaticResource SmallButtons}" Content="Add" Command="cmd:RoutedCommands.AddDateTime"/>
         </Grid>
 
-        <Label Grid.Row="4"  Grid.Column="2" Margin="0,0,20,20" Content="Keypoints:"/>
-        <Grid Background="White" Grid.Row="4" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="2"  Margin="10,50,10,10">
+        <Label Grid.Row="5"  Grid.Column="2" Margin="0,10,20,20" Content="Keypoints:"/>
+        <Grid Background="White" Grid.Row="5" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="2"  Margin="40,60,10,10">
             <DataGrid x:Name="dataGrid" ItemsSource="{Binding pointOfInterestDTOs}" IsReadOnly="True" 
               SelectionMode="Single" AutoGenerateColumns="False">
                 <DataGrid.Columns>
@@ -100,7 +167,7 @@
             <Button x:Name="addPointOfInterestButton" Style="{StaticResource SmallButtons}" Content="Add" Command="cmd:RoutedCommands.AddPointOfInterest" />
         </Grid>
 
-        <Button x:Name="resetButton" Style="{StaticResource BigButtons}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Reset" Command="cmd:RoutedCommands.Cancel"/>
-        <Button x:Name="confirmButton" Style="{StaticResource BigButtons}" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Content="Confirm" Command="cmd:RoutedCommands.Confirm"/>
+        <Button x:Name="resetButton" Style="{StaticResource BigButtons}" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Content="Reset" Command="cmd:RoutedCommands.Cancel"/>
+        <Button x:Name="confirmButton" Style="{StaticResource BigButtons}" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" Content="Confirm" Command="cmd:RoutedCommands.Confirm"/>
     </Grid>
 </Page>

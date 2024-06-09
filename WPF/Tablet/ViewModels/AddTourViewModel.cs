@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,6 +31,46 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
         public ObservableCollection<DateTime> begginings { get; set; }
+
+        private ObservableCollection<string> _imagePaths = new ObservableCollection<string>();
+        public ObservableCollection<string> ImagePaths {
+            get {
+                return _imagePaths;
+            }
+            set {
+                if (_imagePaths != value) {
+                    _imagePaths = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _selectedImageIndex;
+        public int SelectedImageIndex {
+            get {
+                return _selectedImageIndex;
+            }
+            set {
+                if (_selectedImageIndex != value) {
+                    _selectedImageIndex = value;
+                    OnPropertyChanged();
+                    UpdateImage();
+                }
+            }
+        }
+
+        private string _currentImagePath;
+        public string CurrentImagePath {
+            get {
+                return _currentImagePath;
+            }
+            set {
+                if (_currentImagePath != value) {
+                    _currentImagePath = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public AddTourViewModel(TourDTO tDTO, int userId) {
             _userId = userId;
             Load();
@@ -39,6 +80,7 @@ namespace BookingApp.WPF.Tablet.ViewModels {
                 tourDTO = tDTO;
                 LoadSelectedLanuageLocation();
             }
+            SelectedImageIndex = -1;
 
         }
         public void AddTour() {
@@ -82,6 +124,9 @@ namespace BookingApp.WPF.Tablet.ViewModels {
             tourDTO.CurrentTouristNumber = 0;
             tourDTO.setBeggining(beggining);
             tourDTO.GuideId = _userId;
+
+            foreach (var imagePath in ImagePaths)
+                tourDTO.ProfilePictures.Add(imagePath);
         }
 
         private void SaveTour() {
@@ -91,7 +136,7 @@ namespace BookingApp.WPF.Tablet.ViewModels {
                 _pointOfInterestService.Save(pDTO.ToModelNoId());
             }
         }
-        public void PickPhotos(List<string> absolutePaths) {
+        /*public void PickPhotos(List<string> absolutePaths) {
 
             // Convert absolute paths to relative paths
             string basePath = Directory.GetCurrentDirectory(); // Use application directory as base
@@ -99,12 +144,12 @@ namespace BookingApp.WPF.Tablet.ViewModels {
                 string relativePath = GetRelativePath(basePath, absolutePath);
                 tourDTO.ProfilePictures.Add(relativePath);
             }
-        }
-        private string GetRelativePath(string basePath, string fullPath) {
+        }*/
+        /*private string GetRelativePath(string basePath, string fullPath) {
             Uri baseUri = new Uri(basePath + System.IO.Path.DirectorySeparatorChar);
             Uri fullUri = new Uri(fullPath);
             return baseUri.MakeRelativeUri(fullUri).ToString();
-        }
+        }*/
         private void LoadSelectedLanuageLocation() {
             if(tourDTO.LanguageId == 0) {
                 selectedLocationDTO = new LocationDTO(_locationService.GetById(tourDTO.LocationId));
@@ -113,5 +158,51 @@ namespace BookingApp.WPF.Tablet.ViewModels {
                 selectedLanguageDTO = new LanguageDTO(_languageService.GetById(tourDTO.LanguageId));
             }
         }
+        public void AddImage() {
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Filter = "Image files |*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            if (openFileDialog.ShowDialog() == true) {
+                ImagePaths.Add(openFileDialog.FileName);
+                if (SelectedImageIndex == -1)
+                    SelectedImageIndex = 0;
+
+                UpdateImage();
+            }
+        }
+
+        public void UpdateImage() {
+            if (_selectedImageIndex != -1)
+                CurrentImagePath = ImagePaths[SelectedImageIndex];
+            else {
+                CurrentImagePath = null;
+            }
+        }
+
+        public void DeleteImage() {
+            if (SelectedImageIndex >= 0 && SelectedImageIndex < ImagePaths.Count) {
+                ImagePaths.RemoveAt(SelectedImageIndex);
+                if (SelectedImageIndex >= ImagePaths.Count)
+                    SelectedImageIndex = ImagePaths.Count - 1;
+
+                UpdateImage();
+            }
+        }
+
+        public bool CanNavigatePrevious() {
+            return SelectedImageIndex > 0;
+        }
+
+        public void NavigatePreviousImage() {
+            SelectedImageIndex--;
+        }
+
+        public bool CanNavigateNext() {
+            return SelectedImageIndex < ImagePaths.Count - 1;
+        }
+
+        public void NavigateNextImage() {
+            SelectedImageIndex++;
+        }
+
     }
 }
