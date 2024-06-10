@@ -20,29 +20,27 @@ namespace BookingApp.WPF.Desktop.Views {
     /// </summary>
     public partial class CreateComplexRequestWindow : Window {
         int UserId { get; set; }
-        CreateComplexRequestWindowViewModel ViewModel { get; set; }
-        public CreateComplexRequestWindow(int userId) {
+        private RequestsPageViewModel _parentViewModel;
+        public CreateComplexRequestWindowViewModel ViewModel { get; set; }
+        public CreateComplexRequestWindow(int userId, RequestsPageViewModel requestsPageViewModel) {
             InitializeComponent();
 
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
             double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
 
-            this.Width = screenWidth * 0.7;
-            this.Height = screenHeight * 0.7;
+            this.Width = screenWidth * 0.8;
+            this.Height = screenHeight * 0.8;
 
             UserId = userId;
-            ViewModel = new CreateComplexRequestWindowViewModel(UserId);
+            _parentViewModel = requestsPageViewModel;
+            ViewModel = new CreateComplexRequestWindowViewModel(UserId, requestsPageViewModel);
+            ViewModel.CloseAction = new Action(this.Close);
             this.DataContext = ViewModel;
         }
 
         private void AddSimpleRequestButton_Click(object sender, RoutedEventArgs e) {
-            CreateRequestWindow window = new CreateRequestWindow(UserId, ViewModel);          
+            CreateRequestWindow window = new CreateRequestWindow(UserId, ViewModel, _parentViewModel);          
             window.ShowDialog();
-        }
-
-        private void CreateRequestButton_Click(object sender, RoutedEventArgs e) {
-            App.NotificationService.ShowSuccess("Complex tour request created successfully!");
-            this.Close();
         }
     }
 }

@@ -26,9 +26,22 @@ namespace BookingApp.Services {
             return _complexTourRequestRepository.GetById(id);
         }
 
-        public IEnumerable<ComplexTourRequest> GetByTouristId(int touristId) {
-            return _complexTourRequestRepository.GetByTouristId(touristId);
+        public IEnumerable<ComplexTourRequest> GetFiltered(int userId, string filter) {
+            if (Enum.TryParse(filter, out TourRequestStatus status)) {
+                switch (status) {
+                    case TourRequestStatus.Accepted:
+                        return _complexTourRequestRepository.GetAccepted(userId);
+                    case TourRequestStatus.OnHold:
+                        return _complexTourRequestRepository.GetOnHold(userId);
+                    default:
+                        return _complexTourRequestRepository.GetExpired(userId);
+                }
+            }
+            else {
+                return _complexTourRequestRepository.GetByTouristId(userId);
+            }
         }
+
         public List<ComplexTourRequest> GetAllOnHold(int guideId) {
             return _complexTourRequestRepository.GetAll().FindAll(x => x.Status == TourRequestStatus.OnHold && !_tourRequestService.IsAccepted(guideId, x.Id)); 
             

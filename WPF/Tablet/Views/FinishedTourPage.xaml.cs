@@ -13,10 +13,12 @@ namespace BookingApp.WPF.Tablet.Views {
         private int _userId;
         public FinishedTourViewModel ViewModel { get; set; }
         public FinishedTourPage(TourDTO tDTO, Frame mainF, Frame menuBarF, int userId) {
-            InitializeComponent();
+            Window mainWindow = Application.Current.MainWindow;
+            ProfileViewModel p = (ProfileViewModel)mainWindow.DataContext;
 
-            ViewModel = new FinishedTourViewModel(tDTO, userId);
+            ViewModel = new FinishedTourViewModel(tDTO, userId, p.guideProfileDTO);
             DataContext = ViewModel;
+            InitializeComponent();
 
             _mainFrame = mainF;
             _menuBarFrame = menuBarF;
@@ -42,9 +44,22 @@ namespace BookingApp.WPF.Tablet.Views {
         private void Reviews_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
             e.CanExecute = true;
         }
-
         private void Reviews_Executed(object sender, ExecutedRoutedEventArgs e) {
             _mainFrame.Content = new TourReviewsPage(ViewModel.tourDTO, _mainFrame);
+        }
+
+        private void Help_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            if (ViewModel.guideProfileDTO.IsHelpActive) {
+                e.CanExecute = true;
+            }
+            else {
+                e.CanExecute = false;
+            }
+        }
+
+        private void Help_Executed(object sender, ExecutedRoutedEventArgs e) {
+            WizardWindow wizardWindow = new WizardWindow(_userId, 3, false);
+            wizardWindow.ShowDialog();
         }
     }
 }

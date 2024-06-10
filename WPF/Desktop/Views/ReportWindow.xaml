@@ -10,14 +10,110 @@
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:ImageConverter x:Key="ImageConverter"/>
+        <Style TargetType="Border" x:Key="Border">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Title">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Normal">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="{StaticResource Green}"/>
+            <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
     </Window.Resources>
-    <Grid>
-        <StackPanel>
-            <Button Command="{Binding ChooseFileDestinationCommand}"
-                    Content="CHoose"/>
-            <Button Command="{Binding GenerateReportCommand}"
-                    Content="Generate"/>
-            <Image Source="{Binding Preview, Converter={StaticResource ImageConverter}}"/>
-        </StackPanel>
+    <Grid Background="{StaticResource Beige}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="1"
+                Margin="10, 10, 10, 5"
+                Style="{StaticResource Border}"
+                Background="{StaticResource SoftGreen}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Choose file destination"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Style="{StaticResource Title}"/>
+                <TextBlock Text="Cannot download without file destination"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Margin="15, 0"/>
+                <Border Grid.Row="1"
+                        Margin="10, 0, 10, 10"
+                        Background="White">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderThickness="0, 0, 0.5, 0"
+                                BorderBrush="Black">
+                            <TextBlock Text="Save file to"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Style="{StaticResource Normal}"/>
+                        </Border>
+                        <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding FilePath, UpdateSourceTrigger=PropertyChanged}"
+                                   Style="{StaticResource Normal}"/>
+                        <Button Command="{Binding ChooseFileDestinationCommand}"
+                                Content="Browse..."
+                                Grid.Column="2"
+                                Style="{StaticResource ButtonStyle}"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="0"
+              Margin="10, 10, 10, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Style="{StaticResource Border}"
+                    Background="White">
+                <TextBlock Margin="10"
+                           Style="{StaticResource Normal}"
+                           TextWrapping="Wrap"
+                           Text="How to download your report:
+                           
+                           
+                           
+                           
+                           • Preview Your Report: A preview of your report is displayed on the right side of the window. Review it to ensure all details are correct.
+                           
+                           
+                           
+                           
+                           • Choose File Location: Select where you’d like to save your report on your device. Click on the “Browse” button and navigate to your desired folder."/>
+            </Border>
+            <Image Source="{Binding Preview, Converter={StaticResource ImageConverter}}"
+                   Grid.Column="1"/>
+        </Grid>
+        <Button Command="{Binding GenerateReportCommand}"
+                Click="Button_Click"
+                Content="Download"
+                Grid.Row="2"
+                Style="{StaticResource ButtonStyle}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Padding="20, 10"/>
     </Grid>
 </Window>

@@ -8,8 +8,9 @@ namespace BookingApp.WPF.Desktop.Views {
     /// Interaction logic for ReservationWindow.xaml
     /// </summary>
     public partial class TourReservationWindow : Window {
+        private TouristHomePage? _touristHomePage;
         public TouristReservationWindowViewModel TourReservationViewModel { get; set; }
-        public TourReservationWindow(TourDTO selectedTour, int userId)
+        public TourReservationWindow(TourDTO selectedTour, int userId, TouristHomePage? parentWindow)
         {
             InitializeComponent();
 
@@ -21,6 +22,7 @@ namespace BookingApp.WPF.Desktop.Views {
 
             TourReservationViewModel = new TouristReservationWindowViewModel(selectedTour, userId);
             DataContext = TourReservationViewModel;
+            _touristHomePage = parentWindow;
         }
 
         private void OpenSameLocationsWindow() {
@@ -33,10 +35,11 @@ namespace BookingApp.WPF.Desktop.Views {
                 App.NotificationService.ShowError("There is not enought space for all!\nAvailable space: " + successIndicator.ToString());
             else if (successIndicator == -1)
                 OpenSameLocationsWindow();
-            else {
+            else if (successIndicator == 0) {
                 App.NotificationService.ShowSuccess("Reservation successful!");
+                _touristHomePage.Update();
                 this.Close();
-            }              
+            }
         }
 
         private void ConfirmReservationButton_Click(object sender, RoutedEventArgs e) {

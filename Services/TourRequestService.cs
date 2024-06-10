@@ -17,16 +17,18 @@ namespace BookingApp.Services {
         private LocationService _locationService;
         private LanguageService _languageService;
         private UserService _userService;
+        private RequestPassengerService _requestPassengerService;
 
         public TourRequestService(ITourRequestRepository tourRequestRepository) {
             _tourRequestRepository = tourRequestRepository;
             UpdateRequestStatus();
         }
 
-        public void InjectServices(LocationService locationService, LanguageService languageService, UserService userService) {
+        public void InjectServices(LocationService locationService, LanguageService languageService, UserService userService, RequestPassengerService requestPassengerService) {
             _locationService = locationService;
             _languageService = languageService;
             _userService = userService;
+            _requestPassengerService = requestPassengerService;
         }
 
         public IEnumerable<TourRequest> GetForComplexRequest(int id) {
@@ -101,8 +103,16 @@ namespace BookingApp.Services {
             }
         }
 
-        public void CreateRequest(TourRequestDTO tourRequestDTO, int complexRequestId) {           
-            _tourRequestRepository.Save(new TourRequest(tourRequestDTO, complexRequestId));
+        private void SavePassengers(int tourRequestId, List<PassengerDTO> passengers) {
+            foreach (var passenger in passengers) {
+                _requestPassengerService.Save(new RequestPassenger(tourRequestId, passenger));
+            }
+        }
+
+        public void CreateRequest(TourRequestDTO tourRequestDTO, int complexRequestId) {
+            TourRequest tourRequest = new TourRequest(tourRequestDTO, complexRequestId);
+            _tourRequestRepository.Save(tourRequest);
+            SavePassengers(tourRequest.Id, tourRequestDTO.Passengers);
         }      
 
         public TouristStatistics GetStatistics(int userId, string year) {

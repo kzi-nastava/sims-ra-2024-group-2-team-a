@@ -13,6 +13,7 @@
     <Page.CommandBindings>
         <CommandBinding x:Name="Clear" Command="cmd:RoutedCommands.Clear" CanExecute="Clear_CanExecute" Executed="Clear_Executed"/>
         <CommandBinding x:Name="Filter" Command="cmd:RoutedCommands.Filter" CanExecute="Filter_CanExecute" Executed="Filter_Executed"/>
+        <CommandBinding x:Name="Help" Command="cmd:RoutedCommands.Help2" CanExecute="Help_CanExecute" Executed="Help_Executed"/>
     </Page.CommandBindings>
     <Page.Resources>
         <ResourceDictionary Source="../TabletStyles.xaml">
@@ -22,9 +23,25 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Height="180" BorderBrush="Black" BorderThickness="1" Margin="5,20,5,5">
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="28" Margin="0 20 0 0">Follow Live Tour</TextBlock>
+        <Button Grid.Row="0" HorizontalAlignment="Right" Margin="0 20 10 0" Width="30" Height="30" Command="cmd:RoutedCommands.Help2">
+            <Button.Style>
+                <Style>
+                    <Setter Property="Button.Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding guideProfileDTO.IsHelpActive}" Value="False">
+                            <Setter Property="Button.Visibility" Value="Collapsed"/>
+                        </DataTrigger> 
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Image Source="{StaticResource HelpIcon}"/>
+            
+        </Button>
+        <Border Grid.Row="1" Height="180" BorderBrush="Black" BorderThickness="1" Margin="5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -58,7 +75,7 @@
                 <Button Grid.Column="3" Grid.Row="2"  x:Name="filterButton" Content="Filter" Command="cmd:RoutedCommands.Filter" Style="{StaticResource FilterButton}"/>
             </Grid>
         </Border>
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <ItemsControl x:Name="itemsControlLiveTours" ItemsSource="{Binding tourDTOs}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

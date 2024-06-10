@@ -1,0 +1,59 @@
+﻿<Window x:Class="BookingApp.WPF.Tablet.Views.PdfGenerationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
+        xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
+        mc:Ignorable="d"
+                Title="PdfGenerationWindow" Height="400" Width="350"
+        WindowStartupLocation="CenterScreen">
+    <Window.CommandBindings>
+        <CommandBinding x:Name="Cancel" Command="cmd:RoutedCommands.Cancel" CanExecute="Cancel_CanExecute" Executed="Cancel_Executed"/>
+        <CommandBinding x:Name="Generate" Command="cmd:RoutedCommands.Confirm" CanExecute="Generate_CanExecute" Executed="Generate_Executed"/>
+    </Window.CommandBindings>
+    <Window.Resources>
+        <ResourceDictionary Source="../TabletSTyles.xaml">
+
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Style="{StaticResource GridBackground}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" FontSize="18" FontFamily="{StaticResource Roboto}" Foreground="Beige" TextAlignment="Center"
+               Text="Generate pdf report for scheduled tours in selected timespan:" TextWrapping="Wrap" Width="280"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0"/>
+
+        <Label Grid.Row="1" Grid.ColumnSpan="2"  Content="From:" Style="{StaticResource WindowLabel}"/>
+        <DatePicker x:Name="datePickerFrom" Grid.Row="1" Grid.Column="2" DisplayDateStart="{Binding tourRequestDTO.StartDateTime, Mode=OneWay}" DisplayDateEnd="{Binding tourRequestDTO.EndDateTime, Mode=OneWay}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePickerFrom_SelectedDateChanged"/>
+
+        <Label Grid.Row="2" Grid.ColumnSpan="2" Content="To:" Style="{StaticResource WindowLabel}"/>
+        <DatePicker x:Name="datePickerTo" Grid.Row="2" Grid.Column="2" DisplayDateStart="{Binding tourRequestDTO.StartDateTime, Mode=OneWay}"  DisplayDateEnd="{Binding tourRequestDTO.EndDateTime, Mode=OneWay}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePickerTo_SelectedDateChanged"/>
+
+        
+        <Label Content="File path: " FontSize="16" FontFamily="{StaticResource Roboto}" Foreground="White" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,5,0,0" Padding="0"/>
+
+        <TextBox Text="{Binding FilePath}" Grid.Row="3" Grid.Column="1" Height="25" Width="200" HorizontalAlignment="Left" Margin="5,5,0,0" IsReadOnly="True"/>
+
+        <Button x:Name="OpenFolder" Style="{StaticResource BasicButton}" Grid.Column="0" Margin="15 0"
+        Grid.Row="3" Height="50" Width="50" Click="OpenFolder_Click" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Image Source="{StaticResource DocumentIcon}" Height="35" Width="35" RenderOptions.BitmapScalingMode="HighQuality"/>
+        </Button>
+
+
+        <Button x:Name="addButton" Content="Generate" Command="cmd:RoutedCommands.Confirm" Style="{StaticResource WindowButton}" Grid.Row="4" Grid.Column="1"/>
+        <Button x:Name="cancelButton" Content="Cancel" Command="cmd:RoutedCommands.Cancel" Style="{StaticResource WindowButton}" Grid.Row="4" Grid.Column="0"/>
+
+    </Grid>
+</Window>

@@ -12,7 +12,7 @@
         </Style.Triggers>
     </Style>
     <Style TargetType="TextBox">
-        <Setter Property="Background" Value="{StaticResource Beige}"/>
+        <Setter Property="Background" Value="White"/>
     </Style>
     <Style TargetType="Label">
         <Setter Property="HorizontalAlignment" Value="Right"/>

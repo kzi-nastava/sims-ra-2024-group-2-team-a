@@ -23,12 +23,16 @@ namespace BookingApp.WPF.Desktop.Views {
             this.Width = screenWidth * 0.7;
             this.Height = screenHeight * 0.7;
 
+            ks.Value = 1;
+            ls.Value = 1;
+            iss.Value = 1;
+
             viewModel = new TourRatingWindowViewModel(selectedTour, userId);
             DataContext = viewModel;
         }
 
         private void ConfirmationButton_Click(object sender, RoutedEventArgs e) {
-            viewModel.SendReview();
+            App.NotificationService.ShowSuccess("Tour rated successfully!");
             this.Close();
         }
     }

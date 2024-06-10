@@ -30,6 +30,7 @@
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
     </Window.Resources>
     <Grid Background="{StaticResource Beige}">
@@ -65,7 +66,8 @@
                           AutoGenerateColumns="False"
                           CanUserAddRows="False"
                           Margin="10, 0, 10, 10"
-                          FontSize="16">
+                          FontSize="16"
+                          Background="{StaticResource SoftGreen}">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Location" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
@@ -127,7 +129,14 @@
                 HorizontalAlignment="Center"
                 Padding="10"
                 Command="{Binding CreateComplexRequestCommand}"
-                x:Name="CreateRequestButton"
-                Click="CreateRequestButton_Click"/>
+                x:Name="CreateRequestButton"/>
+        <TextBlock Style="{StaticResource SmallText}"
+                   TextWrapping="Wrap"
+                   Foreground="Red"
+                   Grid.Row="2"
+                   Text="{Binding ValidationErrors[Confirmation]}"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Margin="10, 10, 300, 10"/>
     </Grid>
 </Window>

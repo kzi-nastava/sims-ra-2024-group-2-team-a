@@ -13,13 +13,15 @@ namespace BookingApp.Domain.Model
         public int LanguageId { get; set; }
         public double Score { get; set; } = 0.0;
         public bool IsSuper { get; set; } = false;
+        public bool IsFirstTime { get; set; }
+        public bool IsHelpActive { get; set; }
 
         public DateTime SuperUntil { get; set; } = DateTime.MinValue;
 
         public Guide() {
             Category = UserCategory.Guide;
         }
-        public Guide(int id, string name, string surname, int languageId, double score, bool isSuper, DateTime superUntil) {
+        public Guide(int id, string name, string surname, int languageId, double score, bool isSuper, DateTime superUntil,bool isFirstTime, bool isHelpActive) {
             Id = id;
             Name = name;
             Surname = surname;
@@ -27,6 +29,8 @@ namespace BookingApp.Domain.Model
             Score = score;
             IsSuper = isSuper;
             SuperUntil = superUntil;
+            IsFirstTime = isFirstTime;
+            IsHelpActive = isHelpActive;
         }
 
         public override string[] ToCSV() {
@@ -37,7 +41,9 @@ namespace BookingApp.Domain.Model
                 LanguageId.ToString(),
                 Score.ToString(),
                 IsSuper.ToString(),
-                SuperUntil.ToString("dd-MM-yyyy HH:mm")
+                SuperUntil.ToString("dd-MM-yyyy HH:mm"),
+                IsFirstTime.ToString(),
+                IsHelpActive.ToString()
             };
             return cssValues;
         }
@@ -50,6 +56,8 @@ namespace BookingApp.Domain.Model
             Score = Convert.ToDouble(values[4]);
             IsSuper = Convert.ToBoolean(values[5]);
             SuperUntil = DateTime.ParseExact(values[6], "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
+            IsFirstTime = Convert.ToBoolean(values[7]);
+            IsHelpActive = Convert.ToBoolean(values[8]);
         }
     }
 }

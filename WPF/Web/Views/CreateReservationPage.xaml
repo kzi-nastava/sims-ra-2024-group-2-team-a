@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:BookingApp.WPF.Web.Views"
       xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1000"
       Title="CreateReservationPage">
@@ -75,7 +76,7 @@
                                    HorizontalAlignment="Center" TextAlignment="Center"/>
 
                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="buttonLeft" Height="30" Width="30" Margin="0 0 10 0" Background="{StaticResource SoftGreen}" Click="ButtonLeftClick">
+                            <Button x:Name="buttonLeft" Height="30" Width="30" Margin="0 0 10 0" Background="{StaticResource SoftGreen}" Click="ButtonLeftClick" Cursor="Hand">
                                 <WrapPanel>
                                     <Image Source="{StaticResource LeftArrowIcon}" Style="{StaticResource ButtonImage}"/>
                                 </WrapPanel>
@@ -87,7 +88,7 @@
                                 </Border.Background>
                             </Border>
 
-                            <Button x:Name="buttonRight" Height="30" Width="30" Margin="10 0 0 0" Background="{StaticResource SoftGreen}" Click="ButtonRightClick">
+                            <Button x:Name="buttonRight" Height="30" Width="30" Margin="10 0 0 0" Background="{StaticResource SoftGreen}" Click="ButtonRightClick" Cursor="Hand">
                                 <WrapPanel>
                                     <Image Source="{StaticResource RightArrowIcon}" Style="{StaticResource ButtonImage}"/>
                                 </WrapPanel>
@@ -133,6 +134,30 @@
                             </WrapPanel>
                         </Label>
 
+                        <Grid Grid.Row="4">
+                            <Label Grid.Row="3" HorizontalContentAlignment="Center" Margin="0 0 0 10">
+                                <WrapPanel Orientation="Horizontal">
+                                    <Image Source="{StaticResource StatsIcon}"/>
+                                    <TextBlock Style="{StaticResource AccommodationInfoStyle}" Text="Ratings"/>
+                                </WrapPanel>
+                            </Label>
+
+                            <lvc:CartesianChart Name="RatingChart" Height="110" Margin="10 40 10 0">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Average rating" MinValue="0" MaxValue="5" Foreground="Gray">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Stroke="Gray" Step="1" IsEnabled="True"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Labels="Cleanness,Correctness" Foreground="Black"/>
+                                </lvc:CartesianChart.AxisY>
+                                <lvc:CartesianChart.Series>
+                                    <lvc:RowSeries Fill="{StaticResource Green}" Name="ratingsSeries"/>
+                                </lvc:CartesianChart.Series>
+                            </lvc:CartesianChart>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Border>
@@ -140,31 +165,38 @@
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" Margin="0 50 0 0">
                 <WrapPanel Margin="0 10 0 10">
                     <Label Content="Start date" Style="{StaticResource InputLabel}"/>
-                    <DatePicker x:Name="datePickerStartDate" VerticalContentAlignment="Center" Width="150" SelectedDateChanged="UpdateSuggestedReservations"/>
+                    <DatePicker x:Name="datePickerStartDate" VerticalContentAlignment="Center" Width="150" SelectedDateChanged="UpdateSuggestedReservations"
+                                SelectedDate="{Binding StartDate, Mode=OneWayToSource}"/>
                 </WrapPanel>
 
                 <WrapPanel Margin="0 10 0 10">
                     <Label Content="End date" Style="{StaticResource InputLabel}"/>
-                    <DatePicker x:Name="datePickerEndDate" VerticalContentAlignment="Center" Width="150" SelectedDateChanged="UpdateSuggestedReservations"/>
+                    <DatePicker x:Name="datePickerEndDate" VerticalContentAlignment="Center" Width="150" SelectedDateChanged="UpdateSuggestedReservations"
+                                SelectedDate="{Binding EndDate, Mode=OneWayToSource}"/>
                 </WrapPanel>
 
                 <WrapPanel Margin="0 10 0 10">
                     <Label Content="Days" Style="{StaticResource InputLabel}"/>
                     <xctk:IntegerUpDown x:Name="textBoxReservationDays" VerticalContentAlignment="Center" FontSize="15" TextAlignment="Center" Width="60"
-                                        ClipValueToMinMax="True" ValueChanged="UpdateSuggestedReservations"/>
+                                        ClipValueToMinMax="True" ValueChanged="UpdateSuggestedReservations"
+                                        Value="{Binding ReservationFilter.ReservationDays, Mode=OneWayToSource}"/>
                 </WrapPanel>
 
                 <WrapPanel Margin="0 10 0 10">
                     <Label Content="Guests" Style="{StaticResource InputLabel}"/>
                     <xctk:IntegerUpDown x:Name="textBoxGuests" VerticalContentAlignment="Center" TextAlignment="Center" FontSize="15" Width="60"
-                                        Minimum="1" ClipValueToMinMax="True" ValueChanged="UpdateSuggestedReservations"/>
+                                        Minimum="1" ClipValueToMinMax="True" ValueChanged="UpdateSuggestedReservations"
+                                        Value="{Binding ReservationFilter.GuestsNumber, Mode=OneWayToSource}"/>
                 </WrapPanel>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Column="2">
                 <Label Content="Suggested dates" FontSize="18" FontWeight="SemiBold" Margin="0 10 0 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-                <DataGrid x:Name="dataGridSuggestedDates" ItemsSource="{Binding SuggestedReservations}" Margin="10 10 10 0" Height="350" IsReadOnly="True" AutoGenerateColumns="False">
+                <Label Content="Select a reservation and confirm" Margin="0 5 0 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                <DataGrid x:Name="dataGridSuggestedDates" ItemsSource="{Binding SuggestedReservations}" Margin="10 10 10 0" Height="350" IsReadOnly="True" AutoGenerateColumns="False"
+                          SelectedItem="{Binding SelectedReservation, Mode=OneWayToSource}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Start date" Binding="{Binding StartDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
                         <DataGridTextColumn Header="End date" Binding="{Binding EndDate, StringFormat={}{0:dd-MMM-yyyy}}" Width="*"/>
@@ -178,8 +210,7 @@
                     <Run Text="{Binding MaxBonusPoints}"/>
                 </TextBlock>
 
-                <Button x:Name="buttonConfirm" Click="ButtonConfirmClick" Width="170" Height="50" Margin="0 30 0 0" Background="{StaticResource SoftGreen}"
-                    IsEnabled="{Binding ElementName=dataGridSuggestedDates, Path=SelectedItems.Count, Converter={StaticResource CountToBooleanConverter}}">
+                <Button x:Name="buttonConfirm" Command="{Binding CreateReservation}" Click="ButtonConfirmClick" Width="170" Height="50" Margin="0 30 0 0" Background="{StaticResource SoftGreen}">
                     <WrapPanel>
                         <Image Style="{StaticResource ButtonImage}" Source="{StaticResource ConfirmIcon}"/>
                         <TextBlock Style="{StaticResource ButtonText}" Text="Confirm booking"/>

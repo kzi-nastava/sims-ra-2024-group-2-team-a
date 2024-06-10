@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.WebSockets;
 using System.Windows.Documents;
 
@@ -97,6 +98,7 @@ namespace BookingApp.Services {
             }
             return true;
         }
+        
         public Dictionary<Accommodation,double> GetAverageAccommodationGradesByOwnerId(int ownerId, AccommodationType type) {
             Dictionary<Accommodation, double> allAccommodations = new Dictionary<Accommodation, double>();
 
@@ -115,11 +117,11 @@ namespace BookingApp.Services {
             int gradeCount = 0;
             foreach (var reservation in _reservationService.GetByAccommodationId(accId)) {
                 AccommodationReview accReview = this.GetByReservationId(reservation.Id);
-                if (accReview == null || accReview.OwnerCorrectnessGrade == 0 || accReview.GuestCleannessGrade == 0) {
+                if (accReview == null || accReview.OwnerCorrectnessGrade == 0 || accReview.AccommodationCleannessGrade == 0) {
                     continue;
                 }
 
-                double avg = (accReview.OwnerCorrectnessGrade + accReview.AccommodationCleannessGrade)/2;
+                double avg = (accReview.OwnerCorrectnessGrade + accReview.AccommodationCleannessGrade)/2.0;
                 gradeCount++;
 
                 avgGrade += avg;
@@ -130,6 +132,38 @@ namespace BookingApp.Services {
             }
 
             return avgGrade / gradeCount;
+        }
+    
+        private List<AccommodationReview> GetByAccommodationId(int accId) {
+            List<AccommodationReservation> reservations = _reservationService.GetByAccommodationId(accId);
+            List<AccommodationReview> reviews = new List<AccommodationReview>();
+
+            foreach (var res in reservations) {
+                AccommodationReview review = this.GetByReservationId(res.Id);
+                if (review != null) {
+                    reviews.Add(review);
+                }
+            }
+
+            return reviews;
+        }
+
+        public double GetAverageCleannessGrade(int accId) {
+            var reviews = this.GetByAccommodationId(accId);
+
+            if (reviews.Count == 0)
+                return 0.0;
+
+            return reviews.Average(r => r.GuestCleannessGrade);
+        }
+
+        public double GetAverageCorrectnessGrade(int accId) {
+            var reviews = this.GetByAccommodationId(accId);
+
+            if (reviews.Count == 0)
+                return 0.0;
+
+            return reviews.Average(r => r.RuleFollowingGrade);
         }
     }
 }

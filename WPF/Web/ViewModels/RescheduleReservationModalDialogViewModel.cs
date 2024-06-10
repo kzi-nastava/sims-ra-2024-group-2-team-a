@@ -7,7 +7,7 @@ namespace BookingApp.WPF.Web.ViewModels {
     public class RescheduleReservationModalDialogViewModel
     {
         public AccommodationReservationDTO Reservation { get; set; }
-        public DateTime NewDate { get; set; }
+        public DateTime? NewDate { get; set; }
 
         private readonly AccommodationRescheduleRequestService _rescheduleRequestService = ServicesPool.GetService<AccommodationRescheduleRequestService>();
 
@@ -22,7 +22,7 @@ namespace BookingApp.WPF.Web.ViewModels {
                 Reservation.GuestId,
                 Reservation.Accommodation.OwnerId,
                 Reservation.StartDate,
-                DateOnly.FromDateTime(NewDate),
+                DateOnly.FromDateTime(NewDate.Value),
                 Reservation.ReservationDays,
                 "");
 

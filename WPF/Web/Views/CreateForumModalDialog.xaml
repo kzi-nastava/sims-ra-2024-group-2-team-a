@@ -56,19 +56,31 @@
             <TextBlock Grid.Row="0" Text="Create forum" Style="{StaticResource Title}"/>
 
             <StackPanel Grid.Row="1" Margin="10 10 0 5">
-                <Label Content="Location" Style="{StaticResource LabelStyle}"/>
+                <Label Content="Location *" Style="{StaticResource LabelStyle}"/>
                 <ComboBox Name="comboBoxLocation" SelectedIndex="0" Width="300" HorizontalAlignment="Left" Margin="10 0 0 0" Cursor="Hand"
                           ItemsSource="{Binding LocationDTOs}" DisplayMemberPath="LocationOptionTemplate" SelectionChanged="LocationSelectionChanged"/>
             </StackPanel>
 
             <StackPanel Grid.Row="2" Margin="10 5 0 5">
-                <Label Content="Title" Style="{StaticResource LabelStyle}"/>
-                <TextBox Name="textBoxTitle" TextWrapping="Wrap" Width="400" Height="28" Padding="5"  Margin="10 0 0 0" HorizontalAlignment="Left" TextChanged="TitleTextChanged"/>
+                <Grid>
+                    <Label Content="Title *" Style="{StaticResource LabelStyle}"/>
+                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0" FontSize="10">
+                            <Run Text="{Binding ElementName=textBoxTitle, Path=Text.Length, Mode=OneWay}"/>
+                            <Run Text="/ 50"/>
+                    </TextBlock>
+                </Grid>
+                <TextBox Name="textBoxTitle" TextWrapping="Wrap" Width="400" Height="28" Padding="5"  Margin="10 0 0 0" HorizontalAlignment="Left" TextChanged="TitleTextChanged" MaxLength="50"/>
             </StackPanel>
 
             <StackPanel Grid.Row="3" Margin="10 5 0 10">
-                <Label Content="Comment" Style="{StaticResource LabelStyle}"/>
-                <TextBox Name="textBoxComment" TextWrapping="Wrap" Width="400" Height="150" Margin="10 0 0 0" Padding="5" HorizontalAlignment="Left" TextChanged="TitleTextChanged"/>
+                <Grid>
+                    <Label Content="Comment *" Style="{StaticResource LabelStyle}"/>
+                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0" FontSize="10">
+                            <Run Text="{Binding ElementName=textBoxComment, Path=Text.Length, Mode=OneWay}"/>
+                            <Run Text="/ 256"/>
+                    </TextBlock>
+                </Grid>
+                <TextBox Name="textBoxComment" TextWrapping="Wrap" Width="400" Height="150" Margin="10 0 0 0" Padding="5" HorizontalAlignment="Left" TextChanged="TitleTextChanged" MaxLength="256"/>
             </StackPanel>
 
             <Button Name="buttonCancel" Grid.Row="4" Margin="10" HorizontalAlignment="Left" Click="ButtonCancelClick" Style="{StaticResource MainButton}">

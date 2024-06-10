@@ -23,6 +23,7 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using Colors = QuestPDF.Helpers.Colors;
 using BookingApp.WPF.DTO;
+using System.Diagnostics;
 
 namespace BookingApp.WPF.Android.Views {
     /// <summary>
@@ -90,8 +91,20 @@ namespace BookingApp.WPF.Android.Views {
 
         private void Generate_Click(object sender, RoutedEventArgs e) {
             GeneratePdf();
-            AndroidDialogWindow androidDialogWindow = new AndroidDialogWindow("Pdf generated successfully in:\n" + FilePath);
-            androidDialogWindow.ShowDialog();
+
+            AndroidYesNoDialog androidDialogWindow = new AndroidYesNoDialog("Pdf generated successfully.\nDo you want to open it immediately?");
+            bool? result = androidDialogWindow.ShowDialog();
+
+            if (result == true) {
+                try {
+                    Process.Start(new ProcessStartInfo(FilePath + "/AccommodationsReport.pdf") { UseShellExecute = true });
+                }
+                catch (Exception ex) {
+                    AndroidDialogWindow androidDialogWindow2 = new AndroidDialogWindow("Unexpected error: pdf file unable to open!");
+                    androidDialogWindow2.ShowDialog();
+                }
+            }
+
             this.Close();
         }
 
@@ -119,7 +132,7 @@ namespace BookingApp.WPF.Android.Views {
             this.Close();
         }
         private void ComposeHeader(IContainer container) {
-            var titleStyle = TextStyle.Default.FontSize(20).SemiBold().FontColor(Colors.Black);
+            var titleStyle = TextStyle.Default.FontSize(20).SemiBold().FontColor(Colors.Green.Darken4);
 
             container.Row(row => {
                 row.RelativeItem().Column(column => {
@@ -164,6 +177,7 @@ namespace BookingApp.WPF.Android.Views {
 
         private void ComposeTable(IContainer container) {
             int id = 1;
+            double sum = 0.0;
             Dictionary<Accommodation, double> data = _reviewService.GetAverageAccommodationGradesByOwnerId(_user.Id, accommodationType);
 
             container
@@ -196,10 +210,28 @@ namespace BookingApp.WPF.Android.Views {
 
                         table.Cell().Element(CellStyle).Text(locationDTO.LocationInfoTemplate);
                         table.Cell().Element(CellStyle).AlignCenter().Text(System.Math.Round(item.Value, 2).ToString());
+                        sum += item.Value;
+                    }
 
-                        static IContainer CellStyle(IContainer container) {
-                            return container.BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(5);
-                        }
+                    if (id == 1) {
+                        return;
+                    }
+
+                    table.Cell().Element(EmptyCellStyle).Text("");
+                    table.Cell().Element(EmptyCellStyle).Text("");
+                    table.Cell().Element(OverallCellStyle).Text("Overall: ");
+                    table.Cell().Element(OverallCellStyle).AlignCenter().Text(System.Math.Round(sum/--id, 2).ToString());
+
+
+                    static IContainer OverallCellStyle(IContainer container) {
+                        return container.BorderTop(1).BorderColor(Colors.Grey.Medium).PaddingVertical(5);
+                    }
+                    static IContainer CellStyle(IContainer container) {
+                        return container.BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(5);
+                    }
+
+                    static IContainer EmptyCellStyle(IContainer container) {
+                        return container.PaddingVertical(5);
                     }
                 });
         }

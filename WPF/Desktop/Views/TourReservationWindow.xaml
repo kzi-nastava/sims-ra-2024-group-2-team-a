@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:BookingApp.WPF.Utils.Converters" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="ReservationWindow" Height="768" Width="1366"
+        Title="TouristMainWindow" Height="768" Width="1366"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
+        <converters:EmptyStringToVisibilityConverter x:Key="VisibilityConverter"/>
         <Style TargetType="TextBlock" x:Key="HighlightedText">
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -27,6 +29,7 @@
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
         <Style TargetType="TextBlock" x:Key="Info">
             <Setter Property="FontWeight" Value="Bold"/>
@@ -89,13 +92,8 @@
                     <Image Source="{StaticResource ScheduledIcon}"
                            Style="{StaticResource Image}"/>
                     <TextBlock Grid.Row="1"
-                               Style="{StaticResource Info}">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} - {1}">
-                                <Binding Path="SelectedTour.Beggining"/>
-                                <Binding Path="SelectedTour.End"/>
-                            </MultiBinding>
-                        </TextBlock.Text>
+                               Style="{StaticResource Info}"
+                               Text="{Binding SelectedTour.Beggining}">
                     </TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
@@ -120,7 +118,7 @@
             <Border Style="{StaticResource BorderStyle}"
                     Grid.Row="1"
                     Grid.Column="1"
-                    Background="{StaticResource SoftGreen}">
+                    Background="{StaticResource Beige}">
                 <ScrollViewer>
                     <TextBlock Text="{Binding SelectedTour.Description}"
                                FontSize="14"
@@ -160,6 +158,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -193,8 +192,11 @@
                                     Margin="10">
                             <TextBlock Style="{StaticResource SmallText}"
                                        Text="Age*"/>
-                            <TextBox Text="{Binding TouristAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     FontSize="16"/>
+                            <xctk:IntegerUpDown FontSize="15"
+                                                Value="{Binding TouristAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Minimum="0"
+                                                Maximum="120"
+                                                Increment="1"/>
                         </StackPanel>
 
                         <Button x:Name="AddTouristButton"
@@ -204,6 +206,36 @@
                                 Grid.RowSpan="2"
                                 Grid.Column="3"
                                 Content="Add"/>
+
+                        <TextBlock Style="{StaticResource SmallText}"
+                                   Text="{Binding ValidationErrors[TouristName], UpdateSourceTrigger=PropertyChanged}"
+                                   Visibility="{Binding ValidationErrors[TouristName], Converter={StaticResource VisibilityConverter}}"
+                                   Foreground="Red"
+                                   Grid.Row="2"
+                                   Grid.Column="0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 0, 5, 5"/>
+
+                        <TextBlock Style="{StaticResource SmallText}"
+                                   Text="{Binding ValidationErrors[TouristSurname]}"
+                                   Visibility="{Binding ValidationErrors[TouristSurname], Converter={StaticResource VisibilityConverter}}"
+                                   Foreground="Red"
+                                   Grid.Row="2"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 0, 5, 5"/>
+
+                        <TextBlock Style="{StaticResource SmallText}"
+                                   Text="{Binding ValidationErrors[TouristAge]}"
+                                   Visibility="{Binding ValidationErrors[TouristAge], Converter={StaticResource VisibilityConverter}}"
+                                   Foreground="Red"
+                                   Grid.Row="2"
+                                   Grid.Column="2"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 0, 5, 5"/>
                     </Grid>
 
                 </Border>
@@ -213,6 +245,7 @@
                         Margin="10, 0, 10, 10">
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -248,8 +281,11 @@
                                     Margin="10">
                             <TextBlock Style="{StaticResource SmallText}"
                                        Text="Age*"/>
-                            <TextBox Text="{Binding PassengerAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     FontSize="16"/>
+                            <xctk:IntegerUpDown FontSize="15"
+                                                Value="{Binding PassengerAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Minimum="0"
+                                                Maximum="120"
+                                                Increment="1"/>
                         </StackPanel>
 
 
@@ -259,6 +295,36 @@
                                 Grid.RowSpan="2"
                                 Grid.Column="3"
                                 Content="Add"/>
+
+                        <TextBlock Style="{StaticResource SmallText}"
+                                   Text="{Binding ValidationErrors[PassengerName]}"
+                                   Visibility="{Binding ValidationErrors[PassengerName], Converter={StaticResource VisibilityConverter}}"
+                                   Foreground="Red"
+                                   Grid.Row="2"
+                                   Grid.Column="0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 0, 5, 5"/>
+
+                        <TextBlock Style="{StaticResource SmallText}"
+                                   Text="{Binding ValidationErrors[PassengerSurname]}"
+                                   Visibility="{Binding ValidationErrors[PassengerSurname], Converter={StaticResource VisibilityConverter}}"
+                                   Foreground="Red"
+                                   Grid.Row="2"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 0, 5, 5"/>
+
+                        <TextBlock Style="{StaticResource SmallText}"
+                                   Text="{Binding ValidationErrors[PassengerAge]}"
+                                   Visibility="{Binding ValidationErrors[PassengerAge], Converter={StaticResource VisibilityConverter}}"
+                                   Foreground="Red"
+                                   Grid.Row="2"
+                                   Grid.Column="2"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="10, 0, 5, 5"/>
                     </Grid>
                 </Border>
 
@@ -303,15 +369,21 @@
                                 VerticalAlignment="Center"
                                 Margin="0, 10, 10, 10">
                         <TextBlock PreviewMouseLeftButtonDown="UseCouponsLink_Click"
-                                   Text="Use coupons?"
+                                   Text="{Binding VoucherSelection, UpdateSourceTrigger=PropertyChanged}"
                                    FontSize="16"
                                    Cursor="Hand"/>
                         <Button Style="{StaticResource ButtonStyle}"
                                 Margin="0"
                                 Content="Book"
                                 Padding="20"
-                                Click="ConfirmReservationButton_Click"
-                                IsEnabled="{Binding IsConfirmationButtonEnabled}"/>
+                                Click="ConfirmReservationButton_Click"/>
+                        <TextBlock Style="{StaticResource SmallText}"
+                                   TextWrapping="Wrap"
+                                   Foreground="Red"
+                                   Text="{Binding ValidationErrors[Confirmation]}"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="5"/>
                     </StackPanel>
                 </Grid>
             </Grid>

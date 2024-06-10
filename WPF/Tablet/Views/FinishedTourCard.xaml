@@ -36,7 +36,8 @@
             <TextBlock Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding Duration, StringFormat=Duration: {0} hours}" FontSize="18"/>
 
             <!--<syncfusion:SfRating Grid.Row="0" Grid.Column="2" Margin="40,10,30,10" ItemsCount="5" Precision="Exact" VerticalAlignment="Center" ToolTip="String" IsReadOnly="True" Value="{Binding Grade}"></syncfusion:SfRating>-->
-            <TextBlock Grid.Row="0" Grid.Column="2" Margin="20,20,30,10" Text="{Binding Grade}" FontSize="20" FontWeight="Bold"/>
+            <!--<TextBlock Grid.Row="0" Grid.Column="2" Margin="20,20,30,10" Text="{Binding Grade}" FontSize="20" FontWeight="Bold"/>-->
+            
             <Label Grid.Row="1" Grid.Column="2" Margin="5" FontSize="18" HorizontalAlignment="Left" Content="Start:"/>
             <TextBlock Grid.Row="2" Grid.Column="2" Margin="5" Text="{Binding Beggining}" FontSize="18"/>
             <Label Grid.Row="3" Grid.Column="2" Margin="5" FontSize="18" HorizontalAlignment="Left" Content="End:"/>

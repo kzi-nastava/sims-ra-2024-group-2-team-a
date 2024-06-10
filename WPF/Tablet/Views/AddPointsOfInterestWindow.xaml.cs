@@ -27,7 +27,7 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void Add_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
-            if (pointOfInterestDTO.Name != "" && pointOfInterestDTO.Description != "")
+            if (pointOfInterestDTO.Name != "")
                 e.CanExecute = true;
             else
                 e.CanExecute = false;

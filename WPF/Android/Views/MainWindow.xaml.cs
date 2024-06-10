@@ -36,6 +36,7 @@ namespace BookingApp.WPF.Android.Views {
             SideFrame.Content = null;
             DemoFrame.Content = null;
 
+            notificationService.ClearRepeatingNotifications(_user.Id);
             notificationService.CreateNotifications(_user.Id);
             renovationService.UpdateAllPendingRenovations();
 
