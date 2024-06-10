@@ -20,6 +20,8 @@ namespace BookingApp.WPF.Tablet.Views {
             _userId = userId;
             _mainFrame.IsHitTestVisible = false;
             _mainFrame.Opacity = 0.6;
+            _additionalFrame.IsHitTestVisible = false;
+            _additionalFrame.Opacity = 0.6;
         }
         private void HamburgerBar_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
             e.CanExecute = true;

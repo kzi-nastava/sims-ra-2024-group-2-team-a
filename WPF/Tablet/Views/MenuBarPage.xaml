@@ -22,12 +22,12 @@
             
         </ResourceDictionary>
     </Page.Resources>
-    <Grid>
+    <Grid Margin="0 30 0 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="menuBarGrid" Background="{StaticResource HardGreen}">
+        <Grid x:Name="menuBarGrid" Background="{StaticResource HardGreen}" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>

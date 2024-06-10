@@ -67,6 +67,43 @@ namespace BookingApp.WPF.Tablet.ViewModels {
             set {
                 if (_currentImagePath != value) {
                     _currentImagePath = value;
+                    
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _isKeypointsValid = false;
+        public bool IsKeypointsValid {
+            get {
+                return _isKeypointsValid;
+            }
+            set {
+                if (_isKeypointsValid != value) {
+                    _isKeypointsValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _isDatesValid = true;
+        public bool IsDatesValid {
+            get {
+                return _isDatesValid;
+            }
+            set {
+                if (_isDatesValid != value) {
+                    _isDatesValid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _isPhotosValid = true;
+        public bool IsPhotosValid {
+            get {
+                return _isPhotosValid;
+            }
+            set {
+                if (_isPhotosValid != value) {
+                    _isPhotosValid = value;
                     OnPropertyChanged();
                 }
             }
@@ -91,16 +128,32 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         }
         public void DeleteDateTime(DateTime beggining) {
             begginings.Remove(beggining);
+            if(begginings.Count > 0) {
+                IsDatesValid = true;
+            }
+            else {
+                IsDatesValid = false;
+            }
         }
         public void DeletePointOfInterest(PointOfInterestDTO pointOfInterestDTO) {
             pointOfInterestDTOs.Remove(pointOfInterestDTO);
+            if (pointOfInterestDTOs.Count >= 2) {
+                IsKeypointsValid = true;
+            }
+            else {
+                IsKeypointsValid = false;
+            }
         }
 
         public bool CheckValidation() {
-            if (pointOfInterestDTOs.Count >= 2)
-                return true;
-            else
+            if (tourDTO.Name == null || tourDTO.Description == null || selectedLocationDTO == null || selectedLanguageDTO == null) {
                 return false;
+            }else if (!IsPhotosValid || !IsKeypointsValid || !IsDatesValid || tourDTO.Duration <= 0 || tourDTO.MaxTouristNumber <= 0 || tourDTO.Name.Length <= 0 || tourDTO.Description.Length <= 0 || selectedLocationDTO.Id == -1 || selectedLanguageDTO.Id == -1) {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
 
         private void Load() {
@@ -136,20 +189,6 @@ namespace BookingApp.WPF.Tablet.ViewModels {
                 _pointOfInterestService.Save(pDTO.ToModelNoId());
             }
         }
-        /*public void PickPhotos(List<string> absolutePaths) {
-
-            // Convert absolute paths to relative paths
-            string basePath = Directory.GetCurrentDirectory(); // Use application directory as base
-            foreach (string absolutePath in absolutePaths) {
-                string relativePath = GetRelativePath(basePath, absolutePath);
-                tourDTO.ProfilePictures.Add(relativePath);
-            }
-        }*/
-        /*private string GetRelativePath(string basePath, string fullPath) {
-            Uri baseUri = new Uri(basePath + System.IO.Path.DirectorySeparatorChar);
-            Uri fullUri = new Uri(fullPath);
-            return baseUri.MakeRelativeUri(fullUri).ToString();
-        }*/
         private void LoadSelectedLanuageLocation() {
             if(tourDTO.LanguageId == 0) {
                 selectedLocationDTO = new LocationDTO(_locationService.GetById(tourDTO.LocationId));
@@ -171,8 +210,9 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         }
 
         public void UpdateImage() {
-            if (_selectedImageIndex != -1)
+            if (_selectedImageIndex != -1) {
                 CurrentImagePath = ImagePaths[SelectedImageIndex];
+            }
             else {
                 CurrentImagePath = null;
             }
@@ -185,6 +225,32 @@ namespace BookingApp.WPF.Tablet.ViewModels {
                     SelectedImageIndex = ImagePaths.Count - 1;
 
                 UpdateImage();
+            }
+        }
+        public void SetKeypointValid() {
+            if(pointOfInterestDTOs.Count >= 2) {
+                IsKeypointsValid = true;
+            }
+            else {
+                IsKeypointsValid = false;
+            }
+        }
+        public void SetPhotosValid() {
+            if (ImagePaths.Count > 0) {
+                IsPhotosValid = true;
+
+            }
+            else {
+                IsPhotosValid = false;
+
+            }
+        }
+        public void SetDateTimeValid() {
+            if (begginings.Count > 0) {
+                IsDatesValid = true;
+            }
+            else {
+                IsDatesValid = false;
             }
         }
 

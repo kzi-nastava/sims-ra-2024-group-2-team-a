@@ -17,6 +17,17 @@
         </ResourceDictionary>
     </Window.Resources>
     <DockPanel>
+        <DockPanel.Style>
+            <Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding guideProfileDTO.IsFirstTime}" Value="True">
+                        <Setter Property="DockPanel.Visibility" Value="Collapsed"/>
+                        <Setter Property="DockPanel.IsEnabled" Value="False"/>
+                        <Setter Property="DockPanel.IsHitTestVisible" Value="False"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </DockPanel.Style>
         <Grid DockPanel.Dock="Top" Background="{StaticResource HardGreen}" Height="36">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -43,9 +54,9 @@
                     <Image Source="{StaticResource BlackAccount}" Width="20" Height="20" />
                 </StackPanel>
             </Button>
-            <Button Grid.Column="2" Style="{StaticResource MainPageButton}" Command="cmd:RoutedCommands.Help">
+            <Button Grid.Column="2" Style="{StaticResource MainPageButton}" Width="130" Command="cmd:RoutedCommands.Help">
                 <StackPanel Orientation="Horizontal" Margin="0">
-                    <Label Style="{StaticResource MainPageLabel}">Help</Label>
+                    <Label Style="{StaticResource MainPageLabel}" Content="{Binding Help}"/>
                     <Image Source="{StaticResource HelpIcon}" Width="20" Height="20" Margin="10 0 0 0"/>
                 </StackPanel>
             </Button>

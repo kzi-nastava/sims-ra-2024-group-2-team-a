@@ -105,7 +105,10 @@ namespace BookingApp.WPF.Tablet.ViewModels
 
         }
         public bool IsAvailable() {
-           return _tourService.IsGuideAvailable(_userId, tourRequestDTO.ComplexTourId, tourRequestDTO.StartDateTime, tourRequestDTO.EndDateTime); 
+           if(_tourService.IsGuideAvailable(_userId, tourRequestDTO.ComplexTourId, tourRequestDTO.StartDateTime, tourRequestDTO.EndDateTime) && (tourRequestDTO.StartDateTime <= tourRequestDTO.EndDateTime)){
+                return true;
+           }
+            return false;
            
         }
         public bool AcceptTourRequest() {

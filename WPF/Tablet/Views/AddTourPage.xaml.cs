@@ -54,6 +54,7 @@ namespace BookingApp.WPF.Tablet.Views {
         private void AddDateTime_Executed(object sender, ExecutedRoutedEventArgs e) {
             AddBegginingDateTimeWindow begginingDateTimeWindow = new AddBegginingDateTimeWindow(ViewModel.begginings);
             begginingDateTimeWindow.ShowDialog();
+            ViewModel.SetDateTimeValid();
         }
 
         private void AddPointOfInterest_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -63,6 +64,7 @@ namespace BookingApp.WPF.Tablet.Views {
         private void AddPointOfInterest_Executed(object sender, ExecutedRoutedEventArgs e) {
             AddPointsOfInterestWindow pointOfInterestWindow = new AddPointsOfInterestWindow(ViewModel.pointOfInterestDTOs);
             pointOfInterestWindow.ShowDialog();
+            ViewModel.SetKeypointValid();
         }
 
         private void AddPictures_CanExecute(object sender, CanExecuteRoutedEventArgs e) {

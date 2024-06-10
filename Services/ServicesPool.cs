@@ -39,6 +39,7 @@ namespace BookingApp.Services {
             _services[typeof(GuideService)] = new GuideService(RepositoryInjector.GetInstance<IGuideRepository>());
             _services[typeof(TouristService)] = new TouristService(RepositoryInjector.GetInstance<ITouristRepository>());
             _services[typeof(RequestPassengerService)] = new RequestPassengerService(RepositoryInjector.GetInstance<IRequestPassengerRepository>());
+            _services[typeof(WizardPicsService)] = new WizardPicsService(RepositoryInjector.GetInstance<IWizardPicsRepository>());
 
             LinkAllServices();
         }
