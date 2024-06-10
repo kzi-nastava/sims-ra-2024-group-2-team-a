@@ -35,7 +35,7 @@
 39|fad|dzxdczas|False|12
 40|dasd|adad|False|12
 41|dasda|dasdas|False|12
-42|fad|dzxdczas|False|13
+42|fad|dzxdczas|True|13
 43|dasd|adad|False|13
 44|dasda|dasdas|False|13
 45|fad|dzxdczas|False|14
@@ -73,3 +73,15 @@
 77|Zekane kraj|blblblbl|False|28
 78|Nekane|nekicu m|False|29
 79|Zekane kraj|blblblbl|False|29
+80|dsad|das|True|30
+81|dsada|dasda|True|30
+82|dad|dasd|True|31
+83|das|da|False|31
+84|Start of tour|Frist place to go|False|32
+85|Finish|Last place to see|False|32
+86|Start of tour|Frist place to go|False|33
+87|Finish|Last place to see|False|33
+88|Start of tour|Frist place to go|False|34
+89|Finish|Last place to see|False|34
+90|First stop|Fisrt stop|False|35
+91|Finish|Last Stop|False|35
