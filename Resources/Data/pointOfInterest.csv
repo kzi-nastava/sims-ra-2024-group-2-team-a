@@ -83,5 +83,5 @@
 87|Finish|Last place to see|False|33
 88|Start of tour|Frist place to go|False|34
 89|Finish|Last place to see|False|34
-90|First stop|Fisrt stop|True|35
-91|Finish|Last Stop|True|35
+90|First stop|Fisrt stop|False|35
+91|Finish|Last Stop|False|35

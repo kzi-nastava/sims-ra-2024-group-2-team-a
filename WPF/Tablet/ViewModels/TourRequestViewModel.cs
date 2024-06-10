@@ -130,6 +130,8 @@ namespace BookingApp.WPF.Tablet.ViewModels
             return _userId;
         }
         public void FilterRequests(TourRequestFilterDTO filterDTO) {
+            if (tourRequestDTOs == null)
+                return;
             tourRequestDTOs.Clear();
             foreach(var request in _tourRequestService.GetFilteredByGuide(filterDTO)) {
                 TourRequestDTO temp = new TourRequestDTO(request);
