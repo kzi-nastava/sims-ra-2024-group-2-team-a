@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 
 namespace BookingApp.WPF.Desktop.Views {
     /// <summary>
@@ -67,6 +70,41 @@ namespace BookingApp.WPF.Desktop.Views {
             SettingsWindow settingsWindow = new SettingsWindow(UserId);
             settingsWindow.Owner = this;
             settingsWindow.ShowDialog();
+        }
+
+        private void ShowTutorial() {
+            PageFrame.Effect = FindResource("BlurEffect") as Effect;
+            X.Visibility = Visibility.Visible;
+            tutorial.Visibility = Visibility.Visible;
+        }
+
+        private void TutorialButton_Click(object sender, RoutedEventArgs e) {
+            VideoPlayerControl videoPlayer = new VideoPlayerControl();
+            
+            switch (PageFrame.Content as Page) {
+                case TouristHomePage:
+                    videoPlayer.VideoSource = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../../Resources/Tutorial/HomePage.mp4"));
+                    tutorial.Content = videoPlayer;
+                    ShowTutorial();
+                    break;
+                case TouristReservationsPage:
+                    videoPlayer.VideoSource = new Uri(Path.Combine(Directory.GetCurrentDirectory(), "../../../Resources/Tutorial/ReservationsPage.mp4"));
+                    tutorial.Content = videoPlayer;
+                    ShowTutorial();
+                    break;
+                case RequestsPage:
+                    ShowTutorial();
+                    break;
+                default: 
+                    break;
+            }
+        }
+
+        private void X_MouseLeftButtonDown(object sender, RoutedEventArgs e) {
+            PageFrame.Effect = null;
+            X.Visibility = Visibility.Hidden;
+            tutorial.Content = null;
+            tutorial.Visibility = Visibility.Hidden;
         }
     }
 }

@@ -82,7 +82,8 @@
                                FontWeight="Normal"
                                Text="Date of birth"/>
                     <DatePicker Style="{StaticResource Date}"
-                                SelectedDate="{Binding DOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                SelectedDate="{Binding DOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                x:Name="datePicker"/>
                 </StackPanel>
                 <Button x:Name="SubmitButton"
                         Click="SubmitButton_Click"
