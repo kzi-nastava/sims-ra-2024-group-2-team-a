@@ -73,6 +73,7 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void AddPictures_Executed(object sender, ExecutedRoutedEventArgs e) {
             ViewModel.AddImage();
+            ViewModel.SetPhotosValid();
         }
         private void deletePointOfInterestButton_Click(object sender, RoutedEventArgs e) {
             var button = (Button)sender;
@@ -105,6 +106,8 @@ namespace BookingApp.WPF.Tablet.Views {
 
         private void DeletePictures_Executed(object sender, ExecutedRoutedEventArgs e) {
             ViewModel.DeleteImage();
+            ViewModel.SetPhotosValid();
+
         }
 
         private void Previous_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
