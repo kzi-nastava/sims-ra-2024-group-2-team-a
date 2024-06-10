@@ -13,10 +13,10 @@ namespace BookingApp.WPF.Tablet.Views {
         private int _userId;
         public ScheduledTourViewModel ViewModel { get; set; }
         public ScheduledToursPage(int userId) {
-            InitializeComponent();
             _userId = userId;
             ViewModel = new ScheduledTourViewModel(userId);
             DataContext = ViewModel;
+            InitializeComponent();
         }
 
         private void Clear_CanExecute(object sender, CanExecuteRoutedEventArgs e) {

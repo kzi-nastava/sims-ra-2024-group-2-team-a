@@ -23,10 +23,10 @@ namespace BookingApp.WPF.Tablet.Views {
         private Frame _additionalFrame;
         public TourRequestViewModel ViewModel;
         public ComplexTourRequestPage(Frame aFrame, int userId) {
-            InitializeComponent();
             _additionalFrame = aFrame;
             ViewModel = new TourRequestViewModel(userId, true);
             DataContext = ViewModel;
+            InitializeComponent();
         }
         private void Clear_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
             e.CanExecute = true;
