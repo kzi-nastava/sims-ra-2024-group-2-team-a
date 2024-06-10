@@ -10,11 +10,16 @@ namespace BookingApp.WPF.Tablet.Views {
     /// Interaction logic for FollowLiveTourPage.xaml
     /// </summary>
     public partial class FollowLiveTourPage : Page {
+        public bool IsHelpEnabled { get; set; }
         public LiveTourViewModel ViewModel { get; set; }
+        private int _userId;
         public FollowLiveTourPage(int userId) {
-            InitializeComponent();
-            ViewModel = new LiveTourViewModel(userId);
+            _userId = userId;
+            Window mainWindow = Application.Current.MainWindow;
+            ProfileViewModel p = (ProfileViewModel)mainWindow.DataContext;
+            ViewModel = new LiveTourViewModel(userId, p.guideProfileDTO);
             DataContext = ViewModel;
+            InitializeComponent();
         }
 
         private void Clear_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -55,6 +60,20 @@ namespace BookingApp.WPF.Tablet.Views {
                 textBoxDuration.Text = string.Empty;
             }
             return  new TourFilterDTO(name, duration, touristsNumber, location, language, DateTime.MinValue);
+        }
+
+        private void Help_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            if(ViewModel.guideProfileDTO.IsHelpActive) {
+                e.CanExecute = true;
+            }
+            else {
+                e.CanExecute = false;
+            }
+        }
+
+        private void Help_Executed(object sender, ExecutedRoutedEventArgs e) {
+            WizardWindow wizardWindow = new WizardWindow(_userId, 2, false);
+            wizardWindow.ShowDialog();
         }
     }
 }

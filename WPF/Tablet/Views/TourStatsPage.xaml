@@ -87,7 +87,8 @@
                     <ImageBrush ImageSource="{Binding tourDTO.ProfilePictures[0]}"/>
                 </Border.Background>
             </Border>
-            <TextBlock Grid.Row="4" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Grade}" FontSize="20" FontWeight="Bold"/>
+            
+            <!--<TextBlock Grid.Row="4" Grid.Column="0" Margin="10" Text="{Binding tourDTO.Grade}" FontSize="20" FontWeight="Bold"/>-->
             <!--<syncfusion:SfRating Grid.Row="4" Grid.Column="0" Margin="30,10,10,10" ItemsCount="5" Precision="Exact" VerticalAlignment="Center" ToolTip="String" IsReadOnly="True" Value="{Binding tourDTO.Grade}"></syncfusion:SfRating>-->
 
             <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="{Binding tourDTO.Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>

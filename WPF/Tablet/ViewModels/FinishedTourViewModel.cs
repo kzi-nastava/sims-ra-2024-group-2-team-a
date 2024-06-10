@@ -16,10 +16,11 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public ObservableCollection<TourDTO> tourDTOs { get; set; }
-
         public ObservableCollection<PointOfInterestDTO> pointOfInterestDTOs { get; set; }
-        public FinishedTourViewModel(TourDTO tDTO, int userId) {
+        public GuideProfileDTO guideProfileDTO { get; set; }
+        public FinishedTourViewModel(TourDTO tDTO, int userId, GuideProfileDTO gDTO) {
             _userId = userId;
+            guideProfileDTO = gDTO;
             tourDTO = tDTO;
             pointOfInterestDTOs = new ObservableCollection<PointOfInterestDTO>();
 

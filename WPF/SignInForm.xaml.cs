@@ -15,6 +15,7 @@ namespace BookingApp.WPF {
     public partial class SignInForm : Window {
 
         private readonly UserService _userService = ServicesPool.GetService<UserService>();
+        private readonly GuideService _guideService = ServicesPool.GetService<GuideService>();
 
         private string _username;
         public string Username {
@@ -57,9 +58,16 @@ namespace BookingApp.WPF {
                 Close();
             }
             else if (user.Category == UserCategory.Guide) {
-                GuideMainWindow guideMainWindow = new GuideMainWindow(user.Id);
-                guideMainWindow.Show();
-                Close();
+                if (_guideService.GetById(user.Id).IsFirstTime) {
+                    WizardWindow wizardWindow = new WizardWindow(user.Id, 1, true);
+                    wizardWindow.Show();
+                    Close();
+                }
+                else {
+                    GuideMainWindow guideMainWindow = new GuideMainWindow(user.Id);
+                    guideMainWindow.Show();
+                    Close();
+                }
             }
             else {
                 GuestMainWindow guestMainWindow = new GuestMainWindow(user.Id);

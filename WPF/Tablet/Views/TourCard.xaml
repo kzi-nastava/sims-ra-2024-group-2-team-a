@@ -18,7 +18,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -30,7 +30,7 @@
                     <ImageBrush ImageSource="{Binding ProfilePictures[0]}"/>
                 </Border.Background>
             </Border>
-            <TextBlock Grid.Row="0" Grid.Column="1"  Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="5" Text="{Binding Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Grid.Row="0" Grid.Column="1"  Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="5 5 5 10" Text="{Binding Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>
             <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding LocationTemplate, StringFormat=Location: {0}}" FontSize="18"/>
             <TextBlock Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding LanguageTemplate, StringFormat=Language: {0}}" FontSize="18"/>
             <TextBlock Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding CurrentTouristNumber, StringFormat=Tourists: {0}}" FontSize="18"/>

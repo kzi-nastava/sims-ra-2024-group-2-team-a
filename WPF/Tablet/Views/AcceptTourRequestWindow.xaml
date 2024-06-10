@@ -35,7 +35,7 @@
         <DatePicker x:Name="datePickerTo" Grid.Row="1" Grid.Column="2" DisplayDateStart="{Binding tourRequestDTO.StartDateTime, Mode=OneWay}"  DisplayDateEnd="{Binding tourRequestDTO.EndDateTime, Mode=OneWay}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="18" SelectedDateChanged="datePickerTo_SelectedDateChanged"/>
 
 
-        <Button x:Name="addButton" Content="Add" Command="cmd:RoutedCommands.Confirm" Style="{StaticResource WindowButton}" Grid.Row="3" Grid.Column="1"/>
+        <Button x:Name="addButton" Content="Accept" Command="cmd:RoutedCommands.Confirm" Style="{StaticResource WindowButton}" Grid.Row="3" Grid.Column="1"/>
         <Button x:Name="cancelButton" Content="Cancel" Command="cmd:RoutedCommands.Cancel" Style="{StaticResource WindowButton}" Grid.Row="3" Grid.Column="0"/>
     </Grid>
 </Window>
