@@ -1,8 +1,12 @@
-﻿using BookingApp.Services;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 
@@ -19,33 +23,6 @@ namespace BookingApp.WPF.Desktop.ViewModels {
         public int UserId { get; set; }
         public TourDTO SelectedTour { get; set; }
 
-        private ObservableCollection<string> _imagePaths = new ObservableCollection<string>();
-        public ObservableCollection<string> ImagePaths {
-            get {
-                return _imagePaths;
-            }
-            set {
-                if (_imagePaths != value) {
-                    _imagePaths = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private int _selectedImageIndex;
-        public int SelectedImageIndex {
-            get {
-                return _selectedImageIndex;
-            }
-            set {
-                if (_selectedImageIndex != value) {
-                    _selectedImageIndex = value;
-                    OnPropertyChanged();
-                    UpdateImage();
-                }
-            }
-        }
-
         private string _currentImagePath;
         public string CurrentImagePath {
             get {
@@ -59,75 +36,93 @@ namespace BookingApp.WPF.Desktop.ViewModels {
             }
         }
 
+        public int PicturesIndex { get; set; } = 0;
+        public int MaxPictureIndex => TourReview.Pictures.Count - 1;
+
         public ICommand AddImageCommand { get; private set; }
         public ICommand DeleteImageCommand { get; private set; }
         public ICommand PreviousImageCommand { get; private set; }
         public ICommand NextImageCommand { get; private set; }
+
+        public ICommand ConfirmCommand { get; private set; }
 
         public TourReviewDTO TourReview { get; set; }
         public TourRatingWindowViewModel(TourDTO selectedTour, int userId) { 
             SelectedTour = selectedTour;
             UserId = userId;
             TourReview = new TourReviewDTO();
-            SelectedImageIndex = -1;
+
+            TourReview.InterestGrade = 1;
+            TourReview.KnowledgeGrade = 1;
+            TourReview.LanguageGrade = 1;
 
             AddImageCommand = new RelayCommand(AddImage);
-            DeleteImageCommand = new RelayCommand(DeleteImage);
+            DeleteImageCommand = new RelayCommand(DeleteImage, CanDelete);
             PreviousImageCommand = new RelayCommand(NavigatePreviousImage, CanNavigatePrevious);
             NextImageCommand = new RelayCommand(NavigateNextImage, CanNavigateNext);
+            ConfirmCommand = new RelayCommand(SendReview);
+        }
+
+        private bool CanDelete() {
+            return TourReview.Pictures.Count != 0;
         }
 
         private void AddImage(object obj) {
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            openFileDialog.Filter = "Image files |*.jpg;*.jpeg;*.png;*.gif;*.bmp";
-            if (openFileDialog.ShowDialog() == true) {
-                ImagePaths.Add(openFileDialog.FileName);
-                if (SelectedImageIndex == -1) 
-                    SelectedImageIndex = 0;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = Path.GetFullPath(@"..\..\..\Resources\Images\");
+            openFileDialog.Multiselect = true;
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+
+            openFileDialog.ShowDialog();
+
+            string basePath = Directory.GetCurrentDirectory();
+            foreach (string fileName in openFileDialog.FileNames) {
+                string relativePath = GetRelativePath(basePath, fileName);
+                TourReview.Pictures.Add(relativePath);
             }
+
+            if(TourReview.Pictures.Count > 0)
+                CurrentImagePath = TourReview.Pictures[0];
         }
 
-        private void UpdateImage() {
-            if (_selectedImageIndex != -1)
-                CurrentImagePath = ImagePaths[SelectedImageIndex];
-            else {
-                CurrentImagePath = null;
-            }
+        private string GetRelativePath(string basePath, string fullPath) {
+            Uri baseUri = new Uri(basePath + Path.DirectorySeparatorChar);
+            Uri fullUri = new Uri(fullPath);
+            return baseUri.MakeRelativeUri(fullUri).ToString();
         }
 
         private void DeleteImage(object obj) {
-            if (SelectedImageIndex >= 0 && SelectedImageIndex < ImagePaths.Count) {
-                ImagePaths.RemoveAt(SelectedImageIndex);
-                if (SelectedImageIndex >= ImagePaths.Count) 
-                    SelectedImageIndex = ImagePaths.Count - 1;
-            }
+            TourReview.Pictures.RemoveAt(PicturesIndex);
+            PicturesIndex = 0;
+            if (CanDelete())
+                CurrentImagePath = TourReview.Pictures[0];
+            else
+                CurrentImagePath = "";
         }
 
         private bool CanNavigatePrevious() {
-            return SelectedImageIndex > 0;
+            return TourReview.Pictures.Count > 1 && PicturesIndex != 0;
         }
 
         private void NavigatePreviousImage(object obj) {
-            if (CanNavigatePrevious()) 
-                SelectedImageIndex--;
+            PicturesIndex--;
+            PicturesIndex = Math.Max(PicturesIndex, 0);
+
+            CurrentImagePath = TourReview.Pictures[PicturesIndex];
         }
 
         private bool CanNavigateNext() {
-            return SelectedImageIndex < ImagePaths.Count - 1;
+            return PicturesIndex < MaxPictureIndex;
         }
 
         private void NavigateNextImage(object obj) {
-            if (CanNavigateNext()) 
-                SelectedImageIndex++;
+            PicturesIndex++;
+            PicturesIndex = Math.Min(PicturesIndex, TourReview.Pictures.Count - 1);
+
+            CurrentImagePath = TourReview.Pictures[PicturesIndex];
         }
 
-        private void SetImages() {
-            foreach (var imagePath in ImagePaths) 
-                TourReview.Pictures.Add(imagePath);
-        }
-
-        public void SendReview() {
-            SetImages();
+        public void SendReview(object parameter) {
             _tourReviewService.SendReview(SelectedTour, UserId, TourReview);
         }
     }

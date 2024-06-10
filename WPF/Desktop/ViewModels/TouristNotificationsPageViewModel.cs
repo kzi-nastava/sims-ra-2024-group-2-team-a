@@ -22,7 +22,7 @@ namespace BookingApp.WPF.Desktop.ViewModels {
 
         public void Update() {
             Notifications.Clear();
-            foreach (var notification in _notificationService.GetByUserId(UserId)) {
+            foreach (var notification in _notificationService.GetSortedForTourist(UserId)) {
                 Notifications.Add(new NotificationDTO(notification));
             }
         }
