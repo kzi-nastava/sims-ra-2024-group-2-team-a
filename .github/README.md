@@ -10,10 +10,10 @@
 
 ### Owner (Mobile interface)
 
-<img src="screenshots/OwnerScreenshot1.png" alt="Owner Screenshot 1" style="margin-right: 20px;">
-<img src="screenshots/OwnerScreenshot2.png" alt="Owner Screenshot 2" style="margin-right: 20px;">
-<img src="screenshots/OwnerScreenshot3.png" alt="Owner Screenshot 3">
-
+<p float="left">
+  <img src="screenshots/OwnerScreenshot1.png" alt="Owner Screenshot 1" style="margin-right: 5px;">
+  <img src="screenshots/OwnerScreenshot2.png" alt="Owner Screenshot 2">
+</p>
 
 ### Guest (Web interface)
 
