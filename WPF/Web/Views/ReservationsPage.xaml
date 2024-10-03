@@ -93,31 +93,33 @@
                 </ScrollViewer>
             </Grid>
 
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <Border Grid.Column="1" BorderBrush="{StaticResource HardGreen}" BorderThickness="3 0 0 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Border Background="{StaticResource Green}" Height="80" Grid.Row="0" BorderThickness="5 0 0 0">
-                    <Label Grid.Column="0" Margin="30 0 0 0" Content="Reschedule date requests" Style="{StaticResource MainLabel}"/>
-                </Border>
+                    <Border Background="{StaticResource Green}" Height="80" Grid.Row="0">
+                        <Label Grid.Column="0" Margin="30 0 0 0" Content="Reschedule date requests" Style="{StaticResource MainLabel}"/>
+                    </Border>
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Height="500">
-                    <ItemsControl x:Name="itemsControlRescheduleRequests" ItemsSource="{Binding RescheduleRequests}" Margin="10 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <local:RescheduleRequestCard/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Grid>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Height="500">
+                        <ItemsControl x:Name="itemsControlRescheduleRequests" ItemsSource="{Binding RescheduleRequests}" Margin="10 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <local:RescheduleRequestCard/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
         </Grid>
 
         <Rectangle x:Name="rectBlurBackground" Fill="Gray" Opacity="0.5" Visibility="Hidden"/>

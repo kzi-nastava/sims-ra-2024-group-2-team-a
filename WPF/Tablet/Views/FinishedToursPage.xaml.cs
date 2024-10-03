@@ -13,9 +13,9 @@ namespace BookingApp.WPF.Tablet.Views {
         public FinishedTourViewModel ViewModel { get; set; }
 
         public FinishedToursPage(int userId){
-            InitializeComponent();
             ViewModel = new FinishedTourViewModel(userId);
             DataContext = ViewModel;
+            InitializeComponent();
         }
         private void Clear_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
             e.CanExecute = true;

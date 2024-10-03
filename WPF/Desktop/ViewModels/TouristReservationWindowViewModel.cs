@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using BookingApp.WPF.Utils.Validation;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,12 +11,15 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace BookingApp.WPF.Desktop.ViewModels {
-    public class TouristReservationWindowViewModel : INotifyPropertyChanged {
+    public class TouristReservationWindowViewModel : ValidationBase, INotifyPropertyChanged {
+        private ValidationTarget _validationTarget = ValidationTarget.None;
+
         private readonly TourReservationService _tourReservationService = ServicesPool.GetService<TourReservationService>();
-        private readonly LocationService _locationService = ServicesPool.GetService<LocationService>();
-        private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
+        private readonly TouristService _touristService = ServicesPool.GetService<TouristService>();
 
         public ObservableCollection<PassengerDTO> Passengers { get; set; }
+
+        public PassengerDTO Tourist { get; set; }
 
         public ICommand AddTouristCmd { get; set; }
         public ICommand AddPassengerCmd { get; set; }
@@ -30,7 +34,6 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 if (_passengerName != value) {
                     _passengerName = value;
                     OnPropertyChanged();
-                    UpdatePassengerButtonState();
                 }
             }
         }
@@ -44,7 +47,6 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 if (_passengerSurname != value) {
                     _passengerSurname = value;
                     OnPropertyChanged();
-                    UpdatePassengerButtonState();
                 }
             }
         }
@@ -58,7 +60,6 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 if (_passengerAge != value) {
                     _passengerAge = value;
                     OnPropertyChanged();
-                    UpdatePassengerButtonState();
                 }
             }
         }
@@ -72,7 +73,6 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 if (_touristName != value) {
                     _touristName = value;
                     OnPropertyChanged();
-                    UpdateTouristButtonState();
                 }
             }
         }
@@ -86,7 +86,6 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 if (_touristSurname != value) {
                     _touristSurname = value;
                     OnPropertyChanged();
-                    UpdateTouristButtonState();
                 }
             }
         }
@@ -100,7 +99,6 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 if (_touristAge != value) {
                     _touristAge = value;
                     OnPropertyChanged();
-                    UpdateTouristButtonState();
                 }
             }
         }
@@ -116,44 +114,22 @@ namespace BookingApp.WPF.Desktop.ViewModels {
                 if (value != _isVoucherSelected) {
                     _isVoucherSelected = value;
                     OnPropertyChanged();
+                    if (_isVoucherSelected)
+                        VoucherSelection = "Remove coupon";
+                    else
+                        VoucherSelection = "Use coupons?";
                 }
             }
         }
 
-        private bool _isTouristButtonEnabled;
-        public bool IsTouristButtonEnabled {
+        private string _voucherSelection = "Use coupons?";
+        public string VoucherSelection {
             get {
-                return _isTouristButtonEnabled;
+                return _voucherSelection;
             }
             set {
-                if (value != _isTouristButtonEnabled) {
-                    _isTouristButtonEnabled = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private bool _isPassengerButtonEnabled;
-        public bool IsPassengerButtonEnabled {
-            get {
-                return _isPassengerButtonEnabled;
-            }
-            set {
-                if (value != _isPassengerButtonEnabled) {
-                    _isPassengerButtonEnabled = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private bool _isConfirmationButtonEnabled;
-        public bool IsConfirmationButtonEnabled {
-            get {
-                return _isConfirmationButtonEnabled;
-            }
-            set {
-                if (value != _isConfirmationButtonEnabled) {
-                    _isConfirmationButtonEnabled = value;
+                if (_voucherSelection != value) { 
+                    _voucherSelection = value;
                     OnPropertyChanged();
                 }
             }
@@ -166,28 +142,51 @@ namespace BookingApp.WPF.Desktop.ViewModels {
         public TouristReservationWindowViewModel(TourDTO selectedTour, int userId) {
             SelectedTour = selectedTour;
             UserId = userId;
-            IsConfirmationButtonEnabled = false;
-            IsTouristButtonEnabled = false;
-            IsPassengerButtonEnabled = false;
             IsVoucherSelected = false;
+
+            SetRememberMe();
 
             Passengers = new ObservableCollection<PassengerDTO>();
 
             Func<bool> alwaysTrue = () => true;
             AddPassengerCmd = new RelayCommand(AddPassenger, alwaysTrue);
-            AddTouristCmd = new RelayCommand(AddTourist, alwaysTrue);
+            AddTouristCmd = new RelayCommand(AddTourist, AddTouristCanExecute);
             RemovePassengerCmd = new RelayCommand(RemovePassenger, alwaysTrue);
-
-            GetPresentableTour();
         }
 
+        private bool AddTouristCanExecute() {
+            return !Passengers.Any(p => p.UserId != -1);
+        }
+
+        private void SetRememberMe() {
+            Tourist = new PassengerDTO(_touristService.GetById(UserId));
+
+            TouristName = Tourist.Name;
+            TouristSurname = Tourist.Surname;
+            TouristAge = Tourist.Age;
+        }
+
+
         public void AddTourist(object parameter) {
+            _validationTarget = ValidationTarget.Tourist;
+
+            Validate();
+
+            if (!IsValid)
+                return;
+
             Passengers.Add(new PassengerDTO(TouristName, TouristSurname, TouristAge, UserId));
             ClearTouristFields();
-            IsConfirmationButtonEnabled = true;
         }
 
         public void AddPassenger(object parameter) {
+            _validationTarget = ValidationTarget.Passenger;
+
+            Validate();
+
+            if (!IsValid)
+                return;
+
             Passengers.Add(new PassengerDTO(PassengerName, PassengerSurname, PassengerAge, -1));
             ClearPassengerFields();
         }
@@ -195,23 +194,6 @@ namespace BookingApp.WPF.Desktop.ViewModels {
         public void RemovePassenger(object parameter) {
             PassengerDTO passenger = (PassengerDTO)parameter; 
             Passengers.Remove(passenger);
-            if (passenger.UserId != -1)
-                IsConfirmationButtonEnabled = false;
-        }
-
-        private void GetPresentableTour() {
-            Location location = _locationService.GetById(SelectedTour.LocationId);
-            Language language = _languageService.GetById(SelectedTour.LanguageId);
-            SelectedTour.setLocationTemplate(location.City, location.Country);
-            SelectedTour.SetLanguageTemplate(language.Name);
-        }
-
-        private void UpdateTouristButtonState() {
-            IsTouristButtonEnabled = !string.IsNullOrWhiteSpace(TouristName) && !string.IsNullOrWhiteSpace(TouristSurname) && TouristAge != 0;
-        }
-
-        private void UpdatePassengerButtonState() {
-            IsPassengerButtonEnabled = !string.IsNullOrWhiteSpace(PassengerName) && !string.IsNullOrWhiteSpace(PassengerSurname) && PassengerAge != 0;
         }
 
         private void ClearTouristFields() {
@@ -231,7 +213,14 @@ namespace BookingApp.WPF.Desktop.ViewModels {
         }
 
         public int MakeReservation() {
-            if(SelectedVoucher != null)
+            _validationTarget = ValidationTarget.Confirmation;
+
+            Validate();
+
+            if (!IsValid)
+                return -2;
+
+            if (SelectedVoucher != null)
                 SelectedVoucher.Used = IsVoucherSelected;
             return _tourReservationService.MakeReservation(this.UserId, SelectedTour, Passengers.ToList(), SelectedVoucher);
         }
@@ -242,5 +231,41 @@ namespace BookingApp.WPF.Desktop.ViewModels {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        protected override void ValidateSelf() {
+            ValidationErrors.Clear();
+
+            switch (_validationTarget) {
+                case ValidationTarget.Tourist:
+                    if (string.IsNullOrEmpty(TouristName))
+                        ValidationErrors[nameof(TouristName)] = "Name is required!";
+
+                    if (string.IsNullOrEmpty(TouristSurname))
+                        ValidationErrors[nameof(TouristSurname)] = "Surname is required!";
+
+                    if (TouristAge == 0)
+                        ValidationErrors[nameof(TouristAge)] = "Age cannot be 0!";
+                    break;
+                case ValidationTarget.Passenger:
+                    if (string.IsNullOrEmpty(PassengerName))
+                        ValidationErrors[nameof(PassengerName)] = "Name is required!";
+
+                    if (string.IsNullOrEmpty(PassengerSurname))
+                        ValidationErrors[nameof(PassengerSurname)] = "Surname is required!";
+
+                    if (PassengerAge == 0)
+                        ValidationErrors[nameof(PassengerAge)] = "Age cannot be 0!";
+                    break;
+                case ValidationTarget.Confirmation:
+                    if (AddTouristCanExecute())
+                        ValidationErrors["Confirmation"] = "Tourist must be added!";
+                    break;
+                case ValidationTarget.None:
+                    break;
+                default:
+                    break;
+            }
+
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
     }
 }

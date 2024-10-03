@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
         xmlns:converter="clr-namespace:BookingApp.WPF.Utils.Converters"
         mc:Ignorable="d"
-        Title="ViewGuestGradeWindow" Height="330" Width="350"
+        Title="ViewGuestGradeWindow" Height="400" Width="350"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converter:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter"/>
@@ -14,27 +14,27 @@
         <Style TargetType="Label" x:Key="Header">
             <Style.Setters>
                 <Setter Property="FontSize" Value="22"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
                 <Setter Property="BorderThickness" Value="0,0,0,2"/>
-                <Setter Property="Background" Value="{StaticResource Green}"/>
-                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
 
         <Style TargetType="Label" x:Key="ButtonLabel">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
             </Style.Setters>
         </Style>
 
         <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
             <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="Global Sans Serif"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
                 <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style.Setters>
         </Style>
 
@@ -46,33 +46,59 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="30"/>
-            <RowDefinition />
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <Label Content="Your Grades: " Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" Foreground="{StaticResource Beige}"
-               Background="{StaticResource Green}" Width="130" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Center" Margin="5,0,0,5"/>
-        <Label x:Name="AccommodationLabel" Content="{Binding AccommodationReservationDTO.Accommodation.Name}" Grid.Row="1" Grid.Column="0" FontSize="16" Padding="5,0,5,5"/>
-        <Label x:Name="DateLabel"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
-            <TextBlock FontSize="12">
-                <Run Text="{Binding AccommodationReservationDTO.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
-                <Run Text=" - "/>
-                <Run Text="{Binding AccommodationReservationDTO.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
-            </TextBlock>
-        </Label>
-        <Label x:Name="GuestUsernameLabel" Content="{Binding GuestUsername}" Grid.Row="1" Grid.Column="0" FontSize="16" VerticalAlignment="Bottom"/>
-        <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <Label Content="Your Grades" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               Style="{StaticResource Header}" HorizontalAlignment="Center" Padding="0" VerticalAlignment="Center"/>
 
-        <Label Content="Cleanness Grade" Grid.Row="2" Grid.Column="0" FontSize="16" HorizontalAlignment="Center" FontWeight="Medium" />
-        <Label Content="Correctness Grade" Grid.Row="2" Grid.Column="1" FontSize="16" HorizontalAlignment="Center" FontWeight="Medium" />
 
-        <Label Content="{Binding ReviewDTO.AccommodationCleannessGrade}" Grid.Row="3" Grid.Column="0" FontSize="44" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Padding="0"/>
-        <Label Content="{Binding ReviewDTO.OwnerCorrectnessGrade}" Grid.Row="3" Grid.Column="1" FontSize="44" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Padding="0"/>
+        <Border BorderBrush="{StaticResource HardGreen}" Background="{StaticResource SoftGreen}" BorderThickness="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center"
+        CornerRadius="15" Height="100" VerticalAlignment="Center">
+            <Grid Width="250">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.2*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="{StaticResource HouseIcon}" RenderOptions.BitmapScalingMode="HighQuality" Height="15" Width="15" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                    <Label x:Name="AccommodationLabel" Content="{Binding AccommodationReservationDTO.Accommodation.Name}"
+                           FontSize="18" Padding="0" VerticalAlignment="Center" FontFamily="{StaticResource Roboto}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="{StaticResource CalendarIcon}" RenderOptions.BitmapScalingMode="HighQuality" Height="15" Width="15" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                    <Label x:Name="DateLabel" VerticalAlignment="Center" Padding="0" FontFamily="{StaticResource Roboto}">
+                        <TextBlock FontSize="14" FontFamily="{StaticResource Roboto}">
+                            <Run Text="{Binding AccommodationReservationDTO.StartDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                             <Run Text=" - "/>
+                             <Run Text="{Binding AccommodationReservationDTO.EndDate, Converter={StaticResource DateOnlyToStringConverter}}"/>
+                        </TextBlock>
+                    </Label>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="{StaticResource PeopleIcon}" RenderOptions.BitmapScalingMode="HighQuality" Height="15" Width="15" Margin="0,0,10,0" VerticalAlignment="Center" />
+                    <Label x:Name="GuestUsernameLabel" Content="{Binding GuestUsername}" FontSize="14" VerticalAlignment="Center" FontFamily="{StaticResource Roboto}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Label Content="Cleanness Grade" Grid.Row="2" Grid.Column="0" FontSize="16" HorizontalAlignment="Center" FontWeight="Medium" FontFamily="{StaticResource Roboto}"/>
+        <Label Content="Correctness Grade" Grid.Row="2" Grid.Column="1" FontSize="16" HorizontalAlignment="Center" FontWeight="Medium" FontFamily="{StaticResource Roboto}"/>
+
+        <Label Content="{Binding ReviewDTO.AccommodationCleannessGrade}" Grid.Row="3" Grid.Column="0" FontFamily="{StaticResource Roboto}" 
+               FontSize="44" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Padding="0"/>
+        <Label Content="{Binding ReviewDTO.OwnerCorrectnessGrade}" Grid.Row="3" Grid.Column="1" FontFamily="{StaticResource Roboto}" 
+               FontSize="44" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Padding="0"/>
 
         <Label Content="Additional Comments:" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16"
-               HorizontalAlignment="Left" FontWeight="Medium"
+               HorizontalAlignment="Left" FontWeight="Medium" FontFamily="{StaticResource Roboto}"
                Padding="5,5,5,0"
                BorderBrush="Black" BorderThickness="0,0,0,1" />
         <TextBlock Text="{Binding ReviewDTO.GuestComment}" TextWrapping="Wrap"

@@ -1,6 +1,8 @@
-1|Ostojic Penthouse|1|house|5|2|2|3|../../../Resources/Images/sheraton.jpg|../../../Resources/Images/Accommodations/Penthouse.jpeg
-2|Kule Apartments|2|apartment|2|3|4|3|../../../Resources/Images/sheraton.jpg
-3|Mediceva Supa|3|hut|2|2|3|3|../../../Resources/Images/sheraton.jpg
-4|Kama mama|2|house|99|4|2|3|../../../Resources/Images/sheraton.jpg
-5|Milicina kuca|2|apartment|1000|2|0|3|../../../Resources/Images/sheraton.jpg
-6|Zikina gajba|6|apartment|5|4|1|2|../../../Resources/Images/Accommodations/Penthouse.jpeg
+1|Ostojic Penthouse|1|house|5|2|2|3|False|../../../Resources/Images/Accommodations/Sheraton.jpg|../../../Resources/Images/Accommodations/Penthouse.jpeg
+2|Kule Apartments|2|apartment|2|3|4|3|False|../../../Resources/Images/Accommodations/Apartments.jpg
+3|Mediceva Supa|3|hut|2|2|3|3|False|../../../Resources/Images/Accommodations/Hut-1.jpg
+4|Kama mama|2|house|99|4|2|3|False|../../../Resources/Images/Accommodations/Cottage.jpg
+5|Milicina kuca|2|apartment|1000|2|0|3|False|../../../Resources/Images/Accommodations/House-1.jpeg
+6|Zikina gajba|6|apartment|5|4|1|2|False|../../../Resources/Images/Accommodations/Penthouse.jpeg
+7|Nova kuca|4|house|2|2|2|3|False|../../../Resources/Images/Accommodations/Minecraft.png
+8|Osmihenova villa|6|house|2|2|2|3|False|../../../Resources/Images/Accommodations/Hut-2.jpg

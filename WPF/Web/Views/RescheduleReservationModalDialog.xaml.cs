@@ -20,7 +20,7 @@ namespace BookingApp.WPF.Web.Views {
             ViewModel = new RescheduleReservationModalDialogViewModel(reservation);
             DataContext = ViewModel;
             dataPickerNewDate.DisplayDateStart = DateTime.Now.AddDays(1);
-            dataPickerNewDate.SelectedDate = DateTime.Now.AddDays(1);
+            buttonConfirm.IsEnabled = false;
         }
 
         private void ButtonCancelClick(object sender, RoutedEventArgs e) {
@@ -30,7 +30,13 @@ namespace BookingApp.WPF.Web.Views {
         private void ButtonConfirmClick(object sender, RoutedEventArgs e) {
             ViewModel.Reschedule();
             _parentPage.Update();
+            App.NotificationService.ShowSuccess("Reschedule request created successfully!");
             _parentPage.CloseModalDialog();
+        }
+
+        private void SelectedDateChanged(object sender, SelectionChangedEventArgs e) {
+            if (dataPickerNewDate.SelectedDate != null)
+               buttonConfirm.IsEnabled = true;
         }
     }
 }

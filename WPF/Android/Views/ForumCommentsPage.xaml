@@ -1,0 +1,169 @@
+﻿<Page x:Class="BookingApp.WPF.Android.Views.ForumCommentsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.Android.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="624" d:DesignWidth="430"
+      Title="ForumCommentsPage">
+    <Page.Resources>
+        <Style TargetType="Label" x:Key="Header">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Beige}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="HeaderTextblock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="Label" x:Key="ButtonLabel">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ButtonLabelTextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="{StaticResource Roboto}"/>
+                <Setter Property="Foreground" Value="{StaticResource Beige}"/>
+            </Style.Setters>
+        </Style>
+    </Page.Resources>
+    <Grid Background="{StaticResource Beige}">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <Grid Background="{StaticResource SoftGreen}">
+                        <Border BorderBrush="{StaticResource Beige}" BorderThickness="0,0,0,1" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <TextBlock Text="{Binding ForumDTO.Title}" Style="{StaticResource HeaderTextblock}" TextWrapping="Wrap" Padding="0" 
+                                    FontWeight="Medium"/>
+                            </Border>
+
+                                <StackPanel Orientation="Horizontal" Margin="15,0,0,5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                            <Image Source="{StaticResource LocationIcon}" Height="20" Width="20" Margin="0,0,5,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Label Content="{Binding ForumDTO.Location.LocationInfoTemplate}" FontFamily="{StaticResource Roboto}" FontSize="16" Padding="0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,15,5" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                            <Image Source="{StaticResource PeopleIcon}" Height="20" Width="20" Margin="0,0,5,0"/>
+                            <Label Content="{Binding ForumDTO.Username}" FontFamily="{StaticResource Roboto}" FontSize="16" Padding="0"/>
+                        </StackPanel>
+
+                    </Grid>
+                </Border>
+
+                <ScrollViewer x:Name="scrollViewer" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" Grid.Row="1" Margin="10" Background="{StaticResource Beige}">
+                    <ItemsControl x:Name="itemsControlAccommodations" ItemsSource="{Binding CommentDTOs}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:ForumCommentCard MaxHeight="150"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <ScrollViewer.Style>
+                        <Style TargetType="ScrollViewer">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ForumDTO.IsClosed}" Value="True">
+                                    <Setter Property="Grid.RowSpan" Value="2"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ScrollViewer.Style>
+                </ScrollViewer>
+
+                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="0,1,0,0" Background="{StaticResource SoftGreen}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="28"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Left" Margin="10,5,0,0">
+                            <Label Style="{StaticResource Header}" VerticalContentAlignment="Center" BorderBrush="Transparent"
+                               Padding="0" FontSize="20" Content="Express your opinion:" Width="200"/>
+                            <Label VerticalContentAlignment="Center" BorderBrush="Transparent"
+                                 Padding="0" FontSize="16" Content="{Binding CommentDTO.TextCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="10,0,0,0"/>
+                            <Label VerticalContentAlignment="Center" BorderBrush="Transparent"
+                                Padding="0" FontSize="16" Content=" / 256" />
+                        </StackPanel>
+
+                        <TextBox Grid.Row="1" Margin="10,5,10,5" x:Name="commentTextBox" Text="{Binding CommentDTO.Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MaxLength="256" TextWrapping="Wrap">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ForumDTO.IsClosed}" Value="True">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+
+                        <Button x:Name="PostButton" Grid.Column="1" Grid.Row="1" Height="60" Width="60" 
+                                Background="{StaticResource Green}" Click="PostButton_Click">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2">
+                                <Image Source="{StaticResource SendIconBeige}" Width="25" Height="25" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <TextBlock Text="Post!" FontSize="18" Style="{StaticResource ButtonLabelTextBlock}" FontWeight="Medium" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ForumDTO.IsClosed}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+
+
+                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="0,1,0,0" Background="{StaticResource SoftGreen}" Height="40" VerticalAlignment="Bottom">
+                    <Grid>
+                        <Label Content="&lt;&lt; Forum closed >>" FontFamily="{StaticResource Roboto}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"
+                               FontStyle="Oblique"/>
+                    </Grid>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ForumDTO.IsClosed}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ForumDTO.IsClosed}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

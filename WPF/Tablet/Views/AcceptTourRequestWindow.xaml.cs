@@ -24,10 +24,13 @@ namespace BookingApp.WPF.Tablet.Views
     {
         private Frame _additionalFrame;
         public TourRequestViewModel ViewModel {  get; set; }
-        public AcceptTourRequestWindow(TourRequestDTO trDTO, Frame aFrame)
+        public AcceptTourRequestWindow(TourRequestDTO trDTO, Frame aFrame, bool isComplex)
         {
             InitializeComponent();
-            ViewModel = new TourRequestViewModel(trDTO);
+            ViewModel = new TourRequestViewModel(trDTO, isComplex);
+            ViewModel.tourRequestDTO.BlackoutDatesStart = datePickerFrom.BlackoutDates;
+            ViewModel.tourRequestDTO.BlackoutDatesEnd = datePickerTo.BlackoutDates;
+            ViewModel.SetBlackoutDates();
             _additionalFrame = aFrame;
             DataContext = ViewModel;
         }
@@ -46,10 +49,13 @@ namespace BookingApp.WPF.Tablet.Views
 
         private void Accept_Executed(object sender, ExecutedRoutedEventArgs e) {
             if (ViewModel.IsAvailable()) {
-                ViewModel.AcceptTourRequest();
                 MessageBox.Show("Tour request accepted.", "Succecfull", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
-                _additionalFrame.Content = new TourRequestsPage(_additionalFrame, ViewModel.GetUserId());
+                if(ViewModel.AcceptTourRequest()) 
+                    _additionalFrame.Content = new ComplexTourRequestPage(_additionalFrame, ViewModel.GetUserId());
+                else
+                    _additionalFrame.Content = new TourRequestsPage(_additionalFrame, ViewModel.GetUserId());
+                
             }
             else {
                 MessageBox.Show("You are not Available at that time span", "UNAVAILABLE", MessageBoxButton.OK, MessageBoxImage.Exclamation);

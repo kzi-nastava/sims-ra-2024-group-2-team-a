@@ -22,8 +22,9 @@ namespace BookingApp.WPF.Desktop.ViewModels
         }
 
         private readonly TourRequestService _tourRequestService = ServicesPool.GetService<TourRequestService>();
+        private readonly ComplexTourRequestService _complexTourRequestService = ServicesPool.GetService<ComplexTourRequestService>();
         public ObservableCollection<TourRequestDTO> TourRequests { get; set; } = new ObservableCollection<TourRequestDTO>();
-        public ICommand CreateRequestCommand { get; set; } 
+        public ObservableCollection<ComplexTourRequestDTO> ComplexTourRequests { get; set; } = new ObservableCollection<ComplexTourRequestDTO>();
         public int UserId { get; set; }
 
         private string _filter;
@@ -40,10 +41,46 @@ namespace BookingApp.WPF.Desktop.ViewModels
             }
         }
 
+        private string _complexFilter;
+        public string ComplexFilter {
+            get {
+                return _complexFilter;
+            }
+            set {
+                if(value != _complexFilter) {
+                    _complexFilter = value;
+                    OnPropertyChanged();
+                    DisplayComplexTourRequests();
+                }
+            }
+        }
+
+        public ICommand RequestInformationCommand { get; set; }
+
+        public ICommand ComplexInformationCommand { get; set; }
+
         public RequestsPageViewModel(int userId) {
-            CreateRequestCommand = new RelayCommand(CreateRequest, CreateRequestCanExecute);
             UserId = userId;
             Filter = "All";
+            ComplexFilter = "All";
+
+            Func<bool> alwaysTrue = () => true;
+            RequestInformationCommand = new RelayCommand(OpenRequestInformation, alwaysTrue);
+            ComplexInformationCommand = new RelayCommand(OpenComplexInformation, alwaysTrue);
+        }
+
+        private void OpenComplexInformation(object parameter) {
+            var request = (ComplexTourRequestDTO)parameter;
+
+            ComplexInformationWindow window = new ComplexInformationWindow(request);
+            window.ShowDialog();
+        }
+
+        private void OpenRequestInformation(object parameter) {
+            var request = (TourRequestDTO)parameter;
+
+            TourRequestInformationWindow window = new TourRequestInformationWindow(request, this);
+            window.ShowDialog();
         }
 
         public void DisplayTourRequests() {
@@ -53,13 +90,16 @@ namespace BookingApp.WPF.Desktop.ViewModels
             }
         }
 
-        private void CreateRequest(object parameter) {
-            CreateRequestWindow window = new CreateRequestWindow(UserId);
-            window.ShowDialog();
-        }
-
-        private bool CreateRequestCanExecute() {
-            return true;
+        public void DisplayComplexTourRequests() {
+            ComplexTourRequests.Clear();
+            int complexCounter = 0;
+            foreach(var complexRequest in _complexTourRequestService.GetFiltered(UserId, ComplexFilter)) {
+                ComplexTourRequestDTO complexTourRequestDTO = new ComplexTourRequestDTO(complexRequest, ++complexCounter);
+                int simpleCounter = 0;
+                foreach (var simpleRequest in _tourRequestService.GetForComplexRequest(complexRequest.Id))
+                    complexTourRequestDTO.TourRequests.Add(new TourRequestDTO(simpleRequest, ++simpleCounter, complexRequest.Status));
+                ComplexTourRequests.Add(complexTourRequestDTO);
+            }
         }
     }
 }

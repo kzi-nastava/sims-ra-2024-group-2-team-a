@@ -4,6 +4,7 @@ using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace BookingApp.Services {
     public class TourService {
@@ -15,17 +16,18 @@ namespace BookingApp.Services {
         private PointOfInterestService _pointOfInterestService;
         private TourRequestService _tourRequestService;
         private NotificationService _notificationService;
+        private GuideService _guideService;
         public TourService(ITourRepository tourRepository) {
             _tourRepository = tourRepository;
         }
-        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService, TourReviewService tourReviewService, PointOfInterestService pointOfInterestService, TourRequestService tourRequestService, NotificationService notificationService) {
+        public void InjectService(PassengerService passengerService, TourReservationService tourReservationService, TourReviewService tourReviewService, PointOfInterestService pointOfInterestService, TourRequestService tourRequestService, NotificationService notificationService, GuideService guideService) {
             _passengerService = passengerService;
             _tourReservationService = tourReservationService;
             _tourReviewService = tourReviewService;
             _pointOfInterestService = pointOfInterestService;
             _tourRequestService = tourRequestService;
             _notificationService = notificationService;
-
+            _guideService = guideService;
         }
         public double GetTourGrade(int Id) {
             List<TourReview> reviews = _tourReviewService.GetByTourId(Id);
@@ -112,8 +114,15 @@ namespace BookingApp.Services {
         public List<Tour> GetScheduled(int userId) {
             return _tourRepository.GetScheduled(userId);
         }
+
+        public List<Tour> GetScheduledBetween(int userId, DateTime from, DateTime to) {
+            return GetScheduled(userId).FindAll(x => x.Beggining <= to && x.Beggining >= from);
+        }
         public List<Tour> GetFinished(int userId) {
             return _tourRepository.GetFinished(userId);
+        }
+        public List<Tour> GetFinishedByLanguage(int userId, Language lang) {
+            return GetFinished(userId).FindAll(x => x.LanguageId == lang.Id);
         }
         public List<Tour> GetLive(int userId) {
             return _tourRepository.GetLive(userId);
@@ -165,7 +174,12 @@ namespace BookingApp.Services {
         public void SendTouristsTourNotifications(Tour tour) {
 
         }
-
+        public bool DeleteMultiple(List<Tour> tours) {
+            foreach (Tour tour in tours) {
+                if(!Delete(tour)) return false;
+            }
+            return true;
+        }
         public bool Delete(Tour tour) => _tourRepository.Delete(tour);
         public bool Update(Tour tour) {
             return _tourRepository.Update(tour);
@@ -178,12 +192,42 @@ namespace BookingApp.Services {
         public List<Tour> GetSameLocationTours(TourDTO tour) {
             return GetToursByLocation(tour.LocationId).Where(t => (tour.Id != t.Id)).ToList();
         }
-        public bool IsGuideAvailable(int userId, DateTime from, DateTime to) {
-            List<Tour> tours = GetScheduled(userId);
-            if(tours.All(x => x.Beggining.Date > to.Date || x.End.Date < from.Date)) {
+        public bool IsGuideAvailable(int userId, int complexId, DateTime from, DateTime to) {
+            Calendar calendar = GetUnavailableDates(userId, complexId, from, to);
+            if (calendar.BlackoutDates.All(x => x.Start.Date > to.Date || x.End.Date < from.Date))
                 return true;
+            return false;
+
+        }
+        public Calendar GetUnavailableDates(int userId, int complexId, DateTime from, DateTime to) {
+            Calendar calendar = new Calendar();
+            if (complexId >= 1)
+                calendar = _tourRequestService.GetBusyDates(complexId);
+
+            calendar.DisplayDateStart = from;
+            calendar.DisplayDateEnd = to;
+            foreach (Tour tour in  GetScheduled(userId)) {
+                if(tour.Beggining.Date <= to.Date && tour.End.Date >= from.Date) {
+                    calendar.BlackoutDates.Add(new CalendarDateRange(tour.Beggining.Date, tour.End.Date));
+                }
+            }
+            
+            return calendar;
+        }
+        public bool IsAvailableToShow(int userId, int complexId, DateTime from, DateTime to) {
+            Calendar calendar = GetUnavailableDates(userId, complexId, from, to);
+            for(var date = from.Date; date <= to.Date; date = date.AddDays(1)) {
+                if (IsDateAvailable(calendar, date.Date))
+                    return true;
             }
             return false;
+        }
+        private bool IsDateAvailable(Calendar calendar, DateTime date) {
+            foreach(var calendarRange in calendar.BlackoutDates) {
+                if (date.Date >= calendarRange.Start.Date && date.Date <= calendarRange.End.Date)
+                    return false;
+            }
+            return true;
         }
     }
 }

@@ -16,6 +16,8 @@ namespace BookingApp.WPF.Tablet.Views {
             _userId = userId;
             _mainFrame.IsHitTestVisible = true;
             _mainFrame.Opacity = 1;
+            _additionalFrame.IsHitTestVisible = true;
+            _additionalFrame.Opacity = 1;
         }
 
         private void MenuBar_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {

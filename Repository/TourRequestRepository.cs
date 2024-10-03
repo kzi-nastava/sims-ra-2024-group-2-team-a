@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BookingApp.Repository {
     public class TourRequestRepository : Repository<TourRequest>, ITourRequestRepository {
         public List<TourRequest> GetByTouristId(int id) {
-            return GetAll().Where(r => r.TouristId == id).ToList();
+            return GetAll().Where(r => r.TouristId == id && r.ComplexTourId == 0).ToList();
         }
 
         public List<TourRequest> GetByTouristIdForYear(int id, int year) {

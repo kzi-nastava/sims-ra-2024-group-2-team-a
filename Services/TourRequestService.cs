@@ -9,6 +9,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace BookingApp.Services {
     public class TourRequestService {
@@ -16,23 +17,45 @@ namespace BookingApp.Services {
         private LocationService _locationService;
         private LanguageService _languageService;
         private UserService _userService;
+        private RequestPassengerService _requestPassengerService;
 
         public TourRequestService(ITourRequestRepository tourRequestRepository) {
             _tourRequestRepository = tourRequestRepository;
             UpdateRequestStatus();
         }
 
-        public void InjectServices(LocationService locationService, LanguageService languageService, UserService userService) {
+        public void InjectServices(LocationService locationService, LanguageService languageService, UserService userService, RequestPassengerService requestPassengerService) {
             _locationService = locationService;
             _languageService = languageService;
             _userService = userService;
+            _requestPassengerService = requestPassengerService;
+        }
+
+        public IEnumerable<TourRequest> GetForComplexRequest(int id) {
+            return GetAll().Where(r => r.ComplexTourId == id);
+        }
+        public bool IsAccepted(int guideId, int complexId) {
+            if(GetAll().FindAll(x => x.Status == TourRequestStatus.Accepted && x.ComplexTourId == complexId).Any(y => y.GuideId == guideId)) {
+                return true;
+            }
+            return false;
+        }
+        public List<TourRequest> GetComplexForGuide(int complexId) {
+            return GetAll().FindAll(x => x.ComplexTourId == complexId && x.Status == TourRequestStatus.OnHold);
+        }
+        public Calendar GetBusyDates(int complexId) {
+            Calendar calendar = new Calendar();
+            foreach (TourRequest tr in GetAll().FindAll(x => x.ComplexTourId == complexId && x.Status == TourRequestStatus.Accepted)){
+                calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(tr.StartDate.Year, tr.StartDate.Month, tr.StartDate.Day), new DateTime(tr.EndDate.Year, tr.EndDate.Month, tr.EndDate.Day)));
+            }
+            return calendar;
         }
 
         public List<TourRequest> GetAll() {
             return _tourRequestRepository.GetAll();
         }
         public List<TourRequest> GetAllOnHold() {
-            return GetAll().Where(r => r.Status == TourRequestStatus.OnHold).ToList();
+            return GetAll().Where(r => r.Status == TourRequestStatus.OnHold && r.ComplexTourId < 1).ToList();
         }
 
         public IEnumerable<User> GetTouristsForNotification(Tour tour) {
@@ -80,9 +103,18 @@ namespace BookingApp.Services {
             }
         }
 
-        public void CreateRequest(TourRequestDTO tourRequestDTO, int passengerNumber) {
-            _tourRequestRepository.Save(new TourRequest(tourRequestDTO, passengerNumber));
+        private void SavePassengers(int tourRequestId, List<PassengerDTO> passengers) {
+            foreach (var passenger in passengers) {
+                _requestPassengerService.Save(new RequestPassenger(tourRequestId, passenger));
+            }
+        }
+
+        public void CreateRequest(TourRequestDTO tourRequestDTO, int complexRequestId) {
+            TourRequest tourRequest = new TourRequest(tourRequestDTO, complexRequestId);
+            _tourRequestRepository.Save(tourRequest);
+            SavePassengers(tourRequest.Id, tourRequestDTO.Passengers);
         }      
+
         public TouristStatistics GetStatistics(int userId, string year) {
             if (year == "All-time")
                 return StatisticsCalculator.CalculateTouristStatistics(_tourRequestRepository.GetAccepted(userId), _tourRequestRepository.GetByTouristId(userId));

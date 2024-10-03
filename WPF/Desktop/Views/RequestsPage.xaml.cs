@@ -20,15 +20,27 @@ namespace BookingApp.WPF.Desktop.Views {
     /// </summary>
     public partial class RequestsPage : Page {
         public int UserId { get; set; }
+        public RequestsPageViewModel ViewModel { get; set; }
         public RequestsPage(int userId) {
             InitializeComponent();
-            DataContext = new RequestsPageViewModel(userId);
+            ViewModel = new RequestsPageViewModel(userId);
+            DataContext = ViewModel;
             UserId = userId;
         }
 
         private void StatisticsButton_Click(object sender, RoutedEventArgs e) {
             StatisticsWindow statisticsWindow = new StatisticsWindow(UserId);
             statisticsWindow.Show();
+        }
+
+        private void CreateRequestButton_Click(object sender, RoutedEventArgs e) {
+            CreateRequestWindow window = new CreateRequestWindow(UserId, null, ViewModel);
+            window.ShowDialog();
+        }
+
+        private void CreateComplexRequestButton_Click(object sender, RoutedEventArgs e) {
+            CreateComplexRequestWindow window = new CreateComplexRequestWindow(UserId, ViewModel);
+            window.ShowDialog();
         }
     }
 }

@@ -20,20 +20,49 @@ namespace BookingApp.WPF.Desktop.Views
     /// </summary>
     public partial class CreateRequestWindow : Window
     {
-        public CreateRequestWindow(int userId)
+        private CreateComplexRequestWindowViewModel _complexViewModel;
+        public CreateRequestWindow(int userId, CreateComplexRequestWindowViewModel? complexViewModel, RequestsPageViewModel requestsPageViewModel)
         {
             InitializeComponent();
+            _complexViewModel = complexViewModel;
+
+            datePickerStartDate.DisplayDateStart = DateTime.Today.AddDays(1);
+            datePickerEndDate.IsEnabled = false;
+
+            SetWindowSize(complexViewModel);
+
+            CreateRequestWindowViewModel viewModel = new CreateRequestWindowViewModel(userId, complexViewModel, requestsPageViewModel);
+            viewModel.CloseAction = new Action(this.Close);
+            this.DataContext = viewModel;
+        }
+
+        private void SetWindowSize(CreateComplexRequestWindowViewModel? complexViewModel) {
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
             double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
 
-            this.Width = screenWidth * 0.7;
-            this.Height = screenHeight * 0.7;
-
-            this.DataContext = new CreateRequestWindowViewModel(userId);
+            if (complexViewModel == null) {
+                this.Width = screenWidth * 0.7;
+                this.Height = screenHeight * 0.7;
+            }
+            else {
+                this.Width = screenWidth * 0.7;
+                this.Height = screenHeight * 0.62;
+            }
+            
         }
 
-        private void CreateRequestButton_Click(object sender, RoutedEventArgs e) {
-            this.Close();
+        private void SetDatePickerEndDate(object sender, EventArgs e) {
+            if (datePickerStartDate.SelectedDate >= datePickerEndDate.SelectedDate) {
+                datePickerEndDate.SelectedDate = null;
+                datePickerEndDate.DisplayDateStart = datePickerStartDate.SelectedDate.Value.AddDays(1);
+                return;
+            }
+
+            if (datePickerStartDate.SelectedDate != null) {
+                datePickerEndDate.IsEnabled = true;
+                datePickerEndDate.DisplayDateStart = datePickerStartDate.SelectedDate.Value.AddDays(1);
+                return;
+            }
         }
     }
 }

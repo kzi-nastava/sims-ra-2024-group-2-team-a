@@ -16,7 +16,7 @@
             
         </ResourceDictionary>
     </Page.Resources>
-    <Grid>
+    <Grid Margin="0 30 0 0">
         <Button  x:Name="menuButton" Style="{StaticResource HamburgerButton}" Height="40" Width="40" Command="cmd:RoutedCommands.Confirm"  BorderBrush="Black" Foreground="{x:Null}">
             <Image Source="{StaticResource HamburgerBarIcon}"/>
         </Button>

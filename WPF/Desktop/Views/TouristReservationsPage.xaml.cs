@@ -26,7 +26,7 @@ namespace BookingApp.WPF.Desktop.Views {
                 ratingWindow.ShowDialog();
             }
             else {
-                MessageBox.Show("You cannot rate a tour you haven't been present to or have reviewed already!", "Invalid request", MessageBoxButton.OK);
+                App.NotificationService.ShowError("You cannot rate a tour you haven't been present to or have reviewed already!");
             }
         }
 
@@ -36,6 +36,14 @@ namespace BookingApp.WPF.Desktop.Views {
 
             TouristFollowLiveWindow followLiveWindow = new TouristFollowLiveWindow(tour, UserId);
             followLiveWindow.ShowDialog();
+        }
+
+        private void GenerateReportButton_Click(object sender, RoutedEventArgs e) {
+            var button = (Button)sender;
+            var tour = (TourDTO)button.DataContext;
+
+            ReportWindow reportWindow = new ReportWindow(UserId, tour);
+            reportWindow.ShowDialog();
         }
     }
 }

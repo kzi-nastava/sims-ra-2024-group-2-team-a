@@ -21,18 +21,18 @@
 
         </ResourceDictionary>
     </Page.Resources>
-    <Grid>
+    <Grid Margin="0 30 0 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Most wanted tour request in last year" Style="{StaticResource TitleLabel}" Grid.Row="0" Grid.ColumnSpan="5"/>
+        <Label Content="Most wanted tour request in last year by:" Style="{StaticResource TitleLabel}" Grid.Row="0" Grid.ColumnSpan="5"/>
 
-        <Button Grid.Column="0" Grid.Row="1" x:Name="mostWantedLocation" Content="Location" Command="cmd:RoutedCommands.Clear" Style="{StaticResource FilterButton}" HorizontalAlignment="Left" Margin="342,0,0,0"/>
+        <Button Grid.Column="0" Grid.Row="1"  x:Name="mostWantedLocation" Content="Location" Command="cmd:RoutedCommands.Clear" Style="{StaticResource FilterButton}" HorizontalAlignment="Left" Margin="342,0,0,0"/>
         <Button Grid.Column="1" Grid.Row="1"  x:Name="mostWantedLanguage" Content="Language" Command="cmd:RoutedCommands.Filter" Style="{StaticResource FilterButton}"/>
 
     </Grid>

@@ -10,12 +10,13 @@ namespace BookingApp.WPF.Tablet.Views {
     /// Interaction logic for ScheduledToursPage.xaml
     /// </summary>
     public partial class ScheduledToursPage : Page {
-
+        private int _userId;
         public ScheduledTourViewModel ViewModel { get; set; }
         public ScheduledToursPage(int userId) {
-            InitializeComponent();
+            _userId = userId;
             ViewModel = new ScheduledTourViewModel(userId);
             DataContext = ViewModel;
+            InitializeComponent();
         }
 
         private void Clear_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -65,5 +66,13 @@ namespace BookingApp.WPF.Tablet.Views {
             return new TourFilterDTO(name, duration, touristsNumber, location, language, beggining);
         }
 
+        private void Pdf_Report_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            e.CanExecute = true;
+        }
+
+        private void Pdf_Report_Executed(object sender, ExecutedRoutedEventArgs e) {
+            Window pdfReportWindow = new PdfGenerationWindow(_userId);
+            pdfReportWindow.ShowDialog();
+        }
     }
 }

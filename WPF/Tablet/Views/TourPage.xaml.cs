@@ -28,7 +28,6 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void Close_Executed(object sender, ExecutedRoutedEventArgs e) {
-            MessageBox.Show("Brateee");
             _mainFrame.GoBack();
         }
 

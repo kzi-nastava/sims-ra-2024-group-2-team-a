@@ -18,7 +18,17 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void Report_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e) {
-            e.CanExecute = true;
+            if(ViewModel != null) {
+                if(ViewModel.tourReviewDTO.IsValid)
+                    e.CanExecute = true;
+                else
+                    e.CanExecute = false;
+            }
+            else {
+                e.CanExecute = true;
+
+            }
+
         }
 
         private void Report_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e) {

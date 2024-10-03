@@ -90,34 +90,35 @@ namespace BookingApp.WPF.Android.ViewModels {
                 }
             }
         }
-        public void AssignGradeButton() {
+        public bool AssignGradeButton() {
             if (SelectedReservation == null) {
-                MessageBox.Show("Please select a reservation first!", "Error",MessageBoxButton.OK,MessageBoxImage.Information);
-                return;
+                return false;
             }
             if(SelectedReservation.CanBeGradedByOwner){
                 AssignGradeWindow assignGradeWindow = new AssignGradeWindow(SelectedReservation, _user.Id, this);
                 assignGradeWindow.ShowDialog();
             }
+            return true;
         }
 
-        public void ViewGradeButton() {
+        public string ViewGradeButton() {
             if (SelectedReservation == null) {
-                MessageBox.Show("Please select a reservation first!", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return "Please select a reservation first!";
             }
-            else if (!SelectedReservation.IsGradedByOwner) {
-                MessageBox.Show("You must grade this reservation first!", "View guest grade", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+            else if (!SelectedReservation.IsGradedByOwner) { 
+                return "You must grade this reservation first!";
             }
             else {
                 ViewGuestGradeWindow viewGuestGradeWindow = new ViewGuestGradeWindow(SelectedReservation);
                 viewGuestGradeWindow.ShowDialog();
+                return null;
             }
         }
 
         public bool AcceptButton_CanExecute(object obj) {
-            if (SelectedRequest == null || SelectedRequest.Status != RescheduleRequestStatus.Pending) {
+            if (SelectedRequest == null)
+                return true;
+            else if (SelectedRequest.Status != RescheduleRequestStatus.Pending) {
                 return false;
             }
             else {
@@ -125,11 +126,14 @@ namespace BookingApp.WPF.Android.ViewModels {
             }
         }
         public void AcceptButton_Executed(object obj) {
+            if (SelectedRequest == null)
+                return;
+
             AccommodationStatisticsService statisticsService = ServicesPool.GetService<AccommodationStatisticsService>();
             AccommodationReservation accommodationReservation = accReservationService.GetById(SelectedRequest.ReservationId);
 
             statisticsService.UpdatePostponedStatistics(accommodationReservation.AccommodationId, SelectedRequest.OldStartDate, 
-                SelectedRequest.OldStartDate.AddDays(SelectedRequest.Duration) , SelectedRequest.NewStartDate, SelectedRequest.NewEndDate);
+                SelectedRequest.OldStartDate.AddDays(SelectedRequest.Duration) , SelectedRequest.NewStartDate, SelectedRequest.NewEndDate, accommodationReservation.GuestsNumber);
 
             accommodationReservation.StartDate = SelectedRequest.NewStartDate;
             accommodationReservation.EndDate = SelectedRequest.NewEndDate;
@@ -144,7 +148,9 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         public bool DeclineButton_CanExecute(object obj) {
-            if (SelectedRequest == null || SelectedRequest.Status != RescheduleRequestStatus.Pending) {
+            if (SelectedRequest == null)
+                return true;
+            else if (SelectedRequest.Status != RescheduleRequestStatus.Pending) {
                 return false;
             }
             else {
@@ -153,6 +159,9 @@ namespace BookingApp.WPF.Android.ViewModels {
         }
 
         public void DeclineButton_Executed(object obj) {
+            if (SelectedRequest == null)
+                return;
+
             RescheduleRequestDeclineWindow rescheduleRequestDeclineWindow = new RescheduleRequestDeclineWindow(SelectedRequest);
             rescheduleRequestDeclineWindow.ShowDialog();
             this.Update();

@@ -26,7 +26,12 @@ namespace BookingApp.WPF.Tablet.Views
     {
         private Frame _additionalFrame, _mainFrame;
         private int _userId;
-        public TourRequestsMainPage(Frame mFrame, Frame aFrame, int userId){
+        public GuideProfileDTO guideProfileDTO { get; set; }
+        public TourRequestsMainPage(Frame mFrame, Frame aFrame, int userId) {
+            Window mainWindow = Application.Current.MainWindow;
+            ProfileViewModel p = (ProfileViewModel)mainWindow.DataContext;
+            guideProfileDTO = p.guideProfileDTO;
+            DataContext = this;
             InitializeComponent();
             _additionalFrame = aFrame;
             _mainFrame = mFrame;
@@ -42,6 +47,7 @@ namespace BookingApp.WPF.Tablet.Views
                     break;
 
                 case "Complex Tour Requests":
+                    _additionalFrame.Content = new ComplexTourRequestPage(_additionalFrame, _userId);
                     break;
 
                 case "Stats for Requests":
@@ -54,6 +60,18 @@ namespace BookingApp.WPF.Tablet.Views
 
                 default: break;
             }
+        }
+        private void Help_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            if (guideProfileDTO.IsHelpActive) {
+                e.CanExecute = true;
+            }
+            else {
+                e.CanExecute = false;
+            }
+        }
+        private void Help_Executed(object sender, ExecutedRoutedEventArgs e) {
+            WizardWindow wizardWindow = new WizardWindow(_userId, 4, false);
+            wizardWindow.ShowDialog();
         }
     }
 }

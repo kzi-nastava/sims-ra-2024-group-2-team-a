@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
@@ -21,7 +22,7 @@
         </ResourceDictionary>
     </Page.Resources>
     
-    <Grid>
+    <Grid Margin="0 40 0 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
@@ -34,7 +35,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -47,7 +48,7 @@
                 <DatePicker x:Name="datePickerFrom" Grid.Row="1" Grid.Column="1" DisplayDateStart="{x:Static sys:DateTime.Today}" Width="200" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" FontSize="18"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource FilterLabel2}" Content="Number of Tourists:"/>
-                <TextBox x:Name="textBoxTourists" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,0,0,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+                <xctk:IntegerUpDown Minimum="1" Maximum="1000" ClipValueToMinMax="True" x:Name="textBoxTourists" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,0,0,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
 
                 <Label Grid.Row="0" Grid.Column="4" Style="{StaticResource FilterLabel2}"  Content="Location:" />
                 <ComboBox x:Name="comboBoxLocation" Grid.Column="5" Grid.Row="0" Margin="20,0,20,0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"

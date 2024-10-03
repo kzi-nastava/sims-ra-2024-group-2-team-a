@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="AddPointsOfInterestWindow" Height="350" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.CommandBindings>
-        <CommandBinding Command="cmd:RoutedCommands.Cancel" CanExecute="Cancel_CanExecute" Executed="Cancel_Executed"/>
+        <CommandBinding Command="cmd:RoutedCommands.Cancel" CanExecute="Cancel_CanExecute"  Executed="Cancel_Executed"/>
         <CommandBinding Command="cmd:RoutedCommands.Confirm" CanExecute="Add_CanExecute" Executed="Add_Executed"/>
     </Window.CommandBindings>
     <Window.Resources>

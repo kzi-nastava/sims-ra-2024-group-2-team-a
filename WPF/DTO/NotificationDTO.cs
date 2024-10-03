@@ -18,11 +18,38 @@ namespace BookingApp.WPF.DTO {
             IsRead = notification.IsRead;
             TourId = notification.TourId;
             SetNotificationIcon();
+            SetNotificationTitles();
         }
         public int Id { get; set; }
         public int UserId { get; set; }
 
         public NotificationCategory Category { get; set; }
+
+        private string _title;
+        public string Title {
+            get {
+                return _title;
+            }
+            set {
+                if(_title != value) {
+                    _title = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _messageHeader;
+        public string MessageHeader {
+            get {
+                return _messageHeader;
+            }
+            set {
+                if(_messageHeader != value) {
+                    _messageHeader = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public string _message;
         public string Message
@@ -36,6 +63,19 @@ namespace BookingApp.WPF.DTO {
                 if (value != _message)
                 {
                     _message = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string _clickMessage;
+        public string ClickMessage {
+            get {
+                return _clickMessage;
+            }
+            set {
+                if (value != _clickMessage) {
+                    _clickMessage = value;
                     OnPropertyChanged();
                 }
             }
@@ -117,20 +157,46 @@ namespace BookingApp.WPF.DTO {
             return notification;
         }
 
+        public void SetNotificationTitles() {
+            switch (Category) { 
+                case NotificationCategory.TourActive:
+                    Title = "Reservation";
+                    MessageHeader = "Welcome to the tour!";
+                    break;
+                case NotificationCategory.TourRequest:
+                    Title = "Request";
+                    MessageHeader = "There is a new tour that might interest you!";
+                    break;
+                default:
+                    Title = "";
+                    MessageHeader = "";
+                    break;
+            }
+        }
+
         public void SetNotificationIcon()
         {
             NotificationIcon = "../../../Resources/Images/";
             if (Category == NotificationCategory.Review)
             {
                 NotificationIcon += "notification-review-icon.png";
+                ClickMessage = "Click here to navigate to reviews tab!";
             }
             if (Category == NotificationCategory.Request)
             {
                 NotificationIcon += "notification-request-icon.png";
+                ClickMessage = "Click here to navigate to requests tab!";
             }
             if (Category == NotificationCategory.SuperOwner)
             {
                 NotificationIcon += "notification-super-icon.png";
+            }
+            if (Category == NotificationCategory.Forum) {
+                NotificationIcon += "forums-icon.png";
+                ClickMessage = "Click here to check it out!";
+            }
+            if (Category == NotificationCategory.TourActive) {
+                NotificationIcon += "Icons/black-book.png";
             }
         }
 

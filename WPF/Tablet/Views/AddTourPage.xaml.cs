@@ -54,6 +54,7 @@ namespace BookingApp.WPF.Tablet.Views {
         private void AddDateTime_Executed(object sender, ExecutedRoutedEventArgs e) {
             AddBegginingDateTimeWindow begginingDateTimeWindow = new AddBegginingDateTimeWindow(ViewModel.begginings);
             begginingDateTimeWindow.ShowDialog();
+            ViewModel.SetDateTimeValid();
         }
 
         private void AddPointOfInterest_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -63,6 +64,7 @@ namespace BookingApp.WPF.Tablet.Views {
         private void AddPointOfInterest_Executed(object sender, ExecutedRoutedEventArgs e) {
             AddPointsOfInterestWindow pointOfInterestWindow = new AddPointsOfInterestWindow(ViewModel.pointOfInterestDTOs);
             pointOfInterestWindow.ShowDialog();
+            ViewModel.SetKeypointValid();
         }
 
         private void AddPictures_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
@@ -70,37 +72,9 @@ namespace BookingApp.WPF.Tablet.Views {
         }
 
         private void AddPictures_Executed(object sender, ExecutedRoutedEventArgs e) {
-            OpenFileDialog openFileDialog = SetOpenFile();
-            List<string> absolutePaths = new List<string>();
-            if (openFileDialog.ShowDialog() == true) {
-                // Get absolute paths of selected images
-                foreach (string filename in openFileDialog.FileNames) {
-                    absolutePaths.Add(filename);
-                }
-                ViewModel.PickPhotos(absolutePaths);
-            }
+            ViewModel.AddImage();
+            ViewModel.SetPhotosValid();
         }
-
-        /*private void DeleteDateTime_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
-            e.CanExecute = true;
-        }
-
-        private void DeleteDateTime_Executed(object sender, ExecutedRoutedEventArgs e) {
-            var button = (Button)sender;
-            var beggining = (DateTime)button.DataContext;
-
-            ViewModel.DeleteDateTime(beggining);
-        }
-        private void DeletePointOfInterest_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
-            e.CanExecute = true;
-        }
-
-        private void DeletePointOfInterest_Executed(object sender, ExecutedRoutedEventArgs e) {
-            var button = (Button)sender;
-            var pointOfInterestDTO = (PointOfInterestDTO)button.DataContext;
-
-            ViewModel.DeletePointOfInterest(pointOfInterestDTO);
-        }*/   //EventHandler zna o kom buttonu se radi a Commanda ne zna, problem...
         private void deletePointOfInterestButton_Click(object sender, RoutedEventArgs e) {
             var button = (Button)sender;
             var pointOfInterestDTO = (PointOfInterestDTO)button.DataContext;
@@ -121,6 +95,45 @@ namespace BookingApp.WPF.Tablet.Views {
             openFileDialog.Multiselect = true;
             openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
             return openFileDialog;
+        }
+
+        private void DeletePictures_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            if (ViewModel.SelectedImageIndex == -1)
+                e.CanExecute = false;
+            else
+                e.CanExecute = true;
+        }
+
+        private void DeletePictures_Executed(object sender, ExecutedRoutedEventArgs e) {
+            ViewModel.DeleteImage();
+            ViewModel.SetPhotosValid();
+
+        }
+
+        private void Previous_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            if(ViewModel.CanNavigatePrevious()) {
+                e.CanExecute= true;
+            }
+            else {
+                e.CanExecute = false;
+            }
+        }
+
+        private void Previous_Executed(object sender, ExecutedRoutedEventArgs e) {
+            ViewModel.NavigatePreviousImage();
+        }
+
+        private void Next_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
+            if (ViewModel.CanNavigateNext()) {
+                e.CanExecute = true;
+            }
+            else {
+                e.CanExecute = false;
+            }
+        }
+
+        private void Next_Executed(object sender, ExecutedRoutedEventArgs e) {
+            ViewModel.NavigateNextImage();
         }
     }
 }
