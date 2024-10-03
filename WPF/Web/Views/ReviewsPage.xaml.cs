@@ -1,5 +1,6 @@
 ﻿using BookingApp.Services;
 using BookingApp.WPF.DTO;
+using BookingApp.WPF.Utils.Reports.Guest;
 using BookingApp.WPF.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QuestPDF.Infrastructure;
+using QuestPDF.Fluent;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace BookingApp.WPF.Web.Views {
     /// <summary>
@@ -28,6 +33,7 @@ namespace BookingApp.WPF.Web.Views {
         private int _guestId;
 
         private readonly AccommodationReviewService _reviewService = ServicesPool.GetService<AccommodationReviewService>();
+        private readonly UserService _userService = ServicesPool.GetService<UserService>();
 
         public ReviewsPage(int guestId) {
             InitializeComponent();
@@ -45,6 +51,29 @@ namespace BookingApp.WPF.Web.Views {
             }
 
             DataContext = this;
+        }
+
+        private void GenerateReportClick(object sender, RoutedEventArgs e) {
+            String guestUsername = _userService.GetById(_guestId).Username;
+
+            var guestReportGenerator = new GuestReportGenerator(guestUsername, ReviewCards.Select(r => r.Review).ToList());
+            QuestPDF.Settings.License = LicenseType.Community;
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+            saveFileDialog.DefaultExt = "pdf";
+            saveFileDialog.FileName = "GuestRatingReport.pdf";
+
+            DialogResult? result = saveFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK) {
+                string filePath = saveFileDialog.FileName;
+                guestReportGenerator.GeneratePdf(filePath);
+
+                if(checkBoxPreview.IsChecked == true) {
+                    Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
+                }
+            }
         }
     }
 }

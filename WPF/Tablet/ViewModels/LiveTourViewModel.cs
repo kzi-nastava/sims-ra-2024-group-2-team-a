@@ -20,9 +20,10 @@ namespace BookingApp.WPF.Tablet.ViewModels {
         public ObservableCollection<LocationDTO> locationDTOs { get; set; }
         public ObservableCollection<LanguageDTO> languageDTOs { get; set; }
         public ObservableCollection<TourDTO> tourDTOs { get; set; }
-        public LiveTourViewModel(int userId) {
+        public GuideProfileDTO guideProfileDTO { get; set; }
+        public LiveTourViewModel(int userId, GuideProfileDTO pGDTO) {
             _userId = userId;
-
+            guideProfileDTO = pGDTO;
             LoadTours();
         }
         public LiveTourViewModel(TourDTO tDTO, int userId) {

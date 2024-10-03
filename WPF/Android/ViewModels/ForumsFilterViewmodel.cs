@@ -61,8 +61,15 @@ namespace BookingApp.WPF.Android.ViewModels {
                 }
 
                 User user = _userService.GetById(forumDTO.CreatorId);
-                if (!Users.Contains(user)) {
+                if (Users.Count == 0) {
                     Users.Add(user);
+                    continue;
+                }
+
+                foreach (var u in Users) {
+                    if (u.Id != user.Id) {
+                        Users.Add(user);
+                    }
                 }
             }
         }

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:cmd="clr-namespace:BookingApp.WPF.Utils.Commands"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:BookingApp.WPF.Tablet.Views"
         mc:Ignorable="d"
                Title="AddBegginingDateTimeWindow" Height="200" Width="350" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
@@ -32,7 +33,7 @@
 
 
         <Label Grid.Row="1" Grid.ColumnSpan="2" Content="Time:" Style="{StaticResource WindowLabel}"/>
-        <TextBox Grid.Row="1" Margin="5,0,5,0" FontSize="18" VerticalAlignment="Center" Text="{Binding Time}" Grid.Column="1"/>
+        <xctk:IntegerUpDown Minimum="1" Maximum="1000" ClipValueToMinMax="True" Grid.Row="1" Margin="5,0,5,0" FontSize="18" VerticalAlignment="Center" Value="{Binding Time}" Grid.Column="1"/>
 
 
         <Button x:Name="addButton" Content="Add" Command="cmd:RoutedCommands.Confirm" Style="{StaticResource WindowButton}" Grid.Row="3" Grid.Column="1"/>

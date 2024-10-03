@@ -12,12 +12,17 @@ namespace BookingApp.WPF.Desktop.Views {
         public UseVouchersWindow(TouristReservationWindowViewModel parentViewModel) {
             InitializeComponent();
 
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+
+            this.Width = screenWidth * 0.5;
+            this.Height = screenHeight * 0.5;
+
             viewModel = new UseVouchersWindowViewModel(parentViewModel);
             DataContext = viewModel;
         }
 
         private void UseVoucherButton_Click(object sender, RoutedEventArgs e) {
-            viewModel.UseVoucher();
             this.Close();
         }
     }

@@ -33,10 +33,28 @@ namespace BookingApp.Services {
             return _notificationRepository.GetAll().FindAll(x => x.UserId == userId);
         }
 
+        public IEnumerable<Notification> GetSortedForTourist(int touristId) {
+            List<Notification> result = new List<Notification>();
+
+            foreach (var item in _notificationRepository.GetNonReadForUser(touristId))
+                result.Add(item);
+
+            foreach (var item in _notificationRepository.GetReadForUser(touristId))
+                result.Add(item);
+
+            return result;
+        }
+
         public void Update(Notification notification) {
             _notificationRepository.Update(notification);
         }
-
+        public void ClearRepeatingNotifications(int ownerId) {
+            foreach (var notification in GetByUserId(ownerId)) {
+                if (notification.Category == NotificationCategory.Review || notification.Category==NotificationCategory.Request) {
+                    _notificationRepository.Delete(notification);
+                }
+            }
+        }
         public void CreateNotifications(int ownerId) {
             int ungradedReservations = _reservationService.CheckForNotGradedReservations(ownerId);
             int pendingRescheduleRequests = _rescheduleRequestService.GetPendingRequestsByOwnerId(ownerId).Count;

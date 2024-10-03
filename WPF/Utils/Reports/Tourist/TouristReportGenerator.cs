@@ -64,15 +64,15 @@ namespace BookingApp.WPF.Utils.Reports.Tourist
                         text.Span("Issue date: ").SemiBold();
                         text.Span($"{_issueDate:d}");
                     });
+
+                    column.Item().Text(text => {
+                        text.Span("Issued by: ").SemiBold();
+                        text.Span(_generatedBy);
+                    });
                 });
 
-                row.ConstantItem(200).Height(100).Image(LoadImage());
+                row.ConstantItem(200).AlignRight().Height(50).Image(File.ReadAllBytes(Path.Combine(Directory.GetCurrentDirectory(), "../../../Resources/Images/booking-app-logo.png")));
             });
-        }
-        private byte[] LoadImage()
-        {
-            string path = _tourDetails.ProfilePictures[0];
-            return File.ReadAllBytes(path);
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
@@ -95,9 +95,6 @@ namespace BookingApp.WPF.Utils.Reports.Tourist
                 column.Spacing(5);
 
                 column.Item().Element(ComposeTable);
-
-                //if (!string.IsNullOrWhiteSpace(Model.Comments))
-                //column.Item().PaddingTop(25).Element(ComposeComments);
             });
         }
 

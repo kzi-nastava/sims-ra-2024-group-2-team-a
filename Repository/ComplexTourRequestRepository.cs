@@ -11,5 +11,17 @@ namespace BookingApp.Repository {
         public IEnumerable<ComplexTourRequest> GetByTouristId(int touristId) {
             return GetAll().Where(r => r.TouristId == touristId);
         }
+
+        public IEnumerable<ComplexTourRequest> GetAccepted(int touristId) {
+            return GetByTouristId(touristId).Where(r => r.Status == TourRequestStatus.Accepted);
+        }
+
+        public IEnumerable<ComplexTourRequest> GetOnHold(int touristId) {
+            return GetByTouristId(touristId).Where(r => r.Status == TourRequestStatus.OnHold);
+        }
+
+        public IEnumerable<ComplexTourRequest> GetExpired(int touristId) {
+            return GetByTouristId(touristId).Where(r => r.Status == TourRequestStatus.Expired);
+        }
     }
 }

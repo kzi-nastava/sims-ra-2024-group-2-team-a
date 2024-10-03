@@ -70,18 +70,7 @@ namespace BookingApp.Services {
         }
 
         public List<Tour> GetFiltered(TourFilterDTO filter) {
-            List<Tour> allTours = new List<Tour>();
-
-            foreach (var tour in _tourRepository.GetAll())
-            {
-                if(_guideService.GetById(tour.GuideId).IsSuper)
-                    allTours.Add(tour);
-            }
-
-            foreach (var tour in _tourRepository.GetAll()) {
-                if (!_guideService.GetById(tour.GuideId).IsSuper)
-                    allTours.Add(tour);
-            }
+            List<Tour> allTours = _tourRepository.GetAll();
 
             if (filter.isEmpty())
                 return allTours;
@@ -124,6 +113,10 @@ namespace BookingApp.Services {
         }
         public List<Tour> GetScheduled(int userId) {
             return _tourRepository.GetScheduled(userId);
+        }
+
+        public List<Tour> GetScheduledBetween(int userId, DateTime from, DateTime to) {
+            return GetScheduled(userId).FindAll(x => x.Beggining <= to && x.Beggining >= from);
         }
         public List<Tour> GetFinished(int userId) {
             return _tourRepository.GetFinished(userId);

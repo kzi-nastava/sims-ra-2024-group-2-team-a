@@ -105,7 +105,10 @@ namespace BookingApp.WPF.Tablet.ViewModels
 
         }
         public bool IsAvailable() {
-           return _tourService.IsGuideAvailable(_userId, tourRequestDTO.ComplexTourId, tourRequestDTO.StartDateTime, tourRequestDTO.EndDateTime); 
+           if(_tourService.IsGuideAvailable(_userId, tourRequestDTO.ComplexTourId, tourRequestDTO.StartDateTime, tourRequestDTO.EndDateTime) && (tourRequestDTO.StartDateTime <= tourRequestDTO.EndDateTime)){
+                return true;
+           }
+            return false;
            
         }
         public bool AcceptTourRequest() {
@@ -127,6 +130,8 @@ namespace BookingApp.WPF.Tablet.ViewModels
             return _userId;
         }
         public void FilterRequests(TourRequestFilterDTO filterDTO) {
+            if (tourRequestDTOs == null)
+                return;
             tourRequestDTOs.Clear();
             foreach(var request in _tourRequestService.GetFilteredByGuide(filterDTO)) {
                 TourRequestDTO temp = new TourRequestDTO(request);

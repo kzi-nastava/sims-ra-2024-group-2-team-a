@@ -2,6 +2,7 @@
 using BookingApp.WPF.DTO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,15 +20,22 @@ namespace BookingApp.WPF.Desktop.Views {
     /// Interaction logic for ReportWindow.xaml
     /// </summary>
     public partial class ReportWindow : Window {
+        private ReportWindowViewModel _viewModel;
         public ReportWindow(int userId, TourDTO tour) {
             InitializeComponent();
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
             double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
 
             this.Width = screenWidth * 0.5;
-            this.Height = screenHeight * 0.5;
+            this.Height = screenHeight * 0.7;
 
-            DataContext = new ReportWindowViewModel(userId, tour);
+            _viewModel = new ReportWindowViewModel(userId, tour);
+            DataContext = _viewModel;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            App.NotificationService.ShowSuccess("Your report has been saved.");
+            this.Close();
         }
     }
 }

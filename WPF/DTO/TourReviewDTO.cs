@@ -10,6 +10,9 @@ namespace BookingApp.WPF.DTO {
         public TourReviewDTO()
         {
             Pictures = new List<string>();
+            InterestGrade = 1;
+            LanguageGrade = 1;
+            KnowledgeGrade = 1;
         }
         public TourReviewDTO(TourReview t)
         {
@@ -37,7 +40,7 @@ namespace BookingApp.WPF.DTO {
                 }
             }
         }
-        private int _knowledgeGrade;
+        private int _knowledgeGrade = 1;
         public int KnowledgeGrade
         {
             get { return _knowledgeGrade; }
@@ -49,7 +52,7 @@ namespace BookingApp.WPF.DTO {
                 }
             }
         }
-        private int _languageGrade;
+        private int _languageGrade = 1;
         public int LanguageGrade
         {
             get { return _languageGrade; }
@@ -61,7 +64,7 @@ namespace BookingApp.WPF.DTO {
                 }
             }
         }
-        private int _interestGrade;
+        private int _interestGrade = 1;
         public int InterestGrade
         {
             get { return _interestGrade; }

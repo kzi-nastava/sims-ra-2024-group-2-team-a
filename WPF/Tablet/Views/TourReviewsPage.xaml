@@ -18,11 +18,28 @@
     </Page.Resources>
     <Grid Background="{StaticResource SoftGreen}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="0.8*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Margin="5,20,5,0">
+        <Grid Grid.Row="0" Grid.Column="1" Margin="10 20 10 10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.8*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="50 10 10 10" TextWrapping="Wrap" Text="{Binding tourDTO.Name, StringFormat=Name: {0}}" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="10" Text="{Binding tourDTO.Duration, StringFormat=Duration: {0} hours}" FontSize="18"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Margin="10" Text="{Binding tourDTO.CurrentTouristNumber, StringFormat=Tourists: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="50 10 10 10" Text="{Binding tourDTO.LocationTemplate, StringFormat=Location: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Margin="10" Text="{Binding tourDTO.LanguageTemplate, StringFormat=Language: {0}}" FontSize="18"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Margin="10" Text="{Binding tourDTO.End, StringFormat=Ended: {0}}" FontSize="18"/>
+        </Grid>
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Margin="5,10,5,0">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl x:Name="itemsControlLiveTours" ItemsSource="{Binding tourReviewDTOs}">
                     <ItemsControl.ItemTemplate>

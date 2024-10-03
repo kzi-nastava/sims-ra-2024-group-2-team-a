@@ -101,8 +101,8 @@ namespace BookingApp.Services {
             foreach (var reservation in this.GetAll()) {
                 if (!CheckReservationOwner(reservation.AccommodationId, ownerId))
                     continue;
-
-                if (_reviewService.GetByReservationId(reservation.Id) == null && CheckReservationDate(reservation))
+                AccommodationReview review = _reviewService.GetByReservationId(reservation.Id);
+                if ((review == null || review.GuestCleannessGrade == 0 || review.RuleFollowingGrade == 0) && CheckReservationDate(reservation))
                     counter++;
             }
 

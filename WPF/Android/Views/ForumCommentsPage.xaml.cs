@@ -35,6 +35,13 @@ namespace BookingApp.WPF.Android.Views {
         }
 
         private void PostButton_Click(object sender, RoutedEventArgs e) {
+            if (ForumCommentsViewmodel.CommentDTO.Text == null) {
+                return;
+            }
+            if (ForumCommentsViewmodel.CommentDTO.Text == "") {
+                return;
+            }
+
             ForumCommentsViewmodel.PostClick();
             _forumsPageViewmodel.Update();
             scrollViewer.ScrollToBottom();

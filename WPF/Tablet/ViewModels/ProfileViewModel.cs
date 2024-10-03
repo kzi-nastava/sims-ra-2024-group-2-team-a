@@ -29,14 +29,25 @@ namespace BookingApp.WPF.Tablet.ViewModels
         private readonly LanguageService _languageService = ServicesPool.GetService<LanguageService>();
         private readonly TourReviewService _tourReviewService = ServicesPool.GetService<TourReviewService>();
         public GuideProfileDTO guideProfileDTO { get; set; }
+
+
+        private string _help = "Enable Help";
+        public string Help {
+            get {
+                return _help;
+            }
+            set {
+                if (_help != value) {
+                    _help = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public ProfileViewModel(int guideId) {
             _guideId = guideId;
             guideProfileDTO = new GuideProfileDTO(_guideService.GetById(_guideId));
         }
         public void Update() {
-            /*if (DateTime.Now.Year == DateTime.Now.AddDays(-1).Year)
-                        return;                                                             NEKI USLOV
-        */
             if (guideProfileDTO.IsSuper && guideProfileDTO.SuperUntil > DateTime.Now)
                 return;
 
@@ -95,6 +106,17 @@ namespace BookingApp.WPF.Tablet.ViewModels
             if (!_tourService.DeleteMultiple(tours))
                 return;
 
+        }
+
+        public void HelpPressed() {
+            if(guideProfileDTO.IsHelpActive) {
+                guideProfileDTO.IsHelpActive = false;
+                Help = "Enable Help";
+            }
+            else {
+                guideProfileDTO.IsHelpActive = true;
+                Help = "Disable Help";
+            }
         }
     }
 }
