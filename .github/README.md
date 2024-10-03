@@ -8,15 +8,24 @@
 
 ## User interfaces
 
-### Guest
+### Owner (Mobile interface)
+
+<img src="screenshots/OwnerScreenshot1.png" alt="Owner Screenshot 1" style="margin-right: 20px;">
+<img src="screenshots/OwnerScreenshot2.png" alt="Owner Screenshot 2" style="margin-right: 20px;">
+<img src="screenshots/OwnerScreenshot3.png" alt="Owner Screenshot 3">
+
+
+### Guest (Web interface)
 
 ![](screenshots/GuestScreenshot1.png)
 
-### Owner
+### Tourist (Desktop interface)
 
-### Guide
+![](screenshots/TouristScreenshot1.png)
 
-### Tourist
+### Guide (Tablet interface)
+
+To be added...
 
 ## Documentation
 
@@ -38,7 +47,7 @@ Super guest sequence diagram <br><br>
 
 ## Developer team
 
-- Nikola Kuslakovic RA 8/2021
 - Strahinja Djukic RA 29/2021
+- Nikola Kuslakovic RA 8/2021
 - Luka Ostojic RA 27/2021
 - Milos Medic RA 105/2021
