@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\nikol\.nuget\packages\jon.wpf.customcontrols\2.33.0\contentFiles\any\net6.0-windows7.0\wpfmostwanted.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Images\AccommodationsInside\Accommodation1.jpg" />
     <None Remove="Resources\Images\AccommodationsInside\Accommodation2.jpg" />
     <None Remove="Resources\Images\AccommodationsInside\Accommodation3.jpg" />
